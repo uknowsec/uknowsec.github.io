@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknow.top/"/>
-  <updated>2016-08-10T13:22:46.471Z</updated>
+  <updated>2016-08-10T15:37:24.475Z</updated>
   <id>http://uknow.top/</id>
   
   <author>
@@ -14,6 +14,118 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>入CTF坑必不可少的地方-保持更新</title>
+    <link href="http://uknow.top/undefined/%E5%85%A5CTF%E5%9D%91%E5%BF%85%E4%B8%8D%E5%8F%AF%E5%B0%91%E7%9A%84%E5%9C%B0%E6%96%B9-%E4%BF%9D%E6%8C%81%E6%9B%B4%E6%96%B020160810/"/>
+    <id>http://uknow.top/undefined/入CTF坑必不可少的地方-保持更新20160810/</id>
+    <published>2016-08-10T14:57:31.000Z</published>
+    <updated>2016-08-10T15:37:24.475Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://www.hackfun.org/usr/uploads/2016/05/4242872726.png" alt="ctf"><br><strong>0x00 前言</strong></p>
+<p>没有交易，没有买卖，没有排名，纯属分享</p>
+<p><strong>0x01 CTF介绍</strong></p>
+<ul>
+<li><a href="http://blog.idf.cn/2015/02/ctf-field-guide/" target="_blank" rel="external">CTF领域指南</a></li>
+<li><a href="http://tieba.baidu.com/p/3933947157" target="_blank" rel="external">CTF介绍大全</a></li>
+<li><a href="https://ctftime.org/event/list/upcoming" target="_blank" rel="external">CTF赛事预告</a></li>
+</ul>
+<p><strong>0x02 CTF练习</strong></p>
+<ul>
+<li><strong>BIN:</strong></li>
+<li><a href="http://reversing.kr/" target="_blank" rel="external">reversing</a></li>
+<li><a href="http://pwnable.kr/" target="_blank" rel="external">pwnable</a></li>
+<li><a href="http://crackmes.de/" target="_blank" rel="external">crackmes</a></li>
+<li><a href="http://exploit-exercises.com/" target="_blank" rel="external">exploit-exercises</a></li>
+<li><a href="http://overthewire.org/" target="_blank" rel="external">overthewire</a></li>
+<li><a href="https://io.netgarage.org" target="_blank" rel="external">netgarage</a></li>
+<li><a href="http://security.cs.rpi.edu/courses/binexp-spring2015/" target="_blank" rel="external">bin干货</a></li>
+<li><a href="http://www.52pojie.cn/forum-67-1.html" target="_blank" rel="external">2014CrackMe大赛</a></li>
+<li><a href="http://www.52pojie.cn/forum-71-1.html" target="_blank" rel="external">吾爱破解2016安全挑战赛</a></li>
+<li><p><a href="http://bbs.pediy.com/forumdisplay.php?f=109" target="_blank" rel="external">看雪安全论坛历年安全大赛</a></p>
+</li>
+<li><p><strong> SQL:</strong></p>
+</li>
+<li><a href="https://github.com/Audi-1/sqli-labs" target="_blank" rel="external">sqli-labs</a></li>
+<li><p><a href="http://redtiger.labs.overthewire.org/" target="_blank" rel="external">RedTigers Hackit</a></p>
+</li>
+<li><p><strong>XSS:</strong></p>
+</li>
+<li><a href="http://xss.pkav.net/xss/" target="_blank" rel="external">乌云XSS互动学习平台</a></li>
+<li><a href="http://prompt.ml/" target="_blank" rel="external">prompt</a></li>
+<li><a href="http://xss-quiz.int21h.jp/http://escape.alf.nu/" target="_blank" rel="external">XSS Challenges</a></li>
+<li><a href="http://escape.alf.nu/" target="_blank" rel="external">escape</a></li>
+<li><p><a href="https://xss-game.appspot.com/" target="_blank" rel="external">xss-game</a></p>
+</li>
+<li><p><strong>国内综合练习：</strong></p>
+</li>
+<li><a href="http://www.sangebaimao.com/challenge/list" target="_blank" rel="external">三个白帽</a></li>
+<li><a href="http://hackinglab.cn/" target="_blank" rel="external">网络信息安全攻防学习平台</a></li>
+<li><a href="http://captf.com/" target="_blank" rel="external">CTF题目</a></li>
+<li><a href="http://cafebabe.cc/nazo/" target="_blank" rel="external">脑洞开发</a></li>
+<li><a href="http://1111.segmentfault.com/" target="_blank" rel="external">光棍节程序员闯关秀</a></li>
+<li><a href="http://www.helloisa.com/test/" target="_blank" rel="external">ISA Test</a></li>
+<li><a href="http://www.fj543.com/hack/" target="_blank" rel="external">黑客丛林之旅</a></li>
+<li><a href="http://monyer.com/game/game1/" target="_blank" rel="external">梦之光芒小游戏</a></li>
+<li><a href="http://oj.xctf.org.cn/" target="_blank" rel="external">XCTF_OJ练习平台</a></li>
+<li><a href="http://hackgame.blackbap.org/" target="_blank" rel="external">习科黑客游戏</a></li>
+<li><a href="http://ctf.3sec.cn/" target="_blank" rel="external">Jlu.CTF</a></li>
+<li><a href="http://www.baimaoxueyuan.com/ctf" target="_blank" rel="external">白帽学院CTF挑战赛</a></li>
+<li><a href="http://www.ichunqiu.com/tiaozhans" target="_blank" rel="external">i春秋CTF挑战</a></li>
+<li><a href="http://ctf.idf.cn/" target="_blank" rel="external">idf 实验室</a></li>
+<li><a href="http://ctf.moonsos.com/pentest/index.php" target="_blank" rel="external">米安CTF</a></li>
+<li><a href="http://www.hetianlab.com/CTFrace.html" target="_blank" rel="external">合天CTF</a></li>
+<li><a href="http://www.shiyanbar.com/ctf/index" target="_blank" rel="external">西普CTF</a></li>
+<li><a href="http://hkyx.myhack58.com/" target="_blank" rel="external">红客闯关游戏</a></li>
+<li><a href="http://202.108.211.5/" target="_blank" rel="external">实训竞赛系统</a></li>
+<li><p><a href="http://ctf.nuptsast.com/" target="_blank" rel="external">南邮CTF</a></p>
+</li>
+<li><p><strong>国外综合练习:</strong></p>
+</li>
+<li><a href="http://www.wechall.net/" target="_blank" rel="external">wechall</a></li>
+<li><a href="http://insight-labs.org/" target="_blank" rel="external">insight-labs</a></li>
+<li><a href="http://webhacking.kr/" target="_blank" rel="external">webhacking</a></li>
+<li><a href="http://wargame.kr/" target="_blank" rel="external">wargame</a></li>
+<li><a href="http://canyouhack.it/" target="_blank" rel="external">canyouhack</a></li>
+<li><a href="http://hackit.sinaapp.com/" target="_blank" rel="external">hackit</a></li>
+<li><a href="http://webhacking.kr/" target="_blank" rel="external">webhacking</a></li>
+<li><a href="http://fun.coolshell.cn/" target="_blank" rel="external">coolshell</a></li>
+<li><a href="http://ringzer0team.com/challenge" target="_blank" rel="external">ringzer0team</a></li>
+<li><a href="https://backdoor.sdslabs.co/" target="_blank" rel="external">backdoor</a></li>
+<li><a href="http://smashthestack.org/" target="_blank" rel="external">smashthestack</a></li>
+<li><a href="http://overthewire.org/wargames/" target="_blank" rel="external">overthewire</a></li>
+<li><a href="https://w3challs.com/" target="_blank" rel="external">w3challs</a></li>
+<li><a href="https://chall.stypr.com/?chall" target="_blank" rel="external">chall.stypr</a></li>
+<li><a href="https://pentesterlab.com/" target="_blank" rel="external">pentesterlab</a></li>
+<li><a href="https://id0-rsa.pub" target="_blank" rel="external">id0-rsa</a></li>
+</ul>
+<p><strong>0x03 CTF-writeup(WP):</strong></p>
+<ul>
+<li><strong>各种搜索:ctf writeup</strong></li>
+<li><a href="http://drops.wooyun.org/?s=writeup&amp;submit=%E6%90%9C%E7%B4%A2" target="_blank" rel="external">乌云WP</a></li>
+<li><a href="http://bobao.360.cn/ctf/" target="_blank" rel="external">360安全播报WP</a></li>
+<li><a href="https://github.com/ctfs/" target="_blank" rel="external">github WP</a></li>
+<li><a href="http://sec.yka.me/" target="_blank" rel="external">CTF Writeup Summary</a></li>
+<li><a href="https://ctf-team.vulnhub.com/" target="_blank" rel="external">Write Ups</a></li>
+</ul>
+<p><strong>0x04 后话</strong></p>
+<ul>
+<li><p>学习的地方很多，不能一一列举，一些其他优秀的平台没有提到，欢迎大家补充</p>
+</li>
+<li><p>转载自<a href="https://www.hackfun.org/" target="_blank" rel="external">4ido10n’s Blog</a>文章<a href="https://www.hackfun.org/CTF/ctf-website.html" target="_blank" rel="external">《入CTF坑必不可少的地方-保持更新》</a></p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://www.hackfun.org/usr/uploads/2016/05/4242872726.png&quot; alt=&quot;ctf&quot;&gt;&lt;br&gt;&lt;strong&gt;0x00 前言&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;没有交易，没有买卖，没有排名，纯属分享&lt;/
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>test</title>
