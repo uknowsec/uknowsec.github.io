@@ -59,15 +59,64 @@
 
 
 
-<meta name="description" content="不忘初心，方得始终">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Uknow’s Blog">
-<meta property="og:url" content="http://uknow.top/index.html">
+<meta name="description" content="CTF中那些脑洞大开的编码和加密0x00 前言正文开始之前先闲扯几句吧，玩CTF的小伙伴也许会遇到类似这样的问题:表哥，你知道这是什么加密吗？其实CTF中脑洞密码题(非现代加密方式)一般都是各种古典密码的变形，一般出题者会对密文进行一些处理，但是会给留一些线索，所以写此文的目的是想给小伙伴做题时给一些参考，当然常在CTF里出现的编码也可以了解一下。本来是想尽快写出参考的文章，无奈期间被各种事情耽搁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF中那些脑洞大开的编码和加密">
+<meta property="og:url" content="http://uknow.top/undefined/CTF中那些脑洞大开的编码和加密20160812/index.html">
 <meta property="og:site_name" content="Uknow’s Blog">
-<meta property="og:description" content="不忘初心，方得始终">
+<meta property="og:description" content="CTF中那些脑洞大开的编码和加密0x00 前言正文开始之前先闲扯几句吧，玩CTF的小伙伴也许会遇到类似这样的问题:表哥，你知道这是什么加密吗？其实CTF中脑洞密码题(非现代加密方式)一般都是各种古典密码的变形，一般出题者会对密文进行一些处理，但是会给留一些线索，所以写此文的目的是想给小伙伴做题时给一些参考，当然常在CTF里出现的编码也可以了解一下。本来是想尽快写出参考的文章，无奈期间被各种事情耽搁">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3796563179.jpg">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3369091416.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/2533169055.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/1167712558.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3876383071.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/27890106.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3058863885.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/299609014.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/1657370061.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE%E6%9C%AA%E5%91%BD%E5%90%8D.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/997899652.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/2848330636.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/851589488.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/917477580.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/2703606324.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/193858221.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3176497054.jpg">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/1310379174.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/372776651.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/4249377796.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/288821138.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/215139299.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/1240506286.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3797557104.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/1221786711.jpg">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/2324477870.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/2277010040.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/64095502.jpg">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/591779880.jpg">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/71234779.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3110003927.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3840747352.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/471514465.jpg">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/2126539796.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3162839359.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3380107861.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/863670565.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/4089722453.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3163726836.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/297129379.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/4130743045.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3422534989.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3535566502.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/2787731818.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/488561424.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/3686106504.png">
+<meta property="og:image" content="https://www.hackfun.org/usr/uploads/2016/07/4255378402.png">
+<meta property="og:updated_time" content="2016-08-12T12:06:00.416Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Uknow’s Blog">
-<meta name="twitter:description" content="不忘初心，方得始终">
+<meta name="twitter:title" content="CTF中那些脑洞大开的编码和加密">
+<meta name="twitter:description" content="CTF中那些脑洞大开的编码和加密0x00 前言正文开始之前先闲扯几句吧，玩CTF的小伙伴也许会遇到类似这样的问题:表哥，你知道这是什么加密吗？其实CTF中脑洞密码题(非现代加密方式)一般都是各种古典密码的变形，一般出题者会对密文进行一些处理，但是会给留一些线索，所以写此文的目的是想给小伙伴做题时给一些参考，当然常在CTF里出现的编码也可以了解一下。本来是想尽快写出参考的文章，无奈期间被各种事情耽搁">
+<meta name="twitter:image" content="https://www.hackfun.org/usr/uploads/2016/07/3796563179.jpg">
 
 
 
@@ -85,7 +134,7 @@
   };
 </script>
 
-  <title> Uknow’s Blog </title>
+  <title> CTF中那些脑洞大开的编码和加密 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -116,9 +165,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -195,9 +242,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -217,10 +264,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/undefined/CTF中那些脑洞大开的编码和加密20160812/" itemprop="url">
-                  CTF中那些脑洞大开的编码和加密
-                </a>
+                CTF中那些脑洞大开的编码和加密
               
             
           </h1>
@@ -275,9 +319,7 @@
       
 
       
-        
-          
-            <h1 id="CTF中那些脑洞大开的编码和加密"><a href="#CTF中那些脑洞大开的编码和加密" class="headerlink" title="CTF中那些脑洞大开的编码和加密"></a>CTF中那些脑洞大开的编码和加密</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>正文开始之前先闲扯几句吧，玩CTF的小伙伴也许会遇到类似这样的问题:表哥，你知道这是什么加密吗？其实CTF中脑洞密码题(非现代加密方式)一般都是各种古典密码的变形，一般出题者会对密文进行一些处理，但是会给留一些线索，所以写此文的目的是想给小伙伴做题时给一些参考，当然常在CTF里出现的编码也可以了解一下。本来是想尽快写出参考的文章，无奈期间被各种事情耽搁导致文章断断续续写了2个月，文章肯定有许多没有提及到，欢迎小伙伴补充，总之，希望对小伙伴们有帮助吧！</p>
+        <h1 id="CTF中那些脑洞大开的编码和加密"><a href="#CTF中那些脑洞大开的编码和加密" class="headerlink" title="CTF中那些脑洞大开的编码和加密"></a>CTF中那些脑洞大开的编码和加密</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>正文开始之前先闲扯几句吧，玩CTF的小伙伴也许会遇到类似这样的问题:表哥，你知道这是什么加密吗？其实CTF中脑洞密码题(非现代加密方式)一般都是各种古典密码的变形，一般出题者会对密文进行一些处理，但是会给留一些线索，所以写此文的目的是想给小伙伴做题时给一些参考，当然常在CTF里出现的编码也可以了解一下。本来是想尽快写出参考的文章，无奈期间被各种事情耽搁导致文章断断续续写了2个月，文章肯定有许多没有提及到，欢迎小伙伴补充，总之，希望对小伙伴们有帮助吧！</p>
 <h2 id="0x01-目录"><a href="#0x01-目录" class="headerlink" title="0x01 目录"></a>0x01 目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">常见编码:</div><div class="line">    1.ASCII编码</div><div class="line">    2.Base64/32/16编码</div><div class="line">    3.shellcode编码</div><div class="line">    4.Quoted-printable编码</div><div class="line">    5.XXencode编码</div><div class="line">    6.UUencode编码</div><div class="line">    7.URL编码</div><div class="line">    8.Unicode编码</div><div class="line">    9.Escape/Unescape编码</div><div class="line">    10.HTML实体编码</div><div class="line">    11.敲击码(Tap code)</div><div class="line">    12.莫尔斯电码(Morse Code)</div><div class="line">    13.编码的故事</div><div class="line"> </div><div class="line">各种文本加密</div><div class="line"> </div><div class="line">换位加密:</div><div class="line">    1.栅栏密码(Rail-fence Cipher)</div><div class="line">    2.曲路密码(Curve Cipher)</div><div class="line">    3.列移位密码(Columnar Transposition Cipher)</div><div class="line">     </div><div class="line">替换加密:</div><div class="line">    1.埃特巴什码(Atbash Cipher)</div><div class="line">    2.凯撒密码(Caesar Cipher)</div><div class="line">    3.ROT5/13/18/47</div><div class="line">    4.简单换位密码(Simple Substitution Cipher)</div><div class="line">    5.希尔密码(Hill Cipher)</div><div class="line">    6.猪圈密码(Pigpen Cipher)</div><div class="line">    7.波利比奥斯方阵密码（Polybius Square Cipher)</div><div class="line">    8.夏多密码(曲折加密)</div><div class="line">    9.普莱菲尔密码(Playfair Cipher)</div><div class="line">    10.维吉尼亚密码(Vigenère Cipher)</div><div class="line">    11.自动密钥密码(Autokey Cipher)</div><div class="line">    12.博福特密码(Beaufort Cipher)</div><div class="line">    13.滚动密钥密码(Running Key Cipher)</div><div class="line">    14.Porta密码(Porta Cipher)</div><div class="line">    15.同音替换密码(Homophonic Substitution Cipher)</div><div class="line">    16.仿射密码(Affine Cipher)</div><div class="line">    17.培根密码(Baconian Cipher)</div><div class="line">    18.ADFGX和ADFGVX密码(ADFG/VX Cipher)</div><div class="line">    19.双密码(Bifid Cipher)</div><div class="line">    20.三分密码(Trifid Cipher)</div><div class="line">    21.四方密码(Four-Square Cipher)</div><div class="line">    22.棋盘密码（Checkerboard Cipher)</div><div class="line">    23.跨棋盘密码(Straddle Checkerboard Cipher)</div><div class="line">    24.分组摩尔斯替换密码(Fractionated Morse Cipher)</div><div class="line">    25.Bazeries密码(Bazeries Cipher)</div><div class="line">    26.Digrafid密码(Digrafid Cipher)</div><div class="line">    27.格朗普雷密码(Grandpré Cipher)</div><div class="line">    28.比尔密码(Beale ciphers)</div><div class="line">    29.键盘密码(Keyboard Cipher)</div><div class="line"> </div><div class="line">其他有趣的机械密码:</div><div class="line">    1.恩尼格玛密码</div><div class="line"> </div><div class="line">代码混淆加密:</div><div class="line">    1.asp混淆加密</div><div class="line">    2.php混淆加密</div><div class="line">    3.css/js混淆加密</div><div class="line">    4.VBScript.Encode混淆加密</div><div class="line">    5.ppencode</div><div class="line">    6.rrencode</div><div class="line">    7.jjencode/aaencode</div><div class="line">    8.JSfuck</div><div class="line">    9.jother</div><div class="line">    10.brainfuck编程语言</div><div class="line"> </div><div class="line">相关工具</div><div class="line"> </div><div class="line">参考网站</div></pre></td></tr></table></figure>
 <h2 id="0x02-正文"><a href="#0x02-正文" class="headerlink" title="0x02 正文"></a>0x02 正文</h2><h3 id="常见编码"><a href="#常见编码" class="headerlink" title="常见编码"></a>常见编码</h3><h4 id="1-ASCII编码"><a href="#1-ASCII编码" class="headerlink" title="1.ASCII编码"></a>1.ASCII编码</h4><p>ASCII编码大致可以分作三部分组成：</p>
 <p>第一部分是：ASCII非打印控制字符（参详ASCII码表中0-31）;</p>
@@ -881,12 +923,12 @@
 <li>转载自<a href="https://www.hackfun.org/" target="_blank" rel="external">4ido10n’s Blog</a>文章<a href="https://www.hackfun.org/CTF/coding-and-encryption-of-those-brain-holes-in-CTF.html" target="_blank" rel="external">《CTF中那些脑洞大开的编码和加密》</a></li>
 </ul>
 
-          
-        
       
     </div>
 
     <div>
+      
+        
       
     </div>
 
@@ -894,708 +936,32 @@
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/undefined/CTF中图片隐藏文件分离方法总结20160812/" rel="next" title="CTF中图片隐藏文件分离方法总结">
+                <i class="fa fa-chevron-left"></i> CTF中图片隐藏文件分离方法总结
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/undefined/CTF中图片隐藏文件分离方法总结20160812/" itemprop="url">
-                  CTF中图片隐藏文件分离方法总结
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-12T18:03:22+08:00" content="2016-08-12">
-              2016-08-12
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/undefined/CTF中图片隐藏文件分离方法总结20160812/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="undefined/CTF中图片隐藏文件分离方法总结20160812/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/undefined/CTF中图片隐藏文件分离方法总结20160812/" class="leancloud_visitors" data-flag-title="CTF中图片隐藏文件分离方法总结">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="CTF中图片隐藏文件分离方法总结"><a href="#CTF中图片隐藏文件分离方法总结" class="headerlink" title="CTF中图片隐藏文件分离方法总结"></a>CTF中图片隐藏文件分离方法总结</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>在安全的大趋势下，信息安全越来越来受到国家和企业的重视，所以CTF比赛场次越来越多，而且比赛形式也不断的创新，题目也更加新颖有趣，对选手的综合信息安全能力有一个较好的考验，当然更好的是能从比赛有所收获，不断学习和总结提升自己的信息安全能力与技术。转到CTF比赛上，通常在CTF比赛中常有与隐写术(Steganography)相关的题目出现，这里我们讨论总结图片隐藏文件分离的方法，欢迎大家补充和交流:P</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/undefined/CTF中图片隐藏文件分离方法总结20160812/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/undefined/深入理解JPEG图像格式Jphide隐写20160812/" itemprop="url">
-                  深入理解JPEG图像格式Jphide隐写
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-12T17:56:19+08:00" content="2016-08-12">
-              2016-08-12
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/undefined/深入理解JPEG图像格式Jphide隐写20160812/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="undefined/深入理解JPEG图像格式Jphide隐写20160812/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/undefined/深入理解JPEG图像格式Jphide隐写20160812/" class="leancloud_visitors" data-flag-title="深入理解JPEG图像格式Jphide隐写">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="深入理解JPEG图像格式Jphide隐写"><a href="#深入理解JPEG图像格式Jphide隐写" class="headerlink" title="深入理解JPEG图像格式Jphide隐写"></a>深入理解JPEG图像格式Jphide隐写</h1><h2 id="0x00-隐写原理"><a href="#0x00-隐写原理" class="headerlink" title="0x00 隐写原理"></a>0x00 隐写原理</h2><p>Jphide是基于最低有效位LSB的<a href="http://www.cnblogs.com/leaven/archive/2010/04/06/1705846.html">JPEG格式</a>图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在<a href="https://en.wikipedia.org/wiki/Discrete_cosine_transform">DCT变换域</a>上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时<a href="http://baike.baidu.com/link?url=OWM-kQRYlFaJ2Sy7m1E_Z_-fnvknJTRSHwk1f3eoabLsbht1TJa07GmvWRoiOg6U7-0-Ey3vb_UHcDm9Pc7Mgq">Blowfish算法</a>有较强的抗统计检测能力。</p>
-<p>由于JPEG图像格式使用<a href="http://baike.baidu.com/view/391624.htm?fr=aladdin&amp;fromtitle=DCT&amp;fromid=4184&amp;type=syn" title="DCT&amp;fromid=4184&amp;type=syn">离散余弦变换</a>（Discrete Cosine Transform，DCT）函数来压缩图像，而这个图像压缩方法的核心是：通过识别每个8×8像素块中相邻像素中的重复像素来减少显示图像所需的位数，并使用近似估算法降低其冗余度。因此，我们可以把DCT看作一个用于执行压缩的近似计算方法。因为丢失了部分数据，所以DCT是一种<a href="http://baike.baidu.com/link?url=7eIl--nFUaz-amKaY9jatpW4J-J2JyZEXy8dYJM4Py1CspzR9mUATKgTyXOCt7M6AjFSv4JmF3YKtXTTAauHm_">有损压缩</a>（Loss Compression）技术，但一般不会影响图像的视觉效果。</p>
-<h2 id="0x01-隐写过程"><a href="#0x01-隐写过程" class="headerlink" title="0x01 隐写过程"></a>0x01 隐写过程</h2><p>Jphide隐写过程大致为：先解压压缩JPEG图像，得到DCT系数；然后对隐藏信息用户给定的密码进行Blowfish加密；再利用Blowfish算法生成伪随机序列，并据此找到需要改变的DCT系数，将其末位变为需要隐藏的信息的值。最后把DCT系数重新压回成JPEG图片，下面是个人对隐写过程理解画出的大致流程图。</p>
-<p><img src="http://i.imgur.com/kb6USbH.png" alt=""></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/undefined/深入理解JPEG图像格式Jphide隐写20160812/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/undefined/CTF工具以及脚本的整理20160811/" itemprop="url">
-                  CTF工具以及脚本的整理 
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-11T00:15:14+08:00" content="2016-08-11">
-              2016-08-11
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/undefined/CTF工具以及脚本的整理20160811/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="undefined/CTF工具以及脚本的整理20160811/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/undefined/CTF工具以及脚本的整理20160811/" class="leancloud_visitors" data-flag-title="CTF工具以及脚本的整理 ">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h1 id="密码学-cryptology"><a href="#密码学-cryptology" class="headerlink" title="密码学 cryptology"></a><a href="#密码学-cryptology"></a>密码学 <code>cryptology</code></h1><p><a href="http://www.practicalcryptography.com/" target="_blank" rel="external">各种密码学的在线解密</a></p>
-<h2 id="简单的位移密码"><a href="#简单的位移密码" class="headerlink" title="简单的位移密码"></a><a href="#简单的位移密码"></a>简单的位移密码</h2><p><code>默认位移13 即rot13</code></p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-<em>- coding:utf-8 -</em>-</span></div><div class="line">str =raw_input(<span class="string">‘put flag:’</span>)</div><div class="line">new_str = <span class="string">“”</span></div><div class="line">yi = <span class="number">13</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> str:</div><div class="line">    <span class="keyword">if</span> i&gt;=<span class="string">‘a’</span> <span class="keyword">and</span> i&lt;=<span class="string">‘z’</span>:</div><div class="line">        i = ord(i)</div><div class="line">        i = ((i-yi)<span class="number">-97</span>)%<span class="number">26</span>+<span class="number">97</span></div><div class="line">        i = chr(i)</div><div class="line">        new_str = new_str+i</div><div class="line">        print(new_str)</div></pre></td></tr></tbody></table></figure>
-
-<h2 id="培根密码"><a href="#培根密码" class="headerlink" title="培根密码"></a><a href="#培根密码"></a>培根密码</h2><p>培根是根据字体的斜体 大小写转化成AB等字符 然后每五个对应一个字母的脚本  我还没写大小写转化脚本 这里只有 五个字母对应一个字母脚本<br>（1）<a href="http://rumkin.com/tools/cipher/baconian.php" target="_blank" rel="external">在线加解密</a><br>（2）<code>Python脚本</code></p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/Bin/env python</span></div><div class="line"><span class="comment"># -<em>- coding: utf-8 -</em>-</span></div><div class="line"></div><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -<em>- coding: utf-8 -</em>-</span></div><div class="line"><span class="comment">#<strong>author</strong> = ‘tyomcat’</span></div><div class="line"><span class="comment"># 培根解密代码</span></div><div class="line"><span class="comment"># 两种加密方式</span></div><div class="line"><span class="keyword">import</span> sys</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">peig1</span><span class="params">(m)</span>:</span></div><div class="line">    basic1 = {</div><div class="line">    <span class="string">‘AAAAA’</span> : <span class="string">‘A’</span>,</div><div class="line">    <span class="string">‘AAAAB’</span> : <span class="string">‘B’</span>,</div><div class="line">    <span class="string">‘AAABA’</span> : <span class="string">‘C’</span>,</div><div class="line">    <span class="string">‘AAABB’</span> : <span class="string">‘D’</span>,</div><div class="line">    <span class="string">‘AABAA’</span> : <span class="string">‘E’</span>,</div><div class="line">    <span class="string">‘AABAB’</span> : <span class="string">‘F’</span>,</div><div class="line">    <span class="string">‘AABBA’</span> : <span class="string">‘G’</span>,</div><div class="line">    <span class="string">‘AABBB’</span> : <span class="string">‘H’</span>,</div><div class="line">    <span class="string">‘ABAAA’</span> : <span class="string">‘I’</span>,</div><div class="line">    <span class="string">‘ABAAB’</span> : <span class="string">‘J’</span>,</div><div class="line">    <span class="string">‘ABABA’</span> : <span class="string">‘K’</span>,</div><div class="line">    <span class="string">‘ABABB’</span> : <span class="string">‘L’</span>,</div><div class="line">    <span class="string">‘ABBAB’</span> : <span class="string">‘N’</span>,</div><div class="line">    <span class="string">‘ABBBA’</span> : <span class="string">‘O’</span>,</div><div class="line">    <span class="string">‘ABBBB’</span> : <span class="string">‘P’</span>,</div><div class="line">    <span class="string">‘BAAAA’</span> : <span class="string">‘Q’</span>,</div><div class="line">    <span class="string">‘BAAAB’</span> : <span class="string">‘R’</span>,</div><div class="line">    <span class="string">‘BAABA’</span> : <span class="string">‘S’</span>,</div><div class="line">    <span class="string">‘BAABB’</span> : <span class="string">‘T’</span>,</div><div class="line">    <span class="string">‘BABAA’</span> : <span class="string">‘U’</span>,</div><div class="line">    <span class="string">‘BABAB’</span> : <span class="string">‘V’</span>,</div><div class="line">    <span class="string">‘BABBA’</span> : <span class="string">‘W’</span>,</div><div class="line">    <span class="string">‘BABBB’</span> : <span class="string">‘X’</span>,</div><div class="line">    <span class="string">‘BBAAA’</span> : <span class="string">‘Y’</span>,</div><div class="line">    <span class="string">‘BBAAB’</span> : <span class="string">‘Z’</span></div><div class="line">    }</div><div class="line">    output = <span class="string">‘’</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(m) - <span class="number">4</span>, <span class="number">5</span>):</div><div class="line">        temp = m[i: i + <span class="number">5</span>]</div><div class="line">        output += basic1[temp]</div><div class="line">    <span class="keyword">return</span> output</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">peig2</span><span class="params">(m)</span>:</span></div><div class="line"></div><div class="line">    basic2 = {</div><div class="line">    <span class="string">‘AAAAA’</span> : <span class="string">‘A’</span>,</div><div class="line">    <span class="string">‘AAAAB’</span> : <span class="string">‘B’</span>,</div><div class="line">    <span class="string">‘AAABA’</span> : <span class="string">‘C’</span>,</div><div class="line">    <span class="string">‘AAABB’</span> : <span class="string">‘D’</span>,</div><div class="line">    <span class="string">‘AABAA’</span> : <span class="string">‘E’</span>,</div><div class="line">    <span class="string">‘AABAB’</span> : <span class="string">‘F’</span>,</div><div class="line">    <span class="string">‘AABBA’</span> : <span class="string">‘G’</span>,</div><div class="line">    <span class="string">‘AABBB’</span> : <span class="string">‘H’</span>,</div><div class="line">    <span class="string">‘ABAAA’</span> : <span class="string">‘I’</span>,</div><div class="line">    <span class="string">‘ABAAA’</span> : <span class="string">‘J’</span>,</div><div class="line">    <span class="string">‘ABAAB’</span> : <span class="string">‘K’</span>,</div><div class="line">    <span class="string">‘ABABA’</span> : <span class="string">‘L’</span>,</div><div class="line">    <span class="string">‘ABABB’</span> : <span class="string">‘M’</span>,</div><div class="line">    <span class="string">‘ABBAA’</span> : <span class="string">‘N’</span>,</div><div class="line">    <span class="string">‘ABBAB’</span> : <span class="string">‘O’</span>,</div><div class="line">    <span class="string">‘ABBBA’</span> : <span class="string">‘P’</span>,</div><div class="line">    <span class="string">‘ABBBB’</span> : <span class="string">‘Q’</span>,</div><div class="line">    <span class="string">‘BAAAA’</span> : <span class="string">‘R’</span>,</div><div class="line">    <span class="string">‘BAAAB’</span> : <span class="string">‘S’</span>,</div><div class="line">    <span class="string">‘BAABA’</span> : <span class="string">‘T’</span>,</div><div class="line">    <span class="string">‘BAABB’</span> : <span class="string">‘U’</span>,</div><div class="line">    <span class="string">‘BAABB’</span> : <span class="string">‘V’</span>,</div><div class="line">    <span class="string">‘BABAA’</span> : <span class="string">‘W’</span>,</div><div class="line">    <span class="string">‘BABAB’</span> : <span class="string">‘X’</span>,</div><div class="line">    <span class="string">‘BABBA’</span> : <span class="string">‘Y’</span>,</div><div class="line">    <span class="string">‘BABBB’</span> : <span class="string">‘Z’</span></div><div class="line">    }</div><div class="line">    output = <span class="string">‘’</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(m) - <span class="number">4</span>, <span class="number">5</span>):</div><div class="line">        temp = m[i: i + <span class="number">5</span>]</div><div class="line">        output += basic2[temp]</div><div class="line">    <span class="keyword">return</span> output</div><div class="line"></div><div class="line"><span class="keyword">if</span> <strong>name</strong> == <span class="string">‘<strong>main</strong>‘</span>:</div><div class="line">    </div><div class="line">    m = raw_input(<span class="string">“请输入密文:”</span>)</div><div class="line">    mode = input(<span class="string">“选择密文对应的方式 1 or 2：”</span>)</div><div class="line">    <span class="keyword">if</span> len(m)%<span class="number">5</span> == <span class="number">0</span>:</div><div class="line">        l = []</div><div class="line">        k = []</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(len(m)/<span class="number">5</span>):</div><div class="line">            l.append(m[:<span class="number">5</span>])</div><div class="line">            m = m[<span class="number">5</span>:]</div><div class="line">        <span class="keyword">if</span> mode == <span class="number">1</span>:</div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> l:</div><div class="line">                <span class="keyword">if</span> i.isupper():</div><div class="line">                    k.append(peig1(i))</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    i = i.upper()</div><div class="line">                    k.append(peig1(i))</div><div class="line"></div><div class="line">        <span class="keyword">elif</span> mode == <span class="number">2</span>:</div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> l:</div><div class="line">                <span class="keyword">if</span> i.isupper():</div><div class="line">                    k.append(peig2(i))</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    i = i.upper()</div><div class="line">                    k.append(peig2(i))</div><div class="line">        flag = <span class="string">‘’</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> k:</div><div class="line">            flag+=i[<span class="number">0</span>]</div><div class="line">        <span class="keyword">print</span> flag</div></pre></td></tr></tbody></table></figure>
-
-<h2 id="栅栏密码"><a href="#栅栏密码" class="headerlink" title="栅栏密码"></a><a href="#栅栏密码"></a>栅栏密码</h2><p>(1) 一个win平台下的<a href="http://oayoilchh.bkt.clouddn.com/%E6%A0%85%E6%A0%8F%E5%AF%86%E7%A0%81%E5%8A%A0%E8%A7%A3%E5%AF%861.10.exe" target="_blank" rel="external">软件</a><br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/14:49:39%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/14:49:39%20" alt=""></a><br>（2）<code>python脚本</code></p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#author:Swing</span></div><div class="line"><span class="comment">#通用脚本</span></div><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -<em>- coding: utf_8 -</em>-</span></div><div class="line">e = raw_input(<span class="string">‘请输入要解密的字符串\n’</span>)</div><div class="line">elen = len(e)</div><div class="line">field=[]</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>,elen):</div><div class="line">            <span class="keyword">if</span>(elen%i==<span class="number">0</span>):</div><div class="line">                field.append(i)</div><div class="line"><span class="keyword">for</span> f <span class="keyword">in</span> field:</div><div class="line">    b = elen / f</div><div class="line">    result = {x:<span class="string">‘’</span> <span class="keyword">for</span> x <span class="keyword">in</span> range(b)}</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(elen):</div><div class="line">        a = i % b;</div><div class="line">        result.update({a:result[a] + e[i]})</div><div class="line">    d = <span class="string">‘’</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(b):</div><div class="line">        d = d + result[i]</div><div class="line">    <span class="keyword">print</span> <span class="string">‘分为\t’</span>+str(f)+<span class="string">‘\t’</span>+<span class="string">‘栏时，解密结果为：  ‘</span>+d</div></pre></td></tr></tbody></table></figure>
-
-<h2 id="凯撒密码"><a href="#凯撒密码" class="headerlink" title="凯撒密码"></a><a href="#凯撒密码"></a>凯撒密码</h2><p>凯撒密码(Caesar Cipher或称恺撒加密、恺撒变换、变换加密、位移加密)是一种替换加密，明文中的所有字母都在字母表上向后（或向前）按照一个固定数目进行偏移后被替换成密文。例，当偏移量是3的时候，所有的字母A将被替换成D，B变成E，以此类推，更多<a href="https://en.wikipedia.org/wiki/Caesar_cipher" target="_blank" rel="external">参考</a><br>位移参考<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:00:45%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:00:45%20" alt=""></a><br>(1)<a href="http://planetcalc.com/1434/" target="_blank" rel="external">网站链接</a> 这个网站可以列出1-26的可能性<br>(1)还有一种方法就是利用<a href="http://" target="_blank" rel="external">JPK</a>这个工具<br>使用方法看图就够了吧 <a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:32:31%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:32:31%20" alt=""></a><br>(3)<code>Python实现</code></p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#! /usr/bin/env python</span></div><div class="line"><span class="comment"># coding=utf-8</span></div><div class="line"><span class="comment">#<strong>author</strong> = ‘tyomcat’</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(c, key, start = <span class="string">‘a’</span>, n = <span class="number">26</span>)</span>:</span></div><div class="line">    a = ord(start)</div><div class="line">    offset = ((ord(c) - a + key)%n)</div><div class="line">    <span class="keyword">return</span> chr(a + offset)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">caesarEncode</span><span class="params">(s, key)</span>:</span></div><div class="line">    o = <span class="string">“”</span></div><div class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> s:</div><div class="line">        <span class="keyword">if</span> c.islower():</div><div class="line">            o+= convert(c, key, <span class="string">‘a’</span>)</div><div class="line">        <span class="keyword">elif</span> c.isupper():</div><div class="line">            o+= convert(c, key, <span class="string">‘A’</span>)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            o+= c</div><div class="line">    <span class="keyword">return</span> o</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">caesarDecode</span><span class="params">(s, key)</span>:</span></div><div class="line">    <span class="keyword">return</span> caesarEncode(s, -key)</div><div class="line"><span class="keyword">if</span> <strong>name</strong> == <span class="string">‘<strong>main</strong>‘</span>:</div><div class="line"></div><div class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> range(<span class="number">27</span>):</div><div class="line">       e=<span class="string">‘Jr1p0zr2VfPp’</span>     <span class="comment">#写这里</span></div><div class="line">       d = caesarDecode(e, key)</div><div class="line"></div><div class="line">       <span class="keyword">print</span> d</div><div class="line">       <span class="keyword">print</span> <span class="string">‘\n’</span></div><div class="line"><code>python&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;## 简单替换密码&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;简单换位密码(Simple Substitution Cipher)加密方式是以每个明文字母被与之唯一对应且不同的字母替换的方式实现的，它不同于恺撒密码，因为密码字母表的字母不是简单的移位，而是完全是混乱的 例如：&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;</code>code</div><div class="line">明文字母 : abcdefghijklmnopqrstuvwxyz</div><div class="line">明文字母 : phqgiumeaylnofdxjkrcvstzwb</div></pre></td></tr></tbody></table></figure>
-
-<p>其实我感觉有点像是词频攻击就可以解决所以我（麦香师傅告诉我才知道的）推荐一个词频攻击的网站<code>要有梯子</code><a href="http://quipqiup.com/index.php" target="_blank" rel="external">http://quipqiup.com/index.php</a></p>
-<h2 id="猪圈密码"><a href="#猪圈密码" class="headerlink" title="猪圈密码"></a><a href="#猪圈密码"></a>猪圈密码</h2><p>猪圈密码(Pigpen Cipher或称九宫格密码、朱高密码、共济会密码或共济会员密码)，是一种以格子为基础的简单替代式密码<br>明文和密文对应：<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:51:15%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:51:15%20" alt=""></a><br>在线解密<a href="http://www.simonsingh.net/The_Black_Chamber/pigpen.html" target="_blank" rel="external">飞机票</a><br>上面是正常的对应 我见过一种变形的 与其说是猪圈不如说是替换<br>替换规则是 左右字母替换<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:56:11%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:56:11%20" alt=""></a><br>右边的跟左边的一一对应，在左边的换成右边<br><code>2015年广东强网杯 小心猪圈</code>的题目就是这样的<br>附上我的脚本</p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"></div><div class="line">s=raw_input()</div><div class="line">Key = {</div><div class="line">    <span class="string">‘a’</span>:<span class="string">‘j’</span>,</div><div class="line">    <span class="string">‘b’</span>:<span class="string">‘k’</span>,</div><div class="line">    <span class="string">‘c’</span>:<span class="string">‘l’</span>,</div><div class="line">    <span class="string">‘d’</span>:<span class="string">‘m’</span>,</div><div class="line">    <span class="string">‘e’</span>:<span class="string">‘n’</span>,</div><div class="line">    <span class="string">‘f’</span>:<span class="string">‘o’</span>,</div><div class="line">    <span class="string">‘g’</span>:<span class="string">‘p’</span>,</div><div class="line">    <span class="string">‘h’</span>:<span class="string">‘q’</span>,</div><div class="line">    <span class="string">‘i’</span>:<span class="string">‘r’</span>,</div><div class="line">    <span class="string">‘s’</span>:<span class="string">‘w’</span>,</div><div class="line">    <span class="string">‘t’</span>:<span class="string">‘x’</span>,</div><div class="line">    <span class="string">‘u’</span>:<span class="string">‘y’</span>,</div><div class="line">    <span class="string">‘v’</span>:<span class="string">‘z’</span>,</div><div class="line">    <span class="string">‘-‘</span>:<span class="string">‘-‘</span>,</div><div class="line">    <span class="string">‘{‘</span>:<span class="string">‘{‘</span>,</div><div class="line">    <span class="string">‘}’</span>:<span class="string">‘}’</span>,</div><div class="line">    <span class="string">‘j’</span>:<span class="string">‘a’</span>,</div><div class="line">    <span class="string">‘k’</span>:<span class="string">‘b’</span>,</div><div class="line">    <span class="string">‘l’</span>:<span class="string">‘c’</span>,</div><div class="line">    <span class="string">‘m’</span>:<span class="string">‘d’</span>,</div><div class="line">    <span class="string">‘n’</span>:<span class="string">‘e’</span>,</div><div class="line">    <span class="string">‘o’</span>:<span class="string">‘f’</span>,</div><div class="line">    <span class="string">‘p’</span>:<span class="string">‘g’</span>,</div><div class="line">    <span class="string">‘q’</span>:<span class="string">‘h’</span>,</div><div class="line">    <span class="string">‘r’</span>:<span class="string">‘i’</span>,</div><div class="line">    <span class="string">‘w’</span>:<span class="string">‘s’</span>,</div><div class="line">    <span class="string">‘x’</span>:<span class="string">‘t’</span>,</div><div class="line">    <span class="string">‘y’</span>:<span class="string">‘u’</span>,</div><div class="line">    <span class="string">‘z’</span>:<span class="string">‘v’</span></div><div class="line">}</div><div class="line">output1 = <span class="string">‘’</span></div><div class="line"><span class="keyword">for</span> i  <span class="keyword">in</span> range(<span class="number">0</span>,len(s)):</div><div class="line">     temp=s[i]</div><div class="line">     output1+=Key[temp]</div><div class="line"><span class="keyword">print</span> output1</div></pre></td></tr></tbody></table></figure>
-
-<p>更多关于密码学和编码的问题可以参考<a href="https://www.hackfun.org/CTF/coding-and-encryption-of-those-brain-holes-in-CTF.html" target="_blank" rel="external">4ido10n表哥的博文</a></p>
-<h1 id="隐写工具"><a href="#隐写工具" class="headerlink" title="隐写工具"></a><a href="#隐写工具"></a>隐写工具</h1><h2 id="Stegsolve"><a href="#Stegsolve" class="headerlink" title="Stegsolve"></a><a href="#Stegsolve"></a>Stegsolve</h2><p>图片隐写的神器 <a href="https://yunpan.cn/c6jV9E9ZevwdF" target="_blank" rel="external">下载的传送门</a>（提取码：c146）<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:20:30%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:20:30%20" alt=""></a><br>具体可以自己尝试 简单介绍几下两个功能</p>
-<ol>
-<li>Stereogram Solver<br>这个功能可以从不同通道去分析图片</li>
-<li>Frame Browser<br>这个功能是如果这张图片里面还藏这另外一张图片的话 他可以分离出来</li>
-<li><p>Image Combiner<br>这个功能可以对比两张图片 最终Sub出不一样的地方</p>
-<h2 id="pngcheck"><a href="#pngcheck" class="headerlink" title="pngcheck"></a><a href="#pngcheck"></a>pngcheck</h2><p><code>pngcheck.exe -v sctf.png</code><br><code>这个是Dos下的工具 win32平台的</code><br><a href="https://yunpan.cn/c6jjU9MsIWkWv" target="_blank" rel="external">下载传送门</a> （提取码：f47b）<br>他的功能是检测png格式图片的损坏位置 一般用来对PNG隐写进行修复会用到</p>
-<h2 id="stegdetect"><a href="#stegdetect" class="headerlink" title="stegdetect"></a><a href="#stegdetect"></a>stegdetect</h2><p>这个东西是用来检测图片的隐写方式的 它可以检测到通过JSteg、JPHide、OutGuess、Invisible Secrets、F5、appendX和Camouflage等这些隐写工具隐藏的信息<br><a href="https://yunpan.cn/c6jwUT7EA9ywW" target="_blank" rel="external">下载传送门</a> （提取码：4c2e）<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:35:39%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:35:39%20" alt=""></a><br>比如图中就可以看出他是<code>Jphide</code>隐写<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">使用规则:</div><div class="line">    q 仅显示可能包含隐藏内容的图像。</div><div class="line">-n 启用检查JPEG文件头功能，以降低误报率。如果启用，所有带有批注区域的文件将被视为没有被嵌入信息。如果JPEG文件的JFIF标识符中的版本号不是1.1，则禁用OutGuess检测。</div><div class="line">-s 修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</div><div class="line">-d 打印带行号的调试信息。</div><div class="line">-t 设置要检测哪些隐写工具（默认检测jopi），可设置的选项如下：</div><div class="line">j 检测图像中的信息是否是用jsteg嵌入的。</div><div class="line">o 检测图像中的信息是否是用outguess嵌入的。</div><div class="line">p 检测图像中的信息是否是用jphide嵌入的。</div><div class="line">i 检测图像中的信息是否是用invisible secrets嵌入的。</div><div class="line">-V 显示软件版本号。</div><div class="line">如果检测结果显示该文件可能包含隐藏信息，那么Stegdetect会在检测结果后面使用1～3颗星来标识</div><div class="line">隐藏信息存在的可能性大小，3颗星表示隐藏信息存在的可能性最大。</div></pre></td></tr></tbody></table></figure></p>
-</li>
-</ol>
-<h2 id="Jphide"><a href="#Jphide" class="headerlink" title="Jphide"></a><a href="#Jphide"></a>Jphide</h2><p>先推荐表哥的博文 他写得好详细<a href="https://www.hackfun.org/CTF/jphide-steganography.html" target="_blank" rel="external">传送门</a><br><a href="http://linux01.gwdg.de/~alatham/stego.html" target="_blank" rel="external">下载传送门</a><br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:45:16%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:45:16%20" alt=""></a><br><code>左边是隐写 右边是提取隐写文件</code></p>
-<h2 id="Winhex"><a href="#Winhex" class="headerlink" title="Winhex"></a><a href="#Winhex"></a>Winhex</h2><p>二进制文件打开方式</p>
-<h2 id="wbs43open"><a href="#wbs43open" class="headerlink" title="wbs43open"></a><a href="#wbs43open"></a>wbs43open</h2><p><code>PDF</code>文件隐写的不二选择 <a href="https://yunpan.cn/c6jcYbgFjajmp" target="_blank" rel="external">下载传送门</a> （提取码：2336）<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:53:39%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:53:39%20" alt=""></a></p>
-<h2 id="Iamge-Stganograpy"><a href="#Iamge-Stganograpy" class="headerlink" title="Iamge Stganograpy"></a><a href="#Iamge-Stganograpy"></a>Iamge Stganograpy</h2><p>这也是一个图片的隐写工具<br>当初死活在谷歌 百度等地方都找不到 最后<code>白师傅</code>在搜狗找到了…<br><a href="http://imagesteganography.codeplex.com/" target="_blank" rel="external">下载传送门</a></p>
-<h2 id="F5算法隐写实现"><a href="#F5算法隐写实现" class="headerlink" title="F5算法隐写实现"></a><a href="#F5算法隐写实现"></a>F5算法隐写实现</h2><p><a href="https://yunpan.cn/c6jdvEtep8guk" target="_blank" rel="external">下载传送门</a> （提取码：c033)</p>
-<h2 id="silenteye-音频隐写）"><a href="#silenteye-音频隐写）" class="headerlink" title="silenteye(音频隐写）"></a><a href="#silenteye-音频隐写）"></a>silenteye(音频隐写）</h2><p><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:13:24%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:13:24%20" alt=""></a></p>
-<h2 id="MP3Stego"><a href="#MP3Stego" class="headerlink" title="MP3Stego"></a><a href="#MP3Stego"></a>MP3Stego</h2><p>顾名思义 这是一个款音频隐写工具<a href="http://www.petitcolas.net/steganography/mp3stego/" target="_blank" rel="external">下载传送门</a></p>
-<figure class="highlight tp"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">用MP3Stego进行加密解密：</div><div class="line"></div><div class="line">加密：encode -E 加密文本 -<span class="keyword">P</span> 密码  mp<span class="number">3</span>文件</div><div class="line"></div><div class="line">解密：decode -<span class="keyword">X</span> -<span class="keyword">P</span>  密码  mp<span class="number">3</span>文件</div></pre></td></tr></tbody></table></figure>
-
-<h2 id="Outguess"><a href="#Outguess" class="headerlink" title="Outguess"></a><a href="#Outguess"></a>Outguess</h2><p>2016-08-04 21:07:46<br>今天遇到的一个隐写工具 CSDN有源码</p>
-<figure class="highlight plain"><figcaption><span>code</span></figcaption><table><tbody><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure &amp;&amp; make &amp;&amp; make install</div></pre></td></tr></tbody></table></figure>
-
-<p>使用方法<code>outguess</code>就能看到使用方法啦</p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">outguess -r bystudent.jpg outfile.txt</div></pre></td></tr></tbody></table></figure>
-
-<p><strong>这个隐写方式也是可以通过stegdetect</strong>检测出来的</p>
-<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a><a href="#Other"></a>Other</h1><h2 id="Yafu"><a href="#Yafu" class="headerlink" title="Yafu"></a><a href="#Yafu"></a>Yafu</h2><p>大整数分解 <a href="https://yunpan.cn/c6jHKGCbiwEPJ" target="_blank" rel="external">下载传送门</a>（提取码：16f4）<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:19:36%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:19:36%20" alt=""></a></p>
-<figure class="highlight stylus"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">factor</span><span class="params">(要分解的整数)</span></span></div></pre></td></tr></tbody></table></figure>
-
-<h2 id="Ziperello"><a href="#Ziperello" class="headerlink" title="Ziperello"></a><a href="#Ziperello"></a>Ziperello</h2><p><code>ZIP</code>压缩包暴力破解 <a href="https://yunpan.cn/c6jFbIaYXFQxw" target="_blank" rel="external">下载传送门</a>（提取码：324a)<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:43:00%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:43:00%20" alt=""></a></p>
-<h2 id="ARPR-ha"><a href="#ARPR-ha" class="headerlink" title="ARPR-ha"></a><a href="#ARPR-ha"></a>ARPR-ha</h2><p><code>RAR</code>暴力破解 <a href="https://yunpan.cn/c6jFCzLhVDGbX" target="_blank" rel="external">下载传送门</a> （提取码：6092）</p>
-<h2 id="AAPasswordRecovery"><a href="#AAPasswordRecovery" class="headerlink" title="AAPasswordRecovery"></a><a href="#AAPasswordRecovery"></a>AAPasswordRecovery</h2><p>ZIP /RAR等压缩软件的破解工具 <a href="https://yunpan.cn/c6jL27k6Nvfvc" target="_blank" rel="external"></a> （提取码：f6c7)<br>可支持多种破解方式<br>包括</p>
-<p><ol></ol></p>
-<p><li>明文攻击</li></p>
-<p><li>暴力破解</li></p>
-<p><li>字典攻击<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:49:27%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:49:27%20" alt=""></a></li></p>
-<h2 id="PKCrack"><a href="#PKCrack" class="headerlink" title="PKCrack"></a><a href="#PKCrack"></a>PKCrack</h2><p><code>ZIP</code>明文破解工具 <a href="http://www.unix-ag.uni-kl.de/~conrad/krypto/pkcrack.html" target="_blank" rel="external">下载传送门</a><br><a href="http://blog.csdn.net/jiangwlee/article/details/6911087" target="_blank" rel="external">详细使用方法请看这</a></p>
-<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a><a href="#最后"></a>最后</h1><p><a href="http://www.codefrom.com/c/43" target="_blank" rel="external"><code>CTF常用工具集合</code></a><br><a href="https://www.hackfun.org/CTF/coding-and-encryption-of-those-brain-holes-in-CTF.html" target="_blank" rel="external"><code>表哥的编码解码博文</code></a><br><a href="http://bobao.360.cn/learning/detail/243.html" target="_blank" rel="external"><code>CTF隐写总结</code></a></p>
-<ul>
-<li>转载自<a href="http://www.wing3.cn" target="_blank" rel="external">Swing’s Blog</a>文章<a href="http://www.wing3.cn/2016/04/25/tools/" target="_blank" rel="external">《工具以及脚本的整理》</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/undefined/入CTF坑必不可少的地方20160810/" itemprop="url">
-                  入CTF坑必不可少的地方
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-10T22:57:31+08:00" content="2016-08-10">
-              2016-08-10
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/undefined/入CTF坑必不可少的地方20160810/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="undefined/入CTF坑必不可少的地方20160810/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/undefined/入CTF坑必不可少的地方20160810/" class="leancloud_visitors" data-flag-title="入CTF坑必不可少的地方">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="https://www.hackfun.org/usr/uploads/2016/05/4242872726.png" alt="ctf"><br><strong>0x00 前言</strong></p>
-<p>没有交易，没有买卖，没有排名，纯属分享</p>
-<p><strong>0x01 CTF介绍</strong></p>
-<ul>
-<li><a href="http://blog.idf.cn/2015/02/ctf-field-guide/" target="_blank" rel="external">CTF领域指南</a></li>
-<li><a href="http://tieba.baidu.com/p/3933947157" target="_blank" rel="external">CTF介绍大全</a></li>
-<li><a href="https://ctftime.org/event/list/upcoming" target="_blank" rel="external">CTF赛事预告</a></li>
-</ul>
-<p><strong>0x02 CTF练习</strong></p>
-<ul>
-<li><strong>BIN:</strong></li>
-<li><a href="http://reversing.kr/" target="_blank" rel="external">reversing</a></li>
-<li><a href="http://pwnable.kr/" target="_blank" rel="external">pwnable</a></li>
-<li><a href="http://crackmes.de/" target="_blank" rel="external">crackmes</a></li>
-<li><a href="http://exploit-exercises.com/" target="_blank" rel="external">exploit-exercises</a></li>
-<li><a href="http://overthewire.org/" target="_blank" rel="external">overthewire</a></li>
-<li><a href="https://io.netgarage.org" target="_blank" rel="external">netgarage</a></li>
-<li><a href="http://security.cs.rpi.edu/courses/binexp-spring2015/" target="_blank" rel="external">bin干货</a></li>
-<li><a href="http://www.52pojie.cn/forum-67-1.html" target="_blank" rel="external">2014CrackMe大赛</a></li>
-<li><a href="http://www.52pojie.cn/forum-71-1.html" target="_blank" rel="external">吾爱破解2016安全挑战赛</a></li>
-<li><p><a href="http://bbs.pediy.com/forumdisplay.php?f=109" target="_blank" rel="external">看雪安全论坛历年安全大赛</a></p>
-</li>
-<li><p><strong> SQL:</strong></p>
-</li>
-<li><a href="https://github.com/Audi-1/sqli-labs" target="_blank" rel="external">sqli-labs</a></li>
-<li><p><a href="http://redtiger.labs.overthewire.org/" target="_blank" rel="external">RedTigers Hackit</a></p>
-</li>
-<li><p><strong>XSS:</strong></p>
-</li>
-<li><a href="http://xss.pkav.net/xss/" target="_blank" rel="external">乌云XSS互动学习平台</a></li>
-<li><a href="http://prompt.ml/" target="_blank" rel="external">prompt</a></li>
-<li><a href="http://xss-quiz.int21h.jp/http://escape.alf.nu/" target="_blank" rel="external">XSS Challenges</a></li>
-<li><a href="http://escape.alf.nu/" target="_blank" rel="external">escape</a></li>
-<li><p><a href="https://xss-game.appspot.com/" target="_blank" rel="external">xss-game</a></p>
-</li>
-<li><p><strong>国内综合练习：</strong></p>
-</li>
-<li><a href="http://www.sangebaimao.com/challenge/list" target="_blank" rel="external">三个白帽</a></li>
-<li><a href="http://hackinglab.cn/" target="_blank" rel="external">网络信息安全攻防学习平台</a></li>
-<li><a href="http://captf.com/" target="_blank" rel="external">CTF题目</a></li>
-<li><a href="http://cafebabe.cc/nazo/" target="_blank" rel="external">脑洞开发</a></li>
-<li><a href="http://1111.segmentfault.com/" target="_blank" rel="external">光棍节程序员闯关秀</a></li>
-<li><a href="http://www.helloisa.com/test/" target="_blank" rel="external">ISA Test</a></li>
-<li><a href="http://www.fj543.com/hack/" target="_blank" rel="external">黑客丛林之旅</a></li>
-<li><a href="http://monyer.com/game/game1/" target="_blank" rel="external">梦之光芒小游戏</a></li>
-<li><a href="http://oj.xctf.org.cn/" target="_blank" rel="external">XCTF_OJ练习平台</a></li>
-<li><a href="http://hackgame.blackbap.org/" target="_blank" rel="external">习科黑客游戏</a></li>
-<li><a href="http://ctf.3sec.cn/" target="_blank" rel="external">Jlu.CTF</a></li>
-<li><a href="http://www.baimaoxueyuan.com/ctf" target="_blank" rel="external">白帽学院CTF挑战赛</a></li>
-<li><a href="http://www.ichunqiu.com/tiaozhans" target="_blank" rel="external">i春秋CTF挑战</a></li>
-<li><a href="http://ctf.idf.cn/" target="_blank" rel="external">idf 实验室</a></li>
-<li><a href="http://ctf.moonsos.com/pentest/index.php" target="_blank" rel="external">米安CTF</a></li>
-<li><a href="http://www.hetianlab.com/CTFrace.html" target="_blank" rel="external">合天CTF</a></li>
-<li><a href="http://www.shiyanbar.com/ctf/index" target="_blank" rel="external">西普CTF</a></li>
-<li><a href="http://hkyx.myhack58.com/" target="_blank" rel="external">红客闯关游戏</a></li>
-<li><a href="http://202.108.211.5/" target="_blank" rel="external">实训竞赛系统</a></li>
-<li><p><a href="http://ctf.nuptsast.com/" target="_blank" rel="external">南邮CTF</a></p>
-</li>
-<li><p><strong>国外综合练习:</strong></p>
-</li>
-<li><a href="http://www.wechall.net/" target="_blank" rel="external">wechall</a></li>
-<li><a href="http://insight-labs.org/" target="_blank" rel="external">insight-labs</a></li>
-<li><a href="http://webhacking.kr/" target="_blank" rel="external">webhacking</a></li>
-<li><a href="http://wargame.kr/" target="_blank" rel="external">wargame</a></li>
-<li><a href="http://canyouhack.it/" target="_blank" rel="external">canyouhack</a></li>
-<li><a href="http://hackit.sinaapp.com/" target="_blank" rel="external">hackit</a></li>
-<li><a href="http://webhacking.kr/" target="_blank" rel="external">webhacking</a></li>
-<li><a href="http://fun.coolshell.cn/" target="_blank" rel="external">coolshell</a></li>
-<li><a href="http://ringzer0team.com/challenge" target="_blank" rel="external">ringzer0team</a></li>
-<li><a href="https://backdoor.sdslabs.co/" target="_blank" rel="external">backdoor</a></li>
-<li><a href="http://smashthestack.org/" target="_blank" rel="external">smashthestack</a></li>
-<li><a href="http://overthewire.org/wargames/" target="_blank" rel="external">overthewire</a></li>
-<li><a href="https://w3challs.com/" target="_blank" rel="external">w3challs</a></li>
-<li><a href="https://chall.stypr.com/?chall" target="_blank" rel="external">chall.stypr</a></li>
-<li><a href="https://pentesterlab.com/" target="_blank" rel="external">pentesterlab</a></li>
-<li><a href="https://id0-rsa.pub" target="_blank" rel="external">id0-rsa</a></li>
-</ul>
-<p><strong>0x03 CTF-writeup(WP):</strong></p>
-<ul>
-<li><strong>各种搜索:ctf writeup</strong></li>
-<li><a href="http://drops.wooyun.org/?s=writeup&amp;submit=%E6%90%9C%E7%B4%A2" target="_blank" rel="external">乌云WP</a></li>
-<li><a href="http://bobao.360.cn/ctf/" target="_blank" rel="external">360安全播报WP</a></li>
-<li><a href="https://github.com/ctfs/" target="_blank" rel="external">github WP</a></li>
-<li><a href="http://sec.yka.me/" target="_blank" rel="external">CTF Writeup Summary</a></li>
-<li><a href="https://ctf-team.vulnhub.com/" target="_blank" rel="external">Write Ups</a></li>
-</ul>
-<p><strong>0x04 后话</strong></p>
-<ul>
-<li><p>学习的地方很多，不能一一列举，一些其他优秀的平台没有提到，欢迎大家补充</p>
-</li>
-<li><p>转载自<a href="https://www.hackfun.org/" target="_blank" rel="external">4ido10n’s Blog</a>文章<a href="https://www.hackfun.org/CTF/ctf-website.html" target="_blank" rel="external">《入CTF坑必不可少的地方-保持更新》</a></p>
-</li>
-</ul>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/undefined/hello-world20160809/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-09T00:39:12+08:00" content="2016-08-09">
-              2016-08-09
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/undefined/hello-world20160809/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="undefined/hello-world20160809/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/undefined/hello-world20160809/" class="leancloud_visitors" data-flag-title="Hello World">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -1603,6 +969,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="undefined/CTF中那些脑洞大开的编码和加密20160812/"
+           data-title="CTF中那些脑洞大开的编码和加密" data-url="http://uknow.top/undefined/CTF中那些脑洞大开的编码和加密20160812/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -1622,8 +996,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://img16.3lian.com/gif2016/gif16/q1/59/8.jpg"
@@ -1697,6 +1080,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CTF中那些脑洞大开的编码和加密"><span class="nav-number">1.</span> <span class="nav-text">CTF中那些脑洞大开的编码和加密</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-前言"><span class="nav-number">1.1.</span> <span class="nav-text">0x00 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-目录"><span class="nav-number">1.2.</span> <span class="nav-text">0x01 目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-正文"><span class="nav-number">1.3.</span> <span class="nav-text">0x02 正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见编码"><span class="nav-number">1.3.1.</span> <span class="nav-text">常见编码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ASCII编码"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">1.ASCII编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Base64-32-16编码"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">2.Base64/32/16编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-shellcode编码"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">3.shellcode编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Quoted-printable-编码"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">4.Quoted-printable 编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-XXencode编码"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">5.XXencode编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-UUencode编码"><span class="nav-number">1.3.1.6.</span> <span class="nav-text">6.UUencode编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-URL编码"><span class="nav-number">1.3.1.7.</span> <span class="nav-text">7.URL编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-Unicode编码"><span class="nav-number">1.3.1.8.</span> <span class="nav-text">8.Unicode编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-Escape-Unescape编码"><span class="nav-number">1.3.1.9.</span> <span class="nav-text">9.Escape/Unescape编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-HTML实体编码"><span class="nav-number">1.3.1.10.</span> <span class="nav-text">10.HTML实体编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-敲击码"><span class="nav-number">1.3.1.11.</span> <span class="nav-text">11.敲击码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-莫尔斯电码"><span class="nav-number">1.3.1.12.</span> <span class="nav-text">12.莫尔斯电码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-编码的故事"><span class="nav-number">1.3.1.13.</span> <span class="nav-text">13.编码的故事</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种文本加密"><span class="nav-number">1.3.2.</span> <span class="nav-text">各种文本加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#换位加密"><span class="nav-number">1.3.3.</span> <span class="nav-text">换位加密</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-栅栏密码"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">1.栅栏密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-曲路密码"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">2.曲路密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-列移位密码"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">3.列移位密码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换加密"><span class="nav-number">1.3.4.</span> <span class="nav-text">替换加密</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-埃特巴什码"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">1.埃特巴什码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-凯撒密码"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">2.凯撒密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-ROT5-13-18-47"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">3.ROT5/13/18/47</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-简单替换密码"><span class="nav-number">1.3.4.4.</span> <span class="nav-text">4.简单替换密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-希尔密码"><span class="nav-number">1.3.4.5.</span> <span class="nav-text">5.希尔密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-猪圈密码"><span class="nav-number">1.3.4.6.</span> <span class="nav-text">6.猪圈密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-波利比奥斯方阵密码"><span class="nav-number">1.3.4.7.</span> <span class="nav-text">7.波利比奥斯方阵密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-夏多密码-曲折加密"><span class="nav-number">1.3.4.8.</span> <span class="nav-text">8.夏多密码(曲折加密)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-普莱菲尔密码"><span class="nav-number">1.3.4.9.</span> <span class="nav-text">9.普莱菲尔密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-维吉尼亚密码"><span class="nav-number">1.3.4.10.</span> <span class="nav-text">10.维吉尼亚密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-自动密钥密码"><span class="nav-number">1.3.4.11.</span> <span class="nav-text">11.自动密钥密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-博福特密码"><span class="nav-number">1.3.4.12.</span> <span class="nav-text">12.博福特密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-滚动密钥密码"><span class="nav-number">1.3.4.13.</span> <span class="nav-text">13.滚动密钥密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-Porta密码"><span class="nav-number">1.3.4.14.</span> <span class="nav-text">14.Porta密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-同音替换密码"><span class="nav-number">1.3.4.15.</span> <span class="nav-text">15.同音替换密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-仿射密码"><span class="nav-number">1.3.4.16.</span> <span class="nav-text">16.仿射密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17-培根密码"><span class="nav-number">1.3.4.17.</span> <span class="nav-text">17.培根密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#18-ADFGX和ADFGVX密码"><span class="nav-number">1.3.4.18.</span> <span class="nav-text">18.ADFGX和ADFGVX密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#19-双密码"><span class="nav-number">1.3.4.19.</span> <span class="nav-text">19.双密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#20-三分密码"><span class="nav-number">1.3.4.20.</span> <span class="nav-text">20.三分密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#21-四方密码"><span class="nav-number">1.3.4.21.</span> <span class="nav-text">21.四方密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#22-棋盘密码"><span class="nav-number">1.3.4.22.</span> <span class="nav-text">22.棋盘密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#23-跨棋盘密码"><span class="nav-number">1.3.4.23.</span> <span class="nav-text">23.跨棋盘密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#24-分组摩尔斯替换密码"><span class="nav-number">1.3.4.24.</span> <span class="nav-text">24.分组摩尔斯替换密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#25-Bazeries密码"><span class="nav-number">1.3.4.25.</span> <span class="nav-text">25.Bazeries密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#26-Digrafid密码"><span class="nav-number">1.3.4.26.</span> <span class="nav-text">26.Digrafid密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#28-比尔密码"><span class="nav-number">1.3.4.27.</span> <span class="nav-text">28.比尔密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#29-键盘密码"><span class="nav-number">1.3.4.28.</span> <span class="nav-text">29.键盘密码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他有趣的机械密码"><span class="nav-number">1.3.5.</span> <span class="nav-text">其他有趣的机械密码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-恩尼格玛密码"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">1.恩尼格玛密码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码混淆加密"><span class="nav-number">1.3.6.</span> <span class="nav-text">代码混淆加密</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-ppencode"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">5.ppencode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-rrencode"><span class="nav-number">1.3.6.2.</span> <span class="nav-text">6.rrencode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-jjencode-aaencode"><span class="nav-number">1.3.6.3.</span> <span class="nav-text">7.jjencode/aaencode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-JSfuck"><span class="nav-number">1.3.6.4.</span> <span class="nav-text">8.JSfuck</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-jother"><span class="nav-number">1.3.6.5.</span> <span class="nav-text">9.jother</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-brainfuck"><span class="nav-number">1.3.7.</span> <span class="nav-text">10.brainfuck</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关工具"><span class="nav-number">1.3.8.</span> <span class="nav-text">相关工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考网站"><span class="nav-number">1.3.9.</span> <span class="nav-text">参考网站</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -1791,6 +1185,10 @@ var _hmt = _hmt || [];
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
 
   
 
