@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknow.top/"/>
-  <updated>2016-09-01T15:03:54.778Z</updated>
+  <updated>2016-09-01T15:46:54.799Z</updated>
   <id>http://uknow.top/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MySQL数据库基础与实例</title>
+    <link href="http://uknow.top/undefined/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B20160901/"/>
+    <id>http://uknow.top/undefined/MySQL数据库基础与实例20160901/</id>
+    <published>2016-09-01T15:15:33.000Z</published>
+    <updated>2016-09-01T15:46:54.799Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="MySQL基础知识"><a href="#MySQL基础知识" class="headerlink" title="MySQL基础知识"></a>MySQL基础知识</h1><p>MySQL是最受欢迎的开源关系数据库管理系统，有瑞典MySQL AB公司开发。2008年1月MySQL被美国的SUN公司收购，2009年4月SUN公司又被美国的甲骨文（Oracle）公司收购。</p>
+<h2 id="MySQL的特点"><a href="#MySQL的特点" class="headerlink" title="MySQL的特点"></a>MySQL的特点</h2><p>MySQL是一个单进程多线程、支持多用户、基于客户机/服务端（Client/Server， C/S）的关系数据库管理系统。与其他数据库管理系统（DBMS）相比，MySQL具有体积小、易于安装、运行速度快、功能齐全、成本低廉、开源、性能高效、跨平台支持、简单易用以及支持多用户等特点。</p>
+<h2 id="MySQL服务器的安装"><a href="#MySQL服务器的安装" class="headerlink" title="MySQL服务器的安装"></a>MySQL服务器的安装</h2><p><a href="https://www.baidu.com/s?ie=utf-8&amp;f=3&amp;rsv_bp=1&amp;tn=monline_3_dg&amp;wd=mysql%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B&amp;oq=MySQL%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%E5%9B%BE&amp;rsv_pq=b00d663c00006bf5&amp;rsv_t=b75foeWyNzqw1JsrhOMySTBjWEBnJT3RNpfrmv8xNT4d2xAaW4fs%2FO1%2BnJwFxWv%2BPzR6&amp;rqlang=cn&amp;rsv_enter=1&amp;inputT=4620&amp;rsv_sug3=36&amp;rsv_sug1=16&amp;rsv_sug7=100&amp;rsv_sug2=1&amp;prefixsug=MySQL%E5%AE%89%E8%A3%85&amp;rsp=0&amp;rsv_sug4=7744" target="_blank" rel="external">mysql安装教程</a></p>
+<h2 id="启动与停止MySQL服务"><a href="#启动与停止MySQL服务" class="headerlink" title="启动与停止MySQL服务"></a>启动与停止MySQL服务</h2><p>方法一：“开始”-&gt;“运行”，输入“service.msc”<br>方法二：“我的电脑”-&gt;“管理”-&gt;“计算机管理”-&gt;“服务和应用程序”-&gt;“服务”<br>方法三：使用Windows操作系统的控制面板也可以找到“服务”窗口。<br>方法四：“开始”-&gt;“运行”-&gt;“输入cmd”-&gt;“net start mysql开启或net stop mysql”</p>
+<h2 id="连接MySQL服务器"><a href="#连接MySQL服务器" class="headerlink" title="连接MySQL服务器"></a>连接MySQL服务器</h2><p>待续</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;MySQL基础知识&quot;&gt;&lt;a href=&quot;#MySQL基础知识&quot; class=&quot;headerlink&quot; title=&quot;MySQL基础知识&quot;&gt;&lt;/a&gt;MySQL基础知识&lt;/h1&gt;&lt;p&gt;MySQL是最受欢迎的开源关系数据库管理系统，有瑞典MySQL AB公司开发。200
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Web安全与攻击技术-基础知识</title>
