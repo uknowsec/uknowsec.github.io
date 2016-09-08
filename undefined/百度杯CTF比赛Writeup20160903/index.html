@@ -59,18 +59,12 @@
 
 
 
-<meta name="description" content="0x00 前言i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。
-0x01 正文Upload题目Upload描述：想怎么传就怎么传，就是这么任性。tips:flag在flag.php中    
-解题思路打开题目题目链接，是一个文件上传的题。然后打开/flag.php直接上传传统的PHP一句话1&amp;lt;?php eval_r($_POST[sb])?&amp;gt;
-发现过滤了 &amp;">
+<meta name="description" content="0x00 前言i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="百度杯CTF比赛Writeup">
 <meta property="og:url" content="http://uknow.top/undefined/百度杯CTF比赛Writeup20160903/index.html">
 <meta property="og:site_name" content="Uknow’s Blog">
-<meta property="og:description" content="0x00 前言i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。
-0x01 正文Upload题目Upload描述：想怎么传就怎么传，就是这么任性。tips:flag在flag.php中    
-解题思路打开题目题目链接，是一个文件上传的题。然后打开/flag.php直接上传传统的PHP一句话1&amp;lt;?php eval_r($_POST[sb])?&amp;gt;
-发现过滤了 &amp;">
+<meta property="og:description" content="0x00 前言i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/psb.jpg">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224648.png">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224800.png">
@@ -82,13 +76,10 @@
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903231450.png">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8717.png">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903232502.png">
-<meta property="og:updated_time" content="2016-09-03T15:43:35.763Z">
+<meta property="og:updated_time" content="2016-09-08T08:07:34.936Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="百度杯CTF比赛Writeup">
-<meta name="twitter:description" content="0x00 前言i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。
-0x01 正文Upload题目Upload描述：想怎么传就怎么传，就是这么任性。tips:flag在flag.php中    
-解题思路打开题目题目链接，是一个文件上传的题。然后打开/flag.php直接上传传统的PHP一句话1&amp;lt;?php eval_r($_POST[sb])?&amp;gt;
-发现过滤了 &amp;">
+<meta name="twitter:description" content="0x00 前言i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。">
 <meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/psb.jpg">
 
 
@@ -201,9 +192,32 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
   
 </nav>
 
@@ -293,6 +307,7 @@
 
       
         <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。<br><img src="http://obr4sfdq7.bkt.clouddn.com/psb.jpg" alt=""></p>
+<a id="more"></a>
 <h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><h3 id="Upload"><a href="#Upload" class="headerlink" title="Upload"></a>Upload</h3><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>Upload<br>描述：想怎么传就怎么传，就是这么任性。<br>tips:flag在flag.php中    </p>
 <h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>打开题目题目链接，是一个文件上传的题。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224648.png" alt=""><br>然后打开/flag.php<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224800.png" alt=""><br>直接上传传统的PHP一句话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php eval_r($_POST[sb])?&gt;</div></pre></td></tr></table></figure></p>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903225057.png" alt=""><br>发现过滤了 &lt;?php</p>
@@ -639,6 +654,135 @@ var _hmt = _hmt || [];
 
   
   
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
   
 
   
