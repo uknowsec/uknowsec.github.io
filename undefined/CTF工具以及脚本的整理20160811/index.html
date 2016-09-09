@@ -59,12 +59,16 @@
 
 
 
-<meta name="description" content="密码学 cryptology各种密码学的在线解密">
+<meta name="description" content="密码学 cryptology各种密码学的在线解密
+简单的位移密码默认位移13 即rot13
+1234567891011#-- coding:utf-8 --str =raw_input(‘put flag:’)new_str = “”yi = 13for i in str:    if i&amp;gt;=‘a’ and i&amp;lt;=‘z’:        i = ord(i)        i = ((">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CTF工具以及脚本的整理 ">
 <meta property="og:url" content="http://uknow.top/undefined/CTF工具以及脚本的整理20160811/index.html">
 <meta property="og:site_name" content="Uknow’s Blog">
-<meta property="og:description" content="密码学 cryptology各种密码学的在线解密">
+<meta property="og:description" content="密码学 cryptology各种密码学的在线解密
+简单的位移密码默认位移13 即rot13
+1234567891011#-- coding:utf-8 --str =raw_input(‘put flag:’)new_str = “”yi = 13for i in str:    if i&amp;gt;=‘a’ and i&amp;lt;=‘z’:        i = ord(i)        i = ((">
 <meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/14:49:39%20">
 <meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:00:45%20">
 <meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:32:31%20">
@@ -78,10 +82,12 @@
 <meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:19:36%20">
 <meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:43:00%20">
 <meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:49:27%20">
-<meta property="og:updated_time" content="2016-09-08T08:06:50.175Z">
+<meta property="og:updated_time" content="2016-09-09T10:47:21.332Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CTF工具以及脚本的整理 ">
-<meta name="twitter:description" content="密码学 cryptology各种密码学的在线解密">
+<meta name="twitter:description" content="密码学 cryptology各种密码学的在线解密
+简单的位移密码默认位移13 即rot13
+1234567891011#-- coding:utf-8 --str =raw_input(‘put flag:’)new_str = “”yi = 13for i in str:    if i&amp;gt;=‘a’ and i&amp;lt;=‘z’:        i = ord(i)        i = ((">
 <meta name="twitter:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/14:49:39%20">
 
 
@@ -309,7 +315,6 @@
 
       
         <h1 id="密码学-cryptology"><a href="#密码学-cryptology" class="headerlink" title="密码学 cryptology"></a><a href="#密码学-cryptology"></a>密码学 <code>cryptology</code></h1><p><a href="http://www.practicalcryptography.com/" target="_blank" rel="external">各种密码学的在线解密</a></p>
-<a id="more"></a>
 <h2 id="简单的位移密码"><a href="#简单的位移密码" class="headerlink" title="简单的位移密码"></a><a href="#简单的位移密码"></a>简单的位移密码</h2><p><code>默认位移13 即rot13</code></p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-<em>- coding:utf-8 -</em>-</span></div><div class="line">str =raw_input(<span class="string">‘put flag:’</span>)</div><div class="line">new_str = <span class="string">“”</span></div><div class="line">yi = <span class="number">13</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> str:</div><div class="line">    <span class="keyword">if</span> i&gt;=<span class="string">‘a’</span> <span class="keyword">and</span> i&lt;=<span class="string">‘z’</span>:</div><div class="line">        i = ord(i)</div><div class="line">        i = ((i-yi)<span class="number">-97</span>)%<span class="number">26</span>+<span class="number">97</span></div><div class="line">        i = chr(i)</div><div class="line">        new_str = new_str+i</div><div class="line">        print(new_str)</div></pre></td></tr></tbody></table></figure>
 

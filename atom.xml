@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknow.top/"/>
-  <updated>2016-09-08T08:07:34.936Z</updated>
+  <updated>2016-09-09T10:45:58.932Z</updated>
   <id>http://uknow.top/</id>
   
   <author>
@@ -20,10 +20,9 @@
     <link href="http://uknow.top/undefined/%E7%99%BE%E5%BA%A6%E6%9D%AFCTF%E6%AF%94%E8%B5%9BWriteup20160903/"/>
     <id>http://uknow.top/undefined/百度杯CTF比赛Writeup20160903/</id>
     <published>2016-09-03T14:43:52.000Z</published>
-    <updated>2016-09-08T08:07:34.936Z</updated>
+    <updated>2016-09-09T10:45:58.932Z</updated>
     
     <content type="html"><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。<br><img src="http://obr4sfdq7.bkt.clouddn.com/psb.jpg" alt=""></p>
-<a id="more"></a>
 <h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><h3 id="Upload"><a href="#Upload" class="headerlink" title="Upload"></a>Upload</h3><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>Upload<br>描述：想怎么传就怎么传，就是这么任性。<br>tips:flag在flag.php中    </p>
 <h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>打开题目题目链接，是一个文件上传的题。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224648.png" alt=""><br>然后打开/flag.php<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224800.png" alt=""><br>直接上传传统的PHP一句话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php eval_r($_POST[sb])?&gt;</div></pre></td></tr></table></figure></p>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903225057.png" alt=""><br>发现过滤了 &lt;?php</p>
@@ -44,7 +43,7 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言&quot;&gt;&lt;/a&gt;0x00 前言&lt;/h2&gt;&lt;p&gt;i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。&lt;br&gt;&lt;img src=&quot;http://obr4sfdq7.bkt.clouddn.com/psb.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+      &lt;h2 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言&quot;&gt;&lt;/a&gt;0x00 前言&lt;/h2&gt;&lt;p&gt;i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。&lt;br&gt;&lt;img src
     
     </summary>
     
@@ -56,10 +55,9 @@
     <link href="http://uknow.top/undefined/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B20160902/"/>
     <id>http://uknow.top/undefined/MySQL数据库基础与实例20160902/</id>
     <published>2016-09-02T13:10:35.000Z</published>
-    <updated>2016-09-08T08:04:44.880Z</updated>
+    <updated>2016-09-09T10:46:05.500Z</updated>
     
     <content type="html"><![CDATA[<h1 id="MySQL基础知识"><a href="#MySQL基础知识" class="headerlink" title="MySQL基础知识"></a>MySQL基础知识</h1><p>MySQL是最受欢迎的开源关系数据库管理系统，有瑞典MySQL AB公司开发。2008年1月MySQL被美国的SUN公司收购，2009年4月SUN公司又被美国的甲骨文（Oracle）公司收购。</p>
-<a id="more"></a>
 <h2 id="MySQL的特点"><a href="#MySQL的特点" class="headerlink" title="MySQL的特点"></a>MySQL的特点</h2><p>MySQL是一个单进程多线程、支持多用户、基于客户机/服务端（Client/Server， C/S）的关系数据库管理系统。与其他数据库管理系统（DBMS）相比，MySQL具有体积小、易于安装、运行速度快、功能齐全、成本低廉、开源、性能高效、跨平台支持、简单易用以及支持多用户等特点。</p>
 <h2 id="MySQL服务器的安装"><a href="#MySQL服务器的安装" class="headerlink" title="MySQL服务器的安装"></a>MySQL服务器的安装</h2><p><a href="https://www.baidu.com/s?ie=utf-8&amp;f=3&amp;rsv_bp=1&amp;tn=monline_3_dg&amp;wd=mysql%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B&amp;oq=MySQL%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%E5%9B%BE&amp;rsv_pq=b00d663c00006bf5&amp;rsv_t=b75foeWyNzqw1JsrhOMySTBjWEBnJT3RNpfrmv8xNT4d2xAaW4fs%2FO1%2BnJwFxWv%2BPzR6&amp;rqlang=cn&amp;rsv_enter=1&amp;inputT=4620&amp;rsv_sug3=36&amp;rsv_sug1=16&amp;rsv_sug7=100&amp;rsv_sug2=1&amp;prefixsug=MySQL%E5%AE%89%E8%A3%85&amp;rsp=0&amp;rsv_sug4=7744" target="_blank" rel="external">mysql安装教程</a></p>
 <h2 id="启动与停止MySQL服务"><a href="#启动与停止MySQL服务" class="headerlink" title="启动与停止MySQL服务"></a>启动与停止MySQL服务</h2><p>方法一：“开始”-&gt;“运行”，输入“service.msc”<br>方法二：“我的电脑”-&gt;“管理”-&gt;“计算机管理”-&gt;“服务和应用程序”-&gt;“服务”<br>方法三：使用Windows操作系统的控制面板也可以找到“服务”窗口。<br>方法四：“开始”-&gt;“运行”-&gt;“输入cmd”-&gt;“net start mysql开启或net stop mysql”</p>
@@ -100,7 +98,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;MySQL基础知识&quot;&gt;&lt;a href=&quot;#MySQL基础知识&quot; class=&quot;headerlink&quot; title=&quot;MySQL基础知识&quot;&gt;&lt;/a&gt;MySQL基础知识&lt;/h1&gt;&lt;p&gt;MySQL是最受欢迎的开源关系数据库管理系统，有瑞典MySQL AB公司开发。2008年1月MySQL被美国的SUN公司收购，2009年4月SUN公司又被美国的甲骨文（Oracle）公司收购。&lt;/p&gt;
+      &lt;h1 id=&quot;MySQL基础知识&quot;&gt;&lt;a href=&quot;#MySQL基础知识&quot; class=&quot;headerlink&quot; title=&quot;MySQL基础知识&quot;&gt;&lt;/a&gt;MySQL基础知识&lt;/h1&gt;&lt;p&gt;MySQL是最受欢迎的开源关系数据库管理系统，有瑞典MySQL AB公司开发。200
     
     </summary>
     
@@ -112,10 +110,9 @@
     <link href="http://uknow.top/undefined/Web%E5%AE%89%E5%85%A8%E4%B8%8E%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%8620160901/"/>
     <id>http://uknow.top/undefined/Web安全与攻击技术-基础知识20160901/</id>
     <published>2016-09-01T06:29:17.000Z</published>
-    <updated>2016-09-08T08:04:57.352Z</updated>
+    <updated>2016-09-09T10:46:09.166Z</updated>
     
     <content type="html"><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="0x01-HTTP协议"><a href="#0x01-HTTP协议" class="headerlink" title="0x01 HTTP协议"></a>0x01 HTTP协议</h2><p>超文本传送协议（Hypertext Transport Protocol , HTTP）是分布式、协作式、超媒体系统应用之间的通信协议，是万维网（World Wide Web）交换信息的基础。HTTP是一个客户端终端（用户）和服务端（网站）请求和应答的标准（TCP）。通过使用Web浏览器、网络爬虫或者其他工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80），称这个客户端为用户代理程序。通常，有HTTP客户端发起一个请求，创建一个到服务器指定端口（默认端口为80端口）的TCP连接。HTTO服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，如“HTTP/1.1 200 OK”及返回的内容（请求的文件、错误信息、或者其他信息）。</p>
-<a id="more"></a>    
 <h3 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h3><p>（1）OPTIONS：该办法可使服务器传回该资源所支持的所有HTTP请求方法。用‘*’来代替资源名称，向Web服务器发送OPTIONS请求，可以测试服务器功能是否正常运作。<br>（2）HEAD:与GET方法一样，都是向服务器发出指定资源的请求。只不过服务器将不传回资源的本文部分。它的好处在于，使用这个方法可以在不必传输全部内容的情况下，就可以获取其中“关于该资源的信息”（元信息或称元数据）<br>（3）GET:向指定资源发出“显示”请求。使用GET方法应该只用在读取数据，而不应当被用于产生“副作用”的操作中，如在Web Application中，其中一个原因就是GET可能会被网络蜘蛛等随意访问。<br>（4）POST:向指定资源提交数据，请求服务器进行处理（如提交表单或者上传文件）。数据被包含在请求本文中。这个请求可能会创建新的资源或修改现有资源，或二者皆有。<br>（5）PUT：向指向资源位置上传其最新内容。<br>（6）DELETE：请求服务器删除Request-URI所标识的资源。<br>（7）TRACE：回显服务器收到的请求，主要用于测试或诊断。<br>（8）CONNECT:HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接（经由非加密的HTTP代理服务器）。<br>以下是一个典型的HTTP GET 请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">GET / HTTP/1.1</div><div class="line">User-Agent: Mozilla/4.0(compatible; MSIE 8.0; Windows NT 6.0)</div><div class="line">Host: www.bit.edu.cn</div><div class="line">Accept: text/html</div><div class="line">Accept-Language: zh-CN</div><div class="line">Accept-Rncoding: gzip,deflate</div><div class="line">Cache-Control: no-cache</div><div class="line">Cookie: SessionId= ICONFPDBEPOBLFFGBKKNCGAL</div><div class="line">Connection: Keep-Alive</div></pre></td></tr></table></figure></p>
 <p>其中，请求的第一行都是由3个以空格间隔的项目组成，分别是请求方法、请求路径、和HTTP版本。其他一些常见的消息头如下。<br>（1）Referer消息头用于表示发出请求的原始URL。<br>（2）User-Agent消息头提供与浏览器或其他请求的客户端软件有关的信息。<br>（3）Host消息头用于指定出现被访问的完整URL中的主机名称。<br>（4）Cookie消息头用于提交服务器向客户端发布的其他参数。</p>
 <h3 id="HTTP-状态码"><a href="#HTTP-状态码" class="headerlink" title="HTTP 状态码"></a>HTTP 状态码</h3><p>HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位柱子代码。所有HTTP响应的第一行都是状态行，以次是当前HTTP版本号，3位数字组成的状态代码，以及描述状态的短语，彼此由空格分隔。<br>状态代码的第一数字代表当前响应的类型。<br>（1）1xx消息————请求已被服务器接收，继续处理。<br>（2）2xx成功————请求已成功被服务器接收、理解、并接受。<br>（3）3xx重定向————需要后续操作才能完成这一请求。<br>（4）4xx请求错误————请求含有词法错误或者无法被执行。<br>（5）5xx服务器错误————服务器在处理某个正确请求时发生错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 200 OK </div><div class="line">Date: Mon,04 Mar 2013 07:53:16 GMT</div><div class="line">Server: Apache/2.2.23 (Unix) mod_jk/1.2.14</div><div class="line">Content-Length: 31300</div><div class="line">Keep-Alive: timeout=5,max=99</div><div class="line">Connection: Keep-Alive</div><div class="line">Content-Type: text-html</div></pre></td></tr></table></figure></p>
@@ -138,7 +135,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;基础知识&quot;&gt;&lt;a href=&quot;#基础知识&quot; class=&quot;headerlink&quot; title=&quot;基础知识&quot;&gt;&lt;/a&gt;基础知识&lt;/h1&gt;&lt;h2 id=&quot;0x01-HTTP协议&quot;&gt;&lt;a href=&quot;#0x01-HTTP协议&quot; class=&quot;headerlink&quot; title=&quot;0x01 HTTP协议&quot;&gt;&lt;/a&gt;0x01 HTTP协议&lt;/h2&gt;&lt;p&gt;超文本传送协议（Hypertext Transport Protocol , HTTP）是分布式、协作式、超媒体系统应用之间的通信协议，是万维网（World Wide Web）交换信息的基础。HTTP是一个客户端终端（用户）和服务端（网站）请求和应答的标准（TCP）。通过使用Web浏览器、网络爬虫或者其他工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80），称这个客户端为用户代理程序。通常，有HTTP客户端发起一个请求，创建一个到服务器指定端口（默认端口为80端口）的TCP连接。HTTO服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，如“HTTP/1.1 200 OK”及返回的内容（请求的文件、错误信息、或者其他信息）。&lt;/p&gt;
+      &lt;h1 id=&quot;基础知识&quot;&gt;&lt;a href=&quot;#基础知识&quot; class=&quot;headerlink&quot; title=&quot;基础知识&quot;&gt;&lt;/a&gt;基础知识&lt;/h1&gt;&lt;h2 id=&quot;0x01-HTTP协议&quot;&gt;&lt;a href=&quot;#0x01-HTTP协议&quot; class=&quot;headerlink&quot; ti
     
     </summary>
     
@@ -150,10 +147,9 @@
     <link href="http://uknow.top/undefined/2016-08-2820160828/"/>
     <id>http://uknow.top/undefined/2016-08-2820160828/</id>
     <published>2016-08-28T14:21:30.000Z</published>
-    <updated>2016-09-08T08:05:12.789Z</updated>
+    <updated>2016-09-09T10:46:13.597Z</updated>
     
     <content type="html"><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>昨天晚上结识一个今年大四的南京大表哥。跟他聊了很多，有感遂写下这篇博文。</p>
-<a id="more"></a>
 <h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><p>明天就是大二了，大一一年感觉自己有点混。学习上混，自己想接触的领域也比较混。大一经历了很多，第一次来到南京这个陌生的城市。第一次接触到“信息安全”的名词，第一个想以后从事这个行业的决定。我自己现在也不知道这是个冲动还是我兴趣使然，内心使然。正如TK教主曾经说的：“如果你对于安全这个行业仅仅是为了赚一口饭，那无异于一个性冷淡拍AV。如果你是真正的对于一种技术的追崇，让你会无限的提高，永远对于他有一种新鲜感。”兴趣使然，我依旧坚持自己的选择。我毅不忘初心，亦望始终可得。大一懒懒散散的过去了，从我初了解到这个领域的时候。都是一些小打小闹，在各大论坛也说不得是摸爬滚打。我自己甚至也不知道自己有没有在这过去一年之中学到了技术上的一些东西，结识到一些有益的朋友。这一年自己接触到技术上的问题很浅显，之前一个跟我聊天的学长也提醒过我：“这是一个浮躁的行业，浮躁的人喜欢急功近利，刚刚追求表面”在我听到这句话时，的确给我狠狠的以一巴掌。急功近利地去挖掘漏洞而不了解他的原理，急功近利地去使用他人写的工具而不能自己了解而后改善之，急功近利地卖弄而不能脚踏实地地学习等。大一的暑假也是匆匆忙忙简简单单学习了一下python和PHP的内容，另外也做了一些CTF关于WEB方面的练习，结识了一些打CTF比赛的小伙伴。之前也是踌躇满志地想在暑假提高自己的能力，然后我并没感觉到效果。又是一个新的学期，在这个学期第一天的前夕。还是给自己定下一些目标和计划吧。首先应该是四级吧，先每天做几个题目把它给搞定吧。然后就是上个学期我在图书馆推荐了不少关于安全类的书籍差不多应该可以到馆了吧，尽力去借来看看。还有Python和PHP的内容继续进行学习吧。关于自己专业课方面尽力学好，期末不挂科吧。最后昨天晚上那大四学长跟我说自己拉人组Team的问题，这个可能真的是我之前不敢想的一个事情，但是他给我了不少的鼓励。我也是跃跃欲试的，但是感觉心有余而力不足吧。我个人的能力还是不行的，这种Team在学校搞起来怕也很难发展并不能得到相关方面的支持。还是自己先学习好技术吧，待到时机成熟，也说不定。言至此。</p>
 <h2 id="0x02-结语"><a href="#0x02-结语" class="headerlink" title="0x02 结语"></a>0x02 结语</h2><p>这篇博文算是我大一的一个学期的总结和大二新的计划和目标的先行书吧，望以此勉之。</p>
 ]]></content>
@@ -161,6 +157,7 @@
     <summary type="html">
     
       &lt;h2 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言&quot;&gt;&lt;/a&gt;0x00 前言&lt;/h2&gt;&lt;p&gt;昨天晚上结识一个今年大四的南京大表哥。跟他聊了很多，有感遂写下这篇博文。&lt;/p&gt;
+&lt;h2 id=&quot;0
     
     </summary>
     
@@ -172,9 +169,9 @@
     <link href="http://uknow.top/undefined/2016%E5%B9%B4X-NUCA%E5%85%A8%E5%9B%BD%E9%AB%98%E6%A0%A1%E7%BD%91%E5%AE%89%E8%81%94%E8%B5%9B-%E8%B5%9B%E5%89%8D%E6%8C%87%E5%AF%BC%E7%BB%83%E4%B9%A0%E9%A2%98web%E8%BF%9B%E9%98%B6%E7%AF%87Writeup20160813/"/>
     <id>http://uknow.top/undefined/2016年X-NUCA全国高校网安联赛-赛前指导练习题web进阶篇Writeup20160813/</id>
     <published>2016-08-13T08:42:44.000Z</published>
-    <updated>2016-09-08T08:05:27.920Z</updated>
+    <updated>2016-09-09T10:46:23.347Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>第一次写Writeup，尝试一下吧！<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>第一次写Writeup，尝试一下吧！</p>
 <h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><h3 id="捉迷藏"><a href="#捉迷藏" class="headerlink" title="捉迷藏"></a>捉迷藏</h3><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>捉迷藏<br>描述：从页面中找到隐藏的flag<br><a href="http://218.76.35.75:20111" target="_blank" rel="external">题目链接</a></p>
 <h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%871.png" alt=""><br>F12审查元素发现有一个Index.php的链接，把背景去掉。点击链接得到flag</p>
 <h4 id="Flag"><a href="#Flag" class="headerlink" title="Flag"></a>Flag</h4><p>flag{th!5!5n0tth3fl@g}</p>
@@ -312,7 +309,8 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言&quot;&gt;&lt;/a&gt;0x00 前言&lt;/h2&gt;&lt;p&gt;第一次写Writeup，尝试一下吧！&lt;br&gt;
+      &lt;h2 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言&quot;&gt;&lt;/a&gt;0x00 前言&lt;/h2&gt;&lt;p&gt;第一次写Writeup，尝试一下吧！&lt;/p&gt;
+&lt;h2 id=&quot;0x01-正文&quot;&gt;&lt;a href=&quot;#
     
     </summary>
     
@@ -324,10 +322,9 @@
     <link href="http://uknow.top/undefined/CTF%E4%B8%AD%E9%82%A3%E4%BA%9B%E8%84%91%E6%B4%9E%E5%A4%A7%E5%BC%80%E7%9A%84%E7%BC%96%E7%A0%81%E5%92%8C%E5%8A%A0%E5%AF%8620160812/"/>
     <id>http://uknow.top/undefined/CTF中那些脑洞大开的编码和加密20160812/</id>
     <published>2016-08-12T11:38:30.000Z</published>
-    <updated>2016-09-08T08:05:41.193Z</updated>
+    <updated>2016-09-09T10:46:27.933Z</updated>
     
     <content type="html"><![CDATA[<h1 id="CTF中那些脑洞大开的编码和加密"><a href="#CTF中那些脑洞大开的编码和加密" class="headerlink" title="CTF中那些脑洞大开的编码和加密"></a>CTF中那些脑洞大开的编码和加密</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>正文开始之前先闲扯几句吧，玩CTF的小伙伴也许会遇到类似这样的问题:表哥，你知道这是什么加密吗？其实CTF中脑洞密码题(非现代加密方式)一般都是各种古典密码的变形，一般出题者会对密文进行一些处理，但是会给留一些线索，所以写此文的目的是想给小伙伴做题时给一些参考，当然常在CTF里出现的编码也可以了解一下。本来是想尽快写出参考的文章，无奈期间被各种事情耽搁导致文章断断续续写了2个月，文章肯定有许多没有提及到，欢迎小伙伴补充，总之，希望对小伙伴们有帮助吧！</p>
-<a id="more"></a>
 <h2 id="0x01-目录"><a href="#0x01-目录" class="headerlink" title="0x01 目录"></a>0x01 目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">常见编码:</div><div class="line">    1.ASCII编码</div><div class="line">    2.Base64/32/16编码</div><div class="line">    3.shellcode编码</div><div class="line">    4.Quoted-printable编码</div><div class="line">    5.XXencode编码</div><div class="line">    6.UUencode编码</div><div class="line">    7.URL编码</div><div class="line">    8.Unicode编码</div><div class="line">    9.Escape/Unescape编码</div><div class="line">    10.HTML实体编码</div><div class="line">    11.敲击码(Tap code)</div><div class="line">    12.莫尔斯电码(Morse Code)</div><div class="line">    13.编码的故事</div><div class="line"> </div><div class="line">各种文本加密</div><div class="line"> </div><div class="line">换位加密:</div><div class="line">    1.栅栏密码(Rail-fence Cipher)</div><div class="line">    2.曲路密码(Curve Cipher)</div><div class="line">    3.列移位密码(Columnar Transposition Cipher)</div><div class="line">     </div><div class="line">替换加密:</div><div class="line">    1.埃特巴什码(Atbash Cipher)</div><div class="line">    2.凯撒密码(Caesar Cipher)</div><div class="line">    3.ROT5/13/18/47</div><div class="line">    4.简单换位密码(Simple Substitution Cipher)</div><div class="line">    5.希尔密码(Hill Cipher)</div><div class="line">    6.猪圈密码(Pigpen Cipher)</div><div class="line">    7.波利比奥斯方阵密码（Polybius Square Cipher)</div><div class="line">    8.夏多密码(曲折加密)</div><div class="line">    9.普莱菲尔密码(Playfair Cipher)</div><div class="line">    10.维吉尼亚密码(Vigenère Cipher)</div><div class="line">    11.自动密钥密码(Autokey Cipher)</div><div class="line">    12.博福特密码(Beaufort Cipher)</div><div class="line">    13.滚动密钥密码(Running Key Cipher)</div><div class="line">    14.Porta密码(Porta Cipher)</div><div class="line">    15.同音替换密码(Homophonic Substitution Cipher)</div><div class="line">    16.仿射密码(Affine Cipher)</div><div class="line">    17.培根密码(Baconian Cipher)</div><div class="line">    18.ADFGX和ADFGVX密码(ADFG/VX Cipher)</div><div class="line">    19.双密码(Bifid Cipher)</div><div class="line">    20.三分密码(Trifid Cipher)</div><div class="line">    21.四方密码(Four-Square Cipher)</div><div class="line">    22.棋盘密码（Checkerboard Cipher)</div><div class="line">    23.跨棋盘密码(Straddle Checkerboard Cipher)</div><div class="line">    24.分组摩尔斯替换密码(Fractionated Morse Cipher)</div><div class="line">    25.Bazeries密码(Bazeries Cipher)</div><div class="line">    26.Digrafid密码(Digrafid Cipher)</div><div class="line">    27.格朗普雷密码(Grandpré Cipher)</div><div class="line">    28.比尔密码(Beale ciphers)</div><div class="line">    29.键盘密码(Keyboard Cipher)</div><div class="line"> </div><div class="line">其他有趣的机械密码:</div><div class="line">    1.恩尼格玛密码</div><div class="line"> </div><div class="line">代码混淆加密:</div><div class="line">    1.asp混淆加密</div><div class="line">    2.php混淆加密</div><div class="line">    3.css/js混淆加密</div><div class="line">    4.VBScript.Encode混淆加密</div><div class="line">    5.ppencode</div><div class="line">    6.rrencode</div><div class="line">    7.jjencode/aaencode</div><div class="line">    8.JSfuck</div><div class="line">    9.jother</div><div class="line">    10.brainfuck编程语言</div><div class="line"> </div><div class="line">相关工具</div><div class="line"> </div><div class="line">参考网站</div></pre></td></tr></table></figure>
 <h2 id="0x02-正文"><a href="#0x02-正文" class="headerlink" title="0x02 正文"></a>0x02 正文</h2><h3 id="常见编码"><a href="#常见编码" class="headerlink" title="常见编码"></a>常见编码</h3><h4 id="1-ASCII编码"><a href="#1-ASCII编码" class="headerlink" title="1.ASCII编码"></a>1.ASCII编码</h4><p>ASCII编码大致可以分作三部分组成：</p>
 <p>第一部分是：ASCII非打印控制字符（参详ASCII码表中0-31）;</p>
@@ -934,7 +931,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;CTF中那些脑洞大开的编码和加密&quot;&gt;&lt;a href=&quot;#CTF中那些脑洞大开的编码和加密&quot; class=&quot;headerlink&quot; title=&quot;CTF中那些脑洞大开的编码和加密&quot;&gt;&lt;/a&gt;CTF中那些脑洞大开的编码和加密&lt;/h1&gt;&lt;h2 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言&quot;&gt;&lt;/a&gt;0x00 前言&lt;/h2&gt;&lt;p&gt;正文开始之前先闲扯几句吧，玩CTF的小伙伴也许会遇到类似这样的问题:表哥，你知道这是什么加密吗？其实CTF中脑洞密码题(非现代加密方式)一般都是各种古典密码的变形，一般出题者会对密文进行一些处理，但是会给留一些线索，所以写此文的目的是想给小伙伴做题时给一些参考，当然常在CTF里出现的编码也可以了解一下。本来是想尽快写出参考的文章，无奈期间被各种事情耽搁导致文章断断续续写了2个月，文章肯定有许多没有提及到，欢迎小伙伴补充，总之，希望对小伙伴们有帮助吧！&lt;/p&gt;
+      &lt;h1 id=&quot;CTF中那些脑洞大开的编码和加密&quot;&gt;&lt;a href=&quot;#CTF中那些脑洞大开的编码和加密&quot; class=&quot;headerlink&quot; title=&quot;CTF中那些脑洞大开的编码和加密&quot;&gt;&lt;/a&gt;CTF中那些脑洞大开的编码和加密&lt;/h1&gt;&lt;h2 id=&quot;0x00-前言&quot;&gt;
     
     </summary>
     
@@ -946,10 +943,9 @@
     <link href="http://uknow.top/undefined/CTF%E4%B8%AD%E5%9B%BE%E7%89%87%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E5%88%86%E7%A6%BB%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%9320160812/"/>
     <id>http://uknow.top/undefined/CTF中图片隐藏文件分离方法总结20160812/</id>
     <published>2016-08-12T10:03:22.000Z</published>
-    <updated>2016-08-12T10:27:13.204Z</updated>
+    <updated>2016-09-09T10:46:33.611Z</updated>
     
     <content type="html"><![CDATA[<h1 id="CTF中图片隐藏文件分离方法总结"><a href="#CTF中图片隐藏文件分离方法总结" class="headerlink" title="CTF中图片隐藏文件分离方法总结"></a>CTF中图片隐藏文件分离方法总结</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>在安全的大趋势下，信息安全越来越来受到国家和企业的重视，所以CTF比赛场次越来越多，而且比赛形式也不断的创新，题目也更加新颖有趣，对选手的综合信息安全能力有一个较好的考验，当然更好的是能从比赛有所收获，不断学习和总结提升自己的信息安全能力与技术。转到CTF比赛上，通常在CTF比赛中常有与隐写术(Steganography)相关的题目出现，这里我们讨论总结图片隐藏文件分离的方法，欢迎大家补充和交流:P</p>
-<a id="more"></a>
 <h2 id="0x01-分析"><a href="#0x01-分析" class="headerlink" title="0x01 分析"></a>0x01 分析</h2><p>这里我们以图片为载体，给了这样的一样图片：</p>
 <p><img src="https://www.hackfun.org/usr/uploads/2016/07/1574897276.jpg" alt="CTF中图片隐藏文件分离方法总结"></p>
 <p>首先我们需要对图片进行分析，这里我们需要用到一个工具<a href="https://github.com/devttys0/binwalk" target="_blank" rel="external">binwalk</a>，想要了解这个工具可以参考这篇<a href="http://www.freebuf.com/sectool/15266.html" target="_blank" rel="external">Binwalk：后门（固件）分析利器</a>文章，以及<a href="http://tools.kali.org/forensics/binwalk" target="_blank" rel="external">kali官方对binwalk的概述和使用介绍</a>。</p>
@@ -1000,7 +996,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;CTF中图片隐藏文件分离方法总结&quot;&gt;&lt;a href=&quot;#CTF中图片隐藏文件分离方法总结&quot; class=&quot;headerlink&quot; title=&quot;CTF中图片隐藏文件分离方法总结&quot;&gt;&lt;/a&gt;CTF中图片隐藏文件分离方法总结&lt;/h1&gt;&lt;h2 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言&quot;&gt;&lt;/a&gt;0x00 前言&lt;/h2&gt;&lt;p&gt;在安全的大趋势下，信息安全越来越来受到国家和企业的重视，所以CTF比赛场次越来越多，而且比赛形式也不断的创新，题目也更加新颖有趣，对选手的综合信息安全能力有一个较好的考验，当然更好的是能从比赛有所收获，不断学习和总结提升自己的信息安全能力与技术。转到CTF比赛上，通常在CTF比赛中常有与隐写术(Steganography)相关的题目出现，这里我们讨论总结图片隐藏文件分离的方法，欢迎大家补充和交流:P&lt;/p&gt;
+      &lt;h1 id=&quot;CTF中图片隐藏文件分离方法总结&quot;&gt;&lt;a href=&quot;#CTF中图片隐藏文件分离方法总结&quot; class=&quot;headerlink&quot; title=&quot;CTF中图片隐藏文件分离方法总结&quot;&gt;&lt;/a&gt;CTF中图片隐藏文件分离方法总结&lt;/h1&gt;&lt;h2 id=&quot;0x00-前言&quot;&gt;
     
     </summary>
     
@@ -1012,14 +1008,13 @@
     <link href="http://uknow.top/undefined/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JPEG%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8FJphide%E9%9A%90%E5%86%9920160812/"/>
     <id>http://uknow.top/undefined/深入理解JPEG图像格式Jphide隐写20160812/</id>
     <published>2016-08-12T09:56:19.000Z</published>
-    <updated>2016-09-08T08:06:27.196Z</updated>
+    <updated>2016-09-09T10:46:47.480Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="深入理解JPEG图像格式Jphide隐写"><a href="#深入理解JPEG图像格式Jphide隐写" class="headerlink" title="深入理解JPEG图像格式Jphide隐写"></a>深入理解JPEG图像格式Jphide隐写</h1><a id="more"></a>
-<h2 id="0x00-隐写原理"><a href="#0x00-隐写原理" class="headerlink" title="0x00 隐写原理"></a>0x00 隐写原理</h2><p>Jphide是基于最低有效位LSB的<a href="http://www.cnblogs.com/leaven/archive/2010/04/06/1705846.html" target="_blank" rel="external">JPEG格式</a>图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在<a href="https://en.wikipedia.org/wiki/Discrete_cosine_transform" target="_blank" rel="external">DCT变换域</a>上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时<a href="http://baike.baidu.com/link?url=OWM-kQRYlFaJ2Sy7m1E_Z_-fnvknJTRSHwk1f3eoabLsbht1TJa07GmvWRoiOg6U7-0-Ey3vb_UHcDm9Pc7Mgq" target="_blank" rel="external">Blowfish算法</a>有较强的抗统计检测能力。</p>
+    <content type="html"><![CDATA[<h1 id="深入理解JPEG图像格式Jphide隐写"><a href="#深入理解JPEG图像格式Jphide隐写" class="headerlink" title="深入理解JPEG图像格式Jphide隐写"></a>深入理解JPEG图像格式Jphide隐写</h1><h2 id="0x00-隐写原理"><a href="#0x00-隐写原理" class="headerlink" title="0x00 隐写原理"></a>0x00 隐写原理</h2><p>Jphide是基于最低有效位LSB的<a href="http://www.cnblogs.com/leaven/archive/2010/04/06/1705846.html" target="_blank" rel="external">JPEG格式</a>图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在<a href="https://en.wikipedia.org/wiki/Discrete_cosine_transform" target="_blank" rel="external">DCT变换域</a>上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时<a href="http://baike.baidu.com/link?url=OWM-kQRYlFaJ2Sy7m1E_Z_-fnvknJTRSHwk1f3eoabLsbht1TJa07GmvWRoiOg6U7-0-Ey3vb_UHcDm9Pc7Mgq" target="_blank" rel="external">Blowfish算法</a>有较强的抗统计检测能力。</p>
 <p>由于JPEG图像格式使用<a href="http://baike.baidu.com/view/391624.htm?fr=aladdin&amp;fromtitle=DCT&amp;fromid=4184&amp;type=syn" title="DCT&amp;fromid=4184&amp;type=syn" target="_blank" rel="external">离散余弦变换</a>（Discrete Cosine Transform，DCT）函数来压缩图像，而这个图像压缩方法的核心是：通过识别每个8×8像素块中相邻像素中的重复像素来减少显示图像所需的位数，并使用近似估算法降低其冗余度。因此，我们可以把DCT看作一个用于执行压缩的近似计算方法。因为丢失了部分数据，所以DCT是一种<a href="http://baike.baidu.com/link?url=7eIl--nFUaz-amKaY9jatpW4J-J2JyZEXy8dYJM4Py1CspzR9mUATKgTyXOCt7M6AjFSv4JmF3YKtXTTAauHm_" target="_blank" rel="external">有损压缩</a>（Loss Compression）技术，但一般不会影响图像的视觉效果。</p>
 <h2 id="0x01-隐写过程"><a href="#0x01-隐写过程" class="headerlink" title="0x01 隐写过程"></a>0x01 隐写过程</h2><p>Jphide隐写过程大致为：先解压压缩JPEG图像，得到DCT系数；然后对隐藏信息用户给定的密码进行Blowfish加密；再利用Blowfish算法生成伪随机序列，并据此找到需要改变的DCT系数，将其末位变为需要隐藏的信息的值。最后把DCT系数重新压回成JPEG图片，下面是个人对隐写过程理解画出的大致流程图。</p>
 <p><img src="http://i.imgur.com/kb6USbH.png" alt=""></p>
-<!--more-->
+<a id="more"></a>
 <h2 id="0x02-隐写实现"><a href="#0x02-隐写实现" class="headerlink" title="0x02 隐写实现"></a>0x02 隐写实现</h2><p><strong>（1）Stegdetect</strong></p>
 <p>实现JPEG图像Jphide隐写算法工具有多个，比如由Neils Provos开发通过统计分析技术评估JPEG文件的DCT频率系数的隐写工具<a href="https://github.com/abeluck/stegdetect" target="_blank" rel="external">Stegdetect</a>，它可以检测到通过JSteg、JPHide、OutGuess、Invisible Secrets、F5、appendX和Camouflage等这些隐写工具隐藏的信息，并且还具有基于字典暴力破解密码方法提取通过Jphide、outguess和jsteg-shell方式嵌入的隐藏信息。</p>
 <p><strong>（2）JPHS</strong></p>
@@ -1078,7 +1073,10 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;深入理解JPEG图像格式Jphide隐写&quot;&gt;&lt;a href=&quot;#深入理解JPEG图像格式Jphide隐写&quot; class=&quot;headerlink&quot; title=&quot;深入理解JPEG图像格式Jphide隐写&quot;&gt;&lt;/a&gt;深入理解JPEG图像格式Jphide隐写&lt;/h1&gt;
+      &lt;h1 id=&quot;深入理解JPEG图像格式Jphide隐写&quot;&gt;&lt;a href=&quot;#深入理解JPEG图像格式Jphide隐写&quot; class=&quot;headerlink&quot; title=&quot;深入理解JPEG图像格式Jphide隐写&quot;&gt;&lt;/a&gt;深入理解JPEG图像格式Jphide隐写&lt;/h1&gt;&lt;h2 id=&quot;0x00-隐写原理&quot;&gt;&lt;a href=&quot;#0x00-隐写原理&quot; class=&quot;headerlink&quot; title=&quot;0x00 隐写原理&quot;&gt;&lt;/a&gt;0x00 隐写原理&lt;/h2&gt;&lt;p&gt;Jphide是基于最低有效位LSB的&lt;a href=&quot;http://www.cnblogs.com/leaven/archive/2010/04/06/1705846.html&quot;&gt;JPEG格式&lt;/a&gt;图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在&lt;a href=&quot;https://en.wikipedia.org/wiki/Discrete_cosine_transform&quot;&gt;DCT变换域&lt;/a&gt;上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时&lt;a href=&quot;http://baike.baidu.com/link?url=OWM-kQRYlFaJ2Sy7m1E_Z_-fnvknJTRSHwk1f3eoabLsbht1TJa07GmvWRoiOg6U7-0-Ey3vb_UHcDm9Pc7Mgq&quot;&gt;Blowfish算法&lt;/a&gt;有较强的抗统计检测能力。&lt;/p&gt;
+&lt;p&gt;由于JPEG图像格式使用&lt;a href=&quot;http://baike.baidu.com/view/391624.htm?fr=aladdin&amp;amp;fromtitle=DCT&amp;amp;fromid=4184&amp;amp;type=syn&quot; title=&quot;DCT&amp;amp;fromid=4184&amp;amp;type=syn&quot;&gt;离散余弦变换&lt;/a&gt;（Discrete Cosine Transform，DCT）函数来压缩图像，而这个图像压缩方法的核心是：通过识别每个8×8像素块中相邻像素中的重复像素来减少显示图像所需的位数，并使用近似估算法降低其冗余度。因此，我们可以把DCT看作一个用于执行压缩的近似计算方法。因为丢失了部分数据，所以DCT是一种&lt;a href=&quot;http://baike.baidu.com/link?url=7eIl--nFUaz-amKaY9jatpW4J-J2JyZEXy8dYJM4Py1CspzR9mUATKgTyXOCt7M6AjFSv4JmF3YKtXTTAauHm_&quot;&gt;有损压缩&lt;/a&gt;（Loss Compression）技术，但一般不会影响图像的视觉效果。&lt;/p&gt;
+&lt;h2 id=&quot;0x01-隐写过程&quot;&gt;&lt;a href=&quot;#0x01-隐写过程&quot; class=&quot;headerlink&quot; title=&quot;0x01 隐写过程&quot;&gt;&lt;/a&gt;0x01 隐写过程&lt;/h2&gt;&lt;p&gt;Jphide隐写过程大致为：先解压压缩JPEG图像，得到DCT系数；然后对隐藏信息用户给定的密码进行Blowfish加密；再利用Blowfish算法生成伪随机序列，并据此找到需要改变的DCT系数，将其末位变为需要隐藏的信息的值。最后把DCT系数重新压回成JPEG图片，下面是个人对隐写过程理解画出的大致流程图。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/kb6USbH.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1090,10 +1088,9 @@
     <link href="http://uknow.top/undefined/CTF%E5%B7%A5%E5%85%B7%E4%BB%A5%E5%8F%8A%E8%84%9A%E6%9C%AC%E7%9A%84%E6%95%B4%E7%90%8620160811/"/>
     <id>http://uknow.top/undefined/CTF工具以及脚本的整理20160811/</id>
     <published>2016-08-10T16:15:14.000Z</published>
-    <updated>2016-09-08T08:06:50.175Z</updated>
+    <updated>2016-09-09T10:47:21.332Z</updated>
     
     <content type="html"><![CDATA[<h1 id="密码学-cryptology"><a href="#密码学-cryptology" class="headerlink" title="密码学 cryptology"></a><a href="#密码学-cryptology"></a>密码学 <code>cryptology</code></h1><p><a href="http://www.practicalcryptography.com/" target="_blank" rel="external">各种密码学的在线解密</a></p>
-<a id="more"></a>
 <h2 id="简单的位移密码"><a href="#简单的位移密码" class="headerlink" title="简单的位移密码"></a><a href="#简单的位移密码"></a>简单的位移密码</h2><p><code>默认位移13 即rot13</code></p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-<em>- coding:utf-8 -</em>-</span></div><div class="line">str =raw_input(<span class="string">‘put flag:’</span>)</div><div class="line">new_str = <span class="string">“”</span></div><div class="line">yi = <span class="number">13</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> str:</div><div class="line">    <span class="keyword">if</span> i&gt;=<span class="string">‘a’</span> <span class="keyword">and</span> i&lt;=<span class="string">‘z’</span>:</div><div class="line">        i = ord(i)</div><div class="line">        i = ((i-yi)<span class="number">-97</span>)%<span class="number">26</span>+<span class="number">97</span></div><div class="line">        i = chr(i)</div><div class="line">        new_str = new_str+i</div><div class="line">        print(new_str)</div></pre></td></tr></tbody></table></figure>
 
@@ -1155,7 +1152,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;密码学-cryptology&quot;&gt;&lt;a href=&quot;#密码学-cryptology&quot; class=&quot;headerlink&quot; title=&quot;密码学 cryptology&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#密码学-cryptology&quot;&gt;&lt;/a&gt;密码学 &lt;code&gt;cryptology&lt;/code&gt;&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://www.practicalcryptography.com/&quot;&gt;各种密码学的在线解密&lt;/a&gt;&lt;/p&gt;
+      &lt;h1 id=&quot;密码学-cryptology&quot;&gt;&lt;a href=&quot;#密码学-cryptology&quot; class=&quot;headerlink&quot; title=&quot;密码学 cryptology&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#密码学-cryptology&quot;&gt;&lt;/a&gt;密码学 &lt;code&gt;cryp
     
     </summary>
     
@@ -1167,11 +1164,10 @@
     <link href="http://uknow.top/undefined/%E5%85%A5CTF%E5%9D%91%E5%BF%85%E4%B8%8D%E5%8F%AF%E5%B0%91%E7%9A%84%E5%9C%B0%E6%96%B920160810/"/>
     <id>http://uknow.top/undefined/入CTF坑必不可少的地方20160810/</id>
     <published>2016-08-10T14:57:31.000Z</published>
-    <updated>2016-09-08T08:06:33.128Z</updated>
+    <updated>2016-09-09T10:46:37.543Z</updated>
     
     <content type="html"><![CDATA[<p><img src="https://www.hackfun.org/usr/uploads/2016/05/4242872726.png" alt="ctf"><br><strong>0x00 前言</strong></p>
 <p>没有交易，没有买卖，没有排名，纯属分享</p>
-<a id="more"></a>
 <p><strong>0x01 CTF介绍</strong></p>
 <ul>
 <li><a href="http://blog.idf.cn/2015/02/ctf-field-guide/" target="_blank" rel="external">CTF领域指南</a></li>
@@ -1268,7 +1264,7 @@
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;https://www.hackfun.org/usr/uploads/2016/05/4242872726.png&quot; alt=&quot;ctf&quot;&gt;&lt;br&gt;&lt;strong&gt;0x00 前言&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;没有交易，没有买卖，没有排名，纯属分享&lt;/p&gt;
+&lt;p&gt;没有交易，没有买卖，没有排名，纯属分享&lt;/
     
     </summary>
     
@@ -1280,11 +1276,10 @@
     <link href="http://uknow.top/undefined/hello-world20160809/"/>
     <id>http://uknow.top/undefined/hello-world20160809/</id>
     <published>2016-08-08T16:39:12.323Z</published>
-    <updated>2016-09-08T08:07:01.466Z</updated>
+    <updated>2016-09-09T10:47:27.010Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
@@ -1296,8 +1291,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
     
     </summary>
     
