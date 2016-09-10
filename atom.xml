@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknow.top/"/>
-  <updated>2016-09-09T10:45:58.932Z</updated>
+  <updated>2016-09-10T07:47:09.827Z</updated>
   <id>http://uknow.top/</id>
   
   <author>
@@ -14,6 +14,212 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux基础入门笔记</title>
+    <link href="http://uknow.top/undefined/Linux%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B020160910/"/>
+    <id>http://uknow.top/undefined/Linux基础入门笔记20160910/</id>
+    <published>2016-09-10T06:33:17.000Z</published>
+    <updated>2016-09-10T07:47:09.827Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一些常用快捷键"><a href="#一些常用快捷键" class="headerlink" title="一些常用快捷键"></a>一些常用快捷键</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+d</td>
+<td style="text-align:left">键盘输入结束或退出终端</td>
+</tr>
+<tr>
+<td>Ctrl+s</td>
+<td style="text-align:left">暂定当前程序，暂停后按下任意键恢复运行</td>
+</tr>
+<tr>
+<td>Ctrl+z</td>
+<td style="text-align:left">将当前程序放到后台运行，恢复到前台为命令fg</td>
+</tr>
+<tr>
+<td>Ctrl+a</td>
+<td style="text-align:left">将光标移至输入行头，相当于Home键</td>
+</tr>
+<tr>
+<td>Ctrl+e</td>
+<td style="text-align:left">将光标移至输入行末，相当于End键</td>
+</tr>
+<tr>
+<td>Ctrl+k</td>
+<td style="text-align:left">删除从光标所在位置到行末</td>
+</tr>
+<tr>
+<td>Alt+Backspace</td>
+<td style="text-align:left">向前删除一个单词</td>
+</tr>
+<tr>
+<td>Shift+PgUp</td>
+<td style="text-align:left">将终端显示向上滚动</td>
+</tr>
+<tr>
+<td>Shift+PgDn</td>
+<td style="text-align:left">将终端显示向下滚动</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Shell常用通配符"><a href="#Shell常用通配符" class="headerlink" title="Shell常用通配符"></a>Shell常用通配符</h2><table>
+<thead>
+<tr>
+<th>字符</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td style="text-align:left">匹配 0 或多个字符</td>
+</tr>
+<tr>
+<td>?</td>
+<td style="text-align:left">匹配任意一个字符</td>
+</tr>
+<tr>
+<td>[list]</td>
+<td style="text-align:left">匹配 list 中的任意单一字符</td>
+</tr>
+<tr>
+<td>[!list]</td>
+<td style="text-align:left">匹配 除list 中的任意单一字符以外的字符</td>
+</tr>
+<tr>
+<td>[c1-c2]</td>
+<td style="text-align:left">匹配 c1-c2 中的任意单一字符 如：[0-9] [a-z]</td>
+</tr>
+<tr>
+<td>{string1,string2,…}</td>
+<td style="text-align:left">匹配 sring1 或 string2 (或更多)其一字符串</td>
+</tr>
+<tr>
+<td>{c2..c2}</td>
+<td style="text-align:left">匹配 c1-c2 中全部字符 如{1..10}</td>
+</tr>
+</tbody>
+</table>
+<h2 id="查看用户"><a href="#查看用户" class="headerlink" title="查看用户"></a>查看用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ who am i</div><div class="line"></div><div class="line">或者</div><div class="line"></div><div class="line">$ who mom likes</div></pre></td></tr></table></figure>
+<p>who 命令其他常用参数<br>| 参数        | 说明   |<br>| ——–   | :———-  |<br>| -a     | 打印能打印的全部 |<br>| -d        |  打印死掉的进程   |<br>| -m    |    同am i,mom likes    |<br>| -q]        | 打印当前登录用户数及用户名 |<br>| -u    |   打印当前登录用户登录信息   |<br>| -r   |    打印运行等级   | </p>
+<h2 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h2><p>在Linxu系统里，root账户拥护整个系统至高无上的权利，比如 新建/添加用户。</p>
+<h3 id="su-su-与sudo"><a href="#su-su-与sudo" class="headerlink" title="su,su-与sudo"></a>su,su-与sudo</h3><p>su <user>可以切换到用户user，执行时需要输入目标用户的密码，sudo <cmd>可以以特权级别运行cmd命令，需要当前用户属于sudo组，且需要输入当前用户密码。su - <user>命令也是切换用户，同时环境变量也会跟着改变成目标用户的环境变量。</user></cmd></user></p>
+<p>新建用户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo adduser lilei</div></pre></td></tr></table></figure></p>
+<p>切换登录用户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ su -l lilei</div></pre></td></tr></table></figure></p>
+<p>退出当前用户跟退出终端一样可以使用 exit 命令或者使用快捷键 Ctrl+d。</p>
+<h2 id="用户组"><a href="#用户组" class="headerlink" title="用户组"></a>用户组</h2><h3 id="查看所属用户组"><a href="#查看所属用户组" class="headerlink" title="查看所属用户组"></a>查看所属用户组</h3><p>方法一：使用groups命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ groups lilei</div></pre></td></tr></table></figure></p>
+<p>方法二：查看etc/group文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/group | sort</div></pre></td></tr></table></figure></p>
+<p>cat 命令用于读取指定文件的内容并打印到终端输出， | sort 表示将读取的文本进行一个字典排序再输出，然后你将看到如下一堆输出<br>可以使用命令过滤掉一些你不想看到的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/group | grep -E &quot;用户名&quot;</div></pre></td></tr></table></figure></p>
+<h3 id="etc-group-文件格式说明"><a href="#etc-group-文件格式说明" class="headerlink" title="etc/group 文件格式说明"></a>etc/group 文件格式说明</h3><p>/etc/group 的内容包括用户组（Group）、用户组口令、GID 及该用户组所包含的用户（User），每个用户组一条记录。格式如下：</p>
+<blockquote>
+<p>group_name:password:GID:user_list</p>
+</blockquote>
+<p>你看到上面的 password 字段为一个 ‘x’ 并不是说密码就是它，只是表示密码不可见而已。</p>
+<h3 id="将其它用户加入-sudo-用户组"><a href="#将其它用户加入-sudo-用户组" class="headerlink" title="将其它用户加入 sudo 用户组"></a>将其它用户加入 sudo 用户组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ su -l lilei</div><div class="line">$ sudo ls</div></pre></td></tr></table></figure>
+<h2 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo deluser lilei --remove-home</div></pre></td></tr></table></figure>
+<h2 id="查看文件权限"><a href="#查看文件权限" class="headerlink" title="查看文件权限"></a>查看文件权限</h2><p>使用较长格式列出文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ls -l</div></pre></td></tr></table></figure></p>
+<p>图解：</p>
+<p><img src="https://dn-anything-about-doc.qbox.me/linux_base/3-9.png/logoblackfont" alt=""></p>
+<p>可能你还是不太明白，比如第一项文件类型和权限那一堆东西具体指什么，链接又是什么，何为最后修改时间，下面一一道来：</p>
+<p><img src="https://dn-anything-about-doc.qbox.me/linux_base/3-10.png/logoblackfont" alt=""></p>
+<ul>
+<li>文件类型</li>
+</ul>
+<p>关于文件类型，这里有一点你必需时刻牢记<strong>Linux 里面一切皆文件</strong>，正因为这一点才有了设备文件（ <code>/dev</code> 目录下有各种设备文件，大都跟具体的硬件设备相关）这一说，还有 <code>socket</code>（网络套接字，具体是什么，感兴趣的用户可以自己去了解或期待实验楼的后续相关课程），和 <code>pipe</code> (管道，这个东西很重要，我们以后将会讨论到，这里你先知道有它的存在即可)。软链接文件，链接文件是分为两种的，另一种当然是“硬链接”(硬链接不常用，具体内容不作为本课程讨论重点，而软链接等同于 Windows 上的快捷方式,你记住这一点就够了）</p>
+<ul>
+<li>文件权限</li>
+</ul>
+<p>读权限，表示你可以使用 <code>cat &amp;lt;file name&amp;gt;</code> 之类的命令来读取某个文件的内容;写权限，表示你可以编辑和修改某个文件；<br>执行权限，通常指可以运行的二进制程序文件或者脚本文件，如同 Windows 上的 ‘exe’ 后缀的文件，不过 Linux 上不是通过文件后缀名来区分文件的类型。你需要注意的一点是，<strong>一个目录要同时具有读权限和执行权限才可以打开，而一个目录要有写权限才允许在其中创建其它文件</strong>，这是因为目录文件实际保存着该目录里面的文件的列表等信息</p>
+<p>所有者权限，这一点相信你应该明白了，至于所属用户组权限，是指你所在的用户组中的所有其它用户对于该文件的权限，比如，你有一个艾派德,那么这个用户组权限就决定了你的兄弟姐妹有没有权限使用它破坏它和占有它。</p>
+<ul>
+<li><p>链接数</p>
+<blockquote>
+<p>链接到该文件所在的 inode 结点的文件名数目（关于这个概念涉及到 Linux 文件系统的相关概念知识，不在本课程的讨论范围，感兴趣的用户可以自己去了解）。</p>
+</blockquote>
+</li>
+<li><p>文件大小</p>
+<blockquote>
+<p>以 inode 结点大小为单位来表示的文件大小，你可以给 ls 加上 <code>-lh</code> 参数来更直观的查看文件的大小。</p>
+</blockquote>
+</li>
+</ul>
+<p>明白了文件权限的一些概念，我们顺带补充一下关于 <code>ls</code> 命令的一些其它常用的用法：</p>
+<p><ul></ul></p>
+<li>显示除了 ‘.’(当前目录)，’..’ 上一级目录之外的所有包含隐藏文件（Linux 下以 ‘.’ 开头的文件为隐藏文件）</li>
+
+<p>可以同时使用“-A”和“-l”参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ls -Al</div></pre></td></tr></table></figure></p>
+<p>查看某一个目录的完整属性，而不是显示目录里面的文件属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ls -dl &lt;目录名&gt;</div></pre></td></tr></table></figure></p>
+<p>显示所有文件的大小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ls -AsSh</div></pre></td></tr></table></figure></p>
+<p>其中小 s 为显示文件大小，大 S 为按文件大小排序，若需要知道如何按其它方式排序</p>
+<h2 id="修改文件权限"><a href="#修改文件权限" class="headerlink" title="修改文件权限"></a>修改文件权限</h2><p>对文件的权限做修改，这里有两种方式：</p><p></p>
+<ul>
+<li>方式一：二进制数字表示</li>
+</ul>
+<p><img src="https://dn-anything-about-doc.qbox.me/linux_base/3-14.png/logoblackfont" alt=""></p>
+<p>每个文件的三组权限（拥有者，所属用户组，其他用户,<strong>记住这个顺序是一定的</strong>）就对应这一个 “rwx”，也就是一个 ‘7’ ,所以如果我要将文件“iphone6”的权限改为只有我自己可以用那么就这样:</p>
+<p>为了演示，我先在文件里加点内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ echo &quot;echo \&quot;hello shiyanlou\&quot;&quot; &gt; iphone6</div></pre></td></tr></table></figure></p>
+<p>然后修改权限：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ chmod 700 iphone6</div></pre></td></tr></table></figure>
+<ul>
+<li>方式二：加减赋值操作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">go-rw iphone</div></pre></td></tr></table></figure>
+<p>‘g’’o’还有’u’，分别表示group，others，user，’+’，’-‘ 就分别表示增加和去掉相应的权限。</p>
+<h2 id="FHS"><a href="#FHS" class="headerlink" title="FHS"></a>FHS</h2><blockquote>
+<p>FHS（英文：Filesystem Hierarchy Standard 中文：文件系统层次结构标准），多数 Linux 版本采用这种文件组织形式，FHS 定义了系统中每个区域的用途、所需要的最小构成的文件和目录同时还给出了例外处理与矛盾处理。</p>
+</blockquote>
+<p><img src="https://dn-anything-about-doc.qbox.me/linux_base/4-1.png/logoblackfont" alt=""></p>
+<p>FHS 是根据以往无数 Linux 用户和开发者的经验总结出来的，并且会维持更新，FHS 依据文件系统使用的频繁与否以及是否允许用户随意改动（注意，不是不能，学习过程中，不要怕这些），将目录定义为四种交互作用的形态，如下表所示：</p><br><img src="https://dn-anything-about-doc.qbox.me/linux_base/4-2.png/logoblackfont" alt=""><p></p>
+<h2 id="目录路径"><a href="#目录路径" class="headerlink" title="目录路径"></a>目录路径</h2><h3 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h3><p>使用 <code>cd</code> 命令可以切换目录，在 Linux 里面使用 <code>.</code> 表示当前目录，<code>..</code> 表示上一级目录（**注意，还记得我们上一节介绍过的，以 <code>.</code> 开头的文件都是隐藏文件，所以这两个目录必然也是隐藏的，你可以使用 <code>ls -a</code> 命令查看隐藏文件）, <code>-</code> 表示上一次所在目录，<code>～</code> 通常表示当前用户的”home”目录。使用 <code>pwd</code> 命令可以获取当前所在路径（绝对路径）。</p><p></p>
+<p>进入上一级目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd ..</div></pre></td></tr></table></figure>
+<p> 进入你的“home”目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~ </div><div class="line">或者 cd /home/你的用户名</div></pre></td></tr></table></figure>
+<p>使用 <code>pwd</code> 获取当前路径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pwd</div></pre></td></tr></table></figure></p>
+<h3 id="绝对路径"><a href="#绝对路径" class="headerlink" title="绝对路径"></a>绝对路径</h3><p>关于绝对路径，简单地说就是以根”/“目录为起点的完整路径，以你所要到的目录为终点，表现形式如：<br><code>/usr/local/bin</code>，表示根目录下的 usr 目录中的 local 目录中的 bin 目录。</p>
+<h3 id="相对路径"><a href="#相对路径" class="headerlink" title="相对路径"></a>相对路径</h3><p>相对路径，也就是相对于你当前的目录的路径，相对路径是以当前目录 <code>.</code> 为起点，以你所要到的目录为终点，表现形式如：<br><code>usr/local/bin</code> （这里假设你当前目录为根目录）。你可能注意到，我们表示相对路径实际并没有加上表示当前目录的那个 <code>.</code> ，而是直接以目录名开头，因为这个 <code>usr</code> 目录为 <code>/</code> 目录下的子目录，是可以省略这个 <code>.</code> 的（以后会讲到一个类似不能省略的情况）；如果是当前目录的上一级目录，则需要使用 <code>..</code> ，比如你当前目录为“home”目录，根目录就应该表示为 <code>../../</code> ,表示上一级目录（”home”目录）的上一级目录（”/“目录）。</p>
+<h2 id="新建"><a href="#新建" class="headerlink" title="新建"></a>新建</h2><h3 id="新建空白文件"><a href="#新建空白文件" class="headerlink" title="新建空白文件"></a>新建空白文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd ~</div><div class="line">$ touch test</div></pre></td></tr></table></figure>
+<h3 id="新建目录"><a href="#新建目录" class="headerlink" title="新建目录"></a>新建目录</h3><p>创建名为”mydir”的空目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir mydir</div></pre></td></tr></table></figure></p>
+<p>使用 -p 参数，同时创建父目录（如果不存在该父目录），如下我们同时创建一个多级目录（这在有时候安装软件，配置安装路径时非常有用）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p father/son/grandson</div></pre></td></tr></table></figure></p>
+<h2 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h2><h3 id="复制文件"><a href="#复制文件" class="headerlink" title="复制文件"></a>复制文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp test father/son/grandson</div></pre></td></tr></table></figure>
+<h3 id="复制目录"><a href="#复制目录" class="headerlink" title="复制目录"></a>复制目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -r father family</div></pre></td></tr></table></figure>
+<p>加上-r或者-R参数，表示递归复制</p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ rm test</div></pre></td></tr></table></figure>
+<p>-f 参数强制删除<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ rm -f test</div></pre></td></tr></table></figure></p>
+<h3 id="删除目录"><a href="#删除目录" class="headerlink" title="删除目录"></a>删除目录</h3><p>删除一个目录，也需要加上-r或-R参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ rm -r family</div></pre></td></tr></table></figure></p>
+<h2 id="移动文件与文件重命名"><a href="#移动文件与文件重命名" class="headerlink" title="移动文件与文件重命名"></a>移动文件与文件重命名</h2><h3 id="移动文件"><a href="#移动文件" class="headerlink" title="移动文件"></a>移动文件</h3><p>使用<code>mv</code>(move or rename files)命令，移动文件（剪切）。将文件”file1”移动到”Documents”目录<code>mv 源目录文件 目的目录</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ mkdir Documents</div><div class="line">$ mv file1 Documents</div></pre></td></tr></table></figure></p>
+<h3 id="重命名文件"><a href="#重命名文件" class="headerlink" title="重命名文件"></a>重命名文件</h3><p>将文件”file1”重命名为”myfile” <code>mv 旧的文件名 新的文件名</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mv file1 myfile</div></pre></td></tr></table></figure></p>
+<h3 id="批量重命名"><a href="#批量重命名" class="headerlink" title="批量重命名"></a>批量重命名</h3><p>使用一个看起来更专业的命令rename来实现。不过它是要用 perl 正则表达式来作为参数，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># 使用通配符批量创建 5 个文件</div><div class="line">$ touch file&#123;1..5&#125;.txt</div><div class="line"></div><div class="line"># 批量将这 5 个后缀为 .txt 的文本文件重命名为以 .c 为后缀的文件</div><div class="line">$ rename &apos;s/\.txt/\.c/&apos; *.txt</div><div class="line"></div><div class="line"># 批量将这 5 个文件，文件名改为大写</div><div class="line">$ rename &apos;y/a-z/A-Z/&apos; *.c</div></pre></td></tr></table></figure>
+<p>rename是先使用第二个参数的通配符匹配所有后缀为.txt的文件，然后使用第一个参数提供的正则表达式将匹配的这些文件的.txt后缀替换为.c，</p>
+<h2 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h2><h3 id="使用cat-tac和nl命令查看文件"><a href="#使用cat-tac和nl命令查看文件" class="headerlink" title="使用cat,tac和nl命令查看文件"></a>使用<code>cat</code>,<code>tac</code>和<code>nl</code>命令查看文件</h3><p><code>cat</code>为正序显示，<code>tac</code>倒序显示。</p>
+<p>cat 加上<code>-n</code>参数显示行号：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cat -n passwd</div></pre></td></tr></table></figure></p>
+<p>nl 的几个参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">-b : 指定添加行号的方式，主要有两种：</div><div class="line">    -b a:表示无论是否为空行，同样列出行号(&quot;cat -n&quot;就是这种方式)</div><div class="line">    -b t:只列出非空行的编号并列出（默认为这种方式）</div><div class="line">-n : 设置行号的样式，主要有三种：</div><div class="line">    -n ln:在行号字段最左端显示</div><div class="line">    -n rn:在行号字段最右边显示，且不加 0</div><div class="line">    -n rz:在行号字段最右边显示，且加 0</div><div class="line">-w : 行号字段占用的位数(默认为 6 位)</div></pre></td></tr></table></figure></p>
+<h3 id="使用more和less命令分页查看文件"><a href="#使用more和less命令分页查看文件" class="headerlink" title="使用more和less命令分页查看文件"></a>使用<code>more</code>和<code>less</code>命令分页查看文件</h3><p>使用<code>more</code>工具打开<code>passwd</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ more passwd</div></pre></td></tr></table></figure></p>
+<p>可以使用Enter键向下滚动一行，使用Space键向下滚动一屏，按下h显示帮助，q退出。</p>
+<h3 id="使用head和tail命令查看文件"><a href="#使用head和tail命令查看文件" class="headerlink" title="使用head和tail命令查看文件"></a>使用<code>head</code>和<code>tail</code>命令查看文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tail /etc/passwd</div></pre></td></tr></table></figure>
+<p>加上-n参数，后面紧跟行数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tail -n 1 /etc/passwd</div></pre></td></tr></table></figure></p>
+<h2 id="查看文件类型"><a href="#查看文件类型" class="headerlink" title="查看文件类型"></a>查看文件类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ file /bin/ls</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;一些常用快捷键&quot;&gt;&lt;a href=&quot;#一些常用快捷键&quot; class=&quot;headerlink&quot; title=&quot;一些常用快捷键&quot;&gt;&lt;/a&gt;一些常用快捷键&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;按键&lt;/th&gt;
+&lt;th style=&quot;text-alig
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>百度杯CTF比赛Writeup</title>
