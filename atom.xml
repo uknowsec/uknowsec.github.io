@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknow.top/"/>
-  <updated>2016-09-10T09:53:39.610Z</updated>
+  <updated>2016-09-10T15:09:54.129Z</updated>
   <id>http://uknow.top/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://uknow.top/undefined/Vim%E7%BC%96%E8%BE%91%E5%99%A8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B020160910/"/>
     <id>http://uknow.top/undefined/Vim编辑器-学习笔记20160910/</id>
     <published>2016-09-10T08:30:50.000Z</published>
-    <updated>2016-09-10T09:53:39.610Z</updated>
+    <updated>2016-09-10T15:09:54.129Z</updated>
     
     <content type="html"><![CDATA[<h1 id="vim快速入门"><a href="#vim快速入门" class="headerlink" title="vim快速入门"></a>vim快速入门</h1><h2 id="vim模式介绍"><a href="#vim模式介绍" class="headerlink" title="vim模式介绍"></a>vim模式介绍</h2><p>以下介绍内容来自维基百科<a href="http://zh.wikipedia.org/wiki/Vim" target="_blank" rel="external">Vim</a></p>
 <p>从vi演生出来的Vim具有多种模式，这种独特的设计容易使初学者产生混淆。几乎所有的编辑器都会有插入和执行命令两种模式，并且大多数的编辑器使用了与Vim截然不同的方式：命令目录（鼠标或者键盘驱动），组合键（通常通过control键（CTRL）和alt键（ALT）组成）或者鼠标输入。Vim和vi一样，仅仅通过键盘来在这些模式之中切换。这就使得Vim可以不用进行菜单或者鼠标操作，并且最小化组合键的操作。对文字录入员或者程序员可以大大增强速度和效率。</p>
@@ -230,6 +230,225 @@
 </tbody>
 </table>
 <p>在命令之前加上数字，表示一次删除多行<br><code>2dd</code>表示一次删除2行</p>
+<h1 id="Vim文档编辑"><a href="#Vim文档编辑" class="headerlink" title="Vim文档编辑"></a>Vim文档编辑</h1><h2 id="vim重复命令"><a href="#vim重复命令" class="headerlink" title="vim重复命令"></a>vim重复命令</h2><h3 id="重复执行上次命令"><a href="#重复执行上次命令" class="headerlink" title="重复执行上次命令"></a>重复执行上次命令</h3><p>在普通模式下<code>.</code>（小数点）表示重复上次的命令操作</p>
+<h3 id="执行指定次数相同的命令"><a href="#执行指定次数相同的命令" class="headerlink" title="执行指定次数相同的命令"></a>执行指定次数相同的命令</h3><p>普通模式输入<code>N&lt;command&gt;</code>,N表示重复后面的次数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">10x  #删除10个连续字符</div><div class="line">3dd  #删除3行文本</div><div class="line">dw   #删除一个单词</div><div class="line">dnw  #删除n个单词</div></pre></td></tr></table></figure>
+<h2 id="游标的快速跳转"><a href="#游标的快速跳转" class="headerlink" title="游标的快速跳转"></a>游标的快速跳转</h2><h3 id="行间跳转"><a href="#行间跳转" class="headerlink" title="行间跳转"></a>行间跳转</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nG(n Shift+g)</td>
+<td style="text-align:left">游标移动到第 n 行(如果默认没有显示行号，请先进入命令模式，输入:set nu以显示行号)</td>
+</tr>
+<tr>
+<td>gg</td>
+<td style="text-align:left">删除游标所在前一个字符</td>
+</tr>
+<tr>
+<td>G(Shift+g)</td>
+<td style="text-align:left">到最后一行</td>
+</tr>
+</tbody>
+</table>
+<p>使用Ctrl+o快速回到上一次(跳转前)光标所在位置</p>
+<h3 id="行内跳转"><a href="#行内跳转" class="headerlink" title="行内跳转"></a>行内跳转</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>w</td>
+<td style="text-align:left">到下一个单词的开头</td>
+</tr>
+<tr>
+<td>e</td>
+<td style="text-align:left">到下一个单词的结尾</td>
+</tr>
+<tr>
+<td>b</td>
+<td style="text-align:left">到前一个单词的开头</td>
+</tr>
+<tr>
+<td>ge</td>
+<td style="text-align:left">到前一个单词的结尾</td>
+</tr>
+<tr>
+<td>0或^</td>
+<td style="text-align:left">到行头</td>
+</tr>
+<tr>
+<td>$</td>
+<td style="text-align:left">到行尾</td>
+</tr>
+<tr>
+<td>f&lt;字母&gt;</td>
+<td style="text-align:left">向后搜索&lt;字母&gt;并跳转到第一个匹配的位置(非常实用)</td>
+</tr>
+<tr>
+<td>F&lt;字母&gt;</td>
+<td style="text-align:left">向前搜索&lt;字母&gt;并跳转到第一个匹配的位置</td>
+</tr>
+<tr>
+<td>t&lt;字母&gt;</td>
+<td style="text-align:left">向后搜索&lt;字母&gt;并跳转到第一个匹配位置之前的一个字母(不常用)</td>
+</tr>
+<tr>
+<td>T&lt;字母&gt;</td>
+<td style="text-align:left">向前搜索&lt;字母&gt;并跳转到第一个匹配位置之后的一个字母(不常用)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="复制粘贴和剪切"><a href="#复制粘贴和剪切" class="headerlink" title="复制粘贴和剪切"></a>复制粘贴和剪切</h2><h3 id="复制及粘贴文本"><a href="#复制及粘贴文本" class="headerlink" title="复制及粘贴文本"></a>复制及粘贴文本</h3><p>普通模式中使用<code>y</code>复制</p>
+<ul>
+<li>普通模式中，<code>yy</code>复制游标所在的整行（<code>3yy</code>表示复制3行）</li>
+<li>普通模式中，<code>y^</code> 复制至行首，或<code>y0</code>。不含光标所在处字符。</li>
+<li>普通模式中，<code>y$</code> 复制至行尾。含光所在处字符。</li>
+<li>普通模式中，<code>yw</code> 复制一个单词。</li>
+<li>普通模式中，<code>y2w</code> 复制两个单词。</li>
+<li>普通模式中，<code>yG</code> 复制至文本末。</li>
+<li>普通模式中，<code>y1G</code> 复制至文本开头。</li>
+</ul>
+<p>普通模式中使用<code>p</code>粘贴</p>
+<ul>
+<li>普通模式中，<code>p</code>(小写)代表粘贴至光标后（下）</li>
+<li>普通模式中，<code>P</code>(大写)代表粘贴至光标前（上）</li>
+</ul>
+<h3 id="剪切及粘贴"><a href="#剪切及粘贴" class="headerlink" title="剪切及粘贴"></a>剪切及粘贴</h3><p><code>dd</code>剪切，每次<code>dd</code>后可以用<code>p</code>粘贴</p>
+<h1 id="查找替换"><a href="#查找替换" class="headerlink" title="查找替换"></a>查找替换</h1><h2 id="字符的替换及撤销（Undo操作）"><a href="#字符的替换及撤销（Undo操作）" class="headerlink" title="字符的替换及撤销（Undo操作）"></a>字符的替换及撤销（Undo操作）</h2><h3 id="替换和撤销（Undo-命令"><a href="#替换和撤销（Undo-命令" class="headerlink" title="替换和撤销（Undo)命令"></a>替换和撤销（Undo)命令</h3><p>替换和Undo命令都是针对普通模式下的操作</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r+&lt;待替换字母&gt;</td>
+<td style="text-align:left">将游标所在字母替换为指定字母</td>
+</tr>
+<tr>
+<td>R</td>
+<td style="text-align:left">连续替换，直到按下Esc</td>
+</tr>
+<tr>
+<td>cc</td>
+<td style="text-align:left">替换整行，即删除游标所在行，并进入插入模式</td>
+</tr>
+<tr>
+<td>cw</td>
+<td style="text-align:left">替换一个单词，即删除一个单词，并进入插入模式</td>
+</tr>
+<tr>
+<td>C(大写)</td>
+<td style="text-align:left">替换游标以后至行末</td>
+</tr>
+<tr>
+<td>~</td>
+<td style="text-align:left">反转游标所在字母大小写</td>
+</tr>
+<tr>
+<td>u{n}</td>
+<td style="text-align:left">撤销一次或n次操作</td>
+</tr>
+<tr>
+<td>U(大写)</td>
+<td style="text-align:left">撤销当前行的所有修改</td>
+</tr>
+<tr>
+<td>Ctrl+r</td>
+<td style="text-align:left">redo，即撤销undo的操作</td>
+</tr>
+</tbody>
+</table>
+<h2 id="快速缩进"><a href="#快速缩进" class="headerlink" title="快速缩进"></a>快速缩进</h2><h3 id="使用命令进行快速调整缩进操作"><a href="#使用命令进行快速调整缩进操作" class="headerlink" title="使用命令进行快速调整缩进操作"></a>使用命令进行快速调整缩进操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;    #整行将向缩进</div><div class="line">&lt;&lt;    #整行向左回退</div></pre></td></tr></table></figure>
+<h3 id="shiftwidth命令"><a href="#shiftwidth命令" class="headerlink" title="shiftwidth命令"></a>shiftwidth命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">:set shiftwidth?     #获取目前的缩进字符值</div><div class="line">:set shiftwidth=10   #设置缩进字符值为10</div></pre></td></tr></table></figure>
+<h3 id="调整文本位置"><a href="#调整文本位置" class="headerlink" title="调整文本位置"></a>调整文本位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">:re		#居中   </div><div class="line">:ri		#靠右</div><div class="line">:le		#靠左</div></pre></td></tr></table></figure>
+<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><h3 id="快速查找"><a href="#快速查找" class="headerlink" title="快速查找"></a>快速查找</h3><p>普通模式下输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/www		#向下查找www</div><div class="line">?www 		#向上查找www</div><div class="line">n   		#进入查找后，n正向查找</div><div class="line">N   		#进入查找后，N反向查找</div></pre></td></tr></table></figure>
+<h3 id="高级查找"><a href="#高级查找" class="headerlink" title="高级查找"></a>高级查找</h3><ul>
+<li>普通模式下输入<code>\*</code>寻找游标所在处的单词</li>
+<li>普通模式下输入<code>\#</code>同上，但 <code>\*</code> 是向前（上）找，#则是向后（下）找</li>
+<li>普通模式下输入<code>g\*</code>同<code>\*</code> ，但部分符合该单词即可</li>
+<li>普通模式下输入<code>g\#</code>同<code>\#</code> ，但部分符合该单词即可</li>
+</ul>
+<h1 id="高级功能入门"><a href="#高级功能入门" class="headerlink" title="高级功能入门"></a>高级功能入门</h1><h2 id="多文件编辑"><a href="#多文件编辑" class="headerlink" title="多文件编辑"></a>多文件编辑</h2><h3 id="使用vim编辑多个文件"><a href="#使用vim编辑多个文件" class="headerlink" title="使用vim编辑多个文件"></a>使用vim编辑多个文件</h3><p>同时创建两个新文件并编辑<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vim 1.txt 2.txt</div></pre></td></tr></table></figure></p>
+<p>默认进入1.txt文件的编辑界面</p>
+<ul>
+<li>命令行模式下输入:n编辑2.txt文件，可以加!即:n!强制切换，之前一个文件的输入没有保存，仅仅切换到另一个文件</li>
+<li>命令行模式下输入:N编辑1.txt文件，可以加!即:N!强制切换，之前文件内的输入没有保存，仅仅是切换到另一个文件</li>
+</ul>
+<h3 id="进入vim后打开新文件"><a href="#进入vim后打开新文件" class="headerlink" title="进入vim后打开新文件"></a>进入vim后打开新文件</h3><ul>
+<li>命令行模式下输入<code>:e 3.txt</code> 打开新文件3.txt</li>
+<li>命令行模式下输入<code>:e#</code> 回到前一个文件</li>
+<li>命令行模式下输入<code>:ls</code>可以列出以前编辑过的文档</li>
+<li>命令行模式下输入<code>:b 2.txt</code>（或者编号）可以直接进入文件2.txt编辑</li>
+<li>命令行模式下输入<code>:bd 2.txt</code>（或者编号）可以删除以前编辑过的列表中的文件项目</li>
+<li>命令行模式下输入<code>:e! 4.txt</code>，新打开文件4.txt，放弃正在编辑的文件</li>
+<li>命令行模式下输入<code>:f</code> 显示正在编辑的文件名</li>
+<li>命令行模式下输入<code>:f new.txt</code>，改变正在编辑的文件名字为new.txt</li>
+</ul>
+<h3 id="恢复文件"><a href="#恢复文件" class="headerlink" title="恢复文件"></a>恢复文件</h3><p>如果因为断电等原因造成文档没有保存，可以采用恢复方式，<code>vim -r</code>进入文档后，输入<code>:ewcover 1.txt</code>来恢复<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vim -r 1.txt</div></pre></td></tr></table></figure></p>
+<h2 id="可视模式"><a href="#可视模式" class="headerlink" title="可视模式"></a>可视模式</h2><h3 id="可视模式命令简介"><a href="#可视模式命令简介" class="headerlink" title="可视模式命令简介"></a>可视模式命令简介</h3><ul>
+<li>在普通模式下输入<code>v</code>（小写），进入字符选择模式，就可以移动光标，光标走过的地方就会选取。再次按下v会后就会取消选取。</li>
+<li>在普通模式下输入<code>Shift+v</code>（小写），进入行选择模式，按下V之后就会把整行选取，您可以上下移动光标选更多的行，同样，再按一次<code>Shift+v</code>就可以取消选取。</li>
+<li>在普通模式下输入 <code>Ctrl+v</code>（小写），这是区域选择模式，可以进行矩形区域选择，再按一次<code>Ctrl+v</code>取消选取。</li>
+<li>在普通模式下输入<code>d</code>删除选取区域内容</li>
+<li>在普通模式下输入<code>y</code>复制选取区域内容</li>
+</ul>
+<h2 id="视窗操作"><a href="#视窗操作" class="headerlink" title="视窗操作"></a>视窗操作</h2><h3 id="视窗操作简介"><a href="#视窗操作简介" class="headerlink" title="视窗操作简介"></a>视窗操作简介</h3><p>vim可以在一个界面里打开多个窗口进行编辑，这些编辑窗口称为vim的视窗。<br>打开方法有很多种，例如可以使用在命令行模式下输入<code>:new</code> 打开一个新的vim视窗，并进入视窗编辑一个新文件（普通模式下输入<code>Ctrl+w</code>也可以,但是<code>Ctrl+w</code>在chrome下会与chrome关闭标签页的快捷键冲突，所以使用该快捷键你可以在IE或其它浏览器进行练习），除了<code>:new</code>命令，下述列举的多种方法也可以在命令模式或普通模式下打开新的视窗：</p>
+<ul>
+<li>命令行模式下输入<code>:sp 1.txt</code> 打开新的横向视窗来编辑1.txt</li>
+<li>命令行模式下输入<code>:vsp 2.txt</code> 打开新的纵向视窗来编辑1.txt</li>
+<li>普通模式下<code>Ctrl-w s</code> 将当前窗口分割成两个水平的窗口</li>
+<li>普通模式下<code>Ctrl-w v</code> 将当前窗口分割成两个垂直的窗口</li>
+<li>普通模式下<code>Ctrl-w q</code>  即 :q 结束分割出来的视窗。如果在新视窗中有输入需要使用强制符！即:q!</li>
+<li>普通模式下<code>Ctrl-w o</code> 打开一个视窗并且隐藏之前的所有视窗</li>
+<li>普通模式下<code>Ctrl-w j</code> 移至下面视窗</li>
+<li>普通模式下<code>Ctrl-w k</code> 移至上面视窗</li>
+<li>普通模式下<code>Ctrl-w h</code> 移至左边视窗</li>
+<li>普通模式下<code>Ctrl-w l</code> 移至右边视窗</li>
+<li>普通模式下<code>Ctrl-w J</code> 将当前视窗移至下面</li>
+<li>普通模式下<code>Ctrl-w K</code> 将当前视窗移至上面</li>
+<li>普通模式下<code>Ctrl-w H</code> 将当前视窗移至左边</li>
+<li>普通模式下<code>Ctrl-w L</code> 将当前视窗移至右边</li>
+<li>普通模式下<code>Ctrl-w -</code> 减小视窗的高度</li>
+<li>普通模式下<code>Ctrl-w +</code> 增加视窗的高度</li>
+</ul>
+<h2 id="文档加密"><a href="#文档加密" class="headerlink" title="文档加密"></a>文档加密</h2><h3 id="创建加密文档"><a href="#创建加密文档" class="headerlink" title="创建加密文档"></a>创建加密文档</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vim -x file1</div></pre></td></tr></table></figure>
+<h2 id="在vim执行外部命令"><a href="#在vim执行外部命令" class="headerlink" title="在vim执行外部命令"></a>在vim执行外部命令</h2><h2 id="在vim执行外部命令-1"><a href="#在vim执行外部命令-1" class="headerlink" title="在vim执行外部命令"></a>在vim执行外部命令</h2><p>在命令行模式中输入<code>!</code>可以执行外部的shell命令</p>
+<ul>
+<li><code>:!ls</code>  用于显示当前目录的内容</li>
+<li><code>:!rm FILENAME</code>用于删除名为 FILENAME 的文件</li>
+<li><code>:w FILENAME</code>可将当前 VIM 中正在编辑的文件另存为 FILENAME 文件</li>
+</ul>
+<h2 id="帮助系统"><a href="#帮助系统" class="headerlink" title="帮助系统"></a>帮助系统</h2><h3 id="vim中的查看帮助"><a href="#vim中的查看帮助" class="headerlink" title="vim中的查看帮助"></a>vim中的查看帮助</h3><ul>
+<li>普通模式下按<code>F1</code>打开<code>vim</code>自己预设的帮助文档</li>
+<li>命令行模式下输入<code>:h shiftwidth</code> 打开名为<code>shiftwidth</code>的帮助文件</li>
+<li>命令行模式下输入<code>:ver</code> 显示版本及参数</li>
+</ul>
+<h2 id="功能设定"><a href="#功能设定" class="headerlink" title="功能设定"></a>功能设定</h2><h3 id="vim的功能设定"><a href="#vim的功能设定" class="headerlink" title="vim的功能设定"></a>vim的功能设定</h3><p>可以在编辑文件的时候进行功能设定，如命令行模式下输入<code>:set nu</code>（显示行数），设定值退出vim后不会保存。要永久保存配置需要修改vim配置文件。<br>vim的配置文件<code>~/.vimrc</code>，可以打开文件进行修改，不过务必小心不要影响vim正常使用</p>
+<h3 id="获取目前的设定"><a href="#获取目前的设定" class="headerlink" title="获取目前的设定"></a>获取目前的设定</h3><ul>
+<li>命令行模式下输入<code>:set</code>或者<code>:se</code>显示所有修改过的配置</li>
+<li>命令行模式下输入<code>:set all</code> 显示所有的设定值</li>
+<li>命令行模式下输入<code>:set option?</code> 显示option的设定值</li>
+<li>命令行模式下输入<code>:set nooption</code> 取消当期设定值</li>
+</ul>
+<h3 id="set功能的说明"><a href="#set功能的说明" class="headerlink" title="set功能的说明"></a>set功能的说明</h3><ul>
+<li>命令行模式下输入<code>:set autoindent(ai)</code> 设置自动缩进</li>
+<li>命令行模式下输入<code>:set autowrite(aw)</code> 设置自动存档，默认未打开</li>
+<li>命令行模式下输入<code>:set background=dark</code>或<code>light</code>，设置背景风格</li>
+<li>命令行模式下输入<code>:set backup(bk)</code> 设置自动备份，默认未打开</li>
+<li>命令行模式下输入<code>: set cindent(cin)</code> 设置C语言风格缩进</li>
+</ul>
 ]]></content>
     
     <summary type="html">
@@ -246,9 +465,9 @@
     <link href="http://uknow.top/undefined/Linux%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B020160910/"/>
     <id>http://uknow.top/undefined/Linux基础入门笔记20160910/</id>
     <published>2016-09-10T06:33:17.000Z</published>
-    <updated>2016-09-10T08:26:56.121Z</updated>
+    <updated>2016-09-10T15:14:11.078Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="一些常用快捷键"><a href="#一些常用快捷键" class="headerlink" title="一些常用快捷键"></a>一些常用快捷键</h2><table>
+    <content type="html"><![CDATA[<h1 id="基本概念及操作"><a href="#基本概念及操作" class="headerlink" title="基本概念及操作"></a>基本概念及操作</h1><h2 id="一些常用快捷键"><a href="#一些常用快捷键" class="headerlink" title="一些常用快捷键"></a>一些常用快捷键</h2><table>
 <thead>
 <tr>
 <th>按键</th>
@@ -332,7 +551,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="查看用户"><a href="#查看用户" class="headerlink" title="查看用户"></a>查看用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ who am i</div><div class="line"></div><div class="line">或者</div><div class="line"></div><div class="line">$ who mom likes</div></pre></td></tr></table></figure>
+<h1 id="用户及文件权限管理"><a href="#用户及文件权限管理" class="headerlink" title="用户及文件权限管理"></a>用户及文件权限管理</h1><h2 id="查看用户"><a href="#查看用户" class="headerlink" title="查看用户"></a>查看用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ who am i</div><div class="line"></div><div class="line">或者</div><div class="line"></div><div class="line">$ who mom likes</div></pre></td></tr></table></figure>
 <p>who 命令其他常用参数</p>
 <table>
 <thead>
@@ -436,7 +655,7 @@
 </blockquote>
 <p><img src="https://dn-anything-about-doc.qbox.me/linux_base/4-1.png/logoblackfont" alt=""></p>
 <p>FHS 是根据以往无数 Linux 用户和开发者的经验总结出来的，并且会维持更新，FHS 依据文件系统使用的频繁与否以及是否允许用户随意改动（注意，不是不能，学习过程中，不要怕这些），将目录定义为四种交互作用的形态，如下表所示：</p><br><img src="https://dn-anything-about-doc.qbox.me/linux_base/4-2.png/logoblackfont" alt=""><p></p>
-<h2 id="目录路径"><a href="#目录路径" class="headerlink" title="目录路径"></a>目录路径</h2><h3 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h3><p>使用 <code>cd</code> 命令可以切换目录，在 Linux 里面使用 <code>.</code> 表示当前目录，<code>..</code> 表示上一级目录（**注意，还记得我们上一节介绍过的，以 <code>.</code> 开头的文件都是隐藏文件，所以这两个目录必然也是隐藏的，你可以使用 <code>ls -a</code> 命令查看隐藏文件）, <code>-</code> 表示上一次所在目录，<code>～</code> 通常表示当前用户的”home”目录。使用 <code>pwd</code> 命令可以获取当前所在路径（绝对路径）。</p><p></p>
+<h1 id="Linux目录结构及文件基本操作"><a href="#Linux目录结构及文件基本操作" class="headerlink" title="Linux目录结构及文件基本操作"></a>Linux目录结构及文件基本操作</h1><h2 id="目录路径"><a href="#目录路径" class="headerlink" title="目录路径"></a>目录路径</h2><h3 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h3><p>使用 <code>cd</code> 命令可以切换目录，在 Linux 里面使用 <code>.</code> 表示当前目录，<code>..</code> 表示上一级目录（**注意，还记得我们上一节介绍过的，以 <code>.</code> 开头的文件都是隐藏文件，所以这两个目录必然也是隐藏的，你可以使用 <code>ls -a</code> 命令查看隐藏文件）, <code>-</code> 表示上一次所在目录，<code>～</code> 通常表示当前用户的”home”目录。使用 <code>pwd</code> 命令可以获取当前所在路径（绝对路径）。</p><p></p>
 <p>进入上一级目录：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd ..</div></pre></td></tr></table></figure>
 <p> 进入你的“home”目录：</p>
@@ -470,11 +689,7 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;一些常用快捷键&quot;&gt;&lt;a href=&quot;#一些常用快捷键&quot; class=&quot;headerlink&quot; title=&quot;一些常用快捷键&quot;&gt;&lt;/a&gt;一些常用快捷键&lt;/h2&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;按键&lt;/th&gt;
-&lt;th style=&quot;text-alig
+      &lt;h1 id=&quot;基本概念及操作&quot;&gt;&lt;a href=&quot;#基本概念及操作&quot; class=&quot;headerlink&quot; title=&quot;基本概念及操作&quot;&gt;&lt;/a&gt;基本概念及操作&lt;/h1&gt;&lt;h2 id=&quot;一些常用快捷键&quot;&gt;&lt;a href=&quot;#一些常用快捷键&quot; class=&quot;headerlink
     
     </summary>
     

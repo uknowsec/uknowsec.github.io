@@ -59,7 +59,7 @@
 
 
 
-<meta name="description" content="一些常用快捷键
+<meta name="description" content="基本概念及操作一些常用快捷键
 
 
 按键
@@ -92,13 +92,12 @@ Ctrl+k
 删除从光标所在位置到行末
 
 
-Alt+Backspace
-向前删除一个单">
+Alt+Backspace">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux基础入门笔记">
 <meta property="og:url" content="http://uknow.top/undefined/Linux基础入门笔记20160910/index.html">
 <meta property="og:site_name" content="Uknow’s Blog">
-<meta property="og:description" content="一些常用快捷键
+<meta property="og:description" content="基本概念及操作一些常用快捷键
 
 
 按键
@@ -131,17 +130,16 @@ Ctrl+k
 删除从光标所在位置到行末
 
 
-Alt+Backspace
-向前删除一个单">
+Alt+Backspace">
 <meta property="og:image" content="https://dn-anything-about-doc.qbox.me/linux_base/3-9.png/logoblackfont">
 <meta property="og:image" content="https://dn-anything-about-doc.qbox.me/linux_base/3-10.png/logoblackfont">
 <meta property="og:image" content="https://dn-anything-about-doc.qbox.me/linux_base/3-14.png/logoblackfont">
 <meta property="og:image" content="https://dn-anything-about-doc.qbox.me/linux_base/4-1.png/logoblackfont">
 <meta property="og:image" content="https://dn-anything-about-doc.qbox.me/linux_base/4-2.png/logoblackfont">
-<meta property="og:updated_time" content="2016-09-10T08:26:56.121Z">
+<meta property="og:updated_time" content="2016-09-10T15:14:11.078Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux基础入门笔记">
-<meta name="twitter:description" content="一些常用快捷键
+<meta name="twitter:description" content="基本概念及操作一些常用快捷键
 
 
 按键
@@ -174,8 +172,7 @@ Ctrl+k
 删除从光标所在位置到行末
 
 
-Alt+Backspace
-向前删除一个单">
+Alt+Backspace">
 <meta name="twitter:image" content="https://dn-anything-about-doc.qbox.me/linux_base/3-9.png/logoblackfont">
 
 
@@ -402,7 +399,7 @@ Alt+Backspace
       
 
       
-        <h2 id="一些常用快捷键"><a href="#一些常用快捷键" class="headerlink" title="一些常用快捷键"></a>一些常用快捷键</h2><table>
+        <h1 id="基本概念及操作"><a href="#基本概念及操作" class="headerlink" title="基本概念及操作"></a>基本概念及操作</h1><h2 id="一些常用快捷键"><a href="#一些常用快捷键" class="headerlink" title="一些常用快捷键"></a>一些常用快捷键</h2><table>
 <thead>
 <tr>
 <th>按键</th>
@@ -486,7 +483,7 @@ Alt+Backspace
 </tr>
 </tbody>
 </table>
-<h2 id="查看用户"><a href="#查看用户" class="headerlink" title="查看用户"></a>查看用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ who am i</div><div class="line"></div><div class="line">或者</div><div class="line"></div><div class="line">$ who mom likes</div></pre></td></tr></table></figure>
+<h1 id="用户及文件权限管理"><a href="#用户及文件权限管理" class="headerlink" title="用户及文件权限管理"></a>用户及文件权限管理</h1><h2 id="查看用户"><a href="#查看用户" class="headerlink" title="查看用户"></a>查看用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ who am i</div><div class="line"></div><div class="line">或者</div><div class="line"></div><div class="line">$ who mom likes</div></pre></td></tr></table></figure>
 <p>who 命令其他常用参数</p>
 <table>
 <thead>
@@ -590,7 +587,7 @@ Alt+Backspace
 </blockquote>
 <p><img src="https://dn-anything-about-doc.qbox.me/linux_base/4-1.png/logoblackfont" alt=""></p>
 <p>FHS 是根据以往无数 Linux 用户和开发者的经验总结出来的，并且会维持更新，FHS 依据文件系统使用的频繁与否以及是否允许用户随意改动（注意，不是不能，学习过程中，不要怕这些），将目录定义为四种交互作用的形态，如下表所示：</p><br><img src="https://dn-anything-about-doc.qbox.me/linux_base/4-2.png/logoblackfont" alt=""><p></p>
-<h2 id="目录路径"><a href="#目录路径" class="headerlink" title="目录路径"></a>目录路径</h2><h3 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h3><p>使用 <code>cd</code> 命令可以切换目录，在 Linux 里面使用 <code>.</code> 表示当前目录，<code>..</code> 表示上一级目录（**注意，还记得我们上一节介绍过的，以 <code>.</code> 开头的文件都是隐藏文件，所以这两个目录必然也是隐藏的，你可以使用 <code>ls -a</code> 命令查看隐藏文件）, <code>-</code> 表示上一次所在目录，<code>～</code> 通常表示当前用户的”home”目录。使用 <code>pwd</code> 命令可以获取当前所在路径（绝对路径）。</p><p></p>
+<h1 id="Linux目录结构及文件基本操作"><a href="#Linux目录结构及文件基本操作" class="headerlink" title="Linux目录结构及文件基本操作"></a>Linux目录结构及文件基本操作</h1><h2 id="目录路径"><a href="#目录路径" class="headerlink" title="目录路径"></a>目录路径</h2><h3 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h3><p>使用 <code>cd</code> 命令可以切换目录，在 Linux 里面使用 <code>.</code> 表示当前目录，<code>..</code> 表示上一级目录（**注意，还记得我们上一节介绍过的，以 <code>.</code> 开头的文件都是隐藏文件，所以这两个目录必然也是隐藏的，你可以使用 <code>ls -a</code> 命令查看隐藏文件）, <code>-</code> 表示上一次所在目录，<code>～</code> 通常表示当前用户的”home”目录。使用 <code>pwd</code> 命令可以获取当前所在路径（绝对路径）。</p><p></p>
 <p>进入上一级目录：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd ..</div></pre></td></tr></table></figure>
 <p> 进入你的“home”目录：</p>
@@ -812,7 +809,7 @@ Alt+Backspace
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些常用快捷键"><span class="nav-number">1.</span> <span class="nav-text">一些常用快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell常用通配符"><span class="nav-number">2.</span> <span class="nav-text">Shell常用通配符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看用户"><span class="nav-number">3.</span> <span class="nav-text">查看用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建用户"><span class="nav-number">4.</span> <span class="nav-text">创建用户</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#su-su-与sudo"><span class="nav-number">4.1.</span> <span class="nav-text">su,su-与sudo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户组"><span class="nav-number">5.</span> <span class="nav-text">用户组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看所属用户组"><span class="nav-number">5.1.</span> <span class="nav-text">查看所属用户组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-group-文件格式说明"><span class="nav-number">5.2.</span> <span class="nav-text">etc/group 文件格式说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将其它用户加入-sudo-用户组"><span class="nav-number">5.3.</span> <span class="nav-text">将其它用户加入 sudo 用户组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除用户"><span class="nav-number">6.</span> <span class="nav-text">删除用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件权限"><span class="nav-number">7.</span> <span class="nav-text">查看文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文件权限"><span class="nav-number">8.</span> <span class="nav-text">修改文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FHS"><span class="nav-number">9.</span> <span class="nav-text">FHS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录路径"><span class="nav-number">10.</span> <span class="nav-text">目录路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路径"><span class="nav-number">10.1.</span> <span class="nav-text">路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绝对路径"><span class="nav-number">10.2.</span> <span class="nav-text">绝对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相对路径"><span class="nav-number">10.3.</span> <span class="nav-text">相对路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建"><span class="nav-number">11.</span> <span class="nav-text">新建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建空白文件"><span class="nav-number">11.1.</span> <span class="nav-text">新建空白文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建目录"><span class="nav-number">11.2.</span> <span class="nav-text">新建目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制"><span class="nav-number">12.</span> <span class="nav-text">复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复制文件"><span class="nav-number">12.1.</span> <span class="nav-text">复制文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制目录"><span class="nav-number">12.2.</span> <span class="nav-text">复制目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除"><span class="nav-number">13.</span> <span class="nav-text">删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文件"><span class="nav-number">13.1.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除目录"><span class="nav-number">13.2.</span> <span class="nav-text">删除目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动文件与文件重命名"><span class="nav-number">14.</span> <span class="nav-text">移动文件与文件重命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移动文件"><span class="nav-number">14.1.</span> <span class="nav-text">移动文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重命名文件"><span class="nav-number">14.2.</span> <span class="nav-text">重命名文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量重命名"><span class="nav-number">14.3.</span> <span class="nav-text">批量重命名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件"><span class="nav-number">15.</span> <span class="nav-text">查看文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用cat-tac和nl命令查看文件"><span class="nav-number">15.1.</span> <span class="nav-text">使用cat,tac和nl命令查看文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用more和less命令分页查看文件"><span class="nav-number">15.2.</span> <span class="nav-text">使用more和less命令分页查看文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用head和tail命令查看文件"><span class="nav-number">15.3.</span> <span class="nav-text">使用head和tail命令查看文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件类型"><span class="nav-number">16.</span> <span class="nav-text">查看文件类型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念及操作"><span class="nav-number">1.</span> <span class="nav-text">基本概念及操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些常用快捷键"><span class="nav-number">1.1.</span> <span class="nav-text">一些常用快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell常用通配符"><span class="nav-number">1.2.</span> <span class="nav-text">Shell常用通配符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户及文件权限管理"><span class="nav-number">2.</span> <span class="nav-text">用户及文件权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看用户"><span class="nav-number">2.1.</span> <span class="nav-text">查看用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建用户"><span class="nav-number">2.2.</span> <span class="nav-text">创建用户</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#su-su-与sudo"><span class="nav-number">2.2.1.</span> <span class="nav-text">su,su-与sudo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户组"><span class="nav-number">2.3.</span> <span class="nav-text">用户组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看所属用户组"><span class="nav-number">2.3.1.</span> <span class="nav-text">查看所属用户组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-group-文件格式说明"><span class="nav-number">2.3.2.</span> <span class="nav-text">etc/group 文件格式说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将其它用户加入-sudo-用户组"><span class="nav-number">2.3.3.</span> <span class="nav-text">将其它用户加入 sudo 用户组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除用户"><span class="nav-number">2.4.</span> <span class="nav-text">删除用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件权限"><span class="nav-number">2.5.</span> <span class="nav-text">查看文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文件权限"><span class="nav-number">2.6.</span> <span class="nav-text">修改文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FHS"><span class="nav-number">2.7.</span> <span class="nav-text">FHS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux目录结构及文件基本操作"><span class="nav-number">3.</span> <span class="nav-text">Linux目录结构及文件基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录路径"><span class="nav-number">3.1.</span> <span class="nav-text">目录路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路径"><span class="nav-number">3.1.1.</span> <span class="nav-text">路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绝对路径"><span class="nav-number">3.1.2.</span> <span class="nav-text">绝对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相对路径"><span class="nav-number">3.1.3.</span> <span class="nav-text">相对路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建"><span class="nav-number">3.2.</span> <span class="nav-text">新建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建空白文件"><span class="nav-number">3.2.1.</span> <span class="nav-text">新建空白文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建目录"><span class="nav-number">3.2.2.</span> <span class="nav-text">新建目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制"><span class="nav-number">3.3.</span> <span class="nav-text">复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复制文件"><span class="nav-number">3.3.1.</span> <span class="nav-text">复制文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制目录"><span class="nav-number">3.3.2.</span> <span class="nav-text">复制目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除"><span class="nav-number">3.4.</span> <span class="nav-text">删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文件"><span class="nav-number">3.4.1.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除目录"><span class="nav-number">3.4.2.</span> <span class="nav-text">删除目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动文件与文件重命名"><span class="nav-number">3.5.</span> <span class="nav-text">移动文件与文件重命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移动文件"><span class="nav-number">3.5.1.</span> <span class="nav-text">移动文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重命名文件"><span class="nav-number">3.5.2.</span> <span class="nav-text">重命名文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量重命名"><span class="nav-number">3.5.3.</span> <span class="nav-text">批量重命名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件"><span class="nav-number">3.6.</span> <span class="nav-text">查看文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用cat-tac和nl命令查看文件"><span class="nav-number">3.6.1.</span> <span class="nav-text">使用cat,tac和nl命令查看文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用more和less命令分页查看文件"><span class="nav-number">3.6.2.</span> <span class="nav-text">使用more和less命令分页查看文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用head和tail命令查看文件"><span class="nav-number">3.6.3.</span> <span class="nav-text">使用head和tail命令查看文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件类型"><span class="nav-number">3.7.</span> <span class="nav-text">查看文件类型</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
