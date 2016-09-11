@@ -136,7 +136,11 @@ Alt+Backspace">
 <meta property="og:image" content="https://dn-anything-about-doc.qbox.me/linux_base/3-14.png/logoblackfont">
 <meta property="og:image" content="https://dn-anything-about-doc.qbox.me/linux_base/4-1.png/logoblackfont">
 <meta property="og:image" content="https://dn-anything-about-doc.qbox.me/linux_base/4-2.png/logoblackfont">
-<meta property="og:updated_time" content="2016-09-10T15:14:11.078Z">
+<meta property="og:image" content="https://dn-anything-about-doc.qbox.me/linux_base/5-2.png/logoblackfont">
+<meta property="og:image" content="https://dn-anything-about-doc.qbox.me/linux_base/5-3.png/logoblackfont">
+<meta property="og:image" content="https://dn-anything-about-doc.qbox.me/linux_base/5-5.png/logoblackfont">
+<meta property="og:image" content="https://dn-anything-about-doc.qbox.me/linux_base/5-8.png">
+<meta property="og:updated_time" content="2016-09-11T04:36:20.678Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux基础入门笔记">
 <meta name="twitter:description" content="基本概念及操作一些常用快捷键
@@ -562,8 +566,9 @@ Alt+Backspace">
 </ul>
 <p>明白了文件权限的一些概念，我们顺带补充一下关于 <code>ls</code> 命令的一些其它常用的用法：</p>
 <p><ul></ul></p>
+<ul>
 <li>显示除了 ‘.’(当前目录)，’..’ 上一级目录之外的所有包含隐藏文件（Linux 下以 ‘.’ 开头的文件为隐藏文件）</li>
-
+</ul>
 <p>可以同时使用“-A”和“-l”参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ls -Al</div></pre></td></tr></table></figure></p>
 <p>查看某一个目录的完整属性，而不是显示目录里面的文件属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ls -dl &lt;目录名&gt;</div></pre></td></tr></table></figure></p>
 <p>显示所有文件的大小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ls -AsSh</div></pre></td></tr></table></figure></p>
@@ -617,6 +622,122 @@ Alt+Backspace">
 <h3 id="使用head和tail命令查看文件"><a href="#使用head和tail命令查看文件" class="headerlink" title="使用head和tail命令查看文件"></a>使用<code>head</code>和<code>tail</code>命令查看文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tail /etc/passwd</div></pre></td></tr></table></figure>
 <p>加上-n参数，后面紧跟行数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tail -n 1 /etc/passwd</div></pre></td></tr></table></figure></p>
 <h2 id="查看文件类型"><a href="#查看文件类型" class="headerlink" title="查看文件类型"></a>查看文件类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ file /bin/ls</div></pre></td></tr></table></figure>
+<h1 id="环境变量与文件查找"><a href="#环境变量与文件查找" class="headerlink" title="环境变量与文件查找"></a>环境变量与文件查找</h1><h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ declare tmp      #使用declare命令创建一个变量名为tmp的变量</div><div class="line">$ tmp=shiyanlou    #使用=号赋值运算符为变量 tmp 赋值为 shiyanlou</div><div class="line">$ echo $tmp        #读取变量的值，使用echo命令和$符号</div></pre></td></tr></table></figure>
+<p>注意:关于变量名，并不是任何形式的变量名都是可用的，变量名只能是英文字母,数字或者下划线，且不能以数字作为开头</p>
+<h3 id="环境变量-1"><a href="#环境变量-1" class="headerlink" title="环境变量"></a>环境变量</h3><p>在所有的 UNIX 和类 UNIX 系统中，每个进程都有其各自的环境变量设置，且默认情况下，当一个进程被创建时，处理创建过程中明确指定的话，它将继承其父进程的绝大部分环境设置。Shell 程序也作为一个进程运行在操作系统之上，而我们在  Shell中运行的大部分命令都将以 Shell 的子进程的方式运行。</p><br><img src="https://dn-anything-about-doc.qbox.me/linux_base/5-2.png/logoblackfont" alt=""><p></p>
+<p>环境变量有三种：</p>
+<ul>
+<li>当前 Shell 进程私有用户自定义变量，如上面我们创建的 temp 变量，只在当前 Shell 中有效。</li>
+<li>Shell 本身内建的变量。</li>
+<li>从自定义变量导出的环境变量。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>set</td>
+<td style="text-align:left">显示当前 Shell 所有环境变量，包括其内建环境变量（与 Shell 外观等相关），用户自定义变量及导出的环境变量</td>
+</tr>
+<tr>
+<td>env</td>
+<td style="text-align:left">显示与当前用户相关的环境变量，还可以让命令在指定环境中运行</td>
+</tr>
+<tr>
+<td>export</td>
+<td style="text-align:left">显示从 Shell 中导出成环境变量的变量，也能通过它将自定义变量导出为环境变量</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://dn-anything-about-doc.qbox.me/linux_base/5-3.png/logoblackfont" alt=""></p>
+<p><img src="https://dn-anything-about-doc.qbox.me/linux_base/5-5.png/logoblackfont" alt=""><br><strong>注意：为了与普通变量区分，通常我们习惯将环境变量名设为大写</strong></p>
+<h3 id="命令的查找路径与顺序"><a href="#命令的查找路径与顺序" class="headerlink" title="命令的查找路径与顺序"></a>命令的查找路径与顺序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ echo $PATH     #查看PATH环境变量的内容</div><div class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games</div></pre></td></tr></table></figure>
+<h3 id="添加自定义路径到”PATH”环境变量"><a href="#添加自定义路径到”PATH”环境变量" class="headerlink" title="添加自定义路径到”PATH”环境变量"></a>添加自定义路径到”PATH”环境变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ PATH=$PATH:/home/shiyanlou/mybin                     #PATH里面的路径是以：作为分隔符</div><div class="line">.zshrc      #zsh的配置文件</div><div class="line">.bashrc     #bashrc的配置文件</div><div class="line">$ echo &quot;PATH=$PATH:/home/shiyanlou/mybin&quot; &gt;&gt; .zshrc    #添加内容到.zshrc</div><div class="line">&gt;&gt;          #表示将标准输出以追加的方式重定向到一个文件中</div><div class="line">&gt;           #是以覆盖的方式重定向到一个文件</div></pre></td></tr></table></figure>
+<h3 id="修改和删除已有变量"><a href="#修改和删除已有变量" class="headerlink" title="修改和删除已有变量"></a>修改和删除已有变量</h3><h4 id="变量修改"><a href="#变量修改" class="headerlink" title="变量修改"></a>变量修改</h4><p>修改方式</p>
+<table>
+<thead>
+<tr>
+<th>变量设置方式</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>${变量名#匹配字串}</td>
+<td style="text-align:left">从头向后开始匹配，删除符合匹配字串的最短数据</td>
+</tr>
+<tr>
+<td>${变量名##匹配字串}</td>
+<td style="text-align:left">从头向后开始匹配，删除符合匹配字串的最长数据</td>
+</tr>
+<tr>
+<td>${变量名%匹配字串}</td>
+<td style="text-align:left">从尾向前开始匹配，删除符合匹配字串的最短数据</td>
+</tr>
+<tr>
+<td>${变量名%%匹配字串}</td>
+<td style="text-align:left">从尾向前开始匹配，删除符合匹配字串的最长数据</td>
+</tr>
+<tr>
+<td>${变量名/旧的字串/新的字串}</td>
+<td style="text-align:left">将符合旧字串的第一个字串替换为新的字串</td>
+</tr>
+<tr>
+<td>${变量名//旧的字串/新的字串}</td>
+<td style="text-align:left">将符合旧字串的全部字串替换为新的字串</td>
+</tr>
+</tbody>
+</table>
+<h3 id="变量删除"><a href="#变量删除" class="headerlink" title="变量删除"></a>变量删除</h3><p>可以使用<code>unset</code>命令删除一个环境变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ unset temp</div></pre></td></tr></table></figure></p>
+<h2 id="环境变量生效"><a href="#环境变量生效" class="headerlink" title="环境变量生效"></a>环境变量生效</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ source .zshrc             #使用source命令来让变量立即生效</div><div class="line">$ . ./.zshrc                # .的作用和source一样  注意：第一个点后面有一个空格，而且后面的文件必须指定完整的绝对或相对路径名</div></pre></td></tr></table></figure>
+<h2 id="搜索文件"><a href="#搜索文件" class="headerlink" title="搜索文件"></a>搜索文件</h2><p>常见的命令：<code>whereis</code>，<code>which</code>,<code>find</code>,<code>locata</code></p>
+<ul>
+<li><p><code>whereis</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$whereis who        #直接从数据库中查询，只能搜索二进制文件（-b）,man帮助文件（-m）和源代码（-s）。</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>locate</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ locate /etc/sh    #查找 /etc 下所有以 sh 开头的文件，此方式通过&quot;/var/lib/mlocate/mlocate.db&quot;数据库查找</div><div class="line">$ locate /usr/share/\*.jpg   #查找 /usr/share/ 下所有 jpg 文件（添加*号前面的反斜杠转义）</div><div class="line">-c   #统计数目</div><div class="line">-i   #忽略大小写查找</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>find</code><br>通过文件类型、文件名进行查找而且可以根据文件的属性（如文件的时间戳，文件的权限等）进行搜索</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ find /etc/ -name interfaces     #指定目录下搜索指定文件名的文件</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>注意 find 命令的路径是作为第一个参数的， 基本命令格式为 find [path] [option] [action]</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-atime</td>
+<td style="text-align:left">最后访问时间</td>
+</tr>
+<tr>
+<td>-ctime</td>
+<td style="text-align:left">创建时间</td>
+</tr>
+<tr>
+<td>-mtime</td>
+<td style="text-align:left">最后修改时间</td>
+</tr>
+</tbody>
+</table>
+<p><code>-mtime</code>参数举例：</p>
+<ul>
+<li><code>-mtime n</code>: n 为数字，表示为在n天之前的”一天之内“修改过的文件</li>
+<li><code>-mtime +n</code>: 列出在n天之前（不包含n天本身）被修改过的文件</li>
+<li><code>-mtime -n</code>: 列出在n天之内（包含n天本身）被修改过的文件</li>
+<li><code>newer file</code>: file为一个已存在的文件，列出比file还要新的文件名<br><img src="https://dn-anything-about-doc.qbox.me/linux_base/5-8.png" alt=""></li>
+</ul>
 
       
     </div>
@@ -809,7 +930,7 @@ Alt+Backspace">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念及操作"><span class="nav-number">1.</span> <span class="nav-text">基本概念及操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些常用快捷键"><span class="nav-number">1.1.</span> <span class="nav-text">一些常用快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell常用通配符"><span class="nav-number">1.2.</span> <span class="nav-text">Shell常用通配符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户及文件权限管理"><span class="nav-number">2.</span> <span class="nav-text">用户及文件权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看用户"><span class="nav-number">2.1.</span> <span class="nav-text">查看用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建用户"><span class="nav-number">2.2.</span> <span class="nav-text">创建用户</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#su-su-与sudo"><span class="nav-number">2.2.1.</span> <span class="nav-text">su,su-与sudo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户组"><span class="nav-number">2.3.</span> <span class="nav-text">用户组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看所属用户组"><span class="nav-number">2.3.1.</span> <span class="nav-text">查看所属用户组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-group-文件格式说明"><span class="nav-number">2.3.2.</span> <span class="nav-text">etc/group 文件格式说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将其它用户加入-sudo-用户组"><span class="nav-number">2.3.3.</span> <span class="nav-text">将其它用户加入 sudo 用户组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除用户"><span class="nav-number">2.4.</span> <span class="nav-text">删除用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件权限"><span class="nav-number">2.5.</span> <span class="nav-text">查看文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文件权限"><span class="nav-number">2.6.</span> <span class="nav-text">修改文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FHS"><span class="nav-number">2.7.</span> <span class="nav-text">FHS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux目录结构及文件基本操作"><span class="nav-number">3.</span> <span class="nav-text">Linux目录结构及文件基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录路径"><span class="nav-number">3.1.</span> <span class="nav-text">目录路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路径"><span class="nav-number">3.1.1.</span> <span class="nav-text">路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绝对路径"><span class="nav-number">3.1.2.</span> <span class="nav-text">绝对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相对路径"><span class="nav-number">3.1.3.</span> <span class="nav-text">相对路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建"><span class="nav-number">3.2.</span> <span class="nav-text">新建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建空白文件"><span class="nav-number">3.2.1.</span> <span class="nav-text">新建空白文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建目录"><span class="nav-number">3.2.2.</span> <span class="nav-text">新建目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制"><span class="nav-number">3.3.</span> <span class="nav-text">复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复制文件"><span class="nav-number">3.3.1.</span> <span class="nav-text">复制文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制目录"><span class="nav-number">3.3.2.</span> <span class="nav-text">复制目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除"><span class="nav-number">3.4.</span> <span class="nav-text">删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文件"><span class="nav-number">3.4.1.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除目录"><span class="nav-number">3.4.2.</span> <span class="nav-text">删除目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动文件与文件重命名"><span class="nav-number">3.5.</span> <span class="nav-text">移动文件与文件重命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移动文件"><span class="nav-number">3.5.1.</span> <span class="nav-text">移动文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重命名文件"><span class="nav-number">3.5.2.</span> <span class="nav-text">重命名文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量重命名"><span class="nav-number">3.5.3.</span> <span class="nav-text">批量重命名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件"><span class="nav-number">3.6.</span> <span class="nav-text">查看文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用cat-tac和nl命令查看文件"><span class="nav-number">3.6.1.</span> <span class="nav-text">使用cat,tac和nl命令查看文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用more和less命令分页查看文件"><span class="nav-number">3.6.2.</span> <span class="nav-text">使用more和less命令分页查看文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用head和tail命令查看文件"><span class="nav-number">3.6.3.</span> <span class="nav-text">使用head和tail命令查看文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件类型"><span class="nav-number">3.7.</span> <span class="nav-text">查看文件类型</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念及操作"><span class="nav-number">1.</span> <span class="nav-text">基本概念及操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些常用快捷键"><span class="nav-number">1.1.</span> <span class="nav-text">一些常用快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell常用通配符"><span class="nav-number">1.2.</span> <span class="nav-text">Shell常用通配符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户及文件权限管理"><span class="nav-number">2.</span> <span class="nav-text">用户及文件权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看用户"><span class="nav-number">2.1.</span> <span class="nav-text">查看用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建用户"><span class="nav-number">2.2.</span> <span class="nav-text">创建用户</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#su-su-与sudo"><span class="nav-number">2.2.1.</span> <span class="nav-text">su,su-与sudo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户组"><span class="nav-number">2.3.</span> <span class="nav-text">用户组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看所属用户组"><span class="nav-number">2.3.1.</span> <span class="nav-text">查看所属用户组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-group-文件格式说明"><span class="nav-number">2.3.2.</span> <span class="nav-text">etc/group 文件格式说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将其它用户加入-sudo-用户组"><span class="nav-number">2.3.3.</span> <span class="nav-text">将其它用户加入 sudo 用户组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除用户"><span class="nav-number">2.4.</span> <span class="nav-text">删除用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件权限"><span class="nav-number">2.5.</span> <span class="nav-text">查看文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文件权限"><span class="nav-number">2.6.</span> <span class="nav-text">修改文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FHS"><span class="nav-number">2.7.</span> <span class="nav-text">FHS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux目录结构及文件基本操作"><span class="nav-number">3.</span> <span class="nav-text">Linux目录结构及文件基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录路径"><span class="nav-number">3.1.</span> <span class="nav-text">目录路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路径"><span class="nav-number">3.1.1.</span> <span class="nav-text">路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绝对路径"><span class="nav-number">3.1.2.</span> <span class="nav-text">绝对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相对路径"><span class="nav-number">3.1.3.</span> <span class="nav-text">相对路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建"><span class="nav-number">3.2.</span> <span class="nav-text">新建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建空白文件"><span class="nav-number">3.2.1.</span> <span class="nav-text">新建空白文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建目录"><span class="nav-number">3.2.2.</span> <span class="nav-text">新建目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制"><span class="nav-number">3.3.</span> <span class="nav-text">复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复制文件"><span class="nav-number">3.3.1.</span> <span class="nav-text">复制文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制目录"><span class="nav-number">3.3.2.</span> <span class="nav-text">复制目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除"><span class="nav-number">3.4.</span> <span class="nav-text">删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文件"><span class="nav-number">3.4.1.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除目录"><span class="nav-number">3.4.2.</span> <span class="nav-text">删除目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动文件与文件重命名"><span class="nav-number">3.5.</span> <span class="nav-text">移动文件与文件重命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移动文件"><span class="nav-number">3.5.1.</span> <span class="nav-text">移动文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重命名文件"><span class="nav-number">3.5.2.</span> <span class="nav-text">重命名文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量重命名"><span class="nav-number">3.5.3.</span> <span class="nav-text">批量重命名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件"><span class="nav-number">3.6.</span> <span class="nav-text">查看文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用cat-tac和nl命令查看文件"><span class="nav-number">3.6.1.</span> <span class="nav-text">使用cat,tac和nl命令查看文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用more和less命令分页查看文件"><span class="nav-number">3.6.2.</span> <span class="nav-text">使用more和less命令分页查看文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用head和tail命令查看文件"><span class="nav-number">3.6.3.</span> <span class="nav-text">使用head和tail命令查看文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件类型"><span class="nav-number">3.7.</span> <span class="nav-text">查看文件类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境变量与文件查找"><span class="nav-number">4.</span> <span class="nav-text">环境变量与文件查找</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境变量"><span class="nav-number">4.1.</span> <span class="nav-text">环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">4.1.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量-1"><span class="nav-number">4.1.2.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令的查找路径与顺序"><span class="nav-number">4.1.3.</span> <span class="nav-text">命令的查找路径与顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加自定义路径到”PATH”环境变量"><span class="nav-number">4.1.4.</span> <span class="nav-text">添加自定义路径到”PATH”环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改和删除已有变量"><span class="nav-number">4.1.5.</span> <span class="nav-text">修改和删除已有变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变量修改"><span class="nav-number">4.1.5.1.</span> <span class="nav-text">变量修改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量删除"><span class="nav-number">4.1.6.</span> <span class="nav-text">变量删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境变量生效"><span class="nav-number">4.2.</span> <span class="nav-text">环境变量生效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索文件"><span class="nav-number">4.3.</span> <span class="nav-text">搜索文件</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
