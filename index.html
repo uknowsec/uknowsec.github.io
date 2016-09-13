@@ -1166,6 +1166,187 @@
 <li><code>-mtime -n</code>: 列出在n天之内（包含n天本身）被修改过的文件</li>
 <li><code>newer file</code>: file为一个已存在的文件，列出比file还要新的文件名<br><img src="https://dn-anything-about-doc.qbox.me/linux_base/5-8.png" alt=""></li>
 </ul>
+<h1 id="文件打包与压缩"><a href="#文件打包与压缩" class="headerlink" title="文件打包与压缩"></a>文件打包与压缩</h1><h2 id="文件打包和解压缩"><a href="#文件打包和解压缩" class="headerlink" title="文件打包和解压缩"></a>文件打包和解压缩</h2><table>
+<thead>
+<tr>
+<th>文件后缀名</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*.zip</td>
+<td style="text-align:left">zip程序打包压缩的文件</td>
+</tr>
+<tr>
+<td>*.rar</td>
+<td style="text-align:left">创建时间</td>
+</tr>
+<tr>
+<td>*.7z</td>
+<td style="text-align:left">7zip程序压缩的文件</td>
+</tr>
+<tr>
+<td>*.tar</td>
+<td style="text-align:left">tar程序打包，未压缩的文件</td>
+</tr>
+<tr>
+<td>*.gz</td>
+<td style="text-align:left">gzip程序(GNU zip)压缩的文件</td>
+</tr>
+<tr>
+<td>*.xz</td>
+<td style="text-align:left">xz程序压缩的文件</td>
+</tr>
+<tr>
+<td>*.bz2</td>
+<td style="text-align:left">bzip2程序压缩的文件</td>
+</tr>
+<tr>
+<td>*.tar.gz</td>
+<td style="text-align:left">tar打包，gzip程序压缩的文件</td>
+</tr>
+<tr>
+<td>*.tar.xz</td>
+<td style="text-align:left">tar打包，xz程序压缩的文件</td>
+</tr>
+<tr>
+<td>*tar.bz2</td>
+<td style="text-align:left">tar打包，bzip2程序压缩的文件</td>
+</tr>
+<tr>
+<td>*.tar.7z</td>
+<td style="text-align:left">tar打包，7z程序压缩的文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="zip压解打包程序"><a href="#zip压解打包程序" class="headerlink" title="zip压解打包程序"></a>zip压解打包程序</h3><ul>
+<li>使用zip打包文件包</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ zip -r -q -o shiyanlou.zip /home/shiyanlou    #-r参数表示递归打包包含子目录的全部内容，-q参数表示为安静模式，即不向屏幕输出信息，-o，表示输出文件，需在其后紧跟打包输出文件名</div><div class="line">$ du -h shiyanlou.zip    #du命令查看打包后文件的大小</div><div class="line">$ file shiyanlou.zip</div></pre></td></tr></table></figure>
+<ul>
+<li>设置压缩级别为9和1（9最大，1最小），重新打包：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ zip -r -9 -q -o shiyanlou_9.zip /home/shiyanlou -x ~/*.zip     #设置压缩级别-[1-9]</div><div class="line">$ zip -r -1 -q -o shiyanlou_1.zip /home/shiyanlou -x ~/*.zip     #1表示最快压缩但体积大，9表示体积最小但耗时最久</div><div class="line">$ du -h -d 0 *.zip ~ | sort      #du命令分别查看默认压缩级别、最低、最高压缩级别及未压缩的文件的大小</div></pre></td></tr></table></figure>
+<ul>
+<li>创建加密zip包</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ zip -r -e -o shiyanlou_encryption.zip /home/shiyanlou   #-e参数可以创建加密压缩包</div><div class="line">$ zip -r -l -o shiyanlou.zip /home/shiyanlou              #-l参数将LF转换为CR+LF</div></pre></td></tr></table></figure>
+<p>在 Windows 为 CR+LF（Carriage-Return+Line-Feed：回车加换行），而在 Linux/Unix 上为 LF（换行），所以如果在不加处理的情况下，在 Linux 上编辑的文本，在 Windows 系统上打开可能看起来是没有换行的。</p>
+<h3 id="使用unzip命令解压缩zip文件"><a href="#使用unzip命令解压缩zip文件" class="headerlink" title="使用unzip命令解压缩zip文件"></a>使用unzip命令解压缩zip文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ unzip shiyanlou.zip                    #将shiyanlou.zip解压到当前目录</div><div class="line">$ unzip -q shiyanlou.zip -d ziptest      #安静模式，将文件解压到指定目录</div><div class="line">$ unzip -l shiyanlou.zip                 #仅查看压缩包的内容</div><div class="line">unzip -O GBK 中文压缩文件.zip            #使用-O 参数指定编码类型</div></pre></td></tr></table></figure>
+<h3 id="rar打包压缩命令"><a href="#rar打包压缩命令" class="headerlink" title="rar打包压缩命令"></a>rar打包压缩命令</h3><ul>
+<li>安装rar和unrar工具</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get update              </div><div class="line">$ sudo apt-get install rar unrar</div></pre></td></tr></table></figure>
+<ul>
+<li>从指定文件或目录创建压缩包或添加文件到压缩包</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ rm *.zip               #a参数添加一个目录～到一个归档文件中，如果该文件不存在就会自动创建</div><div class="line">$ rar a shiyanlou.rar</div></pre></td></tr></table></figure>
+<p><code>注意：rar 的命令参数没有-，如果加上会报错</code></p>
+<ul>
+<li>从指定压缩包文件中删除某个文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ rar d shiyanlou.rar .zshrc</div></pre></td></tr></table></figure>
+<ul>
+<li><p>查看不解压文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ rar l shiyanlou.rar</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用unrar解压rar文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ unrar x shiyanlou.rar			#全路径解压</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ mkdir tmp						#去路径解压</div><div class="line">$ unrar e shiyanlou.rar tmp/</div></pre></td></tr></table></figure>
+<h3 id="tar打包工具"><a href="#tar打包工具" class="headerlink" title="tar打包工具"></a>tar打包工具</h3><ul>
+<li>创建一个tar包<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -cf shiyanlou.tar ~</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="https://dn-anything-about-doc.qbox.me/linux_base/6-4.png" alt=""><br><code>-c</code>表示创建一个 tar 包文件，<code>-f</code>用于指定创建的文件名，注意文件名必须紧跟在<code>-f</code>参数之后，比如不能写成<code>tar -fc shiyanlou.tar</code>，可以写成<code>tar -f shiyanlou.tar -c ~</code>。你还可以加上<code>-v</code>参数以可视的的方式输出打包的文件。上面会自动去掉表示绝对路径的<code>/</code>，你也可以使用<code>-P</code>保留绝对路径符。</p>
+<ul>
+<li><p>解包一个文件（-x参数）到指定路径的已存在目录（-C参数）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ mkdir tardir</div><div class="line">$ tar -xf shiyanlou.tar -C tardir</div></pre></td></tr></table></figure>
+</li>
+<li><p>只查看不解包文件-t参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -tf shiyanlou.tar</div></pre></td></tr></table></figure>
+</li>
+<li><p>保留文件属性和跟随链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -cphf etc.tar /etc    #还原时希望保留文件的属性(-p参数)和备份链接指向的源文件而不是链接本身(-h参数)</div></pre></td></tr></table></figure>
+</li>
+<li><p>创建tar文件的基础上添加-z参数，使用gzip来压缩文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -czf shiyanlou.tar.gz ~</div></pre></td></tr></table></figure>
+</li>
+<li><p>解压*.tar.gz文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -xzf shiyanlou.tar.gz</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>文件后缀名</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*.tar.gz</td>
+<td style="text-align:left">-z</td>
+</tr>
+<tr>
+<td>*.tar.xz</td>
+<td style="text-align:left">-J</td>
+</tr>
+<tr>
+<td>*.tar.bz2</td>
+<td style="text-align:left">-j</td>
+</tr>
+</tbody>
+</table>
+<h1 id="文件系统操作与磁盘管理"><a href="#文件系统操作与磁盘管理" class="headerlink" title="文件系统操作与磁盘管理"></a>文件系统操作与磁盘管理</h1><h2 id="简单文件系统操作"><a href="#简单文件系统操作" class="headerlink" title="简单文件系统操作"></a>简单文件系统操作</h2><h3 id="查看磁盘和目录的容量"><a href="#查看磁盘和目录的容量" class="headerlink" title="查看磁盘和目录的容量"></a>查看磁盘和目录的容量</h3><h4 id="使用df命令查看磁盘的容量"><a href="#使用df命令查看磁盘的容量" class="headerlink" title="使用df命令查看磁盘的容量"></a>使用df命令查看磁盘的容量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ df</div></pre></td></tr></table></figure>
+<blockquote>
+<blockquote>
+<p>“rootfs” : （Root File System）它是 Ramfs（Ramfs 是一个非常简单的 Linux 文件系统用于实现磁盘缓存机制作为动态可调整大小的基于 ram 的文件系统）或者 tmpfs 的一个特殊实例，它作为系统启动时内核载入内存之后，在挂载真正的的磁盘之前的一个临时文件系统。通常的主机会在系统启动后用磁盘上的文件系统替换，只是在一些嵌入式系统中会只存在一个 rootfs ，或者像我们目前遇到的情况运行在虚拟环境中共享主机资源的系统也可能会采用这种方式。</p>
+</blockquote>
+</blockquote>
+<p>物理主机上的 /dev/sda2 是对应着主机硬盘的分区，后面的数字表示分区号，数字前面的字母 a 表示第几块硬盘（也可能是可移动磁盘）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ df -h   #查看主机磁盘的使用情况</div></pre></td></tr></table></figure>
+<h4 id="使用du命令查看目录的容量"><a href="#使用du命令查看目录的容量" class="headerlink" title="使用du命令查看目录的容量"></a>使用du命令查看目录的容量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 默认同样以 blocks 的大小展示</div><div class="line">$ du </div><div class="line"># 加上`-h`参数，以更易读的方式展示</div><div class="line">$ du -h</div></pre></td></tr></table></figure>
+<p><code>-d</code>参数指定查看目录的深度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 只查看1级目录的信息</div><div class="line">$ du -h -d 0 ~</div><div class="line"># 查看2级</div><div class="line">$ du -h -d 1 ~</div></pre></td></tr></table></figure></p>
+<h2 id="简单磁盘管理"><a href="#简单磁盘管理" class="headerlink" title="简单磁盘管理"></a>简单磁盘管理</h2><h3 id="dd命令简介"><a href="#dd命令简介" class="headerlink" title="dd命令简介"></a>dd命令简介</h3><p><code>dd</code>命令用于转换和复制文件，不过它的复制不同于<code>cp</code>。之前提到过关于 Linux 的很重要的一点，<strong>一切即文件</strong>，在 Linux 上，硬件的设备驱动（如硬盘）和特殊设备文件（如<code>/dev/zero</code>和<code>/dev/random</code>）都像普通文件一样，只要在各自的驱动程序中实现了对应的功能，dd 也可以读取自和/或写入到这些文件。这样，<code>dd</code>也可以用在备份硬件的引导扇区、获取一定数量的随机数据或者空数据等任务中。<code>dd</code>程序也可以在复制时处理数据，例如转换字节序、或在 ASCII 与  EBCDIC 编码间互换。</p>
+<p><code>dd</code>的命令行语句与其他的 Linux 程序不同，因为它的命令行选项格式为<code>选项=值</code>，而不是更标准的<code>--选项 值</code>或<code>-选项=值</code>。<code>dd</code>默认从标准输入中读取，并写入到标准输出中，但可以用选项<code>if</code>（input file，输入文件）和<code>of</code>（output file，输出文件）改变。</p>
+<p>我们先来试试用<code>dd</code>命令从标准输入读入用户输入到标准输出或者一个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 输出到文件</div><div class="line">$ dd of=test bs=10 count=1 # 或者 dd if=/dev/stdin of=test bs=10 count=1</div><div class="line"># 输出到标准输出</div><div class="line">$ dd if=/dev/stdin of=/dev/stdout bs=10 count=1</div></pre></td></tr></table></figure>
+<p><img src="https://dn-anything-about-doc.qbox.me/linux_base/7-5.png/logoblackfont" alt=""><br>上述命令从标准输入设备读入用户输入（缺省值，所以可省略）然后输出到 test 文件，<code>bs</code>（block size）用于指定块大小（缺省单位为 Byte，也可为其指定如’K’，’M’，’G’等单位），<code>count</code>用于指定块数量。如上图所示，我指定只读取总共 10 个字节的数据，当我输入了“hello shiyanlou”之后加上空格回车总共 16 个字节（一个英文字符占一个字节）内容，显然超过了设定大小。使用和<code>du</code>和<code>cat</code>命令看到的写入完成文件实际内容确实只有 10 个字节（那个黑底百分号表示这里没有换行符）,而其他的多余输入将被截取并保留在标准输入。 前面说到<code>dd</code>在拷贝的同时还可以实现数据转换，那下面就举一个简单的例子：将输出的英文字符转换为大写再写入文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ dd if=/dev/stdin of=test bs=10 count=1 conv=ucase</div></pre></td></tr></table></figure>
+<p><img src="https://dn-anything-about-doc.qbox.me/linux_base/7-6.png/logoblackfont" alt=""></p>
+<h3 id="使用dd命令创建虚拟镜像文件"><a href="#使用dd命令创建虚拟镜像文件" class="headerlink" title="使用dd命令创建虚拟镜像文件"></a>使用dd命令创建虚拟镜像文件</h3><p>从<code>/dev/zero</code>设备创建一个容量为 256M 的空文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ dd if=/dev/zero of=virtual.img bs=1M count=256</div><div class="line">$ du -h virtual.img</div></pre></td></tr></table></figure></p>
+<h3 id="使用mkfs命令格式化磁盘"><a href="#使用mkfs命令格式化磁盘" class="headerlink" title="使用mkfs命令格式化磁盘"></a>使用mkfs命令格式化磁盘</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo mkfs.ext4 virtual.img     #虚拟磁盘镜像格式化为ext4文件系统</div></pre></td></tr></table></figure>
+<h3 id="使用mount命令挂载磁盘到目录树"><a href="#使用mount命令挂载磁盘到目录树" class="headerlink" title="使用mount命令挂载磁盘到目录树"></a>使用mount命令挂载磁盘到目录树</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo mount           #查看主机已挂载的文件系统</div></pre></td></tr></table></figure>
+<p>mount命令的一般格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mount [-o [操作选项]] [-t 文件系统类型] [-w|--rw|--ro] [文件系统源] [挂载点]</div></pre></td></tr></table></figure></p>
+<p>常用操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mount [-o [操作选项]] [-t 文件系统类型] [-w|--rw|--ro] [文件系统源] [挂载点]</div></pre></td></tr></table></figure></p>
+<p>挂载到/mnt目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ mount -o loop -t ext4 virtual.img /mnt </div><div class="line"># 也可以省略挂载类型，很多时候 mount 会自动识别</div><div class="line"></div><div class="line"># 以只读方式挂载</div><div class="line">$ mount -o loop --ro virtual.img /mnt</div><div class="line"># 或者mount -o loop,ro virtual.img /mnt</div></pre></td></tr></table></figure></p>
+<blockquote>
+<blockquote>
+<p>在类 UNIX 系统中，/dev/loop（或称vnd （vnode disk）、lofi（循环文件接口））是一种伪设备，这种设备使得文件可以如同块设备一般被访问。在使用之前，循环设备必须与现存文件系统上的文件相关联。这种关联将提供给用户一个应用程序接口，接口将允许文件视为块特殊文件（参见设备文件系统）使用。因此，如果文件中包含一个完整的文件系统，那么这个文件就能如同磁盘设备一般被挂载。这种设备文件经常被用于光盘或是磁盘镜像。通过循环挂载来挂载包含文件系统的文件，便使处在这个文件系统中的文件得以被访问。这些文件将出现在挂载点目录。如果挂载目录中本身有文件，这些文件在挂载后将被禁止使用。</p>
+</blockquote>
+</blockquote>
+<h3 id="使用umount命令卸载已挂载磁盘"><a href="#使用umount命令卸载已挂载磁盘" class="headerlink" title="使用umount命令卸载已挂载磁盘"></a>使用umount命令卸载已挂载磁盘</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 命令格式 sudo umount 已挂载设备名或者挂载点，如：</div><div class="line">$ sudo umount /mnt</div></pre></td></tr></table></figure>
+<h3 id="使用fdisk为磁盘分区"><a href="#使用fdisk为磁盘分区" class="headerlink" title="使用fdisk为磁盘分区"></a>使用fdisk为磁盘分区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 查看硬盘分区表信息</div><div class="line">$ sudo fdisk -l</div></pre></td></tr></table></figure>
+<p><img src="https://dn-anything-about-doc.qbox.me/linux_base/7-12.png/logo" alt=""></p><p></p>
+<p>输出结果中开头显示了主机上的磁盘的一些信息，包括容量扇区数，扇区大小，I/O 大小等信息。</p>
+<p>/dev/sda1，/dev/sda2 为主分区分别安装了 Windows 和 Linux 操作系统，/dev/sda3 为交换分区（可以理解为虚拟内存），/dev/sda4 为扩展分区其中包含 /dev/sda5，/dev/sda6，/dev/sda7，/dev/sda8 四个逻辑分区，因为主机上有几个分区之间有空隙，没有对齐边界扇区,所以分区之间的不是完全连续的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 进入磁盘分区模式</div><div class="line">$ sudo fdisk virtual.img</div></pre></td></tr></table></figure>
+<h3 id="使用lostup命令建立镜像与回环设备的关联"><a href="#使用lostup命令建立镜像与回环设备的关联" class="headerlink" title="使用lostup命令建立镜像与回环设备的关联"></a>使用lostup命令建立镜像与回环设备的关联</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ sudo losetup /dev/loop0 virtual.img</div><div class="line"># 如果提示设备忙你也可以使用其它的回环设备，&quot;ls /dev/loop*&quot;参看所有回环设备</div><div class="line"></div><div class="line"># 解除设备关联</div><div class="line">$ sudo losetup -d /dev/loop0</div></pre></td></tr></table></figure>
+<p>然后再使用<code>mkfs</code>格式化各分区（前面我们是格式化整个虚拟磁盘镜像文件或磁盘），不过格式化之前，我们还要为各分区建立虚拟设备的映射，用到<code>kpartx</code>工具，需要先安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install kpartx</div><div class="line">$ sudo kpart kpartx -av /dev/loop0</div><div class="line"></div><div class="line"># 取消映射</div><div class="line">$ sudo kpart kpartx -dv /dev/loop0</div></pre></td></tr></table></figure>
+<pre><code>![](https://dn-anything-about-doc.qbox.me/linux_base/7-15.png)
+
+接着再是格式化，我们将其全部格式化为 ext4：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo mkfs.ext4 -q /dev/mapper/loop0p1</div><div class="line">$ sudo mkfs.ext4 -q /dev/mapper/loop0p5</div><div class="line">$ sudo mkfs.ext4 -q /dev/mapper/loop0p6</div></pre></td></tr></table></figure>
+<pre><code>格式化完成后在`/media`目录下新建四个空目录用于挂载虚拟磁盘：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p /media/virtualdisk_&#123;1..3&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># 挂载磁盘分区</div><div class="line">$ sudo mount /dev/mapper/loop0p1 /media/virtualdisk_1</div><div class="line">$ sudo mount /dev/mapper/loop0p5 /media/virtualdisk_2</div><div class="line">$ sudo mount /dev/mapper/loop0p6 /media/virtualdisk_3</div><div class="line"></div><div class="line"># 卸载磁盘分区</div><div class="line">$ sudo umount /dev/mapper/loop0p1</div><div class="line">$ sudo umount /dev/mapper/loop0p5</div><div class="line">$ sudo umount /dev/mapper/loop0p6</div></pre></td></tr></table></figure>
+<pre><code>然后：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ df -h</div></pre></td></tr></table></figure>
+<p><img src="https://dn-anything-about-doc.qbox.me/linux_base/7-16.png" alt=""></p>
 
           
         
