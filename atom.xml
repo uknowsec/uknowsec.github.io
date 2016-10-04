@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknow.top/"/>
-  <updated>2016-10-04T15:49:13.402Z</updated>
+  <updated>2016-10-04T16:16:03.571Z</updated>
   <id>http://uknow.top/</id>
   
   <author>
@@ -20,26 +20,17 @@
     <link href="http://uknow.top/undefined/%E5%A6%82%E4%BD%95%E5%9C%A8Github-Pages%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E5%86%99%E7%9A%84%E9%A1%B5%E9%9D%A2%EF%BC%9F20161004/"/>
     <id>http://uknow.top/undefined/如何在Github-Pages搭建自己写的页面？20161004/</id>
     <published>2016-10-04T15:37:11.000Z</published>
-    <updated>2016-10-04T15:49:13.402Z</updated>
+    <updated>2016-10-04T16:16:03.571Z</updated>
     
-    <content type="html"><![CDATA[<p>#如何在Github Pages搭建自己写的页面？</p>
-<p>学了前端小半年，如今写了个自己的网页想要去应聘，却发现部署很麻烦，部署到阿里云之类，买域名啊啥的还要收费，说贵也不贵，但我就是傲娇~</p>
+    <content type="html"><![CDATA[<h1 id="如何在Github-Pages搭建自己写的页面？"><a href="#如何在Github-Pages搭建自己写的页面？" class="headerlink" title="如何在Github Pages搭建自己写的页面？"></a>如何在Github Pages搭建自己写的页面？</h1><p>学了前端小半年，如今写了个自己的网页想要去应聘，却发现部署很麻烦，部署到阿里云之类，买域名啊啥的还要收费，说贵也不贵，但我就是傲娇~</p>
 <p>google一下了解到Github有一个Github pages的功能可以搭建博客或者托管网页，而且免费耶，搜了下教程，猛地一看感觉步骤也不是很麻烦，所以就用这个了！</p>
 <p>教程一大堆，却没有几个能看懂的，问题一：90%的都在讲解如何搭建博客，和我想要将自己的网页部署到上面还是有点区别的。问题二：所有的教程都用到了Git，而我只知道Git是一个开源的分布式版本控制系统。完全不知道命令行是什么鬼，只能照猫画虎的小白来说，那些教程只能帮我到桥头，但想要成功过河，还需要深夜里的一包特浓咖啡。 </p>
-<p>##开始教程之前的准备工作：</p>
-<p>###需要你自己写的网页文件。</p>
-<p><a href="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305135133440-1617205021.png" target="_blank" rel="external"></a></p>
-<p>###注册Github。</p>
-<p>###下载安装git。<a href="https://git-scm.com/downloads" target="_blank" rel="external">下载地址</a></p>
-<p>##教程开始：</p>
-<p>###步骤一：登录到Github上，新建一个repo，命名为test，勾选 initialize this repository with a README，点击create repository。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305134947346-1921005167.png" alt=""></p>
+<h2 id="开始教程之前的准备工作："><a href="#开始教程之前的准备工作：" class="headerlink" title="开始教程之前的准备工作："></a>开始教程之前的准备工作：</h2><h3 id="需要你自己写的网页文件。"><a href="#需要你自己写的网页文件。" class="headerlink" title="需要你自己写的网页文件。"></a>需要你自己写的网页文件。</h3><p><a href="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305135133440-1617205021.png" target="_blank" rel="external"></a></p>
+<h3 id="注册Github。"><a href="#注册Github。" class="headerlink" title="注册Github。"></a>注册Github。</h3><h3 id="下载安装git。下载地址"><a href="#下载安装git。下载地址" class="headerlink" title="下载安装git。下载地址"></a>下载安装git。<a href="https://git-scm.com/downloads" target="_blank" rel="external">下载地址</a></h3><h2 id="教程开始："><a href="#教程开始：" class="headerlink" title="教程开始："></a>教程开始：</h2><h3 id="步骤一：登录到Github上，新建一个repo，命名为test，勾选-initialize-this-repository-with-a-README，点击create-repository。"><a href="#步骤一：登录到Github上，新建一个repo，命名为test，勾选-initialize-this-repository-with-a-README，点击create-repository。" class="headerlink" title="步骤一：登录到Github上，新建一个repo，命名为test，勾选 initialize this repository with a README，点击create repository。"></a>步骤一：登录到Github上，新建一个repo，命名为test，勾选 initialize this repository with a README，点击create repository。</h3><p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305134947346-1921005167.png" alt=""></p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305135528627-97762586.png" alt=""></p>
-<p>###步骤二 ：打开settings，有一个Github Pages 的设置，点击Launch automatic page generator（启动自动页面生成器）</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305140204096-424861698.png" alt=""></p>
+<h3 id="步骤二-：打开settings，有一个Github-Pages-的设置，点击Launch-automatic-page-generator（启动自动页面生成器）"><a href="#步骤二-：打开settings，有一个Github-Pages-的设置，点击Launch-automatic-page-generator（启动自动页面生成器）" class="headerlink" title="步骤二 ：打开settings，有一个Github Pages 的设置，点击Launch automatic page generator（启动自动页面生成器）"></a>步骤二 ：打开settings，有一个Github Pages 的设置，点击Launch automatic page generator（启动自动页面生成器）</h3><p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305140204096-424861698.png" alt=""></p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305140522830-7799375.png" alt=""></p>
-<p>###步骤三：点击页面最后的continue to layouts，然后就可以进入设置你的页面主题，你会说这不是我的网页呀，别急嘛，先选择一个主题，点击 publish pages。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141007221-1678443414.png" alt=""></p>
+<h3 id="步骤三：点击页面最后的continue-to-layouts，然后就可以进入设置你的页面主题，你会说这不是我的网页呀，别急嘛，先选择一个主题，点击-publish-pages。"><a href="#步骤三：点击页面最后的continue-to-layouts，然后就可以进入设置你的页面主题，你会说这不是我的网页呀，别急嘛，先选择一个主题，点击-publish-pages。" class="headerlink" title="步骤三：点击页面最后的continue to layouts，然后就可以进入设置你的页面主题，你会说这不是我的网页呀，别急嘛，先选择一个主题，点击 publish pages。"></a>步骤三：点击页面最后的continue to layouts，然后就可以进入设置你的页面主题，你会说这不是我的网页呀，别急嘛，先选择一个主题，点击 publish pages。</h3><p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141007221-1678443414.png" alt=""></p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141341080-929861094.png" alt=""></p>
 <p>这个时候会出现你的网页的网址，也就是下图的 <a href="http://jiayili.github.io/test.复制打开这个网址，你看到了什么？" target="_blank" rel="external">http://jiayili.github.io/test.复制打开这个网址，你看到了什么？</a></p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141706065-643882140.png" alt=""></p>
@@ -47,30 +38,25 @@
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141935393-1254718979.png" alt=""></p>
 <p>好了，别激动了，真正让一个小白你发疯的阶段开始了，有了自己的网址，但页面显示的是什么鬼？</p>
 <p>至此以上，github上要处理的操作告一段落，该上Git了！</p>
-<p>###步骤四：打开此电脑，选择一个盘，比如 f 盘，右键空白处点击 git bash here。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305143603580-1181123251.png" alt=""></p>
-<p>###步骤五 ：输入如下命令，用来在 f 盘创建 test 文件放你的github上的test repository，克隆test repository到 test 文件中。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305144226284-240519711.png" alt=""></p>
+<h3 id="步骤四：打开此电脑，选择一个盘，比如-f-盘，右键空白处点击-git-bash-here。"><a href="#步骤四：打开此电脑，选择一个盘，比如-f-盘，右键空白处点击-git-bash-here。" class="headerlink" title="步骤四：打开此电脑，选择一个盘，比如 f 盘，右键空白处点击 git bash here。"></a>步骤四：打开此电脑，选择一个盘，比如 f 盘，右键空白处点击 git bash here。</h3><p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305143603580-1181123251.png" alt=""></p>
+<h3 id="步骤五-：输入如下命令，用来在-f-盘创建-test-文件放你的github上的test-repository，克隆test-repository到-test-文件中。"><a href="#步骤五-：输入如下命令，用来在-f-盘创建-test-文件放你的github上的test-repository，克隆test-repository到-test-文件中。" class="headerlink" title="步骤五 ：输入如下命令，用来在 f 盘创建 test 文件放你的github上的test repository，克隆test repository到 test 文件中。"></a>步骤五 ：输入如下命令，用来在 f 盘创建 test 文件放你的github上的test repository，克隆test repository到 test 文件中。</h3><p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305144226284-240519711.png" alt=""></p>
 <p>这个时候你的 f 盘，就会多一个 test 文件，打开它，</p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305144422830-1748939517.png" alt=""></p>
 <p>会看到一个 README.md 的文件，这个文件是从哪来的呢？追溯到gihub上，你会发现你有两个分支（branches），而 README 文件是来自 master 分支。</p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305144809455-1559494911.png" alt=""></p>
 <p>而我们需要编辑的是另一个分支&mdash;&mdash;gh-pages，因为这个分支才能够真正定义github pages的内容和样式，也就是可以呈现你网页的地方。</p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305145219659-1397982425.png" alt=""></p>
-<p>###步骤六 ：输入以下命令，为了在本地新建一个gh-pages分支，而这个分支是远程分支origin/gh-pages的镜像，也就是我们可以在本地的gh-pages看到github上的gh-pages的内容。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305145815252-344194499.png" alt=""></p>
+<h3 id="步骤六-：输入以下命令，为了在本地新建一个gh-pages分支，而这个分支是远程分支origin-gh-pages的镜像，也就是我们可以在本地的gh-pages看到github上的gh-pages的内容。"><a href="#步骤六-：输入以下命令，为了在本地新建一个gh-pages分支，而这个分支是远程分支origin-gh-pages的镜像，也就是我们可以在本地的gh-pages看到github上的gh-pages的内容。" class="headerlink" title="步骤六 ：输入以下命令，为了在本地新建一个gh-pages分支，而这个分支是远程分支origin/gh-pages的镜像，也就是我们可以在本地的gh-pages看到github上的gh-pages的内容。"></a>步骤六 ：输入以下命令，为了在本地新建一个gh-pages分支，而这个分支是远程分支origin/gh-pages的镜像，也就是我们可以在本地的gh-pages看到github上的gh-pages的内容。</h3><p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305145815252-344194499.png" alt=""></p>
 <p>这个时候我们再打开 f 盘，发现变样了</p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305145931096-1818738887.png" alt=""></p>
 <p>刚才还是README呢，怎们现在成了3个文件了，这3个文件来自哪？</p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305150144159-905298121.png" alt=""></p>
 <p>来自github 上的 gh-pages 分支下的文件。</p>
 <p>打开f 盘中的 index.html，你会发现就是咱们一开始选择主题的页面。那我们将这个页面替换成自己coding的网页不就好了？</p>
-<p>###步骤七：执行如下命令，删除原有的gh-pages文件，并提交（commit）本次修改。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305150641830-12563151.png" alt=""></p>
+<h3 id="步骤七：执行如下命令，删除原有的gh-pages文件，并提交（commit）本次修改。"><a href="#步骤七：执行如下命令，删除原有的gh-pages文件，并提交（commit）本次修改。" class="headerlink" title="步骤七：执行如下命令，删除原有的gh-pages文件，并提交（commit）本次修改。"></a>步骤七：执行如下命令，删除原有的gh-pages文件，并提交（commit）本次修改。</h3><p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305150641830-12563151.png" alt=""></p>
 <p>这个时候 f 盘没有文件。</p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151026377-702293659.png" alt=""></p>
-<p>###步骤八：将自己的网页文件复制粘贴至 f 盘的 test 文件中 </p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151236221-872410232.png" alt=""></p>
+<h3 id="步骤八：将自己的网页文件复制粘贴至-f-盘的-test-文件中"><a href="#步骤八：将自己的网页文件复制粘贴至-f-盘的-test-文件中" class="headerlink" title="步骤八：将自己的网页文件复制粘贴至 f 盘的 test 文件中"></a>步骤八：将自己的网页文件复制粘贴至 f 盘的 test 文件中</h3><p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151236221-872410232.png" alt=""></p>
 <p>输入如下命令，为了本地gh-pages中的网页文件同步到远程的gh-pages中。</p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151516534-175124906.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151717159-2121860532.png" alt=""></p>
 <p>输入最后一行 git push origin gh-pages，按回车，等一会，会有弹出框让你输入你的 github 账号和密码。</p>
@@ -79,17 +65,14 @@
 <p>ok之后耐心等待。</p>
 <p>当出现像下图中的命令行之后，你已经完成了99%。</p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305152406221-11660909.png" alt=""></p>
-<p>###最后一步 ：打开浏览器输入给你的网址加上 test.html，然后重重的按下回车。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305152916580-99607842.png" alt=""></p>
+<h3 id="最后一步-：打开浏览器输入给你的网址加上-test-html，然后重重的按下回车。"><a href="#最后一步-：打开浏览器输入给你的网址加上-test-html，然后重重的按下回车。" class="headerlink" title="最后一步 ：打开浏览器输入给你的网址加上 test.html，然后重重的按下回车。"></a>最后一步 ：打开浏览器输入给你的网址加上 test.html，然后重重的按下回车。</h3><p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305152916580-99607842.png" alt=""></p>
 <p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305153305424-1042365035.png" alt="">恭喜你，成功了！！！哦不，还差一步，不评论关注一下我？</p>
-<p>##附录一：常用git命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ git clone&amp;nbsp;&amp;nbsp;//本地如果无远程代码，先做这步，不然就忽略 </div><div class="line"></div><div class="line">$ cd //定位到你blog的目录下 </div><div class="line"></div><div class="line">$ git status //查看本地自己修改了多少文件 </div><div class="line"></div><div class="line">$ git add . //添加远程不存在的git文件 </div><div class="line"></div><div class="line">$ git commit &amp;nbsp;-m &quot;what I want told to someone&quot; //提交修改 </div><div class="line"></div><div class="line">$ git push &amp;nbsp;//更新到远程服务器上 </div><div class="line"></div><div class="line">$ git rm //移除文件</div></pre></td></tr></table></figure></p>
+<h2 id="附录一：常用git命令："><a href="#附录一：常用git命令：" class="headerlink" title="附录一：常用git命令："></a>附录一：常用git命令：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ git clone&amp;nbsp;&amp;nbsp;//本地如果无远程代码，先做这步，不然就忽略 </div><div class="line"></div><div class="line">$ cd //定位到你blog的目录下 </div><div class="line"></div><div class="line">$ git status //查看本地自己修改了多少文件 </div><div class="line"></div><div class="line">$ git add . //添加远程不存在的git文件 </div><div class="line"></div><div class="line">$ git commit &amp;nbsp;-m &quot;what I want told to someone&quot; //提交修改 </div><div class="line"></div><div class="line">$ git push &amp;nbsp;//更新到远程服务器上 </div><div class="line"></div><div class="line">$ git rm //移除文件</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;#如何在Github Pages搭建自己写的页面？&lt;/p&gt;
-&lt;p&gt;学了前端小半年，如今写了个自己的网页想要去应聘，却发现部署很麻烦，部署到阿里云之类，买域名啊啥的还要收费，说贵也不贵，但我就是傲娇~&lt;/p&gt;
-&lt;p&gt;google一下了解到Github有一个Github pag
+      &lt;h1 id=&quot;如何在Github-Pages搭建自己写的页面？&quot;&gt;&lt;a href=&quot;#如何在Github-Pages搭建自己写的页面？&quot; class=&quot;headerlink&quot; title=&quot;如何在Github Pages搭建自己写的页面？&quot;&gt;&lt;/a&gt;如何在Github Page
     
     </summary>
     
