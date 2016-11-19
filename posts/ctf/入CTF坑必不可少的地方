@@ -61,14 +61,16 @@
 
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2016-08-28">
-<meta property="og:url" content="http://uknow.top/posts/life/2016-08-28.html">
+<meta property="og:title" content="入CTF坑必不可少的地方">
+<meta property="og:url" content="http://uknow.top/posts/ctf/入CTF坑必不可少的地方">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
-<meta property="og:updated_time" content="2016-11-19T04:50:09.571Z">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720161004230538.jpg">
+<meta property="og:updated_time" content="2016-11-19T04:49:27.913Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2016-08-28">
+<meta name="twitter:title" content="入CTF坑必不可少的地方">
 <meta name="twitter:description" content="点击阅读全文">
+<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720161004230538.jpg">
 
 
 
@@ -86,7 +88,7 @@
   };
 </script>
 
-  <title> 2016-08-28 | Uknow’s Blog </title>
+  <title> 入CTF坑必不可少的地方 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -249,7 +251,7 @@
             
             
               
-                2016-08-28
+                入CTF坑必不可少的地方
               
             
           </h1>
@@ -261,8 +263,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-28T22:21:30+08:00" content="2016-08-28">
-              2016-08-28
+            <time itemprop="dateCreated" datetime="2016-08-10T22:57:31+08:00" content="2016-08-10">
+              2016-08-10
             </time>
           </span>
 
@@ -275,8 +277,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/life/" itemprop="url" rel="index">
-                    <span itemprop="name">生活</span>
+                  <a href="/categories/ctf/" itemprop="url" rel="index">
+                    <span itemprop="name">CTF</span>
                   </a>
                 </span>
 
@@ -291,8 +293,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/life/2016-08-28.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/life/2016-08-28.html" itemprop="commentsCount"></span>
+                <a href="/posts/ctf/入CTF坑必不可少的地方#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/ctf/入CTF坑必不可少的地方" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,7 +304,7 @@
 
           
           
-             <span id="/posts/life/2016-08-28.html" class="leancloud_visitors" data-flag-title="2016-08-28">
+             <span id="/posts/ctf/入CTF坑必不可少的地方" class="leancloud_visitors" data-flag-title="入CTF坑必不可少的地方">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -324,9 +326,99 @@
 
       
         <p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>昨天晚上结识一个今年大四的南京大表哥。跟他聊了很多，有感遂写下这篇博文。</p>
-<h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><p>明天就是大二了，大一一年感觉自己有点混。学习上混，自己想接触的领域也比较混。大一经历了很多，第一次来到南京这个陌生的城市。第一次接触到“信息安全”的名词，第一个想以后从事这个行业的决定。我自己现在也不知道这是个冲动还是我兴趣使然，内心使然。正如TK教主曾经说的：“如果你对于安全这个行业仅仅是为了赚一口饭，那无异于一个性冷淡拍AV。如果你是真正的对于一种技术的追崇，让你会无限的提高，永远对于他有一种新鲜感。”兴趣使然，我依旧坚持自己的选择。我毅不忘初心，亦望始终可得。大一懒懒散散的过去了，从我初了解到这个领域的时候。都是一些小打小闹，在各大论坛也说不得是摸爬滚打。我自己甚至也不知道自己有没有在这过去一年之中学到了技术上的一些东西，结识到一些有益的朋友。这一年自己接触到技术上的问题很浅显，之前一个跟我聊天的学长也提醒过我：“这是一个浮躁的行业，浮躁的人喜欢急功近利，刚刚追求表面”在我听到这句话时，的确给我狠狠的以一巴掌。急功近利地去挖掘漏洞而不了解他的原理，急功近利地去使用他人写的工具而不能自己了解而后改善之，急功近利地卖弄而不能脚踏实地地学习等。大一的暑假也是匆匆忙忙简简单单学习了一下python和PHP的内容，另外也做了一些CTF关于WEB方面的练习，结识了一些打CTF比赛的小伙伴。之前也是踌躇满志地想在暑假提高自己的能力，然后我并没感觉到效果。又是一个新的学期，在这个学期第一天的前夕。还是给自己定下一些目标和计划吧。首先应该是四级吧，先每天做几个题目把它给搞定吧。然后就是上个学期我在图书馆推荐了不少关于安全类的书籍差不多应该可以到馆了吧，尽力去借来看看。还有Python和PHP的内容继续进行学习吧。关于自己专业课方面尽力学好，期末不挂科吧。最后昨天晚上那大四学长跟我说自己拉人组Team的问题，这个可能真的是我之前不敢想的一个事情，但是他给我了不少的鼓励。我也是跃跃欲试的，但是感觉心有余而力不足吧。我个人的能力还是不行的，这种Team在学校搞起来怕也很难发展并不能得到相关方面的支持。还是自己先学习好技术吧，待到时机成熟，也说不定。言至此。</p>
-<h2 id="0x02-结语"><a href="#0x02-结语" class="headerlink" title="0x02 结语"></a>0x02 结语</h2><p>这篇博文算是我大一的一个学期的总结和大二新的计划和目标的先行书吧，望以此勉之。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720161004230538.jpg" alt="ctf"><br><strong>0x00 前言</strong></p>
+<p>没有交易，没有买卖，没有排名，纯属分享</p>
+<p><strong>0x01 CTF介绍</strong></p>
+<ul>
+<li><a href="http://blog.idf.cn/2015/02/ctf-field-guide/" target="_blank" rel="external">CTF领域指南</a></li>
+<li><a href="http://tieba.baidu.com/p/3933947157" target="_blank" rel="external">CTF介绍大全</a></li>
+<li><a href="https://ctftime.org/event/list/upcoming" target="_blank" rel="external">CTF赛事预告</a></li>
+</ul>
+<p><strong>0x02 CTF练习</strong></p>
+<ul>
+<li><strong>BIN:</strong></li>
+<li><a href="http://reversing.kr/" target="_blank" rel="external">reversing</a></li>
+<li><a href="http://pwnable.kr/" target="_blank" rel="external">pwnable</a></li>
+<li><a href="http://crackmes.de/" target="_blank" rel="external">crackmes</a></li>
+<li><a href="http://exploit-exercises.com/" target="_blank" rel="external">exploit-exercises</a></li>
+<li><a href="http://overthewire.org/" target="_blank" rel="external">overthewire</a></li>
+<li><a href="https://io.netgarage.org" target="_blank" rel="external">netgarage</a></li>
+<li><a href="http://security.cs.rpi.edu/courses/binexp-spring2015/" target="_blank" rel="external">bin干货</a></li>
+<li><a href="http://www.52pojie.cn/forum-67-1.html" target="_blank" rel="external">2014CrackMe大赛</a></li>
+<li><a href="http://www.52pojie.cn/forum-71-1.html" target="_blank" rel="external">吾爱破解2016安全挑战赛</a></li>
+<li><p><a href="http://bbs.pediy.com/forumdisplay.php?f=109" target="_blank" rel="external">看雪安全论坛历年安全大赛</a></p>
+</li>
+<li><p><strong> SQL:</strong></p>
+</li>
+<li><a href="https://github.com/Audi-1/sqli-labs" target="_blank" rel="external">sqli-labs</a></li>
+<li><p><a href="http://redtiger.labs.overthewire.org/" target="_blank" rel="external">RedTigers Hackit</a></p>
+</li>
+<li><p><strong>XSS:</strong></p>
+</li>
+<li><a href="http://xss.pkav.net/xss/" target="_blank" rel="external">乌云XSS互动学习平台</a></li>
+<li><a href="http://prompt.ml/" target="_blank" rel="external">prompt</a></li>
+<li><a href="http://xss-quiz.int21h.jp/http://escape.alf.nu/" target="_blank" rel="external">XSS Challenges</a></li>
+<li><a href="http://escape.alf.nu/" target="_blank" rel="external">escape</a></li>
+<li><p><a href="https://xss-game.appspot.com/" target="_blank" rel="external">xss-game</a></p>
+</li>
+<li><p><strong>国内综合练习：</strong></p>
+</li>
+<li><a href="http://www.sangebaimao.com/challenge/list" target="_blank" rel="external">三个白帽</a></li>
+<li><a href="http://hackinglab.cn/" target="_blank" rel="external">网络信息安全攻防学习平台</a></li>
+<li><a href="http://captf.com/" target="_blank" rel="external">CTF题目</a></li>
+<li><a href="http://cafebabe.cc/nazo/" target="_blank" rel="external">脑洞开发</a></li>
+<li><a href="http://1111.segmentfault.com/" target="_blank" rel="external">光棍节程序员闯关秀</a></li>
+<li><a href="http://www.helloisa.com/test/" target="_blank" rel="external">ISA Test</a></li>
+<li><a href="http://www.fj543.com/hack/" target="_blank" rel="external">黑客丛林之旅</a></li>
+<li><a href="http://monyer.com/game/game1/" target="_blank" rel="external">梦之光芒小游戏</a></li>
+<li><a href="http://oj.xctf.org.cn/" target="_blank" rel="external">XCTF_OJ练习平台</a></li>
+<li><a href="http://hackgame.blackbap.org/" target="_blank" rel="external">习科黑客游戏</a></li>
+<li><a href="http://ctf.3sec.cn/" target="_blank" rel="external">Jlu.CTF</a></li>
+<li><a href="http://www.baimaoxueyuan.com/ctf" target="_blank" rel="external">白帽学院CTF挑战赛</a></li>
+<li><a href="http://www.ichunqiu.com/tiaozhans" target="_blank" rel="external">i春秋CTF挑战</a></li>
+<li><a href="http://ctf.idf.cn/" target="_blank" rel="external">idf 实验室</a></li>
+<li><a href="http://ctf.moonsos.com/pentest/index.php" target="_blank" rel="external">米安CTF</a></li>
+<li><a href="http://www.hetianlab.com/CTFrace.html" target="_blank" rel="external">合天CTF</a></li>
+<li><a href="http://www.shiyanbar.com/ctf/index" target="_blank" rel="external">西普CTF</a></li>
+<li><a href="http://hkyx.myhack58.com/" target="_blank" rel="external">红客闯关游戏</a></li>
+<li><a href="http://202.108.211.5/" target="_blank" rel="external">实训竞赛系统</a></li>
+<li><p><a href="http://ctf.nuptsast.com/" target="_blank" rel="external">南邮CTF</a></p>
+</li>
+<li><p><strong>国外综合练习:</strong></p>
+</li>
+<li><a href="http://www.wechall.net/" target="_blank" rel="external">wechall</a></li>
+<li><a href="http://insight-labs.org/" target="_blank" rel="external">insight-labs</a></li>
+<li><a href="http://webhacking.kr/" target="_blank" rel="external">webhacking</a></li>
+<li><a href="http://wargame.kr/" target="_blank" rel="external">wargame</a></li>
+<li><a href="http://canyouhack.it/" target="_blank" rel="external">canyouhack</a></li>
+<li><a href="http://hackit.sinaapp.com/" target="_blank" rel="external">hackit</a></li>
+<li><a href="http://webhacking.kr/" target="_blank" rel="external">webhacking</a></li>
+<li><a href="http://fun.coolshell.cn/" target="_blank" rel="external">coolshell</a></li>
+<li><a href="http://ringzer0team.com/challenge" target="_blank" rel="external">ringzer0team</a></li>
+<li><a href="https://backdoor.sdslabs.co/" target="_blank" rel="external">backdoor</a></li>
+<li><a href="http://smashthestack.org/" target="_blank" rel="external">smashthestack</a></li>
+<li><a href="http://overthewire.org/wargames/" target="_blank" rel="external">overthewire</a></li>
+<li><a href="https://w3challs.com/" target="_blank" rel="external">w3challs</a></li>
+<li><a href="https://chall.stypr.com/?chall" target="_blank" rel="external">chall.stypr</a></li>
+<li><a href="https://pentesterlab.com/" target="_blank" rel="external">pentesterlab</a></li>
+<li><a href="https://id0-rsa.pub" target="_blank" rel="external">id0-rsa</a></li>
+</ul>
+<p><strong>0x03 CTF-writeup(WP):</strong></p>
+<ul>
+<li><strong>各种搜索:ctf writeup</strong></li>
+<li><a href="http://drops.wooyun.org/?s=writeup&amp;submit=%E6%90%9C%E7%B4%A2" target="_blank" rel="external">乌云WP</a></li>
+<li><a href="http://bobao.360.cn/ctf/" target="_blank" rel="external">360安全播报WP</a></li>
+<li><a href="https://github.com/ctfs/" target="_blank" rel="external">github WP</a></li>
+<li><a href="http://sec.yka.me/" target="_blank" rel="external">CTF Writeup Summary</a></li>
+<li><a href="https://ctf-team.vulnhub.com/" target="_blank" rel="external">Write Ups</a></li>
+</ul>
+<p><strong>0x04 后话</strong></p>
+<ul>
+<li><p>学习的地方很多，不能一一列举，一些其他优秀的平台没有提到，欢迎大家补充</p>
+</li>
+<li><p>转载自<a href="https://www.hackfun.org/" target="_blank" rel="external">4ido10n’s Blog</a>文章<a href="https://www.hackfun.org/CTF/ctf-website.html" target="_blank" rel="external">《入CTF坑必不可少的地方-保持更新》</a></p>
+</li>
+</ul>
 
       
     </div>
@@ -344,16 +436,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/ctf/2016年X-NUCA全国高校网安联赛-赛前指导练习题web进阶篇Writeup.html" rel="next" title=" 2016年X-NUCA全国高校网安联赛--赛前指导练习题web进阶篇Writeup ">
-                <i class="fa fa-chevron-left"></i>  2016年X-NUCA全国高校网安联赛--赛前指导练习题web进阶篇Writeup 
+              <a href="/posts/uncategorized/hello-world" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/notes/Web安全与攻击技术-基础知识.html" rel="prev" title="Web安全与攻击技术-基础知识">
-                Web安全与攻击技术-基础知识 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/ctf/CTF工具以及脚本的整理" rel="prev" title="CTF工具以及脚本的整理 ">
+                CTF工具以及脚本的整理  <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -403,8 +495,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/life/2016-08-28.html"
-           data-title="2016-08-28" data-url="http://uknow.top/posts/life/2016-08-28.html">
+      <div class="ds-thread" data-thread-key="posts/ctf/入CTF坑必不可少的地方"
+           data-title="入CTF坑必不可少的地方" data-url="http://uknow.top/posts/ctf/入CTF坑必不可少的地方">
       </div>
     
   </div>
@@ -526,7 +618,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-前言"><span class="nav-number">1.</span> <span class="nav-text">0x00 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-正文"><span class="nav-number">2.</span> <span class="nav-text">0x01 正文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-结语"><span class="nav-number">3.</span> <span class="nav-text">0x02 结语</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>

@@ -62,10 +62,10 @@
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="智能社：JavaScript教程-从入门到精通视频整理笔记">
-<meta property="og:url" content="http://uknow.top/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记.html">
+<meta property="og:url" content="http://uknow.top/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
-<meta property="og:updated_time" content="2016-11-19T04:50:51.515Z">
+<meta property="og:updated_time" content="2016-11-19T15:02:28.081Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="智能社：JavaScript教程-从入门到精通视频整理笔记">
 <meta name="twitter:description" content="点击阅读全文">
@@ -291,8 +291,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记.html" itemprop="commentsCount"></span>
+                <a href="/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,7 +302,7 @@
 
           
           
-             <span id="/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记.html" class="leancloud_visitors" data-flag-title="智能社：JavaScript教程-从入门到精通视频整理笔记">
+             <span id="/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记" class="leancloud_visitors" data-flag-title="智能社：JavaScript教程-从入门到精通视频整理笔记">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -391,7 +391,49 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">for(var i=0;i&lt;aDiv.length;i++)</div><div class="line">&#123;</div><div class="line">	//i-&gt;0,1,2,3</div><div class="line">	aDiv[i].style.background=&apos;red&apos;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p> （3）实现全选、反选、不选</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">	oBtn1.onclick=function ()     //全选</div><div class="line">&#123;</div><div class="line">	for(var i=0;i&lt;aCh.length;i++)</div><div class="line">	&#123;</div><div class="line">		aCh[i].checked=true;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">oBtn2.onclick=function ()      //不选</div><div class="line">&#123;</div><div class="line">	for(var i=0;i&lt;aCh.length;i++)</div><div class="line">	&#123;</div><div class="line">		aCh[i].checked=false;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">oBtn3.onclick=function ()        //反选</div><div class="line">&#123;</div><div class="line">	for(var i=0;i&lt;aCh.length;i++)</div><div class="line">	&#123;</div><div class="line">		if(aCh[i].checked==true)</div><div class="line">		&#123;</div><div class="line">			aCh[i].checked=false;</div><div class="line">		&#125;</div><div class="line">		else</div><div class="line">		&#123;</div><div class="line">			aCh[i].checked=true;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="选项卡"><a href="#选项卡" class="headerlink" title="选项卡"></a>选项卡</h2><p> （1）按钮的实现<br>(1)添加事件<br>    this的使用<br>    用this选定当前元素，用来修改当前元素的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">	for(var i=0;i&lt;aBtn.length;i++)</div><div class="line">	&#123;</div><div class="line">		aBtn[i].onclick=function ()</div><div class="line">		&#123;</div><div class="line">			this.className=&apos;active&apos;;</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">```	</div><div class="line"></div><div class="line">	</div><div class="line">(2)先清空所有按钮，再选中当前按钮</div></pre></td></tr></table></figure>
+<pre><code>for(var i=0;i&lt;aBtn.length;i++)
+{
+    aBtn[i].onclick=function ()
+    {
+        for(var i=0;i&lt;aBtn.length;i++)
+        {
+            aBtn[i].className=&apos;&apos;;
+        }
+        this.className=&apos;active&apos;;
+    };
+}
+</code></pre><p>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line"> （2）内容的实现</div><div class="line">(1)索引值的使用</div><div class="line">(2)什么时候用索引值——需要知道“第几个”的时候</div><div class="line">(3)html添加index——会被浏览器过滤</div><div class="line">(3)js添加index</div></pre></td></tr></table></figure></p>
+<p>&lt;!DOCTYPE HTML&gt;</p>
+<p><html></html></p>
+<head><br><meta charset="utf-8"><br><title>无标题文档</title><br><style><br>#div1 .active {background:yellow;}<br>#div1 div {width:200px; height:200px; background:#CCC; border:1px solid #999; display:none;}<br></style><br><script><br>window.onload=function ()<br>{<br>    var oDiv=document.getElementById(‘div1’);<br>    var aBtn=oDiv.getElementsByTagName(‘input’);<br>    var aDiv=oDiv.getElementsByTagName(‘div’);<br><br>    for(var i=0;i<aBtn.length;i++)
+    {
+        aBtn[i].index=i;
+        aBtn[i].onclick=function ()
+        {
+            for(var i=0;i<aBtn.length;i++)
+            {
+                aBtn[i].className='';
+                aDiv[i].style.display='none';
+            }
+            this.className='active';
+            //alert(this.index);
+            aDiv[this.index].style.display='block';
+        };
+    }
+};
+</script><br></head>
 
+<body><br><div id="div1"><br>    <input class="active" type="button" value="教育"><br>    <input type="button" value="培训"><br>    <input type="button" value="招生"><br>    <input type="button" value="出国"><br>    <div style="display:block;">1111</div><br>    <div>2222</div><br>    <div>333</div><br>    <div>4444</div><br></div><br></body><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">## 简易日历</div><div class="line">（1）程序实现思路</div><div class="line">(1)类似选项卡，只是下面只有一个div</div><div class="line">(2)InnerHTML的使用</div><div class="line">	innerHTML 属性设置或返回表格行的开始和结束标签之间的 HTML。</div></pre></td></tr></table></figure><br><br><style><br>#div1 {width:200px; height:150px; border:1px solid black;}<br></style><br><script><br>window.onload=function ()<br>{<br>    var oTxt=document.getElementById(‘txt1’);<br>    var oBtn=document.getElementById(‘btn1’);<br>    var oDiv=document.getElementById(‘div1’);<br><br>    oBtn.onclick=function ()<br>    {<br>        oDiv.innerHTML=oTxt.value;<br>        //alert(oDiv.innerHTML);<br>    };<br>};<br></script><br><br><br><body><br><input id="txt1" type="text"><br><input id="btn1" type="button" value="设置文字"><br><div id="div1"><br></div><br></body>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">（2）数组的使用</div><div class="line">    数组对象用来在单独的变量名中存储一系列的值。</div><div class="line"> 定义数组：</div><div class="line">```var myArray=new Array()</div></pre></td></tr></table></figure>
+<p> 数组赋值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1.</div><div class="line">var mycars=new Array()</div><div class="line">mycars[0]=&quot;Saab&quot;</div><div class="line">mycars[1]=&quot;Volvo&quot;</div><div class="line">mycars[2]=&quot;BMW&quot;</div><div class="line">2.</div><div class="line">var mycars=new Array(&quot;Saab&quot;,&quot;Volvo&quot;,&quot;BMW&quot;)</div></pre></td></tr></table></figure></p>
+<p>（3）字符串连接 (+)<br>作用：连接两个字符串<br>问题：连接中的优先级（用括号改变优先级）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">&lt;title&gt;无标题文档&lt;/title&gt;</div><div class="line">&lt;script&gt;</div><div class="line"></div><div class="line">alert(&apos;abc&apos;+(12+5)+&apos;def&apos;);</div><div class="line"></div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line"></div><div class="line">&lt;body&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="JavaScript基础"><a href="#JavaScript基础" class="headerlink" title="JavaScript基础"></a>JavaScript基础</h1><h2 id="JavaScript组成"><a href="#JavaScript组成" class="headerlink" title="JavaScript组成"></a>JavaScript组成</h2><pre><code>ECMAScript：解释器、翻译
+DOM：Document Object Model
+BOM：Browser Object Model
+</code></pre>
       
     </div>
 
@@ -408,7 +450,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/life/2016-10-19.html" rel="next" title="2016-10-19">
+              <a href="/posts/life/2016-10-19" rel="next" title="2016-10-19">
                 <i class="fa fa-chevron-left"></i> 2016-10-19
               </a>
             
@@ -463,8 +505,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记.html"
-           data-title="智能社：JavaScript教程-从入门到精通视频整理笔记" data-url="http://uknow.top/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记.html">
+      <div class="ds-thread" data-thread-key="posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记"
+           data-title="智能社：JavaScript教程-从入门到精通视频整理笔记" data-url="http://uknow.top/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记">
       </div>
     
   </div>
@@ -586,7 +628,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初探JavaScript魅力-1"><span class="nav-number">1.</span> <span class="nav-text">初探JavaScript魅力-1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript是什么"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、第一个JS兼容性问题-document-getElementById"><span class="nav-number">1.2.</span> <span class="nav-text">2、第一个JS兼容性问题:document.getElementById</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入函数：因为直接在事件内写代码会很乱"><span class="nav-number">1.3.</span> <span class="nav-text">引入函数：因为直接在事件内写代码会很乱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if判断：如点击按钮显示-隐藏div-弹出菜单"><span class="nav-number">1.4.</span> <span class="nav-text">if判断：如点击按钮显示/隐藏div(弹出菜单)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初探JavaScript魅力-2"><span class="nav-number">2.</span> <span class="nav-text">初探JavaScript魅力-2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数传参"><span class="nav-number">2.1.</span> <span class="nav-text">函数传参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取行间事件"><span class="nav-number">2.2.</span> <span class="nav-text">提取行间事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">2.3.</span> <span class="nav-text">循环</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初探JavaScript魅力-1"><span class="nav-number">1.</span> <span class="nav-text">初探JavaScript魅力-1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript是什么"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、第一个JS兼容性问题-document-getElementById"><span class="nav-number">1.2.</span> <span class="nav-text">2、第一个JS兼容性问题:document.getElementById</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入函数：因为直接在事件内写代码会很乱"><span class="nav-number">1.3.</span> <span class="nav-text">引入函数：因为直接在事件内写代码会很乱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if判断：如点击按钮显示-隐藏div-弹出菜单"><span class="nav-number">1.4.</span> <span class="nav-text">if判断：如点击按钮显示/隐藏div(弹出菜单)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初探JavaScript魅力-2"><span class="nav-number">2.</span> <span class="nav-text">初探JavaScript魅力-2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数传参"><span class="nav-number">2.1.</span> <span class="nav-text">函数传参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取行间事件"><span class="nav-number">2.2.</span> <span class="nav-text">提取行间事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">2.3.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选项卡"><span class="nav-number">2.4.</span> <span class="nav-text">选项卡</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript基础"><span class="nav-number">3.</span> <span class="nav-text">JavaScript基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript组成"><span class="nav-number">3.1.</span> <span class="nav-text">JavaScript组成</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

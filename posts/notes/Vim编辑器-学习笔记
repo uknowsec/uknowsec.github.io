@@ -62,7 +62,7 @@
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vim编辑器-学习笔记">
-<meta property="og:url" content="http://uknow.top/posts/notes/Vim编辑器-学习笔记.html">
+<meta property="og:url" content="http://uknow.top/posts/notes/Vim编辑器-学习笔记">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
 <meta property="og:image" content="https://dn-anything-about-doc.qbox.me/md041716vim.gif">
@@ -293,8 +293,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/notes/Vim编辑器-学习笔记.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/Vim编辑器-学习笔记.html" itemprop="commentsCount"></span>
+                <a href="/posts/notes/Vim编辑器-学习笔记#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/Vim编辑器-学习笔记" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -304,7 +304,7 @@
 
           
           
-             <span id="/posts/notes/Vim编辑器-学习笔记.html" class="leancloud_visitors" data-flag-title="Vim编辑器-学习笔记">
+             <span id="/posts/notes/Vim编辑器-学习笔记" class="leancloud_visitors" data-flag-title="Vim编辑器-学习笔记">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -770,7 +770,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/notes/Linux基础入门笔记.html" rel="next" title="Linux基础入门笔记">
+              <a href="/posts/notes/Linux基础入门笔记" rel="next" title="Linux基础入门笔记">
                 <i class="fa fa-chevron-left"></i> Linux基础入门笔记
               </a>
             
@@ -778,7 +778,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/life/2016-09-29.html" rel="prev" title="2016-09-29">
+              <a href="/posts/life/2016-09-29" rel="prev" title="2016-09-29">
                 2016-09-29 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -829,8 +829,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/notes/Vim编辑器-学习笔记.html"
-           data-title="Vim编辑器-学习笔记" data-url="http://uknow.top/posts/notes/Vim编辑器-学习笔记.html">
+      <div class="ds-thread" data-thread-key="posts/notes/Vim编辑器-学习笔记"
+           data-title="Vim编辑器-学习笔记" data-url="http://uknow.top/posts/notes/Vim编辑器-学习笔记">
       </div>
     
   </div>

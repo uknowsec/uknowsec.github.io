@@ -61,29 +61,14 @@
 
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解JPEG图像格式Jphide隐写">
-<meta property="og:url" content="http://uknow.top/posts/ctf/深入理解JPEG图像格式Jphide隐写.html">
+<meta property="og:title" content="Web安全与攻击技术-基础知识">
+<meta property="og:url" content="http://uknow.top/posts/notes/Web安全与攻击技术-基础知识">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
-<meta property="og:image" content="http://i.imgur.com/kb6USbH.png">
-<meta property="og:image" content="http://i.imgur.com/BzbsFlS.png">
-<meta property="og:image" content="http://i.imgur.com/C8DQKFo.png">
-<meta property="og:image" content="http://i.imgur.com/ciEvX2s.png">
-<meta property="og:image" content="http://i.imgur.com/kipH6L0.png">
-<meta property="og:image" content="http://i.imgur.com/ImK54U1.png">
-<meta property="og:image" content="http://i.imgur.com/QYrSVtE.png">
-<meta property="og:image" content="http://i.imgur.com/XfbEvQS.png">
-<meta property="og:image" content="http://i.imgur.com/sj8X3aP.png">
-<meta property="og:image" content="http://i.imgur.com/HPkvnci.png">
-<meta property="og:image" content="http://i.imgur.com/H9QJnHU.jpg">
-<meta property="og:image" content="http://i.imgur.com/i3zeRUx.png">
-<meta property="og:image" content="http://i.imgur.com/aCnBL4u.png">
-<meta property="og:image" content="http://i.imgur.com/1whWnla.png">
-<meta property="og:updated_time" content="2016-11-19T04:49:54.633Z">
+<meta property="og:updated_time" content="2016-11-19T04:50:06.815Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入理解JPEG图像格式Jphide隐写">
+<meta name="twitter:title" content="Web安全与攻击技术-基础知识">
 <meta name="twitter:description" content="点击阅读全文">
-<meta name="twitter:image" content="http://i.imgur.com/kb6USbH.png">
 
 
 
@@ -101,7 +86,7 @@
   };
 </script>
 
-  <title> 深入理解JPEG图像格式Jphide隐写 | Uknow’s Blog </title>
+  <title> Web安全与攻击技术-基础知识 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +249,7 @@
             
             
               
-                深入理解JPEG图像格式Jphide隐写
+                Web安全与攻击技术-基础知识
               
             
           </h1>
@@ -276,8 +261,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-12T17:56:19+08:00" content="2016-08-12">
-              2016-08-12
+            <time itemprop="dateCreated" datetime="2016-09-01T14:29:17+08:00" content="2016-09-01">
+              2016-09-01
             </time>
           </span>
 
@@ -290,8 +275,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ctf/" itemprop="url" rel="index">
-                    <span itemprop="name">CTF</span>
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
                   </a>
                 </span>
 
@@ -306,8 +291,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/ctf/深入理解JPEG图像格式Jphide隐写.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/ctf/深入理解JPEG图像格式Jphide隐写.html" itemprop="commentsCount"></span>
+                <a href="/posts/notes/Web安全与攻击技术-基础知识#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/Web安全与攻击技术-基础知识" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -317,7 +302,7 @@
 
           
           
-             <span id="/posts/ctf/深入理解JPEG图像格式Jphide隐写.html" class="leancloud_visitors" data-flag-title="深入理解JPEG图像格式Jphide隐写">
+             <span id="/posts/notes/Web安全与攻击技术-基础知识" class="leancloud_visitors" data-flag-title="Web安全与攻击技术-基础知识">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -339,65 +324,25 @@
 
       
         <p>点击阅读全文<br><a id="more"></a></p>
-<h1 id="深入理解JPEG图像格式Jphide隐写"><a href="#深入理解JPEG图像格式Jphide隐写" class="headerlink" title="深入理解JPEG图像格式Jphide隐写"></a>深入理解JPEG图像格式Jphide隐写</h1><h2 id="0x00-隐写原理"><a href="#0x00-隐写原理" class="headerlink" title="0x00 隐写原理"></a>0x00 隐写原理</h2><p>Jphide是基于最低有效位LSB的<a href="http://www.cnblogs.com/leaven/archive/2010/04/06/1705846.html" target="_blank" rel="external">JPEG格式</a>图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在<a href="https://en.wikipedia.org/wiki/Discrete_cosine_transform" target="_blank" rel="external">DCT变换域</a>上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时<a href="http://baike.baidu.com/link?url=OWM-kQRYlFaJ2Sy7m1E_Z_-fnvknJTRSHwk1f3eoabLsbht1TJa07GmvWRoiOg6U7-0-Ey3vb_UHcDm9Pc7Mgq" target="_blank" rel="external">Blowfish算法</a>有较强的抗统计检测能力。</p>
-<p>由于JPEG图像格式使用<a href="http://baike.baidu.com/view/391624.htm?fr=aladdin&amp;fromtitle=DCT&amp;fromid=4184&amp;type=syn" title="DCT&amp;fromid=4184&amp;type=syn" target="_blank" rel="external">离散余弦变换</a>（Discrete Cosine Transform，DCT）函数来压缩图像，而这个图像压缩方法的核心是：通过识别每个8×8像素块中相邻像素中的重复像素来减少显示图像所需的位数，并使用近似估算法降低其冗余度。因此，我们可以把DCT看作一个用于执行压缩的近似计算方法。因为丢失了部分数据，所以DCT是一种<a href="http://baike.baidu.com/link?url=7eIl--nFUaz-amKaY9jatpW4J-J2JyZEXy8dYJM4Py1CspzR9mUATKgTyXOCt7M6AjFSv4JmF3YKtXTTAauHm_" target="_blank" rel="external">有损压缩</a>（Loss Compression）技术，但一般不会影响图像的视觉效果。</p>
-<h2 id="0x01-隐写过程"><a href="#0x01-隐写过程" class="headerlink" title="0x01 隐写过程"></a>0x01 隐写过程</h2><p>Jphide隐写过程大致为：先解压压缩JPEG图像，得到DCT系数；然后对隐藏信息用户给定的密码进行Blowfish加密；再利用Blowfish算法生成伪随机序列，并据此找到需要改变的DCT系数，将其末位变为需要隐藏的信息的值。最后把DCT系数重新压回成JPEG图片，下面是个人对隐写过程理解画出的大致流程图。</p>
-<p><img src="http://i.imgur.com/kb6USbH.png" alt=""></p>
-<!--more-->
-<h2 id="0x02-隐写实现"><a href="#0x02-隐写实现" class="headerlink" title="0x02 隐写实现"></a>0x02 隐写实现</h2><p><strong>（1）Stegdetect</strong></p>
-<p>实现JPEG图像Jphide隐写算法工具有多个，比如由Neils Provos开发通过统计分析技术评估JPEG文件的DCT频率系数的隐写工具<a href="https://github.com/abeluck/stegdetect" target="_blank" rel="external">Stegdetect</a>，它可以检测到通过JSteg、JPHide、OutGuess、Invisible Secrets、F5、appendX和Camouflage等这些隐写工具隐藏的信息，并且还具有基于字典暴力破解密码方法提取通过Jphide、outguess和jsteg-shell方式嵌入的隐藏信息。</p>
-<p><strong>（2）JPHS</strong></p>
-<p>而这里介绍另一款JPEG图像的信息隐藏软件<a href="http://io.acad.athabascau.ca/~grizzlie/Comp607/programs.htm" target="_blank" rel="external">JPHS</a>，它是由Allan Latham开发设计实现在Windows和Linux系统平台针对有损压缩JPEG文件进行信息加密隐藏和探测提取的工具。软件里面主要包含了两个程序JPHIDE和JPSEEK， JPHIDE程序主要是实现将信息文件加密隐藏到JPEG图像功能，而JPSEEK程序主要实现从用JPHIDE程序加密隐藏得到的JPEG图像探测提取信息文件，Windows版本的JPHS里的JPHSWIN程序具有图形化操作界面且具备JPHIDE和JPSEEK的功能。</p>
-<p><img src="http://i.imgur.com/BzbsFlS.png" alt=""></p>
-<p>1.Windows用户请下载<a href="http://io.acad.athabascau.ca/~grizzlie/Comp607/jphs05.zip" target="_blank" rel="external">JPHS-05 for Windows</a>,同时也提供下载<a href="http://linux01.gwdg.de/~alatham/stego.html" target="_blank" rel="external">Linux版本</a>。</p>
-<p>2.分别准备一个JPEG格式的图片（example.jpg）和一个文本文件（flag.txt）。</p>
-<p><img src="http://i.imgur.com/C8DQKFo.png" alt=""></p>
-<p>由于JPEG文件使用的数据存储方式有多种不能一一演示，这里用最常用的JPEG格式-JPEG文件交换格式（JPEG File Interchange Format，JFIF）作为示例。</p>
-<p>这里简单介绍JPEG文件交换格式的JPEG图片的图像开始标记SOI（Start of Image）和应用程序保留标记APP0（Application 0），JPEG文件交换格式的JPEG图片开始前2个字节是图像开始标记为0xFFD8，之后2个字节接着便是应用程序保留标记为0xFFE0，应用程序保留标记APP0包含9个具体字段，这里介绍前三个字段，第一个字段是数据长度占2个字节，表示包括本字段但不包括标记代码的总长度，这里为10个字节，第二个字段是标识符占5个字节0x4A46494600表示“JFIF0”字符串，第三个字段是版本号占2个字节，这里是0X0101，表示JFIF的版本号为1.1，但也可能为其它数值，从而代表了其它版本号。</p>
-<p><img src="http://i.imgur.com/ciEvX2s.png" alt=""></p>
-<p>3.Windows版本可以使用具有图形化操作界面的Jphswin，选择“Open jpeg”打开示例JPEG格式图片example.jpg</p>
-<p><img src="http://i.imgur.com/kipH6L0.png" alt=""></p>
-<p>如果你选择的不是JPEG格式的图片程序会自动退出，你可以16进制编辑器如Winhex查看图片的图像开始标记SOI和应用程序保留标记APP0，当载入JPEG格式图片会显示一些图片的属性。</p>
-<p><img src="http://i.imgur.com/ImK54U1.png" alt=""></p>
-<p>4.选择“Hide”选项之后在两次文本框输入相同的密码，这里以输入flag作为密码为例，然后输入要包含隐藏信息的文本。</p>
-<p><img src="http://i.imgur.com/QYrSVtE.png" alt=""></p>
-<p>5.选择将要隐藏的信息如flag.txt。</p>
-<p><img src="http://i.imgur.com/XfbEvQS.png" alt=""></p>
-<p>6.选择“Save jpeg as”选项将图片另存为jpeg格式并输入文件的名称为新的图像文件如C4n-u-find-f14g.jpg。</p>
-<p><img src="http://i.imgur.com/sj8X3aP.png" alt=""></p>
-<p>7.之后便可以看到生成结果和相关信息。</p>
-<p><img src="http://i.imgur.com/HPkvnci.png" alt=""></p>
-<p>8.第2步到第7步做的是Jhide方式信息隐藏，接下来我们从C4n-u-find-f14g.jpg图片提取出隐藏信息。</p>
-<p><img src="http://i.imgur.com/H9QJnHU.jpg" alt=""></p>
-<p>9.如果之前你并不知道图片是基于什么方式进行信息隐藏，你可以使用Stegdetect先进行探测。</p>
-<p>Stegdetect的主要选项如下：</p>
-<blockquote>
-<p>-q  仅显示可能包含隐藏内容的图像。</p>
-<p>-n  启用检查JPEG文件头功能，以降低误报率。如果启用，所有带有批注区域的文件将被视为没有被嵌入信息。如果JPEG文件的JFIF标识符中的版本号不是1.1，则禁用OutGuess检测。</p>
-<p>-s  修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</p>
-<p>-d  打印带行号的调试信息。</p>
-<p>-t  设置要检测哪些隐写工具（默认检测jopi），可设置的选项如下：</p>
-<ul>
-<li>j  检测图像中的信息是否是用jsteg嵌入的。</li>
-<li>o  检测图像中的信息是否是用outguess嵌入的。</li>
-<li>p  检测图像中的信息是否是用jphide嵌入的。</li>
-<li>i  检测图像中的信息是否是用invisible secrets嵌入的。</li>
-</ul>
-<p>-V 显示软件版本号。</p>
-<p>如果检测结果显示该文件可能包含隐藏信息，那么Stegdetect会在检测结果后面使用1～3颗星来标识</p>
-<p>隐藏信息存在的可能性大小，3颗星表示隐藏信息存在的可能性最大。</p>
-</blockquote>
-<p>从下图可以看出很可能是Jphide的信息隐藏方式：</p>
-<p><img src="http://i.imgur.com/i3zeRUx.png" alt=""></p>
-<p>10.在知道隐藏方式之后可以开始进行信息提取，和使用JPHS进行信息隐藏过程类似，打开需要提取隐藏信息的图片C4n-u-find-f14g.jpg，输入对应密码（在不知道密码的情况不可以尝试Stegdetect工具里的Stegbreak程序进行基于字典的暴力攻击）flag，密码验证通过JPHS会自动提取隐藏信息，之后便可以另存提取出的信息。</p>
-<p><img src="http://i.imgur.com/aCnBL4u.png" alt=""></p>
-<p>11.打开提取得到的find.txt便可以得到我们想要的隐藏信息。</p>
-<p><img src="http://i.imgur.com/1whWnla.png" alt=""></p>
-<h2 id="0x03-参考资料"><a href="#0x03-参考资料" class="headerlink" title="0x03 参考资料"></a>0x03 参考资料</h2><p><a href="http://mall.cnki.net/magazine/article/JSJC201006056.htm" target="_blank" rel="external">Jphide原理剖析及检测</a></p>
-<p></p><p><a href="http://www.cnki.com.cn/Article/CJFDTotal-JSJC200707054.htm" target="_blank" rel="external">基于二次加密的JPhide隐写检测方法</a></p>
-<ul>
-<li>转载自<a href="https://www.hackfun.org/" target="_blank" rel="external">4ido10n’s Blog</a>文章<a href="https://www.hackfun.org/CTF/jphide-steganography.html" target="_blank" rel="external">《深入理解JPEG图像格式Jphide隐写》</a></li>
-</ul>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="0x01-HTTP协议"><a href="#0x01-HTTP协议" class="headerlink" title="0x01 HTTP协议"></a>0x01 HTTP协议</h2><p>超文本传送协议（Hypertext Transport Protocol , HTTP）是分布式、协作式、超媒体系统应用之间的通信协议，是万维网（World Wide Web）交换信息的基础。HTTP是一个客户端终端（用户）和服务端（网站）请求和应答的标准（TCP）。通过使用Web浏览器、网络爬虫或者其他工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80），称这个客户端为用户代理程序。通常，有HTTP客户端发起一个请求，创建一个到服务器指定端口（默认端口为80端口）的TCP连接。HTTO服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，如“HTTP/1.1 200 OK”及返回的内容（请求的文件、错误信息、或者其他信息）。</p>
+<h3 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h3><p>（1）OPTIONS：该办法可使服务器传回该资源所支持的所有HTTP请求方法。用‘*’来代替资源名称，向Web服务器发送OPTIONS请求，可以测试服务器功能是否正常运作。<br>（2）HEAD:与GET方法一样，都是向服务器发出指定资源的请求。只不过服务器将不传回资源的本文部分。它的好处在于，使用这个方法可以在不必传输全部内容的情况下，就可以获取其中“关于该资源的信息”（元信息或称元数据）<br>（3）GET:向指定资源发出“显示”请求。使用GET方法应该只用在读取数据，而不应当被用于产生“副作用”的操作中，如在Web Application中，其中一个原因就是GET可能会被网络蜘蛛等随意访问。<br>（4）POST:向指定资源提交数据，请求服务器进行处理（如提交表单或者上传文件）。数据被包含在请求本文中。这个请求可能会创建新的资源或修改现有资源，或二者皆有。<br>（5）PUT：向指向资源位置上传其最新内容。<br>（6）DELETE：请求服务器删除Request-URI所标识的资源。<br>（7）TRACE：回显服务器收到的请求，主要用于测试或诊断。<br>（8）CONNECT:HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接（经由非加密的HTTP代理服务器）。<br>以下是一个典型的HTTP GET 请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">GET / HTTP/1.1</div><div class="line">User-Agent: Mozilla/4.0(compatible; MSIE 8.0; Windows NT 6.0)</div><div class="line">Host: www.bit.edu.cn</div><div class="line">Accept: text/html</div><div class="line">Accept-Language: zh-CN</div><div class="line">Accept-Rncoding: gzip,deflate</div><div class="line">Cache-Control: no-cache</div><div class="line">Cookie: SessionId= ICONFPDBEPOBLFFGBKKNCGAL</div><div class="line">Connection: Keep-Alive</div></pre></td></tr></table></figure></p>
+<p>其中，请求的第一行都是由3个以空格间隔的项目组成，分别是请求方法、请求路径、和HTTP版本。其他一些常见的消息头如下。<br>（1）Referer消息头用于表示发出请求的原始URL。<br>（2）User-Agent消息头提供与浏览器或其他请求的客户端软件有关的信息。<br>（3）Host消息头用于指定出现被访问的完整URL中的主机名称。<br>（4）Cookie消息头用于提交服务器向客户端发布的其他参数。</p>
+<h3 id="HTTP-状态码"><a href="#HTTP-状态码" class="headerlink" title="HTTP 状态码"></a>HTTP 状态码</h3><p>HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位柱子代码。所有HTTP响应的第一行都是状态行，以次是当前HTTP版本号，3位数字组成的状态代码，以及描述状态的短语，彼此由空格分隔。<br>状态代码的第一数字代表当前响应的类型。<br>（1）1xx消息————请求已被服务器接收，继续处理。<br>（2）2xx成功————请求已成功被服务器接收、理解、并接受。<br>（3）3xx重定向————需要后续操作才能完成这一请求。<br>（4）4xx请求错误————请求含有词法错误或者无法被执行。<br>（5）5xx服务器错误————服务器在处理某个正确请求时发生错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 200 OK </div><div class="line">Date: Mon,04 Mar 2013 07:53:16 GMT</div><div class="line">Server: Apache/2.2.23 (Unix) mod_jk/1.2.14</div><div class="line">Content-Length: 31300</div><div class="line">Keep-Alive: timeout=5,max=99</div><div class="line">Connection: Keep-Alive</div><div class="line">Content-Type: text-html</div></pre></td></tr></table></figure></p>
+<p>每个HTTP响应的第一行由3个以空格间隔的项目组成，分别为HTTP版本、状态码和原因短语。其他一些常见的消息头如下：<br>（1）Server消息头包含一个旗标，指明所使用的Web服务器软件。有时还包括其他信息，如所安装的模块和服务器操作系统。其中包括的信息可能并不准确。<br>（2）Set-Cookie消息头向浏览器发送另一个Cookie,它将在最后向服务器发送的请求中由Cookie消息头返回。<br>（3）Progma消息头指示浏览器是否将响应保存在缓存中。<br>（4）Expires消息头指出响应内容过期日期。<br>（5）Content-Length消息头规定消息主题的字节长度。<br>（6）Content-Type消息头表示这个消息主题中包含一个HTML文档。</p>
+<h3 id="HTTP-Cookie"><a href="#HTTP-Cookie" class="headerlink" title="HTTP Cookie"></a>HTTP Cookie</h3><p>HTTP协议是无状态的，即服务器不知道用户上一次做了什么，这严重阻碍了交互式Web应用程序的实现。所以Cookie就是用来绕开HTTO的无状态性的“额外手段”之一。服务器可以设置或读取Cookies中包含的信息，借此维护用户跟服务器会话中的状态。</p>
+<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p>超文本传输安全协议（Hypertext Transfer Protocol Secure, HTTPS）是超文本传输协议和SSL/TLS的组合，用以提供加密通信及对网络服务器身份的鉴定。HTTPS连接经常被用于万维网上的交易支付和企业信息系统的敏感信息的传输。<br>HTTPS可为浏览器和服务器间传输的数据提供机密性与完整性保护功能。有助于防止信息泄漏，并且可以保证用户处理的服务器的安全性。但是HTTPS并不能抵御直接针对某个应用程序服务器或客户端组件的攻击，而许多成功的攻击都属于这种类型。因此无论服务器是否使用HTTPS，大多数Web应用程序安全漏洞仍然存在。</p>
+<h2 id="0x02-B-S功能及会话"><a href="#0x02-B-S功能及会话" class="headerlink" title="0x02 B/S功能及会话"></a>0x02 B/S功能及会话</h2><h3 id="服务端功能"><a href="#服务端功能" class="headerlink" title="服务端功能"></a>服务端功能</h3><p>Web应用程序主要向用户提供动态生成的内容。当用户请求一个动态资源时，服务器会建立响应并在服务器端执行相应的脚本生成内容，然后将内容返回给用户。在形式上服务器类似于计算机程序，接受输入并处理输入，最后向用户返回输出结果。<br>HTTP请求通常使用以下3种方式向应用程序传递参数。<br>（1）通过URL里的查询字符串。<br>（2）通过在请求主题中使用POST方法。<br>（3）通过HTTP Cookie。</p>
+<h3 id="客户端功能"><a href="#客户端功能" class="headerlink" title="客户端功能"></a>客户端功能</h3><p>服务器端应用程序要接收用户输入与操作，并向用户返回其结果，它必须提供一个客户端界面。由于所有的Web应用都通过Web浏览器访问，因此这些界面共享一个技术核心。近些年来客户端技术不断发生变化，以下介绍一些常见的客户端技术。</p>
+<h4 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h4><p>超文本标记语言（Hyper Text Markup Language, HTML）是为“网页创建和其他可在网页浏览器中看到的信息”设计的一种标记语言。<br>超链接是HTML中常见的一个标签，事实上服务器与客户端之间大量的通信都由用户单击超链接驱动。<br>虽然超链接具有极大的方便性，但许多Web程序还需要采用更灵活的形式收集输入，HTML表单是一种常见的机制，它允许用户提交任意的输入。</p>
+<h4 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h4><p>层叠样式表（Cascading Style Sheets）,又称串样式列表，一种用来为结构化文档（如HTML文档或XML应用）添加样式（字体、间距和颜色等）的计算机语言，由W3C定义和维护。CSS目前最新版本为CSS3,是能够真正做到网页表现与内容分离的一种样式是设计语言。相对于传统HTML的表现而言，CSS能够对网页中的对象的位置排版进行像素级的精髓控制，支持几乎所有的字体字号样式，拥有对网页对象和模型样式编辑的能力，并能够进行初步交互涉及，是目前基于文本展示最优秀的表现设计语言。CSS能够根据不同使用者的理解能力，简化或者优化写法，针对各类人群，有较强的易读性。</p>
+<h4 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h4><p>JavaScript是一种由Netscape的LiveScript发展而来的原型化继承的面向对象的动态类型的区分大小写的客户端脚本语言，主要目的是为了解决服务器端语言，例如，Perl遗留的速度问题，为客户提供更流畅的浏览效果。<br>JavaScript是一种相对简单但功能强大的编程语言，使用它可以方便地以各种仅使用HTML无法实现的方法对Web界面进行扩展。JavaScript常用于执行以下任务。<br>（1）确定用户输入，然后将其提交给服务器避免数据包含错误而提交不必要的请求。<br>（2）根据用户的输入动态修改用户界面，以减少客户端与服务器端通信次数。<br>（3）查询并更新浏览器内的文档对象模型（Document Object Model, DOM）,控制浏览器行为。</p>
+<h4 id="浏览器扩展技术"><a href="#浏览器扩展技术" class="headerlink" title="浏览器扩展技术"></a>浏览器扩展技术</h4><p>除了JavaScript技术外，一些Web应用程序还使用浏览器扩展技术，使用定制代码从各个方面扩展浏览器的内置功能。这些扩展可通过适当的浏览器执行或需要在客户端安装可执行程序。以下列出常见的一些后客户端技术。<br>（1）Java applet<br>（2）ActiveX控件<br>（3）Flash对象<br>（4）Silverlight对象</p>
+<h3 id="状态与会话"><a href="#状态与会话" class="headerlink" title="状态与会话"></a>状态与会话</h3><p>HTTP协议本身是无状态的，客户端只需简单地想服务器请求，服务器响应请求返回响应消息。无论是客户端还是服务器都没有记录信息，每一次请求都是独立的。随着Web应用的发展，按需生成动态信息变得越来越重要。其中，Cookie就是为了解决HTTP无状态的而产生的，后来又出现Session，一种在客户端和服务器端保持状态的解决方案。<br>Session基址是一种服务器机制，服务器一般采用类似于散列表的存储结构保存信息。<br>与Cookie机制不同的是，Session采取的是在服务器端保持状态，而Cookie是在客户端保持状态。同时，服务器端需要在客户端保存一个标识。所以Session机制通常需要借助于Cookie来保存Session标识。</p>
+<h2 id="编码格式"><a href="#编码格式" class="headerlink" title="编码格式"></a>编码格式</h2><h3 id="URL-编码"><a href="#URL-编码" class="headerlink" title="URL 编码"></a>URL 编码</h3><p>统一资源定位符（Uniform/Universal Resource Locator）也被称为网页地址，如同在网络上的门牌，是因特网上标准的资源的地址（Address）。它最初由蒂姆·伯纳斯·李发明用来作为万维网的地址。现在它已经被万维网联盟编制为因特网标准RFC1738。<br>在因特网的历史上，统一资源定位符的发明是一个非常基础的步骤。统一资源定位符的语法是一般的、可扩展的，它使用ASCII代码的一部分来表示因特网的地址。统一资源定位符的开始，一般会标志着一个计算机网络所使用的网络协议。<br>统一资源定位符的标准格式如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">协议类型：//服务器地址（必要时要加上端口号）/路径/文件名</div></pre></td></tr></table></figure></p>
+<p>URL只允许使用US-ASCII字符集中的可打印字符（ASCII代码在0x20~0x7e范围内）。而且由于其在URL方案或HTTP协议内具有特殊含义，这个范围内的一些字符也不能在URL中使用。URL编码方案对扩展ASCII字符集中的任何有问题的字符进行编码，使其可以通过HTTP安全传输。任何URL编码的字符都是以%为前缀，其后是这个字符的两位十六进制ASCII代码。</p>
+<h3 id="Unicode-编码"><a href="#Unicode-编码" class="headerlink" title="Unicode 编码"></a>Unicode 编码</h3><p>Unicode是一种为支持全世界所使用的各种编码系统而设计的字符编码标准，它采用各种编码方案，其中一些可用于表示Web应用程序中不常见的字符。<br>16位Unicode编码的工作原理与URL编码类似。为通过HTTP进行传输，16位Unicode编码的字符以%u为前缀，其后是这个字符的十六进制Unicode码点。</p>
+<h3 id="HTML-编码"><a href="#HTML-编码" class="headerlink" title="HTML 编码"></a>HTML 编码</h3><p>HTML编码是一种用于表示问题字符以将其安全并入HTML文档的方案。许多字符在HTML中具有特殊含义（如HTML元字符），并被用于定义文档结构而非其内容。为了安全使用这些字符，并将其用在文档的内容中，就必须对其进行HTML编码。<br>当攻击Web应用程序时，HTML编码主要在探查跨站脚本漏洞时发挥作用。</p>
+<h3 id="Base64-编码"><a href="#Base64-编码" class="headerlink" title="Base64 编码"></a>Base64 编码</h3><p>Base64是一种基于64个可打印字符来表示二进制数据的表示方法。由于2的6次方等于64，所以每6个位元为一个单元，对应某个可打印字符。三个字节有24个位元，对应于4个Base64单元，即3个字节需要用4个可打印字符来表示。Base64常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据。包括MIME的email，email via MIME,在XML中存储复杂数据。<br>如果最后的输入数据块不能构成3段输出数据，就用一个或两个等号补足输出。</p>
 
       
     </div>
@@ -415,16 +360,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/ctf/CTF工具以及脚本的整理.html" rel="next" title="CTF工具以及脚本的整理 ">
-                <i class="fa fa-chevron-left"></i> CTF工具以及脚本的整理 
+              <a href="/posts/life/2016-08-28" rel="next" title="2016-08-28">
+                <i class="fa fa-chevron-left"></i> 2016-08-28
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/ctf/CTF中图片隐藏文件分离方法总结.html" rel="prev" title="CTF中图片隐藏文件分离方法总结">
-                CTF中图片隐藏文件分离方法总结 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/notes/MySQL数据库基础与实例" rel="prev" title="MySQL数据库基础与实例">
+                MySQL数据库基础与实例 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -474,8 +419,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/ctf/深入理解JPEG图像格式Jphide隐写.html"
-           data-title="深入理解JPEG图像格式Jphide隐写" data-url="http://uknow.top/posts/ctf/深入理解JPEG图像格式Jphide隐写.html">
+      <div class="ds-thread" data-thread-key="posts/notes/Web安全与攻击技术-基础知识"
+           data-title="Web安全与攻击技术-基础知识" data-url="http://uknow.top/posts/notes/Web安全与攻击技术-基础知识">
       </div>
     
   </div>
@@ -597,7 +542,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深入理解JPEG图像格式Jphide隐写"><span class="nav-number">1.</span> <span class="nav-text">深入理解JPEG图像格式Jphide隐写</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-隐写原理"><span class="nav-number">1.1.</span> <span class="nav-text">0x00 隐写原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-隐写过程"><span class="nav-number">1.2.</span> <span class="nav-text">0x01 隐写过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-隐写实现"><span class="nav-number">1.3.</span> <span class="nav-text">0x02 隐写实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-参考资料"><span class="nav-number">1.4.</span> <span class="nav-text">0x03 参考资料</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-HTTP协议"><span class="nav-number">1.1.</span> <span class="nav-text">0x01 HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP方法"><span class="nav-number">1.1.1.</span> <span class="nav-text">HTTP方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-状态码"><span class="nav-number">1.1.2.</span> <span class="nav-text">HTTP 状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-Cookie"><span class="nav-number">1.1.3.</span> <span class="nav-text">HTTP Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS"><span class="nav-number">1.1.4.</span> <span class="nav-text">HTTPS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-B-S功能及会话"><span class="nav-number">1.2.</span> <span class="nav-text">0x02 B/S功能及会话</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端功能"><span class="nav-number">1.2.1.</span> <span class="nav-text">服务端功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端功能"><span class="nav-number">1.2.2.</span> <span class="nav-text">客户端功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">HTML</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">CSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浏览器扩展技术"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">浏览器扩展技术</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态与会话"><span class="nav-number">1.2.3.</span> <span class="nav-text">状态与会话</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编码格式"><span class="nav-number">1.3.</span> <span class="nav-text">编码格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#URL-编码"><span class="nav-number">1.3.1.</span> <span class="nav-text">URL 编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unicode-编码"><span class="nav-number">1.3.2.</span> <span class="nav-text">Unicode 编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-编码"><span class="nav-number">1.3.3.</span> <span class="nav-text">HTML 编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Base64-编码"><span class="nav-number">1.3.4.</span> <span class="nav-text">Base64 编码</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>

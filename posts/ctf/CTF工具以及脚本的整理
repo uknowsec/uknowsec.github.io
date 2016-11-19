@@ -62,7 +62,7 @@
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CTF工具以及脚本的整理 ">
-<meta property="og:url" content="http://uknow.top/posts/ctf/CTF工具以及脚本的整理.html">
+<meta property="og:url" content="http://uknow.top/posts/ctf/CTF工具以及脚本的整理">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
 <meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/14:49:39%20">
@@ -305,8 +305,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/ctf/CTF工具以及脚本的整理.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/ctf/CTF工具以及脚本的整理.html" itemprop="commentsCount"></span>
+                <a href="/posts/ctf/CTF工具以及脚本的整理#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/ctf/CTF工具以及脚本的整理" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -316,7 +316,7 @@
 
           
           
-             <span id="/posts/ctf/CTF工具以及脚本的整理.html" class="leancloud_visitors" data-flag-title="CTF工具以及脚本的整理 ">
+             <span id="/posts/ctf/CTF工具以及脚本的整理" class="leancloud_visitors" data-flag-title="CTF工具以及脚本的整理 ">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -413,7 +413,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/ctf/入CTF坑必不可少的地方.html" rel="next" title="入CTF坑必不可少的地方">
+              <a href="/posts/ctf/入CTF坑必不可少的地方" rel="next" title="入CTF坑必不可少的地方">
                 <i class="fa fa-chevron-left"></i> 入CTF坑必不可少的地方
               </a>
             
@@ -421,7 +421,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/ctf/深入理解JPEG图像格式Jphide隐写.html" rel="prev" title="深入理解JPEG图像格式Jphide隐写">
+              <a href="/posts/ctf/深入理解JPEG图像格式Jphide隐写" rel="prev" title="深入理解JPEG图像格式Jphide隐写">
                 深入理解JPEG图像格式Jphide隐写 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -472,8 +472,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/ctf/CTF工具以及脚本的整理.html"
-           data-title="CTF工具以及脚本的整理 " data-url="http://uknow.top/posts/ctf/CTF工具以及脚本的整理.html">
+      <div class="ds-thread" data-thread-key="posts/ctf/CTF工具以及脚本的整理"
+           data-title="CTF工具以及脚本的整理 " data-url="http://uknow.top/posts/ctf/CTF工具以及脚本的整理">
       </div>
     
   </div>

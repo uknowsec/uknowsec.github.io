@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknow.top/"/>
-  <updated>2016-11-19T04:50:51.515Z</updated>
+  <updated>2016-11-19T15:02:28.081Z</updated>
   <id>http://uknow.top/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>智能社：JavaScript教程-从入门到精通视频整理笔记</title>
-    <link href="http://uknow.top/posts/notes/%E6%99%BA%E8%83%BD%E7%A4%BE%EF%BC%9AJavaScript%E6%95%99%E7%A8%8B-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A%E8%A7%86%E9%A2%91%E6%95%B4%E7%90%86%E7%AC%94%E8%AE%B0.html"/>
-    <id>http://uknow.top/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记.html</id>
+    <link href="http://uknow.top/posts/notes/%E6%99%BA%E8%83%BD%E7%A4%BE%EF%BC%9AJavaScript%E6%95%99%E7%A8%8B-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A%E8%A7%86%E9%A2%91%E6%95%B4%E7%90%86%E7%AC%94%E8%AE%B0"/>
+    <id>http://uknow.top/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记</id>
     <published>2016-11-19T01:35:41.000Z</published>
-    <updated>2016-11-19T04:50:51.515Z</updated>
+    <updated>2016-11-19T15:02:28.081Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h1 id="初探JavaScript魅力-1"><a href="#初探JavaScript魅力-1" class="headerlink" title="初探JavaScript魅力-1"></a>初探JavaScript魅力-1</h1><h2 id="JavaScript是什么"><a href="#JavaScript是什么" class="headerlink" title="JavaScript是什么"></a>JavaScript是什么</h2><p>根据用户的一些操作，然后来修改页面上的一些元素、属性等。</p>
@@ -90,7 +90,49 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">for(var i=0;i&lt;aDiv.length;i++)</div><div class="line">&#123;</div><div class="line">	//i-&gt;0,1,2,3</div><div class="line">	aDiv[i].style.background=&apos;red&apos;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p> （3）实现全选、反选、不选</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">	oBtn1.onclick=function ()     //全选</div><div class="line">&#123;</div><div class="line">	for(var i=0;i&lt;aCh.length;i++)</div><div class="line">	&#123;</div><div class="line">		aCh[i].checked=true;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">oBtn2.onclick=function ()      //不选</div><div class="line">&#123;</div><div class="line">	for(var i=0;i&lt;aCh.length;i++)</div><div class="line">	&#123;</div><div class="line">		aCh[i].checked=false;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">oBtn3.onclick=function ()        //反选</div><div class="line">&#123;</div><div class="line">	for(var i=0;i&lt;aCh.length;i++)</div><div class="line">	&#123;</div><div class="line">		if(aCh[i].checked==true)</div><div class="line">		&#123;</div><div class="line">			aCh[i].checked=false;</div><div class="line">		&#125;</div><div class="line">		else</div><div class="line">		&#123;</div><div class="line">			aCh[i].checked=true;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-]]></content>
+<h2 id="选项卡"><a href="#选项卡" class="headerlink" title="选项卡"></a>选项卡</h2><p> （1）按钮的实现<br>(1)添加事件<br>    this的使用<br>    用this选定当前元素，用来修改当前元素的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">	for(var i=0;i&lt;aBtn.length;i++)</div><div class="line">	&#123;</div><div class="line">		aBtn[i].onclick=function ()</div><div class="line">		&#123;</div><div class="line">			this.className=&apos;active&apos;;</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">```	</div><div class="line"></div><div class="line">	</div><div class="line">(2)先清空所有按钮，再选中当前按钮</div></pre></td></tr></table></figure>
+<pre><code>for(var i=0;i&lt;aBtn.length;i++)
+{
+    aBtn[i].onclick=function ()
+    {
+        for(var i=0;i&lt;aBtn.length;i++)
+        {
+            aBtn[i].className=&apos;&apos;;
+        }
+        this.className=&apos;active&apos;;
+    };
+}
+</code></pre><p>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line"> （2）内容的实现</div><div class="line">(1)索引值的使用</div><div class="line">(2)什么时候用索引值——需要知道“第几个”的时候</div><div class="line">(3)html添加index——会被浏览器过滤</div><div class="line">(3)js添加index</div></pre></td></tr></table></figure></p>
+<p>&lt;!DOCTYPE HTML&gt;</p>
+<p><html></html></p>
+<head><br><meta charset="utf-8"><br><title>无标题文档</title><br><style><br>#div1 .active {background:yellow;}<br>#div1 div {width:200px; height:200px; background:#CCC; border:1px solid #999; display:none;}<br></style><br><script><br>window.onload=function ()<br>{<br>    var oDiv=document.getElementById(‘div1’);<br>    var aBtn=oDiv.getElementsByTagName(‘input’);<br>    var aDiv=oDiv.getElementsByTagName(‘div’);<br><br>    for(var i=0;i<aBtn.length;i++)
+    {
+        aBtn[i].index=i;
+        aBtn[i].onclick=function ()
+        {
+            for(var i=0;i<aBtn.length;i++)
+            {
+                aBtn[i].className='';
+                aDiv[i].style.display='none';
+            }
+            this.className='active';
+            //alert(this.index);
+            aDiv[this.index].style.display='block';
+        };
+    }
+};
+</script><br></head>
+
+<body><br><div id="div1"><br>    <input class="active" type="button" value="教育"><br>    <input type="button" value="培训"><br>    <input type="button" value="招生"><br>    <input type="button" value="出国"><br>    <div style="display:block;">1111</div><br>    <div>2222</div><br>    <div>333</div><br>    <div>4444</div><br></div><br></body><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">## 简易日历</div><div class="line">（1）程序实现思路</div><div class="line">(1)类似选项卡，只是下面只有一个div</div><div class="line">(2)InnerHTML的使用</div><div class="line">	innerHTML 属性设置或返回表格行的开始和结束标签之间的 HTML。</div></pre></td></tr></table></figure><br><br><style><br>#div1 {width:200px; height:150px; border:1px solid black;}<br></style><br><script><br>window.onload=function ()<br>{<br>    var oTxt=document.getElementById(‘txt1’);<br>    var oBtn=document.getElementById(‘btn1’);<br>    var oDiv=document.getElementById(‘div1’);<br><br>    oBtn.onclick=function ()<br>    {<br>        oDiv.innerHTML=oTxt.value;<br>        //alert(oDiv.innerHTML);<br>    };<br>};<br></script><br><br><br><body><br><input id="txt1" type="text"><br><input id="btn1" type="button" value="设置文字"><br><div id="div1"><br></div><br></body>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">（2）数组的使用</div><div class="line">    数组对象用来在单独的变量名中存储一系列的值。</div><div class="line"> 定义数组：</div><div class="line">```var myArray=new Array()</div></pre></td></tr></table></figure>
+<p> 数组赋值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1.</div><div class="line">var mycars=new Array()</div><div class="line">mycars[0]=&quot;Saab&quot;</div><div class="line">mycars[1]=&quot;Volvo&quot;</div><div class="line">mycars[2]=&quot;BMW&quot;</div><div class="line">2.</div><div class="line">var mycars=new Array(&quot;Saab&quot;,&quot;Volvo&quot;,&quot;BMW&quot;)</div></pre></td></tr></table></figure></p>
+<p>（3）字符串连接 (+)<br>作用：连接两个字符串<br>问题：连接中的优先级（用括号改变优先级）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">&lt;title&gt;无标题文档&lt;/title&gt;</div><div class="line">&lt;script&gt;</div><div class="line"></div><div class="line">alert(&apos;abc&apos;+(12+5)+&apos;def&apos;);</div><div class="line"></div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line"></div><div class="line">&lt;body&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="JavaScript基础"><a href="#JavaScript基础" class="headerlink" title="JavaScript基础"></a>JavaScript基础</h1><h2 id="JavaScript组成"><a href="#JavaScript组成" class="headerlink" title="JavaScript组成"></a>JavaScript组成</h2><pre><code>ECMAScript：解释器、翻译
+DOM：Document Object Model
+BOM：Browser Object Model
+</code></pre>]]></content>
     
     <summary type="html">
     
@@ -105,8 +147,8 @@
   
   <entry>
     <title>2016-10-19</title>
-    <link href="http://uknow.top/posts/life/2016-10-19.html"/>
-    <id>http://uknow.top/posts/life/2016-10-19.html</id>
+    <link href="http://uknow.top/posts/life/2016-10-19"/>
+    <id>http://uknow.top/posts/life/2016-10-19</id>
     <published>2016-10-19T15:13:40.000Z</published>
     <updated>2016-11-19T04:49:39.582Z</updated>
     
@@ -156,8 +198,8 @@
   
   <entry>
     <title>如何在Github Pages搭建自己写的页面？</title>
-    <link href="http://uknow.top/posts/skill/%E5%A6%82%E4%BD%95%E5%9C%A8Github-Pages%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E5%86%99%E7%9A%84%E9%A1%B5%E9%9D%A2%EF%BC%9F.html"/>
-    <id>http://uknow.top/posts/skill/如何在Github-Pages搭建自己写的页面？.html</id>
+    <link href="http://uknow.top/posts/skill/%E5%A6%82%E4%BD%95%E5%9C%A8Github-Pages%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E5%86%99%E7%9A%84%E9%A1%B5%E9%9D%A2%EF%BC%9F"/>
+    <id>http://uknow.top/posts/skill/如何在Github-Pages搭建自己写的页面？</id>
     <published>2016-10-04T15:37:11.000Z</published>
     <updated>2016-11-19T04:49:45.934Z</updated>
     
@@ -237,8 +279,8 @@
   
   <entry>
     <title>2016-09-29</title>
-    <link href="http://uknow.top/posts/life/2016-09-29.html"/>
-    <id>http://uknow.top/posts/life/2016-09-29.html</id>
+    <link href="http://uknow.top/posts/life/2016-09-29"/>
+    <id>http://uknow.top/posts/life/2016-09-29</id>
     <published>2016-09-29T15:50:45.000Z</published>
     <updated>2016-11-19T04:49:42.247Z</updated>
     
@@ -261,8 +303,8 @@
   
   <entry>
     <title>Vim编辑器-学习笔记</title>
-    <link href="http://uknow.top/posts/notes/Vim%E7%BC%96%E8%BE%91%E5%99%A8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
-    <id>http://uknow.top/posts/notes/Vim编辑器-学习笔记.html</id>
+    <link href="http://uknow.top/posts/notes/Vim%E7%BC%96%E8%BE%91%E5%99%A8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"/>
+    <id>http://uknow.top/posts/notes/Vim编辑器-学习笔记</id>
     <published>2016-09-10T08:30:50.000Z</published>
     <updated>2016-11-19T04:49:59.719Z</updated>
     
@@ -709,8 +751,8 @@
   
   <entry>
     <title>Linux基础入门笔记</title>
-    <link href="http://uknow.top/posts/notes/Linux%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0.html"/>
-    <id>http://uknow.top/posts/notes/Linux基础入门笔记.html</id>
+    <link href="http://uknow.top/posts/notes/Linux%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0"/>
+    <id>http://uknow.top/posts/notes/Linux基础入门笔记</id>
     <published>2016-09-10T06:33:17.000Z</published>
     <updated>2016-11-19T04:49:36.718Z</updated>
     
@@ -1456,8 +1498,8 @@
   
   <entry>
     <title>百度杯CTF比赛Writeup</title>
-    <link href="http://uknow.top/posts/ctf/%E7%99%BE%E5%BA%A6%E6%9D%AFCTF%E6%AF%94%E8%B5%9BWriteup.html"/>
-    <id>http://uknow.top/posts/ctf/百度杯CTF比赛Writeup.html</id>
+    <link href="http://uknow.top/posts/ctf/%E7%99%BE%E5%BA%A6%E6%9D%AFCTF%E6%AF%94%E8%B5%9BWriteup"/>
+    <id>http://uknow.top/posts/ctf/百度杯CTF比赛Writeup</id>
     <published>2016-09-03T14:43:52.000Z</published>
     <updated>2016-11-19T04:49:24.682Z</updated>
     
@@ -1494,8 +1536,8 @@
   
   <entry>
     <title>MySQL数据库基础与实例</title>
-    <link href="http://uknow.top/posts/notes/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B.html"/>
-    <id>http://uknow.top/posts/notes/MySQL数据库基础与实例.html</id>
+    <link href="http://uknow.top/posts/notes/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B"/>
+    <id>http://uknow.top/posts/notes/MySQL数据库基础与实例</id>
     <published>2016-09-02T13:10:35.000Z</published>
     <updated>2016-11-19T04:50:04.556Z</updated>
     
@@ -1552,8 +1594,8 @@
   
   <entry>
     <title>Web安全与攻击技术-基础知识</title>
-    <link href="http://uknow.top/posts/notes/Web%E5%AE%89%E5%85%A8%E4%B8%8E%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html"/>
-    <id>http://uknow.top/posts/notes/Web安全与攻击技术-基础知识.html</id>
+    <link href="http://uknow.top/posts/notes/Web%E5%AE%89%E5%85%A8%E4%B8%8E%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"/>
+    <id>http://uknow.top/posts/notes/Web安全与攻击技术-基础知识</id>
     <published>2016-09-01T06:29:17.000Z</published>
     <updated>2016-11-19T04:50:06.815Z</updated>
     
@@ -1592,8 +1634,8 @@
   
   <entry>
     <title>2016-08-28</title>
-    <link href="http://uknow.top/posts/life/2016-08-28.html"/>
-    <id>http://uknow.top/posts/life/2016-08-28.html</id>
+    <link href="http://uknow.top/posts/life/2016-08-28"/>
+    <id>http://uknow.top/posts/life/2016-08-28</id>
     <published>2016-08-28T14:21:30.000Z</published>
     <updated>2016-11-19T04:50:09.571Z</updated>
     
@@ -1616,8 +1658,8 @@
   
   <entry>
     <title> 2016年X-NUCA全国高校网安联赛--赛前指导练习题web进阶篇Writeup </title>
-    <link href="http://uknow.top/posts/ctf/2016%E5%B9%B4X-NUCA%E5%85%A8%E5%9B%BD%E9%AB%98%E6%A0%A1%E7%BD%91%E5%AE%89%E8%81%94%E8%B5%9B-%E8%B5%9B%E5%89%8D%E6%8C%87%E5%AF%BC%E7%BB%83%E4%B9%A0%E9%A2%98web%E8%BF%9B%E9%98%B6%E7%AF%87Writeup.html"/>
-    <id>http://uknow.top/posts/ctf/2016年X-NUCA全国高校网安联赛-赛前指导练习题web进阶篇Writeup.html</id>
+    <link href="http://uknow.top/posts/ctf/2016%E5%B9%B4X-NUCA%E5%85%A8%E5%9B%BD%E9%AB%98%E6%A0%A1%E7%BD%91%E5%AE%89%E8%81%94%E8%B5%9B-%E8%B5%9B%E5%89%8D%E6%8C%87%E5%AF%BC%E7%BB%83%E4%B9%A0%E9%A2%98web%E8%BF%9B%E9%98%B6%E7%AF%87Writeup"/>
+    <id>http://uknow.top/posts/ctf/2016年X-NUCA全国高校网安联赛-赛前指导练习题web进阶篇Writeup</id>
     <published>2016-08-13T08:42:44.000Z</published>
     <updated>2016-11-19T04:49:32.793Z</updated>
     
@@ -1771,8 +1813,8 @@
   
   <entry>
     <title>CTF中那些脑洞大开的编码和加密</title>
-    <link href="http://uknow.top/posts/ctf/CTF%E4%B8%AD%E9%82%A3%E4%BA%9B%E8%84%91%E6%B4%9E%E5%A4%A7%E5%BC%80%E7%9A%84%E7%BC%96%E7%A0%81%E5%92%8C%E5%8A%A0%E5%AF%86.html"/>
-    <id>http://uknow.top/posts/ctf/CTF中那些脑洞大开的编码和加密.html</id>
+    <link href="http://uknow.top/posts/ctf/CTF%E4%B8%AD%E9%82%A3%E4%BA%9B%E8%84%91%E6%B4%9E%E5%A4%A7%E5%BC%80%E7%9A%84%E7%BC%96%E7%A0%81%E5%92%8C%E5%8A%A0%E5%AF%86"/>
+    <id>http://uknow.top/posts/ctf/CTF中那些脑洞大开的编码和加密</id>
     <published>2016-08-12T11:38:30.000Z</published>
     <updated>2016-11-19T04:49:48.332Z</updated>
     
@@ -2395,8 +2437,8 @@
   
   <entry>
     <title>CTF中图片隐藏文件分离方法总结</title>
-    <link href="http://uknow.top/posts/ctf/CTF%E4%B8%AD%E5%9B%BE%E7%89%87%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E5%88%86%E7%A6%BB%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93.html"/>
-    <id>http://uknow.top/posts/ctf/CTF中图片隐藏文件分离方法总结.html</id>
+    <link href="http://uknow.top/posts/ctf/CTF%E4%B8%AD%E5%9B%BE%E7%89%87%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E5%88%86%E7%A6%BB%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93"/>
+    <id>http://uknow.top/posts/ctf/CTF中图片隐藏文件分离方法总结</id>
     <published>2016-08-12T10:03:22.000Z</published>
     <updated>2016-11-19T04:49:52.157Z</updated>
     
@@ -2463,8 +2505,8 @@
   
   <entry>
     <title>深入理解JPEG图像格式Jphide隐写</title>
-    <link href="http://uknow.top/posts/ctf/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JPEG%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8FJphide%E9%9A%90%E5%86%99.html"/>
-    <id>http://uknow.top/posts/ctf/深入理解JPEG图像格式Jphide隐写.html</id>
+    <link href="http://uknow.top/posts/ctf/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JPEG%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8FJphide%E9%9A%90%E5%86%99"/>
+    <id>http://uknow.top/posts/ctf/深入理解JPEG图像格式Jphide隐写</id>
     <published>2016-08-12T09:56:19.000Z</published>
     <updated>2016-11-19T04:49:54.633Z</updated>
     
@@ -2543,8 +2585,8 @@
   
   <entry>
     <title>CTF工具以及脚本的整理 </title>
-    <link href="http://uknow.top/posts/ctf/CTF%E5%B7%A5%E5%85%B7%E4%BB%A5%E5%8F%8A%E8%84%9A%E6%9C%AC%E7%9A%84%E6%95%B4%E7%90%86.html"/>
-    <id>http://uknow.top/posts/ctf/CTF工具以及脚本的整理.html</id>
+    <link href="http://uknow.top/posts/ctf/CTF%E5%B7%A5%E5%85%B7%E4%BB%A5%E5%8F%8A%E8%84%9A%E6%9C%AC%E7%9A%84%E6%95%B4%E7%90%86"/>
+    <id>http://uknow.top/posts/ctf/CTF工具以及脚本的整理</id>
     <published>2016-08-10T16:15:14.000Z</published>
     <updated>2016-11-19T04:49:57.301Z</updated>
     
@@ -2622,8 +2664,8 @@
   
   <entry>
     <title>入CTF坑必不可少的地方</title>
-    <link href="http://uknow.top/posts/ctf/%E5%85%A5CTF%E5%9D%91%E5%BF%85%E4%B8%8D%E5%8F%AF%E5%B0%91%E7%9A%84%E5%9C%B0%E6%96%B9.html"/>
-    <id>http://uknow.top/posts/ctf/入CTF坑必不可少的地方.html</id>
+    <link href="http://uknow.top/posts/ctf/%E5%85%A5CTF%E5%9D%91%E5%BF%85%E4%B8%8D%E5%8F%AF%E5%B0%91%E7%9A%84%E5%9C%B0%E6%96%B9"/>
+    <id>http://uknow.top/posts/ctf/入CTF坑必不可少的地方</id>
     <published>2016-08-10T14:57:31.000Z</published>
     <updated>2016-11-19T04:49:27.913Z</updated>
     
@@ -2736,8 +2778,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://uknow.top/posts/uncategorized/hello-world.html"/>
-    <id>http://uknow.top/posts/uncategorized/hello-world.html</id>
+    <link href="http://uknow.top/posts/uncategorized/hello-world"/>
+    <id>http://uknow.top/posts/uncategorized/hello-world</id>
     <published>2016-08-08T16:39:12.323Z</published>
     <updated>2016-11-19T04:50:12.316Z</updated>
     
