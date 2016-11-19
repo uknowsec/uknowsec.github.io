@@ -329,7 +329,8 @@
       
         
           
-            <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>第一次写Writeup，尝试一下吧！</p>
+            <a id="more"></a>
+<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>第一次写Writeup，尝试一下吧！</p>
 <h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><h3 id="捉迷藏"><a href="#捉迷藏" class="headerlink" title="捉迷藏"></a>捉迷藏</h3><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>捉迷藏<br>描述：从页面中找到隐藏的flag<br><a href="http://218.76.35.75:20111" target="_blank" rel="external">题目链接</a></p>
 <h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%871.png" alt=""><br>F12审查元素发现有一个Index.php的链接，把背景去掉。点击链接得到flag</p>
 <h4 id="Flag"><a href="#Flag" class="headerlink" title="Flag"></a>Flag</h4><p>flag{th!5!5n0tth3fl@g}</p>
@@ -586,7 +587,8 @@
       
         
           
-            <h1 id="CTF中那些脑洞大开的编码和加密"><a href="#CTF中那些脑洞大开的编码和加密" class="headerlink" title="CTF中那些脑洞大开的编码和加密"></a>CTF中那些脑洞大开的编码和加密</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>正文开始之前先闲扯几句吧，玩CTF的小伙伴也许会遇到类似这样的问题:表哥，你知道这是什么加密吗？其实CTF中脑洞密码题(非现代加密方式)一般都是各种古典密码的变形，一般出题者会对密文进行一些处理，但是会给留一些线索，所以写此文的目的是想给小伙伴做题时给一些参考，当然常在CTF里出现的编码也可以了解一下。本来是想尽快写出参考的文章，无奈期间被各种事情耽搁导致文章断断续续写了2个月，文章肯定有许多没有提及到，欢迎小伙伴补充，总之，希望对小伙伴们有帮助吧！</p>
+            <a id="more"></a>
+<h1 id="CTF中那些脑洞大开的编码和加密"><a href="#CTF中那些脑洞大开的编码和加密" class="headerlink" title="CTF中那些脑洞大开的编码和加密"></a>CTF中那些脑洞大开的编码和加密</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>正文开始之前先闲扯几句吧，玩CTF的小伙伴也许会遇到类似这样的问题:表哥，你知道这是什么加密吗？其实CTF中脑洞密码题(非现代加密方式)一般都是各种古典密码的变形，一般出题者会对密文进行一些处理，但是会给留一些线索，所以写此文的目的是想给小伙伴做题时给一些参考，当然常在CTF里出现的编码也可以了解一下。本来是想尽快写出参考的文章，无奈期间被各种事情耽搁导致文章断断续续写了2个月，文章肯定有许多没有提及到，欢迎小伙伴补充，总之，希望对小伙伴们有帮助吧！</p>
 <h2 id="0x01-目录"><a href="#0x01-目录" class="headerlink" title="0x01 目录"></a>0x01 目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">常见编码:</div><div class="line">    1.ASCII编码</div><div class="line">    2.Base64/32/16编码</div><div class="line">    3.shellcode编码</div><div class="line">    4.Quoted-printable编码</div><div class="line">    5.XXencode编码</div><div class="line">    6.UUencode编码</div><div class="line">    7.URL编码</div><div class="line">    8.Unicode编码</div><div class="line">    9.Escape/Unescape编码</div><div class="line">    10.HTML实体编码</div><div class="line">    11.敲击码(Tap code)</div><div class="line">    12.莫尔斯电码(Morse Code)</div><div class="line">    13.编码的故事</div><div class="line"> </div><div class="line">各种文本加密</div><div class="line"> </div><div class="line">换位加密:</div><div class="line">    1.栅栏密码(Rail-fence Cipher)</div><div class="line">    2.曲路密码(Curve Cipher)</div><div class="line">    3.列移位密码(Columnar Transposition Cipher)</div><div class="line">     </div><div class="line">替换加密:</div><div class="line">    1.埃特巴什码(Atbash Cipher)</div><div class="line">    2.凯撒密码(Caesar Cipher)</div><div class="line">    3.ROT5/13/18/47</div><div class="line">    4.简单换位密码(Simple Substitution Cipher)</div><div class="line">    5.希尔密码(Hill Cipher)</div><div class="line">    6.猪圈密码(Pigpen Cipher)</div><div class="line">    7.波利比奥斯方阵密码（Polybius Square Cipher)</div><div class="line">    8.夏多密码(曲折加密)</div><div class="line">    9.普莱菲尔密码(Playfair Cipher)</div><div class="line">    10.维吉尼亚密码(Vigenère Cipher)</div><div class="line">    11.自动密钥密码(Autokey Cipher)</div><div class="line">    12.博福特密码(Beaufort Cipher)</div><div class="line">    13.滚动密钥密码(Running Key Cipher)</div><div class="line">    14.Porta密码(Porta Cipher)</div><div class="line">    15.同音替换密码(Homophonic Substitution Cipher)</div><div class="line">    16.仿射密码(Affine Cipher)</div><div class="line">    17.培根密码(Baconian Cipher)</div><div class="line">    18.ADFGX和ADFGVX密码(ADFG/VX Cipher)</div><div class="line">    19.双密码(Bifid Cipher)</div><div class="line">    20.三分密码(Trifid Cipher)</div><div class="line">    21.四方密码(Four-Square Cipher)</div><div class="line">    22.棋盘密码（Checkerboard Cipher)</div><div class="line">    23.跨棋盘密码(Straddle Checkerboard Cipher)</div><div class="line">    24.分组摩尔斯替换密码(Fractionated Morse Cipher)</div><div class="line">    25.Bazeries密码(Bazeries Cipher)</div><div class="line">    26.Digrafid密码(Digrafid Cipher)</div><div class="line">    27.格朗普雷密码(Grandpré Cipher)</div><div class="line">    28.比尔密码(Beale ciphers)</div><div class="line">    29.键盘密码(Keyboard Cipher)</div><div class="line"> </div><div class="line">其他有趣的机械密码:</div><div class="line">    1.恩尼格玛密码</div><div class="line"> </div><div class="line">代码混淆加密:</div><div class="line">    1.asp混淆加密</div><div class="line">    2.php混淆加密</div><div class="line">    3.css/js混淆加密</div><div class="line">    4.VBScript.Encode混淆加密</div><div class="line">    5.ppencode</div><div class="line">    6.rrencode</div><div class="line">    7.jjencode/aaencode</div><div class="line">    8.JSfuck</div><div class="line">    9.jother</div><div class="line">    10.brainfuck编程语言</div><div class="line"> </div><div class="line">相关工具</div><div class="line"> </div><div class="line">参考网站</div></pre></td></tr></table></figure>
 <h2 id="0x02-正文"><a href="#0x02-正文" class="headerlink" title="0x02 正文"></a>0x02 正文</h2><h3 id="常见编码"><a href="#常见编码" class="headerlink" title="常见编码"></a>常见编码</h3><h4 id="1-ASCII编码"><a href="#1-ASCII编码" class="headerlink" title="1.ASCII编码"></a>1.ASCII编码</h4><p>ASCII编码大致可以分作三部分组成：</p>
 <p>第一部分是：ASCII非打印控制字符（参详ASCII码表中0-31）;</p>
@@ -1312,7 +1314,8 @@
       
         
           
-            <h1 id="CTF中图片隐藏文件分离方法总结"><a href="#CTF中图片隐藏文件分离方法总结" class="headerlink" title="CTF中图片隐藏文件分离方法总结"></a>CTF中图片隐藏文件分离方法总结</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>在安全的大趋势下，信息安全越来越来受到国家和企业的重视，所以CTF比赛场次越来越多，而且比赛形式也不断的创新，题目也更加新颖有趣，对选手的综合信息安全能力有一个较好的考验，当然更好的是能从比赛有所收获，不断学习和总结提升自己的信息安全能力与技术。转到CTF比赛上，通常在CTF比赛中常有与隐写术(Steganography)相关的题目出现，这里我们讨论总结图片隐藏文件分离的方法，欢迎大家补充和交流:P</p>
+            <a id="more"></a>
+<h1 id="CTF中图片隐藏文件分离方法总结"><a href="#CTF中图片隐藏文件分离方法总结" class="headerlink" title="CTF中图片隐藏文件分离方法总结"></a>CTF中图片隐藏文件分离方法总结</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>在安全的大趋势下，信息安全越来越来受到国家和企业的重视，所以CTF比赛场次越来越多，而且比赛形式也不断的创新，题目也更加新颖有趣，对选手的综合信息安全能力有一个较好的考验，当然更好的是能从比赛有所收获，不断学习和总结提升自己的信息安全能力与技术。转到CTF比赛上，通常在CTF比赛中常有与隐写术(Steganography)相关的题目出现，这里我们讨论总结图片隐藏文件分离的方法，欢迎大家补充和交流:P</p>
 <h2 id="0x01-分析"><a href="#0x01-分析" class="headerlink" title="0x01 分析"></a>0x01 分析</h2><p>这里我们以图片为载体，给了这样的一样图片：</p>
 <p><img src="https://www.hackfun.org/usr/uploads/2016/07/1574897276.jpg" alt="CTF中图片隐藏文件分离方法总结"></p>
 <p>首先我们需要对图片进行分析，这里我们需要用到一个工具<a href="https://github.com/devttys0/binwalk" target="_blank" rel="external">binwalk</a>，想要了解这个工具可以参考这篇<a href="http://www.freebuf.com/sectool/15266.html" target="_blank" rel="external">Binwalk：后门（固件）分析利器</a>文章，以及<a href="http://tools.kali.org/forensics/binwalk" target="_blank" rel="external">kali官方对binwalk的概述和使用介绍</a>。</p>
@@ -1481,15 +1484,69 @@
 
       
         
-          <h1 id="深入理解JPEG图像格式Jphide隐写"><a href="#深入理解JPEG图像格式Jphide隐写" class="headerlink" title="深入理解JPEG图像格式Jphide隐写"></a>深入理解JPEG图像格式Jphide隐写</h1><h2 id="0x00-隐写原理"><a href="#0x00-隐写原理" class="headerlink" title="0x00 隐写原理"></a>0x00 隐写原理</h2><p>Jphide是基于最低有效位LSB的<a href="http://www.cnblogs.com/leaven/archive/2010/04/06/1705846.html">JPEG格式</a>图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在<a href="https://en.wikipedia.org/wiki/Discrete_cosine_transform">DCT变换域</a>上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时<a href="http://baike.baidu.com/link?url=OWM-kQRYlFaJ2Sy7m1E_Z_-fnvknJTRSHwk1f3eoabLsbht1TJa07GmvWRoiOg6U7-0-Ey3vb_UHcDm9Pc7Mgq">Blowfish算法</a>有较强的抗统计检测能力。</p>
-<p>由于JPEG图像格式使用<a href="http://baike.baidu.com/view/391624.htm?fr=aladdin&amp;fromtitle=DCT&amp;fromid=4184&amp;type=syn" title="DCT&amp;fromid=4184&amp;type=syn">离散余弦变换</a>（Discrete Cosine Transform，DCT）函数来压缩图像，而这个图像压缩方法的核心是：通过识别每个8×8像素块中相邻像素中的重复像素来减少显示图像所需的位数，并使用近似估算法降低其冗余度。因此，我们可以把DCT看作一个用于执行压缩的近似计算方法。因为丢失了部分数据，所以DCT是一种<a href="http://baike.baidu.com/link?url=7eIl--nFUaz-amKaY9jatpW4J-J2JyZEXy8dYJM4Py1CspzR9mUATKgTyXOCt7M6AjFSv4JmF3YKtXTTAauHm_">有损压缩</a>（Loss Compression）技术，但一般不会影响图像的视觉效果。</p>
+          
+            <a id="more"></a>
+<h1 id="深入理解JPEG图像格式Jphide隐写"><a href="#深入理解JPEG图像格式Jphide隐写" class="headerlink" title="深入理解JPEG图像格式Jphide隐写"></a>深入理解JPEG图像格式Jphide隐写</h1><h2 id="0x00-隐写原理"><a href="#0x00-隐写原理" class="headerlink" title="0x00 隐写原理"></a>0x00 隐写原理</h2><p>Jphide是基于最低有效位LSB的<a href="http://www.cnblogs.com/leaven/archive/2010/04/06/1705846.html" target="_blank" rel="external">JPEG格式</a>图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在<a href="https://en.wikipedia.org/wiki/Discrete_cosine_transform" target="_blank" rel="external">DCT变换域</a>上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时<a href="http://baike.baidu.com/link?url=OWM-kQRYlFaJ2Sy7m1E_Z_-fnvknJTRSHwk1f3eoabLsbht1TJa07GmvWRoiOg6U7-0-Ey3vb_UHcDm9Pc7Mgq" target="_blank" rel="external">Blowfish算法</a>有较强的抗统计检测能力。</p>
+<p>由于JPEG图像格式使用<a href="http://baike.baidu.com/view/391624.htm?fr=aladdin&amp;fromtitle=DCT&amp;fromid=4184&amp;type=syn" title="DCT&amp;fromid=4184&amp;type=syn" target="_blank" rel="external">离散余弦变换</a>（Discrete Cosine Transform，DCT）函数来压缩图像，而这个图像压缩方法的核心是：通过识别每个8×8像素块中相邻像素中的重复像素来减少显示图像所需的位数，并使用近似估算法降低其冗余度。因此，我们可以把DCT看作一个用于执行压缩的近似计算方法。因为丢失了部分数据，所以DCT是一种<a href="http://baike.baidu.com/link?url=7eIl--nFUaz-amKaY9jatpW4J-J2JyZEXy8dYJM4Py1CspzR9mUATKgTyXOCt7M6AjFSv4JmF3YKtXTTAauHm_" target="_blank" rel="external">有损压缩</a>（Loss Compression）技术，但一般不会影响图像的视觉效果。</p>
 <h2 id="0x01-隐写过程"><a href="#0x01-隐写过程" class="headerlink" title="0x01 隐写过程"></a>0x01 隐写过程</h2><p>Jphide隐写过程大致为：先解压压缩JPEG图像，得到DCT系数；然后对隐藏信息用户给定的密码进行Blowfish加密；再利用Blowfish算法生成伪随机序列，并据此找到需要改变的DCT系数，将其末位变为需要隐藏的信息的值。最后把DCT系数重新压回成JPEG图片，下面是个人对隐写过程理解画出的大致流程图。</p>
 <p><img src="http://i.imgur.com/kb6USbH.png" alt=""></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/posts/ctf/深入理解JPEG图像格式Jphide隐写.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+<!--more-->
+<h2 id="0x02-隐写实现"><a href="#0x02-隐写实现" class="headerlink" title="0x02 隐写实现"></a>0x02 隐写实现</h2><p><strong>（1）Stegdetect</strong></p>
+<p>实现JPEG图像Jphide隐写算法工具有多个，比如由Neils Provos开发通过统计分析技术评估JPEG文件的DCT频率系数的隐写工具<a href="https://github.com/abeluck/stegdetect" target="_blank" rel="external">Stegdetect</a>，它可以检测到通过JSteg、JPHide、OutGuess、Invisible Secrets、F5、appendX和Camouflage等这些隐写工具隐藏的信息，并且还具有基于字典暴力破解密码方法提取通过Jphide、outguess和jsteg-shell方式嵌入的隐藏信息。</p>
+<p><strong>（2）JPHS</strong></p>
+<p>而这里介绍另一款JPEG图像的信息隐藏软件<a href="http://io.acad.athabascau.ca/~grizzlie/Comp607/programs.htm" target="_blank" rel="external">JPHS</a>，它是由Allan Latham开发设计实现在Windows和Linux系统平台针对有损压缩JPEG文件进行信息加密隐藏和探测提取的工具。软件里面主要包含了两个程序JPHIDE和JPSEEK， JPHIDE程序主要是实现将信息文件加密隐藏到JPEG图像功能，而JPSEEK程序主要实现从用JPHIDE程序加密隐藏得到的JPEG图像探测提取信息文件，Windows版本的JPHS里的JPHSWIN程序具有图形化操作界面且具备JPHIDE和JPSEEK的功能。</p>
+<p><img src="http://i.imgur.com/BzbsFlS.png" alt=""></p>
+<p>1.Windows用户请下载<a href="http://io.acad.athabascau.ca/~grizzlie/Comp607/jphs05.zip" target="_blank" rel="external">JPHS-05 for Windows</a>,同时也提供下载<a href="http://linux01.gwdg.de/~alatham/stego.html" target="_blank" rel="external">Linux版本</a>。</p>
+<p>2.分别准备一个JPEG格式的图片（example.jpg）和一个文本文件（flag.txt）。</p>
+<p><img src="http://i.imgur.com/C8DQKFo.png" alt=""></p>
+<p>由于JPEG文件使用的数据存储方式有多种不能一一演示，这里用最常用的JPEG格式-JPEG文件交换格式（JPEG File Interchange Format，JFIF）作为示例。</p>
+<p>这里简单介绍JPEG文件交换格式的JPEG图片的图像开始标记SOI（Start of Image）和应用程序保留标记APP0（Application 0），JPEG文件交换格式的JPEG图片开始前2个字节是图像开始标记为0xFFD8，之后2个字节接着便是应用程序保留标记为0xFFE0，应用程序保留标记APP0包含9个具体字段，这里介绍前三个字段，第一个字段是数据长度占2个字节，表示包括本字段但不包括标记代码的总长度，这里为10个字节，第二个字段是标识符占5个字节0x4A46494600表示“JFIF0”字符串，第三个字段是版本号占2个字节，这里是0X0101，表示JFIF的版本号为1.1，但也可能为其它数值，从而代表了其它版本号。</p>
+<p><img src="http://i.imgur.com/ciEvX2s.png" alt=""></p>
+<p>3.Windows版本可以使用具有图形化操作界面的Jphswin，选择“Open jpeg”打开示例JPEG格式图片example.jpg</p>
+<p><img src="http://i.imgur.com/kipH6L0.png" alt=""></p>
+<p>如果你选择的不是JPEG格式的图片程序会自动退出，你可以16进制编辑器如Winhex查看图片的图像开始标记SOI和应用程序保留标记APP0，当载入JPEG格式图片会显示一些图片的属性。</p>
+<p><img src="http://i.imgur.com/ImK54U1.png" alt=""></p>
+<p>4.选择“Hide”选项之后在两次文本框输入相同的密码，这里以输入flag作为密码为例，然后输入要包含隐藏信息的文本。</p>
+<p><img src="http://i.imgur.com/QYrSVtE.png" alt=""></p>
+<p>5.选择将要隐藏的信息如flag.txt。</p>
+<p><img src="http://i.imgur.com/XfbEvQS.png" alt=""></p>
+<p>6.选择“Save jpeg as”选项将图片另存为jpeg格式并输入文件的名称为新的图像文件如C4n-u-find-f14g.jpg。</p>
+<p><img src="http://i.imgur.com/sj8X3aP.png" alt=""></p>
+<p>7.之后便可以看到生成结果和相关信息。</p>
+<p><img src="http://i.imgur.com/HPkvnci.png" alt=""></p>
+<p>8.第2步到第7步做的是Jhide方式信息隐藏，接下来我们从C4n-u-find-f14g.jpg图片提取出隐藏信息。</p>
+<p><img src="http://i.imgur.com/H9QJnHU.jpg" alt=""></p>
+<p>9.如果之前你并不知道图片是基于什么方式进行信息隐藏，你可以使用Stegdetect先进行探测。</p>
+<p>Stegdetect的主要选项如下：</p>
+<blockquote>
+<p>-q  仅显示可能包含隐藏内容的图像。</p>
+<p>-n  启用检查JPEG文件头功能，以降低误报率。如果启用，所有带有批注区域的文件将被视为没有被嵌入信息。如果JPEG文件的JFIF标识符中的版本号不是1.1，则禁用OutGuess检测。</p>
+<p>-s  修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</p>
+<p>-d  打印带行号的调试信息。</p>
+<p>-t  设置要检测哪些隐写工具（默认检测jopi），可设置的选项如下：</p>
+<ul>
+<li>j  检测图像中的信息是否是用jsteg嵌入的。</li>
+<li>o  检测图像中的信息是否是用outguess嵌入的。</li>
+<li>p  检测图像中的信息是否是用jphide嵌入的。</li>
+<li>i  检测图像中的信息是否是用invisible secrets嵌入的。</li>
+</ul>
+<p>-V 显示软件版本号。</p>
+<p>如果检测结果显示该文件可能包含隐藏信息，那么Stegdetect会在检测结果后面使用1～3颗星来标识</p>
+<p>隐藏信息存在的可能性大小，3颗星表示隐藏信息存在的可能性最大。</p>
+</blockquote>
+<p>从下图可以看出很可能是Jphide的信息隐藏方式：</p>
+<p><img src="http://i.imgur.com/i3zeRUx.png" alt=""></p>
+<p>10.在知道隐藏方式之后可以开始进行信息提取，和使用JPHS进行信息隐藏过程类似，打开需要提取隐藏信息的图片C4n-u-find-f14g.jpg，输入对应密码（在不知道密码的情况不可以尝试Stegdetect工具里的Stegbreak程序进行基于字典的暴力攻击）flag，密码验证通过JPHS会自动提取隐藏信息，之后便可以另存提取出的信息。</p>
+<p><img src="http://i.imgur.com/aCnBL4u.png" alt=""></p>
+<p>11.打开提取得到的find.txt便可以得到我们想要的隐藏信息。</p>
+<p><img src="http://i.imgur.com/1whWnla.png" alt=""></p>
+<h2 id="0x03-参考资料"><a href="#0x03-参考资料" class="headerlink" title="0x03 参考资料"></a>0x03 参考资料</h2><p><a href="http://mall.cnki.net/magazine/article/JSJC201006056.htm" target="_blank" rel="external">Jphide原理剖析及检测</a></p>
+<p></p><p><a href="http://www.cnki.com.cn/Article/CJFDTotal-JSJC200707054.htm" target="_blank" rel="external">基于二次加密的JPhide隐写检测方法</a></p>
+<ul>
+<li>转载自<a href="https://www.hackfun.org/" target="_blank" rel="external">4ido10n’s Blog</a>文章<a href="https://www.hackfun.org/CTF/jphide-steganography.html" target="_blank" rel="external">《深入理解JPEG图像格式Jphide隐写》</a></li>
+</ul>
+
+          
         
       
     </div>
@@ -1611,7 +1668,8 @@
       
         
           
-            <h1 id="密码学-cryptology"><a href="#密码学-cryptology" class="headerlink" title="密码学 cryptology"></a><a href="#密码学-cryptology"></a>密码学 <code>cryptology</code></h1><p><a href="http://www.practicalcryptography.com/" target="_blank" rel="external">各种密码学的在线解密</a></p>
+            <a id="more"></a>
+<h1 id="密码学-cryptology"><a href="#密码学-cryptology" class="headerlink" title="密码学 cryptology"></a><a href="#密码学-cryptology"></a>密码学 <code>cryptology</code></h1><p><a href="http://www.practicalcryptography.com/" target="_blank" rel="external">各种密码学的在线解密</a></p>
 <h2 id="简单的位移密码"><a href="#简单的位移密码" class="headerlink" title="简单的位移密码"></a><a href="#简单的位移密码"></a>简单的位移密码</h2><p><code>默认位移13 即rot13</code></p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-<em>- coding:utf-8 -</em>-</span></div><div class="line">str =raw_input(<span class="string">‘put flag:’</span>)</div><div class="line">new_str = <span class="string">“”</span></div><div class="line">yi = <span class="number">13</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> str:</div><div class="line">    <span class="keyword">if</span> i&gt;=<span class="string">‘a’</span> <span class="keyword">and</span> i&lt;=<span class="string">‘z’</span>:</div><div class="line">        i = ord(i)</div><div class="line">        i = ((i-yi)<span class="number">-97</span>)%<span class="number">26</span>+<span class="number">97</span></div><div class="line">        i = chr(i)</div><div class="line">        new_str = new_str+i</div><div class="line">        print(new_str)</div></pre></td></tr></tbody></table></figure>
 
@@ -1792,7 +1850,8 @@
       
         
           
-            <p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720161004230538.jpg" alt="ctf"><br><strong>0x00 前言</strong></p>
+            <a id="more"></a>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720161004230538.jpg" alt="ctf"><br><strong>0x00 前言</strong></p>
 <p>没有交易，没有买卖，没有排名，纯属分享</p>
 <p><strong>0x01 CTF介绍</strong></p>
 <ul>
@@ -1989,7 +2048,8 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+            <a id="more"></a>
+<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
