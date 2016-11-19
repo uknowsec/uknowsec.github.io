@@ -7,6 +7,7 @@
       <title><![CDATA[智能社：JavaScript教程-从入门到精通视频整理笔记]]></title>
       <url>http://uknow.top/posts/notes/%E6%99%BA%E8%83%BD%E7%A4%BE%EF%BC%9AJavaScript%E6%95%99%E7%A8%8B-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A%E8%A7%86%E9%A2%91%E6%95%B4%E7%90%86%E7%AC%94%E8%AE%B0/</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vaBq86vyU_oNsNHGme3T1HWSdJ6vvn6X5xAgtgVzRWvEAQAA_wAAAEpQ.jpg" alt="javascript"></p>
 <h1 id="初探JavaScript魅力-1"><a href="#初探JavaScript魅力-1" class="headerlink" title="初探JavaScript魅力-1"></a>初探JavaScript魅力-1</h1><h2 id="JavaScript是什么"><a href="#JavaScript是什么" class="headerlink" title="JavaScript是什么"></a>JavaScript是什么</h2><p>根据用户的一些操作，然后来修改页面上的一些元素、属性等。</p>
 <p>（1）HTML+CSS静态页面，JS给页面添加动的效果</p>
 <p>（2）网页特效的原理</p>
@@ -23,7 +24,7 @@
 <p>点 .      ——&gt; 的，一般来说是所属的关系，其实是属性</p>
 <p>等号 = ——&gt; 在数学里，x=5，表示x的值就是5，即等号就是相等的意思</p>
 <p> 在JS里，等号并不是相等的意思，等号指赋值，把什么变成什么，把=右边的值赋给左边</p>
-<h2 id="2、第一个JS兼容性问题-document-getElementById"><a href="#2、第一个JS兼容性问题-document-getElementById" class="headerlink" title="2、第一个JS兼容性问题:document.getElementById"></a>2、第一个JS兼容性问题:document.getElementById</h2><p>（1）在FF和低版本的chrome下，是不能直接拿着id就用的，存在兼容问题</p>
+<h2 id="第一个JS兼容性问题-document-getElementById"><a href="#第一个JS兼容性问题-document-getElementById" class="headerlink" title="第一个JS兼容性问题:document.getElementById"></a>第一个JS兼容性问题:document.getElementById</h2><p>（1）在FF和低版本的chrome下，是不能直接拿着id就用的，存在兼容问题</p>
 <p>真正兼容的写法是document.getElementById(‘id名字’)，在任何浏览器下均可用</p>
 <p>如：document.getElementById(‘div1’);</p>
 <p>   通过div1这个id把元素获取出来，然后再来用</p>
@@ -55,68 +56,224 @@
 <p>==   判断（判断两边是否相等）</p>
 <p>（3）为a链接添加JS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;!--&lt;a href=&quot;javascript:alert(&apos;a&apos;);&quot;&gt;链接&lt;/a&gt; --&gt;     </div><div class="line"></div><div class="line">&lt;a href=&quot;javascript:;&quot;&gt;链接&lt;/a&gt;</div></pre></td></tr></table></figure></p>
 <p>一般a里不加JS代码，而是空的js原因：(1) 在a里加js代码不好 (2) 加空的js代码而不是加#，因为它不会像#那样一点就跳到页首。</p>
-<h1 id="初探JavaScript魅力-2"><a href="#初探JavaScript魅力-2" class="headerlink" title="初探JavaScript魅力-2"></a>初探JavaScript魅力-2</h1><h2 id="函数传参"><a href="#函数传参" class="headerlink" title="函数传参"></a>函数传参</h2><p>（1）改变背景颜色<br>(1)参数传参：参数就是占位符（占住一个位置，以便于后续向里面塞东西）<br>    什么时候用传参–函数里定不下来的东西<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function setColor(color)</div><div class="line">&#123;</div><div class="line">	var oDiv=document.getElementById(&apos;div1&apos;);</div><div class="line">	</div><div class="line">	oDiv.style.background=color;</div><div class="line">&#125;</div><div class="line">&lt;input type=&quot;button&quot; value=&quot;变黑&quot; onclick=&quot;setColor(&apos;black&apos;);&quot; /&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="初探JavaScript魅力-2"><a href="#初探JavaScript魅力-2" class="headerlink" title="初探JavaScript魅力-2"></a>初探JavaScript魅力-2</h1><h2 id="函数传参"><a href="#函数传参" class="headerlink" title="函数传参"></a>函数传参</h2><h3 id="改变背景颜色"><a href="#改变背景颜色" class="headerlink" title="改变背景颜色"></a>改变背景颜色</h3><p>(1)参数传参：参数就是占位符（占住一个位置，以便于后续向里面塞东西）<br>    什么时候用传参–函数里定不下来的东西<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function setColor(color)</div><div class="line">&#123;</div><div class="line">	var oDiv=document.getElementById(&apos;div1&apos;);</div><div class="line">	</div><div class="line">	oDiv.style.background=color;</div><div class="line">&#125;</div><div class="line">&lt;input type=&quot;button&quot; value=&quot;变黑&quot; onclick=&quot;setColor(&apos;black&apos;);&quot; /&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;</div></pre></td></tr></table></figure></p>
 <p>上例定义函数setColor，它有一个参数为color,从input中传递一个参数为black，才是color这个参数就为black,从而实现函数参数的传递。</p>
-<p> （2）改变Div的任意样式<br>(1)操纵属性的两种方式<br>   将属性名作为参数传递</p>
+<h3 id="改变Div的任意样式"><a href="#改变Div的任意样式" class="headerlink" title="改变Div的任意样式"></a>改变Div的任意样式</h3><p>(1)操纵属性的两种方式<br>   将属性名作为参数传递</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> 1.</div><div class="line"> </div><div class="line"> function setStyle(name, value)</div><div class="line">&#123;</div><div class="line">	var oDiv=document.getElementById(&apos;div1&apos;);</div><div class="line">	//第一种操作属性的方法  特点:[]里面为一个字符串，可以用变量代替</div><div class="line">	oDiv.style[&apos;name&apos;]=value;</div><div class="line">	//第二种操作属性的方法  特点：方便</div><div class="line">	oDiv.style.name.=value;</div><div class="line">&#125;</div><div class="line">&lt;input type=&quot;button&quot; value=&quot;变绿&quot; onclick=&quot;setStyle(&apos;background&apos;, &apos;green&apos;)&quot; /&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;</div></pre></td></tr></table></figure>
-<p> （3）style与className<br> (1)元素.style.属性=xxx是修改行间样式</p>
+<h3 id="style与className"><a href="#style与className" class="headerlink" title="style与className"></a>style与className</h3><p> (1)元素.style.属性=xxx是修改行间样式</p>
 <p>样式优先级：*&lt;标签&lt;class&lt;ID&lt;行间</p>
 <p>如下代码 已给出style的属性再修改className就不会有效果</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">&lt;title&gt;无标题文档&lt;/title&gt;</div><div class="line">&lt;style&gt;</div><div class="line">#div1 &#123;width:200px; height:200px; border:1px solid black;&#125;</div><div class="line">.box &#123;background:red;&#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;script&gt;</div><div class="line">function toRed()</div><div class="line">&#123;</div><div class="line">	var oDiv=document.getElementById(&apos;div1&apos;);</div><div class="line">	</div><div class="line">	oDiv.className=&apos;box&apos;;</div><div class="line">&#125;</div><div class="line">function toGreen()</div><div class="line">&#123;</div><div class="line">	var oDiv=document.getElementById(&apos;div1&apos;);</div><div class="line">	</div><div class="line">	oDiv.style.background=&apos;green&apos;;</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line"></div><div class="line">&lt;body&gt;</div><div class="line">&lt;input type=&quot;button&quot; value=&quot;变红&quot; onclick=&quot;toRed()&quot; /&gt;</div><div class="line">&lt;input type=&quot;button&quot; value=&quot;变绿&quot; onclick=&quot;toGreen()&quot; /&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
 <p>注意：<br>1.若已给出style的属性再修改className就不会有效果<br>2.对于同一个元素，要么选择操纵class要么操纵style</p>
-<h2 id="提取行间事件"><a href="#提取行间事件" class="headerlink" title="提取行间事件"></a>提取行间事件</h2><p> （1）为元素添加事件<br>(1)事件和其他属性一样，可以用JS添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function 名字()</div><div class="line">&#123;</div><div class="line">	...</div><div class="line">&#125;</div><div class="line">oBtn.onclick=名字   //直接获取onclick属性</div><div class="line"></div><div class="line"></div><div class="line">oBtn.onclick=function ()    //匿名函数</div><div class="line">&#123;</div><div class="line">	....</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>(2)window.onload的意义<br> 1.script标签一般不放body里<br> 2.使用window.online加载HTML的代码</p>
+<h2 id="提取行间事件"><a href="#提取行间事件" class="headerlink" title="提取行间事件"></a>提取行间事件</h2><h3 id="为元素添加事件"><a href="#为元素添加事件" class="headerlink" title="为元素添加事件"></a>为元素添加事件</h3><p>(1)事件和其他属性一样，可以用JS添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function 名字()</div><div class="line">&#123;</div><div class="line">	...</div><div class="line">&#125;</div><div class="line">oBtn.onclick=名字   //直接获取onclick属性</div><div class="line"></div><div class="line"></div><div class="line">oBtn.onclick=function ()    //匿名函数</div><div class="line">&#123;</div><div class="line">	....</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="window-onload的意义"><a href="#window-onload的意义" class="headerlink" title="window.onload的意义"></a>window.onload的意义</h3><p> 1.script标签一般不放body里<br> 2.使用window.online加载HTML的代码</p>
 <p>(3)行为（JS）、样式(CSS)、结构(HTML)三者分离</p>
 <p> （2）获取一组元素<br>（1）getElementsByTagName<br>   优势：<br>   1.获取一组元素（数组）<br>   2.配合循环使用<br>   3..length获取数组长度</p>
-<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><p>（1）while循环、for循环</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">while(条件)</div><div class="line">&#123;</div><div class="line">	语句</div><div class="line">&#125;</div><div class="line">   </div><div class="line">   </div><div class="line">   for循环</div><div class="line"></div><div class="line">for(初始化;条件;自增)</div><div class="line">&#123;</div><div class="line">	语句</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><h3 id="while循环、for循环"><a href="#while循环、for循环" class="headerlink" title="while循环、for循环"></a>while循环、for循环</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">while(条件)</div><div class="line">&#123;</div><div class="line">	语句</div><div class="line">&#125;</div><div class="line">   </div><div class="line">   </div><div class="line">   for循环</div><div class="line"></div><div class="line">for(初始化;条件;自增)</div><div class="line">&#123;</div><div class="line">	语句</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>（2）用for循环为一组元素添加事件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">for(var i=0;i&lt;aDiv.length;i++)</div><div class="line">&#123;</div><div class="line">	//i-&gt;0,1,2,3</div><div class="line">	aDiv[i].style.background=&apos;red&apos;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p> （3）实现全选、反选、不选</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">	oBtn1.onclick=function ()     //全选</div><div class="line">&#123;</div><div class="line">	for(var i=0;i&lt;aCh.length;i++)</div><div class="line">	&#123;</div><div class="line">		aCh[i].checked=true;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">oBtn2.onclick=function ()      //不选</div><div class="line">&#123;</div><div class="line">	for(var i=0;i&lt;aCh.length;i++)</div><div class="line">	&#123;</div><div class="line">		aCh[i].checked=false;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">oBtn3.onclick=function ()        //反选</div><div class="line">&#123;</div><div class="line">	for(var i=0;i&lt;aCh.length;i++)</div><div class="line">	&#123;</div><div class="line">		if(aCh[i].checked==true)</div><div class="line">		&#123;</div><div class="line">			aCh[i].checked=false;</div><div class="line">		&#125;</div><div class="line">		else</div><div class="line">		&#123;</div><div class="line">			aCh[i].checked=true;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h2 id="选项卡"><a href="#选项卡" class="headerlink" title="选项卡"></a>选项卡</h2><p> （1）按钮的实现<br>(1)添加事件<br>    this的使用<br>    用this选定当前元素，用来修改当前元素的属性</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">	for(var i=0;i&lt;aBtn.length;i++)</div><div class="line">	&#123;</div><div class="line">		aBtn[i].onclick=function ()</div><div class="line">		&#123;</div><div class="line">			this.className=&apos;active&apos;;</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">```	</div><div class="line"></div><div class="line">	</div><div class="line">(2)先清空所有按钮，再选中当前按钮</div></pre></td></tr></table></figure>
-<pre><code>for(var i=0;i&lt;aBtn.length;i++)
-{
-    aBtn[i].onclick=function ()
-    {
-        for(var i=0;i&lt;aBtn.length;i++)
-        {
-            aBtn[i].className=&apos;&apos;;
-        }
-        this.className=&apos;active&apos;;
-    };
-}
-</code></pre><p>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line"> （2）内容的实现</div><div class="line">(1)索引值的使用</div><div class="line">(2)什么时候用索引值——需要知道“第几个”的时候</div><div class="line">(3)html添加index——会被浏览器过滤</div><div class="line">(3)js添加index</div></pre></td></tr></table></figure></p>
-<p>&lt;!DOCTYPE HTML&gt;</p>
-<p><html></html></p>
-<head><br><meta charset="utf-8"><br><title>无标题文档</title><br><style><br>#div1 .active {background:yellow;}<br>#div1 div {width:200px; height:200px; background:#CCC; border:1px solid #999; display:none;}<br></style><br><script><br>window.onload=function ()<br>{<br>    var oDiv=document.getElementById(‘div1’);<br>    var aBtn=oDiv.getElementsByTagName(‘input’);<br>    var aDiv=oDiv.getElementsByTagName(‘div’);<br><br>    for(var i=0;i<aBtn.length;i++)
-    {
-        aBtn[i].index=i;
-        aBtn[i].onclick=function ()
-        {
-            for(var i=0;i<aBtn.length;i++)
-            {
-                aBtn[i].className='';
-                aDiv[i].style.display='none';
-            }
-            this.className='active';
-            //alert(this.index);
-            aDiv[this.index].style.display='block';
-        };
-    }
-};
-</script><br></head>
-
-<body><br><div id="div1"><br>    <input class="active" type="button" value="教育"><br>    <input type="button" value="培训"><br>    <input type="button" value="招生"><br>    <input type="button" value="出国"><br>    <div style="display:block;">1111</div><br>    <div>2222</div><br>    <div>333</div><br>    <div>4444</div><br></div><br></body><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">## 简易日历</div><div class="line">（1）程序实现思路</div><div class="line">(1)类似选项卡，只是下面只有一个div</div><div class="line">(2)InnerHTML的使用</div><div class="line">	innerHTML 属性设置或返回表格行的开始和结束标签之间的 HTML。</div></pre></td></tr></table></figure><br><br><style><br>#div1 {width:200px; height:150px; border:1px solid black;}<br></style><br><script><br>window.onload=function ()<br>{<br>    var oTxt=document.getElementById(‘txt1’);<br>    var oBtn=document.getElementById(‘btn1’);<br>    var oDiv=document.getElementById(‘div1’);<br><br>    oBtn.onclick=function ()<br>    {<br>        oDiv.innerHTML=oTxt.value;<br>        //alert(oDiv.innerHTML);<br>    };<br>};<br></script><br><br><br><body><br><input id="txt1" type="text"><br><input id="btn1" type="button" value="设置文字"><br><div id="div1"><br></div><br></body>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">（2）数组的使用</div><div class="line">    数组对象用来在单独的变量名中存储一系列的值。</div><div class="line"> 定义数组：</div><div class="line">```var myArray=new Array()</div></pre></td></tr></table></figure>
-<p> 数组赋值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1.</div><div class="line">var mycars=new Array()</div><div class="line">mycars[0]=&quot;Saab&quot;</div><div class="line">mycars[1]=&quot;Volvo&quot;</div><div class="line">mycars[2]=&quot;BMW&quot;</div><div class="line">2.</div><div class="line">var mycars=new Array(&quot;Saab&quot;,&quot;Volvo&quot;,&quot;BMW&quot;)</div></pre></td></tr></table></figure></p>
-<p>（3）字符串连接 (+)<br>作用：连接两个字符串<br>问题：连接中的优先级（用括号改变优先级）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">&lt;title&gt;无标题文档&lt;/title&gt;</div><div class="line">&lt;script&gt;</div><div class="line"></div><div class="line">alert(&apos;abc&apos;+(12+5)+&apos;def&apos;);</div><div class="line"></div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line"></div><div class="line">&lt;body&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-<h1 id="JavaScript基础"><a href="#JavaScript基础" class="headerlink" title="JavaScript基础"></a>JavaScript基础</h1><h2 id="JavaScript组成"><a href="#JavaScript组成" class="headerlink" title="JavaScript组成"></a>JavaScript组成</h2><pre><code>ECMAScript：解释器、翻译
-DOM：Document Object Model
-BOM：Browser Object Model
-</code></pre>]]></content>
+<h2 id="选项卡"><a href="#选项卡" class="headerlink" title="选项卡"></a>选项卡</h2><h3 id="按钮的实现"><a href="#按钮的实现" class="headerlink" title="按钮的实现"></a>按钮的实现</h3><p>(1)添加事件<br>    this的使用<br>    用this选定当前元素，用来修改当前元素的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">	for(var i=0;i&lt;aBtn.length;i++)</div><div class="line">	&#123;</div><div class="line">		aBtn[i].onclick=function ()</div><div class="line">		&#123;</div><div class="line">			this.className=&apos;active&apos;;</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">```	</div><div class="line"></div><div class="line">	</div><div class="line">(2)先清空所有按钮，再选中当前按钮</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">```	for(var i=0;i&lt;aBtn.length;i++)</div><div class="line">	&#123;</div><div class="line">		aBtn[i].onclick=function ()</div><div class="line">		&#123;</div><div class="line">			for(var i=0;i&lt;aBtn.length;i++)</div><div class="line">			&#123;</div><div class="line">				aBtn[i].className=&apos;&apos;;</div><div class="line">			&#125;</div><div class="line">			this.className=&apos;active&apos;;</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="内容的实现"><a href="#内容的实现" class="headerlink" title="内容的实现"></a>内容的实现</h3><p>(1)索引值的使用<br>(2)什么时候用索引值——需要知道“第几个”的时候<br>(3)html添加index——会被浏览器过滤<br>(3)js添加index</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">window.onload=function ()</div><div class="line">&#123;</div><div class="line">	var oDiv=document.getElementById(&apos;div1&apos;);</div><div class="line">	var aBtn=oDiv.getElementsByTagName(&apos;input&apos;);</div><div class="line">	var aDiv=oDiv.getElementsByTagName(&apos;div&apos;);</div><div class="line">	</div><div class="line">	for(var i=0;i&lt;aBtn.length;i++)</div><div class="line">	&#123;</div><div class="line">		aBtn[i].index=i;</div><div class="line">		aBtn[i].onclick=function ()</div><div class="line">		&#123;</div><div class="line">			for(var i=0;i&lt;aBtn.length;i++)</div><div class="line">			&#123;</div><div class="line">				aBtn[i].className=&apos;&apos;;</div><div class="line">				aDiv[i].style.display=&apos;none&apos;;</div><div class="line">			&#125;</div><div class="line">			this.className=&apos;active&apos;;</div><div class="line">			//alert(this.index);</div><div class="line">			aDiv[this.index].style.display=&apos;block&apos;;</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="简易日历"><a href="#简易日历" class="headerlink" title="简易日历"></a>简易日历</h2><h3 id="程序实现思路"><a href="#程序实现思路" class="headerlink" title="程序实现思路"></a>程序实现思路</h3><p>(1)类似选项卡，只是下面只有一个div<br>(2)InnerHTML的使用<br>    innerHTML 属性设置或返回表格行的开始和结束标签之间的 HTML。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">window.onload=function ()</div><div class="line">&#123;</div><div class="line">	var oTxt=document.getElementById(&apos;txt1&apos;);</div><div class="line">	var oBtn=document.getElementById(&apos;btn1&apos;);</div><div class="line">	var oDiv=document.getElementById(&apos;div1&apos;);</div><div class="line">	</div><div class="line">	oBtn.onclick=function ()</div><div class="line">	&#123;</div><div class="line">		oDiv.innerHTML=oTxt.value;</div><div class="line">		//alert(oDiv.innerHTML);</div><div class="line">	&#125;;</div><div class="line">&#125;;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="数组的使用"><a href="#数组的使用" class="headerlink" title="数组的使用"></a>数组的使用</h3><pre><code>数组对象用来在单独的变量名中存储一系列的值。
+</code></pre><p> 定义数组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var myArray=new Array()</div></pre></td></tr></table></figure>
+<p>数组赋值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1.</div><div class="line">var mycars=new Array()</div><div class="line">mycars[0]=&quot;Saab&quot;</div><div class="line">mycars[1]=&quot;Volvo&quot;</div><div class="line">mycars[2]=&quot;BMW&quot;</div><div class="line">2.</div><div class="line">var mycars=new Array(&quot;Saab&quot;,&quot;Volvo&quot;,&quot;BMW&quot;)</div></pre></td></tr></table></figure>
+<h3 id="字符串连接"><a href="#字符串连接" class="headerlink" title="字符串连接 (+)"></a>字符串连接 (+)</h3><p>作用：连接两个字符串<br>问题：连接中的优先级（用括号改变优先级）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line"></div><div class="line">alert(&apos;abc&apos;+(12+5)+&apos;def&apos;);</div><div class="line"></div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="JavaScript基础"><a href="#JavaScript基础" class="headerlink" title="JavaScript基础"></a>JavaScript基础</h1><h2 id="JavaScript组成"><a href="#JavaScript组成" class="headerlink" title="JavaScript组成"></a>JavaScript组成</h2><p>   ECMAScript：解释器、翻译<br>   DOM：Document Object Model 操作HTML<br>   BOM：Browser Object Model  操作浏览器<br>  兼容性问题：<br>   ECMA        几乎没有兼容性问题<br>   DOM        有一些操作不兼容<br>   BOM        没有兼容问题（完全不兼容）</p>
+<h2 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h2><h3 id="类型：typeof运算符"><a href="#类型：typeof运算符" class="headerlink" title="类型：typeof运算符"></a>类型：typeof运算符</h3><p>  用法、返回值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var a=12;</div><div class="line">typeof a;</div></pre></td></tr></table></figure></p>
+<h3 id="变量类型-1"><a href="#变量类型-1" class="headerlink" title="变量类型"></a>变量类型</h3><p>变量本来没有类型，变量类型取决于他保存的类型<br>一个变量应该只存放一种类型的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var a=12;</div><div class="line">typeof a;   //number</div><div class="line"></div><div class="line">var a=&apos;abc&apos;;</div><div class="line">typeof a；  //string</div><div class="line"></div><div class="line">var a=function();</div><div class="line">typeof a;  //function</div><div class="line"></div><div class="line">var a=document;</div><div class="line">typeof a;   //object</div><div class="line"></div><div class="line">var b;</div><div class="line">typeof b;   //undefined</div><div class="line"></div><div class="line">//undefined出现的情况</div><div class="line">//1.真的没有定义</div><div class="line">//2.定义了，没有赋值</div></pre></td></tr></table></figure>
+<h3 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h3><p>(1)显式类型转换(强制类型转换)<br>  [1]parseInt() 把非数字的原始值转换成数字<br>   检测方法：<br>   parseInt() 方法首先查看位置 0 处的字符，判断它是否是个有效数字；如果不是，该方法将返回 NaN，不再继续执行其他操作。但如果该字符是有效数字，该方法将查看位置 1 处的字符，进行同样的测试。这一过程将持续到发现非有效数字的字符为止，此时 parseInt() 将把该字符之前的字符串转换成数字。</p>
+<pre><code>var iNum1 = parseInt(&quot;12345red&quot;);    //返回 12345
+var iNum1 = parseInt(&quot;0xA&quot;);    //返回 10
+var iNum1 = parseInt(&quot;56.9&quot;);    //返回 56
+var iNum1 = parseInt(&quot;red&quot;);    //返回 NaN  Not a number
+</code></pre><p>parseInt() 方法还有基模式，可以把二进制、八进制、十六进制或其他任何进制的字符串转换成整数。基是由 parseInt() 方法的第二个参数指定的，所以要解析十六进制的值，需如下调用 parseInt() 方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var iNum1 = parseInt(&quot;AF&quot;, 16);	//返回 175</div></pre></td></tr></table></figure>
+<p>当然，对二进制、八进制甚至十进制（默认模式），都可以这样调用 parseInt() 方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var iNum1 = parseInt(&quot;10&quot;, 2);	//返回 2</div><div class="line">var iNum2 = parseInt(&quot;10&quot;, 8);	//返回 8</div><div class="line">var iNum3 = parseInt(&quot;10&quot;, 10);	//返回 10</div></pre></td></tr></table></figure>
+<p>  [2]parseFloat()<br>  从位置 0 开始查看每个字符，直到找到第一个非有效的字符为止，然后把该字符之前的字符串转换成整数。<br>  第一个出现的小数点是有效字符。如果有两个小数点，第二个小数点将被看作无效的。parseFloat() 会把这个小数点之前的字符转换成数字。这意味着字符串 “11.22.33” 将被解析成 11.22。<br>  此外，parseFloat() 方法也没有基模式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var fNum1 = parseFloat(&quot;12345red&quot;);	//返回 12345</div><div class="line">var fNum2 = parseFloat(&quot;0xA&quot;);	//返回 NaN</div><div class="line">var fNum3 = parseFloat(&quot;11.2&quot;);	//返回 11.2</div><div class="line">var fNum4 = parseFloat(&quot;11.22.33&quot;);	//返回 11.22</div><div class="line">var fNum5 = parseFloat(&quot;0102&quot;);	//返回 102</div><div class="line">var fNum1 = parseFloat(&quot;red&quot;);	//返回 NaN</div></pre></td></tr></table></figure>
+<p>(2)NaN的意义和检测</p>
+<p>[1]NaN = Not a number<br>[2]NaN和NaN是不相等的<br>[3]is NaN(a) 判断是否为NaN</p>
+<h3 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h3><p>(1)==、===<br> [1] == 先转换类型，然后比较<br> [2] === 不转换类型，直接比</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a=5;</div><div class="line">var b=&apos;5&apos;;</div><div class="line">alert(a==b);	//true		先转换类型，然后比较</div><div class="line">alert(a===b);	//false		不转换类型，直接比</div></pre></td></tr></table></figure>
+<p>(2)减法<br>先转换再相减<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a=&apos;12&apos;;</div><div class="line">var b=&apos;5&apos;;</div><div class="line"></div><div class="line">alert(a+b);		//1.字符串连接		2.数字相加</div><div class="line">alert(a-b);		//1.数字相减</div></pre></td></tr></table></figure></p>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>局部变量、全局变量</p>
+<p>局部作用域<br>变量在函数内声明，变量为局部作用域。<br>局部变量：只能在函数内部访问。</p>
+<p>因为局部变量只作用于函数内，所以不同的函数可以使用相同名称的变量。<br>局部变量在函数开始执行时创建，函数执行完后局部变量会自动销毁。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 此处不能调用 carName 变量</div><div class="line"></div><div class="line">function myFunction() &#123;</div><div class="line">    var carName = &quot;Volvo&quot;;</div><div class="line"></div><div class="line">    // 函数内可调用 carName 变量</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>（1）全局变量<br>变量在函数外定义，即为全局变量。<br>全局变量有 全局作用域: 网页中所有脚本和函数均可使用。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var carName = &quot; Volvo&quot;;</div><div class="line"></div><div class="line">// 此处可调用 carName 变量</div><div class="line"></div><div class="line">function myFunction() &#123;</div><div class="line"></div><div class="line">    // 函数内可调用 carName 变量</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果变量在函数内没有声明（没有使用 var 关键字），该变量为全局变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"> // 此处可调用 carName 变量</div><div class="line"></div><div class="line">function myFunction() &#123;</div><div class="line">    carName = &quot;Volvo&quot;;</div><div class="line"></div><div class="line">    // 此处可调用 carName 变量</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>（2）闭包<br>子函数可以使用父函数的局部变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function aaa()		//父函数</div><div class="line">&#123;</div><div class="line">	var a=12;</div><div class="line">	</div><div class="line">	function bbb()	//子函数</div><div class="line">	&#123;</div><div class="line">		alert(a);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	bbb();</div><div class="line">&#125;</div><div class="line"></div><div class="line">aaa();</div></pre></td></tr></table></figure>
+<h3 id="命令规范"><a href="#命令规范" class="headerlink" title="命令规范"></a>命令规范</h3><p>（1）命名规范及必要性<br>  可读性——能看懂<br>  规范性——符合规则</p>
+<p>（2）匈牙利命名法<br>  类型前缀（变量取名）</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:left">前缀</th>
+<th>类型</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数组</td>
+<td style="text-align:left">a</td>
+<td>Array</td>
+<td>aItems</td>
+</tr>
+<tr>
+<td>布尔值</td>
+<td style="text-align:left">b</td>
+<td>Boolean</td>
+<td>bIsComplete</td>
+</tr>
+<tr>
+<td>浮点数</td>
+<td style="text-align:left">f</td>
+<td>Float</td>
+<td>fPrice</td>
+</tr>
+<tr>
+<td>函数</td>
+<td style="text-align:left">fn</td>
+<td>Function</td>
+<td>fnHandler</td>
+</tr>
+<tr>
+<td>整数</td>
+<td style="text-align:left">i</td>
+<td>Integer</td>
+<td>iItemCount</td>
+</tr>
+<tr>
+<td>对象</td>
+<td style="text-align:left">o</td>
+<td>Object</td>
+<td>oDiv1</td>
+</tr>
+<tr>
+<td>正则表达式</td>
+<td style="text-align:left">re</td>
+<td>RegExp</td>
+<td>reEmailCheck</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td style="text-align:left">s</td>
+<td>String</td>
+<td>sUserName</td>
+</tr>
+<tr>
+<td>变体变量</td>
+<td style="text-align:left">v</td>
+<td>Variant</td>
+<td>vAnything</td>
+</tr>
+</tbody>
+</table>
+<p>  首字母大写</p>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><p>算术：+ 加、- 减、<em> 乘、/ 除、% 取模<br>赋值：=、+=、-=、</em>=、/=、%=<br>关系：&lt;、&gt;、&lt;=、&gt;=、==、===、!=、!==<br>逻辑：&amp;&amp; 与、|| 或、! 否<br>条件：var iMax = (iNum1 &gt; iNum2) ? iNum1 : iNum2;</p>
+<p>（1）用于字符串的 + 运算符</p>
+<ul>
+<li>运算符用于把文本值或字符串变量加起来（连接起来）。</li>
+</ul>
+<p>如需把两个或多个字符串变量连接起来，请使用 + 运算符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">txt1=&quot;What a very&quot;;</div><div class="line">txt2=&quot;nice day&quot;;</div><div class="line">txt3=txt1+txt2;</div></pre></td></tr></table></figure>
+<p>在以上语句执行后，变量 txt3 包含的值是 “What a verynice day”。</p>
+<p>要想在两个字符串之间增加空格，需要把空格插入一个字符串之中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">txt1=&quot;What a very &quot;;</div><div class="line">txt2=&quot;nice day&quot;;</div><div class="line">txt3=txt1+txt2;</div></pre></td></tr></table></figure>
+<p>或者把空格插入表达式中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">txt1=&quot;What a very&quot;;</div><div class="line">txt2=&quot;nice day&quot;;</div><div class="line">txt3=txt1+&quot; &quot;+txt2;</div></pre></td></tr></table></figure>
+<p>在以上语句执行后，变量 txt3 包含的值是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;What a very nice day&quot;</div></pre></td></tr></table></figure>
+<p>（2）对字符串和数字进行加法运算</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">x=5+5;</div><div class="line">document.write(x);  //10</div><div class="line"></div><div class="line">x=&quot;5&quot;+&quot;5&quot;;</div><div class="line">document.write(x);  //55</div><div class="line"></div><div class="line">x=5+&quot;5&quot;;</div><div class="line">document.write(x);  //55</div><div class="line"></div><div class="line">x=&quot;5&quot;+5;</div><div class="line">document.write(x);  //55</div></pre></td></tr></table></figure>
+<p>规则是：<br>如果把数字与字符串相加，结果将成为字符串。</p>
+<p>（3）运算符优先级</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>. [] ()</td>
+<td style="text-align:left">字段访问、数组下标、函数调用以及表达式分组</td>
+</tr>
+<tr>
+<td>++ – - ~ ! delete new typeof void</td>
+<td style="text-align:left">一元运算符、返回数据类型、对象创建、未定义值</td>
+</tr>
+<tr>
+<td>* / %</td>
+<td style="text-align:left">乘法、除法、取模</td>
+</tr>
+<tr>
+<td>+ - +</td>
+<td style="text-align:left">加法、减法、字符串连接</td>
+</tr>
+<tr>
+<td>&lt;&lt; &gt;&gt; &gt;&gt;&gt;</td>
+<td style="text-align:left">移位</td>
+</tr>
+<tr>
+<td>&lt; &lt;= &gt; &gt;= instanceof</td>
+<td style="text-align:left">小于、小于等于、大于、大于等于、是否为特定类的实例</td>
+</tr>
+<tr>
+<td>== != === !==</td>
+<td style="text-align:left">等于、不等于、严格相等、非严格相等</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td style="text-align:left">按位与</td>
+</tr>
+<tr>
+<td>^</td>
+<td style="text-align:left">按位异或</td>
+</tr>
+<tr>
+<td>l</td>
+<td style="text-align:left">按位或</td>
+</tr>
+<tr>
+<td>&amp;&amp;</td>
+<td style="text-align:left">逻辑与</td>
+</tr>
+<tr>
+<td>ll</td>
+<td style="text-align:left">逻辑或</td>
+</tr>
+<tr>
+<td>?:</td>
+<td style="text-align:left">条件</td>
+</tr>
+<tr>
+<td>= oP=</td>
+<td style="text-align:left">赋值、运算赋值</td>
+</tr>
+<tr>
+<td>,</td>
+<td style="text-align:left">多重求值</td>
+</tr>
+</tbody>
+</table>
+]]></content>
     </entry>
     
     <entry>
