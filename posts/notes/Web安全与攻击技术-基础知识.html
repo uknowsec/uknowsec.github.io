@@ -59,16 +59,16 @@
 
 
 
-<meta name="description" content="基础知识0x01 HTTP协议超文本传送协议（Hypertext Transport Protocol , HTTP）是分布式、协作式、超媒体系统应用之间的通信协议，是万维网（World Wide Web）交换信息的基础。HTTP是一个客户端终端（用户）和服务端（网站）请求和应答的标准（TCP）。通过使用Web浏览器、网络爬虫或者其他工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为">
+<meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web安全与攻击技术-基础知识">
 <meta property="og:url" content="http://uknow.top/posts/notes/Web安全与攻击技术-基础知识.html">
 <meta property="og:site_name" content="Uknow’s Blog">
-<meta property="og:description" content="基础知识0x01 HTTP协议超文本传送协议（Hypertext Transport Protocol , HTTP）是分布式、协作式、超媒体系统应用之间的通信协议，是万维网（World Wide Web）交换信息的基础。HTTP是一个客户端终端（用户）和服务端（网站）请求和应答的标准（TCP）。通过使用Web浏览器、网络爬虫或者其他工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为">
-<meta property="og:updated_time" content="2016-11-19T04:38:45.416Z">
+<meta property="og:description" content="点击阅读全文">
+<meta property="og:updated_time" content="2016-11-19T04:50:06.815Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web安全与攻击技术-基础知识">
-<meta name="twitter:description" content="基础知识0x01 HTTP协议超文本传送协议（Hypertext Transport Protocol , HTTP）是分布式、协作式、超媒体系统应用之间的通信协议，是万维网（World Wide Web）交换信息的基础。HTTP是一个客户端终端（用户）和服务端（网站）请求和应答的标准（TCP）。通过使用Web浏览器、网络爬虫或者其他工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为">
+<meta name="twitter:description" content="点击阅读全文">
 
 
 
@@ -323,7 +323,7 @@
       
 
       
-        <a id="more"></a>
+        <p>点击阅读全文<br><a id="more"></a></p>
 <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="0x01-HTTP协议"><a href="#0x01-HTTP协议" class="headerlink" title="0x01 HTTP协议"></a>0x01 HTTP协议</h2><p>超文本传送协议（Hypertext Transport Protocol , HTTP）是分布式、协作式、超媒体系统应用之间的通信协议，是万维网（World Wide Web）交换信息的基础。HTTP是一个客户端终端（用户）和服务端（网站）请求和应答的标准（TCP）。通过使用Web浏览器、网络爬虫或者其他工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80），称这个客户端为用户代理程序。通常，有HTTP客户端发起一个请求，创建一个到服务器指定端口（默认端口为80端口）的TCP连接。HTTO服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，如“HTTP/1.1 200 OK”及返回的内容（请求的文件、错误信息、或者其他信息）。</p>
 <h3 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h3><p>（1）OPTIONS：该办法可使服务器传回该资源所支持的所有HTTP请求方法。用‘*’来代替资源名称，向Web服务器发送OPTIONS请求，可以测试服务器功能是否正常运作。<br>（2）HEAD:与GET方法一样，都是向服务器发出指定资源的请求。只不过服务器将不传回资源的本文部分。它的好处在于，使用这个方法可以在不必传输全部内容的情况下，就可以获取其中“关于该资源的信息”（元信息或称元数据）<br>（3）GET:向指定资源发出“显示”请求。使用GET方法应该只用在读取数据，而不应当被用于产生“副作用”的操作中，如在Web Application中，其中一个原因就是GET可能会被网络蜘蛛等随意访问。<br>（4）POST:向指定资源提交数据，请求服务器进行处理（如提交表单或者上传文件）。数据被包含在请求本文中。这个请求可能会创建新的资源或修改现有资源，或二者皆有。<br>（5）PUT：向指向资源位置上传其最新内容。<br>（6）DELETE：请求服务器删除Request-URI所标识的资源。<br>（7）TRACE：回显服务器收到的请求，主要用于测试或诊断。<br>（8）CONNECT:HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接（经由非加密的HTTP代理服务器）。<br>以下是一个典型的HTTP GET 请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">GET / HTTP/1.1</div><div class="line">User-Agent: Mozilla/4.0(compatible; MSIE 8.0; Windows NT 6.0)</div><div class="line">Host: www.bit.edu.cn</div><div class="line">Accept: text/html</div><div class="line">Accept-Language: zh-CN</div><div class="line">Accept-Rncoding: gzip,deflate</div><div class="line">Cache-Control: no-cache</div><div class="line">Cookie: SessionId= ICONFPDBEPOBLFFGBKKNCGAL</div><div class="line">Connection: Keep-Alive</div></pre></td></tr></table></figure></p>
 <p>其中，请求的第一行都是由3个以空格间隔的项目组成，分别是请求方法、请求路径、和HTTP版本。其他一些常见的消息头如下。<br>（1）Referer消息头用于表示发出请求的原始URL。<br>（2）User-Agent消息头提供与浏览器或其他请求的客户端软件有关的信息。<br>（3）Host消息头用于指定出现被访问的完整URL中的主机名称。<br>（4）Cookie消息头用于提交服务器向客户端发布的其他参数。</p>
