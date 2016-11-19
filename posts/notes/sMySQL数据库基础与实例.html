@@ -1,0 +1,965 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Uknow, uknow.top, uknowsec" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Uknow’s Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="MySQL基础知识MySQL是最受欢迎的开源关系数据库管理系统，有瑞典MySQL AB公司开发。2008年1月MySQL被美国的SUN公司收购，2009年4月SUN公司又被美国的甲骨文（Oracle）公司收购。
+MySQL的特点MySQL是一个单进程多线程、支持多用户、基于客户机/服务端（Client/Server， C/S）的关系数据库管理系统。与其他数据库管理系统（DBMS）相比，MySQL具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL数据库基础与实例">
+<meta property="og:url" content="http://uknow.top/posts/notes/sMySQL数据库基础与实例.html">
+<meta property="og:site_name" content="Uknow’s Blog">
+<meta property="og:description" content="MySQL基础知识MySQL是最受欢迎的开源关系数据库管理系统，有瑞典MySQL AB公司开发。2008年1月MySQL被美国的SUN公司收购，2009年4月SUN公司又被美国的甲骨文（Oracle）公司收购。
+MySQL的特点MySQL是一个单进程多线程、支持多用户、基于客户机/服务端（Client/Server， C/S）的关系数据库管理系统。与其他数据库管理系统（DBMS）相比，MySQL具">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720160902190951.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160902191609.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160902193439.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160902194504.png">
+<meta property="og:updated_time" content="2016-11-19T01:46:59.233Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL数据库基础与实例">
+<meta name="twitter:description" content="MySQL基础知识MySQL是最受欢迎的开源关系数据库管理系统，有瑞典MySQL AB公司开发。2008年1月MySQL被美国的SUN公司收购，2009年4月SUN公司又被美国的甲骨文（Oracle）公司收购。
+MySQL的特点MySQL是一个单进程多线程、支持多用户、基于客户机/服务端（Client/Server， C/S）的关系数据库管理系统。与其他数据库管理系统（DBMS）相比，MySQL具">
+<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720160902190951.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6316725929833924000,
+      author: 'Uknow'
+    }
+  };
+</script>
+
+  <title> MySQL数据库基础与实例 | Uknow’s Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?3d5fd0365a60ecafb093d2d0df7aaf4c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Uknow’s Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MySQL数据库基础与实例
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-02T21:10:35+08:00" content="2016-09-02">
+              2016-09-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/posts/notes/sMySQL数据库基础与实例.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/sMySQL数据库基础与实例.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/posts/notes/sMySQL数据库基础与实例.html" class="leancloud_visitors" data-flag-title="MySQL数据库基础与实例">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MySQL基础知识"><a href="#MySQL基础知识" class="headerlink" title="MySQL基础知识"></a>MySQL基础知识</h1><p>MySQL是最受欢迎的开源关系数据库管理系统，有瑞典MySQL AB公司开发。2008年1月MySQL被美国的SUN公司收购，2009年4月SUN公司又被美国的甲骨文（Oracle）公司收购。</p>
+<h2 id="MySQL的特点"><a href="#MySQL的特点" class="headerlink" title="MySQL的特点"></a>MySQL的特点</h2><p>MySQL是一个单进程多线程、支持多用户、基于客户机/服务端（Client/Server， C/S）的关系数据库管理系统。与其他数据库管理系统（DBMS）相比，MySQL具有体积小、易于安装、运行速度快、功能齐全、成本低廉、开源、性能高效、跨平台支持、简单易用以及支持多用户等特点。</p>
+<h2 id="MySQL服务器的安装"><a href="#MySQL服务器的安装" class="headerlink" title="MySQL服务器的安装"></a>MySQL服务器的安装</h2><p><a href="https://www.baidu.com/s?ie=utf-8&amp;f=3&amp;rsv_bp=1&amp;tn=monline_3_dg&amp;wd=mysql%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B&amp;oq=MySQL%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%E5%9B%BE&amp;rsv_pq=b00d663c00006bf5&amp;rsv_t=b75foeWyNzqw1JsrhOMySTBjWEBnJT3RNpfrmv8xNT4d2xAaW4fs%2FO1%2BnJwFxWv%2BPzR6&amp;rqlang=cn&amp;rsv_enter=1&amp;inputT=4620&amp;rsv_sug3=36&amp;rsv_sug1=16&amp;rsv_sug7=100&amp;rsv_sug2=1&amp;prefixsug=MySQL%E5%AE%89%E8%A3%85&amp;rsp=0&amp;rsv_sug4=7744" target="_blank" rel="external">mysql安装教程</a></p>
+<h2 id="启动与停止MySQL服务"><a href="#启动与停止MySQL服务" class="headerlink" title="启动与停止MySQL服务"></a>启动与停止MySQL服务</h2><p>方法一：“开始”-&gt;“运行”，输入“service.msc”<br>方法二：“我的电脑”-&gt;“管理”-&gt;“计算机管理”-&gt;“服务和应用程序”-&gt;“服务”<br>方法三：使用Windows操作系统的控制面板也可以找到“服务”窗口。<br>方法四：“开始”-&gt;“运行”-&gt;“输入cmd”-&gt;“net start mysql开启或net stop mysql”</p>
+<h2 id="连接MySQL服务器"><a href="#连接MySQL服务器" class="headerlink" title="连接MySQL服务器"></a>连接MySQL服务器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql -h 127.0.0.1 -P 3306 -u root -proot </div><div class="line">mysql -h 127.0.0.1 -u root -p </div><div class="line"></div><div class="line">-h : host MySQL服务器主机名或者IP地址</div><div class="line">-P : Port MySQL服务的端口号，如果是默认端口3306，则 -P 参数可以省略</div><div class="line">-u : user MySQL账号名</div><div class="line">-p : pwd MySQL账户名对应的密码</div></pre></td></tr></table></figure>
+<p>每条MySQL命令或者SQL语句应该以“;”或者“\g”结束<br>键入“help;”或者“\h”命令，即可查看帮助信息。</p>
+<h2 id="字符集及字符序"><a href="#字符集及字符序" class="headerlink" title="字符集及字符序"></a>字符集及字符序</h2><p>字符（character）是人类语言最小的表义符号，给定一系列字符，并对每个字符赋予一个数值，用数值来代表对应的字符，这个数值就是字符的编码（character encoding），给定一系列字符并赋予对应的编码后，所有这些“字符和编码对”组成的集合就是字符集（character set）。<br>字符序（collation）是指在统一字符之内的比较规则。一个字符集可以包含多种字符序，每个字符集有一个默认的字符序（default collation），每一个字符唯一对应一种字符。MySQL字符序命名规则是：以字符序对应的字符集名称开头，以国家名居中（或以general居中），以ci、cs或bin结尾。以ci结尾的字符序表示大小写不敏感，以cs结尾的字符序表示大小写敏感。</p>
+<h2 id="MySQL字符集与字符序"><a href="#MySQL字符集与字符序" class="headerlink" title="MySQL字符集与字符序"></a>MySQL字符集与字符序</h2><p>MySQL为了节省存储空间，在默认情况下，一个gbk英文字符通常仅占用一个字节（8位）的存储空间，一个utf8英文字符仅占用一个字节（8位）的存储空间。<br>MySQL客户机成功连接MySQL服务器后，使用MySQL命令“show character set;”即可查看当前MySQL服务实例支持的字符集、字符集默认的字符序以及字符集占用的最大字节长度等信息。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720160902190951.png" alt=""><br>使用MySQL命令“show variables like ‘character%’;”即可查看当前MySQL会话使用的字符集。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160902191609.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">character_set_client：MySQL客户机的字符集</div><div class="line">character_set_connection：数据通信链路的字符集，当MySQL客户机向服务器发送请求时，请求数据以该字符集进行编码。</div><div class="line">character_set_database：数据库字符集。</div><div class="line">character_set_filesystem：MySQL服务器文件系统的字符集，该值是固定的binary.</div><div class="line">character_set_result：结果集的字符集，MySQL服务器向MySQL客户机返回执行结果时，执行结果以该字符集进行编码。</div><div class="line">character_set_server：MySQL服务实例字符集。</div><div class="line">character_set_system：元数据（字段名、表名、数据库名等）的字符集。</div></pre></td></tr></table></figure></p>
+<h2 id="MySQL字符集的设置"><a href="#MySQL字符集的设置" class="headerlink" title="MySQL字符集的设置"></a>MySQL字符集的设置</h2><p>方法：修改my.ini配置文件，可修改MySQL默认的字符集。</p>
+<h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">使用SQL语句“create database database_name;”</div></pre></td></tr></table></figure>
+<p>创建数据库后，MySQL服务实例自动在 ·\·\date\ 目录创建“database_name”目录及相关数据库文件（如db.opt）<br>db.opt文件的主要功能是记录当前数据库的默认字符集及字符序等信息。</p>
+<h2 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">使用MySQL命令“show datadases;&quot;</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160902193439.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">information_schema:用于收集MySQL服务器的性能参数，确保了数据安全。</div><div class="line">performance_schema:用于收集MySQL服务器的性能参数，以便数据库管理员了解产生性能瓶颈的原因。</div><div class="line">information_schema系统数据库定义了所有数据库对象的元数据信息。例如所有数据库、表、字段、索引、约束、权限、存储引擎、字符集和触发器等信息都存储在information_schema数据库中。</div><div class="line">系统数据库由MySQL服务实例进程自动维护，普通用户建议不要修改系统数据库信息。</div></pre></td></tr></table></figure>
+<h2 id="显示数据库结构"><a href="#显示数据库结构" class="headerlink" title="显示数据库结构"></a>显示数据库结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">使用MySQL命令“show create database database_name;&quot;</div></pre></td></tr></table></figure>
+<p>可以查看名database_name数据库的结构。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160902194504.png" alt=""></p>
+<h2 id="选择当前操作的数据库"><a href="#选择当前操作的数据库" class="headerlink" title="选择当前操作的数据库"></a>选择当前操作的数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">使用SQL语句“use database_name;&quot;</div></pre></td></tr></table></figure>
+<h2 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">使用MySQL命令“drop database database_name;&quot;</div></pre></td></tr></table></figure>
+<p>删除数据库后，MySQL服务实例会自动删除数据库目录及该数据库目录中的所有文件，数据库一旦删除，保存在该数据库中的数据将全部丢失。</p>
+<h2 id="MyISAM和InnoDB存储引擎"><a href="#MyISAM和InnoDB存储引擎" class="headerlink" title="MyISAM和InnoDB存储引擎"></a>MyISAM和InnoDB存储引擎</h2><p>MySQL提供了插件式（pluggable）的存储引擎，存储引擎是基于表的。同一数据库，不同的表，存储引擎可以不同。甚至，同一个数据库表在不同的场合可以应用不同的存储引擎。目前，MySQL的存储引擎至少10种，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">使用MySQL命令“show engines;”</div></pre></td></tr></table></figure></p>
+<p>即可查看MySQL服务实例支持的存储引擎。<br>MySQL常用的存储引擎有InnoDB存储引擎以及MyISAM存储引擎。</p>
+<h3 id="InnoDB存储引擎"><a href="#InnoDB存储引擎" class="headerlink" title="InnoDB存储引擎"></a>InnoDB存储引擎</h3><p>InnoDB存储引擎是事务（transaction）安全的，并且支持外键（foreign key）。如果某张表主要提供OLTP支持，需要执行大量的增、删、该操作（即insert、delete、update语句），处于事务安全方面的考虑，InnoDB存储引擎是更好的选择。</p>
+<h3 id="MyISAM存储引擎"><a href="#MyISAM存储引擎" class="headerlink" title="MyISAM存储引擎"></a>MyISAM存储引擎</h3><p>如果某张表主要提供OLAP支持，建议用MyISAM存储引擎。MyISAM具有检查和修复表的大多数工具。MyISAM表可以被压缩，而且最早支持全文索引，但MyISAM表不是事务安全的，也不支持外键。如果某表需要执行大量的select语句，出狱性能方面的考虑，MyISAM存储引擎是更好的选择。</p>
+<h2 id="设置默认的存储引擎"><a href="#设置默认的存储引擎" class="headerlink" title="设置默认的存储引擎"></a>设置默认的存储引擎</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">使用MySQL命令“set default_storage_engine=MyISAM;&quot; 可以“临时地”将MySQL“当前会话的”存储引擎设置为MySIAM。</div><div class="line">使用MySQL命令“show engines;”查看当前引擎</div></pre></td></tr></table></figure>
+<p>修改my.ini配置文件中的[mysqld]选项组中的default-storage-engine的参数值，并重启服务。可以“永久性”修改。</p>
+<h2 id="创建数据库表"><a href="#创建数据库表" class="headerlink" title="创建数据库表"></a>创建数据库表</h2><p>表是数据库中最为重要的数据库对象。创建表前，需要根据数据库涉及的结果确定表名、字段名及数据类型、约束等信息，另外，还要为每张表选择一个合适的存储引擎。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">use choose；</div><div class="line">set default_storage_engine=InnoDB;</div><div class="line">create table my_table(</div><div class="line">today datetiome,</div><div class="line">name char(20)</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>对于InnoDB存储引擎的表而言，MySQL服务实例会在数据库目录自动创建一个名为表名、后缀名为frm的表结构定义文件my_table.frm。<br>对于MyISAM,MySQL服务实例除了自动创建frm表结构文件外，还会自动创建一个文件名为表名、后缀名为MYD的数据文件以及文件名为表名、后缀名为MYI的索引文件。</p>
+<h2 id="显示表结构"><a href="#显示表结构" class="headerlink" title="显示表结构"></a>显示表结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">使用MySQL命令“show tables;&quot;即可查看当前操作的数据库中所有的表。</div><div class="line">使用MySQL命令“describe table_name;&quot;即可查看表名为table_name的表结构（describe也可以简写为desc）</div><div class="line">使用MySQL命令“show create table table_name;&quot;查看名为table_name表的详细信息。</div></pre></td></tr></table></figure>
+<h2 id="表记录的管理"><a href="#表记录的管理" class="headerlink" title="表记录的管理"></a>表记录的管理</h2><p>表记录的管理包括表记录的更新操作以及表记录的查询操作（select），其中，表记录的更新操作包括表记录的插入（insert）、修改（update）以及删除（delete）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">use choose;</div><div class="line">insert into my_table values(now(),&apos;a&apos;);</div><div class="line">insert into my_table values(now(),&apos;a&apos;);</div><div class="line">insert into my_table values(now(),NULL);</div><div class="line">insert into my_table values(now(),&apos;&apos;);</div></pre></td></tr></table></figure></p>
+<p>now()函数返回MySQL服务器的当前日期以及时间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">使用MySQL命令“delect*from tables_name”负责查询table_name表中的所有记录。</div></pre></td></tr></table></figure>
+<p>NULL与空字符串“‘’”是两个不同的概念。<br>NULL与整数零以及空格字符“‘ ’”的概念也不同。</p>
+<p>MyISAM表的备份只需将整个数据库目录复制一份即可。<br>InnoDB表的备份不仅需要复制整个数据库目录，还需要复制ibdata1表空间文件，以及重做日志文件ib_lagfile1。</p>
+<h2 id="InnoDB-表空间"><a href="#InnoDB-表空间" class="headerlink" title="InnoDB 表空间"></a>InnoDB 表空间</h2><p>InnoDB表空间分为共享表空间与独享表空间。</p>
+<h3 id="共享表空间"><a href="#共享表空间" class="headerlink" title="共享表空间"></a>共享表空间</h3><p>MySQL服务实例承载的所有数据库的所有InnoDB表的数据信息、索引信息、各种元数据信息以及事务的回滚（UNDO）信息，全部存放在共享空间文件中。</p>
+<h3 id="独享表空间"><a href="#独享表空间" class="headerlink" title="独享表空间"></a>独享表空间</h3><p>如果将全局变量innodb_file_per_table的值设置为ON，那么之后创建InnoDB存储引擎的新表时，这些表的数据信息、索引信息将保存到独享表空间中。</p>
+<h2 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">使用SQL语句“drop table table_name;&quot;即可删除名为table_name的表</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/notes/sWeb安全与攻击技术-基础知识.html" rel="next" title="Web安全与攻击技术-基础知识">
+                <i class="fa fa-chevron-left"></i> Web安全与攻击技术-基础知识
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/ctf/s百度杯CTF比赛Writeup.html" rel="prev" title="百度杯CTF比赛Writeup">
+                百度杯CTF比赛Writeup <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="posts/notes/sMySQL数据库基础与实例.html"
+           data-title="MySQL数据库基础与实例" data-url="http://uknow.top/posts/notes/sMySQL数据库基础与实例.html">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://obr4sfdq7.bkt.clouddn.com/151.png"
+               alt="uknow" />
+          <p class="site-author-name" itemprop="name">uknow</p>
+          <p class="site-description motion-element" itemprop="description">不忘初心，方得始终</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/uknowsec" target="_blank">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3477219002" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  Others
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL基础知识"><span class="nav-number">1.</span> <span class="nav-text">MySQL基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL的特点"><span class="nav-number">1.1.</span> <span class="nav-text">MySQL的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL服务器的安装"><span class="nav-number">1.2.</span> <span class="nav-text">MySQL服务器的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动与停止MySQL服务"><span class="nav-number">1.3.</span> <span class="nav-text">启动与停止MySQL服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接MySQL服务器"><span class="nav-number">1.4.</span> <span class="nav-text">连接MySQL服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符集及字符序"><span class="nav-number">1.5.</span> <span class="nav-text">字符集及字符序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL字符集与字符序"><span class="nav-number">1.6.</span> <span class="nav-text">MySQL字符集与字符序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL字符集的设置"><span class="nav-number">1.7.</span> <span class="nav-text">MySQL字符集的设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.8.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看数据库"><span class="nav-number">1.9.</span> <span class="nav-text">查看数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示数据库结构"><span class="nav-number">1.10.</span> <span class="nav-text">显示数据库结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择当前操作的数据库"><span class="nav-number">1.11.</span> <span class="nav-text">选择当前操作的数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除数据库"><span class="nav-number">1.12.</span> <span class="nav-text">删除数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyISAM和InnoDB存储引擎"><span class="nav-number">1.13.</span> <span class="nav-text">MyISAM和InnoDB存储引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB存储引擎"><span class="nav-number">1.13.1.</span> <span class="nav-text">InnoDB存储引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM存储引擎"><span class="nav-number">1.13.2.</span> <span class="nav-text">MyISAM存储引擎</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置默认的存储引擎"><span class="nav-number">1.14.</span> <span class="nav-text">设置默认的存储引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建数据库表"><span class="nav-number">1.15.</span> <span class="nav-text">创建数据库表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示表结构"><span class="nav-number">1.16.</span> <span class="nav-text">显示表结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表记录的管理"><span class="nav-number">1.17.</span> <span class="nav-text">表记录的管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB-表空间"><span class="nav-number">1.18.</span> <span class="nav-text">InnoDB 表空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#共享表空间"><span class="nav-number">1.18.1.</span> <span class="nav-text">共享表空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独享表空间"><span class="nav-number">1.18.2.</span> <span class="nav-text">独享表空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除表"><span class="nav-number">1.19.</span> <span class="nav-text">删除表</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">uknow</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3d5fd0365a60ecafb093d2d0df7aaf4c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"uknow"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("AxgSweQqwlurwh9jQb8ilgOQ-gzGzoHsz", "ex42kl7W8LVpx0umFqv5YSIa");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
