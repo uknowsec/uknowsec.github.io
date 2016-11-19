@@ -1,0 +1,998 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Uknow, uknow.top, uknowsec" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Uknow’s Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="密码学 cryptology各种密码学的在线解密
+简单的位移密码默认位移13 即rot13
+1234567891011#-- coding:utf-8 --str =raw_input(‘put flag:’)new_str = “”yi = 13for i in str:    if i&amp;gt;=‘a’ and i&amp;lt;=‘z’:        i = ord(i)        i = ((">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF工具以及脚本的整理 ">
+<meta property="og:url" content="http://uknow.top/posts/ctf/CTF工具以及脚本的整理">
+<meta property="og:site_name" content="Uknow’s Blog">
+<meta property="og:description" content="密码学 cryptology各种密码学的在线解密
+简单的位移密码默认位移13 即rot13
+1234567891011#-- coding:utf-8 --str =raw_input(‘put flag:’)new_str = “”yi = 13for i in str:    if i&amp;gt;=‘a’ and i&amp;lt;=‘z’:        i = ord(i)        i = ((">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/14:49:39%20">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:00:45%20">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:32:31%20">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:51:15%20">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:56:11%20">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:20:30%20">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:35:39%20">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:45:16%20">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:53:39%20">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:13:24%20">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:19:36%20">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:43:00%20">
+<meta property="og:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:49:27%20">
+<meta property="og:updated_time" content="2016-11-19T01:47:18.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTF工具以及脚本的整理 ">
+<meta name="twitter:description" content="密码学 cryptology各种密码学的在线解密
+简单的位移密码默认位移13 即rot13
+1234567891011#-- coding:utf-8 --str =raw_input(‘put flag:’)new_str = “”yi = 13for i in str:    if i&amp;gt;=‘a’ and i&amp;lt;=‘z’:        i = ord(i)        i = ((">
+<meta name="twitter:image" content="http://oayoilchh.bkt.clouddn.com/2016/07/27/14:49:39%20">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6316725929833924000,
+      author: 'Uknow'
+    }
+  };
+</script>
+
+  <title> CTF工具以及脚本的整理  | Uknow’s Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?3d5fd0365a60ecafb093d2d0df7aaf4c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Uknow’s Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CTF工具以及脚本的整理 
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-11T00:15:14+08:00" content="2016-08-11">
+              2016-08-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ctf/" itemprop="url" rel="index">
+                    <span itemprop="name">CTF</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/posts/ctf/CTF工具以及脚本的整理#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/ctf/CTF工具以及脚本的整理" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/posts/ctf/CTF工具以及脚本的整理" class="leancloud_visitors" data-flag-title="CTF工具以及脚本的整理 ">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="密码学-cryptology"><a href="#密码学-cryptology" class="headerlink" title="密码学 cryptology"></a><a href="#密码学-cryptology"></a>密码学 <code>cryptology</code></h1><p><a href="http://www.practicalcryptography.com/" target="_blank" rel="external">各种密码学的在线解密</a></p>
+<h2 id="简单的位移密码"><a href="#简单的位移密码" class="headerlink" title="简单的位移密码"></a><a href="#简单的位移密码"></a>简单的位移密码</h2><p><code>默认位移13 即rot13</code></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-<em>- coding:utf-8 -</em>-</span></div><div class="line">str =raw_input(<span class="string">‘put flag:’</span>)</div><div class="line">new_str = <span class="string">“”</span></div><div class="line">yi = <span class="number">13</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> str:</div><div class="line">    <span class="keyword">if</span> i&gt;=<span class="string">‘a’</span> <span class="keyword">and</span> i&lt;=<span class="string">‘z’</span>:</div><div class="line">        i = ord(i)</div><div class="line">        i = ((i-yi)<span class="number">-97</span>)%<span class="number">26</span>+<span class="number">97</span></div><div class="line">        i = chr(i)</div><div class="line">        new_str = new_str+i</div><div class="line">        print(new_str)</div></pre></td></tr></tbody></table></figure>
+
+<h2 id="培根密码"><a href="#培根密码" class="headerlink" title="培根密码"></a><a href="#培根密码"></a>培根密码</h2><p>培根是根据字体的斜体 大小写转化成AB等字符 然后每五个对应一个字母的脚本  我还没写大小写转化脚本 这里只有 五个字母对应一个字母脚本<br>（1）<a href="http://rumkin.com/tools/cipher/baconian.php" target="_blank" rel="external">在线加解密</a><br>（2）<code>Python脚本</code></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/Bin/env python</span></div><div class="line"><span class="comment"># -<em>- coding: utf-8 -</em>-</span></div><div class="line"></div><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -<em>- coding: utf-8 -</em>-</span></div><div class="line"><span class="comment">#<strong>author</strong> = ‘tyomcat’</span></div><div class="line"><span class="comment"># 培根解密代码</span></div><div class="line"><span class="comment"># 两种加密方式</span></div><div class="line"><span class="keyword">import</span> sys</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">peig1</span><span class="params">(m)</span>:</span></div><div class="line">    basic1 = {</div><div class="line">    <span class="string">‘AAAAA’</span> : <span class="string">‘A’</span>,</div><div class="line">    <span class="string">‘AAAAB’</span> : <span class="string">‘B’</span>,</div><div class="line">    <span class="string">‘AAABA’</span> : <span class="string">‘C’</span>,</div><div class="line">    <span class="string">‘AAABB’</span> : <span class="string">‘D’</span>,</div><div class="line">    <span class="string">‘AABAA’</span> : <span class="string">‘E’</span>,</div><div class="line">    <span class="string">‘AABAB’</span> : <span class="string">‘F’</span>,</div><div class="line">    <span class="string">‘AABBA’</span> : <span class="string">‘G’</span>,</div><div class="line">    <span class="string">‘AABBB’</span> : <span class="string">‘H’</span>,</div><div class="line">    <span class="string">‘ABAAA’</span> : <span class="string">‘I’</span>,</div><div class="line">    <span class="string">‘ABAAB’</span> : <span class="string">‘J’</span>,</div><div class="line">    <span class="string">‘ABABA’</span> : <span class="string">‘K’</span>,</div><div class="line">    <span class="string">‘ABABB’</span> : <span class="string">‘L’</span>,</div><div class="line">    <span class="string">‘ABBAB’</span> : <span class="string">‘N’</span>,</div><div class="line">    <span class="string">‘ABBBA’</span> : <span class="string">‘O’</span>,</div><div class="line">    <span class="string">‘ABBBB’</span> : <span class="string">‘P’</span>,</div><div class="line">    <span class="string">‘BAAAA’</span> : <span class="string">‘Q’</span>,</div><div class="line">    <span class="string">‘BAAAB’</span> : <span class="string">‘R’</span>,</div><div class="line">    <span class="string">‘BAABA’</span> : <span class="string">‘S’</span>,</div><div class="line">    <span class="string">‘BAABB’</span> : <span class="string">‘T’</span>,</div><div class="line">    <span class="string">‘BABAA’</span> : <span class="string">‘U’</span>,</div><div class="line">    <span class="string">‘BABAB’</span> : <span class="string">‘V’</span>,</div><div class="line">    <span class="string">‘BABBA’</span> : <span class="string">‘W’</span>,</div><div class="line">    <span class="string">‘BABBB’</span> : <span class="string">‘X’</span>,</div><div class="line">    <span class="string">‘BBAAA’</span> : <span class="string">‘Y’</span>,</div><div class="line">    <span class="string">‘BBAAB’</span> : <span class="string">‘Z’</span></div><div class="line">    }</div><div class="line">    output = <span class="string">‘’</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(m) - <span class="number">4</span>, <span class="number">5</span>):</div><div class="line">        temp = m[i: i + <span class="number">5</span>]</div><div class="line">        output += basic1[temp]</div><div class="line">    <span class="keyword">return</span> output</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">peig2</span><span class="params">(m)</span>:</span></div><div class="line"></div><div class="line">    basic2 = {</div><div class="line">    <span class="string">‘AAAAA’</span> : <span class="string">‘A’</span>,</div><div class="line">    <span class="string">‘AAAAB’</span> : <span class="string">‘B’</span>,</div><div class="line">    <span class="string">‘AAABA’</span> : <span class="string">‘C’</span>,</div><div class="line">    <span class="string">‘AAABB’</span> : <span class="string">‘D’</span>,</div><div class="line">    <span class="string">‘AABAA’</span> : <span class="string">‘E’</span>,</div><div class="line">    <span class="string">‘AABAB’</span> : <span class="string">‘F’</span>,</div><div class="line">    <span class="string">‘AABBA’</span> : <span class="string">‘G’</span>,</div><div class="line">    <span class="string">‘AABBB’</span> : <span class="string">‘H’</span>,</div><div class="line">    <span class="string">‘ABAAA’</span> : <span class="string">‘I’</span>,</div><div class="line">    <span class="string">‘ABAAA’</span> : <span class="string">‘J’</span>,</div><div class="line">    <span class="string">‘ABAAB’</span> : <span class="string">‘K’</span>,</div><div class="line">    <span class="string">‘ABABA’</span> : <span class="string">‘L’</span>,</div><div class="line">    <span class="string">‘ABABB’</span> : <span class="string">‘M’</span>,</div><div class="line">    <span class="string">‘ABBAA’</span> : <span class="string">‘N’</span>,</div><div class="line">    <span class="string">‘ABBAB’</span> : <span class="string">‘O’</span>,</div><div class="line">    <span class="string">‘ABBBA’</span> : <span class="string">‘P’</span>,</div><div class="line">    <span class="string">‘ABBBB’</span> : <span class="string">‘Q’</span>,</div><div class="line">    <span class="string">‘BAAAA’</span> : <span class="string">‘R’</span>,</div><div class="line">    <span class="string">‘BAAAB’</span> : <span class="string">‘S’</span>,</div><div class="line">    <span class="string">‘BAABA’</span> : <span class="string">‘T’</span>,</div><div class="line">    <span class="string">‘BAABB’</span> : <span class="string">‘U’</span>,</div><div class="line">    <span class="string">‘BAABB’</span> : <span class="string">‘V’</span>,</div><div class="line">    <span class="string">‘BABAA’</span> : <span class="string">‘W’</span>,</div><div class="line">    <span class="string">‘BABAB’</span> : <span class="string">‘X’</span>,</div><div class="line">    <span class="string">‘BABBA’</span> : <span class="string">‘Y’</span>,</div><div class="line">    <span class="string">‘BABBB’</span> : <span class="string">‘Z’</span></div><div class="line">    }</div><div class="line">    output = <span class="string">‘’</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(m) - <span class="number">4</span>, <span class="number">5</span>):</div><div class="line">        temp = m[i: i + <span class="number">5</span>]</div><div class="line">        output += basic2[temp]</div><div class="line">    <span class="keyword">return</span> output</div><div class="line"></div><div class="line"><span class="keyword">if</span> <strong>name</strong> == <span class="string">‘<strong>main</strong>‘</span>:</div><div class="line">    </div><div class="line">    m = raw_input(<span class="string">“请输入密文:”</span>)</div><div class="line">    mode = input(<span class="string">“选择密文对应的方式 1 or 2：”</span>)</div><div class="line">    <span class="keyword">if</span> len(m)%<span class="number">5</span> == <span class="number">0</span>:</div><div class="line">        l = []</div><div class="line">        k = []</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(len(m)/<span class="number">5</span>):</div><div class="line">            l.append(m[:<span class="number">5</span>])</div><div class="line">            m = m[<span class="number">5</span>:]</div><div class="line">        <span class="keyword">if</span> mode == <span class="number">1</span>:</div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> l:</div><div class="line">                <span class="keyword">if</span> i.isupper():</div><div class="line">                    k.append(peig1(i))</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    i = i.upper()</div><div class="line">                    k.append(peig1(i))</div><div class="line"></div><div class="line">        <span class="keyword">elif</span> mode == <span class="number">2</span>:</div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> l:</div><div class="line">                <span class="keyword">if</span> i.isupper():</div><div class="line">                    k.append(peig2(i))</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    i = i.upper()</div><div class="line">                    k.append(peig2(i))</div><div class="line">        flag = <span class="string">‘’</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> k:</div><div class="line">            flag+=i[<span class="number">0</span>]</div><div class="line">        <span class="keyword">print</span> flag</div></pre></td></tr></tbody></table></figure>
+
+<h2 id="栅栏密码"><a href="#栅栏密码" class="headerlink" title="栅栏密码"></a><a href="#栅栏密码"></a>栅栏密码</h2><p>(1) 一个win平台下的<a href="http://oayoilchh.bkt.clouddn.com/%E6%A0%85%E6%A0%8F%E5%AF%86%E7%A0%81%E5%8A%A0%E8%A7%A3%E5%AF%861.10.exe" target="_blank" rel="external">软件</a><br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/14:49:39%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/14:49:39%20" alt=""></a><br>（2）<code>python脚本</code></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#author:Swing</span></div><div class="line"><span class="comment">#通用脚本</span></div><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -<em>- coding: utf_8 -</em>-</span></div><div class="line">e = raw_input(<span class="string">‘请输入要解密的字符串\n’</span>)</div><div class="line">elen = len(e)</div><div class="line">field=[]</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>,elen):</div><div class="line">            <span class="keyword">if</span>(elen%i==<span class="number">0</span>):</div><div class="line">                field.append(i)</div><div class="line"><span class="keyword">for</span> f <span class="keyword">in</span> field:</div><div class="line">    b = elen / f</div><div class="line">    result = {x:<span class="string">‘’</span> <span class="keyword">for</span> x <span class="keyword">in</span> range(b)}</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(elen):</div><div class="line">        a = i % b;</div><div class="line">        result.update({a:result[a] + e[i]})</div><div class="line">    d = <span class="string">‘’</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(b):</div><div class="line">        d = d + result[i]</div><div class="line">    <span class="keyword">print</span> <span class="string">‘分为\t’</span>+str(f)+<span class="string">‘\t’</span>+<span class="string">‘栏时，解密结果为：  ‘</span>+d</div></pre></td></tr></tbody></table></figure>
+
+<h2 id="凯撒密码"><a href="#凯撒密码" class="headerlink" title="凯撒密码"></a><a href="#凯撒密码"></a>凯撒密码</h2><p>凯撒密码(Caesar Cipher或称恺撒加密、恺撒变换、变换加密、位移加密)是一种替换加密，明文中的所有字母都在字母表上向后（或向前）按照一个固定数目进行偏移后被替换成密文。例，当偏移量是3的时候，所有的字母A将被替换成D，B变成E，以此类推，更多<a href="https://en.wikipedia.org/wiki/Caesar_cipher" target="_blank" rel="external">参考</a><br>位移参考<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:00:45%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:00:45%20" alt=""></a><br>(1)<a href="http://planetcalc.com/1434/" target="_blank" rel="external">网站链接</a> 这个网站可以列出1-26的可能性<br>(1)还有一种方法就是利用<a href="http://" target="_blank" rel="external">JPK</a>这个工具<br>使用方法看图就够了吧 <a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:32:31%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:32:31%20" alt=""></a><br>(3)<code>Python实现</code></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#! /usr/bin/env python</span></div><div class="line"><span class="comment"># coding=utf-8</span></div><div class="line"><span class="comment">#<strong>author</strong> = ‘tyomcat’</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(c, key, start = <span class="string">‘a’</span>, n = <span class="number">26</span>)</span>:</span></div><div class="line">    a = ord(start)</div><div class="line">    offset = ((ord(c) - a + key)%n)</div><div class="line">    <span class="keyword">return</span> chr(a + offset)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">caesarEncode</span><span class="params">(s, key)</span>:</span></div><div class="line">    o = <span class="string">“”</span></div><div class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> s:</div><div class="line">        <span class="keyword">if</span> c.islower():</div><div class="line">            o+= convert(c, key, <span class="string">‘a’</span>)</div><div class="line">        <span class="keyword">elif</span> c.isupper():</div><div class="line">            o+= convert(c, key, <span class="string">‘A’</span>)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            o+= c</div><div class="line">    <span class="keyword">return</span> o</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">caesarDecode</span><span class="params">(s, key)</span>:</span></div><div class="line">    <span class="keyword">return</span> caesarEncode(s, -key)</div><div class="line"><span class="keyword">if</span> <strong>name</strong> == <span class="string">‘<strong>main</strong>‘</span>:</div><div class="line"></div><div class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> range(<span class="number">27</span>):</div><div class="line">       e=<span class="string">‘Jr1p0zr2VfPp’</span>     <span class="comment">#写这里</span></div><div class="line">       d = caesarDecode(e, key)</div><div class="line"></div><div class="line">       <span class="keyword">print</span> d</div><div class="line">       <span class="keyword">print</span> <span class="string">‘\n’</span></div><div class="line"><code>python&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;## 简单替换密码&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;简单换位密码(Simple Substitution Cipher)加密方式是以每个明文字母被与之唯一对应且不同的字母替换的方式实现的，它不同于恺撒密码，因为密码字母表的字母不是简单的移位，而是完全是混乱的 例如：&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;</code>code</div><div class="line">明文字母 : abcdefghijklmnopqrstuvwxyz</div><div class="line">明文字母 : phqgiumeaylnofdxjkrcvstzwb</div></pre></td></tr></tbody></table></figure>
+
+<p>其实我感觉有点像是词频攻击就可以解决所以我（麦香师傅告诉我才知道的）推荐一个词频攻击的网站<code>要有梯子</code><a href="http://quipqiup.com/index.php" target="_blank" rel="external">http://quipqiup.com/index.php</a></p>
+<h2 id="猪圈密码"><a href="#猪圈密码" class="headerlink" title="猪圈密码"></a><a href="#猪圈密码"></a>猪圈密码</h2><p>猪圈密码(Pigpen Cipher或称九宫格密码、朱高密码、共济会密码或共济会员密码)，是一种以格子为基础的简单替代式密码<br>明文和密文对应：<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:51:15%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:51:15%20" alt=""></a><br>在线解密<a href="http://www.simonsingh.net/The_Black_Chamber/pigpen.html" target="_blank" rel="external">飞机票</a><br>上面是正常的对应 我见过一种变形的 与其说是猪圈不如说是替换<br>替换规则是 左右字母替换<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:56:11%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/15:56:11%20" alt=""></a><br>右边的跟左边的一一对应，在左边的换成右边<br><code>2015年广东强网杯 小心猪圈</code>的题目就是这样的<br>附上我的脚本</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"></div><div class="line">s=raw_input()</div><div class="line">Key = {</div><div class="line">    <span class="string">‘a’</span>:<span class="string">‘j’</span>,</div><div class="line">    <span class="string">‘b’</span>:<span class="string">‘k’</span>,</div><div class="line">    <span class="string">‘c’</span>:<span class="string">‘l’</span>,</div><div class="line">    <span class="string">‘d’</span>:<span class="string">‘m’</span>,</div><div class="line">    <span class="string">‘e’</span>:<span class="string">‘n’</span>,</div><div class="line">    <span class="string">‘f’</span>:<span class="string">‘o’</span>,</div><div class="line">    <span class="string">‘g’</span>:<span class="string">‘p’</span>,</div><div class="line">    <span class="string">‘h’</span>:<span class="string">‘q’</span>,</div><div class="line">    <span class="string">‘i’</span>:<span class="string">‘r’</span>,</div><div class="line">    <span class="string">‘s’</span>:<span class="string">‘w’</span>,</div><div class="line">    <span class="string">‘t’</span>:<span class="string">‘x’</span>,</div><div class="line">    <span class="string">‘u’</span>:<span class="string">‘y’</span>,</div><div class="line">    <span class="string">‘v’</span>:<span class="string">‘z’</span>,</div><div class="line">    <span class="string">‘-‘</span>:<span class="string">‘-‘</span>,</div><div class="line">    <span class="string">‘{‘</span>:<span class="string">‘{‘</span>,</div><div class="line">    <span class="string">‘}’</span>:<span class="string">‘}’</span>,</div><div class="line">    <span class="string">‘j’</span>:<span class="string">‘a’</span>,</div><div class="line">    <span class="string">‘k’</span>:<span class="string">‘b’</span>,</div><div class="line">    <span class="string">‘l’</span>:<span class="string">‘c’</span>,</div><div class="line">    <span class="string">‘m’</span>:<span class="string">‘d’</span>,</div><div class="line">    <span class="string">‘n’</span>:<span class="string">‘e’</span>,</div><div class="line">    <span class="string">‘o’</span>:<span class="string">‘f’</span>,</div><div class="line">    <span class="string">‘p’</span>:<span class="string">‘g’</span>,</div><div class="line">    <span class="string">‘q’</span>:<span class="string">‘h’</span>,</div><div class="line">    <span class="string">‘r’</span>:<span class="string">‘i’</span>,</div><div class="line">    <span class="string">‘w’</span>:<span class="string">‘s’</span>,</div><div class="line">    <span class="string">‘x’</span>:<span class="string">‘t’</span>,</div><div class="line">    <span class="string">‘y’</span>:<span class="string">‘u’</span>,</div><div class="line">    <span class="string">‘z’</span>:<span class="string">‘v’</span></div><div class="line">}</div><div class="line">output1 = <span class="string">‘’</span></div><div class="line"><span class="keyword">for</span> i  <span class="keyword">in</span> range(<span class="number">0</span>,len(s)):</div><div class="line">     temp=s[i]</div><div class="line">     output1+=Key[temp]</div><div class="line"><span class="keyword">print</span> output1</div></pre></td></tr></tbody></table></figure>
+
+<p>更多关于密码学和编码的问题可以参考<a href="https://www.hackfun.org/CTF/coding-and-encryption-of-those-brain-holes-in-CTF.html" target="_blank" rel="external">4ido10n表哥的博文</a></p>
+<h1 id="隐写工具"><a href="#隐写工具" class="headerlink" title="隐写工具"></a><a href="#隐写工具"></a>隐写工具</h1><h2 id="Stegsolve"><a href="#Stegsolve" class="headerlink" title="Stegsolve"></a><a href="#Stegsolve"></a>Stegsolve</h2><p>图片隐写的神器 <a href="https://yunpan.cn/c6jV9E9ZevwdF" target="_blank" rel="external">下载的传送门</a>（提取码：c146）<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:20:30%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:20:30%20" alt=""></a><br>具体可以自己尝试 简单介绍几下两个功能</p>
+<ol>
+<li>Stereogram Solver<br>这个功能可以从不同通道去分析图片</li>
+<li>Frame Browser<br>这个功能是如果这张图片里面还藏这另外一张图片的话 他可以分离出来</li>
+<li><p>Image Combiner<br>这个功能可以对比两张图片 最终Sub出不一样的地方</p>
+<h2 id="pngcheck"><a href="#pngcheck" class="headerlink" title="pngcheck"></a><a href="#pngcheck"></a>pngcheck</h2><p><code>pngcheck.exe -v sctf.png</code><br><code>这个是Dos下的工具 win32平台的</code><br><a href="https://yunpan.cn/c6jjU9MsIWkWv" target="_blank" rel="external">下载传送门</a> （提取码：f47b）<br>他的功能是检测png格式图片的损坏位置 一般用来对PNG隐写进行修复会用到</p>
+<h2 id="stegdetect"><a href="#stegdetect" class="headerlink" title="stegdetect"></a><a href="#stegdetect"></a>stegdetect</h2><p>这个东西是用来检测图片的隐写方式的 它可以检测到通过JSteg、JPHide、OutGuess、Invisible Secrets、F5、appendX和Camouflage等这些隐写工具隐藏的信息<br><a href="https://yunpan.cn/c6jwUT7EA9ywW" target="_blank" rel="external">下载传送门</a> （提取码：4c2e）<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:35:39%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:35:39%20" alt=""></a><br>比如图中就可以看出他是<code>Jphide</code>隐写<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">使用规则:</div><div class="line">    q 仅显示可能包含隐藏内容的图像。</div><div class="line">-n 启用检查JPEG文件头功能，以降低误报率。如果启用，所有带有批注区域的文件将被视为没有被嵌入信息。如果JPEG文件的JFIF标识符中的版本号不是1.1，则禁用OutGuess检测。</div><div class="line">-s 修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</div><div class="line">-d 打印带行号的调试信息。</div><div class="line">-t 设置要检测哪些隐写工具（默认检测jopi），可设置的选项如下：</div><div class="line">j 检测图像中的信息是否是用jsteg嵌入的。</div><div class="line">o 检测图像中的信息是否是用outguess嵌入的。</div><div class="line">p 检测图像中的信息是否是用jphide嵌入的。</div><div class="line">i 检测图像中的信息是否是用invisible secrets嵌入的。</div><div class="line">-V 显示软件版本号。</div><div class="line">如果检测结果显示该文件可能包含隐藏信息，那么Stegdetect会在检测结果后面使用1～3颗星来标识</div><div class="line">隐藏信息存在的可能性大小，3颗星表示隐藏信息存在的可能性最大。</div></pre></td></tr></tbody></table></figure></p>
+</li>
+</ol>
+<h2 id="Jphide"><a href="#Jphide" class="headerlink" title="Jphide"></a><a href="#Jphide"></a>Jphide</h2><p>先推荐表哥的博文 他写得好详细<a href="https://www.hackfun.org/CTF/jphide-steganography.html" target="_blank" rel="external">传送门</a><br><a href="http://linux01.gwdg.de/~alatham/stego.html" target="_blank" rel="external">下载传送门</a><br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:45:16%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:45:16%20" alt=""></a><br><code>左边是隐写 右边是提取隐写文件</code></p>
+<h2 id="Winhex"><a href="#Winhex" class="headerlink" title="Winhex"></a><a href="#Winhex"></a>Winhex</h2><p>二进制文件打开方式</p>
+<h2 id="wbs43open"><a href="#wbs43open" class="headerlink" title="wbs43open"></a><a href="#wbs43open"></a>wbs43open</h2><p><code>PDF</code>文件隐写的不二选择 <a href="https://yunpan.cn/c6jcYbgFjajmp" target="_blank" rel="external">下载传送门</a> （提取码：2336）<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:53:39%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/16:53:39%20" alt=""></a></p>
+<h2 id="Iamge-Stganograpy"><a href="#Iamge-Stganograpy" class="headerlink" title="Iamge Stganograpy"></a><a href="#Iamge-Stganograpy"></a>Iamge Stganograpy</h2><p>这也是一个图片的隐写工具<br>当初死活在谷歌 百度等地方都找不到 最后<code>白师傅</code>在搜狗找到了…<br><a href="http://imagesteganography.codeplex.com/" target="_blank" rel="external">下载传送门</a></p>
+<h2 id="F5算法隐写实现"><a href="#F5算法隐写实现" class="headerlink" title="F5算法隐写实现"></a><a href="#F5算法隐写实现"></a>F5算法隐写实现</h2><p><a href="https://yunpan.cn/c6jdvEtep8guk" target="_blank" rel="external">下载传送门</a> （提取码：c033)</p>
+<h2 id="silenteye-音频隐写）"><a href="#silenteye-音频隐写）" class="headerlink" title="silenteye(音频隐写）"></a><a href="#silenteye-音频隐写）"></a>silenteye(音频隐写）</h2><p><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:13:24%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:13:24%20" alt=""></a></p>
+<h2 id="MP3Stego"><a href="#MP3Stego" class="headerlink" title="MP3Stego"></a><a href="#MP3Stego"></a>MP3Stego</h2><p>顾名思义 这是一个款音频隐写工具<a href="http://www.petitcolas.net/steganography/mp3stego/" target="_blank" rel="external">下载传送门</a></p>
+<figure class="highlight tp"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">用MP3Stego进行加密解密：</div><div class="line"></div><div class="line">加密：encode -E 加密文本 -<span class="keyword">P</span> 密码  mp<span class="number">3</span>文件</div><div class="line"></div><div class="line">解密：decode -<span class="keyword">X</span> -<span class="keyword">P</span>  密码  mp<span class="number">3</span>文件</div></pre></td></tr></tbody></table></figure>
+
+<h2 id="Outguess"><a href="#Outguess" class="headerlink" title="Outguess"></a><a href="#Outguess"></a>Outguess</h2><p>2016-08-04 21:07:46<br>今天遇到的一个隐写工具 CSDN有源码</p>
+<figure class="highlight plain"><figcaption><span>code</span></figcaption><table><tbody><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure &amp;&amp; make &amp;&amp; make install</div></pre></td></tr></tbody></table></figure>
+
+<p>使用方法<code>outguess</code>就能看到使用方法啦</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">outguess -r bystudent.jpg outfile.txt</div></pre></td></tr></tbody></table></figure>
+
+<p><strong>这个隐写方式也是可以通过stegdetect</strong>检测出来的</p>
+<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a><a href="#Other"></a>Other</h1><h2 id="Yafu"><a href="#Yafu" class="headerlink" title="Yafu"></a><a href="#Yafu"></a>Yafu</h2><p>大整数分解 <a href="https://yunpan.cn/c6jHKGCbiwEPJ" target="_blank" rel="external">下载传送门</a>（提取码：16f4）<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:19:36%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:19:36%20" alt=""></a></p>
+<figure class="highlight stylus"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">factor</span><span class="params">(要分解的整数)</span></span></div></pre></td></tr></tbody></table></figure>
+
+<h2 id="Ziperello"><a href="#Ziperello" class="headerlink" title="Ziperello"></a><a href="#Ziperello"></a>Ziperello</h2><p><code>ZIP</code>压缩包暴力破解 <a href="https://yunpan.cn/c6jFbIaYXFQxw" target="_blank" rel="external">下载传送门</a>（提取码：324a)<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:43:00%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:43:00%20" alt=""></a></p>
+<h2 id="ARPR-ha"><a href="#ARPR-ha" class="headerlink" title="ARPR-ha"></a><a href="#ARPR-ha"></a>ARPR-ha</h2><p><code>RAR</code>暴力破解 <a href="https://yunpan.cn/c6jFCzLhVDGbX" target="_blank" rel="external">下载传送门</a> （提取码：6092）</p>
+<h2 id="AAPasswordRecovery"><a href="#AAPasswordRecovery" class="headerlink" title="AAPasswordRecovery"></a><a href="#AAPasswordRecovery"></a>AAPasswordRecovery</h2><p>ZIP /RAR等压缩软件的破解工具 <a href="https://yunpan.cn/c6jL27k6Nvfvc" target="_blank" rel="external"></a> （提取码：f6c7)<br>可支持多种破解方式<br>包括</p>
+<p><ol></ol></p>
+<p><li>明文攻击</li></p>
+<p><li>暴力破解</li></p>
+<p><li>字典攻击<br><a href="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:49:27%20" target="_blank" rel="external"><img src="http://oayoilchh.bkt.clouddn.com/2016/07/27/17:49:27%20" alt=""></a></li></p>
+<h2 id="PKCrack"><a href="#PKCrack" class="headerlink" title="PKCrack"></a><a href="#PKCrack"></a>PKCrack</h2><p><code>ZIP</code>明文破解工具 <a href="http://www.unix-ag.uni-kl.de/~conrad/krypto/pkcrack.html" target="_blank" rel="external">下载传送门</a><br><a href="http://blog.csdn.net/jiangwlee/article/details/6911087" target="_blank" rel="external">详细使用方法请看这</a></p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a><a href="#最后"></a>最后</h1><p><a href="http://www.codefrom.com/c/43" target="_blank" rel="external"><code>CTF常用工具集合</code></a><br><a href="https://www.hackfun.org/CTF/coding-and-encryption-of-those-brain-holes-in-CTF.html" target="_blank" rel="external"><code>表哥的编码解码博文</code></a><br><a href="http://bobao.360.cn/learning/detail/243.html" target="_blank" rel="external"><code>CTF隐写总结</code></a></p>
+<ul>
+<li>转载自<a href="http://www.wing3.cn" target="_blank" rel="external">Swing’s Blog</a>文章<a href="http://www.wing3.cn/2016/04/25/tools/" target="_blank" rel="external">《工具以及脚本的整理》</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/ctf/入CTF坑必不可少的地方" rel="next" title="入CTF坑必不可少的地方">
+                <i class="fa fa-chevron-left"></i> 入CTF坑必不可少的地方
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/ctf/深入理解JPEG图像格式Jphide隐写" rel="prev" title="深入理解JPEG图像格式Jphide隐写">
+                深入理解JPEG图像格式Jphide隐写 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="posts/ctf/CTF工具以及脚本的整理"
+           data-title="CTF工具以及脚本的整理 " data-url="http://uknow.top/posts/ctf/CTF工具以及脚本的整理">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://obr4sfdq7.bkt.clouddn.com/151.png"
+               alt="uknow" />
+          <p class="site-author-name" itemprop="name">uknow</p>
+          <p class="site-description motion-element" itemprop="description">不忘初心，方得始终</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/uknowsec" target="_blank">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3477219002" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  Others
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#密码学-cryptology"><span class="nav-number">1.</span> <span class="nav-text">密码学 cryptology</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的位移密码"><span class="nav-number">1.1.</span> <span class="nav-text">简单的位移密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#培根密码"><span class="nav-number">1.2.</span> <span class="nav-text">培根密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栅栏密码"><span class="nav-number">1.3.</span> <span class="nav-text">栅栏密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#凯撒密码"><span class="nav-number">1.4.</span> <span class="nav-text">凯撒密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#猪圈密码"><span class="nav-number">1.5.</span> <span class="nav-text">猪圈密码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#隐写工具"><span class="nav-number">2.</span> <span class="nav-text">隐写工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Stegsolve"><span class="nav-number">2.1.</span> <span class="nav-text">Stegsolve</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pngcheck"><span class="nav-number">2.2.</span> <span class="nav-text">pngcheck</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stegdetect"><span class="nav-number">2.3.</span> <span class="nav-text">stegdetect</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jphide"><span class="nav-number">2.4.</span> <span class="nav-text">Jphide</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Winhex"><span class="nav-number">2.5.</span> <span class="nav-text">Winhex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wbs43open"><span class="nav-number">2.6.</span> <span class="nav-text">wbs43open</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iamge-Stganograpy"><span class="nav-number">2.7.</span> <span class="nav-text">Iamge Stganograpy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F5算法隐写实现"><span class="nav-number">2.8.</span> <span class="nav-text">F5算法隐写实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#silenteye-音频隐写）"><span class="nav-number">2.9.</span> <span class="nav-text">silenteye(音频隐写）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MP3Stego"><span class="nav-number">2.10.</span> <span class="nav-text">MP3Stego</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Outguess"><span class="nav-number">2.11.</span> <span class="nav-text">Outguess</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Other"><span class="nav-number">3.</span> <span class="nav-text">Other</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Yafu"><span class="nav-number">3.1.</span> <span class="nav-text">Yafu</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ziperello"><span class="nav-number">3.2.</span> <span class="nav-text">Ziperello</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARPR-ha"><span class="nav-number">3.3.</span> <span class="nav-text">ARPR-ha</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AAPasswordRecovery"><span class="nav-number">3.4.</span> <span class="nav-text">AAPasswordRecovery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PKCrack"><span class="nav-number">3.5.</span> <span class="nav-text">PKCrack</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">uknow</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3d5fd0365a60ecafb093d2d0df7aaf4c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"uknow"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("AxgSweQqwlurwh9jQb8ilgOQ-gzGzoHsz", "ex42kl7W8LVpx0umFqv5YSIa");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
