@@ -59,49 +59,34 @@
 
 
 
-<meta name="description" content="学了前端小半年，如今写了个自己的网页想要去应聘，却发现部署很麻烦，部署到阿里云之类，买域名啊啥的还要收费，说贵也不贵，但我就是傲娇~
-google一下了解到Github有一个Github pages的功能可以搭建博客或者托管网页，而且免费耶，搜了下教程，猛地一看感觉步骤也不是很麻烦，所以就用这个了！
-教程一大堆，却没有几个能看懂的，问题一：90%的都在讲解如何搭建博客，和我想要将自己的网页部署到上">
+<meta name="description" content="深入理解JPEG图像格式Jphide隐写0x00 隐写原理Jphide是基于最低有效位LSB的JPEG格式图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在DCT变换域上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时Blowfish算法有较强的抗统计检测能力。
+由于JPEG图像格式使用离散余弦变换（Discrete Cosine Transfo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何在Github Pages搭建自己写的页面？">
-<meta property="og:url" content="http://uknow.top/posts/skill/如何在Github-Pages搭建自己写的页面？">
+<meta property="og:title" content="深入理解JPEG图像格式Jphide隐写">
+<meta property="og:url" content="http://uknow.top/posts/ctf/深入理解JPEG图像格式Jphide隐写.html">
 <meta property="og:site_name" content="Uknow’s Blog">
-<meta property="og:description" content="学了前端小半年，如今写了个自己的网页想要去应聘，却发现部署很麻烦，部署到阿里云之类，买域名啊啥的还要收费，说贵也不贵，但我就是傲娇~
-google一下了解到Github有一个Github pages的功能可以搭建博客或者托管网页，而且免费耶，搜了下教程，猛地一看感觉步骤也不是很麻烦，所以就用这个了！
-教程一大堆，却没有几个能看懂的，问题一：90%的都在讲解如何搭建博客，和我想要将自己的网页部署到上">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305134947346-1921005167.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305135528627-97762586.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305140204096-424861698.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305140522830-7799375.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141007221-1678443414.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141341080-929861094.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141706065-643882140.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141935393-1254718979.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305143603580-1181123251.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305144226284-240519711.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305144422830-1748939517.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305144809455-1559494911.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305145219659-1397982425.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305145815252-344194499.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305145931096-1818738887.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305150144159-905298121.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305150641830-12563151.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151026377-702293659.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151236221-872410232.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151516534-175124906.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151717159-2121860532.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305152031768-1166232109.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305152052471-1604781690.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305152406221-11660909.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305152916580-99607842.png">
-<meta property="og:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305153305424-1042365035.png">
-<meta property="og:updated_time" content="2016-11-19T01:47:57.213Z">
+<meta property="og:description" content="深入理解JPEG图像格式Jphide隐写0x00 隐写原理Jphide是基于最低有效位LSB的JPEG格式图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在DCT变换域上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时Blowfish算法有较强的抗统计检测能力。
+由于JPEG图像格式使用离散余弦变换（Discrete Cosine Transfo">
+<meta property="og:image" content="http://i.imgur.com/kb6USbH.png">
+<meta property="og:image" content="http://i.imgur.com/BzbsFlS.png">
+<meta property="og:image" content="http://i.imgur.com/C8DQKFo.png">
+<meta property="og:image" content="http://i.imgur.com/ciEvX2s.png">
+<meta property="og:image" content="http://i.imgur.com/kipH6L0.png">
+<meta property="og:image" content="http://i.imgur.com/ImK54U1.png">
+<meta property="og:image" content="http://i.imgur.com/QYrSVtE.png">
+<meta property="og:image" content="http://i.imgur.com/XfbEvQS.png">
+<meta property="og:image" content="http://i.imgur.com/sj8X3aP.png">
+<meta property="og:image" content="http://i.imgur.com/HPkvnci.png">
+<meta property="og:image" content="http://i.imgur.com/H9QJnHU.jpg">
+<meta property="og:image" content="http://i.imgur.com/i3zeRUx.png">
+<meta property="og:image" content="http://i.imgur.com/aCnBL4u.png">
+<meta property="og:image" content="http://i.imgur.com/1whWnla.png">
+<meta property="og:updated_time" content="2016-11-19T01:47:28.633Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何在Github Pages搭建自己写的页面？">
-<meta name="twitter:description" content="学了前端小半年，如今写了个自己的网页想要去应聘，却发现部署很麻烦，部署到阿里云之类，买域名啊啥的还要收费，说贵也不贵，但我就是傲娇~
-google一下了解到Github有一个Github pages的功能可以搭建博客或者托管网页，而且免费耶，搜了下教程，猛地一看感觉步骤也不是很麻烦，所以就用这个了！
-教程一大堆，却没有几个能看懂的，问题一：90%的都在讲解如何搭建博客，和我想要将自己的网页部署到上">
-<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305134947346-1921005167.png">
+<meta name="twitter:title" content="深入理解JPEG图像格式Jphide隐写">
+<meta name="twitter:description" content="深入理解JPEG图像格式Jphide隐写0x00 隐写原理Jphide是基于最低有效位LSB的JPEG格式图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在DCT变换域上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时Blowfish算法有较强的抗统计检测能力。
+由于JPEG图像格式使用离散余弦变换（Discrete Cosine Transfo">
+<meta name="twitter:image" content="http://i.imgur.com/kb6USbH.png">
 
 
 
@@ -119,7 +104,7 @@ google一下了解到Github有一个Github pages的功能可以搭建博客或�
   };
 </script>
 
-  <title> 如何在Github Pages搭建自己写的页面？ | Uknow’s Blog </title>
+  <title> 深入理解JPEG图像格式Jphide隐写 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -282,7 +267,7 @@ google一下了解到Github有一个Github pages的功能可以搭建博客或�
             
             
               
-                如何在Github Pages搭建自己写的页面？
+                深入理解JPEG图像格式Jphide隐写
               
             
           </h1>
@@ -294,8 +279,8 @@ google一下了解到Github有一个Github pages的功能可以搭建博客或�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-04T23:37:11+08:00" content="2016-10-04">
-              2016-10-04
+            <time itemprop="dateCreated" datetime="2016-08-12T17:56:19+08:00" content="2016-08-12">
+              2016-08-12
             </time>
           </span>
 
@@ -308,8 +293,8 @@ google一下了解到Github有一个Github pages的功能可以搭建博客或�
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/skill/" itemprop="url" rel="index">
-                    <span itemprop="name">技巧</span>
+                  <a href="/categories/ctf/" itemprop="url" rel="index">
+                    <span itemprop="name">CTF</span>
                   </a>
                 </span>
 
@@ -324,8 +309,8 @@ google一下了解到Github有一个Github pages的功能可以搭建博客或�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/skill/如何在Github-Pages搭建自己写的页面？#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/skill/如何在Github-Pages搭建自己写的页面？" itemprop="commentsCount"></span>
+                <a href="/posts/ctf/深入理解JPEG图像格式Jphide隐写.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/ctf/深入理解JPEG图像格式Jphide隐写.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -335,7 +320,7 @@ google一下了解到Github有一个Github pages的功能可以搭建博客或�
 
           
           
-             <span id="/posts/skill/如何在Github-Pages搭建自己写的页面？" class="leancloud_visitors" data-flag-title="如何在Github Pages搭建自己写的页面？">
+             <span id="/posts/ctf/深入理解JPEG图像格式Jphide隐写.html" class="leancloud_visitors" data-flag-title="深入理解JPEG图像格式Jphide隐写">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -356,66 +341,65 @@ google一下了解到Github有一个Github pages的功能可以搭建博客或�
       
 
       
-        <p>学了前端小半年，如今写了个自己的网页想要去应聘，却发现部署很麻烦，部署到阿里云之类，买域名啊啥的还要收费，说贵也不贵，但我就是傲娇~</p>
-<p>google一下了解到Github有一个Github pages的功能可以搭建博客或者托管网页，而且免费耶，搜了下教程，猛地一看感觉步骤也不是很麻烦，所以就用这个了！</p>
-<p>教程一大堆，却没有几个能看懂的，问题一：90%的都在讲解如何搭建博客，和我想要将自己的网页部署到上面还是有点区别的。问题二：所有的教程都用到了Git，而我只知道Git是一个开源的分布式版本控制系统。完全不知道命令行是什么鬼，只能照猫画虎的小白来说，那些教程只能帮我到桥头，但想要成功过河，还需要深夜里的一包特浓咖啡。 </p>
-<p>开始教程之前的准备工作：</p>
-<p>需要你自己写的网页文件。</p>
-<p><a href="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305135133440-1617205021.png" target="_blank" rel="external"></a></p>
-<p>注册Github。</p>
-<p>下载安装git。<a href="https://git-scm.com/downloads" target="_blank" rel="external">下载地址</a></p>
-<h2 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h2><h3 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h3><p>登录到Github上，新建一个repo，命名为test，勾选 initialize this repository with a README，点击create repository。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305134947346-1921005167.png" alt=""></p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305135528627-97762586.png" alt=""></p>
-<h3 id="步骤二"><a href="#步骤二" class="headerlink" title="步骤二"></a>步骤二</h3><p>打开settings，有一个Github Pages 的设置，点击Launch automatic page generator（启动自动页面生成器）</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305140204096-424861698.png" alt=""></p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305140522830-7799375.png" alt=""></p>
-<h3 id="步骤三"><a href="#步骤三" class="headerlink" title="步骤三"></a>步骤三</h3><p>点击页面最后的continue to layouts，然后就可以进入设置你的页面主题，你会说这不是我的网页呀，别急嘛，先选择一个主题，点击 publish pages。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141007221-1678443414.png" alt=""></p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141341080-929861094.png" alt=""></p>
-<p>这个时候会出现你的网页的网址，也就是下图的 <a href="http://jiayili.github.io/test复制打开这个网址，你看到了什么？" target="_blank" rel="external">http://jiayili.github.io/test复制打开这个网址，你看到了什么？</a></p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141706065-643882140.png" alt=""></p>
-<p>哇塞，这不是刚自己设置选择的主题页面吗？</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305141935393-1254718979.png" alt=""></p>
-<p>好了，别激动了，真正让一个小白你发疯的阶段开始了，有了自己的网址，但页面显示的是什么鬼？</p>
-<p>至此以上，github上要处理的操作告一段落，该上Git了！</p>
-<h3 id="步骤四"><a href="#步骤四" class="headerlink" title="步骤四"></a>步骤四</h3><p>打开此电脑，选择一个盘，比如 f 盘，右键空白处点击 git bash here。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305143603580-1181123251.png" alt=""></p>
-<h3 id="步骤五"><a href="#步骤五" class="headerlink" title="步骤五"></a>步骤五</h3><p>输入如下命令，用来在 f 盘创建 test 文件放你的github上的test repository，克隆test repository到 test 文件中。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305144226284-240519711.png" alt=""></p>
-<p>这个时候你的 f 盘，就会多一个 test 文件，打开它，</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305144422830-1748939517.png" alt=""></p>
-<p>会看到一个 README.md 的文件，这个文件是从哪来的呢？追溯到gihub上，你会发现你有两个分支（branches），而 README 文件是来自 master 分支。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305144809455-1559494911.png" alt=""></p>
-<p>而我们需要编辑的是另一个分支&mdash;&mdash;gh-pages，因为这个分支才能够真正定义github pages的内容和样式，也就是可以呈现你网页的地方。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305145219659-1397982425.png" alt=""></p>
-<h3 id="步骤六"><a href="#步骤六" class="headerlink" title="步骤六"></a>步骤六</h3><p>输入以下命令，为了在本地新建一个gh-pages分支，而这个分支是远程分支origin/gh-pages的镜像，也就是我们可以在本地的gh-pages看到github上的gh-pages的内容。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305145815252-344194499.png" alt=""></p>
-<p>这个时候我们再打开 f 盘，发现变样了</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305145931096-1818738887.png" alt=""></p>
-<p>刚才还是README呢，怎们现在成了3个文件了，这3个文件来自哪？</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305150144159-905298121.png" alt=""></p>
-<p>来自github 上的 gh-pages 分支下的文件。</p>
-<p>打开f 盘中的 index.html，你会发现就是咱们一开始选择主题的页面。那我们将这个页面替换成自己coding的网页不就好了？</p>
-<h3 id="步骤七"><a href="#步骤七" class="headerlink" title="步骤七"></a>步骤七</h3><p>执行如下命令，删除原有的gh-pages文件，并提交（commit）本次修改。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305150641830-12563151.png" alt=""></p>
-<p>这个时候 f 盘没有文件。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151026377-702293659.png" alt=""></p>
-<h3 id="步骤八"><a href="#步骤八" class="headerlink" title="步骤八"></a>步骤八</h3><p>将自己的网页文件复制粘贴至 f 盘的 test 文件中 </p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151236221-872410232.png" alt=""></p>
-<p>输入如下命令，为了本地gh-pages中的网页文件同步到远程的gh-pages中。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151516534-175124906.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305151717159-2121860532.png" alt=""></p>
-<p>输入最后一行 git push origin gh-pages，按回车，等一会，会有弹出框让你输入你的 github 账号和密码。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305152031768-1166232109.png" alt=""></p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305152052471-1604781690.png" alt=""></p>
-<p>ok之后耐心等待。</p>
-<p>当出现像下图中的命令行之后，你已经完成了99%。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305152406221-11660909.png" alt=""></p>
-<h3 id="最后一步"><a href="#最后一步" class="headerlink" title="最后一步"></a>最后一步</h3><p>打开浏览器输入给你的网址加上 test.html，然后重重的按下回车。</p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305152916580-99607842.png" alt=""></p>
-<p><img src="http://images2015.cnblogs.com/blog/903320/201603/903320-20160305153305424-1042365035.png" alt="">恭喜你，成功了！！！哦不，还差一步，不评论关注一下我？</p>
-<h2 id="附录一"><a href="#附录一" class="headerlink" title="附录一"></a>附录一</h2><p>常用git命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ git clone&amp;nbsp;&amp;nbsp;//本地如果无远程代码，先做这步，不然就忽略 </div><div class="line"></div><div class="line">$ cd //定位到你blog的目录下 </div><div class="line"></div><div class="line">$ git status //查看本地自己修改了多少文件 </div><div class="line"></div><div class="line">$ git add . //添加远程不存在的git文件 </div><div class="line"></div><div class="line">$ git commit &amp;nbsp;-m &quot;what I want told to someone&quot; //提交修改 </div><div class="line"></div><div class="line">$ git push &amp;nbsp;//更新到远程服务器上 </div><div class="line"></div><div class="line">$ git rm //移除文件</div></pre></td></tr></table></figure></p>
-<p>转自          <a href="http://www.cnblogs.com/lijiayi/p/githubpages.html" target="_blank" rel="external">如何在Github Pages搭建自己写的页面？</a></p>
+        <h1 id="深入理解JPEG图像格式Jphide隐写"><a href="#深入理解JPEG图像格式Jphide隐写" class="headerlink" title="深入理解JPEG图像格式Jphide隐写"></a>深入理解JPEG图像格式Jphide隐写</h1><h2 id="0x00-隐写原理"><a href="#0x00-隐写原理" class="headerlink" title="0x00 隐写原理"></a>0x00 隐写原理</h2><p>Jphide是基于最低有效位LSB的<a href="http://www.cnblogs.com/leaven/archive/2010/04/06/1705846.html" target="_blank" rel="external">JPEG格式</a>图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在<a href="https://en.wikipedia.org/wiki/Discrete_cosine_transform" target="_blank" rel="external">DCT变换域</a>上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时<a href="http://baike.baidu.com/link?url=OWM-kQRYlFaJ2Sy7m1E_Z_-fnvknJTRSHwk1f3eoabLsbht1TJa07GmvWRoiOg6U7-0-Ey3vb_UHcDm9Pc7Mgq" target="_blank" rel="external">Blowfish算法</a>有较强的抗统计检测能力。</p>
+<p>由于JPEG图像格式使用<a href="http://baike.baidu.com/view/391624.htm?fr=aladdin&amp;fromtitle=DCT&amp;fromid=4184&amp;type=syn" title="DCT&amp;fromid=4184&amp;type=syn" target="_blank" rel="external">离散余弦变换</a>（Discrete Cosine Transform，DCT）函数来压缩图像，而这个图像压缩方法的核心是：通过识别每个8×8像素块中相邻像素中的重复像素来减少显示图像所需的位数，并使用近似估算法降低其冗余度。因此，我们可以把DCT看作一个用于执行压缩的近似计算方法。因为丢失了部分数据，所以DCT是一种<a href="http://baike.baidu.com/link?url=7eIl--nFUaz-amKaY9jatpW4J-J2JyZEXy8dYJM4Py1CspzR9mUATKgTyXOCt7M6AjFSv4JmF3YKtXTTAauHm_" target="_blank" rel="external">有损压缩</a>（Loss Compression）技术，但一般不会影响图像的视觉效果。</p>
+<h2 id="0x01-隐写过程"><a href="#0x01-隐写过程" class="headerlink" title="0x01 隐写过程"></a>0x01 隐写过程</h2><p>Jphide隐写过程大致为：先解压压缩JPEG图像，得到DCT系数；然后对隐藏信息用户给定的密码进行Blowfish加密；再利用Blowfish算法生成伪随机序列，并据此找到需要改变的DCT系数，将其末位变为需要隐藏的信息的值。最后把DCT系数重新压回成JPEG图片，下面是个人对隐写过程理解画出的大致流程图。</p>
+<p><img src="http://i.imgur.com/kb6USbH.png" alt=""></p>
+<a id="more"></a>
+<h2 id="0x02-隐写实现"><a href="#0x02-隐写实现" class="headerlink" title="0x02 隐写实现"></a>0x02 隐写实现</h2><p><strong>（1）Stegdetect</strong></p>
+<p>实现JPEG图像Jphide隐写算法工具有多个，比如由Neils Provos开发通过统计分析技术评估JPEG文件的DCT频率系数的隐写工具<a href="https://github.com/abeluck/stegdetect" target="_blank" rel="external">Stegdetect</a>，它可以检测到通过JSteg、JPHide、OutGuess、Invisible Secrets、F5、appendX和Camouflage等这些隐写工具隐藏的信息，并且还具有基于字典暴力破解密码方法提取通过Jphide、outguess和jsteg-shell方式嵌入的隐藏信息。</p>
+<p><strong>（2）JPHS</strong></p>
+<p>而这里介绍另一款JPEG图像的信息隐藏软件<a href="http://io.acad.athabascau.ca/~grizzlie/Comp607/programs.htm" target="_blank" rel="external">JPHS</a>，它是由Allan Latham开发设计实现在Windows和Linux系统平台针对有损压缩JPEG文件进行信息加密隐藏和探测提取的工具。软件里面主要包含了两个程序JPHIDE和JPSEEK， JPHIDE程序主要是实现将信息文件加密隐藏到JPEG图像功能，而JPSEEK程序主要实现从用JPHIDE程序加密隐藏得到的JPEG图像探测提取信息文件，Windows版本的JPHS里的JPHSWIN程序具有图形化操作界面且具备JPHIDE和JPSEEK的功能。</p>
+<p><img src="http://i.imgur.com/BzbsFlS.png" alt=""></p>
+<p>1.Windows用户请下载<a href="http://io.acad.athabascau.ca/~grizzlie/Comp607/jphs05.zip" target="_blank" rel="external">JPHS-05 for Windows</a>,同时也提供下载<a href="http://linux01.gwdg.de/~alatham/stego.html" target="_blank" rel="external">Linux版本</a>。</p>
+<p>2.分别准备一个JPEG格式的图片（example.jpg）和一个文本文件（flag.txt）。</p>
+<p><img src="http://i.imgur.com/C8DQKFo.png" alt=""></p>
+<p>由于JPEG文件使用的数据存储方式有多种不能一一演示，这里用最常用的JPEG格式-JPEG文件交换格式（JPEG File Interchange Format，JFIF）作为示例。</p>
+<p>这里简单介绍JPEG文件交换格式的JPEG图片的图像开始标记SOI（Start of Image）和应用程序保留标记APP0（Application 0），JPEG文件交换格式的JPEG图片开始前2个字节是图像开始标记为0xFFD8，之后2个字节接着便是应用程序保留标记为0xFFE0，应用程序保留标记APP0包含9个具体字段，这里介绍前三个字段，第一个字段是数据长度占2个字节，表示包括本字段但不包括标记代码的总长度，这里为10个字节，第二个字段是标识符占5个字节0x4A46494600表示“JFIF0”字符串，第三个字段是版本号占2个字节，这里是0X0101，表示JFIF的版本号为1.1，但也可能为其它数值，从而代表了其它版本号。</p>
+<p><img src="http://i.imgur.com/ciEvX2s.png" alt=""></p>
+<p>3.Windows版本可以使用具有图形化操作界面的Jphswin，选择“Open jpeg”打开示例JPEG格式图片example.jpg</p>
+<p><img src="http://i.imgur.com/kipH6L0.png" alt=""></p>
+<p>如果你选择的不是JPEG格式的图片程序会自动退出，你可以16进制编辑器如Winhex查看图片的图像开始标记SOI和应用程序保留标记APP0，当载入JPEG格式图片会显示一些图片的属性。</p>
+<p><img src="http://i.imgur.com/ImK54U1.png" alt=""></p>
+<p>4.选择“Hide”选项之后在两次文本框输入相同的密码，这里以输入flag作为密码为例，然后输入要包含隐藏信息的文本。</p>
+<p><img src="http://i.imgur.com/QYrSVtE.png" alt=""></p>
+<p>5.选择将要隐藏的信息如flag.txt。</p>
+<p><img src="http://i.imgur.com/XfbEvQS.png" alt=""></p>
+<p>6.选择“Save jpeg as”选项将图片另存为jpeg格式并输入文件的名称为新的图像文件如C4n-u-find-f14g.jpg。</p>
+<p><img src="http://i.imgur.com/sj8X3aP.png" alt=""></p>
+<p>7.之后便可以看到生成结果和相关信息。</p>
+<p><img src="http://i.imgur.com/HPkvnci.png" alt=""></p>
+<p>8.第2步到第7步做的是Jhide方式信息隐藏，接下来我们从C4n-u-find-f14g.jpg图片提取出隐藏信息。</p>
+<p><img src="http://i.imgur.com/H9QJnHU.jpg" alt=""></p>
+<p>9.如果之前你并不知道图片是基于什么方式进行信息隐藏，你可以使用Stegdetect先进行探测。</p>
+<p>Stegdetect的主要选项如下：</p>
+<blockquote>
+<p>-q  仅显示可能包含隐藏内容的图像。</p>
+<p>-n  启用检查JPEG文件头功能，以降低误报率。如果启用，所有带有批注区域的文件将被视为没有被嵌入信息。如果JPEG文件的JFIF标识符中的版本号不是1.1，则禁用OutGuess检测。</p>
+<p>-s  修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</p>
+<p>-d  打印带行号的调试信息。</p>
+<p>-t  设置要检测哪些隐写工具（默认检测jopi），可设置的选项如下：</p>
+<ul>
+<li>j  检测图像中的信息是否是用jsteg嵌入的。</li>
+<li>o  检测图像中的信息是否是用outguess嵌入的。</li>
+<li>p  检测图像中的信息是否是用jphide嵌入的。</li>
+<li>i  检测图像中的信息是否是用invisible secrets嵌入的。</li>
+</ul>
+<p>-V 显示软件版本号。</p>
+<p>如果检测结果显示该文件可能包含隐藏信息，那么Stegdetect会在检测结果后面使用1～3颗星来标识</p>
+<p>隐藏信息存在的可能性大小，3颗星表示隐藏信息存在的可能性最大。</p>
+</blockquote>
+<p>从下图可以看出很可能是Jphide的信息隐藏方式：</p>
+<p><img src="http://i.imgur.com/i3zeRUx.png" alt=""></p>
+<p>10.在知道隐藏方式之后可以开始进行信息提取，和使用JPHS进行信息隐藏过程类似，打开需要提取隐藏信息的图片C4n-u-find-f14g.jpg，输入对应密码（在不知道密码的情况不可以尝试Stegdetect工具里的Stegbreak程序进行基于字典的暴力攻击）flag，密码验证通过JPHS会自动提取隐藏信息，之后便可以另存提取出的信息。</p>
+<p><img src="http://i.imgur.com/aCnBL4u.png" alt=""></p>
+<p>11.打开提取得到的find.txt便可以得到我们想要的隐藏信息。</p>
+<p><img src="http://i.imgur.com/1whWnla.png" alt=""></p>
+<h2 id="0x03-参考资料"><a href="#0x03-参考资料" class="headerlink" title="0x03 参考资料"></a>0x03 参考资料</h2><p><a href="http://mall.cnki.net/magazine/article/JSJC201006056.htm" target="_blank" rel="external">Jphide原理剖析及检测</a></p>
+<p></p><p><a href="http://www.cnki.com.cn/Article/CJFDTotal-JSJC200707054.htm" target="_blank" rel="external">基于二次加密的JPhide隐写检测方法</a></p>
+<ul>
+<li>转载自<a href="https://www.hackfun.org/" target="_blank" rel="external">4ido10n’s Blog</a>文章<a href="https://www.hackfun.org/CTF/jphide-steganography.html" target="_blank" rel="external">《深入理解JPEG图像格式Jphide隐写》</a></li>
+</ul>
 
       
     </div>
@@ -433,16 +417,16 @@ google一下了解到Github有一个Github pages的功能可以搭建博客或�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/life/2016-09-29" rel="next" title="2016-09-29">
-                <i class="fa fa-chevron-left"></i> 2016-09-29
+              <a href="/posts/ctf/CTF工具以及脚本的整理.html" rel="next" title="CTF工具以及脚本的整理 ">
+                <i class="fa fa-chevron-left"></i> CTF工具以及脚本的整理 
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/life/2016-10-19" rel="prev" title="2016-10-19">
-                2016-10-19 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/ctf/CTF中图片隐藏文件分离方法总结.html" rel="prev" title="CTF中图片隐藏文件分离方法总结">
+                CTF中图片隐藏文件分离方法总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -492,8 +476,8 @@ google一下了解到Github有一个Github pages的功能可以搭建博客或�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/skill/如何在Github-Pages搭建自己写的页面？"
-           data-title="如何在Github Pages搭建自己写的页面？" data-url="http://uknow.top/posts/skill/如何在Github-Pages搭建自己写的页面？">
+      <div class="ds-thread" data-thread-key="posts/ctf/深入理解JPEG图像格式Jphide隐写.html"
+           data-title="深入理解JPEG图像格式Jphide隐写" data-url="http://uknow.top/posts/ctf/深入理解JPEG图像格式Jphide隐写.html">
       </div>
     
   </div>
@@ -615,7 +599,7 @@ google一下了解到Github有一个Github pages的功能可以搭建博客或�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#教程"><span class="nav-number">1.</span> <span class="nav-text">教程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤一"><span class="nav-number">1.1.</span> <span class="nav-text">步骤一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤二"><span class="nav-number">1.2.</span> <span class="nav-text">步骤二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤三"><span class="nav-number">1.3.</span> <span class="nav-text">步骤三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤四"><span class="nav-number">1.4.</span> <span class="nav-text">步骤四</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤五"><span class="nav-number">1.5.</span> <span class="nav-text">步骤五</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤六"><span class="nav-number">1.6.</span> <span class="nav-text">步骤六</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤七"><span class="nav-number">1.7.</span> <span class="nav-text">步骤七</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤八"><span class="nav-number">1.8.</span> <span class="nav-text">步骤八</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后一步"><span class="nav-number">1.9.</span> <span class="nav-text">最后一步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录一"><span class="nav-number">2.</span> <span class="nav-text">附录一</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深入理解JPEG图像格式Jphide隐写"><span class="nav-number">1.</span> <span class="nav-text">深入理解JPEG图像格式Jphide隐写</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-隐写原理"><span class="nav-number">1.1.</span> <span class="nav-text">0x00 隐写原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-隐写过程"><span class="nav-number">1.2.</span> <span class="nav-text">0x01 隐写过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-隐写实现"><span class="nav-number">1.3.</span> <span class="nav-text">0x02 隐写实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-参考资料"><span class="nav-number">1.4.</span> <span class="nav-text">0x03 参考资料</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
