@@ -1965,7 +1965,7 @@ var iNum1 = parseInt(&quot;red&quot;);    //返回 NaN  Not a number
     <link href="http://uknow.top/posts/notes/Web%E5%AE%89%E5%85%A8%E4%B8%8E%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html"/>
     <id>http://uknow.top/posts/notes/Web安全与攻击技术-基础知识.html</id>
     <published>2016-09-01T06:29:17.000Z</published>
-    <updated>2016-11-19T04:50:06.815Z</updated>
+    <updated>2016-11-20T16:55:09.213Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="0x01-HTTP协议"><a href="#0x01-HTTP协议" class="headerlink" title="0x01 HTTP协议"></a>0x01 HTTP协议</h2><p>超文本传送协议（Hypertext Transport Protocol , HTTP）是分布式、协作式、超媒体系统应用之间的通信协议，是万维网（World Wide Web）交换信息的基础。HTTP是一个客户端终端（用户）和服务端（网站）请求和应答的标准（TCP）。通过使用Web浏览器、网络爬虫或者其他工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80），称这个客户端为用户代理程序。通常，有HTTP客户端发起一个请求，创建一个到服务器指定端口（默认端口为80端口）的TCP连接。HTTO服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，如“HTTP/1.1 200 OK”及返回的内容（请求的文件、错误信息、或者其他信息）。</p>
