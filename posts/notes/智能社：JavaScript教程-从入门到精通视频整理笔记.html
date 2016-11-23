@@ -66,7 +66,7 @@
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/vaBq86vyU_oNsNHGme3T1HWSdJ6vvn6X5xAgtgVzRWvEAQAA_wAAAEpQ.jpg">
-<meta property="og:updated_time" content="2016-11-22T17:06:08.022Z">
+<meta property="og:updated_time" content="2016-11-23T16:56:24.422Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="智能社：JavaScript教程-从入门到精通视频-整理笔记">
 <meta name="twitter:description" content="点击阅读全文">
@@ -638,6 +638,210 @@ var iNum1 = parseInt(&quot;red&quot;);    //返回 NaN  Not a number
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">for(var i=0;i&lt;arr.length;i++)</div><div class="line">&#123;</div><div class="line">	alert(&apos;第&apos;+i+&apos;个东西：&apos;+arr[i]);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">for(var i in arr)</div><div class="line">&#123;</div><div class="line">	alert(&apos;第&apos;+i+&apos;个东西：&apos;+arr[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="Json和for-in"><a href="#Json和for-in" class="headerlink" title="Json和for in"></a>Json和for in</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for(var i in json)</div><div class="line">&#123;</div><div class="line">	alert(&apos;第&apos;+i+&apos;个东西：&apos;+json[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="深入JavaScript"><a href="#深入JavaScript" class="headerlink" title="深入JavaScript"></a>深入JavaScript</h1><h2 id="函数返回值"><a href="#函数返回值" class="headerlink" title="函数返回值"></a>函数返回值</h2><p>###　什么是函数返回值</p>
+<ul>
+<li>函数的执行结果</li>
+<li>可以没有return</li>
+</ul>
+<h3 id="一个函数应该只返回一种类型的值"><a href="#一个函数应该只返回一种类型的值" class="headerlink" title="一个函数应该只返回一种类型的值"></a>一个函数应该只返回一种类型的值</h3><h2 id="函数传参-1"><a href="#函数传参-1" class="headerlink" title="函数传参"></a>函数传参</h2><h3 id="可变参（不定参）：arguments"><a href="#可变参（不定参）：arguments" class="headerlink" title="可变参（不定参）：arguments"></a>可变参（不定参）：arguments</h3><ul>
+<li>参数的个数可变，参数数组</li>
+</ul>
+<p>在函数代码中，使用特殊对象 arguments，开发者无需明确指出参数名，就能访问它们。<br>arguments 对象检测函数的参数个数，引用属性 arguments.length 即可</p>
+<h3 id="取非行间样式-不能用来设置"><a href="#取非行间样式-不能用来设置" class="headerlink" title="取非行间样式(不能用来设置)"></a>取非行间样式(不能用来设置)</h3><ul>
+<li>obj.currentStyle[attr]         仅兼容IE</li>
+<li>getComputedStyle(obj, false)[attr]          仅兼容火狐，chrome</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">IE</div><div class="line">alert(oDiv.currentStyle.width);</div><div class="line"></div><div class="line">Chrome、FF</div><div class="line">alert(getComputedStyle(oDiv, false).width);      //flase 处参数可以任意</div></pre></td></tr></table></figure>
+<h4 id="兼容函数编写"><a href="#兼容函数编写" class="headerlink" title="兼容函数编写"></a>兼容函数编写</h4><ul>
+<li><p>style:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#div1 &#123;width:200px; height:200px; background:red;&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>script:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function getStyle(obj, name)</div><div class="line">&#123;</div><div class="line">	if(obj.currentStyle)</div><div class="line">	&#123;</div><div class="line">		return obj.currentStyle[name];</div><div class="line">	&#125;</div><div class="line">	else</div><div class="line">	&#123;</div><div class="line">		return getComputedStyle(obj, false)[name];</div><div class="line">	&#125;</div><div class="line">&#125;                  //函数主体</div><div class="line"></div><div class="line">window.onload=function ()</div><div class="line">&#123;</div><div class="line">	var oDiv=document.getElementById(&apos;div1&apos;);</div><div class="line">		</div><div class="line">	//	alert(getStyle(oDiv, &apos;width&apos;));   //单一样式</div><div class="line">	alert(getStyle(oDiv, &apos;backgroundColor&apos;));      //复合样式 background 有图片，颜色等</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="数组基础"><a href="#数组基础" class="headerlink" title="数组基础"></a>数组基础</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>var arr=[12,5,8,9];</li>
+<li>var arr=new Array[12,5,8,9];</li>
+<li>没有任何差别，[]的性能略高，因为代码短</li>
+</ul>
+<h3 id="数组的属性"><a href="#数组的属性" class="headerlink" title="数组的属性"></a>数组的属性</h3><h4 id="length"><a href="#length" class="headerlink" title="length"></a>length</h4><ul>
+<li><p>既可以获取长度，又可以设置长度</p>
+</li>
+<li><p>应用：快速清空数组<br>script:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var arr=[1,2,3,4,5,6];</div><div class="line"></div><div class="line">arr.length=3;   </div><div class="line"></div><div class="line">alert(arr);  //运行结果为1，2，3</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="数组的方法"><a href="#数组的方法" class="headerlink" title="数组的方法"></a>数组的方法</h3><h4 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h4><ul>
+<li>push(元素)，从尾部添加</li>
+<li>unshift(元素)，从头部添加<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var arr=[1,2,3];</div><div class="line"></div><div class="line">arr.push(4); 	1,2,3,4</div><div class="line">//arr.ushift(4);   4,1,2,3</div><div class="line">alert(arr);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><ul>
+<li>pop()，从尾部弹出</li>
+<li>shift()，从头部弹出</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var arr=[1,2,3];</div><div class="line"></div><div class="line">arr.pop();		1,2</div><div class="line">//arr.shift();  2,3   </div><div class="line">alert(arr);</div></pre></td></tr></table></figure>
+<h4 id="插入、删除-splice"><a href="#插入、删除-splice" class="headerlink" title="插入、删除(splice)"></a>插入、删除(splice)</h4><ul>
+<li><p>splice(开始, 长度,元素…)<br>先删除，后插入</p>
+</li>
+<li><p>splice(开始,长度)<br>删除</p>
+</li>
+<li><p>splice(开始, 0, 元素…)<br>插入</p>
+</li>
+<li><p>splice(开始，a,b1,b2..bn)   a=n<br>替换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var arr=[1,2,3,4,5,6];</div><div class="line"></div><div class="line">arr.splice(2, 3);   // 1,2,6</div><div class="line"></div><div class="line">arr.splice(2, 0, &apos;a&apos;, &apos;b&apos;, &apos;c&apos;); // 1,a,b,c,2,3,4,5,6</div><div class="line"></div><div class="line">arr.splice(2, 2, &apos;a&apos;, &apos;b&apos;);   //  1,2,a,b,5,6</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="连接-concat-数组2"><a href="#连接-concat-数组2" class="headerlink" title="连接 concat(数组2)"></a>连接 concat(数组2)</h4><ul>
+<li>连接两个数组<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a=[1,2,3];</div><div class="line">var b=[4,5,6];</div><div class="line">a.concat(b);   // 1,2,3,4,5,6</div><div class="line">b.concat(a);   // 4,5,6,1,2,3</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="拼接-join-分隔符"><a href="#拼接-join-分隔符" class="headerlink" title="拼接 join(分隔符)"></a>拼接 join(分隔符)</h4><ul>
+<li>用分隔符，组合数组元素，生成字符串</li>
+<li>字符串split<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var arr=[1,2,3,4];</div><div class="line">arr.join(&apos;-&apos;);    //1-2-3-4</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="排序-sort-比较函数"><a href="#排序-sort-比较函数" class="headerlink" title="排序 sort([比较函数])"></a>排序 sort([比较函数])</h4><p>sort([比较函数])，排序一个数组</p>
+<ul>
+<li>排序一个字符串数组</li>
+<li><p>排序一个数字数组</p>
+</li>
+<li><p>排序一个字符串数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var arr=[&apos;float&apos;, &apos;width&apos;, &apos;alpha&apos;, &apos;zoom&apos;, &apos;left&apos;];</div><div class="line"></div><div class="line">arr.sort();   //alpha,float,left,width,zoom</div></pre></td></tr></table></figure>
+</li>
+<li><p>排序一个数字数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var arr=[12, 8, 99, 19, 112];</div><div class="line"></div><div class="line">arr.sort(function (n1, n2)&#123;</div><div class="line">	return n1-n2;</div><div class="line">	/*if(n1&lt;n2)</div><div class="line">	&#123;</div><div class="line">		return -1;</div><div class="line">	&#125;</div><div class="line">	else if(n1&gt;n2)</div><div class="line">	&#123;</div><div class="line">		return 1;</div><div class="line">	&#125;</div><div class="line">	else</div><div class="line">	&#123;</div><div class="line">		return 0;</div><div class="line">	&#125;*/</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="DOM基础"><a href="#DOM基础" class="headerlink" title="DOM基础"></a>DOM基础</h1><p>DOM 是 W3C（万维网联盟）的标准。</p>
+<p>DOM 定义了访问 HTML 和 XML 文档的标准：<br>“W3C 文档对象模型 （DOM） 是中立于平台和语言的接口，它允许程序和脚本动态地访问和更新文档的内容、结构和样式。”</p>
+<p>W3C DOM 标准被分为 3 个不同的部分：</p>
+<pre><code>核心 DOM - 针对任何结构化文档的标准模型
+XML DOM - 针对 XML 文档的标准模型
+HTML DOM - 针对 HTML 文档的标准模型
+</code></pre><h2 id="DOM节点-1"><a href="#DOM节点-1" class="headerlink" title="DOM节点-1"></a>DOM节点-1</h2><p>根据 W3C 的 HTML DOM 标准，HTML 文档中的所有内容都是节点：</p>
+<ul>
+<li>整个文档是一个文档节点</li>
+<li>每个 HTML 元素是元素节点</li>
+<li>HTML 元素内的文本是文本节点</li>
+<li>每个 HTML 属性是属性节点</li>
+<li>注释是注释节点</li>
+</ul>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>一些常用的 HTML DOM 方法：</p>
+<ul>
+<li>getElementById(id) - 获取带有指定 id 的节点（元素）</li>
+<li>appendChild(node) - 插入新的子节点（元素）</li>
+<li>removeChild(node) - 删除子节点（元素）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>getElementById()</td>
+<td style="text-align:left">返回带有指定 ID 的元素。</td>
+</tr>
+<tr>
+<td>getElementsByTagName()</td>
+<td style="text-align:left">返回包含带有指定标签名称的所有元素的节点列表（集合/节点数组）。</td>
+</tr>
+<tr>
+<td>getElementsByClassName()</td>
+<td style="text-align:left">返回包含带有指定类名的所有元素的节点列表。</td>
+</tr>
+<tr>
+<td>appendChild()</td>
+<td style="text-align:left">把新的子节点添加到指定节点。</td>
+</tr>
+<tr>
+<td>removeChild()</td>
+<td style="text-align:left">删除子节点。</td>
+</tr>
+<tr>
+<td>replaceChild()</td>
+<td style="text-align:left">替换子节点。</td>
+</tr>
+<tr>
+<td>insertBefore()</td>
+<td style="text-align:left">在指定的子节点前面插入新的子节点。</td>
+</tr>
+<tr>
+<td>createAttribute()</td>
+<td style="text-align:left">创建属性节点。</td>
+</tr>
+<tr>
+<td>createElement()</td>
+<td style="text-align:left">创建元素节点。</td>
+</tr>
+<tr>
+<td>createTextNode()</td>
+<td style="text-align:left">创建文本节点。</td>
+</tr>
+<tr>
+<td>getAttribute()</td>
+<td style="text-align:left">返回指定的属性值。</td>
+</tr>
+<tr>
+<td>setAttribute()</td>
+<td style="text-align:left">把指定属性设置或修改为指定的值。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p>属性是节点（HTML 元素）的值，您能够获取或设置。</p>
+<h4 id="innerHTML"><a href="#innerHTML" class="headerlink" title="innerHTML"></a>innerHTML</h4><p>获取元素内容的最简单方法是使用 innerHTML 属性。</p>
+<p>innerHTML 属性对于获取或替换 HTML 元素的内容很有用。</p>
+<h4 id="nodeName"><a href="#nodeName" class="headerlink" title="nodeName"></a>nodeName</h4><p>nodeName 属性规定节点的名称。</p>
+<ul>
+<li>nodeName 是只读的</li>
+<li>元素节点的 nodeName 与标签名相同</li>
+<li>属性节点的 nodeName 与属性名相同</li>
+<li>文本节点的 nodeName 始终是 #text</li>
+<li>文档节点的 nodeName 始终是 #document</li>
+</ul>
+<p>注释：nodeName 始终包含 HTML 元素的大写字母标签名。</p>
+<h4 id="nodeValue"><a href="#nodeValue" class="headerlink" title="nodeValue"></a>nodeValue</h4><p>nodeValue 属性规定节点的值。</p>
+<ul>
+<li>元素节点的 nodeValue 是 undefined 或 null</li>
+<li>文本节点的 nodeValue 是文本本身</li>
+<li>属性节点的 nodeValue 是属性值</li>
+</ul>
+<h4 id="nodeType"><a href="#nodeType" class="headerlink" title="nodeType"></a>nodeType</h4><p>nodeType 属性返回节点的类型。nodeType 是只读的。</p>
+<p>比较重要的节点类型有：</p>
+<table>
+<thead>
+<tr>
+<th>元素类型</th>
+<th style="text-align:left">NodeType</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>元素</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td>属性</td>
+<td style="text-align:left">2</td>
+</tr>
+<tr>
+<td>文本</td>
+<td style="text-align:left">3</td>
+</tr>
+<tr>
+<td>注释</td>
+<td style="text-align:left">8</td>
+</tr>
+<tr>
+<td>文档</td>
+<td style="text-align:left">9</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
@@ -837,7 +1041,7 @@ var iNum1 = parseInt(&quot;red&quot;);    //返回 NaN  Not a number
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初探JavaScript魅力-1"><span class="nav-number">1.</span> <span class="nav-text">初探JavaScript魅力-1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript是什么"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个JS兼容性问题-document-getElementById"><span class="nav-number">1.2.</span> <span class="nav-text">第一个JS兼容性问题:document.getElementById</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入函数：因为直接在事件内写代码会很乱"><span class="nav-number">1.3.</span> <span class="nav-text">引入函数：因为直接在事件内写代码会很乱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if判断：如点击按钮显示-隐藏div-弹出菜单"><span class="nav-number">1.4.</span> <span class="nav-text">if判断：如点击按钮显示/隐藏div(弹出菜单)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初探JavaScript魅力-2"><span class="nav-number">2.</span> <span class="nav-text">初探JavaScript魅力-2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数传参"><span class="nav-number">2.1.</span> <span class="nav-text">函数传参</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变背景颜色"><span class="nav-number">2.1.1.</span> <span class="nav-text">改变背景颜色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改变Div的任意样式"><span class="nav-number">2.1.2.</span> <span class="nav-text">改变Div的任意样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#style与className"><span class="nav-number">2.1.3.</span> <span class="nav-text">style与className</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取行间事件"><span class="nav-number">2.2.</span> <span class="nav-text">提取行间事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为元素添加事件"><span class="nav-number">2.2.1.</span> <span class="nav-text">为元素添加事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window-onload的意义"><span class="nav-number">2.2.2.</span> <span class="nav-text">window.onload的意义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">2.3.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#while循环、for循环"><span class="nav-number">2.3.1.</span> <span class="nav-text">while循环、for循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选项卡"><span class="nav-number">2.4.</span> <span class="nav-text">选项卡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按钮的实现"><span class="nav-number">2.4.1.</span> <span class="nav-text">按钮的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内容的实现"><span class="nav-number">2.4.2.</span> <span class="nav-text">内容的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简易日历"><span class="nav-number">2.5.</span> <span class="nav-text">简易日历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序实现思路"><span class="nav-number">2.5.1.</span> <span class="nav-text">程序实现思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的使用"><span class="nav-number">2.5.2.</span> <span class="nav-text">数组的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串连接"><span class="nav-number">2.5.3.</span> <span class="nav-text">字符串连接 (+)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript基础"><span class="nav-number">3.</span> <span class="nav-text">JavaScript基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript组成"><span class="nav-number">3.1.</span> <span class="nav-text">JavaScript组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量类型"><span class="nav-number">3.2.</span> <span class="nav-text">变量类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型：typeof运算符"><span class="nav-number">3.2.1.</span> <span class="nav-text">类型：typeof运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量类型-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">变量类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型转换"><span class="nav-number">3.2.3.</span> <span class="nav-text">数据类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式类型转换"><span class="nav-number">3.2.4.</span> <span class="nav-text">隐式类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">3.2.5.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令规范"><span class="nav-number">3.2.6.</span> <span class="nav-text">命令规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符"><span class="nav-number">3.2.7.</span> <span class="nav-text">运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序流程控制"><span class="nav-number">3.3.</span> <span class="nav-text">程序流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#判断-if、switch、"><span class="nav-number">3.3.1.</span> <span class="nav-text">判断(if、switch、?:)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环-while、for"><span class="nav-number">3.3.2.</span> <span class="nav-text">循环(while、for)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳出-break、continue"><span class="nav-number">3.3.3.</span> <span class="nav-text">跳出(break、continue)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是真、什么是假"><span class="nav-number">3.3.4.</span> <span class="nav-text">什么是真、什么是假</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Json"><span class="nav-number">3.4.</span> <span class="nav-text">Json</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Json-1"><span class="nav-number">3.4.1.</span> <span class="nav-text">Json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Json与数组区别"><span class="nav-number">3.4.2.</span> <span class="nav-text">Json与数组区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Json和for-in"><span class="nav-number">3.4.3.</span> <span class="nav-text">Json和for in</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初探JavaScript魅力-1"><span class="nav-number">1.</span> <span class="nav-text">初探JavaScript魅力-1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript是什么"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个JS兼容性问题-document-getElementById"><span class="nav-number">1.2.</span> <span class="nav-text">第一个JS兼容性问题:document.getElementById</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入函数：因为直接在事件内写代码会很乱"><span class="nav-number">1.3.</span> <span class="nav-text">引入函数：因为直接在事件内写代码会很乱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if判断：如点击按钮显示-隐藏div-弹出菜单"><span class="nav-number">1.4.</span> <span class="nav-text">if判断：如点击按钮显示/隐藏div(弹出菜单)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初探JavaScript魅力-2"><span class="nav-number">2.</span> <span class="nav-text">初探JavaScript魅力-2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数传参"><span class="nav-number">2.1.</span> <span class="nav-text">函数传参</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变背景颜色"><span class="nav-number">2.1.1.</span> <span class="nav-text">改变背景颜色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改变Div的任意样式"><span class="nav-number">2.1.2.</span> <span class="nav-text">改变Div的任意样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#style与className"><span class="nav-number">2.1.3.</span> <span class="nav-text">style与className</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取行间事件"><span class="nav-number">2.2.</span> <span class="nav-text">提取行间事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为元素添加事件"><span class="nav-number">2.2.1.</span> <span class="nav-text">为元素添加事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window-onload的意义"><span class="nav-number">2.2.2.</span> <span class="nav-text">window.onload的意义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">2.3.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#while循环、for循环"><span class="nav-number">2.3.1.</span> <span class="nav-text">while循环、for循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选项卡"><span class="nav-number">2.4.</span> <span class="nav-text">选项卡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按钮的实现"><span class="nav-number">2.4.1.</span> <span class="nav-text">按钮的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内容的实现"><span class="nav-number">2.4.2.</span> <span class="nav-text">内容的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简易日历"><span class="nav-number">2.5.</span> <span class="nav-text">简易日历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序实现思路"><span class="nav-number">2.5.1.</span> <span class="nav-text">程序实现思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的使用"><span class="nav-number">2.5.2.</span> <span class="nav-text">数组的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串连接"><span class="nav-number">2.5.3.</span> <span class="nav-text">字符串连接 (+)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript基础"><span class="nav-number">3.</span> <span class="nav-text">JavaScript基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript组成"><span class="nav-number">3.1.</span> <span class="nav-text">JavaScript组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量类型"><span class="nav-number">3.2.</span> <span class="nav-text">变量类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型：typeof运算符"><span class="nav-number">3.2.1.</span> <span class="nav-text">类型：typeof运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量类型-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">变量类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型转换"><span class="nav-number">3.2.3.</span> <span class="nav-text">数据类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式类型转换"><span class="nav-number">3.2.4.</span> <span class="nav-text">隐式类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">3.2.5.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令规范"><span class="nav-number">3.2.6.</span> <span class="nav-text">命令规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符"><span class="nav-number">3.2.7.</span> <span class="nav-text">运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序流程控制"><span class="nav-number">3.3.</span> <span class="nav-text">程序流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#判断-if、switch、"><span class="nav-number">3.3.1.</span> <span class="nav-text">判断(if、switch、?:)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环-while、for"><span class="nav-number">3.3.2.</span> <span class="nav-text">循环(while、for)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳出-break、continue"><span class="nav-number">3.3.3.</span> <span class="nav-text">跳出(break、continue)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是真、什么是假"><span class="nav-number">3.3.4.</span> <span class="nav-text">什么是真、什么是假</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Json"><span class="nav-number">3.4.</span> <span class="nav-text">Json</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Json-1"><span class="nav-number">3.4.1.</span> <span class="nav-text">Json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Json与数组区别"><span class="nav-number">3.4.2.</span> <span class="nav-text">Json与数组区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Json和for-in"><span class="nav-number">3.4.3.</span> <span class="nav-text">Json和for in</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深入JavaScript"><span class="nav-number">4.</span> <span class="nav-text">深入JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数返回值"><span class="nav-number">4.1.</span> <span class="nav-text">函数返回值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个函数应该只返回一种类型的值"><span class="nav-number">4.1.1.</span> <span class="nav-text">一个函数应该只返回一种类型的值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数传参-1"><span class="nav-number">4.2.</span> <span class="nav-text">函数传参</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可变参（不定参）：arguments"><span class="nav-number">4.2.1.</span> <span class="nav-text">可变参（不定参）：arguments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取非行间样式-不能用来设置"><span class="nav-number">4.2.2.</span> <span class="nav-text">取非行间样式(不能用来设置)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#兼容函数编写"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">兼容函数编写</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组基础"><span class="nav-number">4.3.</span> <span class="nav-text">数组基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">4.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的属性"><span class="nav-number">4.3.2.</span> <span class="nav-text">数组的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#length"><span class="nav-number">4.3.2.1.</span> <span class="nav-text">length</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的方法"><span class="nav-number">4.3.3.</span> <span class="nav-text">数组的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加"><span class="nav-number">4.3.3.1.</span> <span class="nav-text">添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除"><span class="nav-number">4.3.3.2.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入、删除-splice"><span class="nav-number">4.3.3.3.</span> <span class="nav-text">插入、删除(splice)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接-concat-数组2"><span class="nav-number">4.3.3.4.</span> <span class="nav-text">连接 concat(数组2)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拼接-join-分隔符"><span class="nav-number">4.3.3.5.</span> <span class="nav-text">拼接 join(分隔符)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排序-sort-比较函数"><span class="nav-number">4.3.3.6.</span> <span class="nav-text">排序 sort([比较函数])</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DOM基础"><span class="nav-number">5.</span> <span class="nav-text">DOM基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM节点-1"><span class="nav-number">5.1.</span> <span class="nav-text">DOM节点-1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">5.1.1.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">5.1.2.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#innerHTML"><span class="nav-number">5.1.2.1.</span> <span class="nav-text">innerHTML</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nodeName"><span class="nav-number">5.1.2.2.</span> <span class="nav-text">nodeName</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nodeValue"><span class="nav-number">5.1.2.3.</span> <span class="nav-text">nodeValue</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nodeType"><span class="nav-number">5.1.2.4.</span> <span class="nav-text">nodeType</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
