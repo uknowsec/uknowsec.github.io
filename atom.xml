@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-02-24T11:24:08.111Z</updated>
+  <updated>2017-02-24T11:54:59.274Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -20,11 +20,11 @@
     <link href="http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Ubuntu-14-10%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8-ssh%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE.html"/>
     <id>http://uknowsec.cn/posts/linux/第一周-Ubuntu-14-10远程登录服务器-ssh的安装和配置.html</id>
     <published>2017-02-24T09:38:27.000Z</published>
-    <updated>2017-02-24T11:24:08.111Z</updated>
+    <updated>2017-02-24T11:54:59.274Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>ssh是一种安全协议，主要用于给远程登录会话数据进行加密，保证数据传输的安全，现在在需怒江Ubuntu 14.04环境下安装和配置ssh。</p>
-<h3 id="更新源列表"><a href="#更新源列表" class="headerlink" title="更新源列表"></a>更新源列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="更新源列表"><a href="#更新源列表" class="headerlink" title="更新源列表"></a>更新源列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170224181454.png" alt=""></p>
 <h3 id="安装ssh"><a href="#安装ssh" class="headerlink" title="安装ssh"></a>安装ssh</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install openssh-server</div></pre></td></tr></table></figure>
 <p>执行命令出现如下情况，按照提示貌似需要安装openshh-client和ssh-import-id<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170224182359.jpg" alt=""></p>
