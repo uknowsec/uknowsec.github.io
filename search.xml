@@ -520,7 +520,106 @@
 <p>如果需要使用接口中的成员，则需要通过子类去实现接口中的全部抽象方法，然后创建子类的对象去调用在子类中实现后的方法。但通过类去继承接口时需要使用implements关键字来实现，而并不是是哟个extends关键字完成。如果需要使用抽象类去实现接口中的部分方法，也需要使用implements关键字实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	interface One &#123;                              //声明一个接口使用interface关键字，One为接口名称</div><div class="line">		const CONSTANT = &apos;CONSTANT value&apos;;    //在接口中声明一个常量成员属性，和在类中声明一样</div><div class="line">		function fun1();                         //在接口中声明一个抽象方法“fun1()”</div><div class="line">		function fun2();                         //在接口中声明另一个抽象方法“fun2()”</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	abstract class Three implements One &#123;          //声明一个抽象类去实现接口One中的第二个方法</div><div class="line">		function fun2() &#123;                       //只实现接口中的一个抽象方法</div><div class="line">			//具体的实现内容由子类自决定</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	class Four implements One &#123;                 //声明一个类实现接口One中的全部抽象方法</div><div class="line">		function fun1() &#123;                      //实现接口中第一个方法</div><div class="line">			//具体的实现内容由子类自决定</div><div class="line">		&#125;	</div><div class="line"></div><div class="line">		function fun2() &#123;                     //实现接口中的第二个方法</div><div class="line">			//具体的实现内容由子类自决定</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
 <p>PHP是单继承的，一个类只能有一个父类，但是一个类可以实现多个接口。将要实现的多个接口之间使用逗号分隔开，而且在子类中要将所有接口中的抽象方法全部实现才可以创建对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class 类名 implements 接口一，接口二...接口n&#123;  //一个类实现多个接口</div><div class="line">			//实现所有接口中的抽象类</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>实现多个接口是使用“implements”关键字，同时还可以使用“extends”关键字继承一个类。即在继承一个类的同时实现多个接口，但一定要先使用extends继承一类再去使用imlements实现多个接口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class  类名 extends 父类名 implements 接口一，接口二...接口n&#123;  //继承一个类的同时实现多个接口</div><div class="line">		//实现所有接口中的抽象类</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="字符串处理与正则表达式"><a href="#字符串处理与正则表达式" class="headerlink" title="字符串处理与正则表达式"></a>字符串处理与正则表达式</h1>]]></content>
+<h1 id="字符串处理与正则表达式"><a href="#字符串处理与正则表达式" class="headerlink" title="字符串处理与正则表达式"></a>字符串处理与正则表达式</h1><h2 id="字符串的处理介绍"><a href="#字符串的处理介绍" class="headerlink" title="字符串的处理介绍"></a>字符串的处理介绍</h2><h3 id="字符串的处理方式"><a href="#字符串的处理方式" class="headerlink" title="字符串的处理方式"></a>字符串的处理方式</h3><p>在PHP中，提供了大量的字符串操作函数，功能强大，使用也比较简单。但对一些比较复杂的字符串操作，则需要借助PHP所支持的正则表达式来实现。如果字符串处理函数和正则表达式都可以实现字符串操作，建议使用字符串处理函数来完成，因为字符串的处理函数要比正则表达式处理字符串的效率高。</p>
+<h3 id="字符串类型的特点"><a href="#字符串类型的特点" class="headerlink" title="字符串类型的特点"></a>字符串类型的特点</h3><p>因为PHP是弱类型语言，所以其他类型的数据一般都可以直接应用于字符串操作函数里，而自动转化为字符串进行处理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	echo substr(&quot;1234567&quot;,2,4);				//将字符串用于字符串函数substr()处理，输出子字符串345</div><div class="line">	echo substr(123456,2,4);				//将整型用于字符串substr()处理，输出同样是字符串345</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>还可以将字符串视为数组，当做字符集合看待<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$str=&quot;lamp&quot;;				//声明一个字符串$str，值为lamp</div><div class="line">	echo $str.&quot;&lt;br&gt;&quot;;			//将字符串看作是一个连续的实体，一起输出lamp</div><div class="line">	//以下将字符串看作字符集合，按数组方式一个一个输出</div><div class="line">	echo $str[0];			//输出字符串$str中第一个字符l</div><div class="line">	echo $str[1];			//输出字符串$str中第一个字符a</div><div class="line">	echo $str[2];			//输出字符串$str中第一个字符m</div><div class="line">	echo $str[3];			//输出字符串$str中第一个字符p</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>但将字符串看做字符集合时，PHP脚本引擎无法区分是字符还是数组，会带来二义性。所以中括号的语法已不再使用，替代它的是使用花括号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$str=&quot;lamp&quot;;		//声明一个字符串$str，值为lamp</div><div class="line">	echo $str&#123;0&#125;;		//输出字符串$str中第一个字符l</div><div class="line">	echo $str&#123;1&#125;;		//输出字符串$str中第一个字符a</div><div class="line">	echo $str&#123;2&#125;;		//输出字符串$str中第一个字符m</div><div class="line">	echo $str&#123;3&#125;;		//输出字符串$str中第一个字符p</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="常用的字符串输出函数"><a href="#常用的字符串输出函数" class="headerlink" title="常用的字符串输出函数"></a>常用的字符串输出函数</h2><table>
+<thead>
+<tr>
+<th>函数名</th>
+<th style="text-align:left">功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>echo()</td>
+<td style="text-align:left">输出字符串</td>
+</tr>
+<tr>
+<td>print()</td>
+<td style="text-align:left">输出一个或多个字符串</td>
+</tr>
+<tr>
+<td>die()</td>
+<td style="text-align:left">输出一条消息，并退出当前脚本</td>
+</tr>
+<tr>
+<td>printf()</td>
+<td style="text-align:left">输出格式化字符串</td>
+</tr>
+<tr>
+<td>sprintf()</td>
+<td style="text-align:left">把格式化的字符串写入一个变量中</td>
+</tr>
+</tbody>
+</table>
+<h3 id="函数echo"><a href="#函数echo" class="headerlink" title="函数echo()"></a>函数echo()</h3><p>该函数用于输出一个或多个字符串，是在PHP中使用最多的函数，因为使用它的效率要比其他字符串输出函数高。echo()实际上不是一个函数，因此您不需对其使用括号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$str = &quot;What&apos;s LAMP?&quot;;             //定义一个字符串$str</div><div class="line">	echo $str;                         //可以直接输出字符串变量</div><div class="line">	echo &quot;&lt;br&gt;&quot;;                      //也可以直接输出字符串</div><div class="line">	echo $str.&quot;&lt;br&gt;Linux+Apache+MySQL+PHP&lt;br&gt;&quot;;  //还可以使用点运算符号连接多个字符串输出</div><div class="line"></div><div class="line">	echo &quot;This                    </div><div class="line">	      text </div><div class="line">	      spans </div><div class="line">	      multiple </div><div class="line">	      lines.&lt;br&gt;&quot;;                //可以将一行文本换成多行输出</div><div class="line"></div><div class="line">	echo &apos;This &apos;,&apos;string &apos;,&apos;was &apos;,&apos;made &apos;,&apos;with multiple parameters&lt;br&gt;&apos;;  //可以输出用逗号隔开的多个参数</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="函数print"><a href="#函数print" class="headerlink" title="函数print()"></a>函数print()</h3><p>该函数的功能和echo()的一样，它有返回值，若成功则返回1，失败则返回0。它的执行效率没有echo()函数高。</p>
+<h3 id="函数die"><a href="#函数die" class="headerlink" title="函数die()"></a>函数die()</h3><p>该函数是exit()函数的别名。如果参数是一个字符串，则该函数会在退出前输出它。如果参数是一个整数，这个值会被用做退出状态。退出状态的值在0至254之间。退出状态255有PHP保留，不会被使用。状态0用于成功地终止程序。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$url = &quot;http://www.lampbrother.net&quot;;               //定义一个网络文件的位置</div><div class="line">	fopen($url,&quot;r&quot;)	or die(&quot;Unable to connect to $url&quot;);  //如果打开失败则输出一条消息并退出程序</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="函数printf"><a href="#函数printf" class="headerlink" title="函数printf()"></a>函数printf()</h3><p>该函数用于输出格式化的字符串，和C语言的同名函数用法一样。第一个参数为必选项，是规定的字符串以及如何格式化其中的变量。还可以有多个可选参数，是规定插到第一个参数的格式化字符串中对应%符号处的参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">printf(format,arg1,arg2,...,argn)</div></pre></td></tr></table></figure></p>
+<p>第一个参数中使用的转换格式，是以百分比符号（“%”）开始到转换字符结束。</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th style="text-align:left">功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%%</td>
+<td style="text-align:left">返回百分比符号</td>
+</tr>
+<tr>
+<td>%b</td>
+<td style="text-align:left">二进制数</td>
+</tr>
+<tr>
+<td>%c</td>
+<td style="text-align:left">按照ASCII值的字符</td>
+</tr>
+<tr>
+<td>%d</td>
+<td style="text-align:left">带符号十进制数</td>
+</tr>
+<tr>
+<td>%e</td>
+<td style="text-align:left">科学计数法</td>
+</tr>
+<tr>
+<td>%u</td>
+<td style="text-align:left">无符号十进制数</td>
+</tr>
+<tr>
+<td>%f</td>
+<td style="text-align:left">浮点数（local setting aware）</td>
+</tr>
+<tr>
+<td>%F</td>
+<td style="text-align:left">浮点数（not local setting aware）</td>
+</tr>
+<tr>
+<td>%o</td>
+<td style="text-align:left">八进制数</td>
+</tr>
+<tr>
+<td>%s</td>
+<td style="text-align:left">字符串</td>
+</tr>
+<tr>
+<td>%x</td>
+<td style="text-align:left">十六进制数（小写字母）</td>
+</tr>
+<tr>
+<td>%X</td>
+<td style="text-align:left">十六进制数（大写字母）</td>
+</tr>
+</tbody>
+</table>
+<p>arg1,arg2,argn等参数将插入到主字符串中的百分号（%）符号处。该函数是逐步执行的。在第一个%符号中，插入arg1，在第二个%符号处，插入arg2，依次类推。如果%符号多于arg参数，则必须使用占位符。占位符被插入%符号之后，由数组和“\$”组成。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$str = &quot;LAMP&quot;;             //声明一个字符串数据</div><div class="line">	$number = 789;             //声明一个整型数据</div><div class="line">     </div><div class="line">	//将字符串$str在第一个参数中的%处输出，按%s的字符串输出，整型$number按%u输出</div><div class="line">	printf(&quot;%s book. page number %u &lt;br&gt;&quot;,$str,$number);       </div><div class="line">	printf(&quot;%0.3f &lt;br&gt;&quot;,$number);  //将整型$number按浮点数输出，并在小数点后保留3位</div><div class="line"></div><div class="line">	$format = &quot;The %2\$s book contains %1\$d pages.</div><div class="line">           That&apos;s a nice %2\$s full of %1\$d pages. &lt;br&gt;&quot;;   //定义一个格式并在其中使用占位符</div><div class="line">	printf($format, $number, $str);  //按格式的占位符号输出多次变量，%2$s位置处是第三个参数</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="函数sprintf"><a href="#函数sprintf" class="headerlink" title="函数sprintf()"></a>函数sprintf()</h3><p>该函数的用法和printf()的格式相似，但它并不是输出字符串，而是把格式化的字符串以返回值的形式写入到一个变量中。这样就可以将格式化后的字符串在需要时使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$num= 12345;              	 //声明一个整数12345</div><div class="line">	$txt = sprintf(&quot;%0.2f&quot;,$num);    //转换为保留两位小数的浮点数，并赋值给变量$text</div><div class="line">	echo $txt;                  	 //在需要的地方就可以使用格式化后的文本$txt</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="常用的字符串格式化函数"><a href="#常用的字符串格式化函数" class="headerlink" title="常用的字符串格式化函数"></a>常用的字符串格式化函数</h2>]]></content>
     </entry>
     
     <entry>
