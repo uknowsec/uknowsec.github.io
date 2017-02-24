@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-02-24T08:17:39.207Z</updated>
+  <updated>2017-02-24T08:56:10.845Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -16,14 +16,40 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Ubuntu 14.10安装后的二三事</title>
-    <link href="http://uknowsec.cn/posts/linux/Ubuntu-14-10%E5%AE%89%E8%A3%85%E5%90%8E%E7%9A%84%E4%BA%8C%E4%B8%89%E4%BA%8B.html"/>
-    <id>http://uknowsec.cn/posts/linux/Ubuntu-14-10安装后的二三事.html</id>
-    <published>2017-02-24T08:17:14.000Z</published>
-    <updated>2017-02-24T08:17:39.207Z</updated>
+    <title>[第一周]Ubuntu 14.10安装后的二三事</title>
+    <link href="http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Ubuntu-14-10%E5%AE%89%E8%A3%85%E5%90%8E%E7%9A%84%E4%BA%8C%E4%B8%89%E4%BA%8B.html"/>
+    <id>http://uknowsec.cn/posts/linux/第一周-Ubuntu-14-10安装后的二三事.html</id>
+    <published>2017-02-24T08:55:49.000Z</published>
+    <updated>2017-02-24T08:56:10.845Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2>]]></content>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上课老师用到的是VMware+Ubuntu 14.10，而我用到的是VirtualBox+Ubuntu 14.10。之前我也是用VMware，但是之后就用VirtualBox了。因为VirtualBox开源，而且相较于VMware轻便很多，所占内存小。在VirtualBox下安装完Ubuntu 14.10后在几个问题上折腾了半天，特写一篇博客记下这个过程。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="Ubuntu-14-10更新源"><a href="#Ubuntu-14-10更新源" class="headerlink" title="Ubuntu 14.10更新源"></a>Ubuntu 14.10更新源</h3><p>记得我之前用kali linux的时候，每次装完系统或者挂起kali虚拟机的时候都习惯的更新软件和内核什么的，所以Ubuntu 14.10也是如此。由于中国防火墙的问题，如果用Ubuntu官方源进行更新是很痛苦的事情。所以在网上寻找国内的更新源是不错的选择。</p>
+<ul>
+<li><p>首先备份源列表:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup</div></pre></td></tr></table></figure>
+</li>
+<li><p>用gedit打开sources.list:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gedit /etc/apt/sources.list</div></pre></td></tr></table></figure>
+</li>
+<li><p>全选sources.list下内容，复制粘贴下面香港中文大学的更新源，之前我说过163和阿里云都是404，目前香港中文大学的更新源速度还不错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty main restricted universe multiverse</div><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-security main restricted universe multiverse</div><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-updates main restricted universe multiverse</div><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-backports main restricted universe multiverse</div><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-proposed main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-security main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-updates main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-backports main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-proposed main restricted universe</div></pre></td></tr></table></figure>
+</li>
+<li><p>刷新列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure>
+</li>
+<li><p>更新软件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get dist-upgrade</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安装搜狗输入法"><a href="#安装搜狗输入法" class="headerlink" title="安装搜狗输入法"></a>安装搜狗输入法</h3><p>在用到火狐浏览器时，发现Ubuntu下的ibus打字法很别扭。于是产生安装搜狗打字法的想法，但是在官方下载搜狗deb安装包，安装完后发现，切换到搜狗打字法时并不能输入中文。之后找到问题的所在，并解决记录下来。</p>
+<h4 id="安装搜狗拼音"><a href="#安装搜狗拼音" class="headerlink" title="安装搜狗拼音"></a>安装搜狗拼音</h4><p>当前最新版本是sogoupinyin_2.1.0.0082_amd64.deb<a href="http://cdn2.ime.sogou.com/dl/index/1475147394/sogoupinyin_2.1.0.0082_amd64.deb?st=UvO7xZ1Rvw-j5J5UW6D0ZQ&amp;e=1487927618&amp;fn=sogoupinyin_2.1.0.0082_amd64.deb" target="_blank" rel="external">下载链接</a><br>可以直接双击安装，也可以在安装包目录下打开终端，执行命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo dpkg -i sogoupinyin_2.1.0.0082_amd64.deb</div></pre></td></tr></table></figure>
+<h4 id="卸载ibus"><a href="#卸载ibus" class="headerlink" title="卸载ibus"></a>卸载ibus</h4><p>安装完成后，点右上角的图标切换到搜狗打字法，会发现并不能输入中文。在网上查询资料得，14.04的思路，不必卸载ibus，直接双击搜狗的deb安装，完成后重启即可。但在14.10版本中这个方法已不适用。所以在这个时候我们需要卸载ibus。</p>
+<p>执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get remove ibus</div></pre></td></tr></table></figure>
+<p>重启计算机或注销后，就可以使用搜狗输入法了。</p>
+]]></content>
     
     <summary type="html">
     
@@ -37,11 +63,11 @@
   </entry>
   
   <entry>
-    <title>Linux作为服务器操作系统的优势</title>
-    <link href="http://uknowsec.cn/posts/linux/Linux%E4%BD%9C%E4%B8%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E5%8A%BF.html"/>
-    <id>http://uknowsec.cn/posts/linux/Linux作为服务器操作系统的优势.html</id>
-    <published>2017-02-24T06:35:27.000Z</published>
-    <updated>2017-02-24T08:15:41.092Z</updated>
+    <title>[第一周]Linux作为服务器操作系统的优势</title>
+    <link href="http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Linux%E4%BD%9C%E4%B8%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E5%8A%BF.html"/>
+    <id>http://uknowsec.cn/posts/linux/第一周-Linux作为服务器操作系统的优势.html</id>
+    <published>2017-02-24T08:55:01.000Z</published>
+    <updated>2017-02-24T08:55:28.042Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>初次在课上听到老师说到，每周需要写博客的作业时。我是很惊讶的，这是第一次在传统的校园课堂拿到一个这么新鲜的作业。这可能就是传统教育与培训教育的不同之处吧。下面是老师留给我们的题目：为什么服务器端的操作系统大多数为Linux？我之前是接触过Linux的，之前用过kali linux，因此在选选修课的时候也就毫不犹豫的选择了Linux基础这门课。检索了别人的文章然后加上自己的想法写下这篇博客。</p>
