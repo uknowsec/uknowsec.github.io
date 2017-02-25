@@ -619,7 +619,93 @@
 </table>
 <p>arg1,arg2,argn等参数将插入到主字符串中的百分号（%）符号处。该函数是逐步执行的。在第一个%符号中，插入arg1，在第二个%符号处，插入arg2，依次类推。如果%符号多于arg参数，则必须使用占位符。占位符被插入%符号之后，由数组和“\$”组成。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$str = &quot;LAMP&quot;;             //声明一个字符串数据</div><div class="line">	$number = 789;             //声明一个整型数据</div><div class="line">     </div><div class="line">	//将字符串$str在第一个参数中的%处输出，按%s的字符串输出，整型$number按%u输出</div><div class="line">	printf(&quot;%s book. page number %u &lt;br&gt;&quot;,$str,$number);       </div><div class="line">	printf(&quot;%0.3f &lt;br&gt;&quot;,$number);  //将整型$number按浮点数输出，并在小数点后保留3位</div><div class="line"></div><div class="line">	$format = &quot;The %2\$s book contains %1\$d pages.</div><div class="line">           That&apos;s a nice %2\$s full of %1\$d pages. &lt;br&gt;&quot;;   //定义一个格式并在其中使用占位符</div><div class="line">	printf($format, $number, $str);  //按格式的占位符号输出多次变量，%2$s位置处是第三个参数</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
 <h3 id="函数sprintf"><a href="#函数sprintf" class="headerlink" title="函数sprintf()"></a>函数sprintf()</h3><p>该函数的用法和printf()的格式相似，但它并不是输出字符串，而是把格式化的字符串以返回值的形式写入到一个变量中。这样就可以将格式化后的字符串在需要时使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$num= 12345;              	 //声明一个整数12345</div><div class="line">	$txt = sprintf(&quot;%0.2f&quot;,$num);    //转换为保留两位小数的浮点数，并赋值给变量$text</div><div class="line">	echo $txt;                  	 //在需要的地方就可以使用格式化后的文本$txt</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<h2 id="常用的字符串格式化函数"><a href="#常用的字符串格式化函数" class="headerlink" title="常用的字符串格式化函数"></a>常用的字符串格式化函数</h2>]]></content>
+<h2 id="常用的字符串格式化函数"><a href="#常用的字符串格式化函数" class="headerlink" title="常用的字符串格式化函数"></a>常用的字符串格式化函数</h2><table>
+<thead>
+<tr>
+<th>格式</th>
+<th style="text-align:left">功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ltrim()</td>
+<td style="text-align:left">从字符串左侧删除空格或者其他预定义字符</td>
+</tr>
+<tr>
+<td>rtrim()</td>
+<td style="text-align:left">从字符串的末端开始删除空白字符或其他预定义字符</td>
+</tr>
+<tr>
+<td>trim()</td>
+<td style="text-align:left">从字符串的两端删除空白字符和其他预定义字符</td>
+</tr>
+<tr>
+<td>str_pad()</td>
+<td style="text-align:left">把字符串填充为新的长度</td>
+</tr>
+<tr>
+<td>strtolower()</td>
+<td style="text-align:left">把字符串转换为小写</td>
+</tr>
+<tr>
+<td>strtoupper()</td>
+<td style="text-align:left">把字符串转化为大写</td>
+</tr>
+<tr>
+<td>ucfirst()</td>
+<td style="text-align:left">把字符串中的首字符转换为大写</td>
+</tr>
+<tr>
+<td>ucwords()</td>
+<td style="text-align:left">把字符串中每个单词的首字符转换为大写</td>
+</tr>
+<tr>
+<td>nl2br()</td>
+<td style="text-align:left">在字符串中的每行之间插入HTML换行符</td>
+</tr>
+<tr>
+<td>htmlentities()</td>
+<td style="text-align:left">把字符转化为HTML实体</td>
+</tr>
+<tr>
+<td>htmlspecialchears()</td>
+<td style="text-align:left">把一些预定义的字符转换为HTML实体</td>
+</tr>
+<tr>
+<td>Stripslashes()</td>
+<td style="text-align:left">删除由addcslashes()函数添加的反斜杠</td>
+</tr>
+<tr>
+<td>strip_tags()</td>
+<td style="text-align:left">剥去HTML、XML以及PHP的标签</td>
+</tr>
+<tr>
+<td>number_format()</td>
+<td style="text-align:left">通过千位分组来格式化数字</td>
+</tr>
+<tr>
+<td>strrev()</td>
+<td style="text-align:left">反转字符串</td>
+</tr>
+<tr>
+<td>md5()</td>
+<td style="text-align:left">将一个字符串进行MD5计算</td>
+</tr>
+</tbody>
+</table>
+<h3 id="取出空格和字符串填补函数"><a href="#取出空格和字符串填补函数" class="headerlink" title="取出空格和字符串填补函数"></a>取出空格和字符串填补函数</h3><p>在PHP中可以通过ltrim()、rtrim()和trim()函数利用处理字符串中多余的空格，或者一些其他没有意义的符号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">string ltrim(string str[,string charlist])		//从字符串左侧删除空格或者其他预定义字符</div><div class="line">string rtrim(string str[,string charlist])		//从字符串右侧删除空白字符或其他预定义字符</div><div class="line">string trim(string str[,string charlist])		//从字符串的两端删除空白字符和其他预定义字符</div></pre></td></tr></table></figure></p>
+<p>这三个函数分别用于从字符串的左、右和两端删除空白字符或其他预定义字符。处理后的结果都会以新字符串的形式返回，不会在原字符串上修改。其中第一个参数str是待处理的字符串，为必选项。第二个参数charlist是过滤字符串，用于指定希望去除的特殊符号，该参数为可选。如果不指定过滤字符串，默认情况下会去掉下列字符：</p>
+<ul>
+<li>“ ”：ASCII为32的字符（0x20），即空格</li>
+<li>“\0”：ASCII为0的字符（0x00），即NULL</li>
+<li>“\t”：ASCII为9的字符（0x99），即制表符</li>
+<li>“\n”：ASCII为10的字符（0x0A），即新行</li>
+<li>“\r”：ASCII为13的字符（0x0D），即回车</li>
+</ul>
+<p>此外还可以使用“..”符号指定需要取出的一个范围，例如“0..9”或“a..z”表示去掉ASCII码值中的数字和小写字母。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$str=&quot;   lamp  &quot;;  //声明一个字符串，其中左侧有3个空格，右侧2个空格，总长度为9个字符</div><div class="line">	echo strlen($str);            //输出字符串的总长度 9</div><div class="line">	echo strlen(ltrim($str));       //去掉左侧空格后的长度输出为 6</div><div class="line">	echo strlen(rtrim($str));       //去掉右侧空格后的长度输出为 7</div><div class="line">	echo strlen(trim($str));        //去掉两侧空格后的长度输出为 4</div><div class="line"></div><div class="line">	$str=&quot;123 This is a test ...&quot;;    //声明一个测试字符串，左侧为数字开头，右侧为省略号“…”</div><div class="line">	echo ltrim($str, &quot;0..9&quot;);       //过滤掉字符串左侧的数字，输出：This is a test ...</div><div class="line">	echo rtrim($str, &quot;.&quot;);         //过滤掉字符串右侧的所有“.”，输出：123 This is a test</div><div class="line">	echo trim($str, &quot;0..9 A..Z .&quot;);  //过滤掉字符串两端的数字和大写字母还有“.”，输出：his is a test</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>不仅可以按需求过滤字符串中的内容，还可以使用str_pad()函数按需求对字符串进行填补。可以用于对一些敏感信息的保护。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">string str_pad(string input,int pad_length[,string pad_string[,int pad_type]])</div></pre></td></tr></table></figure></p>
+<p>该函数有四个参数，第一个参数是必选项，指明要处理的字符串。第二个参数也是必选项，给丁处理后字符串的长度，如果该值小于原始字符串的长度，则不进行任何操作。第三个参数指定填补时所用的字符串，它为可选参数。如果没有指定则默认使用空格填补。最后一个参数指定填补的方向，它有三个可选值：STR_PAD_BOTH、STR_PAD_LEFT和STR_PAD_RIGHT，分别代表在字符串两端、左和右进行填补。也是一个可选参数，如果没有指定则默认值是STR_PAD_RIGHT。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$str= &quot;LAMP&quot;;                           </div><div class="line">	echo str_pad($str, 10);        //指定长度为10，默认使用空格在右边填补&quot;LAMP      &quot;</div><div class="line">	echo str_pad($str, 10, &quot;-=&quot;, STR_PAD_LEFT);  //指定长度为10，指定在左边填补&quot; -=-=-=LAMP&quot;</div><div class="line">	echo str_pad($str, 10, &quot;_&quot;, STR_PAD_BOTH);  //指定长度为10，指定两端填补 &quot; ___LAMP___&quot;</div><div class="line">	echo str_pad($str, 6 , &quot;___&quot;);                //指定长度为6， 默认在右边填补&quot; LAMP__&quot;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+]]></content>
     </entry>
     
     <entry>
