@@ -748,7 +748,116 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$userName=&quot;Admin&quot;;                     //声明一个字符串作为用户名</div><div class="line">	$password=&quot;lampBrother&quot;;                 //声明一个字符串作为密码</div><div class="line"></div><div class="line">	if(strcasecmp($userName, &quot;admin&quot;)==0) &#123;    //不区分大小写的比较，如果两个字符串相等返回0</div><div class="line">		echo &quot;用户名存在&quot;;</div><div class="line">	&#125;</div><div class="line">     	//将两个比较的字符串使用相应的函数转成全大写或全小写后，也可以实现不区分大小写的比较</div><div class="line">     	if(strcasecmp(strtolower($userName), strtolower(&quot;admin&quot;))==0) &#123;   </div><div class="line">		echo &quot;用户名存在&quot;;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	switch(strcmp($password, &quot;lampbrother&quot;))              //区分字符串中字母的大小写比较</div><div class="line">	&#123;</div><div class="line">		case 0:                                      //两个字符串相等则返回0</div><div class="line">			echo &quot;两个字符串相等&lt;br&gt;&quot;;</div><div class="line">			break;</div><div class="line">		case 1:                                      //第一个字符串大时则返回1</div><div class="line">			echo &quot;第一个字符串大于第二个字符串&lt;br&gt;&quot;;</div><div class="line">			break;</div><div class="line">		case -1:                                      //第一个字符串小时则返回-1</div><div class="line">			echo &quot;第一个字符串小于第二个字符串&lt;br&gt;&quot;;</div><div class="line">	&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
 <h3 id="按自然排序进行字符串比较"><a href="#按自然排序进行字符串比较" class="headerlink" title="按自然排序进行字符串比较"></a>按自然排序进行字符串比较</h3><p>strnatcmp()函数按自然排序法比较两个字符串，该函数对大小写敏感，其使用格式与strcmp()函数相似。<br>在PHP中也提供了忽略大小写版本的函数strnatcasecmp()，用法和strnatcmp()函数相同。</p>
-<h2 id="正则表达式在字符串处理中的应用"><a href="#正则表达式在字符串处理中的应用" class="headerlink" title="正则表达式在字符串处理中的应用"></a>正则表达式在字符串处理中的应用</h2><h2 id="与Perl兼容的正则表达式函数"><a href="#与Perl兼容的正则表达式函数" class="headerlink" title="与Perl兼容的正则表达式函数"></a>与Perl兼容的正则表达式函数</h2><h1 id="文件系统处理"><a href="#文件系统处理" class="headerlink" title="文件系统处理"></a>文件系统处理</h1>]]></content>
+<h2 id="正则表达式在字符串处理中的应用"><a href="#正则表达式在字符串处理中的应用" class="headerlink" title="正则表达式在字符串处理中的应用"></a>正则表达式在字符串处理中的应用</h2><h2 id="与Perl兼容的正则表达式函数"><a href="#与Perl兼容的正则表达式函数" class="headerlink" title="与Perl兼容的正则表达式函数"></a>与Perl兼容的正则表达式函数</h2><h1 id="文件系统处理"><a href="#文件系统处理" class="headerlink" title="文件系统处理"></a>文件系统处理</h1><h2 id="文件系统概述"><a href="#文件系统概述" class="headerlink" title="文件系统概述"></a>文件系统概述</h2><h3 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h3><p>PHP是以UNIX的文件系统为模型的，因此在Windows系统中我们只能获得“file”、“dir”或者“unknown”三种文件类型。而在UNIX系统中，我们可以获得“block”、“char”、“dir”、“fifo”、“file”、“link”和“unknown”七种类型。</p>
+<table>
+<thead>
+<tr>
+<th>文件类型</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>block</td>
+<td style="text-align:left">块设备文件，如某个磁盘分区、软驱、光驱CD-ROM等</td>
+</tr>
+<tr>
+<td>char</td>
+<td style="text-align:left">字符设备是指在I/O传输过程中以字符为单位进行传输的设备，例如键盘，打印机等</td>
+</tr>
+<tr>
+<td>dir</td>
+<td style="text-align:left">目录类型，目录也是文件的一种</td>
+</tr>
+<tr>
+<td>fifo</td>
+<td style="text-align:left">命名管道，常用与将信息从一个进程传递到另一个进程</td>
+</tr>
+<tr>
+<td>file</td>
+<td style="text-align:left">普通文件类型，如文本文件或可执行文件等</td>
+</tr>
+<tr>
+<td>link</td>
+<td style="text-align:left">符号链接，是指向文件指针的指针，类似Windows中的快捷键</td>
+</tr>
+<tr>
+<td>unkonwn</td>
+<td style="text-align:left">未知类型</td>
+</tr>
+</tbody>
+</table>
+<p>在PHP中可以使用filetype()函数获取文件的上述类型，该函数接受一个文件名作为参数，如果文件不存在将返回FALSE。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	//获取Linux系统下文件类型</div><div class="line">	echo filetype(&apos;/etc/passwd&apos;);      //输出file，/etc/passwd为普通文件</div><div class="line">	echo filetype(&apos;/etc/grub.conf&apos;);    //输出link，/etc/grub.conf为链接文件，链接到/boot/grub/grub.conf</div><div class="line">	echo filetype(&apos;/etc/&apos;);            //输出dir，/etc/为一个目录，即文件夹</div><div class="line">	echo filetype(&apos;/dev/sda1&apos;);        //输出block，/dev/sda1为块设备，它是一个分区</div><div class="line">	echo filetype(&apos;/dev/tty01&apos;);       //输出char，为字符设备，它是一个字符终端</div><div class="line"></div><div class="line">	//获取Windows系统下文件类型</div><div class="line">	echo filetype(&quot;C:\\WINDOWS\\php.ini&quot;);     //输出file，C:\WINDOWS\php.ini为一个普通文件</div><div class="line">	echo filetype(&quot;C:\\WINDOWS&quot;);            //输出dir，C:\WINDOWS为一个文件夹（目录）</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>对于一个已知的文件，还可以使用is_file()函数判断给定的文件名是否为一个正常的文件。和它类似的，使用is_dir()函数判断给定的文件名是否是一个目录，使用is_link()函数判断给定的文件名是否为一个符号链接。</p>
+<h3 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h3><p>PHP中提供用来获取文件的一些常见属性的内置函数。</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th style="text-align:left">作用</th>
+<th>参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_exists()</td>
+<td style="text-align:left">检查文件或目录是否存在</td>
+<td>文件名</td>
+<td style="text-align:left">文件存在返回TRUE，不存在则返回FALSE</td>
+</tr>
+<tr>
+<td>filesize()</td>
+<td style="text-align:left">取得文件大小</td>
+<td>文件名</td>
+<td style="text-align:left">返回文件大小的字节数，出错返回FALSE</td>
+</tr>
+<tr>
+<td>is_readable()</td>
+<td style="text-align:left">判断给定文件名是否可读</td>
+<td>文件名</td>
+<td style="text-align:left">如果文件存在且可读则返回TRUE</td>
+</tr>
+<tr>
+<td>is_writable()</td>
+<td style="text-align:left">判断给定文件名是否可写</td>
+<td>文件名</td>
+<td style="text-align:left">如果文件存在且可写则返回TRUE</td>
+</tr>
+<tr>
+<td>is_executable()</td>
+<td style="text-align:left">判断给定文件名是否可执行</td>
+<td>文件名</td>
+<td style="text-align:left">如果文件存在且可执行则返回TRUE</td>
+</tr>
+<tr>
+<td>filectime()</td>
+<td style="text-align:left">获取文件的创建时间</td>
+<td>文件名</td>
+<td style="text-align:left">返回UNIX时间戳格式</td>
+</tr>
+<tr>
+<td>filemtime()</td>
+<td style="text-align:left">获取文件的修改时间</td>
+<td>文件名</td>
+<td style="text-align:left">返回UNIX时间戳格式</td>
+</tr>
+<tr>
+<td>fileatime()</td>
+<td style="text-align:left">获取文件的访问时间</td>
+<td>文件名</td>
+<td style="text-align:left">返回UNIX时间戳格式</td>
+</tr>
+<tr>
+<td>stat()</td>
+<td style="text-align:left">获取文件大部分属性值</td>
+<td>文件名</td>
+<td style="text-align:left">返回关于给定文件有用信息的数组</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	function getFilePro($fileName) &#123;     //声明一个函数，通过传入一个文件名称获取文件大部分属性</div><div class="line">		if(!file_exists($fileName)) &#123;     //如果提供的文件或目录不存在，则直接退出函数</div><div class="line">			echo &quot;目标文件不存在！！&lt;br&gt;&quot;;</div><div class="line">			return;</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		if(is_file($fileName))          //判断是否是一个普通文件，如果是则条件成立</div><div class="line">			echo $fileName.&quot;是一个文件&lt;br&gt;&quot;;</div><div class="line">		if(is_dir($fileName))          //判断是否是一个目录，如果是则条件成立，输出下面语句</div><div class="line">			echo $fileName.&quot;是一个目录&lt;br&gt;&quot;;</div><div class="line"></div><div class="line">		echo &quot;文件型态：&quot;.getFileType($fileName).&quot;&lt;br&gt;&quot;;       //用定义的函数输出文件型态</div><div class="line">		echo &quot;文件大小：&quot;.getFileSize(filesize($fileName)).&quot;&lt;br&gt;&quot;; //获取文件大小，并自定义转换单位</div><div class="line">		</div><div class="line">		if(is_readable($fileName))     //判断提供的文件是否可以读取内容</div><div class="line">			echo &quot;文件可读&lt;br&gt;&quot;;</div><div class="line">	  	if(is_writable($fileName))     //判断提供的文件是否可以改写</div><div class="line">			echo &quot;文件可写&lt;br&gt;&quot;;</div><div class="line">		if(is_executable($fileName))   //判断提供的文件是否有执行的权限</div><div class="line">			echo &quot;文件可执行&lt;br&gt;&quot;;</div><div class="line"></div><div class="line">	  	echo &quot;文件建立时间: &quot;.date(&quot;Y 年 m 月 j 日&quot;,filectime($fileName)).&quot;&lt;br&gt;&quot;;</div><div class="line">		echo &quot;文件最后更动时间: &quot;.date(&quot;Y 年 m 月 j 日&quot;,filemtime($fileName)).&quot;&lt;br&gt;&quot;;</div><div class="line">		echo &quot;文件最后打开时间: &quot;.date(&quot;Y 年 m 月 j 日&quot;,fileatime($fileName)).&quot;&lt;br&gt;&quot;;		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	function getFileType($fileName) &#123;    //声明一个函数用来返回文件的类型</div><div class="line">		switch(filetype($fileName))&#123;    //通过filetype()函数返回的文件类型做为选择的条件</div><div class="line">			case &apos;file&apos;:</div><div class="line">				$type.=&quot;普通文件&quot;;		</div><div class="line">				break;			</div><div class="line">			case &apos;dir&apos;:</div><div class="line">				$type.=&quot;目录文件&quot;;		</div><div class="line">				break;			</div><div class="line">			case &apos;block&apos;:</div><div class="line">				$type.=&quot;块设备文件&quot;;		</div><div class="line">				break;			</div><div class="line">			case &apos;char&apos;:</div><div class="line">				$type.=&quot;字符设备文件&quot;;		</div><div class="line">				break;			</div><div class="line">			case &apos;fifo&apos;:</div><div class="line">				$type.=&quot;命名管道文件&quot;;		</div><div class="line">				break;			</div><div class="line">			case &apos;link&apos;:</div><div class="line">				$type.=&quot;符号链接&quot;;		</div><div class="line">				break;			</div><div class="line">			case &apos;unknown&apos;:</div><div class="line">				$type.=&quot;末知类型&quot;;		</div><div class="line">				break;	</div><div class="line">			default:</div><div class="line">				$type.=&quot;没有检测到类型&quot;;		</div><div class="line">		&#125;</div><div class="line">		return $type;        //返回转换后的类型</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	function getFileSize($bytes) &#123;        //自定义一个文件大小单位转换函数</div><div class="line">		if ($bytes &gt;= pow(2,40)) &#123;      //如果提供的字节数大于等于2的40次方，则条件成立</div><div class="line">			$return = round($bytes / pow(1024,4), 2);    //将字节大小转换为同等的T大小</div><div class="line">			$suffix = &quot;TB&quot;;                         //单位为TB</div><div class="line">		&#125; elseif ($bytes &gt;= pow(2,30)) &#123;  //如果提供的字节数大于等于2的30次方，则条件成立</div><div class="line">			$return = round($bytes / pow(1024,3), 2);    //将字节大小转换为同等的G大小</div><div class="line">			$suffix = &quot;GB&quot;;                         //单位为GB</div><div class="line">		&#125; elseif ($bytes &gt;= pow(2,20)) &#123;  //如果提供的字节数大于等于2的20次方，则条件成立</div><div class="line">			$return = round($bytes / pow(1024,2), 2);    //将字节大小转换为同等的M大小</div><div class="line">			$suffix = &quot;MB&quot;;                         //单位为MB</div><div class="line">		&#125; elseif ($bytes &gt;= pow(2,10)) &#123;  //如果提供的字节数大于等于2的10次方，则条件成立</div><div class="line">			$return = round($bytes / pow(1024,1), 2);    //将字节大小转换为同等的K大小</div><div class="line">			$suffix = &quot;KB&quot;;                         //单位为KB</div><div class="line">		&#125; else &#123;                     //否则提供的字节数小于2的10次方，则条件成立</div><div class="line">			$return = $bytes;                       //字节大小单位不变</div><div class="line">			$suffix = &quot;Byte&quot;;                       //单位为Byte</div><div class="line">		&#125;</div><div class="line">		return $return .&quot; &quot; . $suffix;                    //返回合适的文件大小和单位</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	getFilePro(&quot;file.php&quot;);  //调用自定义函数，将当前目录下的file.php文件传入，获取属性</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<h2 id="目录的基本操作"><a href="#目录的基本操作" class="headerlink" title="目录的基本操作"></a>目录的基本操作</h2><h3 id="解析目录路径"><a href="#解析目录路径" class="headerlink" title="解析目录路径"></a>解析目录路径</h3>]]></content>
     </entry>
     
     <entry>
