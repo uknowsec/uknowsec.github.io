@@ -4,6 +4,52 @@
   
     
     <entry>
+      <title><![CDATA[[第三周]Ubuntu 16.10下JDK8的安装配置]]></title>
+      <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E4%B8%8BJDK8%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="JDK8安装"><a href="#JDK8安装" class="headerlink" title="JDK8安装"></a>JDK8安装</h2><p>安装只需输入命令即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo add-apt-repository ppa:webupd8team/java  </div><div class="line">sudo apt-get update  </div><div class="line">sudo apt-get install oracle-java8-installer</div></pre></td></tr></table></figure>
+<p>测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -version</div></pre></td></tr></table></figure></p>
+<p>如果显示版本信息则安装成功</p>
+<h2 id="配置-JAVA-HOME环境变量"><a href="#配置-JAVA-HOME环境变量" class="headerlink" title="配置$JAVA_HOME环境变量"></a>配置$JAVA_HOME环境变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /etc/environment   //前提安装vim</div></pre></td></tr></table></figure>
+<p>在文件中添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">JAVA_HOME=&quot;/usr/lib/jvm/java-8-oracle&quot;</div></pre></td></tr></table></figure></p>
+<p>保存退出，输入下面的命令使修改生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">:wq</div><div class="line">source /etc/environment</div></pre></td></tr></table></figure></p>
+<p>测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo $JAVA_HOME</div></pre></td></tr></table></figure></p>
+<p>若显示刚才添加的路径则说明配置成功。</p>
+<h2 id="简单编译运行"><a href="#简单编译运行" class="headerlink" title="简单编译运行"></a>简单编译运行</h2><h3 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class test &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">    * 输出一行字符串“Hello World!”</div><div class="line">    */</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line"></div><div class="line">    System.out.println(&quot;Hello World!&quot;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">javac test.java</div><div class="line">java test</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312124230.jpg" alt=""></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[[第三周]Ubuntu 16.10下gcc/g++编译器使用简介]]></title>
+      <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E4%B8%8Bgcc-g-%E7%BC%96%E8%AF%91%E5%99%A8%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h1 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>GCC（GNU Compiler Collection，GNU编译器套装），是一套由 GNU 开发的编程语言编译器。它是一套以 GPL 及 LGPL 许可证所发行的自由软件，也是 GNU计划 的关键部分，亦是自由的 类Unix 及苹果计算机 Mac OS X 操作系统的标准编译器。GCC（特别是其中的C语言编译器）也常被认为是跨平台编译器的事实标准。</p>
+<h2 id="简单编译"><a href="#简单编译" class="headerlink" title="简单编译"></a>简单编译</h2><h3 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">	printf(&quot;hello world!\n&quot;);</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个程序，一步到位的编译指令是:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc test.c -o test</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312114049.jpg" alt=""></p>
+<p>实质上，上述编译过程是分为四个阶段进行的，即预处理(也称预编译，Preprocessing)、编译(Compilation)、汇编 (Assembly)和连接(Linking)。</p>
+<h3 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc -E test.c -o test.i</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE2017031211404.jpg" alt=""></p>
+<p>可以输出test.i文件中存放着test.c经预处理之后的代码。打开test.i文件，看一看，就明白了。后面那条指令，是直接在命令行窗口中输出预处理后的代码.<br>gcc的-E选项，可以让编译器在预处理后停止，并输出预处理结果。在本例中，预处理结果就是将stdio.h 文件中的内容插入到test.c中了。</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>预处理之后，可直接对生成的test.i文件编译，生成汇编代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc -S test.i -o test.s</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312114625.jpg" alt=""><br>gcc的-S选项，表示在程序编译期间，在生成汇编代码后，停止，-o输出汇编代码文件。</p>
+<h3 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h3><p>对于上一小节中生成的汇编代码文件test.s，gas汇编器负责将其编译为目标文件，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc -c test.s -o test.o</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312114751.jpg" alt=""></p>
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><p>gcc连接器是gas提供的，负责将程序的目标文件与所需的所有附加的目标文件连接起来，最终生成可执行文件。附加的目标文件包括静态连接库和动态连接库。<br>对于上一小节中生成的test.o，将其与Ｃ标准输入输出库进行连接，最终生成程序test<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc test.o -o test</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312114928.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./test      //执行程序test</div></pre></td></tr></table></figure>
+<h1 id="G"><a href="#G" class="headerlink" title="G++"></a>G++</h1><h2 id="编译流程"><a href="#编译流程" class="headerlink" title="编译流程"></a>编译流程</h2><h3 id="预处理-Pre-Processing"><a href="#预处理-Pre-Processing" class="headerlink" title="预处理-Pre-Processing"></a>预处理-Pre-Processing</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g++  -E  test.cpp  -o  test.i</div></pre></td></tr></table></figure>
+<h3 id="编译-Compiling"><a href="#编译-Compiling" class="headerlink" title="编译-Compiling"></a>编译-Compiling</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g++  -S  test.i  -o   test.s</div></pre></td></tr></table></figure>
+<h3 id="汇编-Assembling"><a href="#汇编-Assembling" class="headerlink" title="汇编-Assembling"></a>汇编-Assembling</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g++  -c  test.s  -o  test.o</div></pre></td></tr></table></figure>
+<h3 id="链接-Linking"><a href="#链接-Linking" class="headerlink" title="链接-Linking"></a>链接-Linking</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g++  test.o  -o  test</div></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[[第三周]Ubuntu 16.10日常折腾二三事]]></title>
       <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E6%97%A5%E5%B8%B8%E6%8A%98%E8%85%BE%E4%BA%8C%E4%B8%89%E4%BA%8B.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
