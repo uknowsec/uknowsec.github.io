@@ -61,16 +61,16 @@
 
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[第一周]Ubuntu 14.10安装后的二三事">
-<meta property="og:url" content="http://uknowsec.cn/posts/linux/第一周-Ubuntu-14-10安装后的二三事.html">
+<meta property="og:title" content="[第四周]LinuxLinux各个目录的作用及内容">
+<meta property="og:url" content="http://uknowsec.cn/posts/linux/第四周-LinuxLinux各个目录的作用及内容.html">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170226120725.png">
-<meta property="og:updated_time" content="2017-02-26T04:54:25.459Z">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/2011110620371927.png">
+<meta property="og:updated_time" content="2017-03-17T13:21:15.910Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[第一周]Ubuntu 14.10安装后的二三事">
+<meta name="twitter:title" content="[第四周]LinuxLinux各个目录的作用及内容">
 <meta name="twitter:description" content="点击阅读全文">
-<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170226120725.png">
+<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/2011110620371927.png">
 
 
 
@@ -88,7 +88,7 @@
   };
 </script>
 
-  <title> [第一周]Ubuntu 14.10安装后的二三事 | Uknow’s Blog </title>
+  <title> [第四周]LinuxLinux各个目录的作用及内容 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -251,7 +251,7 @@
             
             
               
-                [第一周]Ubuntu 14.10安装后的二三事
+                [第四周]LinuxLinux各个目录的作用及内容
               
             
           </h1>
@@ -263,8 +263,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-24T16:55:49+08:00" content="2017-02-24">
-              2017-02-24
+            <time itemprop="dateCreated" datetime="2017-03-17T20:54:08+08:00" content="2017-03-17">
+              2017-03-17
             </time>
           </span>
 
@@ -293,8 +293,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/linux/第一周-Ubuntu-14-10安装后的二三事.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/linux/第一周-Ubuntu-14-10安装后的二三事.html" itemprop="commentsCount"></span>
+                <a href="/posts/linux/第四周-LinuxLinux各个目录的作用及内容.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/linux/第四周-LinuxLinux各个目录的作用及内容.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -304,7 +304,7 @@
 
           
           
-             <span id="/posts/linux/第一周-Ubuntu-14-10安装后的二三事.html" class="leancloud_visitors" data-flag-title="[第一周]Ubuntu 14.10安装后的二三事">
+             <span id="/posts/linux/第四周-LinuxLinux各个目录的作用及内容.html" class="leancloud_visitors" data-flag-title="[第四周]LinuxLinux各个目录的作用及内容">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -326,46 +326,48 @@
 
       
         <p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上课老师用到的是VMware+Ubuntu 14.10，而我用到的是VirtualBox+Ubuntu 14.10。之前我也是用VMware，但是之后就用VirtualBox了。因为VirtualBox开源，而且相较于VMware轻便很多，所占内存小。在VirtualBox下安装完Ubuntu 14.10后在几个问题上折腾了半天，特写一篇博客记下这个过程。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="VMware-tools安装"><a href="#VMware-tools安装" class="headerlink" title="VMware tools安装"></a>VMware tools安装</h3><p>由于我自己用的是VirtualBox，所以用同学的电脑演示一下安装VMware tools。<br>直接贴gif地址吧，博客上上传不了gif图片。<br><a href="http://obr4sfdq7.bkt.clouddn.com/xx.gif" target="_blank" rel="external">GIF图片传送门</a></p>
-<p>GIF图片最后一步<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ./vmware-install.pl</div></pre></td></tr></table></figure></p>
-<p>执行命令后，会要你输入yes or no ，出现的第一个no,手动键入yes。<br>后面的直接回车就好了，然后重启。<br>就可以物理机和虚拟机双向复制粘贴文本和文件了。<br>虚拟机分辨率问题可以在系统设置里面，设置显示选项，选择合适物理机的分辨率。</p>
-<h3 id="NAT-模式"><a href="#NAT-模式" class="headerlink" title="NAT 模式"></a>NAT 模式</h3><p>按照老师给出的安装文档，上面是让我们设置桥接模式的，但是由于校园网的原因，桥接模式是不能联网的。所以需要修改虚拟机网络设置。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170226120725.png" alt=""><br>注销或重启计算机即可。</p>
-<h3 id="Ubuntu-14-10更新源"><a href="#Ubuntu-14-10更新源" class="headerlink" title="Ubuntu 14.10更新源"></a>Ubuntu 14.10更新源</h3><p>记得我之前用kali linux的时候，每次装完系统或者挂起kali虚拟机的时候都习惯的更新软件和内核什么的，所以Ubuntu 14.10也是如此。由于中国防火墙的问题，如果用Ubuntu官方源进行更新是很痛苦的事情。所以在网上寻找国内的更新源是不错的选择。</p>
-<ul>
-<li><p>首先备份源列表:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup</div></pre></td></tr></table></figure>
-</li>
-<li><p>用gedit打开sources.list:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gedit /etc/apt/sources.list</div></pre></td></tr></table></figure>
-</li>
-<li><p>全选sources.list下内容，复制粘贴下面香港中文大学的更新源，之前我说过163和阿里云都是404，目前香港中文大学的更新源速度还不错。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty main restricted universe multiverse</div><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-security main restricted universe multiverse</div><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-updates main restricted universe multiverse</div><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-backports main restricted universe multiverse</div><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-proposed main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-security main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-updates main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-backports main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-proposed main restricted universe</div></pre></td></tr></table></figure>
-</li>
-<li><p>刷新列表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure>
-</li>
-<li><p>更新软件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get dist-upgrade</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="安装搜狗输入法"><a href="#安装搜狗输入法" class="headerlink" title="安装搜狗输入法"></a>安装搜狗输入法</h3><p>在用到火狐浏览器时，发现Ubuntu下的ibus打字法很别扭。于是产生安装搜狗打字法的想法，但是在官方下载搜狗deb安装包，安装完后发现，切换到搜狗打字法时并不能输入中文。之后找到问题的所在，并解决记录下来。</p>
-<h4 id="安装搜狗拼音"><a href="#安装搜狗拼音" class="headerlink" title="安装搜狗拼音"></a>安装搜狗拼音</h4><p>当前最新版本是sogoupinyin_2.1.0.0082_amd64.deb<a href="http://cdn2.ime.sogou.com/dl/index/1475147394/sogoupinyin_2.1.0.0082_amd64.deb?st=UvO7xZ1Rvw-j5J5UW6D0ZQ&amp;e=1487927618&amp;fn=sogoupinyin_2.1.0.0082_amd64.deb" target="_blank" rel="external">下载链接</a><br>可以直接双击安装，也可以在安装包目录下打开终端，执行命令。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo dpkg -i sogoupinyin_2.1.0.0082_amd64.deb</div></pre></td></tr></table></figure>
-<h4 id="卸载ibus"><a href="#卸载ibus" class="headerlink" title="卸载ibus"></a>卸载ibus</h4><p>安装完成后，点右上角的图标切换到搜狗打字法，会发现并不能输入中文。在网上查询资料得，14.04的思路，不必卸载ibus，直接双击搜狗的deb安装，完成后重启即可。但在14.10版本中这个方法已不适用。所以在这个时候我们需要卸载ibus。</p>
-<p>执行命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get remove ibus</div></pre></td></tr></table></figure>
-<p>重启计算机或注销后，就可以使用搜狗输入法了。</p>
-<h3 id="修复系统设置"><a href="#修复系统设置" class="headerlink" title="修复系统设置"></a>修复系统设置</h3><p>由于卸载了ibus，造成系统设置点击无反应，经查询得到方法，几经波折解决之。</p>
-<h4 id="最初修复方案"><a href="#最初修复方案" class="headerlink" title="最初修复方案"></a>最初修复方案</h4><p>网上给出的答案是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install ibus    #此命令安装ibus-gtk，ibus-gtk3  </div><div class="line">sudo apt-get install linux-generic     #此命令安装linux-generic  </div><div class="line">sudo apt-get install ubuntu-desktop    #此命令修复ubutun桌面</div></pre></td></tr></table></figure></p>
-<p>但执行第一句命令时出现错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">uknow@uknow-ubuntu:~$ sudo apt-get install ibus</div><div class="line">正在读取软件包列表... 完成</div><div class="line">正在分析软件包的依赖关系树       </div><div class="line">正在读取状态信息... 完成       </div><div class="line">有一些软件包无法被安装。如果您用的是 unstable 发行版，这也许是</div><div class="line">因为系统无法达到您要求的状态造成的。该版本中可能会有一些您需要的软件</div><div class="line">包尚未被创建或是它们已被从新到(Incoming)目录移出。</div><div class="line">下列信息可能会对解决问题有所帮助：</div><div class="line"></div><div class="line">下列软件包有未满足的依赖关系：</div><div class="line"> ibus : 依赖: gir1.2-ibus-1.0 (= 1.5.5-1ubuntu3.2) 但是 1.5.8-2ubuntu2 正要被安装</div><div class="line">        推荐: ibus-gtk 但是它将不会被安装 或</div><div class="line">                ibus-qt4 但是它将不会被安装</div><div class="line">E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。</div></pre></td></tr></table></figure></p>
-<h4 id="gir1-2-ibus-1-0降级"><a href="#gir1-2-ibus-1-0降级" class="headerlink" title="gir1.2-ibus-1.0降级"></a>gir1.2-ibus-1.0降级</h4><p>按照提示，ibus依赖<em>gir1.2-ibus-1.0 (= 1.5.5-1ubuntu3.2)</em>但是当前版本为 <em>1.5.8-2ubuntu2 </em><br>还需要安装<em>ibus-gtk</em>或者<em>ibus-qt4</em>。<br>这里又需要对<em>gir1.2-ibus-1.0</em>进行<em>降级</em><br>执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install ibus-gtk</div><div class="line">sudo apt-get install gir1.2-ibus-1.0=1.5.5-1ubuntu3.2</div></pre></td></tr></table></figure></p>
-<h4 id="最终修复方案"><a href="#最终修复方案" class="headerlink" title="最终修复方案"></a>最终修复方案</h4><p>最后再按照上面网上给出的方法修复即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install ibus    #此命令安装ibus-gtk，ibus-gtk3  </div><div class="line">sudo apt-get install linux-generic     #此命令安装linux-generic  </div><div class="line">sudo apt-get install ubuntu-desktop    #此命令修复ubutun桌面</div></pre></td></tr></table></figure></p>
-<p>最后注销或重启计算机，完美修复。</p>
-<h3 id="当前目录打开终端"><a href="#当前目录打开终端" class="headerlink" title="当前目录打开终端"></a>当前目录打开终端</h3><p>对于初学者linux文件目录知识还是有点陌生的，之前我在使用kali linux时右键是可以在当前目录打开终端的，而ubuntu默认右键选项没有这一项。所以安装之。<br>执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install nautilus-open-terminal			//把终端加到右键菜单</div><div class="line">nautilus -q			//重新加载文件夹</div></pre></td></tr></table></figure></p>
-<h3 id="Sublime-Text-3"><a href="#Sublime-Text-3" class="headerlink" title="Sublime Text 3"></a>Sublime Text 3</h3><p>Sublime Text是一款很炫酷的编辑器，之前看代码都是用这款。</p>
-<p>下载地址：<br><a href="https://pan.baidu.com/s/1miG1YNu" target="_blank" rel="external">https://pan.baidu.com/s/1miG1YNu</a></p>
-<p>执行命令安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo dpkg -i sublime-text_build-3126_amd64.deb</div></pre></td></tr></table></figure></p>
+<h2 id="主要目录"><a href="#主要目录" class="headerlink" title="主要目录"></a>主要目录</h2><h3 id=""><a href="#" class="headerlink" title="/"></a>/</h3><p>/处于Linux文件系统树形结构的最顶端，它是Linux文件系统的入口，所有的目录、文件、设备都在/之下。</p>
+<h3 id="bin"><a href="#bin" class="headerlink" title="/bin"></a>/bin</h3><p>该目录存放着系统最常用的最重要的命令，相当于DOS下的内部命令，只不过它们是以独立的文件形式存在。比如：ls、cp、mkdir等命令。这个目录中的文件都是可执行的并且是普通用户都可以使用的命令。作为系统最基础的命令都放在这里。</p>
+<h3 id="usr"><a href="#usr" class="headerlink" title="/usr"></a>/usr</h3><p>该目录是系统存放程序的地方，比如普通命令、帮助文件、安装的软件等。这个目录下有很多的文件和目录。当我们安装一个Linux发行版官方提供的软件包时，大多安装在这里。当有涉及服务器的配置文件时，会把配置文件安装在/etc目录中。/usr目录下包括涉及字体目录/usr/share/fonts、帮助目录/usr/share/man或/usr/share/doc等。</p>
+<h3 id="var"><a href="#var" class="headerlink" title="/var"></a>/var</h3><p>该目录的内容是经常变动的，/var下有/var/log目录用来存放系统日志的目录。/var/www目录用来定义Apache服务器站点存放目录。/var/lib用来存放一些库文件。</p>
+<h3 id="sbin"><a href="#sbin" class="headerlink" title="/sbin"></a>/sbin</h3><p>大多数涉及系统管理的命令都存放在该目录中，它是超级权限用户root的可执行命令存放地，普通用户无权限执行这个目录下的命令，凡是目录sbin中包含的命令都是root权限才能执行的。</p>
+<h3 id="root"><a href="#root" class="headerlink" title="/root"></a>/root</h3><p>Linux超级权限用户(系统管理员)root的主目录。</p>
+<h3 id="home"><a href="#home" class="headerlink" title="/home"></a>/home</h3><p>普通用户的主目录都默认存放在该目录中，比如：有个用户叫wang，那它的主目录就是/home/wang，也可以用~wang表示。</p>
+<h3 id="etc"><a href="#etc" class="headerlink" title="/etc"></a>/etc</h3><p>该目录是系统配置文件的所在地，一些服务器的配置文件也在这里，比如：用户帐号及密码配置文件等。</p>
+<h3 id="boot"><a href="#boot" class="headerlink" title="/boot"></a>/boot</h3><p>Linux的内核及引导系统的程序所需要的文件都存放在该目录中，比如vmlinuz、initrd.img等文件都位于这个目录中。在一般情况下，GRUB或LILO系统引导管理器在这个目录中。</p>
+<h3 id="opt"><a href="#opt" class="headerlink" title="/opt"></a>/opt</h3><p>该目录是可选的软件包安装目录，有些软件包我们可以将它安装在该目录中。</p>
+<h3 id="tmp"><a href="#tmp" class="headerlink" title="/tmp"></a>/tmp</h3><p>该目录用于存放临时文件，有时用户运行程序的时候，会产生一些临时文件。/tmp就是用来存放临时文件的。/var/tmp目录和该目录的作用是相似的。</p>
+<h3 id="lost-found"><a href="#lost-found" class="headerlink" title="/lost+found"></a>/lost+found</h3><p>在ext2或ext3文件系统中，当系统意外崩溃或机器意外关机，而产生的一些文件碎片就存放在该目录中。当系统启动在过程中fsck工具会检查这里，并修复已经损坏的文件系统。 有时系统发生问题，有很多的文件被移到这个目录中，可能要用手工的方式来修复，或移到文件原来的位置上。</p>
+<h3 id="lib"><a href="#lib" class="headerlink" title="/lib"></a>/lib</h3><p>该目录用于存放库文件，这个目录里存放着系统最基本的共享库，其作用类似于Windows里的.dll文件。几乎所有的应用程序都须要用到这些共享库。</p>
+<h3 id="mnt"><a href="#mnt" class="headerlink" title="/mnt"></a>/mnt</h3><p>该目录是用于存放挂载储存设备的挂载目录的，系统提供这个目录是让用户临时挂载别的文件系统，比如有cdrom等目录。</p>
+<h3 id="proc"><a href="#proc" class="headerlink" title="/proc"></a>/proc</h3><p>操作系统运行时，进程（正在运行中的程序）信息及内核信息（比如cpu、硬盘分区、内存信息等）存放在这里。/proc目录是伪装的文件系统proc的挂载目录，proc并不是真正的文件系统。因此，这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。也就是说，这个目录的内容不在硬盘上而是在内存里。</p>
+<h3 id="misc"><a href="#misc" class="headerlink" title="/misc"></a>/misc</h3><p>该目录可以用来存放杂项文件或目录，即那些用途或含义不明确的文件或目录可以存放在该目录下。</p>
+<h3 id="media"><a href="#media" class="headerlink" title="/media"></a>/media</h3><p>即插即用型存储设备的挂载点自动在该目录下创建。比如USB盘系统自动挂载后，会在这个目录下产生一个目录；CDROM/DVD自动挂载后，也会在这个目录中创建一个目录，类似于cdrom这个目录。该目录只有在最新的发行套件上才有。</p>
+<h2 id="其余目录"><a href="#其余目录" class="headerlink" title="其余目录"></a>其余目录</h2><h3 id="initrd"><a href="#initrd" class="headerlink" title="/initrd"></a>/initrd</h3><p>系统在启动前的内核是压缩的（这和ramdisk有关），当系统启动时需要解压缩，该目录就是解压缩时的临时目录，当启动完后又将该目录清空。</p>
+<h3 id="usr-man"><a href="#usr-man" class="headerlink" title="/usr/man"></a>/usr/man</h3><p>该目录是Linux系统帮助文档的存放目录。</p>
+<h3 id="proc-cpuinfo"><a href="#proc-cpuinfo" class="headerlink" title="/proc/cpuinfo"></a>/proc/cpuinfo</h3><p>关于处理器的信息，如类型、厂家、型号和性能等。比如cat /proc/cpuinfo    </p>
+<h3 id="proc-devices"><a href="#proc-devices" class="headerlink" title="/proc/devices"></a>/proc/devices</h3><p>当前运行内核所配置的所有设备清单。    </p>
+<h3 id="proc-filesystems"><a href="#proc-filesystems" class="headerlink" title="/proc/filesystems"></a>/proc/filesystems</h3><p>当前运行内核所配置的文件系统。    </p>
+<h3 id="proc-dma"><a href="#proc-dma" class="headerlink" title="/proc/dma"></a>/proc/dma</h3><p>当前正在使用的DMA通道。    </p>
+<h3 id="proc-interrupts"><a href="#proc-interrupts" class="headerlink" title="/proc/interrupts"></a>/proc/interrupts</h3><p>正在使用的中断和曾经有多少个中断。    </p>
+<h3 id="proc-ioports"><a href="#proc-ioports" class="headerlink" title="/proc/ioports"></a>/proc/ioports</h3><p>当前正在使用的I/O端口。    </p>
+<h3 id="etc-init-d"><a href="#etc-init-d" class="headerlink" title="/etc/init.d"></a>/etc/init.d</h3><p>这个目录是用来存放系统或服务器以System V模式启动的脚本，这在以System V模式启动或初始化的系统中常见。比如RedHat Fedora。    </p>
+<h3 id="etc-xinetd-d"><a href="#etc-xinetd-d" class="headerlink" title="/etc/xinetd.d"></a>/etc/xinetd.d</h3><p>如果服务器是通过xinetd模式运行的，它的脚本要放在这个目录下。有些系统没有这个目录，比如Slackware，有些老的版本也没有。在Redhat Fedora中比较新的版本中存在。    </p>
+<h3 id="etc-rc-d"><a href="#etc-rc-d" class="headerlink" title="/etc/rc.d"></a>/etc/rc.d</h3><p>这是Slackware发行版中有的一个目录，是BSD方式启动脚本的存放地，比如定义网卡，服务器开启脚本等。    </p>
+<h3 id="etc-X11"><a href="#etc-X11" class="headerlink" title="/etc/X11"></a>/etc/X11</h3><p>是X-Window相关的配置文件存放地。    </p>
+<h3 id="usr-bin"><a href="#usr-bin" class="headerlink" title="/usr/bin"></a>/usr/bin</h3><p>这个目录是可执行程序的目录，普通用户就有权限执行。当我们从系统自带的软件包安装一个程序时，他的可执行文件大多会放在这个目录。相似的目录是/usr/local/bin目录。有时/usr/bin中的文件是/usr/local/bin的链接文件。    </p>
+<h3 id="usr-sbin"><a href="#usr-sbin" class="headerlink" title="/usr/sbin"></a>/usr/sbin</h3><p>这个目录也是可执行程序的目录，但大多存放涉及系统管理的命令。只有root权限才能执行，相似目录是/sbin或/usr/local/sbin或/usr/X11R6/sbin等。    </p>
+<h3 id="usr-local"><a href="#usr-local" class="headerlink" title="/usr/local"></a>/usr/local</h3><p>这个目录一般是用来存放用户自编译安装软件的存放目录。一般是通过源码包安装的软件，如果没有特别指定安装目录的话，一般是安装在这个目录中。    </p>
+<h3 id="usr-lib"><a href="#usr-lib" class="headerlink" title="/usr/lib"></a>/usr/lib</h3><p>该目录和/lib目录相似，是库文件的存储目录。存放一些常用的共享库。    </p>
+<h3 id="usr-share"><a href="#usr-share" class="headerlink" title="/usr/share"></a>/usr/share</h3><p>该目录用于存放系统共用的东西，比如/usr/share/fonts是字体目录，是用户都共用的。    </p>
+<h3 id="usr-share-doc"><a href="#usr-share-doc" class="headerlink" title="/usr/share/doc"></a>/usr/share/doc</h3><p>该目录是Linux共享文档的存放地。    </p>
+<h3 id="usr-share-man"><a href="#usr-share-man" class="headerlink" title="/usr/share/man"></a>/usr/share/man</h3><p>该目录是共享的帮助文件的存放地。    </p>
+<h3 id="usr-src"><a href="#usr-src" class="headerlink" title="/usr/src"></a>/usr/src</h3><p>该目录是内核源码存放地，下面有内核源码目录，比如linux、linux-2.xxx.xx目录等。有的系统也会把一些源码软件包安装在这里，比如Redhat Fedora。另外Redhat 4.0/5.0，它的内核源码包的目录位于/usr/src/kernels目录下的某个目录中（只有安装后才会生成相应目录）。    </p>
+<h3 id="var-adm"><a href="#var-adm" class="headerlink" title="/var/adm"></a>/var/adm</h3><p>比如软件包安装信息、日志、管理信息等就存放在该目录下，在Slackware操作系统中是有这个目录的。在Fedora中好象没有。    　</p>
+<h3 id="var-log"><a href="#var-log" class="headerlink" title="/var/log"></a>/var/log</h3><p>该目录用于存放系统日志。    </p>
+<h3 id="var-spool"><a href="#var-spool" class="headerlink" title="/var/spool"></a>/var/spool</h3><p>打印机、邮件、代理服务器等假脱机目录存放在该目录下。</p>
+<h2 id="附图"><a href="#附图" class="headerlink" title="附图"></a>附图</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/2011110620371927.png" alt=""></p>
+<p>转载自 <a href="http://www.cnblogs.com/shishm/" target="_blank" rel="external">时邵猛</a></p>
 
       
     </div>
@@ -383,17 +385,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/linux/第一周-Linux作为服务器操作系统的优势.html" rel="next" title="[第一周]Linux作为服务器操作系统的优势">
-                <i class="fa fa-chevron-left"></i> [第一周]Linux作为服务器操作系统的优势
+              <a href="/posts/linux/第四周-Ubuntu-16-10下root用户直接登录.html" rel="next" title="[第四周]Ubuntu 16.10下root用户直接登录">
+                <i class="fa fa-chevron-left"></i> [第四周]Ubuntu 16.10下root用户直接登录
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/linux/第一周-Ubuntu-14-10远程登录服务器-ssh的安装和配置.html" rel="prev" title="[第一周]Ubuntu 14.10远程登录服务器--ssh的安装和配置">
-                [第一周]Ubuntu 14.10远程登录服务器--ssh的安装和配置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -442,8 +440,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/linux/第一周-Ubuntu-14-10安装后的二三事.html"
-           data-title="[第一周]Ubuntu 14.10安装后的二三事" data-url="http://uknowsec.cn/posts/linux/第一周-Ubuntu-14-10安装后的二三事.html">
+      <div class="ds-thread" data-thread-key="posts/linux/第四周-LinuxLinux各个目录的作用及内容.html"
+           data-title="[第四周]LinuxLinux各个目录的作用及内容" data-url="http://uknowsec.cn/posts/linux/第四周-LinuxLinux各个目录的作用及内容.html">
       </div>
     
   </div>
@@ -565,7 +563,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VMware-tools安装"><span class="nav-number">2.1.</span> <span class="nav-text">VMware tools安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAT-模式"><span class="nav-number">2.2.</span> <span class="nav-text">NAT 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ubuntu-14-10更新源"><span class="nav-number">2.3.</span> <span class="nav-text">Ubuntu 14.10更新源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装搜狗输入法"><span class="nav-number">2.4.</span> <span class="nav-text">安装搜狗输入法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装搜狗拼音"><span class="nav-number">2.4.1.</span> <span class="nav-text">安装搜狗拼音</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卸载ibus"><span class="nav-number">2.4.2.</span> <span class="nav-text">卸载ibus</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修复系统设置"><span class="nav-number">2.5.</span> <span class="nav-text">修复系统设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最初修复方案"><span class="nav-number">2.5.1.</span> <span class="nav-text">最初修复方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gir1-2-ibus-1-0降级"><span class="nav-number">2.5.2.</span> <span class="nav-text">gir1.2-ibus-1.0降级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最终修复方案"><span class="nav-number">2.5.3.</span> <span class="nav-text">最终修复方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当前目录打开终端"><span class="nav-number">2.6.</span> <span class="nav-text">当前目录打开终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sublime-Text-3"><span class="nav-number">2.7.</span> <span class="nav-text">Sublime Text 3</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要目录"><span class="nav-number">1.</span> <span class="nav-text">主要目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">1.1.</span> <span class="nav-text">/</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bin"><span class="nav-number">1.2.</span> <span class="nav-text">/bin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr"><span class="nav-number">1.3.</span> <span class="nav-text">/usr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var"><span class="nav-number">1.4.</span> <span class="nav-text">/var</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sbin"><span class="nav-number">1.5.</span> <span class="nav-text">/sbin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#root"><span class="nav-number">1.6.</span> <span class="nav-text">/root</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#home"><span class="nav-number">1.7.</span> <span class="nav-text">/home</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc"><span class="nav-number">1.8.</span> <span class="nav-text">/etc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#boot"><span class="nav-number">1.9.</span> <span class="nav-text">/boot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#opt"><span class="nav-number">1.10.</span> <span class="nav-text">/opt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tmp"><span class="nav-number">1.11.</span> <span class="nav-text">/tmp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lost-found"><span class="nav-number">1.12.</span> <span class="nav-text">/lost+found</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lib"><span class="nav-number">1.13.</span> <span class="nav-text">/lib</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mnt"><span class="nav-number">1.14.</span> <span class="nav-text">/mnt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc"><span class="nav-number">1.15.</span> <span class="nav-text">/proc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#misc"><span class="nav-number">1.16.</span> <span class="nav-text">/misc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#media"><span class="nav-number">1.17.</span> <span class="nav-text">/media</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其余目录"><span class="nav-number">2.</span> <span class="nav-text">其余目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#initrd"><span class="nav-number">2.1.</span> <span class="nav-text">/initrd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-man"><span class="nav-number">2.2.</span> <span class="nav-text">/usr/man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-cpuinfo"><span class="nav-number">2.3.</span> <span class="nav-text">/proc/cpuinfo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-devices"><span class="nav-number">2.4.</span> <span class="nav-text">/proc/devices</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-filesystems"><span class="nav-number">2.5.</span> <span class="nav-text">/proc/filesystems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-dma"><span class="nav-number">2.6.</span> <span class="nav-text">/proc/dma</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-interrupts"><span class="nav-number">2.7.</span> <span class="nav-text">/proc/interrupts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc-ioports"><span class="nav-number">2.8.</span> <span class="nav-text">/proc/ioports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-init-d"><span class="nav-number">2.9.</span> <span class="nav-text">/etc/init.d</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-xinetd-d"><span class="nav-number">2.10.</span> <span class="nav-text">/etc/xinetd.d</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-rc-d"><span class="nav-number">2.11.</span> <span class="nav-text">/etc/rc.d</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-X11"><span class="nav-number">2.12.</span> <span class="nav-text">/etc/X11</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-bin"><span class="nav-number">2.13.</span> <span class="nav-text">/usr/bin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-sbin"><span class="nav-number">2.14.</span> <span class="nav-text">/usr/sbin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-local"><span class="nav-number">2.15.</span> <span class="nav-text">/usr/local</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-lib"><span class="nav-number">2.16.</span> <span class="nav-text">/usr/lib</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-share"><span class="nav-number">2.17.</span> <span class="nav-text">/usr/share</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-share-doc"><span class="nav-number">2.18.</span> <span class="nav-text">/usr/share/doc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-share-man"><span class="nav-number">2.19.</span> <span class="nav-text">/usr/share/man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usr-src"><span class="nav-number">2.20.</span> <span class="nav-text">/usr/src</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var-adm"><span class="nav-number">2.21.</span> <span class="nav-text">/var/adm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var-log"><span class="nav-number">2.22.</span> <span class="nav-text">/var/log</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var-spool"><span class="nav-number">2.23.</span> <span class="nav-text">/var/spool</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附图"><span class="nav-number">3.</span> <span class="nav-text">附图</span></a></li></ol></div>
             
           </div>
         </section>

