@@ -64,7 +64,7 @@
 <meta property="og:url" content="http://uknowsec.cn/posts/notes/安全牛：Kali-Linux渗透测试-整理笔记.html">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/1622444d95f1718371.png">
-<meta property="og:updated_time" content="2016-11-27T14:22:08.670Z">
+<meta property="og:updated_time" content="2017-03-21T13:06:42.026Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安全牛：Kali Linux渗透测试-整理笔记">
 <meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/1622444d95f1718371.png">
@@ -324,108 +324,17 @@
       
         <p><img src="http://obr4sfdq7.bkt.clouddn.com/1622444d95f1718371.png" alt="安全牛"></p>
 <a id="more"></a>
-<h1 id="课时1-Kali-Linux渗透测试介绍"><a href="#课时1-Kali-Linux渗透测试介绍" class="headerlink" title="课时1 Kali Linux渗透测试介绍"></a>课时1 Kali Linux渗透测试介绍</h1><h2 id="安全问题的根源"><a href="#安全问题的根源" class="headerlink" title="安全问题的根源"></a>安全问题的根源</h2><ul>
-<li>分层思想的优劣</li>
-<li>只追求功能实现</li>
-<li>最大的安全威胁是人</li>
+<h2 id="基本工具"><a href="#基本工具" class="headerlink" title="基本工具"></a>基本工具</h2><h3 id="NETCAT-NC"><a href="#NETCAT-NC" class="headerlink" title="NETCAT-NC"></a>NETCAT-NC</h3><ul>
+<li>监听模式/传输模式</li>
+<li>telnet/获取banner信息</li>
+<li>传输文本信息</li>
+<li>传输文件/目录</li>
+<li>加密传输文件</li>
+<li>远程控制/木马</li>
+<li>加密所有流量</li>
+<li>远程克隆硬盘</li>
 </ul>
-<h2 id="安全目标"><a href="#安全目标" class="headerlink" title="安全目标"></a>安全目标</h2><ul>
-<li>先于攻击者发现和防止漏洞出现<br> 攻击型安全<br> 防护型安全</li>
-</ul>
-<h2 id="渗透测试"><a href="#渗透测试" class="headerlink" title="渗透测试"></a>渗透测试</h2><ul>
-<li>尝试挫败安全防御机制，发现系统安全弱点</li>
-<li>从攻击者的角度思考，测试安全防护有效性</li>
-<li>证明安全问题的存在，而非破坏</li>
-<li>道德约束</li>
-<li>法律</li>
-</ul>
-<h2 id="渗透测试标准"><a href="#渗透测试标准" class="headerlink" title="渗透测试标准"></a>渗透测试标准</h2><ul>
-<li>PETS</li>
-<li>前期交互阶段</li>
-<li>情报收集阶段</li>
-<li>威胁建模阶段</li>
-<li>漏洞分析阶段</li>
-<li>渗透攻击阶段</li>
-<li>后渗透测试阶段</li>
-<li>渗透测试报告</li>
-</ul>
-<h2 id="渗透测试项目"><a href="#渗透测试项目" class="headerlink" title="渗透测试项目"></a>渗透测试项目</h2><ul>
-<li>渗透测试范围</li>
-<li>获得授权</li>
-<li>渗透测试方法<br>   是否允许社会工程学<br>   是否允许拒绝服务攻击</li>
-</ul>
-<h2 id="渗透测试误区"><a href="#渗透测试误区" class="headerlink" title="渗透测试误区"></a>渗透测试误区</h2><ul>
-<li>扫描就是一切<br>忽视业务逻辑中的漏洞</li>
-</ul>
-<h2 id="Kali-Linux介绍"><a href="#Kali-Linux介绍" class="headerlink" title="Kali Linux介绍"></a>Kali Linux介绍</h2><ul>
-<li>基于Debian的Linux发行版本</li>
-<li>前身是BackTrack,2013年3月发布</li>
-<li>包含600+安全工具</li>
-<li>FHS标准目录结构</li>
-<li>定制内核</li>
-<li>支持ARM和手机平台</li>
-<li>开源免费</li>
-</ul>
-<h2 id="Kali-Linux策略"><a href="#Kali-Linux策略" class="headerlink" title="Kali Linux策略"></a>Kali Linux策略</h2><ul>
-<li>Root用户策略</li>
-<li>网络服务策略</li>
-<li>更新升级策略</li>
-</ul>
-<h1 id="课时2-Kali-Linux安装-硬盘安装、虚拟机安装"><a href="#课时2-Kali-Linux安装-硬盘安装、虚拟机安装" class="headerlink" title="课时2 Kali Linux安装-硬盘安装、虚拟机安装"></a>课时2 Kali Linux安装-硬盘安装、虚拟机安装</h1><h2 id="硬盘安装"><a href="#硬盘安装" class="headerlink" title="硬盘安装"></a>硬盘安装</h2><ul>
-<li>下载安装镜像</li>
-<li>验证hash值</li>
-<li>制作启动光盘</li>
-<li>制作启动U盘（unetbootin）</li>
-<li>设置BIOS启动顺序</li>
-<li>启动安装</li>
-</ul>
-<h2 id="安装类型"><a href="#安装类型" class="headerlink" title="安装类型"></a>安装类型</h2><table>
-<thead>
-<tr>
-<th>安装类型</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Live(amd64)</td>
-<td style="text-align:left">从U盘启动，体验kali（只读模式）</td>
-</tr>
-<tr>
-<td>Live(amd64 failsafe)</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td>Live USB Persistence</td>
-<td style="text-align:left">持久USB安装</td>
-</tr>
-<tr>
-<td>Live USB Encrypted Persistence</td>
-<td style="text-align:left">持久加密USB安装</td>
-</tr>
-<tr>
-<td>Install</td>
-<td style="text-align:left">数字化安装界面</td>
-</tr>
-<tr>
-<td>Graphical install</td>
-<td style="text-align:left">图形化安装界面</td>
-</tr>
-</tbody>
-</table>
-<h2 id="虚拟机安装"><a href="#虚拟机安装" class="headerlink" title="虚拟机安装"></a>虚拟机安装</h2><ul>
-<li>Vmware workstation</li>
-<li>VirtualBox<br>下载、安装、扩展工具、基本使用<br>Win8系统（kb3045999）<br>安装kail<br>安装tools</li>
-</ul>
-<h2 id="熟悉环境"><a href="#熟悉环境" class="headerlink" title="熟悉环境"></a>熟悉环境</h2><ul>
-<li>登录密码</li>
-<li>Top 10安全工具</li>
-<li>字体调整</li>
-<li>强行终止程序</li>
-<li>文件目录</li>
-<li>共享文件</li>
-</ul>
-<h2 id="熟悉BASH命令"><a href="#熟悉BASH命令" class="headerlink" title="熟悉BASH命令"></a>熟悉BASH命令</h2>
+
       
     </div>
 
@@ -624,7 +533,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#课时1-Kali-Linux渗透测试介绍"><span class="nav-number">1.</span> <span class="nav-text">课时1 Kali Linux渗透测试介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安全问题的根源"><span class="nav-number">1.1.</span> <span class="nav-text">安全问题的根源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全目标"><span class="nav-number">1.2.</span> <span class="nav-text">安全目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渗透测试"><span class="nav-number">1.3.</span> <span class="nav-text">渗透测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渗透测试标准"><span class="nav-number">1.4.</span> <span class="nav-text">渗透测试标准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渗透测试项目"><span class="nav-number">1.5.</span> <span class="nav-text">渗透测试项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渗透测试误区"><span class="nav-number">1.6.</span> <span class="nav-text">渗透测试误区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kali-Linux介绍"><span class="nav-number">1.7.</span> <span class="nav-text">Kali Linux介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kali-Linux策略"><span class="nav-number">1.8.</span> <span class="nav-text">Kali Linux策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课时2-Kali-Linux安装-硬盘安装、虚拟机安装"><span class="nav-number">2.</span> <span class="nav-text">课时2 Kali Linux安装-硬盘安装、虚拟机安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬盘安装"><span class="nav-number">2.1.</span> <span class="nav-text">硬盘安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装类型"><span class="nav-number">2.2.</span> <span class="nav-text">安装类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机安装"><span class="nav-number">2.3.</span> <span class="nav-text">虚拟机安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#熟悉环境"><span class="nav-number">2.4.</span> <span class="nav-text">熟悉环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#熟悉BASH命令"><span class="nav-number">2.5.</span> <span class="nav-text">熟悉BASH命令</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本工具"><span class="nav-number">1.</span> <span class="nav-text">基本工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NETCAT-NC"><span class="nav-number">1.1.</span> <span class="nav-text">NETCAT-NC</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
