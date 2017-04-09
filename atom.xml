@@ -373,7 +373,7 @@
     <link href="http://uknowsec.cn/posts/notes/%E3%80%8A%E7%BB%86%E8%AF%B4PHP%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
     <id>http://uknowsec.cn/posts/notes/《细说PHP》学习笔记.html</id>
     <published>2017-01-15T09:00:50.000Z</published>
-    <updated>2017-04-08T15:39:57.928Z</updated>
+    <updated>2017-04-09T14:20:04.953Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/t01db525962d3cb177e.jpg" alt="php"></p>
@@ -1289,7 +1289,291 @@
 </tbody>
 </table>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	if(copy(&apos;./file1.txt&apos;, &apos;../data/file2.txt&apos;)) &#123;              //复制文件示例</div><div class="line">		echo &quot;文件复制成功！&quot;;</div><div class="line">	&#125;else&#123;</div><div class="line">		echo &quot;文件复制失败！&quot;;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	$filename=&quot;file1.txt&quot;;                           //删除文件示例</div><div class="line">	if(file_exists($filename))&#123;</div><div class="line">		if(unlink($filename)) &#123;</div><div class="line">			echo &quot;文件删除成功！&quot;;</div><div class="line">		&#125;else&#123;</div><div class="line">			echo &quot;文件删除失败！&quot;;</div><div class="line">		&#125;</div><div class="line">	&#125;else&#123;</div><div class="line">		echo &quot;目标文件不存在&quot;;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	if(rename(&apos;./demo.php&apos;, &apos;./demo.html&apos;)) &#123;           //重命名文件示例</div><div class="line">		echo &quot;文件重命名成功！&quot;;</div><div class="line">	&#125;else&#123;</div><div class="line">		echo &quot;文件重命名失败&quot;;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	$fp=fopen(&apos;./data.txt&apos;, &quot;r+&quot;) or die(&apos;文件打开失败&apos;);  //截取文件示例</div><div class="line">	if(ftruncate($fp, 1024)) &#123;</div><div class="line">		echo &quot;文件截取成功！&quot;;</div><div class="line">	&#125;else&#123;</div><div class="line">		echo &quot;文件截取失败！&quot;;</div><div class="line">	&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<h2 id="文件的上传和下载"><a href="#文件的上传和下载" class="headerlink" title="文件的上传和下载"></a>文件的上传和下载</h2>]]></content>
+<h2 id="文件的上传和下载"><a href="#文件的上传和下载" class="headerlink" title="文件的上传和下载"></a>文件的上传和下载</h2><h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><h4 id="客户端上传设置"><a href="#客户端上传设置" class="headerlink" title="客户端上传设置"></a>客户端上传设置</h4><p>文件上传的最基础方法，是使用HTML表单选择本地文件进行提交，在form表单中可以通过<input="file">标记选择本地文件。如果支持文件上传操作，必须在<form>标签中将enctype和method两个属性指明相应的值。</form></input="file"></p>
+<ul>
+<li>enctype=”munltipart/form-data”用来指定表单编码数据方式，让服务器知道，我们要传递一个文件，并带有常规的表单信息</li>
+<li>method=”POST”用来指明发送数据的方法。<br>另外，还需要在form表单中设置一个hidden类型的input框。其中name值为MAX_FILL_SIZE的隐藏值域，并通过设置其VALUE的值限制上传文件的大小（单位字节），但这个值不能超过PHP的配置文件中upload_max_filesize值设置的大小。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">	&lt;head&gt;&lt;title&gt;文件上传&lt;/title&gt;&lt;/head&gt;</div><div class="line">	&lt;body&gt;</div><div class="line">		&lt;form action=&quot;upload.php&quot;  method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</div><div class="line">			&lt;input type=&quot;hidden&quot; name=&quot;MAX_FILE_SIZE&quot; value=&quot;1000000&quot;&gt;</div><div class="line">			选择文件：&lt;input type=&quot;file&quot; name=&quot;myfile&quot;&gt;</div><div class="line">			&lt;input type=&quot;submit&quot; value=&quot;上传文件&quot;&gt;</div><div class="line">		&lt;/form&gt;</div><div class="line">	&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="在服务器端通过PHP处理上传"><a href="#在服务器端通过PHP处理上传" class="headerlink" title="在服务器端通过PHP处理上传"></a>在服务器端通过PHP处理上传</h4><p>客户端的上传表单只能提供本地文件选择，以及提供将文件发送给服务器的标准化方式，但并没有提供相关功能来确定文件到达目的地后发生了什么。所以上传文件的接收和后续处理就要通过PHP脚本来处理。要通过PHP成功地管理文件上传，需要通过以下三方面信息。</p>
+<ul>
+<li>设置PHP配置文件中的指令：用于精细地调节PHP的文件上传功能</li>
+<li>$_FILES多维数组：用于存储各种与上传文件有关的信息。</li>
+<li>PHP的文件上传处理函数：用于上传文件的后续处理。</li>
+</ul>
+<h5 id="PHP配置文件中与文件上传有关的选项"><a href="#PHP配置文件中与文件上传有关的选项" class="headerlink" title="PHP配置文件中与文件上传有关的选项"></a>PHP配置文件中与文件上传有关的选项</h5><table>
+<thead>
+<tr>
+<th>指令名</th>
+<th style="text-align:left">默认值</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file_uploads</td>
+<td style="text-align:left">ON</td>
+<td>确定服务器上的PHP脚本是否可以接受HTTP文件上传</td>
+</tr>
+<tr>
+<td>memory_limit</td>
+<td style="text-align:left">8M</td>
+<td>设置脚本可以分配的最大内存量，防止失控的脚本独占服务器内存</td>
+</tr>
+<tr>
+<td>upload_max_filesize</td>
+<td style="text-align:left">2M</td>
+<td>限制PHP处理上传文件大小的最大值，此值必须小于post_max_size值</td>
+</tr>
+<tr>
+<td>post_max_size</td>
+<td style="text-align:left">8M</td>
+<td>限制通过POST方法可以接受信息的最大值，此值应当大于配置指令upload_max_file的值，因为除了上传的文件之外，还可能传递其他的表单域</td>
+</tr>
+<tr>
+<td>upload_tmp_dir</td>
+<td style="text-align:left">NULL</td>
+<td>上传文件存放的临时路径，可以是一个绝对路径。这个目录对于拥有此服务器进程用户必须是可写的。上传的文件在处理之前必须成功传输到服务器，所以必须指定一个位置，可以临时放置这些文件，知道文件移到最终目的地为止。例如：upload_tmp_dir=/tmp/.uploads/。默认值为NULL则为操作系统的临时文件夹</td>
+</tr>
+</tbody>
+</table>
+<p>表单提交给服务器的数据，可以通过在PHP脚本中使用全局数组 $_GET、 $_POST或 $_REQUEST 接收。而通过POST方法上传的文件有关信息都被存储在多维数组 $_FILES中，这些信息对于通过PHP脚本上传到服务器的文件至关重要。因为文件上传后，首先存储于服务器的临时目录中，同时在PHP脚本中就获取一个$_FILES全局数组。$_FILES数组的第二维中共有五项。</p>
+<h5 id="全局数组-FILES中的元素说明"><a href="#全局数组-FILES中的元素说明" class="headerlink" title="全局数组$_FILES中的元素说明"></a>全局数组$_FILES中的元素说明</h5><table>
+<thead>
+<tr>
+<th>数组</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$_FILES[“myfile”][“name”]</td>
+<td style="text-align:left">客户端机器文件的原名称，包括扩展名</td>
+</tr>
+<tr>
+<td>$_FILES[“myfile”][“size”]</td>
+<td style="text-align:left">已上传文件的大小，单位为字节</td>
+</tr>
+<tr>
+<td>$_FILES[“myfile”][“tmp_name”]</td>
+<td style="text-align:left">文件被上传后，在服务器端存储的临时文件名。这是存储在临时目录（由PHP指令upload_tmp_dir指定）中所指定的文件名</td>
+</tr>
+<tr>
+<td>$_FILES[“myfile”][“error”]</td>
+<td style="text-align:left">伴随文件上传时产生的错误信息，有五个可能的值。<em>    0：表示没有发生任何错误，文件上传成功</em>    1：表示上传文件的大小超出了在PHP配置文件中指令upload_max_filesize选项限制的值<em>    2：表示上传文件大小超出了HTML表单中MAX_FILE_SIZE选项指定的值</em>    3：表示文件只被上载*    4：标识没有上载任何文件</td>
+</tr>
+<tr>
+<td>$_FILES[“myfile”][“type”]</td>
+<td style="text-align:left">获取从客户端上传文件MIME类型，MIME类型规定了各种文件格式的类型，每种MIME类型都是由“/”分隔的主类型和子类型组成，如“image/gif”，主类型为“图像”,子类型为GIF格式的文件，“text/html”代表文本的HTML文件，还有很多其他不同类型的文件。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>函数is_upload_file()<br>该函数判断指定的文件是否通过HTTP POST上传的，如果是则返回TRUE。用于防止潜在的攻击者对原本不能通过脚本交互的文件进行非法管理，这可以用来确保恶意的用户无法欺骗脚本去访问不能访问的文件，例如/etc/passwd。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bool is_uploaded_file( string filename)			//判断指定的文件是否通过HTTP POST上传的</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>为了能使此函数正常工作，唯一的参数必须指定类似于$_FILES[‘userfile’][‘tmp_name’]的变量，才能判断指定的文件确定是上传文件。如果使用从客户端上传的文件名$_FILES[‘userfile’][‘name’]则不能正常运作。</p>
+<ul>
+<li>函数move_uploaded_file()<br>文件上传后，首先会存储于服务器的临时目录中，可以使用该函数将上传的文件移动到新位置。此函数的原型如下所示<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bool move_uploaded_file(string filename,string destination)				//将上传的文件移动到新位置</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>虽然函数copy()和函数move()也同样好用，但函数move_uploaded_file()还提供了一种额外的功能，检查并确保由第一个参数filename指定的文件，是否是合法的上传文件。如果文件合法，则将其移到为由第二个参数destination指定的文件。如果filename不是合法的上传文件，不会出现任何操作，将返回FALSE。如果filename是合法的上传文件，但处于某些原因无法移动，不会出现任何操作，也将返回FALSE。此外还会发出一条警告。若成功则返回TRUE。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	if($_FILES[&apos;myfile&apos;][&apos;error&apos;] &gt; 0) &#123;      //判断文件是否可以成功上传到服务器，0表示上传成功</div><div class="line">		echo &apos;上传错误: &apos;;</div><div class="line">    		switch ($_FILES[&apos;myfile&apos;][&apos;error&apos;]) &#123;</div><div class="line">     			case 1:  </div><div class="line">				echo &apos;上传文件大小超出了PHP配置文件中的约定值：upload_max_filesize&apos;;  </div><div class="line">				break;</div><div class="line">			case 2:  </div><div class="line">				echo &apos;上传文件大小超出了表单中的约定值：MAX_FILE_SIZE&apos;;  </div><div class="line">				break;</div><div class="line">			case 3:  </div><div class="line">				echo &apos;文件只被部分上载&apos;; </div><div class="line">			       	break;</div><div class="line">			case 4:  </div><div class="line">				echo &apos;没有上传任何文件&apos;; </div><div class="line">			       	break;</div><div class="line">   		&#125;</div><div class="line">		exit;       //如果$_FILES[&apos;myfile&apos;][&apos;error&apos;]大于0都是有错误，输出错误信息并退出程序</div><div class="line">	&#125;</div><div class="line">     	//获取上传文件的MIME类型中的主类型和子类型</div><div class="line">	list($maintype,$subtype)=explode(&quot;/&quot;,$_FILES[&apos;myfile&apos;][&apos;type&apos;]);	</div><div class="line">  	if ($maintype==&quot;text&quot;) &#123;    //通过主类型限制不能上传文本文件，例如.txt .html .php等文件文件</div><div class="line">		echo &apos;问题: 不能上传文本文件。&apos;;</div><div class="line">		exit;                //如果用户上传文本文件则退出程序</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	$upfile = &apos;./uploads/&apos;.time().$_FILES[&apos;myfile&apos;][&apos;name&apos;];     //定义上传后的位置和新文件名</div><div class="line">	if (is_uploaded_file($_FILES[&apos;myfile&apos;][&apos;tmp_name&apos;])) &#123;     //判断是否为上传文件</div><div class="line"> 	    	if (!move_uploaded_file($_FILES[&apos;myfile&apos;][&apos;tmp_name&apos;], $upfile)) &#123;   //从移动文件</div><div class="line">        		echo &apos;问题: 不能将文件移动到指定目录。&apos;;</div><div class="line">       		exit;</div><div class="line">		&#125;</div><div class="line"> 	&#125;else&#123;</div><div class="line">		echo &apos;问题: 上传文件不是一个合法文件: &apos;;</div><div class="line">		echo $_FILES[&apos;myfile&apos;][&apos;name&apos;];</div><div class="line">		exit;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	echo &apos;文件&apos;.$upfile.&apos;上传成功,大小为&apos;.$_FILES[&apos;myfile&apos;][&apos;size&apos;].&apos;！&lt;br&gt;&apos;;   //如果文件上传成功则输出</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="处理多个文件上传"><a href="#处理多个文件上传" class="headerlink" title="处理多个文件上传"></a>处理多个文件上传</h3><p>多个文件上传和单独文件上传的处理方式是一样的，只需要在客户端多提供几个类型为“file”的输入表单，并指定不同的“name”属性值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">	&lt;head&gt;&lt;title&gt;文件上传&lt;/title&gt;&lt;/head&gt;</div><div class="line">	&lt;body&gt;</div><div class="line">		&lt;form action=&quot;mul_upload.php&quot;  method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</div><div class="line">			&lt;input type=&quot;hidden&quot; name=&quot;MAX_FILE_SIZE&quot; value=&quot;1000000&quot;&gt;</div><div class="line">			选择文件1：&lt;input type=&quot;file&quot; name=&quot;myfile[]&quot;&gt;&lt;br&gt;</div><div class="line">			选择文件2：&lt;input type=&quot;file&quot; name=&quot;myfile[]&quot;&gt;&lt;br&gt;</div><div class="line">			选择文件3：&lt;input type=&quot;file&quot; name=&quot;myfile[]&quot;&gt;&lt;br&gt;</div><div class="line">			&lt;input type=&quot;submit&quot; value=&quot;上传文件&quot;&gt;</div><div class="line">		&lt;/form&gt;</div><div class="line">	&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>在上面的代码中，将三个文件类型的表单以数组的形式组织在一起。当上面的表单提交给PHP的脚本文件mul_upload.php时，在服务器端同时使用全局数组$_FILES存储所有上传文件的信息，但$_FILES由二维数组已经转变为三维数组，这样就可以存储多个上传文件的信息。在脚本文件mul_upload.php中，使用print_r()函数将$_FILES数组中的内容输出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	print_r($_FILES);         //打印三维数组$_FILES中的内容，查看一下存储上传文件的结构</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h3><p>简单的文件下载只需要使用HTML的链接标记a,并将属性href的URL值指定下载的文件即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;http://www.example.com/download/example.rar&quot;&gt;下载文件&lt;/a&gt;</div></pre></td></tr></table></figure></p>
+<p>如果通过上面的代码实现文件下载，只能处理一些浏览器不能默认识别的MIME类型文件，例如，当访问example.rar文件时，浏览器并没有直接打开，而是淡出一个下载提示框，提示用户“下载”还是“打开”等处理方式。但如果需要下载后缀名为.html的网页文件、图片文件以及PHP程序脚本文件等，用这种链接形式，则会将文件内容直接输出到浏览器中，并不会提示用户下载。</p>
+<p>为了提供文件的安全性，不希望在a标签中给出文件的链接，则必须想浏览器发送必要的头信息，以通知浏览器将要进行下载文件的处理。PHP使用header()函数发送网页的头部信息给浏览器，该函数接受一个头信息的字符串作为参数。文件下载需要发送的头信息包括以下三部分，通过调用三次header()函数完成。以下载图片test.gif为例，需要发送的头信息的代码如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">header(&apos;Content-Type:image/gif&apos;);			//发送指定文件MIME类型的头信息</div><div class="line">header(&apos;Content-Disposition:attachment;filename=&quot;test.gif&quot;&apos;);			//发送描述文件的头信息，附件和文件名</div><div class="line">header(&apos;Content-Length:3390&apos;);			//发送指定文件大小的信息，单位字节</div></pre></td></tr></table></figure></p>
+<p>如果使用header()函数向浏览器发送了这三行头信息，图片test.gif就不会直接在浏览器中显示，而是让浏览器将该文件形式下载的形式。在函数header()中，“Content-Type”指定了文件的MIME类型，“Content-Disposition”用于文件的描述，值“attachment;filename=”test.gif””说明这是一个附件，并且指定了下载后的文件名，“Content-Length”则给出被下载文件的大小。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$filename=&quot;test.gif&quot;;                                         //指定文件名</div><div class="line">	header(&apos;Content-Type: image/gif&apos;);                              //指定下载文件类型</div><div class="line">	header(&apos;Content-Disposition: attachment; filename=&quot;&apos;.$filename.&apos;&quot;&apos;);   //指定下载文件的描述</div><div class="line">	header(&apos;Content-Length: &apos;.filesize($filename));                     //指定下载文件的大小         </div><div class="line">	readfile($filename);       //将文件内容读取出来并直接输出，以便下载</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="MySQL数据库设计"><a href="#MySQL数据库设计" class="headerlink" title="MySQL数据库设计"></a>MySQL数据库设计</h1><h2 id="MySQL数据库管理"><a href="#MySQL数据库管理" class="headerlink" title="MySQL数据库管理"></a>MySQL数据库管理</h2><h3 id="结构化查询语句SQL"><a href="#结构化查询语句SQL" class="headerlink" title="结构化查询语句SQL"></a>结构化查询语句SQL</h3><p>SQL语句包含四个部分。</p>
+<ul>
+<li>数据定义语言（DDL）：用于定义和管理数据对象，包括数据库、数据表等。例如：CREATE、DROP、ALTER等语句</li>
+<li>数据操作语言（DML）：用于操作数据库对象中所包含的数据。例如：INSERT、UPDATE、DELETE语句。</li>
+<li>数据查询语言（DQL）：用于查询数据库对象 中所包含的数据，能够进行单表查询、连接查询、嵌套查询，以及集合查询等各种复杂程度不同的数据库查询，并将数据返回到客户机中显示。例如：SELECT语句。</li>
+<li>数据控制语言（DCL）：是用来管理数据库的语言，包含管理权限及数据更改。例如:GRANT、REVOKE、COMMIT、ROLLBACK等语句。</li>
+</ul>
+<h3 id="MySQL数据库的连接与关闭"><a href="#MySQL数据库的连接与关闭" class="headerlink" title="MySQL数据库的连接与关闭"></a>MySQL数据库的连接与关闭</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -h 服务器主机地址 -u 用户名 -p 用户密码</div></pre></td></tr></table></figure>
+<ul>
+<li>-h：指定所连接的数据库服务器位置，可以是IP地址，也可以是服务器域名</li>
+<li>-u：指定连接数据库服务器使用的用户名，例如root为管理员用户具有所有权限</li>
+<li>-p：连接数据库服务器使用的密码，但-p和其后的参数之间不要有空格。最后是在该参数后直接回车，然后以密文的形式输入密码<br>如果需要退出客户机，可以任何输入exit或quit命令结束会话</li>
+</ul>
+<h3 id="创建、选择及查看数据库"><a href="#创建、选择及查看数据库" class="headerlink" title="创建、选择及查看数据库"></a>创建、选择及查看数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE DATABASE [IF NOT EXISTS]bookstore;			#创建一个名为bookstore的数据库</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DROP DATABASE [IF EXISTS]bookstore;					#删除一个名为bookstore的数据库</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SHOW DATABASES;							#显示所有已建立的数据库名称列表</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">USE bookstore;					#打开bookstore数据库为当前数据库使用</div></pre></td></tr></table></figure>
+<h2 id="MySQL数据库中数据表的设计"><a href="#MySQL数据库中数据表的设计" class="headerlink" title="MySQL数据库中数据表的设计"></a>MySQL数据库中数据表的设计</h2><h3 id="数据表（Table）"><a href="#数据表（Table）" class="headerlink" title="数据表（Table）"></a>数据表（Table）</h3><p>数据表是数据库中基本对象元素，以记录（行）和字段（列）组成的二维结构用于存储数据。数据表由表结构和表内容两部分组成，先建立表结构，然后才能输入数据。数据表结构设计主要包括：字段名称、字段类型和字段属性的设置。</p>
+<h3 id="数据值和列类型"><a href="#数据值和列类型" class="headerlink" title="数据值和列类型"></a>数据值和列类型</h3><p>对MySQL中数据值的分类，有数值型、字符型、日期型和空值等，MySQL数据库的表是一个二维表，由一个或多个数据列构成。MySQL中的列类型有三种：数值类、字符串类和日期/时间类。</p>
+<h4 id="数组类的数据列类型"><a href="#数组类的数据列类型" class="headerlink" title="数组类的数据列类型"></a>数组类的数据列类型</h4><p>MySQL中的数值分整型和浮点型两种。而整型中又分为五种整形数据列类型，即TINYINT,SMALLINT,MEDIUMINT,INT和BIGINT。MySQL也有三种浮点型数据列类型，分别是：FLOAT,BOUBLE和DECIMAL。</p>
+<table>
+<thead>
+<tr>
+<th>数据列类型</th>
+<th style="text-align:left">存储空间</th>
+<th>说明</th>
+<th>取值范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TINYINT</td>
+<td style="text-align:left">1字节</td>
+<td>非常小的整数</td>
+<td>带符号值：-128-127   无符号：0-255</td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td style="text-align:left">2字节</td>
+<td>较小的整数</td>
+<td>带符号值：-32768-32767   无符号：0-65535</td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td style="text-align:left">3字节</td>
+<td>中等大小的整数</td>
+<td>带符号值：-8388608-8388607   无符号：0-16777215</td>
+</tr>
+<tr>
+<td>INT</td>
+<td style="text-align:left">4字节</td>
+<td>标准整数</td>
+<td>带符号值：-2147483648-2147483647   无符号：0-4294967295</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:left">8字节</td>
+<td>大整数</td>
+<td>带符号值：-9223372036854775808-9233372036854775807   无符号：0-18446744073709551615</td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td style="text-align:left">4或8字节</td>
+<td>单精度浮点数</td>
+<td>最小非零值：+-1.175494351E-38 最大非零值：+-3.402823466E+38</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:left">8字节</td>
+<td>双精度浮点数</td>
+<td>最小非零值：+-2.2250738585072014E-308 最大非零值：+-1.7976931348623157E+308</td>
+</tr>
+<tr>
+<td>DECIMAL</td>
+<td style="text-align:left">自定义</td>
+<td>以字符串形式表示的浮点数</td>
+<td>取决于存储单位字节数</td>
+</tr>
+</tbody>
+</table>
+<h4 id="字符串类数据列类型"><a href="#字符串类数据列类型" class="headerlink" title="字符串类数据列类型"></a>字符串类数据列类型</h4><table>
+<thead>
+<tr>
+<th>数据列类型</th>
+<th style="text-align:left">存储空间</th>
+<th>说明</th>
+<th>最大长度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CHAR[(M)]</td>
+<td style="text-align:left">M字节</td>
+<td>定长字符串</td>
+<td>M字节</td>
+</tr>
+<tr>
+<td>VARCHAR[(M)]</td>
+<td style="text-align:left">L+1字节</td>
+<td>可变字符串</td>
+<td>M字节</td>
+</tr>
+<tr>
+<td>TINYBLOD,TINYTEXT</td>
+<td style="text-align:left">L+1字节</td>
+<td>非常小的BLOB(二进行大对象)和文本串</td>
+<td>2e+8-1字节</td>
+</tr>
+<tr>
+<td>BLOB,TEXT</td>
+<td style="text-align:left">L+2字节</td>
+<td>小BLOB和文本串</td>
+<td>2e+16-4字节</td>
+</tr>
+<tr>
+<td>MEDIUMBLOB,MEDIUMTEXT</td>
+<td style="text-align:left">L+3字节</td>
+<td>中等的BLOB和文本串</td>
+<td>2e24-1字节</td>
+</tr>
+<tr>
+<td>LONGBLOB,LONGTEXT</td>
+<td style="text-align:left">L+4字节</td>
+<td>大BLOB和文本串</td>
+<td>2e32-1字节</td>
+</tr>
+<tr>
+<td>ENUM(‘value1’,’value2’,…)</td>
+<td style="text-align:left">1或2字节</td>
+<td>枚举：可赋予某个枚举成员</td>
+<td>65535个成员</td>
+</tr>
+<tr>
+<td>SET(‘value1’,’value2’,…)</td>
+<td style="text-align:left">1,2,3,4或8字节</td>
+<td>集合：可赋予多个集合成员</td>
+<td>64个成员</td>
+</tr>
+</tbody>
+</table>
+<p>对于可变长的字符串类型，其长度取决于实际存放在劣种的值的长度。此长度用L来表示。</p>
+<h4 id="日期和时间型数据列类型"><a href="#日期和时间型数据列类型" class="headerlink" title="日期和时间型数据列类型"></a>日期和时间型数据列类型</h4><table>
+<thead>
+<tr>
+<th>数据列类型</th>
+<th style="text-align:left">存储空间</th>
+<th>说明</th>
+<th>最大长度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DATE</td>
+<td style="text-align:left">3字节</td>
+<td>“YYYY-MM-DD”格式表示的日期值</td>
+<td>1000-01-01~9999-12-31</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td style="text-align:left">3字节</td>
+<td>“hh:mm:ss”格式表示的时间值</td>
+<td>-838:59:59~838:59:59</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td style="text-align:left">8字节</td>
+<td>“YYYY-MM-DD hh:mm:ss”格式</td>
+<td>1000-01-01 00:00:00到9999-12-31 23:59:59</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td style="text-align:left">4字节</td>
+<td>“YYYYMMDDhhmmss”格式表示的时间戳</td>
+<td>19700101000000~2037年的某个时刻</td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td style="text-align:left">1字节</td>
+<td>“YYYY”格式的年份量</td>
+<td>1901~2155</td>
+</tr>
+</tbody>
+</table>
+<h4 id="NULL值"><a href="#NULL值" class="headerlink" title="NULL值"></a>NULL值</h4><p>NULL意味着”没有值”或”未知值”，MySQL中，0或NULL都意味着假而其他值意味着真。布尔运算的默认真值是1.</p>
+<h3 id="数据字段属性"><a href="#数据字段属性" class="headerlink" title="数据字段属性"></a>数据字段属性</h3><h4 id="UNSIGNED"><a href="#UNSIGNED" class="headerlink" title="UNSIGNED"></a>UNSIGNED</h4><p>该属性也只能用于设置数值类型，在数值之前自动用0补齐数据列出现负数。</p>
+<h4 id="ZEROFILL"><a href="#ZEROFILL" class="headerlink" title="ZEROFILL"></a>ZEROFILL</h4><p>该属性也只能用于设置数值类型，在数值之前自动用0补充不足的位数。</p>
+<h4 id="AUTO-INCREMENT"><a href="#AUTO-INCREMENT" class="headerlink" title="AUTO_INCREMENT"></a>AUTO_INCREMENT</h4><p>该属性用于设置字段的自动增量属性，当数值类型的字段设置为自动增量时，每增加一条新纪录，该字段的值就自动加1，而且此字段的值不允许重复。此修饰符只能修饰整数类型的字段。</p>
+<h4 id="NULL和NOT-NULL"><a href="#NULL和NOT-NULL" class="headerlink" title="NULL和NOT NULL"></a>NULL和NOT NULL</h4><p>默认为NULL，即插入值时没有在此字段插入值，默认为NULL值，如果指定了NOT NULL，则必须在插入值时在此字段添入值</p>
+<h4 id="DEFAULT"><a href="#DEFAULT" class="headerlink" title="DEFAULT"></a>DEFAULT</h4><p>可以通过此属性来指定一个默认值，如果没有在此列添加值，那么默认添加此值。</p>
+<h3 id="创建、修改及删除表"><a href="#创建、修改及删除表" class="headerlink" title="创建、修改及删除表"></a>创建、修改及删除表</h3>]]></content>
     
     <summary type="html">
     
