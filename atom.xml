@@ -373,7 +373,7 @@
     <link href="http://uknowsec.cn/posts/notes/%E3%80%8A%E7%BB%86%E8%AF%B4PHP%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
     <id>http://uknowsec.cn/posts/notes/《细说PHP》学习笔记.html</id>
     <published>2017-01-15T09:00:50.000Z</published>
-    <updated>2017-04-09T14:20:04.953Z</updated>
+    <updated>2017-04-10T13:15:24.908Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/t01db525962d3cb177e.jpg" alt="php"></p>
@@ -1573,7 +1573,86 @@
 <h4 id="AUTO-INCREMENT"><a href="#AUTO-INCREMENT" class="headerlink" title="AUTO_INCREMENT"></a>AUTO_INCREMENT</h4><p>该属性用于设置字段的自动增量属性，当数值类型的字段设置为自动增量时，每增加一条新纪录，该字段的值就自动加1，而且此字段的值不允许重复。此修饰符只能修饰整数类型的字段。</p>
 <h4 id="NULL和NOT-NULL"><a href="#NULL和NOT-NULL" class="headerlink" title="NULL和NOT NULL"></a>NULL和NOT NULL</h4><p>默认为NULL，即插入值时没有在此字段插入值，默认为NULL值，如果指定了NOT NULL，则必须在插入值时在此字段添入值</p>
 <h4 id="DEFAULT"><a href="#DEFAULT" class="headerlink" title="DEFAULT"></a>DEFAULT</h4><p>可以通过此属性来指定一个默认值，如果没有在此列添加值，那么默认添加此值。</p>
-<h3 id="创建、修改及删除表"><a href="#创建、修改及删除表" class="headerlink" title="创建、修改及删除表"></a>创建、修改及删除表</h3>]]></content>
+<h3 id="创建、修改及删除表"><a href="#创建、修改及删除表" class="headerlink" title="创建、修改及删除表"></a>创建、修改及删除表</h3><h4 id="创建表（CREATE-TABLE）"><a href="#创建表（CREATE-TABLE）" class="headerlink" title="创建表（CREATE TABLE）"></a>创建表（CREATE TABLE）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE [IF NOT EXISTS] 表名称（			#创建带给定名称的表，必须拥有表CREATE权限</div><div class="line">	字段名1 列类型 [属性][索引],			#声明表中第一个字段，必须有字段名和列类型</div><div class="line">	字段名2 列类型 [属性][索引],			</div><div class="line">	...,</div><div class="line">	字段名n 列类型 [属性][索引],			#每个字段的属性和索引都是可选的，根据需要设置</div><div class="line">）[表类型][表字符集];							#在创建表时也可指定可选的表类型和字符集的设置</div></pre></td></tr></table></figure>
+<p>其中[]中的为可选的内容，一个表可以由一个或多个字段（列）组成，在字段名后面一定要注明该字段的数据类型。每个字段也可以使用属性对其进行限制说明，但属性是可选的，根据表的需要进行声明。</p>
+<h4 id="修改表（ALTER-TABLE）"><a href="#修改表（ALTER-TABLE）" class="headerlink" title="修改表（ALTER TABLE）"></a>修改表（ALTER TABLE）</h4><p>可以用ALTER TABLE语句来修改表的结构，包括添加新的字段、删除原有的字段、修改列的类型、属性及索引，甚至可以修改表的名称。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE 表名 ACTION；				#修改表的语法格式</div></pre></td></tr></table></figure></p>
+<p>其中ACTION是ALTER TABLE的从句，包括为指定的表添加一新列、为表添加一个索引、更改指定列默认值、更改列类型、删除一列、删除索引、更改表名等语句。</p>
+<ul>
+<li>为指定的数据表添加一新字段，可以在ACTION从句中使用ADD关键字实现<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE 表名 ADD 字段名 &lt;建表语句&gt;[FIRST|AFTER 列名]		#为指定的表添加新列</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果没指定可选的FIRST或AFTER，则在列尾添加一列，否则在指定列添加新列。</p>
+<ul>
+<li>为指定的数据表为了更改原有字段的类型，可使用CHANGE或MODIFY子句。如果原列的名字和新列的名字相同，则change或Modify的作用相同。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE 表名 CHANGE(MODIFY) 列表 &lt;建表语句&gt;		#为指定的表修改列类型</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>CHANGE除了更改类型外还能更改列名，而MODIFY不能实现这个功能。</p>
+<ul>
+<li>如果需要为指定的数据表重新命名，可使用RENAME AS子句，给出旧表名和新表名即可。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE 旧表名 RENAME AS 新表名			#为 指定的数据表重新命名</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="删除表（DROP-TABLE）"><a href="#删除表（DROP-TABLE）" class="headerlink" title="删除表（DROP TABLE）"></a>删除表（DROP TABLE）</h4><p>可以使用SQL的DROP TABLE语句删除。删除表要比创建和修改表要容易得多，只需要指定表名即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DROP TABLE[IF EXISTS] 表名</div></pre></td></tr></table></figure></p>
+<p>当不能确定数据表是否存在，如果存在就删除它，如果存在就删除它，不存在则删除时也不行出现错误，就可在DROPTABLE语句中增加IF EXISTS。同CREATE TABLE一样，IF EXISTS语句在含有DROP TABLE的SQL脚本中很常用，如果不存在待删除的表，脚本会继续向下执行而不会跑出错误。</p>
+<h3 id="数据表的类型及存储位置"><a href="#数据表的类型及存储位置" class="headerlink" title="数据表的类型及存储位置"></a>数据表的类型及存储位置</h3><p>MySQL支持MyISAM、InnoDB、HEAP、BOB、ARCHIVE、CSV等多种数据表类型，在创建一个新MySQL数据库表时，可以为它设置一个类型。</p>
+<h4 id="MyISAM数据表"><a href="#MyISAM数据表" class="headerlink" title="MyISAM数据表"></a>MyISAM数据表</h4><p>MyISAM数据表类型的特点是成熟、稳定和易于管理。</p>
+<h4 id="InnoDB数据表"><a href="#InnoDB数据表" class="headerlink" title="InnoDB数据表"></a>InnoDB数据表</h4><p>InnoDB给MySQL提供了具有提交，回滚和崩溃恢复能力的事务安全存储引擎。</p>
+<h4 id="MyISAM和InnoDB两个表的功能简单对比"><a href="#MyISAM和InnoDB两个表的功能简单对比" class="headerlink" title="MyISAM和InnoDB两个表的功能简单对比"></a>MyISAM和InnoDB两个表的功能简单对比</h4><table>
+<thead>
+<tr>
+<th>表类型功能对比</th>
+<th style="text-align:left">MyISAM表</th>
+<th>InnoDB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>事务处理</td>
+<td style="text-align:left">不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>数据行锁定</td>
+<td style="text-align:left">不支持，只有表锁定</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>外键约束</td>
+<td style="text-align:left">不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>表空间大小</td>
+<td style="text-align:left">相对小</td>
+<td>相对大，最大是2倍</td>
+</tr>
+<tr>
+<td>全文索引</td>
+<td style="text-align:left">支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>COUNT问题</td>
+<td style="text-align:left">无</td>
+<td>执行COUNT(*)查询，速度慢</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE t(i INT) ENGINE = INNODB;				#新建表t时指定表类型为INNODB</div><div class="line">CREATE TABLE t(i INT) TYPE = MYISAM;				#新建表t时指定表类型为MYISAM</div></pre></td></tr></table></figure>
+<h3 id="数据表的默认字符集"><a href="#数据表的默认字符集" class="headerlink" title="数据表的默认字符集"></a>数据表的默认字符集</h3><p>使用CREATE TABLE命令创建数据表时，如果没有明确地指定任何字符集，则新创建数据库的字符集将由MySQL配置文件里character-set-server选项的设置决定。在MySQL配置文件（Linux系统为/etc/my.cnf文件，Windows系统则是my.ini文件）里设置数据表的字符集。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">character-set-server = gbk		#设置MySQL服务器的字符集</div><div class="line">collation-server	= gbk_chinese_ci		#设置排序方法</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CREATE DATABASE IF NOT EXISTS mydb DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;</div><div class="line">#为新创建的数据库mydb设置默认的字符集</div></pre></td></tr></table></figure>
+<h3 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h3><p>在MySQL中主要有四类索引：主键索引（PRIMARY KEY）、唯一索引（UNIQUE）、常规索引（INDEX）和全文索引（FULLTEXT）。</p>
+<h4 id="主键索引（PRIMARY-KEY）"><a href="#主键索引（PRIMARY-KEY）" class="headerlink" title="主键索引（PRIMARY KEY）"></a>主键索引（PRIMARY KEY）</h4><p>主键索引是关系数据库中最常见的索引类型，主要作用是确定数据表里一条特定的数据记录的位置。数据表会根据主键的唯一性来唯一标识每条记录，使用任意两条记录里的主键字段不允许是同样的内容，这样可以加快寻址定位时的速度。最好为每张数据表指定一个主键，但一个表只能指定一个主键，而且主键的值不能为空，不过可以有多个候选索引。</p>
+<h4 id="唯一索引（UNIQUE）"><a href="#唯一索引（UNIQUE）" class="headerlink" title="唯一索引（UNIQUE）"></a>唯一索引（UNIQUE）</h4><p>唯一索引与主键索引一样，都可以防止创建重复的值。但是，不同之处在于，每个数据表中只能有一个主键索引，但可以有多个唯一索引。如果能确定某个数据列将只包含彼此各不相同的值，在为这个数据列创建索引的时候就应该使用关键字UNIQUE把它定义为一个唯一索引。</p>
+<h4 id="常规索引（INDEX）"><a href="#常规索引（INDEX）" class="headerlink" title="常规索引（INDEX）"></a>常规索引（INDEX）</h4><p>创建常规索引可以使用关键字KEY或INDEX随表一同创建，KEY通常是INDEX同义词。也可以在创建表之后CREATE INDEX或ALTER TABLE命令来创建。<br>如果在创建表时没有创建索引，就需要使用CREATE INDEX命令来创建同样的常规索引。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE INDEX ind ON carts(userId,bookId）;			#创建名称为ind的索引为carts表的两个列</div></pre></td></tr></table></figure></p>
+<h4 id="全文索引（FULLTEXT）"><a href="#全文索引（FULLTEXT）" class="headerlink" title="全文索引（FULLTEXT）"></a>全文索引（FULLTEXT）</h4><p>全文索引在MySQL中是一个FULLTEXT类型索引，但FULLTEXT索引只能用于MyISAM表，并且只可以在CHAR、VARCHAR或TEXT类型的列上创建，也允许创建在一个或多个数据列上。</p>
+<h2 id="SQL语言设计"><a href="#SQL语言设计" class="headerlink" title="SQL语言设计"></a>SQL语言设计</h2><h3 id="使用DML命令操作数据表中的数据记录"><a href="#使用DML命令操作数据表中的数据记录" class="headerlink" title="使用DML命令操作数据表中的数据记录"></a>使用DML命令操作数据表中的数据记录</h3><p>为了修改数据库中的数据，SQL的数据操纵语言（DML）提供了增（INSERT）、删（DELETE）、改（UPDATE）语句。</p>
+<h4 id="使用INSERT语句想数据表中添加数据"><a href="#使用INSERT语句想数据表中添加数据" class="headerlink" title="使用INSERT语句想数据表中添加数据"></a>使用INSERT语句想数据表中添加数据</h4><p>插入数据是向已经存在的数据表中添加一条新的记录，应该使用INSERT INTO语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INSERT INTO 表名 [(字段名1,字段名2,...,字段名n] VALUES(&apos;值1&apos;,&apos;值2&apos;,...,&apos;值n&apos;);</div></pre></td></tr></table></figure></p>
+<p>在表名后面的括号中是该表中定义的字段名称列表，它们与VALUES子句后面的表达式列表的值是一一对应的，个数也要相等，并且表达式值的类型必须与字段的类型一致。需要用逗号将各个数据分开，字符型数据要用单引号括起来。INSERT语句也可以省略字段列表，但必须插入一行完整的数据，而且必须按表中定义的字段顺序为全部字段提供值。</p>
+<h4 id="使用UPDATE语句更新数据表中已存在的数据"><a href="#使用UPDATE语句更新数据表中已存在的数据" class="headerlink" title="使用UPDATE语句更新数据表中已存在的数据"></a>使用UPDATE语句更新数据表中已存在的数据</h4><p>SQL语句可以使用UPDATE语句对表中的一列或多列数据进行修改，必须指定需要修改的字段，以及需要赋予的新值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UPDATE 表名				#需要给出被修改的表格</div><div class="line">SET 字段名=表达式[, .....]			#可以对表中一列或多列数据进行修改</div><div class="line">[WHERE 条件];					#给出必要的WHERE子名指定要更新的数据行</div></pre></td></tr></table></figure></p>
+<p>其中的WHERE子句是必需的，如果不使用WHERE检索条件，则UPDATE语句会将数据表中全部数据行都修改。</p>
+<h4 id="使用DELETE语句删除数据表中不需要的数据记录"><a href="#使用DELETE语句删除数据表中不需要的数据记录" class="headerlink" title="使用DELETE语句删除数据表中不需要的数据记录"></a>使用DELETE语句删除数据表中不需要的数据记录</h4><p>使用DELETE语句用来删除数据表中的一条或多条数据记录。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DELETE FROM 表名 [WHERE 条件];			#删除表中记录行的DELETE语法格式</div></pre></td></tr></table></figure></p>
+<p>如果没有指定WHERE子句的检索条件，DELETE语句将会删除数据表中的全部数据记录，使用数据库中只剩下数据表结构。</p>
+]]></content>
     
     <summary type="html">
     
