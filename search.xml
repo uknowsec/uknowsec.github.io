@@ -2259,7 +2259,136 @@
 <h4 id="bindColumn-方法"><a href="#bindColumn-方法" class="headerlink" title="bindColumn()方法"></a>bindColumn()方法</h4><p>使用该方法可以将一个列和一个指定的变量名绑定，这样在每次使用fetch()方法获取各行记录时，会自动将相应的列值赋给该变量，但必须是在fetch()方法第一个参数设置为PDO：：FETCH_BOTH值时。bindColumn()方法的原型如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bindColumn(mixed coumn,mixed&amp;param[,int type])		//设置绑定列值到变量上</div></pre></td></tr></table></figure></p>
 <p>第一个参数column为必选项，可以使用整数的列偏移位置索引（索引值从1开始），或是列的名称字符串。第二个参数param也是必选项，需要传递一个引用，所以必须提供一个相应的变量名。第三个参数type是可选项，通过设置变量的类型来限制变量值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	try&#123;</div><div class="line">		$dbh=new PDO(&apos;mysql:dbname=testdb;host=localhost&apos;,&apos;mysql_user&apos;,&apos;mysql_pwd&apos;);</div><div class="line">		$dbh-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</div><div class="line">	&#125;catch(PDOException $e)&#123;</div><div class="line">		echo &apos;数据库连接失败：&apos;.$e-&gt;getMessage();</div><div class="line">		exit;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	$query=&quot;SELECT uid, name, phone, email FROM contactInfo WHERE departmentId=&apos;D01&apos;&quot;;</div><div class="line">	try &#123;</div><div class="line">		$stmt=$dbh-&gt;prepare($query);</div><div class="line">		$stmt-&gt;execute();</div><div class="line">		$stmt-&gt;bindColumn(1, $uid);</div><div class="line">		$stmt-&gt;bindColumn(2, $name);</div><div class="line">		$stmt-&gt;bindColumn(&apos;phone&apos;, $phone);</div><div class="line">		$stmt-&gt;bindColumn(&apos;email&apos;, $email);</div><div class="line"></div><div class="line">		while ($row = $stmt-&gt;fetch(PDO::FETCH_BOUND)) &#123;</div><div class="line">			 echo $uid.&quot;\t&quot;.$name.&quot;\t&quot;.$phone.&quot;\t&quot;.$email.&quot;\n&quot;;</div><div class="line">		&#125;</div><div class="line">	&#125; catch (PDOException $e) &#123;</div><div class="line">		echo $e-&gt;getMessage();</div><div class="line">	&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
 <h4 id="大数据对象的存取"><a href="#大数据对象的存取" class="headerlink" title="大数据对象的存取"></a>大数据对象的存取</h4><p>PDO允许在bindParam()或bindColumn()调用中通过使用PDO::PARAM_LOB类型代码来使用大型数据库类型。PDO::PARAM_LOB告诉PDO将数据映射为流，所以可以使用PHP中文件处理函数来操纵这样的数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$dbh=new PDO(&apos;mysql:dbname=testdb;host=localhost&apos;,&apos;mysql_user&apos;,&apos;mysql_pwd&apos;);		//连接数据库</div><div class="line">	$stmt=$dbh-&gt;prepare(&quot;inset into images(contenttype,imagedata)values(?,?)&quot;);			//准备插入查询</div><div class="line">	$fp=fopen($_FILES[&apos;file&apos;][&apos;tmp_name&apos;],&apos;rb&apos;);			//使用fopen()函数打开上传的文件</div><div class="line">	$stmt-&gt;bindParam(1,$_FILES[&apos;flie&apos;][&apos;type&apos;]);			//将上传的MIME类型绑定到第一个参数中</div><div class="line">	$stmt-&gt;bindParam(2,$fp,PDO_PARAM_LOB);			//将上传文件的二进制数据和第二个参数绑定</div><div class="line">	$stmt-&gt;execute();			//执行准备好的并绑定了参数的查询</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<h1 id="会话控制"><a href="#会话控制" class="headerlink" title="会话控制"></a>会话控制</h1><h2 id="Cookie的应用"><a href="#Cookie的应用" class="headerlink" title="Cookie的应用"></a>Cookie的应用</h2>]]></content>
+<h1 id="会话控制"><a href="#会话控制" class="headerlink" title="会话控制"></a>会话控制</h1><h2 id="Cookie的应用"><a href="#Cookie的应用" class="headerlink" title="Cookie的应用"></a>Cookie的应用</h2><h3 id="Cookie概述"><a href="#Cookie概述" class="headerlink" title="Cookie概述"></a>Cookie概述</h3><p>Cookie是用来将使用者资料记录在客户端的技术，这种技术让Web服务器能将一些只需存放于客户端，或者可以在客户端进行运算的资料，存放于用户的电脑系统之中。</p>
+<h3 id="向客户端电脑中设置Cookie"><a href="#向客户端电脑中设置Cookie" class="headerlink" title="向客户端电脑中设置Cookie"></a>向客户端电脑中设置Cookie</h3><p>使用PHP内建的setCookie()函数来新建立一个Cookie。Cookie是HTTP标头的一部分，因此setCookie()函数必须在其他信息被输出到浏览器前调用，所以即使是空格或空行都不要在调用setCookie()函数之前输出。setCookie()函数的语法格式如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bool setcookie(string $name[,string $value[,int $expire[,string $path[,string $domain[,bool $secure]]]]])</div></pre></td></tr></table></figure></p>
+<p>setcookie()函数定义一个和其余的HTTP标头一起发送的Cookie，它的所有参数是对应HTTP标头Cookie资料的属性。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$name</td>
+<td style="text-align:left">Cookie的识别名称</td>
+<td style="text-align:left">使用$_COOKIE[‘cookiename’]调用名为cookiename的Cookie</td>
+</tr>
+<tr>
+<td>$value</td>
+<td style="text-align:left">Cookie的值，可以为数值或字符串形态，此值保存在客户端，不要用来保存敏感数据</td>
+<td style="text-align:left">假定第一个参数为‘cookiename’，可以通过$_COOKIE[‘cookiename’]取得其值</td>
+</tr>
+<tr>
+<td>$expire</td>
+<td style="text-align:left">Cookie的生成期限，这是个Unix时间戳，即从Unix纪元开始的秒数</td>
+<td style="text-align:left">如time()+60<em>60</em>24*7将设定Cookie在一周后失效，如果未设定cookie,则会在会话结束后就立即失效</td>
+</tr>
+<tr>
+<td>$panth</td>
+<td style="text-align:left">Cookie在服务器端的指定路径，当设定此值时，服务器中只有指定路径下的网页或程序可以存取此Cookie</td>
+<td style="text-align:left">如果该参数设为“/”的话，cookie就在整个domain内有效，如果设为‘/foo’,cookie就只在domain下的/foo/目录及其子目录内有效，默认值为设定cookie的当前目录</td>
+</tr>
+<tr>
+<td>$domain</td>
+<td style="text-align:left">指定此Cookie所属服务器的网址名称，预设是建立此Cookie服务器的网址</td>
+<td style="text-align:left">要使cookie能在如example.com域名下所有子域名都有效的话，该参数应该设为“.example.com”。虽然“.”并不是必须的，但加上它会兼容更多浏览。如果该参数设置为www.example.com的话，就只在www子域内有效</td>
+</tr>
+<tr>
+<td>$secure</td>
+<td style="text-align:left">指明Cookie是否仅通过安全的HTTPS连接传送中Cookie的安全识别常数，如果设定此值代表只有在某种情况下，才能在客户端与服务器之间传递</td>
+<td style="text-align:left">当设成TRUE时，Cookie仅在安全的连接中被设置。默认值为FALSE</td>
+</tr>
+</tbody>
+</table>
+<p>如果只有name这一个参数，则原有此名称的Cookie选项将会被删除，可以使用空字符串（“ ”）来略过此参数。参数expire和secure是个整数，可以使用0来略过参数，而不是使用空字符串。但参数expire是一个正规的Unix时间整数，由time()或mktime()函数传回。参数secure指出此Cookie将只有在安全的HTTPS连接时传送。在实际建立Cookie是通常仅使用前三项参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	setcookie(&quot;username&quot;,&quot;test&quot;,time()+60*60*24*7);			//向客户端发送一个Cookie</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>全部参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	setcookie(&quot;username&quot;,&quot;test&quot;,time()+60*60*24*7，&quot;/test&quot;,&quot;.example.com&quot;,1);			//使用全部参数设置</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="在PHP脚本中读取Cookie的资料内容"><a href="#在PHP脚本中读取Cookie的资料内容" class="headerlink" title="在PHP脚本中读取Cookie的资料内容"></a>在PHP脚本中读取Cookie的资料内容</h3><p>在设置Cookie的脚本中，第一次读取它的信息并不会生效，必须刷新或到下一个页面才可以看到Cookie值，因为Cookie要先被设置到客户端，再次访问时才能被发送回来，这时才能被获取。所以要测试一个Cookie是否被成功的设定，可以在其到期之前通过另一个页面来访问其值。可以简单地使用print_r(_COOKIE)指令来调试现有的Cookies。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	print_r($_COOKIE);			//输出Cookie中保存的所有用户信息</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="数组形态的Cookie应用"><a href="#数组形态的Cookie应用" class="headerlink" title="数组形态的Cookie应用"></a>数组形态的Cookie应用</h3><p>Cookie也可以利用多维数组的形式，将多个内容值存储在相同Cookie名称标识符下。但不能直接使用setCookie()函数，将数组变量插入到第二个参数作为Cookie的值，因为setCookie()函数的第二个参数必须传一个字符串的值。如果需要将数组变量设置到Cookie中，可以在setCookie()函数的第二个参数中，通过在Cookie标识名称中指定数组下标的形式设置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	setcookie(&quot;user[username]&quot;,&quot;username&quot;);				//设置为$_COOKIE[&quot;user&quot;][&quot;username&quot;]</div><div class="line">	setcookie(&quot;user[password]&quot;,&quot;md5(&quot;123456&quot;)&quot;);		//设置为$_COOKIE[&quot;user&quot;][&quot;password&quot;]</div><div class="line">	setcookie(&quot;user[email]&quot;,&quot;test@example.com&quot;);		//设置为$_COOKIE[&quot;user&quot;][&quot;email&quot;]</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>用forecho()函数遍历Cookie<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	forecho($_COOKIE[&quot;user&quot;]as $key=&gt;$value)&#123;</div><div class="line">		echo $key.&quot;:&quot;.$value.&quot;\n&quot;;</div><div class="line">		&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="删除Cookie"><a href="#删除Cookie" class="headerlink" title="删除Cookie"></a>删除Cookie</h3><p>删除保存在客户端的Cookie，可以使用两种方法。第一种方法，省略setcookie()函数所有参数列，仅导入第一个参数cookie识别名称参数，来删除指定名称的Cookie资料；第二种方式，利用setcookie()函数，把目标Cookie设定为“已过期”状态。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	//只指定Cookie识别名称一个参数，即删除客户端中这个指定名称的Cookie资料</div><div class="line">	setCookie(&quot;Account&quot;);		//第一种方法</div><div class="line">	//设置Cookie在当前时间之前已经过期，因此系统会自动删除识别名称isLogin的Cookie</div><div class="line">	setCookie(&quot;isLogin&quot;,&quot;&quot;,time()-1);		//第二种方法</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="Session的应用"><a href="#Session的应用" class="headerlink" title="Session的应用"></a>Session的应用</h2><h3 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h3><p>Session技术是将使用者相关的资料存放在服务器的系统之下，所以使用者无法停止Session的使用。<br>在客户端仅需要保存由服务器为用户创建的一个Session标识符，称为Session ID;而在服务器端保存Session变量的值。Session ID是一个既不会重复，又不容易被找到规律的，由32位十六进制数组成的字符串。Session ID会保存在客户端的Cookie里，如果用户阻止Cookie的使用，则可以将Session ID保存在用户浏览器地址栏的URL中。当用户请求Web服务器时，就会把Session ID发送给服务器，再通过Session ID提取保存在服务器中的Seesion变量。可以把Session中保存的变量，当做是这个用户的全局变量，同一个用户对每个脚本的访问都共享这些变量。<br>当某个用户向Web服务器发出请求时，服务器首先会检查这个客户端的请求里是否已经包含了一个Session ID。如果包含，说明之前已经为此用户创建过Session，服务器则按该Session ID把Session检索出来使用。如果客户端请求不包含Session ID，则为该用户创建一个Session，并且生成一个与此Session关联的Session ID,在本次响应中被传送给客户端保存。<br>Session是存放与服务器之中，为了避免对服务器系统造成过大的负荷，因此Session并不像Cookie是一种半永久性的存在。Session会因为下面两种状况而自然消失。</p>
+<ul>
+<li>第一个状况，当使用者关闭浏览器，失去与服务器之间的连接之后，Session即会自动消失。而当使用者下次登入网址时，再另行配置一个Session使用。</li>
+<li>第二种状况，Session指定的有效期限到期。一般而言PHP系统中对于Session的生存时间并无定义，也就是说预设值为零。可以通过修改php.ini配置文件中有关“session.cookie.lift_time”项目，来设定Session的有效期限，以秒为单位指定了发送给浏览器的Cookie的生命周期。值为0表示“直到关闭浏览器”，默认为0.当系统赋予Session有效期限后，不管浏览器是否开启，Session都会自动消失。</li>
+</ul>
+<h3 id="配置Session"><a href="#配置Session" class="headerlink" title="配置Session"></a>配置Session</h3><table>
+<thead>
+<tr>
+<th>选项名</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>session.auto_start</td>
+<td style="text-align:left">自动启动会话，0标识禁用，1表示开启</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td>session.cache_expire</td>
+<td style="text-align:left">为缓存中的会话页设置当前时间，单位分钟</td>
+<td style="text-align:left">180</td>
+</tr>
+<tr>
+<td>session.cookie_domain</td>
+<td style="text-align:left">指定会话Cookie中的域</td>
+<td style="text-align:left">none</td>
+</tr>
+<tr>
+<td>session.cookie_lifetime</td>
+<td style="text-align:left">Cookie中的Session ID在客户机上保存的时间，0标识延续到浏览器关闭时</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td>session.cookie_path</td>
+<td style="text-align:left">在会话Cookie中要设置的路径</td>
+<td style="text-align:left">/</td>
+</tr>
+<tr>
+<td>seesion.name</td>
+<td style="text-align:left">会话的名称，在客户端用做Cookie的标识名称</td>
+<td style="text-align:left">PHPSESSID</td>
+</tr>
+<tr>
+<td>session.save_path</td>
+<td style="text-align:left">会话在服务器存储的路径</td>
+<td style="text-align:left">/tmp</td>
+</tr>
+<tr>
+<td>seesion.use_cookies</td>
+<td style="text-align:left">配置在客户端使用Cookie的会话，1表示允许</td>
+<td style="text-align:left">1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Session的声明与使用"><a href="#Session的声明与使用" class="headerlink" title="Session的声明与使用"></a>Session的声明与使用</h3><p>Session的设置不同于Cookie，必须先启动，在PHP中必须调用session_start()函数，以便让PHP核心程序，将和Session相关的内建环境变量预先载入至内存中。seesion_star()函数的语法格式如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bool session_start(void)		//创建Session,开始一个会话，进行Session初始化</div></pre></td></tr></table></figure></p>
+<p>函数Session_start()有两个作用，一是开始一个会话，二是返回已经存在的会话。这个函数没有参数，且返回值均为TRUE。</p>
+<h3 id="注册一个会话变量和读取Session"><a href="#注册一个会话变量和读取Session" class="headerlink" title="注册一个会话变量和读取Session"></a>注册一个会话变量和读取Session</h3><p>注册和读取Session变量，都要通过访问$_SESSION数组完成。在$_SESSION关联数组中农工的键名具有和PHP中普通变量名相同的命名规则。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	session_start();			//启动Session的初始化</div><div class="line">	$_SESSION[&quot;username&quot;]=&quot;admin&quot;;			//注册Session变量，赋值为一个用户的名称</div><div class="line">	$_SESSION[&quot;password&quot;]=&quot;123456&quot;;			//注册Session变量，赋值为一个用户的密码</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>Seesion变量的文件的内容结构：</p>
+<pre><code>变量名|类型:长度:值;        //每个变量都使用相同的结构保存
+</code></pre><h3 id="注销变量与销毁Session"><a href="#注销变量与销毁Session" class="headerlink" title="注销变量与销毁Session"></a>注销变量与销毁Session</h3><p>销毁和当前Session有关的所以资料，可以调用session_destroy()函数结束当前的会话，并清空会话中的所有资源。该函数的语法格式如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bool session_destroy(void)		//销毁和当前Session有关的所有资料</div></pre></td></tr></table></figure></p>
+<p>该函数用来关闭Session的运作，如果成功则传回TRUE，销毁Session资料失败则返回false.但该函数并不会释放和当前的Session相关的变量，也不会删除保存在客户端Cookie中的Session ID.因为$_SESSION数组和自定义的数组在使用上是相同的，所以我们可以使用unset()函数释放在Session中注册的单个变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">unset($_SESSION[&quot;username&quot;]);		//删除在Sesssion中注册的用户名变量</div><div class="line">unset($_SESSION[&quot;password&quot;]);		//删除在Session中注册的用户密码变量</div></pre></td></tr></table></figure></p>
+<p>不要使用unset($_SESSION)删除整个$_SESSION数组，这样将不能再通过$_SESSION超全局数组注册变量了。但如果想把某个用户在Session中注册的所有变量都删除，可以直接将数组变量$_SESSION赋上一个空数组。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$_SESSION=array();			//将某个用户在Session中注册的变量全部清除</div></pre></td></tr></table></figure></p>
+<p>在PHP脚本中，可以通过调用session_name()函数获取Session名称。删除保存在客户端Cookie中的Session ID.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	if(isset($_COOKIE[session_name()]))&#123;			//判断Cookie中是否保存Session ID</div><div class="line">			setcookie(session_name(),&quot;&quot;,time()-3600,&quot;/&quot;);		//删除包含Session ID的Cookie</div><div class="line">			&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>Session的注销过程共需要四个步骤。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">    	 //第一步：开启Session并初使化</div><div class="line">	session_start();       </div><div class="line">     	//第二步：删除所有Session的变量，也可用unset($_SESSION[xxx])逐个删除</div><div class="line">	$_SESSION = array();   </div><div class="line">	//第三步：如果使用基于Cookie的Session，使用setCooike()删除包含Session Id的Cookie</div><div class="line">	if (isset($_COOKIE[session_name()])) &#123;</div><div class="line">   		setcookie(session_name(), &apos;&apos;, time()-42000, &apos;/&apos;);</div><div class="line">	&#125;</div><div class="line">	//第四步：最后彻底销毁Session</div><div class="line">	session_destroy();</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="传递Session-ID"><a href="#传递Session-ID" class="headerlink" title="传递Session ID"></a>传递Session ID</h3><p>使用Session跟踪一个用户，是通过在各个方面之间传递唯一的Session ID，并通过Session ID提取这个用户在服务器中保存的Session。常见的Session ID传送方法有以下两种。</p>
+<ul>
+<li>第一种方法是基于Cookie的方式传递Session ID，这种方法更优化，但由于不总是可用，因为用户在客户端可以屏蔽Cookie。</li>
+<li>第二种方法则是通过URL参数进行传递，直接将会话ID嵌入到URL中。</li>
+</ul>
+<h4 id="通过Cookie传递Session-ID"><a href="#通过Cookie传递Session-ID" class="headerlink" title="通过Cookie传递Session ID"></a>通过Cookie传递Session ID</h4><p>如果客户端没有禁用Cookie，则在PHP脚本中通过session_start()函数进行初始化后，服务器会自动发送HTTP标头将Session ID保存到客户端电脑的Cookie中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setCookie(session_name(),session_id(),0,&apos;/&apos;)			//虚拟向Cookie中设置Session ID的过程</div></pre></td></tr></table></figure></p>
+<ul>
+<li>在第一个参数中调用session_name()函数，返回当前Session的名称做为Cookie的标识名称。Session名称的默认值为PHPSESSID，是在php.ini文件中由session.name选项指定的值。也可以调用session_name()函数时提供参数改变当前Session名称。</li>
+<li>在第二个参数中调用session_id()函数，返回当前Session ID作为Cookie的值。也可以通过调用session_id()函数时提供参数设定当前Session ID</li>
+<li>第三个参数的值0，是通过在php.ini文件中由session.cookie_lifetime选项设置的值。默认值为0，表示Session ID将在客户机的Cookie中延续到浏览器关闭</li>
+<li>最后一个参数“/”，表示在Cookie中要设置的路径在整个域内都有效</li>
+</ul>
+<h4 id="通过URL传递Session-ID"><a href="#通过URL传递Session-ID" class="headerlink" title="通过URL传递Session ID"></a>通过URL传递Session ID</h4><p>PHP可以重写客户请求的URL，把SessionID添加到URL信息中。可以手动地在每个超链接的URL中都添加一个SessionID,但工作量比较大，不建议使用这种方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	session_start();</div><div class="line">	echo&apos;&lt;a href=&quot;demo.php?&apos;.session_name().&apos;=&apos;.session_id().&apos;&quot;&gt;链接演示&lt;/a&gt;;</div><div class="line">&gt;</div></pre></td></tr></table></figure></p>
+]]></content>
     </entry>
     
     <entry>
