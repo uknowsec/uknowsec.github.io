@@ -373,7 +373,7 @@
     <link href="http://uknowsec.cn/posts/notes/%E3%80%8A%E7%BB%86%E8%AF%B4PHP%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
     <id>http://uknowsec.cn/posts/notes/《细说PHP》学习笔记.html</id>
     <published>2017-01-15T09:00:50.000Z</published>
-    <updated>2017-04-12T15:13:32.900Z</updated>
+    <updated>2017-04-13T15:16:35.186Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/t01db525962d3cb177e.jpg" alt="php"></p>
@@ -2264,7 +2264,130 @@
 </table>
 <h2 id="使用PDO对象"><a href="#使用PDO对象" class="headerlink" title="使用PDO对象"></a>使用PDO对象</h2><h3 id="调整PDO的行为属性"><a href="#调整PDO的行为属性" class="headerlink" title="调整PDO的行为属性"></a>调整PDO的行为属性</h3><h4 id="getAttribute"><a href="#getAttribute" class="headerlink" title="getAttribute()"></a>getAttribute()</h4><p>该方法只需要提供一个参数，传递一个特定属性名称，执行成功返回该属性所指定的值，否则返回NULL。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$opt=array(PDO::ATTR_PERSISTENT =&gt; TRUE);</div><div class="line">	try &#123;</div><div class="line">   		$dbh = new PDO(&apos;mysql:dbname=testdb;host=localhost&apos;, &apos;mysql_user&apos;, &apos;mysql_pwd&apos;, $opt);</div><div class="line">	&#125; catch (PDOException $e) &#123;</div><div class="line">		echo &apos;数据库连接失败：&apos;.$e-&gt;getMessage();</div><div class="line">		exit;</div><div class="line">	&#125;</div><div class="line">	echo &quot;\nPDO是否关闭自动提交功能：&quot;.$dbh-&gt;getAttribute(PDO::ATTR_AUTOCOMMIT);</div><div class="line">	echo &quot;\n当前PDO的错误处理的模式：&quot;.$dbh-&gt;getAttribute(PDO::ATTR_ERRMODE);</div><div class="line">	echo &quot;\n表字段字符的大小写转换： &quot;.$dbh-&gt;getAttribute(PDO::ATTR_CASE);</div><div class="line">	echo &quot;\n与连接状态相关特有信息： &quot;.$dbh-&gt;getAttribute(PDO::ATTR_CONNECTION_STATUS);</div><div class="line">	echo &quot;\n空字符串转换为SQL的null：&quot;.$dbh-&gt;getAttribute(PDO::ATTR_ORACLE_NULLS);</div><div class="line">	echo &quot;\n应用程序提前获取数据大小：&quot;.$dbh-&gt;getAttribute(PDO::ATTR_PERSISTENT);</div><div class="line">	echo &quot;\n与数据库特有的服务器信息：&quot;.$dbh-&gt;getAttribute(PDO::ATTR_SERVER_INFO);</div><div class="line">	echo &quot;\n数据库服务器版本号信息：&quot;.$dbh-&gt;getAttribute(PDO::ATTR_SERVER_VERSION);</div><div class="line">	echo &quot;\n数据库客户端版本号信息：&quot;.$dbh-&gt;getAttribute(PDO::ATTR_CLIENT_VERSION);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
 <h4 id="setAttribute"><a href="#setAttribute" class="headerlink" title="setAttribute()"></a>setAttribute()</h4><p>这个方法需要两个参数，第一个参数提供PDO对象特定的属性名，第二个参数则是为这个指定的属性赋一个值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$dbh-&gt;setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);		//设置抛出异常处理错误</div></pre></td></tr></table></figure></p>
-]]></content>
+<h3 id="使用PDO执行SQL语句"><a href="#使用PDO执行SQL语句" class="headerlink" title="使用PDO执行SQL语句"></a>使用PDO执行SQL语句</h3><h4 id="使用PDO-exec-方法"><a href="#使用PDO-exec-方法" class="headerlink" title="使用PDO::exec()方法"></a>使用PDO::exec()方法</h4><p>当执行INSERT、UPDATE和DELETE等没有结果集的查询时，使用PDO对象中的exec()方法去执行。该方法成功执行后，将返回受影响的行数。该方法不能用于SELECT查询。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	try&#123;</div><div class="line">		$dbh=new PDO(&apos;mysql:dbname=testdb;host=localhost&apos;,&apos;mysql_user&apos;,&apos;mysql_pwd&apos;);</div><div class="line">	&#125;catch(PDOException $e)&#123;</div><div class="line">		echo &apos;数据库连接失败：&apos;.$e-&gt;getMessage();</div><div class="line">		exit;	</div><div class="line">	&#125;</div><div class="line">	$query=&quot;UPDATE contactInfo SET phone=&apos;15801680168&apos; where name=&apos;高某某&apos;&quot;;</div><div class="line">	$affected=$dbh-&gt;exec($query);</div><div class="line">	if($affected)&#123;</div><div class="line">		echo &apos;数据表contactInfo中受影响的行数为：&apos;.$affected;</div><div class="line">	&#125;else&#123;</div><div class="line">		print_r($dbh-&gt;errorInfo());</div><div class="line">	&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="使用PDO-query-方法"><a href="#使用PDO-query-方法" class="headerlink" title="使用PDO::query()方法"></a>使用PDO::query()方法</h4><p>当执行返回结果集的SELECT查询时，或者所影响的行数无关紧要时，应当使用PDO对象中的query()方法。如果该方法成功执行指定的查询，返回一个PDOStatement对象。如果使用了query()方法，并想了解影响的行总数，可以使用PDO对象中的rowCount()方法获取。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	try&#123;</div><div class="line">	　　$dbh=new PDO(&apos;mysql:dbname=testdb;host=localhost&apos;,&apos;mysql_user&apos;,&apos;mysql_pwd&apos;);　　</div><div class="line">	　　$dbh-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</div><div class="line">	&#125;catch(PDOException $e)&#123;</div><div class="line">		echo &apos;数据库连接失败：&apos;.$e-&gt;getMessage();</div><div class="line">		exit;</div><div class="line">	&#125;</div><div class="line">	$query=&quot;SELECT name, phone, email FROM contactInfo WHERE departmentId=&apos;D01&apos;&quot;;	</div><div class="line">	try &#123;</div><div class="line">		$pdostatement=$dbh-&gt;query($query);</div><div class="line">　　　　　	echo &quot;一共从表中获取到&quot;.$pdostatement-&gt;rowCount().&quot;条记录:\n&quot;;</div><div class="line">		foreach ($pdostatement as $row) &#123;</div><div class="line">       		echo $row[&apos;name&apos;] . &quot;\t&quot;;</div><div class="line">       		echo $row[&apos;phone&apos;] . &quot;\t&quot;;</div><div class="line">        		echo $row[&apos;email&apos;] . &quot;\n&quot;;</div><div class="line">    		&#125;</div><div class="line">	&#125; catch (PDOException $e) &#123;</div><div class="line">		echo $e-&gt;getMessage();</div><div class="line"> 		print_r($dbh-&gt;errorInfo());</div><div class="line">	&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="PDO对预处理语句的支持"><a href="#PDO对预处理语句的支持" class="headerlink" title="PDO对预处理语句的支持"></a>PDO对预处理语句的支持</h2><h3 id="了解PDOStatement对象"><a href="#了解PDOStatement对象" class="headerlink" title="了解PDOStatement对象"></a>了解PDOStatement对象</h3><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bindColumn()</td>
+<td style="text-align:left">用来匹配列名和一个指定的变量名，这样每次获取各行记录时，会自动将相应的列值赋给该变量</td>
+</tr>
+<tr>
+<td>bindParam()</td>
+<td style="text-align:left">将参数绑定到相应的查询占位符上</td>
+</tr>
+<tr>
+<td>bindValue()</td>
+<td style="text-align:left">将一值绑定到对应的一个参数中</td>
+</tr>
+<tr>
+<td>closeCursor()</td>
+<td style="text-align:left">关闭游标，使该声明再次被执行</td>
+</tr>
+<tr>
+<td>columnCount()</td>
+<td style="text-align:left">在结果集中返回列的数目</td>
+</tr>
+<tr>
+<td>errorCode()</td>
+<td style="text-align:left">获取错误码</td>
+</tr>
+<tr>
+<td>errorInfo()</td>
+<td style="text-align:left">获取错误的信息</td>
+</tr>
+<tr>
+<td>execute()</td>
+<td style="text-align:left">负责执行一个准备好的预处理查询</td>
+</tr>
+<tr>
+<td>fetch()</td>
+<td style="text-align:left">返回结果集的下一行，当到达结果集末尾时返回FALSE</td>
+</tr>
+<tr>
+<td>fetchAll()</td>
+<td style="text-align:left">通过一次调用就可以获取结果集中的所有行，并赋给返回的数组</td>
+</tr>
+<tr>
+<td>fetchColumn()</td>
+<td style="text-align:left">返回结果集中下一行某个列的值</td>
+</tr>
+<tr>
+<td>fetchObject()</td>
+<td style="text-align:left">获取下一行记录并返回它作为一个对象</td>
+</tr>
+<tr>
+<td>getAttribute()</td>
+<td style="text-align:left">获取一个声明属性</td>
+</tr>
+<tr>
+<td>getColumnMeta()</td>
+<td style="text-align:left">在结果集中返回某一列的属性信息</td>
+</tr>
+<tr>
+<td>nextRowset()</td>
+<td style="text-align:left">检索下一行集（结果集）</td>
+</tr>
+<tr>
+<td>rowCount()</td>
+<td style="text-align:left">返回使用query（）方法执行的SELECT语句后受影响的行总数</td>
+</tr>
+<tr>
+<td>setAttribute()</td>
+<td style="text-align:left">为一个预处理语句设置属性</td>
+</tr>
+<tr>
+<td>setFetchMode()</td>
+<td style="text-align:left">设置需要结果集合的类型</td>
+</tr>
+</tbody>
+</table>
+<h3 id="准备语句"><a href="#准备语句" class="headerlink" title="准备语句"></a>准备语句</h3><p>PDO中有两种使用占位符的语法：“命名参数”和“问号参数”。</p>
+<ul>
+<li><p>使用命名参数作为占位符的INSERT查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$dbh-&gt;prepare(&quot;INSERT INTO contactInfo(name,address,phone) VALUES(:name,:address,:phone)&quot;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用问号（？）参数作为占位符的INSERT查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$dbh-&gt;prepare(&quot;INSERT INTO contactInfo(name,address,phone) VALUES(?,?,?)&quot;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="绑定参数"><a href="#绑定参数" class="headerlink" title="绑定参数"></a>绑定参数</h3><p>当查询准备好之后，需要在每次执行时替换输入的参数。可以通过PDOStatement对象中的bindParam()方法，把参数绑定到准备好的查询中相应的占位符。方法bindParame()的原型如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bindParam(mixed parameter,mixed&amp;variable[,int data_type[,int length[,mixed driver_options]]])</div></pre></td></tr></table></figure></p>
+<p>第一个参数parameter是必选项，如果在准备好的查询中，占位符语法使用名字参数时，将名字参数字符串作为bindParam()方法的第一个参数提供。如果占位符语法使用问号参数时，将准备好的查询中列值占位符的索引偏移量，作为该方法的第一个参数提供。<br>第二个参数variable也是必选项，提供赋给第一个参数所指定占位符的值。它需要按引用传递，在结合准备存储过程使用此方时，可以根据存储过程的某个动作修改这个值。因为该参数是按引用传递，所以只能提供变量作为参数，不能直接提供数值。<br>第三个参数data_type是可选项，显示地为当前被绑定的参数设置数据类型。</p>
+<ul>
+<li>PDO::PARAM_BOOL:代表boolean数据类型</li>
+<li>PDO::PARAM_NULL:代表SQL中NULL类型</li>
+<li>PDO::PARAM_INT:代表SQL中INTEGER数据类型</li>
+<li>PDO::PARAM_STR:代表SQL中CHAR、VARCHAR和其他字符串数据类型</li>
+<li>PDO::PARAM_LOB:代表SQL中大对象数据类型</li>
+<li>PDO::PARAM_STMT:代表PDOStatement对象类型</li>
+<li>PDO::PARAM_INPUT_OUTPUT:专为存储过程使用的数据类型，可以在过程执行后修改</li>
+</ul>
+<p>第四个参数length是可选项，用于指定数据类型的长度，当在第三个参数中使用PDO_PARAM_INPUT_OUTPUT数据类型时必须使用这个参数。<br>第五个参数driver_options是可选项，通过该参数提供任何数据库驱动程序特定的选项。</p>
+<h3 id="执行准备好的查询"><a href="#执行准备好的查询" class="headerlink" title="执行准备好的查询"></a>执行准备好的查询</h3><p>当准备好查询并绑定了相应的参数，就可以通过调用PDOStatement类对象中的execute（）方法反复执行了。<br>execute()方法中提供了一个可选参数，该参数由准备查询中的命名参数占位符组成的数组，这是第二种为预处理查询在执行中替换输入参数的方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">	try&#123;</div><div class="line">		$dbh=new PDO(&apos;mysql:dbname=testdb;host=localhost&apos;,&apos;mysql_user&apos;,&apos;mysql_pwd&apos;);</div><div class="line">	&#125;catch(PDOException $e)&#123;</div><div class="line">		echo &apos;数据库连接失败：&apos;.$e-&gt;getMessage();</div><div class="line">		exit;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	$query=&quot;INSERT INTO contactInfo (name, address, phone) VALUES (:name, :address, :phone)&quot;;</div><div class="line">	$stmt=$dbh-&gt;prepare($query);</div><div class="line"></div><div class="line">	$stmt-&gt;execute(array(&quot;:name&quot;=&gt;&quot;赵某某&quot;,&quot;:address&quot;=&gt;&quot;海淀区&quot;, &quot;:phone&quot;=&gt;&quot;15801688348&quot;));</div><div class="line"></div><div class="line">	$stmt-&gt;execute(array(&quot;:name&quot;=&gt;&quot;孙某某&quot;,&quot;:address&quot;=&gt;&quot;宣武区&quot;, &quot;:phone&quot;=&gt;&quot;15801688698&quot;));</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h3><h4 id="fetch-方法"><a href="#fetch-方法" class="headerlink" title="fetch()方法"></a>fetch()方法</h4><p>DOStatement类中的fetch()方法可以将结果集中当前行的记录以某种方法返回，并将结果集指针移至下一行，当到达结果集末尾时返回FALSE。该方法的原型如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fetch([int fetch_style[,int cursor_orientation[,int cursor_offset]]])	//返回结果集的下一行</div></pre></td></tr></table></figure></p>
+<p>第一个参数fetch_style是必选项，获取的一行数据记录中，各列的引用方式取决于这个参数如何设置。可以使用的设置以下六种。</p>
+<ul>
+<li>PDO::FETCH_ASSOC:从结果集中获取按列名为索引的关联数组</li>
+<li>PDO::FETCH_NUM:从结果集中获取一个按列在航中的数值偏移为索引的值数组</li>
+<li>PDO::FETCH_BOTH:这是默认值，包含上面两种数组</li>
+<li>PDO::FETCH_OBJ：从结果集当前行的记录中获取其属性对应各个列名的一个对象</li>
+<li>PDO::FETCH_BOUND:使用fetch()返回TRUE，并将获取的列值赋给通过bindParam()方法中指定的相应变量</li>
+<li>PDO::FETCH_LAZY：创建关联数组和索引数组，以及包含列属性的一个对象，从而可以在这三种接口中任选一种</li>
+</ul>
+<p>第二个参数curosr_orientation是可选项，用来确定当对象是一个可滚动的游标时应当获取哪一行。<br>第三个参数cursor_offset也是可选项，需要提供一个整数值，表示要获取的行相对于当前游标位置的偏移。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">	try&#123;</div><div class="line">		$dbh=new PDO(&apos;mysql:dbname=testdb;host=localhost&apos;,&apos;mysql_user&apos;,&apos;mysql_pwd&apos;);</div><div class="line">	&#125;catch(PDOException $e)&#123;</div><div class="line">		echo &apos;数据库连接失败：&apos;.$e-&gt;getMessage();</div><div class="line">		exit;</div><div class="line">	&#125;</div><div class="line">	echo &apos;&lt;table border=&quot;1&quot; align=&quot;center&quot; width=90%&gt;&apos;;</div><div class="line">	echo &apos;&lt;caption&gt;&lt;h1&gt;联系人信息表&lt;/h1&gt;&lt;/caption&gt;&apos;;</div><div class="line">	echo &apos;&lt;tr bgcolor=&quot;#cccccc&quot;&gt;&apos;;</div><div class="line">	echo &apos;&lt;th&gt;UID&lt;/th&gt;&lt;th&gt;姓名&lt;/th&gt;&lt;th&gt;联系地址&lt;/th&gt;&lt;th&gt;联系电话&lt;/th&gt;&lt;th&gt;电子邮件&lt;/th&gt;&lt;/tr&gt;&apos;;</div><div class="line">	$stmt=$dbh-&gt;query(&quot;select uid,name,address,phone,email from contactInfo&quot;);</div><div class="line">	while($row=$stmt-&gt;fetch(PDO::FETCH_ASSOC))&#123;</div><div class="line">		echo &apos;&lt;tr&gt;&apos;;</div><div class="line">		echo &apos;&lt;td&gt;&apos;.$row[&quot;uid&quot;].&apos;&lt;/td&gt;&apos;;</div><div class="line">		echo &apos;&lt;td&gt;&apos;.$row[&quot;name&quot;].&apos;&lt;/td&gt;&apos;;</div><div class="line">		echo &apos;&lt;td&gt;&apos;.$row[&quot;address&quot;].&apos;&lt;/td&gt;&apos;;</div><div class="line">		echo &apos;&lt;td&gt;&apos;.$row[&quot;phone&quot;].&apos;&lt;/td&gt;&apos;;</div><div class="line">		echo &apos;&lt;td&gt;&apos;.$row[&quot;email&quot;].&apos;&lt;/td&gt;&apos;;</div><div class="line">		echo &apos;&lt;/tr&gt;&apos;;</div><div class="line">	&#125;</div><div class="line">	echo &apos;&lt;/table&gt;&apos;;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<h4 id="fetchAll-方法"><a href="#fetchAll-方法" class="headerlink" title="fetchAll()方法"></a>fetchAll()方法</h4><p>fetchAll()方法与上一个方法fetch()类似，但是该方法只需要调用一次就可以获取结果集中的所有行，并赋给返回的数组。该方法的原型如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fetchAll([int fetch_style[,int column_index]])			//一次调用返回结果集中所有行</div></pre></td></tr></table></figure></p>
+<p>第一个参数fetch_style是必选项，以何种方式引用所获取的列取决于该参数。默认值为PDO::FETCH_BOTH，还可以指定PDO::FETCH_COLUMN值，从结果集中返回一个包含单列的所有值。<br>第二个参数column_index是可选项，需要提供一个整数索引，当在fetchAll()方法的第一个参数中指定PDO::FETCH_COLUMN值时，从结果集中返回通过该参数提供的索引所指定列的所有值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	try&#123;</div><div class="line">		$dbh=new PDO(&apos;mysql:dbname=testdb;host=localhost&apos;,&apos;mysql_user&apos;,&apos;mysql_pwd&apos;);</div><div class="line">	&#125;catch(PDOException $e)&#123;</div><div class="line">		echo &apos;数据库连接失败：&apos;.$e-&gt;getMessage();</div><div class="line">		exit;</div><div class="line">	&#125;</div><div class="line">	echo &apos;&lt;table border=&quot;1&quot; align=&quot;center&quot; width=90%&gt;&apos;;</div><div class="line">	echo &apos;&lt;caption&gt;&lt;h1&gt;联系人信息表&lt;/h1&gt;&lt;/caption&gt;&apos;;</div><div class="line">	echo &apos;&lt;tr bgcolor=&quot;#cccccc&quot;&gt;&apos;;</div><div class="line">	echo &apos;&lt;th&gt;UID&lt;/th&gt;&lt;th&gt;姓名&lt;/th&gt;&lt;th&gt;联系地址&lt;/th&gt;&lt;th&gt;联系电话&lt;/th&gt;&lt;th&gt;电子邮件&lt;/th&gt;&lt;/tr&gt;&apos;;	$stmt=$dbh-&gt;prepare(&quot;select uid,name,address,phone,email from contactInfo&quot;);</div><div class="line">	$stmt-&gt;execute();</div><div class="line">	$allRows=$stmt-&gt;fetchAll(PDO::FETCH_NUM);</div><div class="line">	foreach($allRows as $row)&#123;</div><div class="line">		echo &apos;&lt;tr&gt;&apos;;</div><div class="line">		echo &apos;&lt;td&gt;&apos;.$row[0].&apos;&lt;/td&gt;&apos;;</div><div class="line">		echo &apos;&lt;td&gt;&apos;.$row[1].&apos;&lt;/td&gt;&apos;;</div><div class="line">		echo &apos;&lt;td&gt;&apos;.$row[2].&apos;&lt;/td&gt;&apos;;</div><div class="line">		echo &apos;&lt;td&gt;&apos;.$row[3].&apos;&lt;/td&gt;&apos;;</div><div class="line">		echo &apos;&lt;td&gt;&apos;.$row[4].&apos;&lt;/td&gt;&apos;;</div><div class="line">		echo &apos;&lt;/tr&gt;&apos;;</div><div class="line">	&#125;</div><div class="line">	echo &apos;&lt;/table&gt;&apos;;</div><div class="line"></div><div class="line">	$stmt-&gt;execute();</div><div class="line">	$row=$stmt-&gt;fetchAll(PDO::FETCH_COLUMN, 1);</div><div class="line">	echo &apos;所有联系人的姓名：&apos;;</div><div class="line">	print_r($row);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="bindColumn-方法"><a href="#bindColumn-方法" class="headerlink" title="bindColumn()方法"></a>bindColumn()方法</h4><p>使用该方法可以将一个列和一个指定的变量名绑定，这样在每次使用fetch()方法获取各行记录时，会自动将相应的列值赋给该变量，但必须是在fetch()方法第一个参数设置为PDO：：FETCH_BOTH值时。bindColumn()方法的原型如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bindColumn(mixed coumn,mixed&amp;param[,int type])		//设置绑定列值到变量上</div></pre></td></tr></table></figure></p>
+<p>第一个参数column为必选项，可以使用整数的列偏移位置索引（索引值从1开始），或是列的名称字符串。第二个参数param也是必选项，需要传递一个引用，所以必须提供一个相应的变量名。第三个参数type是可选项，通过设置变量的类型来限制变量值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	try&#123;</div><div class="line">		$dbh=new PDO(&apos;mysql:dbname=testdb;host=localhost&apos;,&apos;mysql_user&apos;,&apos;mysql_pwd&apos;);</div><div class="line">		$dbh-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</div><div class="line">	&#125;catch(PDOException $e)&#123;</div><div class="line">		echo &apos;数据库连接失败：&apos;.$e-&gt;getMessage();</div><div class="line">		exit;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	$query=&quot;SELECT uid, name, phone, email FROM contactInfo WHERE departmentId=&apos;D01&apos;&quot;;</div><div class="line">	try &#123;</div><div class="line">		$stmt=$dbh-&gt;prepare($query);</div><div class="line">		$stmt-&gt;execute();</div><div class="line">		$stmt-&gt;bindColumn(1, $uid);</div><div class="line">		$stmt-&gt;bindColumn(2, $name);</div><div class="line">		$stmt-&gt;bindColumn(&apos;phone&apos;, $phone);</div><div class="line">		$stmt-&gt;bindColumn(&apos;email&apos;, $email);</div><div class="line"></div><div class="line">		while ($row = $stmt-&gt;fetch(PDO::FETCH_BOUND)) &#123;</div><div class="line">			 echo $uid.&quot;\t&quot;.$name.&quot;\t&quot;.$phone.&quot;\t&quot;.$email.&quot;\n&quot;;</div><div class="line">		&#125;</div><div class="line">	&#125; catch (PDOException $e) &#123;</div><div class="line">		echo $e-&gt;getMessage();</div><div class="line">	&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="大数据对象的存取"><a href="#大数据对象的存取" class="headerlink" title="大数据对象的存取"></a>大数据对象的存取</h4><p>PDO允许在bindParam()或bindColumn()调用中通过使用PDO::PARAM_LOB类型代码来使用大型数据库类型。PDO::PARAM_LOB告诉PDO将数据映射为流，所以可以使用PHP中文件处理函数来操纵这样的数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$dbh=new PDO(&apos;mysql:dbname=testdb;host=localhost&apos;,&apos;mysql_user&apos;,&apos;mysql_pwd&apos;);		//连接数据库</div><div class="line">	$stmt=$dbh-&gt;prepare(&quot;inset into images(contenttype,imagedata)values(?,?)&quot;);			//准备插入查询</div><div class="line">	$fp=fopen($_FILES[&apos;file&apos;][&apos;tmp_name&apos;],&apos;rb&apos;);			//使用fopen()函数打开上传的文件</div><div class="line">	$stmt-&gt;bindParam(1,$_FILES[&apos;flie&apos;][&apos;type&apos;]);			//将上传的MIME类型绑定到第一个参数中</div><div class="line">	$stmt-&gt;bindParam(2,$fp,PDO_PARAM_LOB);			//将上传文件的二进制数据和第二个参数绑定</div><div class="line">	$stmt-&gt;execute();			//执行准备好的并绑定了参数的查询</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="会话控制"><a href="#会话控制" class="headerlink" title="会话控制"></a>会话控制</h1><h2 id="Cookie的应用"><a href="#Cookie的应用" class="headerlink" title="Cookie的应用"></a>Cookie的应用</h2>]]></content>
     
     <summary type="html">
     
