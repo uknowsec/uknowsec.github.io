@@ -4,6 +4,76 @@
   
     
     <entry>
+      <title><![CDATA[《TCP/IP详解 卷1：协议》学习笔记]]></title>
+      <url>http://uknowsec.cn/posts/notes/%E3%80%8ATCP-IP%E8%AF%A6%E8%A7%A3-%E5%8D%B71%EF%BC%9A%E5%8D%8F%E8%AE%AE%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/141924136983820.png" alt=""></p>
+<ul>
+<li>链路层：处理与电缆（或其他任何传输媒介）的物理接口细节（Telnet,FTP和e-mail等）</li>
+<li>网络层：处理分组在网络中的活动，例如分组选路（TCP和UDP）</li>
+<li>运输层：为两台主机上的应用程序提供端到端的通讯（IP,ICMP和IGMP）</li>
+<li>应用层：处理特定的应用程序细节（设备驱动程序及接口卡）</li>
+</ul>
+<h2 id="实例：运行FTP的两台主机"><a href="#实例：运行FTP的两台主机" class="headerlink" title="实例：运行FTP的两台主机"></a>实例：运行FTP的两台主机</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/142117348856117.png" alt=""></p>
+<ul>
+<li>大多数的网络应用程序都被设计成客户-服务器模式</li>
+<li>双方都有对应的一个或多个协议进行通讯</li>
+<li>应用程序通常是用户进程，而下三层一般在内核执行</li>
+<li>应用层关心应用程序的细节，下三层对应用程序一无所知，但它要处理所有的通信细节</li>
+</ul>
+<h2 id="通过路由器连接的两个网络"><a href="#通过路由器连接的两个网络" class="headerlink" title="通过路由器连接的两个网络"></a>通过路由器连接的两个网络</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/141953434648847.png" alt=""></p>
+<ul>
+<li>端系统（end system）（两边的两台主机）</li>
+<li>中间系统（intermediate system）（中间的路由器）</li>
+<li>应用层和运输层使用端到端（end-to-end）协议</li>
+<li>网络层提供的是逐跳（hop-to-hop）协议</li>
+<li>网络ip提供的是一种不可靠的服务，它只是尽可能快的把分组从源结点送到目的结点，但不提供可靠的运输层</li>
+<li>互联网的目的之一就是在应用程序中隐藏所有的屋里细节</li>
+</ul>
+<h2 id="TCP-IP协议族中不同层次的协议"><a href="#TCP-IP协议族中不同层次的协议" class="headerlink" title="TCP/IP协议族中不同层次的协议"></a>TCP/IP协议族中不同层次的协议</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/141957475736336.png" alt=""></p>
+<ul>
+<li>TCP使用不可靠的IP服务，并提供一种可靠的运输层服务</li>
+<li>UDP为应用程序发送和接受数据报，和TCP不同，UDP是不可靠的。</li>
+<li>IP是网络层上的主要协议，同时被TCP和UDP使用</li>
+<li>ICMP是IP协议的附属协议</li>
+<li>IGMP是Internet组管理协议。它用来把一个UDP数据报多播到多个主机</li>
+<li>ARP（地址解析协议）和RARP（逆地址解析协议）是某些网络接口（如以太网和令牌环网）使用的特殊协议，用来转换IP层和网络接口层使用的地址。</li>
+</ul>
+<h2 id="互联网的地址"><a href="#互联网的地址" class="headerlink" title="互联网的地址"></a>互联网的地址</h2><p>互联网上的每个接口必须有一个唯一的Internet地址（也称作IP地址）。IP地址长32bit。IP地址具有一定的结构，五类不同的互联网地址格式如图1-5所示。<br><img src="http://images.cnitblog.com/blog2015/697266/201504/142010446984287.png" alt=""></p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/142010578707763.png" alt=""></p>
+<p>说明：</p>
+<ul>
+<li><p>多接口主机具有多个IP地址，其中每个接口都对应一个IP地址。</p>
+</li>
+<li><p>有三类IP地址：单播地址（目的端为单个主机）、广播地址（目的端为给定网络上的所有主机）以及多播地址（目的端为同一组内的所有主机）。</p>
+</li>
+</ul>
+<h2 id="域名系统"><a href="#域名系统" class="headerlink" title="域名系统"></a>域名系统</h2><p>在TCP/IP领域中，域名系统（DNS）是一个分布的数据库，由它来提供IP地址和主机名之间的映射信息。</p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/142022372296370.png" alt=""></p>
+<ul>
+<li>以太网数据帧的物理特征是其长度必须在46~1500字节之间</li>
+<li>以太网的帧首部也有一个16bit的帧类型域（ip,arp,rarp）</li>
+<li>IP在首部中存放一个长度为8bit的数值，称作协议域（icmp,igmp,tcp,udp,esp,gre）。1表示为ICMP协议，2表示为IGMP协议，6表示为TCP协议，17表示为UDP协议</li>
+<li>TCP和UDP都用一个16bit的端口号来表示不同的应用程序（ftp,telnet,http）</li>
+</ul>
+<h2 id="分用"><a href="#分用" class="headerlink" title="分用"></a>分用</h2><p>当目的主机收到一个以太网数据帧时，数据就开始从协议栈中由底向上升，同时去掉各层协议加上的报文首部。每层协议盒都要去检查报文首部中的协议标识，以确定接受数据的上层协议。这个过程称作分用。</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/142028379795759.png" alt=""></p>
+<h2 id="客户-服务器模型"><a href="#客户-服务器模型" class="headerlink" title="客户-服务器模型"></a>客户-服务器模型</h2><p>大部分网络应用程序在编写时都假设一端是客户，另一端是服务器，其目的是为了让服务器为客户提供一些特定的服务。服务分为两种类型：重复型和并发型。</p>
+<h3 id="重复型服务器"><a href="#重复型服务器" class="headerlink" title="重复型服务器"></a>重复型服务器</h3><p>1）等待一个客户请求的到来。<br>2）处理客户请求。<br>3）发送响应给发送请求的客户。<br>4）返回1）步。</p>
+<p>重复型服务器主要的问题发生在2）状态。在这个时候，它不能为其他客户机提供服务。</p>
+<h3 id="并发型服务器"><a href="#并发型服务器" class="headerlink" title="并发型服务器"></a>并发型服务器</h3><p>1）等待一个客户请求的到来。<br>2）启动一个新的服务器来处理这个客户的请求。在这期间可能生成一个新的进程、任务或线程，并依赖底层操作系统的支持。这个步骤如何进行取决于操作系统。生成的新服务器对客户的全部请求进行处理。处理结束后，终止这个新服务器。</p>
+<p>3）返回1）步。</p>
+<p>并发服务器的优点在于它是利用生成其他服务器的方法来处理客户的请求。每个客户都有它自己对应的服务器。如果操作系统允许多任务，那么就可以同时为多个客户服务。</p>
+<h2 id="端口号"><a href="#端口号" class="headerlink" title="端口号"></a>端口号</h2><ul>
+<li>服务器一般都是通过知名端口号来识别的（ftp 21,telnet 23）</li>
+<li>客户端端口号又称作临时端口号（即存在时间很短暂）</li>
+<li>大多数TCP/IP实现给临时端口分配1024~5000之间的端口号</li>
+<li>大于5000的端口号是为其他服务器预留的（Internet上并不常用的服务）</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[[第四周]LinuxLinux各个目录的作用及内容]]></title>
       <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E5%9B%9B%E5%91%A8-LinuxLinux%E5%90%84%E4%B8%AA%E7%9B%AE%E5%BD%95%E7%9A%84%E4%BD%9C%E7%94%A8%E5%8F%8A%E5%86%85%E5%AE%B9.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>

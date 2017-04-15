@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-03-17T13:21:15.910Z</updated>
+  <updated>2017-04-15T15:00:15.734Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -14,6 +14,90 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《TCP/IP详解 卷1：协议》学习笔记</title>
+    <link href="http://uknowsec.cn/posts/notes/%E3%80%8ATCP-IP%E8%AF%A6%E8%A7%A3-%E5%8D%B71%EF%BC%9A%E5%8D%8F%E8%AE%AE%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
+    <id>http://uknowsec.cn/posts/notes/《TCP-IP详解-卷1：协议》学习笔记.html</id>
+    <published>2017-04-15T13:08:21.000Z</published>
+    <updated>2017-04-15T15:00:15.734Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/141924136983820.png" alt=""></p>
+<ul>
+<li>链路层：处理与电缆（或其他任何传输媒介）的物理接口细节（Telnet,FTP和e-mail等）</li>
+<li>网络层：处理分组在网络中的活动，例如分组选路（TCP和UDP）</li>
+<li>运输层：为两台主机上的应用程序提供端到端的通讯（IP,ICMP和IGMP）</li>
+<li>应用层：处理特定的应用程序细节（设备驱动程序及接口卡）</li>
+</ul>
+<h2 id="实例：运行FTP的两台主机"><a href="#实例：运行FTP的两台主机" class="headerlink" title="实例：运行FTP的两台主机"></a>实例：运行FTP的两台主机</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/142117348856117.png" alt=""></p>
+<ul>
+<li>大多数的网络应用程序都被设计成客户-服务器模式</li>
+<li>双方都有对应的一个或多个协议进行通讯</li>
+<li>应用程序通常是用户进程，而下三层一般在内核执行</li>
+<li>应用层关心应用程序的细节，下三层对应用程序一无所知，但它要处理所有的通信细节</li>
+</ul>
+<h2 id="通过路由器连接的两个网络"><a href="#通过路由器连接的两个网络" class="headerlink" title="通过路由器连接的两个网络"></a>通过路由器连接的两个网络</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/141953434648847.png" alt=""></p>
+<ul>
+<li>端系统（end system）（两边的两台主机）</li>
+<li>中间系统（intermediate system）（中间的路由器）</li>
+<li>应用层和运输层使用端到端（end-to-end）协议</li>
+<li>网络层提供的是逐跳（hop-to-hop）协议</li>
+<li>网络ip提供的是一种不可靠的服务，它只是尽可能快的把分组从源结点送到目的结点，但不提供可靠的运输层</li>
+<li>互联网的目的之一就是在应用程序中隐藏所有的屋里细节</li>
+</ul>
+<h2 id="TCP-IP协议族中不同层次的协议"><a href="#TCP-IP协议族中不同层次的协议" class="headerlink" title="TCP/IP协议族中不同层次的协议"></a>TCP/IP协议族中不同层次的协议</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/141957475736336.png" alt=""></p>
+<ul>
+<li>TCP使用不可靠的IP服务，并提供一种可靠的运输层服务</li>
+<li>UDP为应用程序发送和接受数据报，和TCP不同，UDP是不可靠的。</li>
+<li>IP是网络层上的主要协议，同时被TCP和UDP使用</li>
+<li>ICMP是IP协议的附属协议</li>
+<li>IGMP是Internet组管理协议。它用来把一个UDP数据报多播到多个主机</li>
+<li>ARP（地址解析协议）和RARP（逆地址解析协议）是某些网络接口（如以太网和令牌环网）使用的特殊协议，用来转换IP层和网络接口层使用的地址。</li>
+</ul>
+<h2 id="互联网的地址"><a href="#互联网的地址" class="headerlink" title="互联网的地址"></a>互联网的地址</h2><p>互联网上的每个接口必须有一个唯一的Internet地址（也称作IP地址）。IP地址长32bit。IP地址具有一定的结构，五类不同的互联网地址格式如图1-5所示。<br><img src="http://images.cnitblog.com/blog2015/697266/201504/142010446984287.png" alt=""></p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/142010578707763.png" alt=""></p>
+<p>说明：</p>
+<ul>
+<li><p>多接口主机具有多个IP地址，其中每个接口都对应一个IP地址。</p>
+</li>
+<li><p>有三类IP地址：单播地址（目的端为单个主机）、广播地址（目的端为给定网络上的所有主机）以及多播地址（目的端为同一组内的所有主机）。</p>
+</li>
+</ul>
+<h2 id="域名系统"><a href="#域名系统" class="headerlink" title="域名系统"></a>域名系统</h2><p>在TCP/IP领域中，域名系统（DNS）是一个分布的数据库，由它来提供IP地址和主机名之间的映射信息。</p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/142022372296370.png" alt=""></p>
+<ul>
+<li>以太网数据帧的物理特征是其长度必须在46~1500字节之间</li>
+<li>以太网的帧首部也有一个16bit的帧类型域（ip,arp,rarp）</li>
+<li>IP在首部中存放一个长度为8bit的数值，称作协议域（icmp,igmp,tcp,udp,esp,gre）。1表示为ICMP协议，2表示为IGMP协议，6表示为TCP协议，17表示为UDP协议</li>
+<li>TCP和UDP都用一个16bit的端口号来表示不同的应用程序（ftp,telnet,http）</li>
+</ul>
+<h2 id="分用"><a href="#分用" class="headerlink" title="分用"></a>分用</h2><p>当目的主机收到一个以太网数据帧时，数据就开始从协议栈中由底向上升，同时去掉各层协议加上的报文首部。每层协议盒都要去检查报文首部中的协议标识，以确定接受数据的上层协议。这个过程称作分用。</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/142028379795759.png" alt=""></p>
+<h2 id="客户-服务器模型"><a href="#客户-服务器模型" class="headerlink" title="客户-服务器模型"></a>客户-服务器模型</h2><p>大部分网络应用程序在编写时都假设一端是客户，另一端是服务器，其目的是为了让服务器为客户提供一些特定的服务。服务分为两种类型：重复型和并发型。</p>
+<h3 id="重复型服务器"><a href="#重复型服务器" class="headerlink" title="重复型服务器"></a>重复型服务器</h3><p>1）等待一个客户请求的到来。<br>2）处理客户请求。<br>3）发送响应给发送请求的客户。<br>4）返回1）步。</p>
+<p>重复型服务器主要的问题发生在2）状态。在这个时候，它不能为其他客户机提供服务。</p>
+<h3 id="并发型服务器"><a href="#并发型服务器" class="headerlink" title="并发型服务器"></a>并发型服务器</h3><p>1）等待一个客户请求的到来。<br>2）启动一个新的服务器来处理这个客户的请求。在这期间可能生成一个新的进程、任务或线程，并依赖底层操作系统的支持。这个步骤如何进行取决于操作系统。生成的新服务器对客户的全部请求进行处理。处理结束后，终止这个新服务器。</p>
+<p>3）返回1）步。</p>
+<p>并发服务器的优点在于它是利用生成其他服务器的方法来处理客户的请求。每个客户都有它自己对应的服务器。如果操作系统允许多任务，那么就可以同时为多个客户服务。</p>
+<h2 id="端口号"><a href="#端口号" class="headerlink" title="端口号"></a>端口号</h2><ul>
+<li>服务器一般都是通过知名端口号来识别的（ftp 21,telnet 23）</li>
+<li>客户端端口号又称作临时端口号（即存在时间很短暂）</li>
+<li>大多数TCP/IP实现给临时端口分配1024~5000之间的端口号</li>
+<li>大于5000的端口号是为其他服务器预留的（Internet上并不常用的服务）</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>[第四周]LinuxLinux各个目录的作用及内容</title>
@@ -5610,46 +5694,6 @@ HTML DOM - 针对 HTML 文档的标准模型
 <h3 id="共享表空间"><a href="#共享表空间" class="headerlink" title="共享表空间"></a>共享表空间</h3><p>MySQL服务实例承载的所有数据库的所有InnoDB表的数据信息、索引信息、各种元数据信息以及事务的回滚（UNDO）信息，全部存放在共享空间文件中。</p>
 <h3 id="独享表空间"><a href="#独享表空间" class="headerlink" title="独享表空间"></a>独享表空间</h3><p>如果将全局变量innodb_file_per_table的值设置为ON，那么之后创建InnoDB存储引擎的新表时，这些表的数据信息、索引信息将保存到独享表空间中。</p>
 <h2 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">使用SQL语句“drop table table_name;&quot;即可删除名为table_name的表</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Web安全与攻击技术-基础知识</title>
-    <link href="http://uknowsec.cn/posts/notes/Web%E5%AE%89%E5%85%A8%E4%B8%8E%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html"/>
-    <id>http://uknowsec.cn/posts/notes/Web安全与攻击技术-基础知识.html</id>
-    <published>2016-09-01T06:29:17.000Z</published>
-    <updated>2016-11-20T16:55:09.213Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="0x01-HTTP协议"><a href="#0x01-HTTP协议" class="headerlink" title="0x01 HTTP协议"></a>0x01 HTTP协议</h2><p>超文本传送协议（Hypertext Transport Protocol , HTTP）是分布式、协作式、超媒体系统应用之间的通信协议，是万维网（World Wide Web）交换信息的基础。HTTP是一个客户端终端（用户）和服务端（网站）请求和应答的标准（TCP）。通过使用Web浏览器、网络爬虫或者其他工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80），称这个客户端为用户代理程序。通常，有HTTP客户端发起一个请求，创建一个到服务器指定端口（默认端口为80端口）的TCP连接。HTTO服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，如“HTTP/1.1 200 OK”及返回的内容（请求的文件、错误信息、或者其他信息）。</p>
-<h3 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h3><p>（1）OPTIONS：该办法可使服务器传回该资源所支持的所有HTTP请求方法。用‘*’来代替资源名称，向Web服务器发送OPTIONS请求，可以测试服务器功能是否正常运作。<br>（2）HEAD:与GET方法一样，都是向服务器发出指定资源的请求。只不过服务器将不传回资源的本文部分。它的好处在于，使用这个方法可以在不必传输全部内容的情况下，就可以获取其中“关于该资源的信息”（元信息或称元数据）<br>（3）GET:向指定资源发出“显示”请求。使用GET方法应该只用在读取数据，而不应当被用于产生“副作用”的操作中，如在Web Application中，其中一个原因就是GET可能会被网络蜘蛛等随意访问。<br>（4）POST:向指定资源提交数据，请求服务器进行处理（如提交表单或者上传文件）。数据被包含在请求本文中。这个请求可能会创建新的资源或修改现有资源，或二者皆有。<br>（5）PUT：向指向资源位置上传其最新内容。<br>（6）DELETE：请求服务器删除Request-URI所标识的资源。<br>（7）TRACE：回显服务器收到的请求，主要用于测试或诊断。<br>（8）CONNECT:HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接（经由非加密的HTTP代理服务器）。<br>以下是一个典型的HTTP GET 请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">GET / HTTP/1.1</div><div class="line">User-Agent: Mozilla/4.0(compatible; MSIE 8.0; Windows NT 6.0)</div><div class="line">Host: www.bit.edu.cn</div><div class="line">Accept: text/html</div><div class="line">Accept-Language: zh-CN</div><div class="line">Accept-Rncoding: gzip,deflate</div><div class="line">Cache-Control: no-cache</div><div class="line">Cookie: SessionId= ICONFPDBEPOBLFFGBKKNCGAL</div><div class="line">Connection: Keep-Alive</div></pre></td></tr></table></figure></p>
-<p>其中，请求的第一行都是由3个以空格间隔的项目组成，分别是请求方法、请求路径、和HTTP版本。其他一些常见的消息头如下。<br>（1）Referer消息头用于表示发出请求的原始URL。<br>（2）User-Agent消息头提供与浏览器或其他请求的客户端软件有关的信息。<br>（3）Host消息头用于指定出现被访问的完整URL中的主机名称。<br>（4）Cookie消息头用于提交服务器向客户端发布的其他参数。</p>
-<h3 id="HTTP-状态码"><a href="#HTTP-状态码" class="headerlink" title="HTTP 状态码"></a>HTTP 状态码</h3><p>HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位柱子代码。所有HTTP响应的第一行都是状态行，以次是当前HTTP版本号，3位数字组成的状态代码，以及描述状态的短语，彼此由空格分隔。<br>状态代码的第一数字代表当前响应的类型。<br>（1）1xx消息————请求已被服务器接收，继续处理。<br>（2）2xx成功————请求已成功被服务器接收、理解、并接受。<br>（3）3xx重定向————需要后续操作才能完成这一请求。<br>（4）4xx请求错误————请求含有词法错误或者无法被执行。<br>（5）5xx服务器错误————服务器在处理某个正确请求时发生错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 200 OK </div><div class="line">Date: Mon,04 Mar 2013 07:53:16 GMT</div><div class="line">Server: Apache/2.2.23 (Unix) mod_jk/1.2.14</div><div class="line">Content-Length: 31300</div><div class="line">Keep-Alive: timeout=5,max=99</div><div class="line">Connection: Keep-Alive</div><div class="line">Content-Type: text-html</div></pre></td></tr></table></figure></p>
-<p>每个HTTP响应的第一行由3个以空格间隔的项目组成，分别为HTTP版本、状态码和原因短语。其他一些常见的消息头如下：<br>（1）Server消息头包含一个旗标，指明所使用的Web服务器软件。有时还包括其他信息，如所安装的模块和服务器操作系统。其中包括的信息可能并不准确。<br>（2）Set-Cookie消息头向浏览器发送另一个Cookie,它将在最后向服务器发送的请求中由Cookie消息头返回。<br>（3）Progma消息头指示浏览器是否将响应保存在缓存中。<br>（4）Expires消息头指出响应内容过期日期。<br>（5）Content-Length消息头规定消息主题的字节长度。<br>（6）Content-Type消息头表示这个消息主题中包含一个HTML文档。</p>
-<h3 id="HTTP-Cookie"><a href="#HTTP-Cookie" class="headerlink" title="HTTP Cookie"></a>HTTP Cookie</h3><p>HTTP协议是无状态的，即服务器不知道用户上一次做了什么，这严重阻碍了交互式Web应用程序的实现。所以Cookie就是用来绕开HTTO的无状态性的“额外手段”之一。服务器可以设置或读取Cookies中包含的信息，借此维护用户跟服务器会话中的状态。</p>
-<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p>超文本传输安全协议（Hypertext Transfer Protocol Secure, HTTPS）是超文本传输协议和SSL/TLS的组合，用以提供加密通信及对网络服务器身份的鉴定。HTTPS连接经常被用于万维网上的交易支付和企业信息系统的敏感信息的传输。<br>HTTPS可为浏览器和服务器间传输的数据提供机密性与完整性保护功能。有助于防止信息泄漏，并且可以保证用户处理的服务器的安全性。但是HTTPS并不能抵御直接针对某个应用程序服务器或客户端组件的攻击，而许多成功的攻击都属于这种类型。因此无论服务器是否使用HTTPS，大多数Web应用程序安全漏洞仍然存在。</p>
-<h2 id="0x02-B-S功能及会话"><a href="#0x02-B-S功能及会话" class="headerlink" title="0x02 B/S功能及会话"></a>0x02 B/S功能及会话</h2><h3 id="服务端功能"><a href="#服务端功能" class="headerlink" title="服务端功能"></a>服务端功能</h3><p>Web应用程序主要向用户提供动态生成的内容。当用户请求一个动态资源时，服务器会建立响应并在服务器端执行相应的脚本生成内容，然后将内容返回给用户。在形式上服务器类似于计算机程序，接受输入并处理输入，最后向用户返回输出结果。<br>HTTP请求通常使用以下3种方式向应用程序传递参数。<br>（1）通过URL里的查询字符串。<br>（2）通过在请求主题中使用POST方法。<br>（3）通过HTTP Cookie。</p>
-<h3 id="客户端功能"><a href="#客户端功能" class="headerlink" title="客户端功能"></a>客户端功能</h3><p>服务器端应用程序要接收用户输入与操作，并向用户返回其结果，它必须提供一个客户端界面。由于所有的Web应用都通过Web浏览器访问，因此这些界面共享一个技术核心。近些年来客户端技术不断发生变化，以下介绍一些常见的客户端技术。</p>
-<h4 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h4><p>超文本标记语言（Hyper Text Markup Language, HTML）是为“网页创建和其他可在网页浏览器中看到的信息”设计的一种标记语言。<br>超链接是HTML中常见的一个标签，事实上服务器与客户端之间大量的通信都由用户单击超链接驱动。<br>虽然超链接具有极大的方便性，但许多Web程序还需要采用更灵活的形式收集输入，HTML表单是一种常见的机制，它允许用户提交任意的输入。</p>
-<h4 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h4><p>层叠样式表（Cascading Style Sheets）,又称串样式列表，一种用来为结构化文档（如HTML文档或XML应用）添加样式（字体、间距和颜色等）的计算机语言，由W3C定义和维护。CSS目前最新版本为CSS3,是能够真正做到网页表现与内容分离的一种样式是设计语言。相对于传统HTML的表现而言，CSS能够对网页中的对象的位置排版进行像素级的精髓控制，支持几乎所有的字体字号样式，拥有对网页对象和模型样式编辑的能力，并能够进行初步交互涉及，是目前基于文本展示最优秀的表现设计语言。CSS能够根据不同使用者的理解能力，简化或者优化写法，针对各类人群，有较强的易读性。</p>
-<h4 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h4><p>JavaScript是一种由Netscape的LiveScript发展而来的原型化继承的面向对象的动态类型的区分大小写的客户端脚本语言，主要目的是为了解决服务器端语言，例如，Perl遗留的速度问题，为客户提供更流畅的浏览效果。<br>JavaScript是一种相对简单但功能强大的编程语言，使用它可以方便地以各种仅使用HTML无法实现的方法对Web界面进行扩展。JavaScript常用于执行以下任务。<br>（1）确定用户输入，然后将其提交给服务器避免数据包含错误而提交不必要的请求。<br>（2）根据用户的输入动态修改用户界面，以减少客户端与服务器端通信次数。<br>（3）查询并更新浏览器内的文档对象模型（Document Object Model, DOM）,控制浏览器行为。</p>
-<h4 id="浏览器扩展技术"><a href="#浏览器扩展技术" class="headerlink" title="浏览器扩展技术"></a>浏览器扩展技术</h4><p>除了JavaScript技术外，一些Web应用程序还使用浏览器扩展技术，使用定制代码从各个方面扩展浏览器的内置功能。这些扩展可通过适当的浏览器执行或需要在客户端安装可执行程序。以下列出常见的一些后客户端技术。<br>（1）Java applet<br>（2）ActiveX控件<br>（3）Flash对象<br>（4）Silverlight对象</p>
-<h3 id="状态与会话"><a href="#状态与会话" class="headerlink" title="状态与会话"></a>状态与会话</h3><p>HTTP协议本身是无状态的，客户端只需简单地想服务器请求，服务器响应请求返回响应消息。无论是客户端还是服务器都没有记录信息，每一次请求都是独立的。随着Web应用的发展，按需生成动态信息变得越来越重要。其中，Cookie就是为了解决HTTP无状态的而产生的，后来又出现Session，一种在客户端和服务器端保持状态的解决方案。<br>Session基址是一种服务器机制，服务器一般采用类似于散列表的存储结构保存信息。<br>与Cookie机制不同的是，Session采取的是在服务器端保持状态，而Cookie是在客户端保持状态。同时，服务器端需要在客户端保存一个标识。所以Session机制通常需要借助于Cookie来保存Session标识。</p>
-<h2 id="编码格式"><a href="#编码格式" class="headerlink" title="编码格式"></a>编码格式</h2><h3 id="URL-编码"><a href="#URL-编码" class="headerlink" title="URL 编码"></a>URL 编码</h3><p>统一资源定位符（Uniform/Universal Resource Locator）也被称为网页地址，如同在网络上的门牌，是因特网上标准的资源的地址（Address）。它最初由蒂姆·伯纳斯·李发明用来作为万维网的地址。现在它已经被万维网联盟编制为因特网标准RFC1738。<br>在因特网的历史上，统一资源定位符的发明是一个非常基础的步骤。统一资源定位符的语法是一般的、可扩展的，它使用ASCII代码的一部分来表示因特网的地址。统一资源定位符的开始，一般会标志着一个计算机网络所使用的网络协议。<br>统一资源定位符的标准格式如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">协议类型：//服务器地址（必要时要加上端口号）/路径/文件名</div></pre></td></tr></table></figure></p>
-<p>URL只允许使用US-ASCII字符集中的可打印字符（ASCII代码在0x20~0x7e范围内）。而且由于其在URL方案或HTTP协议内具有特殊含义，这个范围内的一些字符也不能在URL中使用。URL编码方案对扩展ASCII字符集中的任何有问题的字符进行编码，使其可以通过HTTP安全传输。任何URL编码的字符都是以%为前缀，其后是这个字符的两位十六进制ASCII代码。</p>
-<h3 id="Unicode-编码"><a href="#Unicode-编码" class="headerlink" title="Unicode 编码"></a>Unicode 编码</h3><p>Unicode是一种为支持全世界所使用的各种编码系统而设计的字符编码标准，它采用各种编码方案，其中一些可用于表示Web应用程序中不常见的字符。<br>16位Unicode编码的工作原理与URL编码类似。为通过HTTP进行传输，16位Unicode编码的字符以%u为前缀，其后是这个字符的十六进制Unicode码点。</p>
-<h3 id="HTML-编码"><a href="#HTML-编码" class="headerlink" title="HTML 编码"></a>HTML 编码</h3><p>HTML编码是一种用于表示问题字符以将其安全并入HTML文档的方案。许多字符在HTML中具有特殊含义（如HTML元字符），并被用于定义文档结构而非其内容。为了安全使用这些字符，并将其用在文档的内容中，就必须对其进行HTML编码。<br>当攻击Web应用程序时，HTML编码主要在探查跨站脚本漏洞时发挥作用。</p>
-<h3 id="Base64-编码"><a href="#Base64-编码" class="headerlink" title="Base64 编码"></a>Base64 编码</h3><p>Base64是一种基于64个可打印字符来表示二进制数据的表示方法。由于2的6次方等于64，所以每6个位元为一个单元，对应某个可打印字符。三个字节有24个位元，对应于4个Base64单元，即3个字节需要用4个可打印字符来表示。Base64常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据。包括MIME的email，email via MIME,在XML中存储复杂数据。<br>如果最后的输入数据块不能构成3段输出数据，就用一个或两个等号补足输出。</p>
 ]]></content>
     
     <summary type="html">
