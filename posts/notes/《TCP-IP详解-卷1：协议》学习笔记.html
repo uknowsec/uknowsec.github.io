@@ -79,7 +79,16 @@
 <meta property="og:image" content="http://images.cnitblog.com/blog2015/697266/201504/151400284327893.png">
 <meta property="og:image" content="http://images.cnitblog.com/blog2015/697266/201504/151420134957085.png">
 <meta property="og:image" content="http://images.cnitblog.com/blog2015/697266/201504/151428393854765.png">
-<meta property="og:updated_time" content="2017-04-17T15:51:55.631Z">
+<meta property="og:image" content="http://images.cnitblog.com/blog2015/697266/201504/161409216674369.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog2015/697266/201504/161438232606801.png">
+<meta property="og:image" content="http://news.edu-chn.com/newsadmin/upload_images/1115277097522.JPG">
+<meta property="og:image" content="http://news.edu-chn.com/newsadmin/upload_images/1115277119522.JPG">
+<meta property="og:image" content="http://images.cnitblog.com/blog2015/697266/201504/171403295891545.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog2015/697266/201504/171404494796569.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog2015/697266/201504/182021092763762.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog2015/697266/201504/182028596987012.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog2015/697266/201504/182051571674088.png">
+<meta property="og:updated_time" content="2017-04-18T15:42:10.238Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《TCP/IP详解 卷1：协议》学习笔记">
 <meta name="twitter:description" content="点击阅读全文">
@@ -422,7 +431,7 @@
 <li>这三者的共同特性由802.2标准来定义，那就是802网络共有的逻辑链路控制（LLC）</li>
 </ul>
 <h2 id="封装格式"><a href="#封装格式" class="headerlink" title="封装格式"></a>封装格式</h2><ul>
-<li>两种帧格式都采用48bit(6字节)的母的地址和源地址</li>
+<li>两种帧格式都采用48bit(6字节)的目的地址和源地址</li>
 <li>ARP和RARP协议对32bit的IP地址和48bit的硬件地址进行映射</li>
 <li>802定义的有效长度值与以太网的有效类型值无一相同，这样就可以对两种帧格式进行区分</li>
 <li>母的服务访问点（DSAP）和源服务访问点（SSAP）的值都设为0xaa。Ctr1字段的值设为3.随后的3个字节orgcode都置为0.再接下来的2个字节类型字段和以太网帧格式一样。</li>
@@ -484,7 +493,111 @@
 <h2 id="串行线路吞吐量计算"><a href="#串行线路吞吐量计算" class="headerlink" title="串行线路吞吐量计算"></a>串行线路吞吐量计算</h2><p>如果线路速率是9600b/s，而一个字节有8bit，加上一个起始比特和一个停止比特，那么线路的速率就是960B/s（字节/秒）。以这个速率传输一个1024字节的分组需要1066ms。如果用SLIP链接运行一个交互式应用程序，同时还运行另一个应用程序如FTP发送或接收1024字节的数据，那么一般来说就必须等待一半的时间（533ms）才能把交互式应用程序的分组数据发送出去。</p>
 <p>对于交互应用来说，等待533ms是不能接受的。研究表明，交互响应时间超过100~200ms就被认为是不好的，这是发送一份交互报文出去后，直到接收到响应信息（通常是出现一个回显字符）为止的往返时间。</p>
 <p>注意：我们对平均等待时间的计算（传输最大数据帧所需时间的一半）只适用于SLIP链路（或PPP链路）在交互通信和大块数据传输这两种情况下。</p>
-
+<h1 id="IP：网际协议"><a href="#IP：网际协议" class="headerlink" title="IP：网际协议"></a>IP：网际协议</h1><h2 id="IP介绍"><a href="#IP介绍" class="headerlink" title="IP介绍"></a>IP介绍</h2><ul>
+<li>IP是TCP/IP协议族中最为核心的协议。所有的TCP、UDP、ICMP及IGMP数据都以IP数据报格式传输</li>
+<li>IP提供不可靠、无连接的数据报传送服务</li>
+<li>不可靠（unreliable）的意思是它不能保证IP数据报能成功到达目的地。IP仅提供最好的传输服务。如果发生某种错误时，如某个路由器暂时用完了缓冲区，IP有一个简单的错误处理算法：丢弃该数据报，然后发送ICMP消息报给信源端。任何要求的可靠性必须由上层来提供（如TCP）</li>
+<li>无连接（connectionless）这个术语的意思是IP并不维护任何关于后续数据报的状态信息。每个数据报的处理是互相独立的。IP数据报可以不按发送顺序接收。如果一信源向相同的信宿发送两个连续的数据报（先是A，然后是B），每个数据报都是独立地进行路由选择，课时选择不同的路线，因此B可能在A到达之前先到达。</li>
+</ul>
+<h2 id="IP首部"><a href="#IP首部" class="headerlink" title="IP首部"></a>IP首部</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/161409216674369.png" alt=""></p>
+<ul>
+<li>4个字节的32bit值以下面的次序传输：首先是0~7bit，其次8~15bit，然后16~23bit，最后是24、·31bit。这种传输次序称作big endian字节序。由于TVP|IP首部中所有的二进制整数在网络中传输时都要求以这种次序，因此它又称作网络字节序</li>
+<li>目前的协议版本号是4，因此IP有时也称作IPv4</li>
+<li>首部长度指的是首部占32bit字的数目，包括任何选项。由于它是一个4bit字段，因此首部最长为60个字节</li>
+<li>服务类型（TOS）字段包括一个3bit的优先权子字段（现在已被忽略），4bit的TOS字段和1bit未用位但必须置0</li>
+<li>服务类型（TOS）字段包括一个3 bit的优先权子字段（现在已被忽略），4 bit的TOS子字段和1 bit未用位，但必须置0。4 bit的TOS分别代表：最小时延、最大吞吐量、最高可靠性和最小费用。 4 bit中只能置其中1 bit。如果所有4 bit均为0，那么就意味着是一般服务。图3-2列出了对不同应用建议的TOS值。</li>
+</ul>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/161438232606801.png" alt=""></p>
+<p>注意：现在大多数的TCP/IP实现都不支持TOS特性。</p>
+<ul>
+<li>总长度字段是指整个IP数据报的长度，以字节为单位。由于该字段长16比特，所以IP数据报最长可达65535字节。<br>注意：尽管可以传送一个长达65535字节的IP数据报，但是大多数的链路层都会对它进行分片。而且，主机也要求不能接收超过576字节的数据报。</li>
+<li>标识字段唯一地标识主机发送的每一份数据报。通常每发送一份报文它的值就会加1。</li>
+<li>TTL生存时间字段设置了数据报可以经过的最多路由器数。它指定了数据报的生存时间。 TTL的初始值由源主机设置（通常为32或64），一旦经过一个处理它的路由器，它的值就减去1。当该字段的值为0时，数据报就被丢弃，并发送ICMP报文通知源主机。</li>
+<li>协议字段，它可以识别是哪个协议向IP传送数据。</li>
+<li>首部检验和字段是根据IP首部计算的检验和码。</li>
+<li>如果结果不是全1（即检验和错误），那么IP就丢弃收到的数据报。但是不生成差错报文，由上层去发现丢失的数据报并进行重传</li>
+<li>由于路由器经常只修改TTL字段（减1），因为当路由器转发一份报文时可以增加它的检验和，而不需要对IP整个首部进行重新计算</li>
+<li>任选项，是数据报中的一个可变长的可选信息。这些选项很少被使用，并非所有的主机和路由器都支持这些选项。</li>
+</ul>
+<h2 id="IP路由选择"><a href="#IP路由选择" class="headerlink" title="IP路由选择"></a>IP路由选择</h2><h3 id="路由表中的包含信息"><a href="#路由表中的包含信息" class="headerlink" title="路由表中的包含信息"></a>路由表中的包含信息</h3><ul>
+<li>目的IP地址。<br>它既可以是一个完整的主机地址，也可以是一个网络地址，由该表目中的标志字段来指定。主机地址有一个非0的主机号，以指定某一特定的主机，而网络地址中的主机号为0，以指定网络中的所有主机（如以太网，令牌环网）。</li>
+<li>下一跳路由器的IP地址，或者有直接连接的网络IP地址。<br>下一跳路由器是指一个在直接相连网络上的路由器，通过它可以转发数据报。下一跳路由器不是最终的目的，但是它可以把传送给它的数据报转发到最终目的。</li>
+<li>标志。<br>其中一个标志指明目的IP地址是网络地址还是主机地址，另一个标志指明下一跳路由器是否为真正的下一跳路由器，还是一个直接相连的接口。</li>
+<li>为数据报的传输指定一个网络接口。</li>
+</ul>
+<h3 id="路由选择完成的功能"><a href="#路由选择完成的功能" class="headerlink" title="路由选择完成的功能"></a>路由选择完成的功能</h3><p>IP路由选择是逐跳地进行的。IP并不知道到达任何目的的完整路径（当然，除了那些与主机直接相连的目的）。所有的IP路由选择只为数据报传输提供下一跳路由器的IP地址。它假定下一跳路由器比发送数据报的主机更接近目的，而且下一跳路由器与该主机是直接相连的。</p>
+<ul>
+<li>搜索路由表，寻找能与目的IP地址完全匹配的表目（网络号和主机号都要匹配）。如果找到，则把报文发送给该表目指定的下一站路由器或直接连接的网络接口（取决于标志字段的值）。</li>
+<li>搜索路由表，寻找能与目的网络号相匹配的表目。如果找到，则把报文发送给该表目指定的下一站路由器或直接连接的网络接口。</li>
+<li>搜索路由表，寻找标为“默认”的表目。如果找到，则把报文发送给该表目指定的下一站路由器</li>
+</ul>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><img src="http://news.edu-chn.com/newsadmin/upload_images/1115277097522.JPG" alt=""></p>
+<p><img src="http://news.edu-chn.com/newsadmin/upload_images/1115277119522.JPG" alt=""></p>
+<p>对于这个例子需要指出一些关键点：</p>
+<ul>
+<li>该例子中所有主机和路由器都使用了默认路由。事实上，大多数主机和一些路由器可以用默认路由来处理任何目的，除非它在本地局域网上</li>
+<li>数据报中的目的IP地址始终不发生任何变化。所有的路由选择决策都是基于这个目的IP地址</li>
+<li>每个链路层可能具有不同数据帧首部，而且链路层的目的地址（如果有的话）始终指的是下一站的链路层地址。在例子中，两个以太网封装了含有下一站以太网地址的链路层首部，但是SLIP链路没有这样做。以太网地址一般通过ARP获得。</li>
+</ul>
+<h2 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h2><p>任何主机在引导时进行的部分配置是指定主机IP地址。除了此以外，还需要知道有多少比特用于子网号和多少比特用于主机号。这是在引导过程中通过子网掩码来确定的。子网掩码是一个32 bit的值，其中值为1的比特留给网络号和子网号，为0的比特留给主机号。</p>
+<p>例如：一个B类地址的两种不同的子网掩码格式。</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/171403295891545.png" alt=""></p>
+<p>第一个例子，子网号和主机号都是8 bit。第二个例子，子网号是10 bit，主机号是6 bit。</p>
+<h2 id="特殊情况的IP地址"><a href="#特殊情况的IP地址" class="headerlink" title="特殊情况的IP地址"></a>特殊情况的IP地址</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/171404494796569.png" alt=""></p>
+<ul>
+<li>0表示所有的比特位全为0；-1表示所有的比特位全为1；netid、subnetid和hostid分别表示不为全0或全1的对应字段。子网号栏为空表示该地址没有进行子网划分</li>
+<li>表的头两项是特殊的源地址，中间是特殊的环回地址，最后四项是广播地址</li>
+<li>表中的头两项，网络号为0，如主机使用BOOTP协议确定本机IP地址时只能作为初始化过程中的源地址出现</li>
+</ul>
+<h1 id="ARP：地址解析协议"><a href="#ARP：地址解析协议" class="headerlink" title="ARP：地址解析协议"></a>ARP：地址解析协议</h1><h2 id="ARP介绍"><a href="#ARP介绍" class="headerlink" title="ARP介绍"></a>ARP介绍</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/182021092763762.png" alt=""></p>
+<ul>
+<li>当一台主机把以太网数据帧发送到位于同一局域网上的另一台主机时，是根据48bit的以太网地址来确定目的接口的。设备驱动程序从不检查IP数据报中的目的IP地址</li>
+<li>地址解析为这两种不同的地址形式提供映射：32bit的IP地址和数据链路层使用的任何类型的地址（FR环境）</li>
+<li>ARP为IP地址到对应的硬件地址之间提供动态映射。我们之所以用动态这个词是因为这个过程是自动完成的，一般应用程序用户或系统管理员不必关心</li>
+<li>RARP是被那些没有磁盘驱动器的系统使用（一般是无盘工作站或X终端），它需要系统管理员进行手工设置</li>
+</ul>
+<h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/182028596987012.png" alt=""></p>
+<p>当敲入以下命令时：ftp bsdi（主机名），会发生下列步骤：</p>
+<ul>
+<li>应用程序FTP客户端调用函数gethostbyname把主机名（bsdi）转换成32 bit的IP地址。这个转换过程或者使用DNS，或者在较小网络中使用一个静态的主机文件（/etc/hosts）。</li>
+<li>FTP客户端请求TCP用得到的IP地址建立连接。</li>
+<li>TCP发送一个连接请求分段到远端的主机，即用上述IP地址发送一份IP数据报。</li>
+<li>如果目的主机在本地网络上（如以太网、令牌环网或点对点链接的另一端），那么IP数据报可以直接送到目的主机上。如果目的主机在一个远程网络上，就通过IP选路函数来确定位于本地网络上的下一站路由器地址，并让它转发IP数据报。</li>
+<li>假定是一个以太网，那么发送端主机必须把32 bit的IP地址变换成48 bit的以太网地址。从逻辑Internet地址到对应的物理硬件地址需要进行翻译，这是ARP的功能。</li>
+<li>ARP发送一份称作ARP请求的以太网数据帧给以太网上的每个主机，这个过程称作广播。ARP请求数据帧中包含目的主机的IP地址（主机名为bsdi），意思是“如果你是这个IP地址的拥有者，请回答你的硬件地址。”</li>
+<li>目的主机的ARP层收到这份广播报文后，识别出这是发送端在寻问它的IP地址，于是发送一个ARP应答。这个ARP应答包含IP地址及对应的硬件地址。</li>
+<li>收到ARP应答后，使ARP进行请求-应答交换的IP数据报现在就可以传送了。</li>
+<li>发送IP数据报到目的主机。</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>在ARP背后有一个基本概念，就是网络接口有一个硬件地址（一个48 bit的值，标识不同的以太网或令牌环网络接口）。</li>
+<li>在硬件层次上进行的数据帧交换必须有正确的接口地址。但是，TCP/IP有自己的地址：32 bit的IP地址。知道主机的IP地址并不能让内核发送一帧数据给主机。内核（如以太网驱动程序）必须知道目的端的硬件地址才能发送数据。</li>
+<li>ARP的功能是在32 bit的IP地址和采用不同网络技术的硬件地址之间提供动态映射。</li>
+<li>点对点链路不使用ARP。当设置这些链路时（一般在引导过程进行），必须告知内核链路每一端的IP地址。像以太网地址这样的硬件地址并不涉及。</li>
+</ul>
+<h2 id="ARP背后的一个基本概念"><a href="#ARP背后的一个基本概念" class="headerlink" title="ARP背后的一个基本概念"></a>ARP背后的一个基本概念</h2><ul>
+<li>在ARP背后有一个概念，那就是网络接口有一个硬件地址（一个48bit的值，标识不同的以太网或令牌环网络接口）。在硬件层次上进行的数据帧交换必须有正确的接口地址。但是，TCP|IP有自己的地址：32bit的IP地址。知道主机的IP地址并不能让内核发送一帧数据给主机。内核必须知道目的端的硬件地址才能发送数据。ARP的功能是在32bit的IP地址和采用不同网络技术的硬件地址之间提供动态映射</li>
+<li>点对点链路不好使用ARP。当设置这些链路时（一般在引导过程进行），必须告知内核链路每一端IP的地址。像以太网地址这样的硬件地址并不涉及</li>
+</ul>
+<h2 id="ARP高速缓存"><a href="#ARP高速缓存" class="headerlink" title="ARP高速缓存"></a>ARP高速缓存</h2><ul>
+<li>ARP高效运行的关键是由于每个主机上都有一个ARP高速缓存。这个高速缓存存放了最近Intern et地址到硬件地址之间的映射记录。高速缓存中每一项的生存时间一般为20分钟，起始时间从被创建时开始算起。</li>
+<li>可用arp命令来检查ARP高速缓存。-a的意思是显示高速缓存中所有的内容。</li>
+<li>48 bit的以太网地址用6个十六进制的数来表示，中间以冒号隔开。</li>
+</ul>
+<h3 id="PC"><a href="#PC" class="headerlink" title="PC"></a>PC</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">arp -a	查看缓存</div><div class="line">arp -d  清除缓存</div></pre></td></tr></table></figure>
+<h3 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">show arp	查看缓存</div><div class="line">clear arp	清除缓存</div></pre></td></tr></table></figure>
+<h2 id="ARP的分组格式"><a href="#ARP的分组格式" class="headerlink" title="ARP的分组格式"></a>ARP的分组格式</h2><p>在以太网上解析IP地址时，ARP请求和应答分组的格式如图4-3所示（ARP可以用于其他类型的网络，可以解析IP地址以外的地址。紧跟着帧类型字段的前四个字段指定了最后四个字段的类型和长度）</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/182051571674088.png" alt=""></p>
+<h3 id="ARP包字段分析"><a href="#ARP包字段分析" class="headerlink" title="ARP包字段分析"></a>ARP包字段分析</h3><ul>
+<li>前两个字段是以太网的源地址和目的地址。目的地址为全1的地址是广播地址。电缆上的所有以太网接口都要接收广播的数据帧。</li>
+<li>以太网帧类型表示后面数据的类型。对于ARP请求或应答来说，该字段的值为0x0806。</li>
+<li>硬件类型字段表示硬件地址的类型。它的值为1即表示以太网地址。</li>
+<li>协议类型字段表示要映射的协议地址类型。它的值为0x0800即表示IP地址。</li>
+<li>硬件地址长度和协议地址长度分别指出硬件地址和协议地址的长度，以字节为单位。对于以太网上IP地址的ARP请求或应答来说，它们的值分别为6和4。</li>
+<li>操作字段指出四种操作类型，它们是ARP请求（值为1）、ARP应答（值为2）、RARP请求（值为 3）和RARP应答（值为4）。</li>
+</ul>
+<h2 id="ARP代理"><a href="#ARP代理" class="headerlink" title="ARP代理"></a>ARP代理</h2>
       
     </div>
 
@@ -679,7 +792,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分层"><span class="nav-number">1.1.</span> <span class="nav-text">分层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例：运行FTP的两台主机"><span class="nav-number">1.2.</span> <span class="nav-text">实例：运行FTP的两台主机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过路由器连接的两个网络"><span class="nav-number">1.3.</span> <span class="nav-text">通过路由器连接的两个网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP协议族中不同层次的协议"><span class="nav-number">1.4.</span> <span class="nav-text">TCP/IP协议族中不同层次的协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互联网的地址"><span class="nav-number">1.5.</span> <span class="nav-text">互联网的地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名系统"><span class="nav-number">1.6.</span> <span class="nav-text">域名系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装"><span class="nav-number">1.7.</span> <span class="nav-text">封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分用"><span class="nav-number">1.8.</span> <span class="nav-text">分用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户-服务器模型"><span class="nav-number">1.9.</span> <span class="nav-text">客户-服务器模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重复型服务器"><span class="nav-number">1.9.1.</span> <span class="nav-text">重复型服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发型服务器"><span class="nav-number">1.9.2.</span> <span class="nav-text">并发型服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口号"><span class="nav-number">1.10.</span> <span class="nav-text">端口号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链路层"><span class="nav-number">2.</span> <span class="nav-text">链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">2.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太网和IEEE-802封装"><span class="nav-number">2.2.</span> <span class="nav-text">以太网和IEEE 802封装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#以太网"><span class="nav-number">2.2.1.</span> <span class="nav-text">以太网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IEEE-802封装"><span class="nav-number">2.2.2.</span> <span class="nav-text">IEEE 802封装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装格式"><span class="nav-number">2.3.</span> <span class="nav-text">封装格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLIP：串行线路IP"><span class="nav-number">2.4.</span> <span class="nav-text">SLIP：串行线路IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PPP：点对点协议"><span class="nav-number">2.5.</span> <span class="nav-text">PPP：点对点协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环回接口"><span class="nav-number">2.6.</span> <span class="nav-text">环回接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MTU和路径MTU"><span class="nav-number">2.7.</span> <span class="nav-text">MTU和路径MTU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#串行线路吞吐量计算"><span class="nav-number">2.8.</span> <span class="nav-text">串行线路吞吐量计算</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分层"><span class="nav-number">1.1.</span> <span class="nav-text">分层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例：运行FTP的两台主机"><span class="nav-number">1.2.</span> <span class="nav-text">实例：运行FTP的两台主机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过路由器连接的两个网络"><span class="nav-number">1.3.</span> <span class="nav-text">通过路由器连接的两个网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP协议族中不同层次的协议"><span class="nav-number">1.4.</span> <span class="nav-text">TCP/IP协议族中不同层次的协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互联网的地址"><span class="nav-number">1.5.</span> <span class="nav-text">互联网的地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名系统"><span class="nav-number">1.6.</span> <span class="nav-text">域名系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装"><span class="nav-number">1.7.</span> <span class="nav-text">封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分用"><span class="nav-number">1.8.</span> <span class="nav-text">分用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户-服务器模型"><span class="nav-number">1.9.</span> <span class="nav-text">客户-服务器模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重复型服务器"><span class="nav-number">1.9.1.</span> <span class="nav-text">重复型服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发型服务器"><span class="nav-number">1.9.2.</span> <span class="nav-text">并发型服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口号"><span class="nav-number">1.10.</span> <span class="nav-text">端口号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链路层"><span class="nav-number">2.</span> <span class="nav-text">链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">2.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太网和IEEE-802封装"><span class="nav-number">2.2.</span> <span class="nav-text">以太网和IEEE 802封装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#以太网"><span class="nav-number">2.2.1.</span> <span class="nav-text">以太网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IEEE-802封装"><span class="nav-number">2.2.2.</span> <span class="nav-text">IEEE 802封装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装格式"><span class="nav-number">2.3.</span> <span class="nav-text">封装格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLIP：串行线路IP"><span class="nav-number">2.4.</span> <span class="nav-text">SLIP：串行线路IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PPP：点对点协议"><span class="nav-number">2.5.</span> <span class="nav-text">PPP：点对点协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环回接口"><span class="nav-number">2.6.</span> <span class="nav-text">环回接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MTU和路径MTU"><span class="nav-number">2.7.</span> <span class="nav-text">MTU和路径MTU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#串行线路吞吐量计算"><span class="nav-number">2.8.</span> <span class="nav-text">串行线路吞吐量计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP：网际协议"><span class="nav-number">3.</span> <span class="nav-text">IP：网际协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP介绍"><span class="nav-number">3.1.</span> <span class="nav-text">IP介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP首部"><span class="nav-number">3.2.</span> <span class="nav-text">IP首部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP路由选择"><span class="nav-number">3.3.</span> <span class="nav-text">IP路由选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由表中的包含信息"><span class="nav-number">3.3.1.</span> <span class="nav-text">路由表中的包含信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由选择完成的功能"><span class="nav-number">3.3.2.</span> <span class="nav-text">路由选择完成的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例"><span class="nav-number">3.3.3.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子网掩码"><span class="nav-number">3.4.</span> <span class="nav-text">子网掩码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊情况的IP地址"><span class="nav-number">3.5.</span> <span class="nav-text">特殊情况的IP地址</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ARP：地址解析协议"><span class="nav-number">4.</span> <span class="nav-text">ARP：地址解析协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ARP介绍"><span class="nav-number">4.1.</span> <span class="nav-text">ARP介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个例子"><span class="nav-number">4.2.</span> <span class="nav-text">一个例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARP背后的一个基本概念"><span class="nav-number">4.3.</span> <span class="nav-text">ARP背后的一个基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARP高速缓存"><span class="nav-number">4.4.</span> <span class="nav-text">ARP高速缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PC"><span class="nav-number">4.4.1.</span> <span class="nav-text">PC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由器"><span class="nav-number">4.4.2.</span> <span class="nav-text">路由器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARP的分组格式"><span class="nav-number">4.5.</span> <span class="nav-text">ARP的分组格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ARP包字段分析"><span class="nav-number">4.5.1.</span> <span class="nav-text">ARP包字段分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARP代理"><span class="nav-number">4.6.</span> <span class="nav-text">ARP代理</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
