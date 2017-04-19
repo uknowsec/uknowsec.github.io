@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-04-18T15:42:10.238Z</updated>
+  <updated>2017-04-19T13:33:48.689Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://uknowsec.cn/posts/notes/%E3%80%8ATCP-IP%E8%AF%A6%E8%A7%A3-%E5%8D%B71%EF%BC%9A%E5%8D%8F%E8%AE%AE%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
     <id>http://uknowsec.cn/posts/notes/《TCP-IP详解-卷1：协议》学习笔记.html</id>
     <published>2017-04-15T13:08:21.000Z</published>
-    <updated>2017-04-18T15:42:10.238Z</updated>
+    <updated>2017-04-19T13:33:48.689Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/141924136983820.png" alt=""></p>
@@ -272,7 +272,39 @@
 <li>硬件地址长度和协议地址长度分别指出硬件地址和协议地址的长度，以字节为单位。对于以太网上IP地址的ARP请求或应答来说，它们的值分别为6和4。</li>
 <li>操作字段指出四种操作类型，它们是ARP请求（值为1）、ARP应答（值为2）、RARP请求（值为 3）和RARP应答（值为4）。</li>
 </ul>
-<h2 id="ARP代理"><a href="#ARP代理" class="headerlink" title="ARP代理"></a>ARP代理</h2>]]></content>
+<h2 id="ARP代理"><a href="#ARP代理" class="headerlink" title="ARP代理"></a>ARP代理</h2><p>ARP代理通俗地说，就是由中间设备代替其他主机响应arp请求。下图展现了ARP代理工作的主要过程：<br>Proxy ARP应该使用主机没有配置默认网关或没有任何路由策略的网络上</p>
+<p><img src="http://www.vants.org/content/plugins/kl_album/upload/201209/98e326f50f0ae0ca8723ba653376c7c020120914093556873290427.png" alt=""></p>
+<h3 id="ARP代理工作的过程说明"><a href="#ARP代理工作的过程说明" class="headerlink" title="ARP代理工作的过程说明"></a>ARP代理工作的过程说明</h3><ul>
+<li>192.168.0.16/16主机向外发送目的主机为192.168.1.3/24的ARP请求报文；</li>
+<li>网关收到0.16的ARP请求报文，由于网关开启了ARP代理的功能，因此网关代替1.3向0.16发送ARP响应数据报；</li>
+<li>网关向1.0/24网段发送1.3的ARP请求报文；</li>
+<li>1.3收到后，发送ARP响应报文。</li>
+</ul>
+<h3 id="ARP代理带来的问题"><a href="#ARP代理带来的问题" class="headerlink" title="ARP代理带来的问题"></a>ARP代理带来的问题</h3><p>在开启ARP代理功能之后，很可能会导致地址冲突等类似故障的产生，如在下图的网络环境下，将会产生一系列的不稳定的故障现象产生。 </p>
+<p><img src="http://www.vants.org/content/plugins/kl_album/upload/201209/726cb8dcdc4764f2cc1559c89ffde637201209161035261080797373.png" alt=""></p>
+<p>   正因为如此，我们在实际工作的环境中对于ARP代理功能的应用需要慎重一些，尽量避免针对整个网段使用ARP代理功能，最好只针对需要使用ARP代理功能来实现某些特殊功能需求的少数IP开启。</p>
+<h3 id="ARP代理在实际工作中的应用"><a href="#ARP代理在实际工作中的应用" class="headerlink" title="ARP代理在实际工作中的应用"></a>ARP代理在实际工作中的应用</h3><h4 id="AnyIP"><a href="#AnyIP" class="headerlink" title="AnyIP"></a>AnyIP</h4><p>AnyIP是指机器随便使用什么IP地址或网关信息，只要接入网络中都可以实现访问的需求。这个技术被广泛的应用在soho级网关产品中，特别是在宾馆、会议室、广场等公共场所，为网络使用者提供了很大的便利。<br>其工作原理就是利用了ARP代理的功能，在收到非本地IP地址的ARP请求报文时，对其进行ARP响应。这样，那些收到ARP响应的主机就会将相关的数据包发送至网关设备接口处，再由网关设备转发出去，从而实现了上网的功能。   </p>
+<h4 id="网关地址映射"><a href="#网关地址映射" class="headerlink" title="网关地址映射"></a>网关地址映射</h4><p>在很多网关设备上，都支持将内网的服务器映射为公网地址对外提供服务，以达到隐藏内部网络的目的，这种地址映射也是利用ARP代理技术来实现的，我们来简单看一下下图所示的地址映射的工作过程： </p>
+<p><img src="http://www.vants.org/content/plugins/kl_album/upload/201209/d8007e7cdb19d6455234a654b47ab31b2012091409355588821205.png" alt=""></p>
+<p>  在这个过程中，当来自互联网的数据访问产生了对映射外网地址202.102.X.2的ARP请求报文，正常情况下，因为这个地址的真实主机并不存在，发送端是不会收到来自202.102.X.2的ARP响应报文的。但是，由于网关上启用了针对202.102.X.2的ARP代理功能，网关会替代202.102.X.2发送ARP响应报文。从而实现了地址映射访问的需求。</p>
+<h2 id="免费ARP"><a href="#免费ARP" class="headerlink" title="免费ARP"></a>免费ARP</h2><p>它是指主机发送ARP查找自己的IP地址。通常，它发生在系统引导期间进行接口配置的时候。免费ARP有两个作用：</p>
+<ul>
+<li>一个主机可以通过它来确定另一个主机是否设置了相同的IP地址。主机bsdi并不希望对此请求有一个回答。但是，如果收到一个回答，那么就会在终端日志上产生一个错误信息“以太网：a:b:c:d:e:f发送来重复的IP地址”。这样就可以警告系统管理员，某个系统有不正确的设置。</li>
+<li>如果发送免费ARP的主机正好改变了硬件地址（很可能是主机关机了，并换了一块接口卡，然后重新启动），那么这个分组就可以使其他主机高速缓存中旧的硬件地址进行相应的更新。一个比较著名的ARP协议事实是，如果主机收到某个IP地址ARP请求，而且它已经在接收者的高速缓存中，那么就要用ARP请求中的发送端硬件地址（如以太网地址）对高速缓存中相应的内容进行更新。主机接收到任何ARP请求都要完成这个操作（ARP请求是在网上广播的，因此每次发送ARP请求时网络上的所有主机都要这样做）</li>
+<li>通过发送含有备份硬件地址和故障服务器的IP地址的免费ARP请求，使得备份文件服务器可以顺利地接替故障服务器进行工作。这使得所有目的地为故障服务器的报文都被送到备份服务器那里，客户程序不用关心原来的服务器是否出了故障</li>
+</ul>
+<h1 id="RARP：逆地址解析协议"><a href="#RARP：逆地址解析协议" class="headerlink" title="RARP：逆地址解析协议"></a>RARP：逆地址解析协议</h1><h2 id="引言-1"><a href="#引言-1" class="headerlink" title="引言"></a>引言</h2><p>具有本地磁盘的系统引导时，一般是从磁盘上的配置文件中读取IP地址。但是无盘机，如X终端或无盘工作站，则需要采用其他方法来获得IP地址。<br>网络上的每个系统都具有唯一的硬件地址，它是由网络接口生产厂家配置的。无盘系统的RARP实现过程是从接口卡上读取唯一的硬件地址，然后发送一份RARP请求（一帧在网络上广播的数据），请求某个主机响应该无盘系统的IP地址（在RARP应答中）。</p>
+<h2 id="RARP的分组格式"><a href="#RARP的分组格式" class="headerlink" title="RARP的分组格式"></a>RARP的分组格式</h2><p>RARP分组的格式与ARP分组基本一致。它们之间主要的差别是RARP请求或应答的帧类型代码为0x8035，且RARP请求的操作代码为3，应答操作代码为4。</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/192207023854764.png" alt=""></p>
+<p>注意：RARP请求以广播方式传送，应答一般是单播(unicast)传送的。</p>
+<h2 id="RARP服务器的设计"><a href="#RARP服务器的设计" class="headerlink" title="RARP服务器的设计"></a>RARP服务器的设计</h2><p>RARP在概念上很简单，但是一个RARP服务器的设计与系统相关而且比较复杂。相反，提供一个ARP服务器很简单，通常是TCP/IP在内核中实现的一部分。由于内核知道IP地址和硬件地址，因此当它收到一个询问IP地址的ARP请求时，只需用相应的硬件地址来提供应答就可以了。</p>
+<h3 id="作为用户进程的RARP服务器"><a href="#作为用户进程的RARP服务器" class="headerlink" title="作为用户进程的RARP服务器"></a>作为用户进程的RARP服务器</h3><p>RARP服务器的复杂性在于：</p>
+<ul>
+<li>服务器一般要为多个主机（网络上所有的无盘系统）提供硬件地址到IP地址的映射，该映射包含在一个磁盘文件中。由于内核一般不读取和分析磁盘文件，因此RARP服务器的功能就由用户进程来提供，而不是作为内核的TCP/IP实现的一部分。</li>
+<li>RARP请求是作为一个特殊类型的以太网数据帧来传送的（帧类型字段值为0x8035），说明RARP服务器必须能够发送和接收这种类型的以太网数据帧。</li>
+</ul>
+<h3 id="每个网络有多个RARP服务器"><a href="#每个网络有多个RARP服务器" class="headerlink" title="每个网络有多个RARP服务器"></a>每个网络有多个RARP服务器</h3><p>RARP服务器实现的一个复杂因素是RARP请求是在硬件层上进行广播的，这意味着它们不经过路由器进行转发。为了让无盘系统在RARP服务器关机的状态下也能引导，通常在一个网络上（例如一根电缆）要提供多个RARP服务器。<br>当服务器的数目增加时（以提供冗余备份），网络流量也随之增加，因为每个服务器对每个RARP请求都要发送RARP应答。发送RARP请求的无盘系统一般采用最先收到的RARP应答。（对于ARP，只有一台主机发送ARP应答）。每个RARP服务器同时应答，这样会增加以太网发生冲突的概率。</p>
+]]></content>
     
     <summary type="html">
     
