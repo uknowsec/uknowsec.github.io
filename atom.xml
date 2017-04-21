@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-04-20T15:33:59.820Z</updated>
+  <updated>2017-04-21T12:57:05.639Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://uknowsec.cn/posts/notes/%E3%80%8ATCP-IP%E8%AF%A6%E8%A7%A3-%E5%8D%B71%EF%BC%9A%E5%8D%8F%E8%AE%AE%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
     <id>http://uknowsec.cn/posts/notes/《TCP-IP详解-卷1：协议》学习笔记.html</id>
     <published>2017-04-15T13:08:21.000Z</published>
-    <updated>2017-04-20T15:33:59.820Z</updated>
+    <updated>2017-04-21T12:57:05.639Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/141924136983820.png" alt=""></p>
@@ -364,17 +364,76 @@
 <li>可以用Ping程序来确定问题出在哪里。Ping程序还能测出到这台主机的往返时间，以表明该主机离我们有多远</li>
 <li>一台主机的可达性可能不只取决于IP层是否可达，还取决于使用何种协议以及端口号。Ping程序的运行结果可能显示某台主机不可达，但我们可以用Telnet远程登录到该台主机是25号端口</li>
 </ul>
-<h2 id="Ping程序-1"><a href="#Ping程序-1" class="headerlink" title="Ping程序"></a>Ping程序</h2><p><img src="http://hi.csdn.net/attachment/201203/15/0_1331792908Wzb3.gif" alt=""></p>
+<h2 id="Ping程序-1"><a href="#Ping程序-1" class="headerlink" title="Ping程序"></a>Ping程序</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/uknow4.jpg" alt=""></p>
 <ul>
 <li>称发送回显请求的ping程序为客户，而称被ping的主机为服务器。大多数的TCP|IP实现都在内核中直接支持Ping服务器–这种服务器不是一个用户进程</li>
 <li>对于其他类型的ICMP查询报文，服务器应该响应标识符和序列号字段。另外，客户发送的选项数据必须回显，假设客户对这些信息都会感兴趣</li>
 <li>Unix系统在实现ping程序时是把ICMP报文中的标识符字段置成发送进程的ID号。这样即使在同一台主机上同时运行了多个ping程序实例，ping程序也可以识别出返回的信息</li>
 <li>在windows下，不管开多个窗口ping的identifier都是相同的，而且每增加一个出去的ping包序列号增加256</li>
 </ul>
-<h2 id="IP记录路由选项"><a href="#IP记录路由选项" class="headerlink" title="IP记录路由选项"></a>IP记录路由选项</h2><ul>
+<h2 id="IP记录路由选项"><a href="#IP记录路由选项" class="headerlink" title="IP记录路由选项"></a>IP记录路由选项</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/uknow5.jpg" alt=""></p>
+<ul>
 <li>大多数不同版本的ping程序都提供-R选项，以提供记录路由的功能。它使得[ing程序在发送出来的IP数据报中设置IPRR选项（该IP数据报包含ICMP回显请求报文）。这样，每个处理该数据报的路由器都把它的IP地址放入选项字段中。当数据报到达目的端时，IP地址清单应该赋值到ICMP回显应答中，这样返回途中所经过的路由器地址也被加入清单中。当Ping程序收到回显应答时，它就打印出这份IP地址清单</li>
 <li>源端主机生成RR选项，中间路由器对RR选项的处理，以及把ICMP回显请求中的RR清单复制到ICMP回显应答中，所有这些都是选项功能。幸运的是，现在的大多数系统都支持这些选项功能，只能有一些系统不把ICMP请求的IP清单赋值到ICMP应答中。</li>
 <li>但是，最大的问题是IP首部中只有有限的空间来存放IP地址。IP首部中的首部长度字段只有4bit，因此整个IP首部最长只能包括15个32bit长的字（即60个字节）。由于IP首部固定长度为20字节，RRR选项用去3个字节，这样只剩下37个字节（60-20-3）来存放IP地址清单，也就是说只能存放9个IP地址</li>
+</ul>
+<h2 id="IP时间戳选项"><a href="#IP时间戳选项" class="headerlink" title="IP时间戳选项"></a>IP时间戳选项</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/uknow3.jpg" alt=""></p>
+<ul>
+<li>时间戳选项的代码为0x44。其他两个字段len和ptr与记录路由选项相同：选项的总长度（一般为36或40）和指向下一个可用时间的指针（5，9，13等）</li>
+<li>接下来的两个字段是4bit的值：OF表示溢出字段，FL表示标志字段。时间戳选项的操作</li>
+<li>时间戳的取值一般为自UTC午夜开始计的毫秒数，与ICMP时间戳请求和应答相类似。如果路由器不使用这种格式，它就可以插入任何它使用的时间表示格式，但是必须打开时间戳中的高位以表明为非标准值</li>
+<li>与我们遇到的记录路由选项所受到的限制相比，时间戳选项遇到情况要更坏一些。如果我们要同时记录IP地址和时间戳（标志位为1），那么就可以同时存入其中的四对值。只记录时间戳是没有用处的，因为没有标明时间戳与路由器之间的对应关系</li>
+</ul>
+<h1 id="Traceroute程序"><a href="#Traceroute程序" class="headerlink" title="Traceroute程序"></a>Traceroute程序</h1><ul>
+<li>由Van Jacobson编写的Traceroute程序是一个能更深入探索TCP|IP协议的方便可用的工具</li>
+<li>Traceroute程序可以让我们看到IP数据报从一台主机传到另一台主机所经过的路由</li>
+<li>Traceroute程序还可以让我们使用IP源路由选项</li>
+</ul>
+<h2 id="Traceroute和IP路径记录选项的比较"><a href="#Traceroute和IP路径记录选项的比较" class="headerlink" title="Traceroute和IP路径记录选项的比较"></a>Traceroute和IP路径记录选项的比较</h2><p>我们描述了IP记录路由选项（RR）。为什么不使用这个选项而另外开发一个新的应用程序？有三个方面的原因。</p>
+<ul>
+<li>首先，原先并不是所有的路由器都支持记录路由选项，因此该选项在某些路径上不能使用（Traceroute程序不需要中间路由器具备任何特殊的或可选的功能）</li>
+<li>其次，记录路由一般是单向的选项。发送端设置了该选项，那么接收端不得不从收到的IP首部中提取所有的信息，然后全部返回给发送端.大多数Ping服务器的实现（内核中的ICMP回显应答功能）把接收到的RR清单返回，但是这样使得记录下来的IP地址翻了一番（一来一回）。</li>
+<li>最后一个原因也是最主要的原因是，IP首部中留给选项的空间有限，不能存放当前大多数的路径</li>
+</ul>
+<h2 id="Traceroute程序的操作"><a href="#Traceroute程序的操作" class="headerlink" title="Traceroute程序的操作"></a>Traceroute程序的操作</h2><ul>
+<li>Traceroute程序使用ICMP报文和IP首部中的TTL字段（生存周期）。TTL字段是由发送端初始设置一个8bit字段。推荐的初始值由分配数字RFC指定，当前值为64.较老版本的系统经常初始化为15或32.发送ICMP回显应答时经常把TTL设为最大值255</li>
+<li>每个处理数据报的路由器都需要把TTL的值减1或减去数据报在路由器中停留的秒数。由于大多数的路由器转发数据报的时延都小于1秒钟，因此TTL最终成为一个跳站的计数器，所经过的每个路由器都将其值减1</li>
+<li>当路由器收到一份IP数据报，如果其TTL字段是0或1，则路由器不转发该数据报（接收到这种数据报的目的主机可以将它交给应用程序，这是因为不需要转发该数据报。但是在通常情况下，系统不应该接收TTL字段为0的数据报）。相反，路由器将该数据报丢弃，并给信源机发一份ICMP“超时”信息。Traceroute程序的关键在于包含这份ICMP信息的IP报文的信源地址是该路由器的IP地址</li>
+<li>Traceroute程序发送一份UDP数据报给目的主机，但它选择一个不可能的值作为UDP端口号（大于3000），使目的主机的UDP模块产生一份“端口不可达”错误的ICMP报文。这样，Traceroute程序所要做的就是区分接收到的ICMP报文是超时还是端口不可达，以判断什么时候结束。</li>
+</ul>
+<h2 id="IP源选路选项"><a href="#IP源选路选项" class="headerlink" title="IP源选路选项"></a>IP源选路选项</h2><p>源站选项（source routing）的思想是由发送者指定路由，它可以采用以下两种形式：</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/uknow.jpg" alt=""></p>
+<ul>
+<li>严格的源路由选择。发送端指明IP数据报所必须采用的确切路由。如果一个路由器发现源路由所指定的下一个路由器不在其直接连接的网络上，那么它就返回一个“源路路由失败”的ICMP差错报文</li>
+<li>宽松的源站选路，发送端指明了一个数据报经过的IP地址清单，但是数据报在清单上指明的任意两个地址之间可以通过其他路由器</li>
+<li>这个格式与记录路由选项格式基本一致。不同之处是，对于源站选路，我们必须在发送IP数据报前填充IP地址清单；而对于记录路由选项，我们需要为IP地址清单分配并清空一些空间，并让路由器填充该清单中各项。同时，对于源站选路，只要为所需要的IP地址数分配空间并进行初始化，通常其数量小于9.而对于记录路由选项来说，必须尽可能地分配空间，以达到9个地址</li>
+<li>对于宽松的源站来说，code字段的值是0x83；而对于严格的源站选路，其值为0x89.len和ptr字段与IP首部中的记录路由选项的一般格式是一样的</li>
+</ul>
+<h2 id="IP源站选路的操作机制"><a href="#IP源站选路的操作机制" class="headerlink" title="IP源站选路的操作机制"></a>IP源站选路的操作机制</h2><p>源站路由选项的实际称呼为“源站及记录路由”（对于宽松的源站选路和严格的源路选路，分别用LSRR和SSRR表示），这是因为在数据报沿路由发送过程中，对IP地址清单进行了更新。下面是其运行过程：</p>
+<ul>
+<li>发送主机从应用程序接收源站路由清单，将第1个表项去掉（它是数据报的最终目的地址），将剩余的项移到1个项中，并将原来的目的地址作为清单的最后一项。指针仍然指向清单的第1项（即，指针的值为4）</li>
+<li>每个处理数据报的路由器检查其是否为数据报的最终地址。如果不是，则正常转发数据报（在这种情况下，必须指明宽松源站选路，否则就不能接收到该数据报）</li>
+<li>如果该路由器是最终目的，且指针不大于路径的长度，那么（1）由ptr所指定的清单中的下一个地址就是数据报的最终目的地址；（2）由外接口响应的IP地址取代刚才使用的源地址；（4）指针加4</li>
+<li>Host Requirements RFC指明，TCP客户必须能指明源站选路，同时，TCP服务器必须能够接收源站选路，并且对于该TCP连接的所有报文段都能采用反向路由。如果TCP服务器下面接收到一个不同的源站选路，那么新的源路路由将取代旧的源路路由</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/uknow1.jpg" alt=""></p>
+<h1 id="IP选路"><a href="#IP选路" class="headerlink" title="IP选路"></a>IP选路</h1><ul>
+<li>选路是IP最重要的功能之一</li>
+<li>路由守护程序（daemon），通常这是一个用户进程</li>
+<li>在Unix系统中，大多数普通的守护程序都是路由程序和网关程序</li>
+<li>路由表经常被IP访问，但是它被路由守护程序更新的频度却要低得多</li>
+<li>当接收到ICMP重定向报文时，路由表也要被更新</li>
+<li><p>用netstat命令来显示路由表</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170421202212.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="选路的原理"><a href="#选路的原理" class="headerlink" title="选路的原理"></a>选路的原理</h2><p>IP搜索路由表的几个步骤：</p>
+<ul>
+<li>搜索匹配的主机地址</li>
+<li>搜索匹配的网络地址</li>
+<li>搜索默认表项（默认表项一般在路由表中被指定为一个网络表项，其网络号为0）</li>
+<li>CISCO的选路策略（1.明细策略路由 2.明细路由 3.策略默认路由 4.默认路由）</li>
+<li>IP执行选路机制，而路由守护程序则一般提供选路策略</li>
 </ul>
 ]]></content>
     
