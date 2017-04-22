@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-04-21T12:57:05.639Z</updated>
+  <updated>2017-04-22T15:29:26.528Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://uknowsec.cn/posts/notes/%E3%80%8ATCP-IP%E8%AF%A6%E8%A7%A3-%E5%8D%B71%EF%BC%9A%E5%8D%8F%E8%AE%AE%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
     <id>http://uknowsec.cn/posts/notes/《TCP-IP详解-卷1：协议》学习笔记.html</id>
     <published>2017-04-15T13:08:21.000Z</published>
-    <updated>2017-04-21T12:57:05.639Z</updated>
+    <updated>2017-04-22T15:29:26.528Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/141924136983820.png" alt=""></p>
@@ -435,6 +435,26 @@
 <li>CISCO的选路策略（1.明细策略路由 2.明细路由 3.策略默认路由 4.默认路由）</li>
 <li>IP执行选路机制，而路由守护程序则一般提供选路策略</li>
 </ul>
+<h2 id="初始化路由表"><a href="#初始化路由表" class="headerlink" title="初始化路由表"></a>初始化路由表</h2><ul>
+<li>每当初始化一个接口时（通常是用ifconfig命令设置接口地址），就为接口自动创建一个直接路由。对于点对点链路和环回接口来说，路由是到达主机（例如，设置H标志）。对于广播接口来说，如以太网，路由是到达网络</li>
+<li>到达主机或网络的路由如果不是直接相连的，那么就必须加入路由表</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">route add default sun 1</div><div class="line">route add slip bsdi 1</div><div class="line">route add 1.1.1.0 mask 255.255.255.0 1.1.1.1</div></pre></td></tr></table></figure>
+<ul>
+<li>第三个参数（defalut和slip）代表目的端，第四个参数代表网关（路由器），最后一个参数代表路由的度量（metric）.route命令在度量值大于0时要为该路由设置G标志，否则，当耗费值为0时就不设置G标志</li>
+</ul>
+<h2 id="转发或不转发"><a href="#转发或不转发" class="headerlink" title="转发或不转发"></a>转发或不转发</h2><ul>
+<li>一般都假定主机不转发IP数据报，除非对它们进行特殊配置而作为路由器使用</li>
+<li>大多数伯克利派出来的系统都有一个内核变量ipforwarding</li>
+<li>SumOS 4.1.x允许该变量可以有三个不同的值：-1表示始终不转发并且始终不改变它的值；0表示默认条件下不转发，但是当打开两个或更多个接口时就把值设为1；1表示始终转发。Solaris 2.x把这个值改为0（始终不转发）’1（始终转发）和2（在打开两个或更多个接口是才转发）</li>
+<li>较早版本的4.2BSD主机在默认条件下可以转发数据报，这给没有进行正确配置的系统带来了许多问题。这就是内核选项为什么要设成默认的“始终不转发”的原因，除非系统管理员进行特殊设置</li>
+</ul>
+<h2 id="ICMP重定向差错"><a href="#ICMP重定向差错" class="headerlink" title="ICMP重定向差错"></a>ICMP重定向差错</h2><ul>
+<li>我们假定主机发送一份IP数据报给R1.这种选路决策经常发生，因为R1是该主机的默认路由</li>
+<li>R1收到数据报并检查它的路由表，发现R2是发送数据报的下一站。当它把数据报发送给R2时，R1检测到它正在发送的接口与数据报达到接口是相同的（即主机和两个路由器所在的LAN）。这样就给路由器发送重定向报文给原始发送端提供了线索</li>
+<li>R1发送一份ICMP重定向报文给主机，告诉它以后把数据报发送给R2而不是R1</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170422232852.jpg" alt=""></p>
 ]]></content>
     
     <summary type="html">
