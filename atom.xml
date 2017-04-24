@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-04-22T15:29:26.528Z</updated>
+  <updated>2017-04-24T14:41:27.800Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://uknowsec.cn/posts/notes/%E3%80%8ATCP-IP%E8%AF%A6%E8%A7%A3-%E5%8D%B71%EF%BC%9A%E5%8D%8F%E8%AE%AE%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
     <id>http://uknowsec.cn/posts/notes/《TCP-IP详解-卷1：协议》学习笔记.html</id>
     <published>2017-04-15T13:08:21.000Z</published>
-    <updated>2017-04-22T15:29:26.528Z</updated>
+    <updated>2017-04-24T14:41:27.800Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/141924136983820.png" alt=""></p>
@@ -455,6 +455,149 @@
 <li>R1发送一份ICMP重定向报文给主机，告诉它以后把数据报发送给R2而不是R1</li>
 </ul>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170422232852.jpg" alt=""></p>
+<h1 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h1><h2 id="UDP介绍"><a href="#UDP介绍" class="headerlink" title="UDP介绍"></a>UDP介绍</h2><ul>
+<li>UDP是一个简单的面向数据报的运输层协议：进程的每个输出操作都正好产生一个UDP数据报，并组装成一份待发送的IP数据包</li>
+<li>这与面向流字符的协议不同，如TCP，应用程序产生的全体数据与真正发送的单个IP数据报可能没什么联系</li>
+<li>UDP不提供可靠性：它把应用程序传给IP层的数据发送出去，但是并不保证它们能到达目的地</li>
+<li>应用程序必须关心IP数据报的长度。如果它超过网络的MTU，那么就要对IP数据报进行分片</li>
+</ul>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/211857142503378.png" alt=""></p>
+<h2 id="UDP三大典型运用"><a href="#UDP三大典型运用" class="headerlink" title="UDP三大典型运用"></a>UDP三大典型运用</h2><h3 id="查询类：DNS"><a href="#查询类：DNS" class="headerlink" title="查询类：DNS"></a>查询类：DNS</h3><ul>
+<li>没有TCP三次握手包过程，快</li>
+<li>多个DNS同时查询</li>
+</ul>
+<h3 id="数据传输：TFTP"><a href="#数据传输：TFTP" class="headerlink" title="数据传输：TFTP"></a>数据传输：TFTP</h3><ul>
+<li>停止等待协议，慢（需运用层确定数据）</li>
+<li>适合无盘工作站</li>
+</ul>
+<h3 id="语言视频流"><a href="#语言视频流" class="headerlink" title="语言视频流"></a>语言视频流</h3><ul>
+<li>支持广播和组播</li>
+<li>支持丢包，保障效率</li>
+</ul>
+<h2 id="UDP首部"><a href="#UDP首部" class="headerlink" title="UDP首部"></a>UDP首部</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/211907360933802.png" alt=""></p>
+<ul>
+<li>端口号表示发送进程和接收进程</li>
+<li>TCP端口号与UDP端口号是相互独立的。（rsh和syslog=514）</li>
+<li>尽管相互独立，如果TCP和UDP同时提供某种知名服务，两个协议通常选择相同的端口号。这纯粹是为了使用方便，而不是协议本事的要求（dns）</li>
+<li>UDP长度字段指的是UDP首部和UDP数据的字节长度。该字段的最小值为8字节</li>
+</ul>
+<h2 id="UDP检验和"><a href="#UDP检验和" class="headerlink" title="UDP检验和"></a>UDP检验和</h2><ul>
+<li>UDP检验和覆盖UDP首部和UDP数据</li>
+<li>IP首部的检验和，它只覆盖IP的首部</li>
+<li>UDP的检验和是可选的，而TCP的检验和是必需的</li>
+<li>IP计算检验和和UDP计算检验和之间存在不同的地方。首先，UDP数据报的长度可以为奇数字节，但检验和算法是把若干个16bit字相加。解决方法是必要时在最后增加填充字节0，这只是为了检验和的计算（也就是说，可能增加的填充字节不被传送）</li>
+<li>UDP数据报和TCP段都包含一个12字节长的伪首部，它是为了计算检验和而设置的。伪首部包含IP首部一些字段。其目的是让UDP两次检查数据是否已经正确到达目的地（例如，IP没有接受地址不是本主机的数据报，以及IP没有把应传给另一高层的数据报传给UDP）</li>
+</ul>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/211955147184376.png" alt=""></p>
+<h2 id="tcpdump输出"><a href="#tcpdump输出" class="headerlink" title="tcpdump输出"></a>tcpdump输出</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE2017042317114.jpg" alt=""></p>
+<ul>
+<li>三个系统有两个打开了UDP检验和选项</li>
+<li>送出的数据报与收到的数据报具有相同的检验和值（第3和第4行，第5和第6行）。从图11-3可以看出，两个IP地址进行了交换，正如两个端口号一样。伪首部和UDP首部中的其他字段都是相同的，就想数据回显一样。这再次表明UDP检验和（事实上，TCP|IP协议簇中所有的检验和）是简单的16bit和。它们检测不出交换两个16bit的差错</li>
+</ul>
+<h2 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170423172522.jpg" alt=""></p>
+<ul>
+<li>在发送第一份数据报之前，发送端和接收端之间没有任何通信</li>
+<li>当收到数据时，接收端没有任何确认。在这个例子中，发送端并不知道零一端是否已经收到这些数据报</li>
+<li>每次运行程序时，源端的UDP端口号都发生变化。第一次是1108，然后是1110.客户程序使用ephemeral端口号一般在1024~5000之间</li>
+</ul>
+<h2 id="IP分片"><a href="#IP分片" class="headerlink" title="IP分片"></a>IP分片</h2><ul>
+<li>IP把MTU与数据报长度进行比较</li>
+<li>如果需要则进行分片。分片可以发生在原始发送端主机上，也可以发送在中间路由器上。</li>
+<li>把一份IP数据报分片以后，只有到达目的地才进行重新组装（FR fragment）</li>
+<li>重新组装由目的端的IP层来完成，其目的是使分片和重新组装过程对运输层（TCP和UDP）是透明的</li>
+<li>已经分片过的数据报有可能会再次进行分片（可能不止一次）</li>
+<li>当IP数据报被分片后，每一片都成为一个分组，具有自己的IP首部中有足够的信息让接收端能正确组装这些数据报片</li>
+<li>尽管IP分片过程看起来是透明的，但有一点让人不想使用它：即使只丢失一片数据也要重传整个数据报</li>
+<li>IP层本身没有超时重传的机制–由更高层来负责超时和重传（TCP有超市和重传机制，但UDP没有。一些UDP应用程序本身也执行超时和重传）。当来自TCP报文段的某一片丢失后，TCP在超时后会重发整个TCP报文段，该报文段对应于一份IP数据报。没有办法只能重传数据报中的一个数据报片</li>
+<li>如果对数据报分片的是中间路由器，而不是启事端系统，那么起始端系统就无法知道数据报是如何被分片的。就这个原因，要经常避免分片</li>
+</ul>
+<h3 id="IP分片：注意事项"><a href="#IP分片：注意事项" class="headerlink" title="IP分片：注意事项"></a>IP分片：注意事项</h3><ul>
+<li>在分片时，除最后一片外，其他每一片中的数据部分（除IP首部外的其余部分）必须是8字节的整数倍</li>
+<li>IP首部被复制到各个片中。但是，端口号在UDP首部，只能在第一片中被发现</li>
+<li>需要解释几个术语：IP数据报是指IP层端到端的传输单元（在分片之前和重新组装之后），分组是指在IP层和链路层之间的数据单元，一个分组可以是一个完整的IP数据报，也可以是IP数据报的一个分片</li>
+</ul>
+<h2 id="ICMP不可达差错（需要分片）"><a href="#ICMP不可达差错（需要分片）" class="headerlink" title="ICMP不可达差错（需要分片）"></a>ICMP不可达差错（需要分片）</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/212127065468647.png" alt=""></p>
+<ul>
+<li>发生ICMP不可达差错的另一种情况是，当路由器收到一份需要分片的数据报，而在IP首部又设置了不分片(DF的标志比特。如果某个程序需要判断到目的端的路途中最小MTU是多少–称作路径MTU发现机制，那么这个差错就可以被该程序使用</li>
+<li>如果路由器没有提供这种新的ICMP差错报文格式，那么下一站的MTU就设为0</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424210136.jpg" alt=""></p>
+<ul>
+<li>在点到点的链路中，不要求两个方向的MTU为相同值</li>
+<li>在主机sun上运行tcpdump，观察SLIP链路，看什么时候发生分片。开始没有观察到分片，一切都很正常知道ping分组的数据长度从500增加到600字节。可以看到接收到的回显请求（仍然没有分片），但不见回显应答</li>
+<li>Ping的时候DF置位（echo设置DF位，echo-reply也会设置DF位）</li>
+</ul>
+<h2 id="用Traceroute确定路径MTU"><a href="#用Traceroute确定路径MTU" class="headerlink" title="用Traceroute确定路径MTU"></a>用Traceroute确定路径MTU</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424205607.jpg" alt=""></p>
+<ul>
+<li>MTU值的个数是有限的，因此在我们的程序中有些由近似值构成的表，取下一个最小的MTU值来发送</li>
+<li>上面的测试中间设备不回送吓一跳的MTU，下面的测试回送了下一跳的MTU</li>
+</ul>
+<h2 id="采用UDP的路径MTU发现"><a href="#采用UDP的路径MTU发现" class="headerlink" title="采用UDP的路径MTU发现"></a>采用UDP的路径MTU发现</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424205406.jpg" alt=""></p>
+<ul>
+<li>Solaris发送650字节的udp包，并且DF被置位</li>
+<li>被bsdi丢弃，但是不回送MTU值</li>
+<li>Solaris自以为是的对数据包进行分片（552 106两个片）</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424205651.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424205746.jpg" alt=""></p>
+<ul>
+<li>Solaris自以为是的对数据报进行分片（552 106两个片）造成不优化的再次分片</li>
+<li>最好的解决方式是让bsdi回送MTU，Solaris根据这个MTU采取最优化的分片</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424205832.jpg" alt=""></p>
+<h2 id="UDP和ARP之间的交互作用"><a href="#UDP和ARP之间的交互作用" class="headerlink" title="UDP和ARP之间的交互作用"></a>UDP和ARP之间的交互作用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">bsdi % arp -a验证ARP高速缓存是空的</div><div class="line">bsdi % sock -u -i -l -w8192 svr4 discard</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424205918.jpg" alt=""></p>
+<ul>
+<li>1.在第一个ARP应答返回以前，总共产生了6个ARP请求</li>
+<li>2.在接收第一个ARP应答时（第7行），只发送最后一个数据报片（第9行）</li>
+<li>3.在大多数的实现中，在等待一个ARP应答时，只将最后一个报文发送给特定目的主机</li>
+<li>4.另一个无法解释的不正常的现象是，svr4发回7个，而不是6个ARP应答</li>
+<li>5.这里我们没有看到ICMP消息的原因有两个。首先，大多数从Berkeley派生的实现从不产生该差错！这些实现会设置定时器，也会在定时器溢出时将数据报片丢弃，但是不生成ICMP差错</li>
+<li>6.第二，并未接收到包含UDP首部的偏移量为0的第一个数据报片（这是被ARP所丢弃的5个报文的第一个）除非接收到第一个数据报片，否则并不要求任何实现产生ICMP差错</li>
+</ul>
+<h2 id="最大UDP数据报长度"><a href="#最大UDP数据报长度" class="headerlink" title="最大UDP数据报长度"></a>最大UDP数据报长度</h2><ul>
+<li>IP数据报的最大长度是65535字节，这是由IP首部16比特总长度字段所限制的</li>
+<li>我们将遇到两个限制因素，第一，应用程序可能会收到其程序接口的限制。Socket API提供了一个可供应用程序调用的函数，以设置接收和发送缓存的长度。对于UDP socket，这个长度与应用程序可以读写的最大UDP数据报的长度直接相关。现在的大部分系统都默认提供了可读写大于8192字节的UDP数据报（使用这个默认值是因为8192是NFS读写用户数据数的默认值）</li>
+<li>第二个限制来自于TCP|IP的内核实现。可能存在一些实现特性（或差错），使IP数据报长度小于65535字节</li>
+<li>在SunOS4.1.3下使用环回接口的最大IP数据报长度是32767字节。比它大的值都会发生差错。但是从BSD/386到SunOS4.1.3的情况下，Sun所能接收到最大IP数据报长度为32786字节（即32758字节用户数据）。在Solaris2.2下使用环回接口，最大可收发IP数据报长度为65535字节。从Solaris2.2到AIX3.2.2,发送的最大IP数据报长度可以是65535字节。很显然，这个限制和源端和目的端的实现有关</li>
+<li>要求主机必须能够接收最短为576字节的IP数据报，在许多的UDP应用程序的设计中，其应用数据被限制成512字节或更小，因此比这个限制值小</li>
+</ul>
+<h2 id="ICMP源站抑制差错"><a href="#ICMP源站抑制差错" class="headerlink" title="ICMP源站抑制差错"></a>ICMP源站抑制差错</h2><p>当一个系统（路由器或主机）接收数据报的速度比其处理速度快时，可能产生这个差错。</p>
+<p>注意：“可能”产生这个差错。即使一个系统已经没有缓存并丢弃数据报，也不要求它一定要发送源站抑制报文。</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/212155080782897.png" alt=""></p>
+<h2 id="UDP服务器的设计"><a href="#UDP服务器的设计" class="headerlink" title="UDP服务器的设计"></a>UDP服务器的设计</h2><p>对于服务器来说，它启动后处于休眠状态，等待客户请求的到来。对于UDP来说，当客户数据报到达时，服务器苏醒过来，数据报中可能包含来自客户的某种形式的请求消息。</p>
+<ul>
+<li><p>（1）客户IP地址及端口号<br>IP首部包含源端和目的端IP地址，UDP首部包含了源端和目的端的UDP端口号。当一个应用程序接收到UDP数据报时，操作系统必须告诉它是谁发送了这份消息，即源IP地址和端口号。这个特性允许一个交互UDP服务器对多个客户进行处理。给每个发送请求的客户发回应答。</p>
+</li>
+<li><p>（2）目的IP地址<br>一些应用程序需要知道数据报是发送给谁的，即目的IP地址。这要求操作系统从接收到的UDP数据报中将目的IP地址交给应用程序。</p>
+</li>
+<li><p>（3）UDP输入队列<br>大多数UDP服务器是交互服务器。这意味着，单个服务器进程对单个UDP端口上（服务器上的名知端口）的所有客户请求进行处理。</p>
+</li>
+</ul>
+<p>通常程序所使用的每个UDP端口都与一个有限大小的输入队列相联系。来自不同客户的差不多同时到达的请求将由UDP自动排队。接收到的UDP数据报以其接收顺序交给应用程序</p>
+<p>排队溢出造成内核中的UDP模块丢弃数据报的可能性是存在的。</p>
+<p>1）应用程序并不知道其输入队列何时溢出。只是由UDP对超出数据报进行丢弃处理。</p>
+<p>2）没有发回任何信息告诉客户其数据报被丢弃。</p>
+<ul>
+<li>（4）限制本地IP地址<br>大多数UDP服务器在创建UDP端点时都使其本地IP地址具有通配符(wildcard)的特点。表明进入的UDP数据报如果其目的地为服务器端口，那么在任何本地接口均可接收到它。</li>
+</ul>
+<p>另一方面，当服务器创建端点时，它可以把其中一个主机本地IP地址包括广播地址指定为端点的本地IP地址。只有当目的IP地址与指定的地址相匹配时，进入的UDP数据报才能被送到这个端点。</p>
+<ul>
+<li>（5）限制远端IP地址</li>
+</ul>
+<p>大多数系统都允许UDP端点对远端地址进行限制，即端点将只能接收特定IP地址和端口号的UDP数据报。</p>
+<ul>
+<li>（6）每个端口有多个接收者</li>
+</ul>
+<p>大多数系统在某一时刻只允许一个程序端点与某个本地IP地址及UDP端口号相关联。当目的地为该IP地址及端口号的UDP数据报到达主机时，就复制一份传给该端点。</p>
+<p>然而，在一个支持多播的系统上，多个端点可以使用同一个IP地址和UDP端口号。</p>
+<p>当UDP数据报到达的目的IP地址为广播地址或多播地址，而且在目的IP地址和端口号处有多个端点时，就向每个端点传送一份数据报的复制。如果UDP数据报到达的是一个单播地址，那么只向其中一个端点传送一份数据报的复制。选择哪个端点传送数据取决于各个不同的系统实现。</p>
+<h1 id="广播与多播"><a href="#广播与多播" class="headerlink" title="广播与多播"></a>广播与多播</h1><ul>
+<li>三种IP地址：单播地址、广播地址和多播地址。</li>
+<li>广播和多播仅应用于UDP，它们对需要将报文同时传往多个接收者的应用来说十分重要</li>
+<li>TCP是一个面向连接的协议，它意味着分别运行于两主机（由IP地址确定）内的两进程（由端口号确定）间存在一条连接</li>
+<li>有时一个主机要向网上的所有其他主机发送帧，这就是广播。通过ARP和RARP可以看到这一过程</li>
+<li>多播处于单播和广播之间：帧仅传送给属于多播组的多个主机</li>
+</ul>
 ]]></content>
     
     <summary type="html">
