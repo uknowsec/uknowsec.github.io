@@ -4,6 +4,29 @@
   
     
     <entry>
+      <title><![CDATA[Ubuntu Server下安装配置Metasploit]]></title>
+      <url>http://uknowsec.cn/posts/notes/Ubuntu-Server%E4%B8%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEMetasploit.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h1 id="安装postgersql"><a href="#安装postgersql" class="headerlink" title="安装postgersql"></a>安装postgersql</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install postgersql</div></pre></td></tr></table></figure>
+<h1 id="下载Metasploit"><a href="#下载Metasploit" class="headerlink" title="下载Metasploit"></a>下载Metasploit</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /opt</div><div class="line">wget http://downloads.metasploit.com/data/releases/metasploit-latest-linux-x64-installer.run</div></pre></td></tr></table></figure>
+<h1 id="安装Metasploit"><a href="#安装Metasploit" class="headerlink" title="安装Metasploit"></a>安装Metasploit</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /opt</div><div class="line">sudo mkdir metasploit</div><div class="line">sudo ./metasploit-latest-linux-x64-installer.run</div></pre></td></tr></table></figure>
+<ul>
+<li>在安装的过程中开始是license内容可以一直回车，然后输入y，同意license</li>
+<li>然后会要你选择一个空文件夹，此时输入刚刚创建的文件夹 /opt/metasploit</li>
+<li>最后还会让你选择是否metasploit自行创建postgersql，可输入y。等待即可安装成功</li>
+</ul>
+<h1 id="启动Metasploit"><a href="#启动Metasploit" class="headerlink" title="启动Metasploit"></a>启动Metasploit</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">service postgresql start		//启动PostgreSQL服务</div><div class="line">service metasploit start		//启动Metasploit服务</div><div class="line">msfconsole		//启动Metasploit</div><div class="line">db_status		//查看数据库连接状态</div></pre></td></tr></table></figure>
+<ul>
+<li>如果启动metasploit的时候出现Warning提示没有查看datebase.yml的权限可以输入</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chmod 775 /opt/metasploit-framework/apps/pro/ui/config/database.yml</div></pre></td></tr></table></figure>
+<ul>
+<li>重新启动就可以自动连接数据库了</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[《TCP/IP详解 卷1：协议》学习笔记]]></title>
       <url>http://uknowsec.cn/posts/notes/%E3%80%8ATCP-IP%E8%AF%A6%E8%A7%A3-%E5%8D%B71%EF%BC%9A%E5%8D%8F%E8%AE%AE%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
