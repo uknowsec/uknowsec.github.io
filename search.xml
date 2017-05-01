@@ -4,6 +4,148 @@
   
     
     <entry>
+      <title><![CDATA[【转载】HTTP：超文本传输协议]]></title>
+      <url>http://uknowsec.cn/posts/notes/HTTP%EF%BC%9A%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h1 id="HTTP简介"><a href="#HTTP简介" class="headerlink" title="HTTP简介"></a>HTTP简介</h1><p>HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。</p>
+<p>HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。</p>
+<p>HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。</p>
+<p>HTTP协议工作于客户端-服务端架构为上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求。Web服务器根据接收到的请求后，向客户端发送响应信息。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2964446-5a35e17f298a48e1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&amp;_=5984001" alt=""></p>
+<h1 id="主要特点"><a href="#主要特点" class="headerlink" title="主要特点"></a>主要特点</h1><ul>
+<li><p>1、简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</p>
+</li>
+<li><p>2、灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</p>
+</li>
+<li><p>3、无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</p>
+</li>
+<li><p>4、无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</p>
+</li>
+<li><p>5、支持B/S及C/S模式。</p>
+</li>
+</ul>
+<h1 id="HTTP之URL"><a href="#HTTP之URL" class="headerlink" title="HTTP之URL"></a>HTTP之URL</h1><p>HTTP使用统一资源标识符（Uniform Resource Identifiers, URI）来传输数据和建立连接。URL是一种特殊类型的URI，包含了用于查找某个资源的足够的信息</p>
+<p>URL,全称是UniformResourceLocator, 中文叫统一资源定位符,是互联网上用来标识某一处资源的地址。以下面这个URL为例，介绍下普通URL的各部分组成：</p>
+<p><a href="http://www.aspxfans.com:8080/news/index.asp?boardID=5&amp;ID=24618&amp;page=1#name" target="_blank" rel="external">http://www.aspxfans.com:8080/news/index.asp?boardID=5&amp;ID=24618&amp;page=1#name</a></p>
+<p>从上面的URL可以看出，一个完整的URL包括以下几部分：</p>
+<ul>
+<li><p>1.协议部分：该URL的协议部分为“http：”，这代表网页使用的是HTTP协议。在Internet中可以使用多种协议，如HTTP，FTP等等本例中使用的是HTTP协议。在”HTTP”后面的“//”为分隔符</p>
+</li>
+<li><p>2.域名部分：该URL的域名部分为“www.aspxfans.com”。一个URL中，也可以使用IP地址作为域名使用</p>
+</li>
+<li><p>3.端口部分：跟在域名后面的是端口，域名和端口之间使用“:”作为分隔符。端口不是一个URL必须的部分，如果省略端口部分，将采用默认端口</p>
+</li>
+<li><p>4.虚拟目录部分：从域名后的第一个“/”开始到最后一个“/”为止，是虚拟目录部分。虚拟目录也不是一个URL必须的部分。本例中的虚拟目录是“/news/”</p>
+</li>
+<li><p>5.文件名部分：从域名后的最后一个“/”开始到“？”为止，是文件名部分，如果没有“?”,则是从域名后的最后一个“/”开始到“#”为止，是文件部分，如果没有“？”和“#”，那么从域名后的最后一个“/”开始到结束，都是文件名部分。本例中的文件名是“index.asp”。文件名部分也不是一个URL必须的部分，如果省略该部分，则使用默认的文件名</p>
+</li>
+<li><p>6.锚部分：从“#”开始到最后，都是锚部分。本例中的锚部分是“name”。锚部分也不是一个URL必须的部分</p>
+</li>
+<li><p>7.参数部分：从“？”开始到“#”为止之间的部分为参数部分，又称搜索部分、查询部分。本例中的参数部分为“boardID=5&amp;ID=24618&amp;page=1”。参数可以允许有多个参数，参数与参数之间用“&amp;”作为分隔符。</p>
+</li>
+</ul>
+<h1 id="URI和URL的区别"><a href="#URI和URL的区别" class="headerlink" title="URI和URL的区别"></a>URI和URL的区别</h1><p>URI，是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。</p>
+<p>Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的<br>URI一般由三部组成：</p>
+<ul>
+<li>①访问资源的命名机制</li>
+<li>②存放资源的主机名</li>
+<li>③资源自身的名称，由路径表示，着重强调于资源。</li>
+</ul>
+<p>URL是uniform resource locator，统一资源定位器，它是一种具体的URI，即URL可以用来标识一个资源，而且还指明了如何locate这个资源。</p>
+<p>URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客户程序和服务器程序上，特别是著名的Mosaic。<br>采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。URL一般由三部组成：</p>
+<ul>
+<li>①协议(或称为服务方式)</li>
+<li>②存有该资源的主机IP地址(有时也包括端口号)</li>
+<li>③主机资源的具体地址。如目录和文件名等</li>
+</ul>
+<p>URN，uniform resource name，统一资源命名，是通过名字来标识资源，比如mailto:java-net@java.sun.com。</p>
+<p>URI是以一种抽象的，高层次概念定义统一资源标识，而URL和URN则是具体的资源标识的方式。URL和URN都是一种URI。笼统地说，每个 URL 都是 URI，但不一定每个 URI 都是 URL。这是因为 URI 还包括一个子类，即统一资源名称 (URN)，它命名资源但不指定如何定位资源。上面的 mailto、news 和 isbn URI 都是 URN 的示例。</p>
+<p>在Java的URI中，一个URI实例可以代表绝对的，也可以是相对的，只要它符合URI的语法规则。而URL类则不仅符合语义，还包含了定位该资源的信息，因此它不能是相对的。<br>在Java类库中，URI类不包含任何访问资源的方法，它唯一的作用就是解析。<br>相反的是，URL类可以打开一个到达资源的流。</p>
+<h1 id="HTTP之请求消息Request"><a href="#HTTP之请求消息Request" class="headerlink" title="HTTP之请求消息Request"></a>HTTP之请求消息Request</h1><p>客户端发送一个HTTP请求到服务器的请求消息包括以下格式：</p>
+<p>请求行（request line）、请求头部（header）、空行和请求数据四个部分组成。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2964446-fdfb1a8fce8de946.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&amp;_=5984001" alt=""><br>请求行以一个方法符号开头，以空格分开，后面跟着请求的URI和协议的版本。<br>Get请求例子，使用Charles抓取的request：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">GET /562f25980001b1b106000338.jpg HTTP/1.1</div><div class="line">Host    img.mukewang.com</div><div class="line">User-Agent    Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36</div><div class="line">Accept    image/webp,image/*,*/*;q=0.8</div><div class="line">Referer    http://www.imooc.com/</div><div class="line">Accept-Encoding    gzip, deflate, sdch</div><div class="line">Accept-Language    zh-CN,zh;q=0.8</div></pre></td></tr></table></figure>
+<p>第一部分：请求行，用来说明请求类型,要访问的资源以及所使用的HTTP版本.</p>
+<p>GET说明请求类型为GET,[/562f25980001b1b106000338.jpg]为要访问的资源，该行的最后一部分说明使用的是HTTP1.1版本。</p>
+<p>第二部分：请求头部，紧接着请求行（即第一行）之后的部分，用来说明服务器要使用的附加信息</p>
+<p>从第二行起为请求头部，HOST将指出请求的目的地.User-Agent,服务器端和客户端脚本都能访问它,它是浏览器类型检测逻辑的重要基础.该信息由你的浏览器来定义,并且在每个请求中自动发送等等</p>
+<p>第三部分：空行，请求头部后面的空行是必须的</p>
+<p>即使第四部分的请求数据为空，也必须有空行。</p>
+<p>第四部分：请求数据也叫主体，可以添加任意的其他数据。</p>
+<p>这个例子的请求数据为空。</p>
+<p>POST请求例子，使用Charles抓取的request：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">POST / HTTP1.1</div><div class="line">Host:www.wrox.com</div><div class="line">User-Agent:Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022)</div><div class="line">Content-Type:application/x-www-form-urlencoded</div><div class="line">Content-Length:40</div><div class="line">Connection: Keep-Alive</div><div class="line"></div><div class="line">name=Professional%20Ajax&amp;publisher=Wiley</div></pre></td></tr></table></figure>
+<p>第一部分：请求行，第一行明了是post请求，以及http1.1版本。<br>第二部分：请求头部，第二行至第六行。<br>第三部分：空行，第七行的空行。<br>第四部分：请求数据，第八行。</p>
+<h1 id="HTTP之响应消息Response"><a href="#HTTP之响应消息Response" class="headerlink" title="HTTP之响应消息Response"></a>HTTP之响应消息Response</h1><p>一般情况下，服务器接收并处理客户端发过来的请求后会返回一个HTTP的响应消息。</p>
+<p>HTTP响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2964446-1c4cab46f270d8ee.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&amp;_=5984001" alt=""><br>例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 200 OK</div><div class="line">Date: Fri, 22 May 2009 06:07:21 GMT</div><div class="line">Content-Type: text/html; charset=UTF-8</div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">      &lt;head&gt;&lt;/head&gt;</div><div class="line">      &lt;body&gt;</div><div class="line">            &lt;!--body goes here--&gt;</div><div class="line">      &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>第一部分：状态行，由HTTP协议版本号， 状态码， 状态消息 三部分组成。</p>
+<p>第一行为状态行，（HTTP/1.1）表明HTTP版本为1.1版本，状态码为200，状态消息为（ok）</p>
+<p>第二部分：消息报头，用来说明客户端要使用的一些附加信息</p>
+<p>第二行和第三行为消息报头，<br>Date:生成响应的日期和时间；Content-Type:指定了MIME类型的HTML(text/html),编码类型是UTF-8</p>
+<p>第三部分：空行，消息报头后面的空行是必须的</p>
+<p>第四部分：响应正文，服务器返回给客户端的文本信息。</p>
+<p>空行后面的html部分为响应正文。</p>
+<h1 id="HTTP之状态码"><a href="#HTTP之状态码" class="headerlink" title="HTTP之状态码"></a>HTTP之状态码</h1><p>状态代码有三位数字组成，第一个数字定义了响应的类别，共分五种类别:</p>
+<p>1xx：指示信息–表示请求已接收，继续处理</p>
+<p>2xx：成功–表示请求已被成功接收、理解、接受</p>
+<p>3xx：重定向–要完成请求必须进行更进一步的操作</p>
+<p>4xx：客户端错误–请求有语法错误或请求无法实现</p>
+<p>5xx：服务器端错误–服务器未能实现合法的请求</p>
+<p>常见状态码：</p>
+<p>200 OK                        //客户端请求成功<br>400 Bad Request               //客户端请求有语法错误，不能被服务器所理解<br>401 Unauthorized              //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用<br>403 Forbidden                 //服务器收到请求，但是拒绝提供服务<br>404 Not Found                 //请求资源不存在，eg：输入了错误的URL<br>500 Internal Server Error     //服务器发生不可预期的错误<br>503 Server Unavailable        //服务器当前不能处理客户端的请求，一段时间后可能恢复正常<br>更多状态码<a href="http://www.runoob.com/http/http-status-codes.html" target="_blank" rel="external">http://www.runoob.com/http/http-status-codes.html</a></p>
+<h1 id="HTTP请求方法"><a href="#HTTP请求方法" class="headerlink" title="HTTP请求方法"></a>HTTP请求方法</h1><p>根据HTTP标准，HTTP请求可以使用多种请求方法。<br>HTTP1.0定义了三种请求方法： GET, POST 和 HEAD方法。<br>HTTP1.1新增了五种请求方法：OPTIONS, PUT, DELETE, TRACE 和 CONNECT 方法。</p>
+<p>GET     请求指定的页面信息，并返回实体主体。<br>HEAD     类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头<br>POST     向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。<br>PUT     从客户端向服务器传送的数据取代指定的文档的内容。<br>DELETE      请求服务器删除指定的页面。<br>CONNECT     HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。<br>OPTIONS     允许客户端查看服务器的性能。<br>TRACE     回显服务器收到的请求，主要用于测试或诊断。</p>
+<h1 id="HTTP工作原理"><a href="#HTTP工作原理" class="headerlink" title="HTTP工作原理"></a>HTTP工作原理</h1><p>HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了请求/响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。</p>
+<p>以下是 HTTP 请求/响应的步骤：</p>
+<p>1、客户端连接到Web服务器</p>
+<p>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，<a href="http://www.oakcms.cn。" target="_blank" rel="external">http://www.oakcms.cn。</a></p>
+<p>2、发送HTTP请求</p>
+<p>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</p>
+<p>3、服务器接受请求并返回HTTP响应</p>
+<p>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</p>
+<p>4、释放连接TCP连接</p>
+<p>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</p>
+<p>5、客户端浏览器解析HTML内容</p>
+<p>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</p>
+<p>例如：在浏览器地址栏键入URL，按下回车之后会经历以下流程：</p>
+<p>1、浏览器向 DNS 服务器请求解析该 URL 中的域名所对应的 IP 地址;</p>
+<p>2、解析出 IP 地址后，根据该 IP 地址和默认端口 80，和服务器建立TCP连接;</p>
+<p>3、浏览器发出读取文件(URL 中域名后面部分对应的文件)的HTTP 请求，该请求报文作为 TCP 三次握手的第三个报文的数据发送给服务器;</p>
+<p>4、服务器对浏览器请求作出响应，并把对应的 html 文本发送给浏览器;</p>
+<p>5、释放 TCP连接;</p>
+<p>6、浏览器将该 html 文本并显示内容; 　　</p>
+<h1 id="GET和POST请求的区别"><a href="#GET和POST请求的区别" class="headerlink" title="GET和POST请求的区别"></a>GET和POST请求的区别</h1><p>GET请求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">GET /books/?sex=man&amp;name=Professional HTTP/1.1</div><div class="line">Host: www.wrox.com</div><div class="line">User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6)</div><div class="line">Gecko/20050225 Firefox/1.0.1</div><div class="line">Connection: Keep-Alive</div></pre></td></tr></table></figure>
+<p>注意最后一行是空行</p>
+<p>POST请求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">POST / HTTP/1.1</div><div class="line">Host: www.wrox.com</div><div class="line">User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6)</div><div class="line">Gecko/20050225 Firefox/1.0.1</div><div class="line">Content-Type: application/x-www-form-urlencoded</div><div class="line">Content-Length: 40</div><div class="line">Connection: Keep-Alive</div><div class="line"></div><div class="line">name=Professional%20Ajax&amp;publisher=Wiley</div></pre></td></tr></table></figure>
+<p>1、GET提交，请求的数据会附在URL之后（就是把数据放置在HTTP协议头中），以?分割URL和传输数据，多个参数用&amp;连接；例 如：login.action?name=hyddd&amp;password=idontknow&amp;verify=%E4%BD%A0 %E5%A5%BD。如果数据是英文字母/数字，原样发送，如果是空格，转换为+，如果是中文/其他字符，则直接把字符串用BASE64加密，得出如： %E4%BD%A0%E5%A5%BD，其中％XX中的XX为该符号以16进制表示的ASCII。</p>
+<p>POST提交：把提交的数据放置在是HTTP包的包体中。上文示例中红色字体标明的就是实际的传输数据</p>
+<p>因此，GET提交的数据会在地址栏中显示出来，而POST提交，地址栏不会改变</p>
+<p>2、传输数据的大小：首先声明：HTTP协议没有对传输的数据大小进行限制，HTTP协议规范也没有对URL长度进行限制。</p>
+<p>而在实际开发中存在的限制主要有：</p>
+<p>GET:特定浏览器和服务器对URL长度有限制，例如 IE对URL长度的限制是2083字节(2K+35)。对于其他浏览器，如Netscape、FireFox等，理论上没有长度限制，其限制取决于操作系 统的支持。</p>
+<p>因此对于GET提交时，传输数据就会受到URL长度的 限制。</p>
+<p>POST:由于不是通过URL传值，理论上数据不受 限。但实际各个WEB服务器会规定对post提交数据大小进行限制，Apache、IIS6都有各自的配置。</p>
+<p>3、安全性</p>
+<p>POST的安全性要比GET的安全性高。比如：通过GET提交数据，用户名和密码将明文出现在URL上，因为(1)登录页面有可能被浏览器缓存；(2)其他人查看浏览器的历史纪录，那么别人就可以拿到你的账号和密码了，除此之外，使用GET提交数据还可能会造成Cross-site request forgery攻击</p>
+<p>4、Http get,post,soap协议都是在http上运行的</p>
+<p>（1）get：请求参数是作为一个key/value对的序列（查询字符串）附加到URL上的<br>查询字符串的长度受到web浏览器和web服务器的限制（如IE最多支持2048个字符），不适合传输大型数据集同时，它很不安全</p>
+<p>（2）post：请求参数是在http标题的一个不同部分（名为entity body）传输的，这一部分用来传输表单信息，因此必须将Content-type设置为:application/x-www-form- urlencoded。post设计用来支持web窗体上的用户字段，其参数也是作为key/value对传输。<br>但是：它不支持复杂数据类型，因为post没有定义传输数据结构的语义和规则。</p>
+<p>（3）soap：是http post的一个专用版本，遵循一种特殊的xml消息格式<br>Content-type设置为: text/xml 任何数据都可以xml化。</p>
+<p>Http协议定义了很多与服务器交互的方法，最基本的有4种，分别是GET,POST,PUT,DELETE. 一个URL地址用于描述一个网络上的资源，而HTTP中的GET, POST, PUT, DELETE就对应着对这个资源的查，改，增，删4个操作。 我们最常见的就是GET和POST了。GET一般用于获取/查询资源信息，而POST一般用于更新资源信息.</p>
+<p>我们看看GET和POST的区别</p>
+<p>GET提交的数据会放在URL之后，以?分割URL和传输数据，参数之间以&amp;相连，如EditPosts.aspx?name=test1&amp;id=123456. POST方法是把提交的数据放在HTTP包的Body中.</p>
+<p>GET提交的数据大小有限制（因为浏览器对URL的长度有限制），而POST方法提交的数据没有限制.</p>
+<p>GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值。</p>
+<p>GET方式提交数据，会带来安全问题，比如一个登录页面，通过GET方式提交数据时，用户名和密码将出现在URL上，如果页面可以被缓存或者其他人可以访问这台机器，就可以从历史记录获得该用户的账号和密码.</p>
+<p>原文地址：<a href="http://www.cnblogs.com/ranyonsue/p/5984001.html" target="_blank" rel="external">http://www.cnblogs.com/ranyonsue/p/5984001.html</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Ubuntu Server下安装配置Metasploit]]></title>
       <url>http://uknowsec.cn/posts/notes/Ubuntu-Server%E4%B8%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEMetasploit.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
@@ -462,7 +604,7 @@
 <li>R1发送一份ICMP重定向报文给主机，告诉它以后把数据报发送给R2而不是R1</li>
 </ul>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170422232852.jpg" alt=""></p>
-<h1 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h1><h2 id="UDP介绍"><a href="#UDP介绍" class="headerlink" title="UDP介绍"></a>UDP介绍</h2><ul>
+<h1 id="UDP：用户数据报协议"><a href="#UDP：用户数据报协议" class="headerlink" title="UDP：用户数据报协议"></a>UDP：用户数据报协议</h1><h2 id="UDP介绍"><a href="#UDP介绍" class="headerlink" title="UDP介绍"></a>UDP介绍</h2><ul>
 <li>UDP是一个简单的面向数据报的运输层协议：进程的每个输出操作都正好产生一个UDP数据报，并组装成一份待发送的IP数据包</li>
 <li>这与面向流字符的协议不同，如TCP，应用程序产生的全体数据与真正发送的单个IP数据报可能没什么联系</li>
 <li>UDP不提供可靠性：它把应用程序传给IP层的数据发送出去，但是并不保证它们能到达目的地</li>
@@ -661,6 +803,99 @@
 <li>当一个主机首次发送IGMP报告（当第一个进程加入一个多播组）时，并不保证该报告被可靠接收（因为使用的是IP交付服务）。下一个报告将在间隔一段时间后发送。这个时间间隔由主机在 0 ~ 1 0秒的范围内随机选择。 </li>
 <li>当一个主机收到一个从路由器发出的查询后，并不立即响应，而是经过一定的时间间隔后才发出一些响应s（一个主机可能不止一个多播组，有几个就要发送几个响应）。</li>
 </ul>
+<h1 id="DNS：域名系统"><a href="#DNS：域名系统" class="headerlink" title="DNS：域名系统"></a>DNS：域名系统</h1><h2 id="引言-2"><a href="#引言-2" class="headerlink" title="引言"></a>引言</h2><p>域名系统（DNS）是一种用于TCP/IP应用程序的分布式数据库，它提供主机名字和IP地址之间的转换及有关电子邮件的选路信息。</p>
+<h2 id="DNS基础"><a href="#DNS基础" class="headerlink" title="DNS基础"></a>DNS基础</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501144713.jpg" alt=""></p>
+<ul>
+<li>DNS的名字空间和Unix的文件系统相似，也具有层次结构</li>
+<li>每个结点（图14-1中的圆圈）有一个至多63个字符长</li>
+<li>以点“.”结尾的域名称为绝对域名或完全合格的域名FQDN(Full Qualified Domain Name)</li>
+<li><p>顶级域名被分为三个部分：<br>  1）arpa是一个用做地址到名字转换的特殊域<br>  2）7个3字符长的普通域，也称组织域<br>  3）所有2字符长的域均是基于ISO3166中定义的国家代码，这些域称为国家域，或地理域<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501144946.jpg" alt=""></p>
+</li>
+<li><p>一个独立管理的DNS子树称为一个区域（zone）</p>
+</li>
+<li>DNS的一个基本特征是使用超高速缓存。即当一个名字服务器收到有关映射的信息（主机名字到IP地址）时，它会将该信息存放在高速缓存中。这样若以后遇到相同的映射请求，就能直接使用缓存中的结果而不需通过其他服务器查询</li>
+</ul>
+<h2 id="DNS的报文格式"><a href="#DNS的报文格式" class="headerlink" title="DNS的报文格式"></a>DNS的报文格式</h2><p>DNS定义了一个用于查询和响应的报文格式。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501145012.jpg" alt=""></p>
+<ul>
+<li>这个报文由12字节长的首部和4个长度可变的字段组成</li>
+<li>标识字段由客户程序设置并有服务器返回结果。客户程序通过它来确定响应与查询是否匹配</li>
+<li>16bit的标志字段被划分为若干子字段<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501145036.jpg" alt=""><br>   1）QR是1bit字段：0表示查询报文，1表示响应报文<br>   2）opcode是一个4bit字段：通常值为0（标准查询），其他值为1（反向查询）和2（服务器状态请求）<br>   3）AA是1bit标志，表示“授权回答”。该名字服务器是授权于该域的<br>   4）TC是1bit字段，表示“可截断的”。使用UDP时，它表示当应答的总长度超过512字节时，只返回前512个字节<br>   5）RD是1bit字段表示“期望递归”。该比特能在一个查询中设置，并在响应中返回。这个标志告诉名字服务必须处理这个查询，也称为一个递归查询。<br>   6）RA是1bit字段，表示“可用递归”。如果名字服务器支持递归查询，则在响应中该比特设置为1.<br>   7）随后的3bit字段必须为0<br>   8）recode是一个4bit的返回码字段。通常的值为0（没有差错）和3（名字差错）。名字差错只有从一个授权名字服务器上返回，它表示在查询中指定的域名不存在<br>   9）随后的4个16bit字段说明最后4个变长字段中包含的条目数。对于查询报文，问题数通常为1，而其他3项则均为0.</li>
+</ul>
+<h3 id="DNS查询报文中的问题部分"><a href="#DNS查询报文中的问题部分" class="headerlink" title="DNS查询报文中的问题部分"></a>DNS查询报文中的问题部分</h3><p>问题部分中每个问题的格式如图14-5所示，通常只有一个问题<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501145102.jpg" alt=""></p>
+<ul>
+<li>查询名是要查找的名字，它是一个或多个标识符的序列。每个标识符以首字节的计数值来说明随后标识符的字节长度，每个名字以最后字节为0结束，长度为0的标识符是根标识符。计数字节的值必须是0-63的数，因为标识符最大长度仅为63.</li>
+<li>每个问题有一个查询类型，而每个响应（也称一个资源记录）也有一个类型。</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501145125.jpg" alt=""></p>
+<ul>
+<li>最常用的查询类型是A类型，表示期望获得查询名的IP地址。一个PTR查询则请求获得一个IP地址对应的域名</li>
+<li>查询类通常是1，指互联网地址</li>
+</ul>
+<h3 id="DNS响应报文中的资源记录部分"><a href="#DNS响应报文中的资源记录部分" class="headerlink" title="DNS响应报文中的资源记录部分"></a>DNS响应报文中的资源记录部分</h3><p>DNS报文中最后的是三个字节，回答字段、授权字段和附加信息字段，均采用一种称为资源记录RR的相同格式。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501145150.jpg" alt=""></p>
+<ul>
+<li>域名是记录中资源数据对应的名字</li>
+<li>类型说明RR的类型码。它的值和查询类型值是一样的，类通常为1，值Internet数据</li>
+<li>生成时间字段是客户程序保留该资源记录的秒数，通常的生成时间自为2天</li>
+<li>资源数据长度说明资源的数量</li>
+</ul>
+<h2 id="指针查询"><a href="#指针查询" class="headerlink" title="指针查询"></a>指针查询</h2><ul>
+<li>即给定一个IP地址，返回与该地址对应的域名</li>
+<li>查询结果包含一个回答RR，且为授权回答比特置1.RR的类型是PTR，资源数据中包含该域名</li>
+</ul>
+<h2 id="主机名检查"><a href="#主机名检查" class="headerlink" title="主机名检查"></a>主机名检查</h2><p>当一个IP数据报到达一个作为服务器的主机时，无论是UDP数据报还是TCP连接请求，服务器进程所能获得的是客户的IP地址和端口号（UDP和TCP）。</p>
+<h2 id="资源记录"><a href="#资源记录" class="headerlink" title="资源记录"></a>资源记录</h2><p>资源记录（RR）：IP地址查询为A类型，指针查询为类型FTR。由名字服务器返回的资源记录：回答RR、授权RR和附加信息RR。现有大约20种不同类型的资源记录。</p>
+<ul>
+<li>A：一个A记录定义了一个IP地址，它存储32bit的二进制数</li>
+<li>PTR：指针记录用于指针查询</li>
+<li>CNAME：这表示“规范名字（canonical name）”。它用来表示一个域名，而有规范名字的域名通常被称为别名</li>
+<li>HINFO:表示主机信息：包括说明主机CPU和操作系统的两个字符串。并非所有的站点均提供它们系统的HINFO记录，并且提供的信息也可能不是最新的</li>
+<li>MX:邮件交换记录</li>
+<li>NS:名字服务器记录</li>
+</ul>
+<h2 id="高速缓存"><a href="#高速缓存" class="headerlink" title="高速缓存"></a>高速缓存</h2><ul>
+<li>为了减少Internet上DNS的通信量，所有的名字服务器均使用高速缓存。</li>
+<li>在标准的Unix实现中，高速缓存是由名字服务器而不是由名字解析器维护的。</li>
+</ul>
+<h1 id="TFTP：简单文件传送协议"><a href="#TFTP：简单文件传送协议" class="headerlink" title="TFTP：简单文件传送协议"></a>TFTP：简单文件传送协议</h1><h2 id="引言-3"><a href="#引言-3" class="headerlink" title="引言"></a>引言</h2><ul>
+<li>TFTP（Trivial File Transfer Protocol）即简单文件传送协议，最初打算用于引导无盘系统</li>
+<li>TFTP使用UDP</li>
+<li>TFTP的代码（和它需要的UDP、IP和设备驱动程序）都能适合只读存储器</li>
+</ul>
+<h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><ul>
+<li>在开始工作时，T F T P的客户与服务器交换信息，客户发送一个读请求或写请求给服务器。在一个无盘系统进行系统引导的正常情况下，第一个请求是读请求（ R R Q）。</li>
+<li>T F T P报文的头两个字节表示操作码。对于读请求和写请求（ W R Q），文件名字段说明客户要读或写的位于服务器上的文件。这个文件字段以 0字节作为结束（见图 1 5 - 1）。模式字段是一个A S C I I码串n e t a s c i i或o c t e t（可大小写任意组合），同样以0字节结束。n e t a s c i i表示数据是以成行的A S C I I码字符组成，以两个字节 — 回车字符后跟换行字符（称为C R / L F）作为行结束符。</li>
+<li>每个数据分组包含一个块编号字段，它以后要在确认分组中使用。</li>
+<li>在写请求的情况下，TFTP 客户发送W R Q指明文件名和模式。如果该文件能被 该客户写，TFTP 服务器就返回块编号为 0的A C K包。该客户就将文件的头 5 1 2字节以块编号为1发出。服务器则返回块编号为1的A C K。这种类型的数据传输称为停止等待协议。</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501150021.jpg" alt=""></p>
+<ul>
+<li>最后一种T F T P报文类型是差错报文，它的操作码为 5。它用于服务器不能处理读请求或写请求的情况。在文件传输过程中的读和写差错也会导致传送这种报文，接着停止传输。差错编号字段给出一个数字的差错码，跟着是一个 A S C I I表示的差错报文字段，可能包含额外的操作系统说明的信息。</li>
+<li>既然T F T P使用不可靠的U D P，T F T P就必须处理分组丢失和分组重复。分组丢失可通过发送方的超时与重传机制解决（注意存在一种称为“魔术新手综合症 ( s o r c e r e r’s apprentices y n d r o m e )”的潜在问题，如果双方都超时与重传，就可能出现这个问题。</li>
+</ul>
+<h2 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h2><ul>
+<li>在T F T P分组（图1 5 - 1）中并不提供用户名和口令。这是 T F T P的一个特征（即“安全漏洞”）。由于T F T P是设计用于系统引导进程，它不可能提供用户名和口令。</li>
+<li>目前大多数 T F T P服务器提供了一个选项来限制只能访问特定目录下的文件（U n i x系统中通常是/ t f t p b o o t）。这个目录中只包含无盘系统进行系统引导时所需的文件</li>
+</ul>
+<h1 id="BOOTP：引导程序协议"><a href="#BOOTP：引导程序协议" class="headerlink" title="BOOTP：引导程序协议"></a>BOOTP：引导程序协议</h1><h2 id="引言-4"><a href="#引言-4" class="headerlink" title="引言"></a>引言</h2><ul>
+<li>无盘系统在不知道自身IP地址的情况下，在进行系统引导时能够通过RARP来获取它的IP地址。然而使用RARP有两个问题：（1）I P地址是返回的唯一结果；（2）既然R A R P使用链路层广播， R A R P请求就不会被路由器转发（迫使每个实际网络设置一个RARP 服务器）</li>
+<li>BOOTP（引导程序协议）是一种用于无盘系统进行系统引导的替代方法</li>
+<li>BOOTP使用UDP，且通常需与TFTP协同工作</li>
+</ul>
+<h2 id="BOOTP的分组格式"><a href="#BOOTP的分组格式" class="headerlink" title="BOOTP的分组格式"></a>BOOTP的分组格式</h2><p>BOOTP 请求和应答均被封装在U D P数据报中，如图1 6 - 1所示。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501151809.jpg" alt=""></p>
+<p>图1 6 - 2显示了长度为3 0 0字节的B O O T P请求和应答的格式。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501151910.jpg" alt=""></p>
+<ul>
+<li>“操作码”字段为1表示请求，为2表示应答。硬件类型字段为 1表示10 Mb/s的以太网</li>
+<li>“跳数”字段由客户设置为0，但也能被一个代理服务器设置</li>
+<li>“事务标识”字段是一个由客户设置并由服务器返回的 32 bit整数。客户用它对请求和应答进行匹配。对每个请求，客户应该将该字段设置为一个随机数。    </li>
+<li>客户开始进行引导时，将“秒数”字段设置为一个时间值。服务器能够看到这个时间值，备用服务器在等待时间超过这个时间值后才会响应客户的请求，这意味着主服务器没有启动。</li>
+<li>如果该客户已经知道自身的 I P地址，它将写入“客户 I P地址”字段。否则，它将该字段设置为0。对于后面这种情况，服务器用该客户的 I P地址写入“你的 I P地址”字段。“服务器I P地址”字段则由服务器填写。如果使用了某个代理服务器（见 1 6 . 5节），则该代理服务器就填写“网关I P地址”字段。</li>
+<li>客户必须设置它的“客户硬件地址”字段。尽管这个值与以太网数据帧头中的值相同，U D P数据报中也设置这个字段，但任何接收这个数据报的用户进程能很容易地获得它（例如一个BOOTP 服务器）。一个进程通过查看U D P数据报来确定以太网帧首部中的该字段通常是很困难的（或者说是不可能的）。</li>
+<li>“服务器主机名”字段是一个空值终止串，由服务器填写。服务器还将在“引导文件名字段”填入包括用于系统引导的文件名及其所在位置的路径全名。</li>
+<li>“特定厂商区域”字段用于对B O O T P进行不同的扩展。</li>
+</ul>
+<h3 id="端口号-1"><a href="#端口号-1" class="headerlink" title="端口号"></a>端口号</h3><p>B O O T P有两个熟知端口：BOOTP 服务器为6 7，BOOTP 客户为6 8。</p>
 <h1 id="TCP：传输控制协议"><a href="#TCP：传输控制协议" class="headerlink" title="TCP：传输控制协议"></a>TCP：传输控制协议</h1><h2 id="TCP的服务"><a href="#TCP的服务" class="headerlink" title="TCP的服务"></a>TCP的服务</h2><ul>
 <li>TCP提供一种面向连接的、可靠的字节流服务</li>
 <li>面向连接意味着两个使用TCP的应用（通常是一个客户和一个服务器）在彼此交换数据之间必须先建立一个TCP连接</li>
@@ -705,6 +940,225 @@
 <li>SYN        同步序号用来发起一个连接。</li>
 <li>FIN        发端完成发送任务</li>
 </ul>
+<h1 id="TCP连接的建立与终止"><a href="#TCP连接的建立与终止" class="headerlink" title="TCP连接的建立与终止"></a>TCP连接的建立与终止</h1><h2 id="引言-5"><a href="#引言-5" class="headerlink" title="引言"></a>引言</h2><ul>
+<li>TCP是一个面向连接的协议。无论哪一方向另一方发送数据之前，都必须先在双方之间<br>建立一条连接。本章将详细讨论一个 T C P连接是如何建立的以及通信结束后是如何终止的。</li>
+<li>这种两端间连接的建立与无连接协议如 U D P不同。我们在第 11章看到一端使用U D P向另<br>一端发送数据报时，无需任何预先的握手。</li>
+</ul>
+<h2 id="建立连接协议"><a href="#建立连接协议" class="headerlink" title="建立连接协议"></a>建立连接协议</h2><h3 id="建立连接协议-1"><a href="#建立连接协议-1" class="headerlink" title="建立连接协议"></a>建立连接协议</h3><p>如18-3所示，为了建立一条TCP连接：<br><img src="http://images.cnitblog.com/blog2015/697266/201504/222117276092162.png" alt=""></p>
+<ul>
+<li>请求端（客户）发送一个SYN段指明客户打算连接的服务器的端口，以及初始序号（ISN，例子中为1415531521），如报文1。</li>
+<li>服务器发回包含服务器的初始序号的SYN报文段（报文段2）作为应答。同时，将确认序号设置为客户的ISN加1以对客户的SYN报文段进行确认。一个SYN将占用一个序号。</li>
+<li>客户必须将确认序号设置为服务器的ISN加1以对服务器的SYN报文段进行确认（报文段3）。</li>
+</ul>
+<p>这三个报文段完成连接的建立，这个过程也称为三次握手。</p>
+<p>说明：</p>
+<ul>
+<li><p>发送第一个SYN的一端将执行主动打开，接收这个SYN并发回下一个SYN的另一端执行被动打开。</p>
+</li>
+<li><p>当一端为建立连接而发送它的SYN时，它为连接选择一个初始序号。ISN随时间而变化，因此每个连接都将具有不同的ISN。</p>
+</li>
+</ul>
+<h3 id="终止连接"><a href="#终止连接" class="headerlink" title="终止连接"></a>终止连接</h3><p>终止一个连接要经过4次握手。这是由TCP的半关闭造成的。<br>说明：</p>
+<ul>
+<li>因为TCP是全双工的（数据在两个方向上能同时传递），因此每个方向必须单独进行关闭。原则是：当一方完成它的数据发送任务后发送一个FIN来终止这个方向连接。当一端收到一个FIN时，它必须通知应用层另一端已经终止了那个方向的数据传送。</li>
+</ul>
+<p>注意：发送FIN通常是应用层进行关闭的结果。</p>
+<ul>
+<li>收到一个FIN只意味着在这一方向上没有数据流动。</li>
+</ul>
+<p>注意：一个TCP连接在收到一个FIN后仍能发送数据，这对利用半关闭的应用来说是可能的，尽管在实际应用中只有很少的TCP应用程序这样做。</p>
+<p>图18-4显示了终止一个连接的典型握手顺序。<br><img src="http://images.cnitblog.com/blog2015/697266/201504/222146082184141.png" alt=""><br>发送FIN将导致应用程序关闭它们的连接，这些FIN的ACK是由TCP软件自动产生的。</p>
+<h2 id="最大报文段长度"><a href="#最大报文段长度" class="headerlink" title="最大报文段长度"></a>最大报文段长度</h2><ul>
+<li>最大报文段长度（MSS）表示TCP传往另一端的最大块数据的长度。当一个连接建立时，连接的双方都要通告各自的MSS。</li>
+<li>当建立一个连接时，每一方都有用于通告它期望接收的MSS选项（MSS选项只能出现在SYN报文段中）。如果一方不接收来自另一-*    方的MSS值，则MSS就定为默认值536字节（这个默认值允许20字节的IP首部和20字节的TCP首部以适合576字节IP数据报。</li>
+</ul>
+<p>注意：</p>
+<p>（1）一般说来，如果没有分段发生，MSS越大越好。报文段越大允许每个报文段传送的数据就越多，相对IP和TCP首部有更高的网络利用率。</p>
+<p>（2）当TCP发送一个SYN时，或者是因为一个本地应用进程想发起一个连接，或者是因为另一端的主机收到了一个连接请求，它能将MSS值设置为外出接口上的MTU长度减去固定的IP首部和TCP首部长度。</p>
+<p>（3）如果目的IP地址为“非本地的(non-local)”，MSS通常的默认值为536。</p>
+<p>说明：区分地址是本地还是非本地的方法是：如果目的IP地址的网络号与子网号都与本机相同，则是本地的；如果目的IP地址的网络号与本机相同而子网号不同，则可能是本地的，也可能是非本地的。</p>
+<p>（4）MSS使得主机限制另一端发送数据报的长度。加上主机也能控制它发送数据报的长度，这使得以较小MTU连接到一个网络上的主机避免分段。</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/241932528289870.png" alt=""><br>主机sun向slip发起一个TCP连接，利用tcpdump命令来观察报文段：<br><img src="http://images.cnitblog.com/blog2015/697266/201504/241934592035362.png" alt=""></p>
+<p>说明：</p>
+<p>（1）sun发送的报文段不能超过256字节的数据，因为slip已经告知它的MSS值为256。（上图第二个红框）</p>
+<p>（2）slip知道它外出接口的MTU长度为296，所以即使sun已经告诉它的MSS为1460（上图第一个红框），但为避免将数据分段，它不会发送超过256字节数据的报文段。</p>
+<p>（<br>3）如果两端主机都连接到以太网上，都采用536的MSS，但中间网络采用296的MTU，同样会出现分段。</p>
+<h2 id="TCP的半关闭"><a href="#TCP的半关闭" class="headerlink" title="TCP的半关闭"></a>TCP的半关闭</h2><p>TCP提供了连接的一端在结束它的发送后还能接收来自另一端数据的能力，即半关闭。</p>
+<p>注意：很少有应用程序使用它，如果想要使用这个功能，需要编程接口提供一个方式来说明。</p>
+<p>下面给出一个例子：</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/241948297963788.png" alt=""></p>
+<p>意思是这样的：客户结束了发送数据（发送了FIN），服务器发送ACK表示确认后，仍然可以发送数据给客户（图中红框）。</p>
+<h2 id="TCP的状态变迁图"><a href="#TCP的状态变迁图" class="headerlink" title="TCP的状态变迁图"></a>TCP的状态变迁图</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/241955122346274.png" alt=""></p>
+<h3 id="2MSL等待状态"><a href="#2MSL等待状态" class="headerlink" title="2MSL等待状态"></a>2MSL等待状态</h3><p>TIME_WAIT状态也称为2MSL等待状态。每个具体TCP实现必须选择一个报文段最大生存时间MSL（Maximum Segment Lifetime）。它是任何报文段被丢弃前在网络内的最长时间。</p>
+<p>注意：MSL是个有限的时间，我们知道TCP报文段以IP数据报在网络中传输，IP数据报是由TTL字段限制其生存时间的。RFC 793指出MSL为2分钟。实现中的常用值是30秒，1分钟，或2分钟。</p>
+<p>对于给定的MSL值，原则是：当TCP执行一个主动关闭，并发回最后一个ACK，该连接必须在TIME_WAIT状态停留的时间为2倍的MSL。这样可让TCP再次发送最后的ACK以防这个ACK丢失（另一端超时并重发最后的FIN）。</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/242008047654027.png" alt=""></p>
+<p>说明：</p>
+<p>1）客户执行主动关闭并进入TIME_WAIT是正常的。服务器通常执行被动关闭，不会进入TIME_WAIT状态。</p>
+<p>2）TCP连接在2MSL等待期间，这个连接的socket（客户的IP地址和端口号，服务器的IP地址和端口号）不能再被使用。这个连接只能在2MSL结束后才能再被使用。</p>
+<h3 id="平静时间的概念"><a href="#平静时间的概念" class="headerlink" title="平静时间的概念"></a>平静时间的概念</h3><p>如果处于2MSL等待端口的主机出现故障，它会在MSL秒内重新启动，并立即使用故障前处于2MSL的socket来建立一个新的连接。在故障前从这个连接发出而迟到的报文段会被错误地当作属于重启后新连接的报文段。</p>
+<p>为了防止这种情况，RFC 793指出TCP在重启动后的MSL秒内不能建立任何连接，称为平静时间(quiet time)。</p>
+<h3 id="FIN-WAIT-2状态"><a href="#FIN-WAIT-2状态" class="headerlink" title="FIN_WAIT_2状态"></a>FIN_WAIT_2状态</h3><p>如上面的图所示：FIN_WAIT_2状态时，客户已经发出了FIN，另一端也已对它进行确认。</p>
+<p>除非客户设置了半关闭，否则将等待另一端的应用层意识到它已收到一个文件结束符说明，并向我们发一个FIN 来关闭连接。只有这样，我们这端才会从FIN_WAIT_2状态进入TIME_WAIT状态。</p>
+<h2 id="复位报文段"><a href="#复位报文段" class="headerlink" title="复位报文段"></a>复位报文段</h2><p>TCP首部中的RST比特是用于“复位”的，一般无论何时一个报文段发往“基准连接”出现错误，TCP都会发出一个复位报文段。</p>
+<p>说明：“基准连接”是指由目的IP地址和端口号以及源IP地址和端口号指明的连接。</p>
+<h3 id="到不存在的端口的连接请求"><a href="#到不存在的端口的连接请求" class="headerlink" title="到不存在的端口的连接请求"></a>到不存在的端口的连接请求</h3><p>产生复位的一种常见情况是当连接请求到达时，目的端口没有进程正在听。</p>
+<p>注意：对于UDP，当一个数据报到达目的端口时，该端口没在使用，它将产生一个ICMP端口不可达的信息；对于TCP，则使用复位。</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/242052314061888.png" alt=""></p>
+<p>图中的意思是说：主机bsdi向svr4的20000端口发送SYN，然后svr4告诉bsdi一个复位连接的信息。</p>
+<h3 id="异常终止一个连接"><a href="#异常终止一个连接" class="headerlink" title="异常终止一个连接"></a>异常终止一个连接</h3><p>终止一个连接的正常方式是一方发送FIN。这也称为有序释放，因为在所有排队数据都已发送之后才发送FIN，正常情况下没有任何数据丢失。但也有可能发送一个复位报文段而不是FIN来中途释放一个连接。这也称为为异常释放。</p>
+<p>异常终止一个连接对应用程序来说有两个优点：</p>
+<p>1）丢弃任何待发数据并立即发送复位报文段；</p>
+<p>2）RST的接收方会区分另一端执行的是异常关闭还是正常关闭。</p>
+<p>特别注意：RST报文段不会导致另一端产生任何响应，另一端根本不进行确认。收到RST的一方将终止该连接，并通知应用层连接复位。</p>
+<h3 id="检测半打开连接"><a href="#检测半打开连接" class="headerlink" title="检测半打开连接"></a>检测半打开连接</h3><p>如果一方已经关闭或异常终止连接而另一方却还不知道，将这样的TCP连接称为半打开的。</p>
+<p>说明：</p>
+<p>1）任何一端的主机异常都可能导致半打开连接。只要不在半打开连接上传输数据，仍处于连接状态的一方就不会检测到另一方已经出现异常。</p>
+<p>2）半打开连接的另一个常见原因是当客户主机突然掉电而不是正常的结束客户应用程序后再关机。</p>
+<h2 id="同时打开"><a href="#同时打开" class="headerlink" title="同时打开"></a>同时打开</h2><p>两个应用程序同时彼此执行主动打开的情况是可能的，尽管发生的可能性极小。每一方必须发送一个SYN，且这些SYN必须传递给对方。这需要每一方使用一个对方熟知的端口作为本地端口，称为同时打开。</p>
+<p>TCP对于同时打开仅建立一条连接而不是两条连接。当出现同时打开时：</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/242113260463855.png" alt=""></p>
+<p>两端几乎同时发送SYN，并进入SYN_SENT状态。当每一端收到SYN时，状态变为SYN_RCVD，同时它们都再发SYN并对收到的SYN进行确认。当双方都收到SYN及相应的ACK时，状态都变迁为ESTABLISHED。</p>
+<p>注意：</p>
+<p>（1）一个同时打开的连接需要交换4个报文段，比正常的三次握手多一个。</p>
+<p>（2）对于同时打开的连接，我们没有将任何一端称为客户或服务器，因为每一端既是客户又是服务器。</p>
+<h2 id="同时关闭"><a href="#同时关闭" class="headerlink" title="同时关闭"></a>同时关闭</h2><p>双方都执行主动关闭也是可能的，TCP也允许同时关闭。</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/242119433438389.png" alt=""></p>
+<p>同时关闭过程为：</p>
+<p>（1）当应用层发出关闭命令时，两端均从ESTABLISHED变为FIN_WAIT_1。这将导致双方各发送一个FIN，两个FIN经过网络传送后分别到达另一端。</p>
+<p>（2）收到FIN后，状态由FIN_WAIT_1变为CLOSING，并发送最后的ACK。</p>
+<p>（3）当收到最后的ACK时，状态变化为TIME_WAIT。</p>
+<p>注意：同时关闭和正常关闭报文段交换数目相同。</p>
+<h2 id="TCP选项"><a href="#TCP选项" class="headerlink" title="TCP选项"></a>TCP选项</h2><p>TCP首部可以包含选项部分。</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/242127116875983.png" alt=""></p>
+<p>选项说明：</p>
+<p>（1）每个选项的开始是1字节kind字段，说明选项的类型。</p>
+<p>（2）kind字段为0和1的选项仅占1个字节。其他选项在kind字节后还有len字节，它说明的长度是指总长度，包括kind字节和len字节。</p>
+<p>（3）设置无操作选项的原因在于允许发方填充字段为4字节的倍数。</p>
+<h1 id="TCP的交互数据流"><a href="#TCP的交互数据流" class="headerlink" title="TCP的交互数据流"></a>TCP的交互数据流</h1><h2 id="引言-6"><a href="#引言-6" class="headerlink" title="引言"></a>引言</h2><p>有关TCP通信量的研究发现：按分组数量计算，约有一半的TCP报文段包含成块数据（如FTP、电子邮件和Usenet新闻），另一半则包含交互数据（如Telnet和Rlogin）。按字节计算，成块数据与交互数据的比例约为90%和10%。</p>
+<p>成块数据的报文段基本上都是满长度的（通常为512字节的用户数据），交互数据则小得多（Telnet和Rlogin分组中约90%左右的用户数据小于10个字节）</p>
+<p>TCP需要同时处理这两类数据，但使用的处理算法不同。</p>
+<h2 id="交互式输入"><a href="#交互式输入" class="headerlink" title="交互式输入"></a>交互式输入</h2><p>说明：本书是以远程登录Rlogin协议模拟交互输入的，我没有进行相关实验，下面我会给出作者所做的实验截图。</p>
+<p>如图19-1所示，Rlogin协议需要远程系统回显客户输入的字符，每按一个字符就会产生一个分组，而不是每次一行作为一个分组。</p>
+<p>一般可以将报文段2和3合并（图中两个红框）</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/271740550057766.png" alt=""></p>
+<p>当我们键入5个字符date\n时的数据流，如图19-2所示：</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/271750297082325.png" alt=""></p>
+<p>说明：</p>
+<p>（1）第1行：客户发送字符d到服务器；第2行：该字符的确认及回显；第3行：回显字符的确认。</p>
+<p>（2）与字符a有关的是第4~6行，与字符t有关的是第7~9行，与字符e有关的是第10~12行。</p>
+<p>（3）13~15行与上面稍有不同。客户发送到服务器的是一个字符（换行符），而回显的是两个字符（图中14行红线处），这两个字符为：回车和换行字符，作用是将光标移动到左边并换到下一行。</p>
+<p>（4）第16行：来自服务器date命令的输出。这30个字节（图中红线处）由28个字符与最后的回车+换行组成。第17、18行：服务器发往客户7个字符（第18行），它们是在服务器主机上的客户提示符：svr4%。第19行：确认了这7个字符。</p>
+<h2 id="经受时延的确认"><a href="#经受时延的确认" class="headerlink" title="经受时延的确认"></a>经受时延的确认</h2><p>图19-3表示了图19-2中数据交换的时间。</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/271808466309708.png" alt=""></p>
+<p>通常TCP在接收到数据时并不立即发送ACK；它会推迟发送，以便将ACK与需要沿该方向发送的数据一起发送，有时称这种现象为数据捎带ACK。</p>
+<p>说明：绝大多数实现采用的时延为200ms，即TCP将以最大200ms的时延等待是否有数据一起发送。</p>
+<p>下面我假设你会看这张图中标记的时间差，会计算实际时间（累加）。说明如下：</p>
+<p>观察bsdi接收到数据和发送ACK之间的时间差：123.5、65.6、109.0、132.2、42.0、140.3和195.8 ms，似乎是随机的。观察bsdi发送ACK的实际时间（从0开始计算）为：139.9、539.3、940.1、1339.9、1739.9、1940.1和2140.1 ms，这些时间差是200ms的整数倍。</p>
+<p>注意：因为TCP使用了一个200ms的定时器，以相对于内核引导的200ms固定时间溢出。由于将要确认的数据是随机到达的，TCP在内核的200ms定时器的下一次溢出时得到通知。</p>
+<h2 id="Nagle算法"><a href="#Nagle算法" class="headerlink" title="Nagle算法"></a>Nagle算法</h2><p>Rlogin连接时，一般每次发送一个字节到服务器，这就产生了一些41字节长的分组：20字节的IP首部、20字节的TCP首部和1个字节的数据。</p>
+<p>在局域网上，这些小分组（被称为微小分组tinygram）通常不会引起麻烦，因为局域网一般不会出现拥塞。在广域网上，这些小分组则会增加拥塞出现的可能。一种简单有效的方法就是采用RFC 896建议的Nagle算法。</p>
+<p>算法说明：</p>
+<p>算法要求一个TCP连接上最多只能有一个未被确认的未完成的小分组，在该分组的确认到达之前不能发送其他的小分组。相反，TCP收集这些少量的分组，并在确认到来时以一个分组的方式发出去。</p>
+<p>算法优点：</p>
+<p>算法的优越之处在于它是自适应的：确认到达得越快，数据也就发送得越快。在希望减少微小分组数目的低速广域网上，则会发送更少的分组。</p>
+<p>从图19-3中看到，在以太网上一个字节被发送、确认和回显的平均往返时间约为16ms。为了产生比这个速度更快的数据，我们每秒键入的字符必须多于60个。说明在局域网环境下两个主机之间发送数据时很少使用这个算法。</p>
+<p>当往返时间（RTT）增加时，如通过一个广域网，情况发生了变化。如图19-4：</p>
+<p><img src="http://images.cnitblog.com/blog2015/697266/201504/271843132408414.png" alt=""></p>
+<p>从左到右待发数据的长度是不同的，分别为：1、1、2、1、2、2、3、1和3个字节。这是因为客户只有收到前一个数据的确认后才发送已经收集的数据。通过使用Nagle算法，为发送16个字节的数据客户只需要使用9个报文段，而不再是16个。</p>
+<p>关闭Nagle算法</p>
+<p>有时我们也需要关闭Nagle算法。例如，X窗口系统服务器，小消息（鼠标移动）必须无时延地发送，以便为进行某种操作的交互用户提供实时的反馈。</p>
+<h2 id="窗口大小通告"><a href="#窗口大小通告" class="headerlink" title="窗口大小通告"></a>窗口大小通告</h2><p>观察图19-4，可以看到slip通告窗口大小为4096字节，vangogh通告其窗口大小为8192字节。但报文段5通告的窗口大小为4095个字节，意味着TCP缓冲区中仍然有一个字节等待应用程序（Rlogin客户）读取。</p>
+<p>说明：</p>
+<p>（1）通常服务器通告窗口大小为8192个字节，这是因为服务器在读取并回显接收到的数据之前，其TCP没有数据发送。当服务器已经读取了来自客户的输入后，来自服务器的数据将被发送。</p>
+<p>（2）在ACK到来时，客户的TCP总是有数据需要发送。这是因为它在等待ACK的过程中缓存接收到的字符。当客户TCP发送缓存的数据时，Rlogin客户没有机会读取来自服务器的数据，因此，客户通告的窗口大小总是小于4096。</p>
+<h1 id="TCP的成块数据流"><a href="#TCP的成块数据流" class="headerlink" title="TCP的成块数据流"></a>TCP的成块数据流</h1><h2 id="正常数据流"><a href="#正常数据流" class="headerlink" title="正常数据流"></a>正常数据流</h2><ul>
+<li>通常使用的“隔一个报文段确认”的策略</li>
+<li>分组顺序依赖于许多无法控制的因素：发送方T C P的实现、接收方T C P的实现、接收进程读取数据（依赖于操作系统的调度）和网络的动态性（如以太网的冲突和退避等）。</li>
+</ul>
+<h3 id="快的发送方和慢的接收方"><a href="#快的发送方和慢的接收方" class="headerlink" title="快的发送方和慢的接收方"></a>快的发送方和慢的接收方</h3><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501153726.jpg" alt=""></p>
+<ul>
+<li>发送方发送4个背靠背（b a c k - t o - b a c k）的数据报文段去填充接收方的窗口，然后停下来等待一个A C K。接收方发送A C K（报文段8），但通告其窗口大小为 0，这说明接收方已收到所有数据，但这些数据都在接收方的 T C P缓冲区，因为应用程序还没有机会读取这些数据。</li>
+<li>另一个A C K（称为窗口更新）在17.4 ms后发送，表明接收方现在可以接收另外的 4 0 9 6个字节的数据。虽然这看起来像一个 A C K，但由于它并不确认任何新数据，只是用来增加窗口的右边沿，因此被称为窗口更新。</li>
+<li>发送方发送最后4个报文段（1 0 ~ 1 3），再次填充了接收方的窗口。注意到报文段 1 3中包括两个比特标志：P U S H和F I N。随后从接收方传来另外两个 A C K，它们确认了最后的4 0 9 6字节的数据（从4 0 9 7到8 1 9 2字节）和F I N（标号为8 1 9 2）。</li>
+</ul>
+<h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501153825.jpg" alt=""></p>
+<ul>
+<li>在这个图中，我们将字节从 1至11进行标号。接收方通告的窗口称为提出的窗口（ o ff e r e dw i n d o w），它覆盖了从第4字节到第9字节的区域，表明接收方已经确认了包括第 3字节在内的数据，且通告窗口大小为 6。回顾第1 7章，我们知道窗口大小是与确认序号相对应的。发送方计算它的可用窗口，该窗口表明多少数据可以立即被发送。</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501154500.jpg" alt=""></p>
+<ul>
+<li>当接收方确认数据后，这个滑动窗口不时地向右移动。窗口两个边沿的相对运动增加或减少了窗口的大小。使用三个术语来描述窗口左右边沿的运动：<br>1) 称窗口左边沿向右边沿靠近为窗口合拢。这种现象发生在数据被发送和确认时。<br>2) 当窗口右边沿向右移动时将允许发送更多的数据，我们称之为窗口张开。这种现象发生在另一端的接收进程读取已经确认的数据并释放了 T C P的接收缓存时。<br>3) 当右边沿向左移动时，我们称之为窗口收缩。 Host Requirements RFC强烈建议不要使用这种方式。但T C P必须能够在某一端产生这种情况时进行处理</li>
+</ul>
+<h3 id="一个例子-1"><a href="#一个例子-1" class="headerlink" title="一个例子"></a>一个例子</h3><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501155029.jpg" alt=""></p>
+<p>以该图为例可以总结如下几点：<br>1) 发送方不必发送一个全窗口大小的数据。<br>2) 来自接收方的一个报文段确认数据并把窗口向右边滑动。这是因为窗口的大小是相对于确认序号的。<br>3) 正如从报文段7到报文段8中变化的那样，窗口的大小可以减小，但是窗口的右边沿却不能够向左移动。<br>4) 接收方在发送一个A C K前不必等待窗口被填满。在前面我们看到许多实现每收到两个报文段就会发送一个A C K。</p>
+<h2 id="PUSH标志"><a href="#PUSH标志" class="headerlink" title="PUSH标志"></a>PUSH标志</h2><p>发送方使用该标志通知接收方将所收到的数据全部提交给接收进程。这里的数据包括与 P U S H一起传送的数据以及接收方T C P已经为接收进程收到的其他数据。</p>
+<h2 id="慢启动"><a href="#慢启动" class="headerlink" title="慢启动"></a>慢启动</h2><ul>
+<li>发送方一开始便向网络发送多个报文段，直至到达接收方通告的窗口大小为止。当发送方和接收方处于同一个局域网时，这种方式是可以的。但是如果在发送方和接收方之间存在多个路由器和速率较慢的链路时，就有可能出现一些问题。一些中间路由器必须缓存分组，并又可能耗尽存储器的空间，然后发生丢包</li>
+<li>TCP采用“慢启动（slow start）”算法来降低一开始就发送过多的数据到网络</li>
+<li>慢启动为发送方的T C P增加了另一个窗口：拥塞窗口(congestion window)，记为c w n d。当与另一个网络的主机建立 T C P连接时，拥塞窗口被初始化为 1个报文段（即另一端通告的报文段大小）。每收到一个A C K，拥塞窗口就增加一个报文段（ c w n d以字节为单位，但是慢启动以报文段大小为单位进行增加）。发送方取拥塞窗口与通告窗口中的最小值作为发送上限。拥塞窗口是发送方使用的流量控制，而通告窗口则是接收方使用的流量控制。</li>
+<li>发送方开始时发送一个报文段，然后等待 A C K。当收到该A C K时，拥塞窗口从1增加为2，即可以发送两个报文段。当收到这两个报文段的 A C K时，拥塞窗口就增加为4。这是一种指数增加的关系。</li>
+<li>在某些点上可能达到了互联网的容量，于是中间路由器开始丢弃分组。这就通知发送方它的拥塞窗口开得过大。当我们在下一章讨论 T C P的超时和重传机制时，将会看到它们是怎样对拥塞窗口起作用的。现在，我们来观察一个实际中的慢启动。</li>
+</ul>
+<h2 id="发送一个分组的时间"><a href="#发送一个分组的时间" class="headerlink" title="发送一个分组的时间"></a>发送一个分组的时间</h2><ul>
+<li>通常发送一个分组的时间取决于两个因素：传播时延和发送时延</li>
+<li>对于一个给定的两个接点之间的同路，传播时延一般是固定的，而发送时延则取决于分组大小</li>
+<li>在速率较慢的情况下发送时延起主要作用，而在千兆比特速率下传播时延则占主要地位</li>
+</ul>
+<h2 id="带宽时延乘积"><a href="#带宽时延乘积" class="headerlink" title="带宽时延乘积"></a>带宽时延乘积</h2><ul>
+<li>为了最大限度的利用链路带宽，必须确保发送发源源不断的收到接收方发送的ACK，做为收到数据的确认和更新window size的大小</li>
+<li>在开始阶段，通告的window size必须大于等于带宽和往返时延的乘积，才能确保在收到第一个ACK前，能够一直发送数据流量。因为发送第一个数据报文到收到对应的ACK，时间至少RTT时间</li>
+<li>计算通道的容量为：<br>c a p a c i t y (bit) = b a n d w i d t h (b/s) × ro u n d-trip time ( s )</li>
+</ul>
+<h1 id="TCP的超时重传"><a href="#TCP的超时重传" class="headerlink" title="TCP的超时重传"></a>TCP的超时重传</h1><p>T C P提供可靠的运输层。它使用的方法之一就是确认从另一端收到的数据。但数据和确认都有可能会丢失。 T C P通过在发送时设置一个定时器来解决这种问题。如果当定时器溢出时还没有收到确认，它就重传该数据</p>
+<p>对每个连接，T C P管理4个不同的定时器。<br>1) 重传定时器使用于当希望收到另一端的确认。在本章我们将详细讨论这个定时器以及<br>一些相关的问题，如拥塞避免。<br>2) 坚持( p e r s i s t )定时器使窗口大小信息保持不断流动，即使另一端关闭了其接收窗口<br>3) 保活( k e e p a l i v e )定时器可检测到一个空闲连接的另一端何时崩溃或重启<br>4) 2MSL定时器测量一个连接处于 T I M E _ WA I T状态的时间。</p>
+<h1 id="FTP：文件传送协议"><a href="#FTP：文件传送协议" class="headerlink" title="FTP：文件传送协议"></a>FTP：文件传送协议</h1><h2 id="FTP简介"><a href="#FTP简介" class="headerlink" title="FTP简介"></a>FTP简介</h2><ul>
+<li>数据传输主流协议</li>
+<li>两个信道<ul>
+<li>第一信道，控制信道，无论何时都是由客户端发起连接。采用客户端服务器模式。服务端监听21端口。用于控制命令的传输。主要任务就是认证，控制命令（如查看文件列表等）等</li>
+<li>第二信道，数据信道。根据数据信道是否由服务端发起，区分ActiveMode和PassiveMode。数据的传输走的是第二信道，包括文件列表数据的传输。</li>
+<li>TCP的知名端口号（服务端的监听端口），21号，是控制信道的端口。</li>
+</ul>
+</li>
+<li>FTP两个模式<ul>
+<li>Active Mode</li>
+<li>Passive Mode</li>
+</ul>
+</li>
+</ul>
+<h2 id="FTP命令"><a href="#FTP命令" class="headerlink" title="FTP命令"></a>FTP命令</h2><p><img src="http://img.my.csdn.net/uploads/201512/13/1450010583_4654.png" alt=""></p>
+<h2 id="Active-Mode"><a href="#Active-Mode" class="headerlink" title="Active Mode"></a>Active Mode</h2><p><img src="http://img.my.csdn.net/uploads/201512/13/1450010584_5069.png" alt=""></p>
+<ul>
+<li>第一信道通常三次握手建立FTP连接</li>
+<li>第二信道（数据信道），是由服务器主动发起的，即是ActiveMode。</li>
+<li>第二信道（数据通道），是服务器被动接收的，即是PassiveMode。</li>
+<li>可见，第二信道，即数据信道（传输数据而非控制命令），是由服务端主动发起的，即是主动模式（ActiveMode）；如果不是服务器主动发起的，即是被动模式（PassiveMode）。</li>
+<li>第一信道中，客户端向FTP服务器发送的数据中，含有PORT（a,b,c,d,e,f）这里a,b,c,d,e,f每上表示0~255的数据，其中a,b,c,d表示客户端的IP，e,f表示客户端的第二通道的端口（计算方法是：e*256+f）。这主要是为了供第二通道中，服务端主动发起向客户端的连接使用的。</li>
+</ul>
+<h2 id="安全性-1"><a href="#安全性-1" class="headerlink" title="安全性"></a>安全性</h2><p><img src="http://img.my.csdn.net/uploads/201512/13/1450010584_9056.png" alt=""><br>注意：由于用户名和密码都是明文传输，易于被截获，因此，对于FTP来说，使用匿名登陆反而更安全。</p>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p><img src="http://img.my.csdn.net/uploads/201512/13/1450010585_6448.png" alt=""><br>客户端第二通道是IP和端口是： 202.100.1.100,4<em>256+38<br>第一次传入PORT后，紧跟的是一个控制命令，LIST（查看列表）。<br>然后，服务端20号端口通过第二信道与客户端的4</em>256+38端口建立连接，并传送文件列表。</p>
+<h2 id="Download"><a href="#Download" class="headerlink" title="Download"></a>Download</h2><p><img src="http://img.my.csdn.net/uploads/201512/13/1450010601_6947.png" alt=""><br>当单击文件列表中的一个文件，又出现了一个PORT发给服务端（注意这次的端口号有变化，4<em>256+42），接着又发了一个RETR命令，后面跟着所请求的文件。<br>这时，服务端20号端口又通过第二信道与客户端4</em>256+42端口建立连接，并传送该文件。（注意，与第一次不是同一个端口号，也就是说又建立了一次连接）<br>注意：这里是又建立了一次连接。</p>
+<h2 id="Passive-Mode"><a href="#Passive-Mode" class="headerlink" title="Passive Mode"></a>Passive Mode</h2><p><img src="http://img.my.csdn.net/uploads/201512/13/1450010602_9427.png" alt=""><br>第二信道，服务器被动接受为被动模式（PassiveMode）。<br>在第一信道中，客户端发送PASV命令，询问服务端是否支持被动模式。服务端回复227表示支持，这时a,b,c,d,e,f表示服务端第二信道的IP和端口。<br>目前一般使用的是PassiveMode模式，客户端连接后，一般会发PASV询问服务器是否支持PassiveMode，如果支持，则使用PassiveMode。</p>
+<h1 id="Telnet：远程登录"><a href="#Telnet：远程登录" class="headerlink" title="Telnet：远程登录"></a>Telnet：远程登录</h1><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501205934.jpg" alt=""></p>
+<ul>
+<li>1) Te l n e t客户进程同时和终端用户和T C P / I P协议模块进行交互。通常我们所键入的任何信息的传输是通过T C P连接，连接的任何返回信息都输出到终端上。</li>
+<li>Te l n e t服务器进程经常要和一种叫做“伪终端设备”（pseudo-terminal device）打交道，至少在U n i x系统下是这样的。这就使得对于登录外壳 ( s h e l l )进程来讲，它是被Te l n e t服务器进程直接调用的，而且任何运行在登录外壳进程处的程序都感觉是直接和一个终端进行交互。</li>
+<li>仅仅使用了一条T C P连接。由于客户进程必须多次和服务器进程进行通信（反之亦然），这就必然需要某些方法，来描绘在连接上传输的命令和用户数据。</li>
+</ul>
+<h2 id="Telnet协议"><a href="#Telnet协议" class="headerlink" title="Telnet协议"></a>Telnet协议</h2><p>Te l n e t协议可以工作在任何主机（例如，任何操作系统）或任何终端之间。    </p>
+<h2 id="NVT-ASCII"><a href="#NVT-ASCII" class="headerlink" title="NVT ASCII"></a>NVT ASCII</h2><ul>
+<li>术语NVT ASCII代表7比特的A S C I I字符集，网间网协议族都使用NVT ASCII。每个7比特的字符都以8比特格式发送，最高位比特为0。</li>
+<li>行结束符以两个字符 C R（回车）和紧接着的 L F（换行）这样的序列表示。以 \ r \ n来表示。单独的一个 C R也是以两个字符序列来表示，它们是 C R和紧接着的 N U L（字节0），以\ r \ 0表示。</li>
+<li>F T P, SMTP, Finger和W h o i s协议都以NVT ASCII来描述客户命<br>令和服务器的响应。</li>
+</ul>
+<h2 id="Telnet命令"><a href="#Telnet命令" class="headerlink" title="Telnet命令"></a>Telnet命令</h2><p>Te l n e t通信的两个方向都采用带内信令方式。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501210711.jpg" alt=""></p>
+<h2 id="一次一个字符方式"><a href="#一次一个字符方式" class="headerlink" title="一次一个字符方式"></a>一次一个字符方式</h2><p>我们所键入的每个字符都单独发送到服务器进程。服务器进程回显大多数的字符，除非服务器进程端的应用程序去掉了回显功能。该方式的缺点也是显而易见的。当网络速度很慢，而且网络流量比较大的时候，那么回显的速度也会很慢。虽然如此，但目前大多数 Te l n e t实现都把这种方式作为默认方式。</p>
+<h2 id="Telnet协议两大特点"><a href="#Telnet协议两大特点" class="headerlink" title="Telnet协议两大特点"></a>Telnet协议两大特点</h2><ul>
+<li>交互式TCP数据流的特点</li>
+<li>安全问题（替代协议SSH）</li>
+</ul>
+<h1 id="HTTP：超文本传输协议"><a href="#HTTP：超文本传输协议" class="headerlink" title="HTTP：超文本传输协议"></a>HTTP：超文本传输协议</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>HTTP协议（Hypertext Transfer Protocol，超文本传输协议）是用于从WWW服务器传输超文本到本地浏览器的传送协议，是一个客户端和服务器端请求和应答的标准（TCP）。超文本传输协议是互联网上应用最为广泛的一种网络协议。所有WWW文件都必须遵守这个标准</p>
+<h2 id="HTTP协议特点"><a href="#HTTP协议特点" class="headerlink" title="HTTP协议特点"></a>HTTP协议特点</h2><p>主要特点：哑服务器</p>
 ]]></content>
     </entry>
     
