@@ -1157,8 +1157,6 @@
 <li>交互式TCP数据流的特点</li>
 <li>安全问题（替代协议SSH）</li>
 </ul>
-<h1 id="HTTP：超文本传输协议"><a href="#HTTP：超文本传输协议" class="headerlink" title="HTTP：超文本传输协议"></a>HTTP：超文本传输协议</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>HTTP协议（Hypertext Transfer Protocol，超文本传输协议）是用于从WWW服务器传输超文本到本地浏览器的传送协议，是一个客户端和服务器端请求和应答的标准（TCP）。超文本传输协议是互联网上应用最为广泛的一种网络协议。所有WWW文件都必须遵守这个标准</p>
-<h2 id="HTTP协议特点"><a href="#HTTP协议特点" class="headerlink" title="HTTP协议特点"></a>HTTP协议特点</h2><p>主要特点：哑服务器</p>
 ]]></content>
     </entry>
     
@@ -1212,7 +1210,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[[第四周]Ubuntu 16.10下root用户直接登录]]></title>
+      <title><![CDATA[Ubuntu 16.10下root用户直接登录]]></title>
       <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E5%9B%9B%E5%91%A8-Ubuntu-16-10%E4%B8%8Broot%E7%94%A8%E6%88%B7%E7%9B%B4%E6%8E%A5%E7%99%BB%E5%BD%95.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h3 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置root密码</h3><p>使用如下命令设置root密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo passwd root</div></pre></td></tr></table></figure></p>
@@ -1226,7 +1224,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[[第三周]Ubuntu 16.10下JDK8的安装配置]]></title>
+      <title><![CDATA[Ubuntu 16.10下JDK8的安装配置]]></title>
       <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E4%B8%8BJDK8%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="JDK8安装"><a href="#JDK8安装" class="headerlink" title="JDK8安装"></a>JDK8安装</h2><p>安装只需输入命令即可</p>
@@ -1245,7 +1243,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[[第三周]Ubuntu 16.10下gcc/g++编译器使用简介]]></title>
+      <title><![CDATA[Ubuntu 16.10下gcc/g++编译器使用简介]]></title>
       <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E4%B8%8Bgcc-g-%E7%BC%96%E8%AF%91%E5%99%A8%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h1 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>GCC（GNU Compiler Collection，GNU编译器套装），是一套由 GNU 开发的编程语言编译器。它是一套以 GPL 及 LGPL 许可证所发行的自由软件，也是 GNU计划 的关键部分，亦是自由的 类Unix 及苹果计算机 Mac OS X 操作系统的标准编译器。GCC（特别是其中的C语言编译器）也常被认为是跨平台编译器的事实标准。</p>
@@ -1272,7 +1270,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[[第三周]Ubuntu 16.10日常折腾二三事]]></title>
+      <title><![CDATA[Ubuntu 16.10日常折腾二三事]]></title>
       <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E6%97%A5%E5%B8%B8%E6%8A%98%E8%85%BE%E4%BA%8C%E4%B8%89%E4%BA%8B.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前我是装的Ubuntu 14.10的，后来…后来可能是喜欢折腾。把Ubuntu 14.10卸载了，装了最新版的Ubuntu 16.10版本，装完之后还是折腾那几件事。</p>
@@ -1294,7 +1292,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[[第一周]Ubuntu 14.10远程登录服务器--ssh的安装和配置]]></title>
+      <title><![CDATA[Ubuntu 14.10远程登录服务器--ssh的安装和配置]]></title>
       <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Ubuntu-14-10%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8-ssh%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>ssh是一种安全协议，主要用于给远程登录会话数据进行加密，保证数据传输的安全，现在在需怒江Ubuntu 14.04环境下安装和配置ssh。</p>
@@ -1338,7 +1336,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[[第一周]Ubuntu 14.10安装后的二三事]]></title>
+      <title><![CDATA[Ubuntu 14.10安装后的二三事]]></title>
       <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Ubuntu-14-10%E5%AE%89%E8%A3%85%E5%90%8E%E7%9A%84%E4%BA%8C%E4%B8%89%E4%BA%8B.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上课老师用到的是VMware+Ubuntu 14.10，而我用到的是VirtualBox+Ubuntu 14.10。之前我也是用VMware，但是之后就用VirtualBox了。因为VirtualBox开源，而且相较于VMware轻便很多，所占内存小。在VirtualBox下安装完Ubuntu 14.10后在几个问题上折腾了半天，特写一篇博客记下这个过程。</p>
@@ -1385,7 +1383,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[[第一周]Linux作为服务器操作系统的优势]]></title>
+      <title><![CDATA[Linux作为服务器操作系统的优势]]></title>
       <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Linux%E4%BD%9C%E4%B8%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E5%8A%BF.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>初次在课上听到老师说到，每周需要写博客的作业时。我是很惊讶的，这是第一次在传统的校园课堂拿到一个这么新鲜的作业。这可能就是传统教育与培训教育的不同之处吧。下面是老师留给我们的题目：为什么服务器端的操作系统大多数为Linux？我之前是接触过Linux的，之前用过kali linux，因此在选选修课的时候也就毫不犹豫的选择了Linux基础这门课。检索了别人的文章然后加上自己的想法写下这篇博客。</p>
