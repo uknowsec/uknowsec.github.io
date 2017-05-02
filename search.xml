@@ -1157,6 +1157,41 @@
 <li>交互式TCP数据流的特点</li>
 <li>安全问题（替代协议SSH）</li>
 </ul>
+<h1 id="SMTP-POP3：简单邮件传送协议-邮局协议版本3"><a href="#SMTP-POP3：简单邮件传送协议-邮局协议版本3" class="headerlink" title="SMTP/POP3：简单邮件传送协议/邮局协议版本3"></a>SMTP/POP3：简单邮件传送协议/邮局协议版本3</h1><h2 id="SMTP简介"><a href="#SMTP简介" class="headerlink" title="SMTP简介"></a>SMTP简介</h2><ul>
+<li>SMTP（Simple Mail Transfer Protocol）即简单邮件传输协议,它是一组用于由源地址到目的地址传送邮件的规则，由它来控制信件的中转方式。SMTP协议属于TCP/IP协议簇，它帮助每台计算机在发送或中转信件时找到下一个目的地。通过SMTP协议所指定的服务器,就可以把E-mail寄到收信人的服务器上了，整个过程只要几分钟。SMTP服务器则是遵循SMTP协议的发送邮件服务器，用来发送或中转发出的电子邮件。</li>
+<li>SMTP 是一种TCP协议支持的提供可靠且有效电子邮件传输的应用层协议。SMTP 是建立在 TCP上的一种邮件服务，主要用于传输系统之间的邮件信息并提供来信有关的通知。[1] </li>
+<li>端口 25</li>
+</ul>
+<h2 id="SMTP协议的邮件路由过程"><a href="#SMTP协议的邮件路由过程" class="headerlink" title="SMTP协议的邮件路由过程"></a>SMTP协议的邮件路由过程</h2><p>STMP服务器基于域名服务器DNS中计划收件人的域名来路由电子邮件。SMTP服务器基于DNS的MX记录来路由电子邮件，都应向该主机发送。若SMTP服务器mail.abc.com收到一封信要发到shuer@sh.abc.com，则执行以下过程：</p>
+<ul>
+<li>Sendmail请求DNS给出主机sh.abc.com的CNAME记录，如有，假若CNAME（别名记录）到shmail.abc.com，则再次请求shmail.abc.com的CNAME的记录，直到没有为止</li>
+<li>假定被CNAME到shmail.abc.com，然后sendmail请求@abc.com域的DNS给出shmail.abc.com的MX记录（邮件路由及记录），shmail MX 5 shmail.abc.com 10 shmail2.abc.com</li>
+<li>Sendmail组合请求DNS给出shmail.abc.com的A记录（主机名或域名对应的IP地址记录），即IP地址，若返回值为1.2.3.4（假设值）</li>
+<li>Sendmail与1.2.3.4连接，传送这封给shuser@sh.abc.com的信到1.2.3.4这台服务器的SMTP后台程序</li>
+</ul>
+<h2 id="SMTP协议工作原理"><a href="#SMTP协议工作原理" class="headerlink" title="SMTP协议工作原理"></a>SMTP协议工作原理</h2><p>SMTP是工作在两种情况下：一是电子邮件从客户机传输到服务器；二是从某一个服务器传输到另一个服务器。SMTP也是个请求/响应协议，命令和响应都是基于ASCII文本，并以CR和LF符结束。响应包括一个表示返回状态的三位数字代码。SMTP在TCP协议25号端口监听连续请求。<br>连接和发送过程如下：</p>
+<ul>
+<li>建立TCP连接</li>
+<li>客户端发送HELO命令以标识发件人自己的身份，然后客户端发送MAIL命令；服务器正希望以OK作为响应，表明准备接收</li>
+<li>客户端发送RCPT命令，以标识该电子邮件的计划接收人，可以有多个RCPT行；服务器端则表示是否愿意为收件人接收邮件</li>
+<li>协商结束，发送邮件，用命令DATA发送</li>
+<li>以“.”号表示结束输入内容一起发送出去，结束此次发送，用QUIT命令退出</li>
+</ul>
+<h2 id="SMTP-Inspection介绍"><a href="#SMTP-Inspection介绍" class="headerlink" title="SMTP Inspection介绍"></a>SMTP Inspection介绍</h2><ul>
+<li><p>Allow only seven minimum SMTP<br>commands:helo,mail,rcpt,data,rset,noop,and,quit(RFC 821)</p>
+</li>
+<li><p>Adds support for eight ESMTP<br>commands:auth,data,ehlo,etrn,saml,send,soml,and vrfy</p>
+</li>
+<li><p>默认在TCP/25上激活了ESMTP监控</p>
+</li>
+<li>如果禁用此功能，所有SMTP命令都能穿越防火墙，邮件服务器潜在的漏洞就暴露在攻击者面前</li>
+</ul>
+<h2 id="POP简介"><a href="#POP简介" class="headerlink" title="POP简介"></a>POP简介</h2><ul>
+<li>POP3，全名为“Post Office Protocal-Version3”，即“邮局协议版本3”。是TCP/IP协议族中的一员，由RFC1939定义。本协议主要用于支持使用客户端远程管理在服务器上的电子邮件。提供SSL加密的POP3协议被称为POP3S.</li>
+<li>POP协议支持“离线”邮件处理。其具体过程是：邮件发送到服务器上，电子邮件客户端调用邮件客户机程序以连接服务器，并下载所有未阅读的电子邮件，这种离线访问模式是一种存储转发服务，将邮件从邮件服务器端发送到个人终端机器上，一般是PC机或MAC。一旦邮件发送到PC机或MAC上，邮件服务器上的邮件将会被删除。但目前的POP3邮件服务器大都可以“只下载邮件，服务器端并不删除”,也就是改进的POP3协议</li>
+<li>传输协议：TCP/110</li>
+</ul>
+<h2 id="POP命令"><a href="#POP命令" class="headerlink" title="POP命令"></a>POP命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">USER			//键入用户名</div><div class="line">PASS			//键入密码</div><div class="line">STAT			//查看服务器状态</div><div class="line">List			//罗列邮件</div><div class="line">RETR 1			//收ID为1的邮件</div></pre></td></tr></table></figure>
 ]]></content>
     </entry>
     
