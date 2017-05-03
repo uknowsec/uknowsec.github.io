@@ -213,7 +213,7 @@
     <link href="http://uknowsec.cn/posts/notes/%E3%80%8ATCP-IP%E8%AF%A6%E8%A7%A3-%E5%8D%B71%EF%BC%9A%E5%8D%8F%E8%AE%AE%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
     <id>http://uknowsec.cn/posts/notes/《TCP-IP详解-卷1：协议》学习笔记.html</id>
     <published>2017-04-15T13:08:21.000Z</published>
-    <updated>2017-05-02T15:14:19.934Z</updated>
+    <updated>2017-05-03T09:47:48.574Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/141924136983820.png" alt=""></p>
@@ -1236,6 +1236,29 @@
 <li>传输协议：TCP/110</li>
 </ul>
 <h2 id="POP命令"><a href="#POP命令" class="headerlink" title="POP命令"></a>POP命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">USER			//键入用户名</div><div class="line">PASS			//键入密码</div><div class="line">STAT			//查看服务器状态</div><div class="line">List			//罗列邮件</div><div class="line">RETR 1			//收ID为1的邮件</div></pre></td></tr></table></figure>
+<h1 id="SSL：安全套接层"><a href="#SSL：安全套接层" class="headerlink" title="SSL：安全套接层"></a>SSL：安全套接层</h1><h2 id="SSL简介"><a href="#SSL简介" class="headerlink" title="SSL简介"></a>SSL简介</h2><ul>
+<li>SSL(Secure Sockets Layer 安全套接层),及其继任者传输层安全（Transport Layer Security，TLS）是为网络通信提供安全及数据完整性的一种安全协议。TLS与SSL在传输层对网络连接进行加密。</li>
+<li>SSL是一个不依赖于平台和运用程序的协议，用于保障TCP-based运用安全，SSL在TCP层和运用层之间，就想运用层连接到TCP来连接的一个插口</li>
+</ul>
+<h2 id="SSL加密知名协议"><a href="#SSL加密知名协议" class="headerlink" title="SSL加密知名协议"></a>SSL加密知名协议</h2><ul>
+<li><p>HTTP over SSL：加密网页流量是设计SSL的初衷,HTTP也是第一个使用SSL保障安全的运用层协议<br>当Netscape在它的Navigator里面运用HTTP over SSL的时候，它使用<a href="https://来标识HTTP" target="_blank" rel="external">https://来标识HTTP</a> over SSL，因此HTTP over SSL就以HTTPS的格式被熟知。后来HTTPS在RFC2818被标准化。HTTPS工作在TCP 443号端口，但是普通的HTTP默认工作在TCP 80端口</p>
+</li>
+<li><p>Email over SSL：类似于HTTP over SSL，邮件协议例如：SMTP,POP3和IMAP也能支持SSL</p>
+</li>
+</ul>
+<h2 id="SSL的位置"><a href="#SSL的位置" class="headerlink" title="SSL的位置"></a>SSL的位置</h2><p>SSL介于应用层和TCP层之间。应用层数据不再直接传递给传输层，而是传递给SSL层，SSL层对从应用层收到的数据进行加密，并增加自己的SSL头。<br><img src="http://pic002.cnblogs.com/images/2012/38542/2012100609461432.png" alt=""></p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><ul>
+<li><p>服务器认证阶段：1）客户端向服务器发送一个开始信息“Hello”以便开始一个新的会话连接；2）服务器根据客户的信息确定是否需要生成新的主密钥，如需要则服务器在响应客户的“Hello”信息时将包含生成主密钥所需的信息；3）客户根据收到的服务器响应信息，产生一个主密钥，并用服务器的公开密钥加密后传给服务器；4）服务器回复该主密钥，并返回给客户一个用主密钥认证的信息，以此让客户认证服务器。</p>
+</li>
+<li><p>用户认证阶段：在此之前，服务器已经通过了客户认证，这一阶段主要完成对客户的认证。经认证的服务器发送一个提问给客户，客户则返回（数字）签名后的提问和其公开密钥，从而向服务器提供认证。</p>
+</li>
+</ul>
+<p>SSL协议提供的安全通道有以下三个特性：</p>
+<ul>
+<li>机密性：SSL协议使用密钥加密通信数据。</li>
+<li>可靠性：服务器和客户都会被认证，客户的认证是可选的。</li>
+<li>完整性：SSL协议会对传送的数据进行完整性检查。</li>
+</ul>
 ]]></content>
     
     <summary type="html">
