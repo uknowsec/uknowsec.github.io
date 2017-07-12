@@ -59,15 +59,19 @@
 
 
 
-<meta name="description" content="不忘初心，方得始终">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Uknow’s Blog">
-<meta property="og:url" content="http://uknowsec.cn/archives/2017/04/index.html">
+<meta name="description" content="点击阅读全文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="配置漏洞之DNS域传送信息泄露">
+<meta property="og:url" content="http://uknowsec.cn/posts/skill/配置漏洞之DNS域传送信息泄露.html">
 <meta property="og:site_name" content="Uknow’s Blog">
-<meta property="og:description" content="不忘初心，方得始终">
+<meta property="og:description" content="点击阅读全文">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/dns.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/dns2.jpg">
+<meta property="og:updated_time" content="2017-07-12T08:36:59.080Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Uknow’s Blog">
-<meta name="twitter:description" content="不忘初心，方得始终">
+<meta name="twitter:title" content="配置漏洞之DNS域传送信息泄露">
+<meta name="twitter:description" content="点击阅读全文">
+<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/dns.jpg">
 
 
 
@@ -85,7 +89,7 @@
   };
 </script>
 
-  <title> 归档 | Uknow’s Blog </title>
+  <title> 配置漏洞之DNS域传送信息泄露 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -116,7 +120,7 @@ var _hmt = _hmt || [];
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -227,102 +231,185 @@ var _hmt = _hmt || [];
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 目前共计 39 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/notes/Ubuntu-Server下安装配置Metasploit.html" itemprop="url">
-              
-                <span itemprop="name">Ubuntu Server下安装配置Metasploit</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-04-25T11:29:27+08:00"
-              content="2017-04-25" >
-          04-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/notes/《TCP-IP详解-卷1：协议》学习笔记.html" itemprop="url">
-              
-                <span itemprop="name">《TCP/IP详解 卷1：协议》学习笔记</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-04-15T21:08:21+08:00"
-              content="2017-04-15" >
-          04-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
+  
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                配置漏洞之DNS域传送信息泄露
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-12T16:17:07+08:00" content="2017-07-12">
+              2017-07-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/skill/" itemprop="url" rel="index">
+                    <span itemprop="name">技巧</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/posts/skill/配置漏洞之DNS域传送信息泄露.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/skill/配置漏洞之DNS域传送信息泄露.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/posts/skill/配置漏洞之DNS域传送信息泄露.html" class="leancloud_visitors" data-flag-title="配置漏洞之DNS域传送信息泄露">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Dns是整个互联网公司业务的基础，目前越来越多的互联网公司开始自己搭建DNS服务器做解析服务，同时由于DNS服务是基础性服务非常重要，因此很多公司会对DNS服务器进行主备配置而DNS主备之间的数据同步就会用到dns域传送，但如果配置不当，就会导致任何匿名用户都可以获取DNS服务器某一域的所有记录，将整个企业的基础业务以及网络架构对外暴露从而造成严重的信息泄露，甚至导致企业网络被渗透。</p>
+<h2 id="成因"><a href="#成因" class="headerlink" title="成因"></a>成因</h2><p>DNS服务器的主备数据同步，使用的是域传送功能。 域传送关键配置项为：</p>
+<p>allow-transfer {ipaddress;}; 通过ip限制可进行域传送的服务器</p>
+<p>allow-transfer { key transfer; }; 通过key限制可进行域传送的服务器</p>
+<p>options配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">options &#123;  </div><div class="line">listen-on &#123; 1.1.1.1; &#125;;  </div><div class="line">listen-on-v6 &#123; any; &#125;;  </div><div class="line">directory &quot;/bind&quot;;  </div><div class="line">pid-file &quot;/bind/run/pid&quot;;  </div><div class="line">dump-file &quot;/bind/data/named_dump.db&quot;;  </div><div class="line">statistics-file &quot;/bind/data/named.stats&quot;;</div><div class="line"></div><div class="line">    allow-transfer  &#123; any; &#125;;</div><div class="line">    allow-query    &#123;any;&#125;;</div><div class="line"></div><div class="line"></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>zone配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">zone &quot;wooyun.org&quot; &#123;  </div><div class="line">type master;  </div><div class="line">file &quot;/bind/etc/wooyun.org.conf&quot;;  </div><div class="line">allow-transfer &#123;any;&#125;;  </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>笔者测试版本为BIND 9.8.2rc1-RedHat-9.8.2-0.10.rc1.el6_3.6，默认安装完毕后，配置项没有allow-transfer 项。如果直接使用默认配置文件进行配置的话（不手动添加allow-transfer项），就会存在dns 域传送漏洞。</p>
+<h2 id="攻击方式及危害"><a href="#攻击方式及危害" class="headerlink" title="攻击方式及危害"></a>攻击方式及危害</h2><p>恶意用户可以通过dns域传送获取被攻击域下所有的子域名。会导致一些非公开域名（测试域名、内部域名）泄露。而泄露的类似内部域名，其安全性相对较低，更容易遭受攻击者的攻击，比较典型的譬如内部的测试机往往就会缺乏必要的安全设置。</p>
+<h2 id="漏洞利用方式"><a href="#漏洞利用方式" class="headerlink" title="漏洞利用方式"></a>漏洞利用方式</h2><h3 id="window利用方式"><a href="#window利用方式" class="headerlink" title="window利用方式"></a>window利用方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">nslookup</div><div class="line">server dns.xx.com</div><div class="line">ls xx.com</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/dns.jpg" alt=""></p>
+<h3 id="linux利用方式"><a href="#linux利用方式" class="headerlink" title="linux利用方式"></a>linux利用方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dig @dns.xx.com. axfr xx.com</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/dns2.jpg" alt=""></p>
+<h2 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a>修复方案</h2><p>解决域传送问题非常简单，只需要在相应的zone、options中添加allow-transfer限制可以进行同步的服务器就可以了，可以有两种方式：限制IP、使用key认证。</p>
+<p>参考链接：<br><a href="http://wooyun.jozxing.cc/static/drops/papers-64.html" target="_blank" rel="external">http://wooyun.jozxing.cc/static/drops/papers-64.html</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/skill/配置漏洞之Rsync匿名访问.html" rel="next" title="配置漏洞之Rsync匿名访问">
+                <i class="fa fa-chevron-left"></i> 配置漏洞之Rsync匿名访问
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/skill/配置漏洞之redis未授权访问.html" rel="prev" title="配置漏洞之redis未授权访问">
+                配置漏洞之redis未授权访问 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -330,6 +417,14 @@ var _hmt = _hmt || [];
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="posts/skill/配置漏洞之DNS域传送信息泄露.html"
+           data-title="配置漏洞之DNS域传送信息泄露" data-url="http://uknowsec.cn/posts/skill/配置漏洞之DNS域传送信息泄露.html">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -349,8 +444,17 @@ var _hmt = _hmt || [];
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20161122223514.jpg"
@@ -431,6 +535,17 @@ var _hmt = _hmt || [];
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成因"><span class="nav-number">2.</span> <span class="nav-text">成因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击方式及危害"><span class="nav-number">3.</span> <span class="nav-text">攻击方式及危害</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞利用方式"><span class="nav-number">4.</span> <span class="nav-text">漏洞利用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#window利用方式"><span class="nav-number">4.1.</span> <span class="nav-text">window利用方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux利用方式"><span class="nav-number">4.2.</span> <span class="nav-text">linux利用方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修复方案"><span class="nav-number">5.</span> <span class="nav-text">修复方案</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -525,11 +640,9 @@ var _hmt = _hmt || [];
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
 
 
   
