@@ -59,15 +59,37 @@
 
 
 
-<meta name="description" content="不忘初心，方得始终">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Uknow’s Blog">
-<meta property="og:url" content="http://uknowsec.cn/categories/notes/index.html">
+<meta name="description" content="点击阅读全文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSRF漏洞的利用与学习">
+<meta property="og:url" content="http://uknowsec.cn/posts/notes/CSRF漏洞的利用与学习.html">
 <meta property="og:site_name" content="Uknow’s Blog">
-<meta property="og:description" content="不忘初心，方得始终">
+<meta property="og:description" content="点击阅读全文">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF1.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF2.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF3.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF4.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF5.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF6.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF7.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF8.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF9.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF10.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF11.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF12.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF13.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF14.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF15.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF16.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF17.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF18.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF19.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF20.jpg">
+<meta property="og:updated_time" content="2017-07-14T07:04:36.915Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Uknow’s Blog">
-<meta name="twitter:description" content="不忘初心，方得始终">
+<meta name="twitter:title" content="CSRF漏洞的利用与学习">
+<meta name="twitter:description" content="点击阅读全文">
+<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/CSRF1.jpg">
 
 
 
@@ -85,7 +107,7 @@
   };
 </script>
 
-  <title> 分类: 笔记 | Uknow’s Blog </title>
+  <title> CSRF漏洞的利用与学习 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -116,7 +138,7 @@ var _hmt = _hmt || [];
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -227,303 +249,213 @@ var _hmt = _hmt || [];
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        笔记
-        <small>分类</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/notes/CSRF漏洞的利用与学习.html" itemprop="url">
-              
-                <span itemprop="name">CSRF漏洞的利用与学习</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-14T10:50:29+08:00"
-              content="2017-07-14" >
-          07-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/notes/内网渗透中转发工具总结.html" itemprop="url">
-              
-                <span itemprop="name">内网渗透中转发工具总结</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-11T15:03:36+08:00"
-              content="2017-07-11" >
-          07-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/notes/xss-payload-大全.html" itemprop="url">
-              
-                <span itemprop="name">xss payload 大全</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-11T13:20:00+08:00"
-              content="2017-07-11" >
-          07-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/notes/理解php序列化漏洞.html" itemprop="url">
-              
-                <span itemprop="name">理解php序列化漏洞</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-11T11:22:05+08:00"
-              content="2017-07-11" >
-          07-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/notes/方程式-0day-Eternalblue复现.html" itemprop="url">
-              
-                <span itemprop="name">方程式 0day Eternalblue复现</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-26T10:19:34+08:00"
-              content="2017-05-26" >
-          05-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/notes/python编程实践学习-模拟登录爬取信息.html" itemprop="url">
-              
-                <span itemprop="name">Python编程实践学习--模拟登录爬取信息</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-12T15:15:52+08:00"
-              content="2017-05-12" >
-          05-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/notes/HTTP：超文本传输协议.html" itemprop="url">
-              
-                <span itemprop="name">【转载】HTTP：超文本传输协议</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-01T21:34:09+08:00"
-              content="2017-05-01" >
-          05-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/notes/Ubuntu-Server下安装配置Metasploit.html" itemprop="url">
-              
-                <span itemprop="name">Ubuntu Server下安装配置Metasploit</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-04-25T11:29:27+08:00"
-              content="2017-04-25" >
-          04-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/notes/《TCP-IP详解-卷1：协议》学习笔记.html" itemprop="url">
-              
-                <span itemprop="name">《TCP/IP详解 卷1：协议》学习笔记</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-04-15T21:08:21+08:00"
-              content="2017-04-15" >
-          04-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/notes/《细说PHP》学习笔记.html" itemprop="url">
-              
-                <span itemprop="name">《细说PHP》学习笔记</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-15T17:00:50+08:00"
-              content="2017-01-15" >
-          01-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/categories/notes/page/2/">2</a><a class="extend next" rel="next" href="/categories/notes/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSRF漏洞的利用与学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-14T10:50:29+08:00" content="2017-07-14">
+              2017-07-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/posts/notes/CSRF漏洞的利用与学习.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/CSRF漏洞的利用与学习.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/posts/notes/CSRF漏洞的利用与学习.html" class="leancloud_visitors" data-flag-title="CSRF漏洞的利用与学习">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
 
 
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="CSRF的原理"><a href="#CSRF的原理" class="headerlink" title="CSRF的原理"></a>CSRF的原理</h2><p>发现漏洞可利用处-&gt;构造(搭建)搭建代码-&gt;发送给用户(管理员)-&gt;触发代码(发送请求)………</p>
+<p>从这个利用的一个流程中，我们可以发现,攻击者仅仅只是做了两处工作.第一处是:发现漏洞利用处，，第二处就是构造利用代码以及发送至用户(管理员)。至于利用，你会发现CSRF与XSS不同，XSS是攻击者自己提交，等待结果，而CSRF呢，是由用户(管理员)自身提交。甚至可以说攻击者只做了构造代码的工作。</p>
+<h2 id="OWASP-CSRFTester"><a href="#OWASP-CSRFTester" class="headerlink" title="OWASP CSRFTester"></a>OWASP CSRFTester</h2><p>这是OWASP推出的CSRF半自动化软件，他省去了CSRF最繁琐的过程，代码构造。下面是软件的截图‍‍</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF1.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF2.jpg" alt=""></p>
+<h2 id="利用CSRFTester进行CSRF攻击"><a href="#利用CSRFTester进行CSRF攻击" class="headerlink" title="利用CSRFTester进行CSRF攻击"></a>利用CSRFTester进行CSRF攻击</h2><p>进入已经搭建的CMS后台的管理员管理模块</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF3.jpg" alt=""></p>
+<p>浏览器里代理设置为CSRFTester的代理127.0.0.1：8008</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF4.jpg" alt=""></p>
+<p>开启CSRFTester抓取数据包，正常添加管理员 返回可以看到已经抓取到了数据包<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF5.jpg" alt=""></p>
+<p>在Form Parameters中没有找到token的值，那么就可以实现CSRF攻击</p>
+<p>在Report Type中。有四种方法来进行攻击。‍‍</p>
+<ul>
+<li>‍‍Forms：创建一个form表单。内容为hidden(隐藏)，用户不可见（可POST、GET）‍‍<br>‍‍<em>    iFrame：创建一个iframe框架，高宽为0，用户不可见。（可POST、GET）‍‍<br>‍‍</em>    IMG：创建一个IMG标签(只能GET)。‍‍<br>‍‍<em>    XHR：创建一个AJAX请求(可POST、GET)‍‍<br>‍‍</em>    Link：创建一个a标签的超链接(只能GET)</li>
+</ul>
+<p>此处先选择Forms进行测试</p>
+<p>点击Generate HTML 便生成了一个index.html</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF6.jpg" alt=""></p>
+<p>由其中的HTML源码可以看出这是一个简单的提交表单，点击运行这个html文件<br>可以看到成功的添加了一个管理员用户</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF7.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF8.jpg" alt=""></p>
+<p>到此利用CSRFTester进行CSRF攻击成功</p>
+<h2 id="构造提交表单进行CSRF攻击"><a href="#构造提交表单进行CSRF攻击" class="headerlink" title="构造提交表单进行CSRF攻击"></a>构造提交表单进行CSRF攻击</h2><p>审查元素得到管理员管理的URL，进入查看源码。分析提交表单</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF9.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF10.jpg" alt=""></p>
+<p>修改提交表单</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF11.jpg" alt=""></p>
+<p>点击按钮提交，成功添加管理员<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF12.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF13.jpg" alt=""></p>
+<p>在html中增加javascript脚本，自动提交表单<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF14.jpg" alt=""></p>
+<h2 id="利用ajax结合xss进行CSRF攻击"><a href="#利用ajax结合xss进行CSRF攻击" class="headerlink" title="利用ajax结合xss进行CSRF攻击"></a>利用ajax结合xss进行CSRF攻击</h2><p>就是把CSRF的AJAX请求放到XSS里，以达到攻击的效果</p>
+<p>在测试用的这套CMS的留言板处就存在存储型XSS漏洞</p>
+<p>在这里我们可以使用CSRFTester生成一个ajax</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF15.jpg" alt=""></p>
+<p>我们可以看到ajax中核心部分<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF16.jpg" alt=""></p>
+<p>同时也可以自己编写一个简单的ajax</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var xmlhttp;</div><div class="line">if(window.XMLHttpRequest)&#123;</div><div class="line">  xmlhttp=new XMLHttpRequest();</div><div class="line">  &#125;else&#123;</div><div class="line">  xmlhttp=new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);</div><div class="line">  &#125;</div><div class="line">xmlhttp.open(&quot;POST&quot;,&quot;/admin/admin_manage.asp?act=add&quot;,true);</div><div class="line">xmlhttp.setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);</div><div class="line">xmlhttp.send(&quot;admin=789&amp;password=789&amp;password3=789&amp;button=提交数据&quot;);</div></pre></td></tr></table></figure>
+<p>在xss平台上配置项目<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF17.jpg" alt=""></p>
+<p>然后插入测试网站的留言板里<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF18.jpg" alt=""></p>
+<p>管理员查看留言信息就能添加一个管理员账号了<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF19.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF20.jpg" alt=""></p>
+<h2 id="CSRF-漏洞防护"><a href="#CSRF-漏洞防护" class="headerlink" title="CSRF 漏洞防护"></a>CSRF 漏洞防护</h2><p>其实现在有关CSRF漏洞防护已经是比较成熟了，其主要防护的思路就是需要在进行后台数据修改操作的过程中，添加对当前用户身份的有效验证措施，而不能仅限于cookie的识别，这里简单的罗列了下防护措施如下。</p>
+<p>（1） 来源校验</p>
+<p>使用http请求头中referer来源，对客户端源进行身份校验，此方法早期使用比较多，但是仍然容易被绕过，所以这里并不建议使用。</p>
+<p>（2） 用户token 校验</p>
+<p>添加基于当前用户身份的有效tokens随机验证机制，即在向后端提交数据操作请求时，添加基于当前用户的随机token校验值，此种校验方法当前使用比较多；</p>
+<p>（3）当前用户密码验证</p>
+<p>在修改关键信息时，要钱当前用户输入其自身的密码，以验证当前用户身份的真伪，防止未授权的恶意操作；</p>
+<p>（4）添加验证机制</p>
+<p>在请求数据的提交前，需填写验证码信息提交，以增加对用户来源的有效验证，防止恶意未授权的操作产生。</p>
+<p>参考链接：<br><a href="http://www.test404.com/post-1410.html" target="_blank" rel="external">http://www.test404.com/post-1410.html</a><br><a href="http://www.freebuf.com/articles/web/55965.html" target="_blank" rel="external">http://www.freebuf.com/articles/web/55965.html</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/ctf/常见Web源码泄露总结.html" rel="next" title="常见Web源码泄露总结">
+                <i class="fa fa-chevron-left"></i> 常见Web源码泄露总结
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -531,6 +463,14 @@ var _hmt = _hmt || [];
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="posts/notes/CSRF漏洞的利用与学习.html"
+           data-title="CSRF漏洞的利用与学习" data-url="http://uknowsec.cn/posts/notes/CSRF漏洞的利用与学习.html">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -550,8 +490,17 @@ var _hmt = _hmt || [];
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20161122223514.jpg"
@@ -632,6 +581,17 @@ var _hmt = _hmt || [];
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF的原理"><span class="nav-number">1.</span> <span class="nav-text">CSRF的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OWASP-CSRFTester"><span class="nav-number">2.</span> <span class="nav-text">OWASP CSRFTester</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用CSRFTester进行CSRF攻击"><span class="nav-number">3.</span> <span class="nav-text">利用CSRFTester进行CSRF攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造提交表单进行CSRF攻击"><span class="nav-number">4.</span> <span class="nav-text">构造提交表单进行CSRF攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用ajax结合xss进行CSRF攻击"><span class="nav-number">5.</span> <span class="nav-text">利用ajax结合xss进行CSRF攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF-漏洞防护"><span class="nav-number">6.</span> <span class="nav-text">CSRF 漏洞防护</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -726,6 +686,10 @@ var _hmt = _hmt || [];
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
 
   
 

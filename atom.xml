@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-07-13T06:27:16.975Z</updated>
+  <updated>2017-07-14T07:04:36.915Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -14,6 +14,144 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSRF漏洞的利用与学习</title>
+    <link href="http://uknowsec.cn/posts/notes/CSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html"/>
+    <id>http://uknowsec.cn/posts/notes/CSRF漏洞的利用与学习.html</id>
+    <published>2017-07-14T02:50:29.000Z</published>
+    <updated>2017-07-14T07:04:36.915Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="CSRF的原理"><a href="#CSRF的原理" class="headerlink" title="CSRF的原理"></a>CSRF的原理</h2><p>发现漏洞可利用处-&gt;构造(搭建)搭建代码-&gt;发送给用户(管理员)-&gt;触发代码(发送请求)………</p>
+<p>从这个利用的一个流程中，我们可以发现,攻击者仅仅只是做了两处工作.第一处是:发现漏洞利用处，，第二处就是构造利用代码以及发送至用户(管理员)。至于利用，你会发现CSRF与XSS不同，XSS是攻击者自己提交，等待结果，而CSRF呢，是由用户(管理员)自身提交。甚至可以说攻击者只做了构造代码的工作。</p>
+<h2 id="OWASP-CSRFTester"><a href="#OWASP-CSRFTester" class="headerlink" title="OWASP CSRFTester"></a>OWASP CSRFTester</h2><p>这是OWASP推出的CSRF半自动化软件，他省去了CSRF最繁琐的过程，代码构造。下面是软件的截图‍‍</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF1.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF2.jpg" alt=""></p>
+<h2 id="利用CSRFTester进行CSRF攻击"><a href="#利用CSRFTester进行CSRF攻击" class="headerlink" title="利用CSRFTester进行CSRF攻击"></a>利用CSRFTester进行CSRF攻击</h2><p>进入已经搭建的CMS后台的管理员管理模块</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF3.jpg" alt=""></p>
+<p>浏览器里代理设置为CSRFTester的代理127.0.0.1：8008</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF4.jpg" alt=""></p>
+<p>开启CSRFTester抓取数据包，正常添加管理员 返回可以看到已经抓取到了数据包<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF5.jpg" alt=""></p>
+<p>在Form Parameters中没有找到token的值，那么就可以实现CSRF攻击</p>
+<p>在Report Type中。有四种方法来进行攻击。‍‍</p>
+<ul>
+<li>‍‍Forms：创建一个form表单。内容为hidden(隐藏)，用户不可见（可POST、GET）‍‍<br>‍‍<em>    iFrame：创建一个iframe框架，高宽为0，用户不可见。（可POST、GET）‍‍<br>‍‍</em>    IMG：创建一个IMG标签(只能GET)。‍‍<br>‍‍<em>    XHR：创建一个AJAX请求(可POST、GET)‍‍<br>‍‍</em>    Link：创建一个a标签的超链接(只能GET)</li>
+</ul>
+<p>此处先选择Forms进行测试</p>
+<p>点击Generate HTML 便生成了一个index.html</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF6.jpg" alt=""></p>
+<p>由其中的HTML源码可以看出这是一个简单的提交表单，点击运行这个html文件<br>可以看到成功的添加了一个管理员用户</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF7.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF8.jpg" alt=""></p>
+<p>到此利用CSRFTester进行CSRF攻击成功</p>
+<h2 id="构造提交表单进行CSRF攻击"><a href="#构造提交表单进行CSRF攻击" class="headerlink" title="构造提交表单进行CSRF攻击"></a>构造提交表单进行CSRF攻击</h2><p>审查元素得到管理员管理的URL，进入查看源码。分析提交表单</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF9.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF10.jpg" alt=""></p>
+<p>修改提交表单</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF11.jpg" alt=""></p>
+<p>点击按钮提交，成功添加管理员<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF12.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF13.jpg" alt=""></p>
+<p>在html中增加javascript脚本，自动提交表单<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF14.jpg" alt=""></p>
+<h2 id="利用ajax结合xss进行CSRF攻击"><a href="#利用ajax结合xss进行CSRF攻击" class="headerlink" title="利用ajax结合xss进行CSRF攻击"></a>利用ajax结合xss进行CSRF攻击</h2><p>就是把CSRF的AJAX请求放到XSS里，以达到攻击的效果</p>
+<p>在测试用的这套CMS的留言板处就存在存储型XSS漏洞</p>
+<p>在这里我们可以使用CSRFTester生成一个ajax</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF15.jpg" alt=""></p>
+<p>我们可以看到ajax中核心部分<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF16.jpg" alt=""></p>
+<p>同时也可以自己编写一个简单的ajax</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var xmlhttp;</div><div class="line">if(window.XMLHttpRequest)&#123;</div><div class="line">  xmlhttp=new XMLHttpRequest();</div><div class="line">  &#125;else&#123;</div><div class="line">  xmlhttp=new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);</div><div class="line">  &#125;</div><div class="line">xmlhttp.open(&quot;POST&quot;,&quot;/admin/admin_manage.asp?act=add&quot;,true);</div><div class="line">xmlhttp.setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);</div><div class="line">xmlhttp.send(&quot;admin=789&amp;password=789&amp;password3=789&amp;button=提交数据&quot;);</div></pre></td></tr></table></figure>
+<p>在xss平台上配置项目<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF17.jpg" alt=""></p>
+<p>然后插入测试网站的留言板里<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF18.jpg" alt=""></p>
+<p>管理员查看留言信息就能添加一个管理员账号了<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF19.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF20.jpg" alt=""></p>
+<h2 id="CSRF-漏洞防护"><a href="#CSRF-漏洞防护" class="headerlink" title="CSRF 漏洞防护"></a>CSRF 漏洞防护</h2><p>其实现在有关CSRF漏洞防护已经是比较成熟了，其主要防护的思路就是需要在进行后台数据修改操作的过程中，添加对当前用户身份的有效验证措施，而不能仅限于cookie的识别，这里简单的罗列了下防护措施如下。</p>
+<p>（1） 来源校验</p>
+<p>使用http请求头中referer来源，对客户端源进行身份校验，此方法早期使用比较多，但是仍然容易被绕过，所以这里并不建议使用。</p>
+<p>（2） 用户token 校验</p>
+<p>添加基于当前用户身份的有效tokens随机验证机制，即在向后端提交数据操作请求时，添加基于当前用户的随机token校验值，此种校验方法当前使用比较多；</p>
+<p>（3）当前用户密码验证</p>
+<p>在修改关键信息时，要钱当前用户输入其自身的密码，以验证当前用户身份的真伪，防止未授权的恶意操作；</p>
+<p>（4）添加验证机制</p>
+<p>在请求数据的提交前，需填写验证码信息提交，以增加对用户来源的有效验证，防止恶意未授权的操作产生。</p>
+<p>参考链接：<br><a href="http://www.test404.com/post-1410.html" target="_blank" rel="external">http://www.test404.com/post-1410.html</a><br><a href="http://www.freebuf.com/articles/web/55965.html" target="_blank" rel="external">http://www.freebuf.com/articles/web/55965.html</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>常见Web源码泄露总结</title>
+    <link href="http://uknowsec.cn/posts/ctf/%E5%B8%B8%E8%A7%81Web%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2%E6%80%BB%E7%BB%93.html"/>
+    <id>http://uknowsec.cn/posts/ctf/常见Web源码泄露总结.html</id>
+    <published>2017-07-14T01:49:47.000Z</published>
+    <updated>2017-07-14T02:00:20.346Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>本文主要是记录一下常见的源码泄漏问题，这些经常在web渗透测试以及CTF中出现。</p>
+<h2 id="源码泄漏分类"><a href="#源码泄漏分类" class="headerlink" title="源码泄漏分类"></a>源码泄漏分类</h2><h3 id="hg源码泄漏"><a href="#hg源码泄漏" class="headerlink" title=".hg源码泄漏"></a>.hg源码泄漏</h3><h4 id="漏洞成因："><a href="#漏洞成因：" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>hg init的时候会生成.hg<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">e.g.http://www.example.com/.hg/</div></pre></td></tr></table></figure></p>
+<h4 id="漏洞利用："><a href="#漏洞利用：" class="headerlink" title="漏洞利用："></a>漏洞利用：</h4><p>工具：<a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="external">dvcs-ripper</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rip-hg.pl -v -u http://www.example.com/.hg/</div></pre></td></tr></table></figure></p>
+<h3 id="git源码泄漏"><a href="#git源码泄漏" class="headerlink" title=".git源码泄漏"></a>.git源码泄漏</h3><h4 id="漏洞成因：-1"><a href="#漏洞成因：-1" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>在运行git init初始化代码库的时候，会在当前目录下面产生一个.git的隐藏文件，用来记录代码的变更记录等等。在发布代码的时候，把.git这个目录没有删除，直接发布了。使用这个文件，可以用来恢复源代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">e.g. http://www.example.com/.git/config</div></pre></td></tr></table></figure></p>
+<h4 id="漏洞利用：-1"><a href="#漏洞利用：-1" class="headerlink" title="漏洞利用："></a>漏洞利用：</h4><p>工具：</p>
+<p><a href="https://github.com/lijiejie/GitHack" target="_blank" rel="external">GitHack</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GitHack.py http://www.example.com/.git/</div></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="external">dvcs-ripper</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rip-git.pl -v -u http://www.example.com/.git/</div></pre></td></tr></table></figure></p>
+<h3 id="DS-Store文件泄漏"><a href="#DS-Store文件泄漏" class="headerlink" title=".DS_Store文件泄漏"></a>.DS_Store文件泄漏</h3><h4 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因:"></a>漏洞成因:</h4><p>在发布代码时未删除文件夹中隐藏的.DS_store，被发现后，获取了敏感的文件名等信息。</p>
+<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用:"></a>漏洞利用:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.example.com/.ds_store</div></pre></td></tr></table></figure>
+<p>注意路径检查</p>
+<p>工具：</p>
+<p><a href="https://github.com/lijiejie/ds_store_exp" target="_blank" rel="external">dsstoreexp</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python ds_store_exp.py http://www.example.com/.DS_Store</div></pre></td></tr></table></figure></p>
+<h3 id="网站备份压缩文件"><a href="#网站备份压缩文件" class="headerlink" title="网站备份压缩文件"></a>网站备份压缩文件</h3><p>在网站的使用过程中，往往需要对网站中的文件进行修改、升级。此时就需要对网站整站或者其中某一页面进行备份。当备份文件或者修改过程中的缓存文件因为各种原因而被留在网站web目录下，而该目录又没有设置访问权限时，便有可能导致备份文件或者编辑器的缓存文件被下载，导致敏感信息泄露，给服务器的安全埋下隐患。</p>
+<h4 id="漏洞成因及危害"><a href="#漏洞成因及危害" class="headerlink" title="漏洞成因及危害:"></a>漏洞成因及危害:</h4><p>该漏洞的成因主要有以下两种：</p>
+<p>服务器管理员错误地将网站或者网页的备份文件放置到服务器web目录下。<br>编辑器在使用过程中自动保存的备份文件或者临时文件因为各种原因没有被删除而保存在web目录下。</p>
+<h4 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测:"></a>漏洞检测:</h4><p>该漏洞往往会导致服务器整站源代码或者部分页面的源代码被下载，利用。源代码中所包含的各类敏感信息，如服务器数据库连接信息，服务器配置信息等会因此而泄露，造成巨大的损失。被泄露的源代码还可能会被用于代码审计，进一步利用而对整个系统的安全埋下隐患。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.rar</div><div class="line">.zip</div><div class="line">.7z</div><div class="line">.tar.gz</div><div class="line">.bak</div><div class="line">.swp</div><div class="line">.txt</div><div class="line">.html</div></pre></td></tr></table></figure></p>
+<h3 id="SVN导致文件泄露"><a href="#SVN导致文件泄露" class="headerlink" title="SVN导致文件泄露"></a>SVN导致文件泄露</h3><p>Subversion，简称SVN，是一个开放源代码的版本控制系统，相对于的RCS、CVS，采用了分支管理系统，它的设计目标就是取代CVS。互联网上越来越多的控制服务从CVS转移到Subversion。</p>
+<p>Subversion使用服务端—客户端的结构，当然服务端与客户端可以都运行在同一台服务器上。在服务端是存放着所有受控制数据的Subversion仓库，另一端是Subversion的客户端程序，管理着受控数据的一部分在本地的映射（称为“工作副本”）。在这两端之间，是通过各种仓库存取层（Repository Access，简称RA）的多条通道进行访问的。这些通道中，可以通过不同的网络协议，例如HTTP、SSH等，或本地文件的方式来对仓库进行操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">e.g.http://vote.lz.taobao.com/admin/scripts/fckeditor.266/editor/.svn/entries</div></pre></td></tr></table></figure>
+<h4 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用:"></a>漏洞利用:</h4><p>工具：</p>
+<p><a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="external">dvcs-ripper</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rip-svn.pl -v -u http://www.example.com/.svn/</div></pre></td></tr></table></figure>
+<p>Seay-Svn</p>
+<h3 id="WEB-INF-web-xml泄露"><a href="#WEB-INF-web-xml泄露" class="headerlink" title="WEB-INF/web.xml泄露"></a>WEB-INF/web.xml泄露</h3><p>WEB-INF是Java的WEB应用的安全目录。如果想在页面中直接访问其中的文件，必须通过web.xml文件对要访问的文件进行相应映射才能访问。</p>
+<p>WEB-INF主要包含一下文件或目录：</p>
+<ul>
+<li>/WEB-INF/web.xml：Web应用程序配置文件，描述了 servlet 和其他的应用组件配置及命名规则。</li>
+<li>/WEB-INF/classes/：含了站点所有用的 class 文件，包括 servlet class 和非servlet class，他们不能包含在 .jar文件中</li>
+<li>/WEB-INF/lib/：存放web应用需要的各种JAR文件，放置仅在这个应用中要求使用的jar文件,如数据库驱动jar文件</li>
+<li>/WEB-INF/src/：源码目录，按照包名结构放置各个java文件。</li>
+<li>/WEB-INF/database.properties：数据库配置文件<h4 id="漏洞成因：-2"><a href="#漏洞成因：-2" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4></li>
+</ul>
+<p>通常一些web应用我们会使用多个web服务器搭配使用，解决其中的一个web服务器的性能缺陷以及做均衡负载的优点和完成一些分层结构的安全策略等。在使用这种架构的时候，由于对静态资源的目录或文件的映射配置不当，可能会引发一些的安全问题，导致web.xml等文件能够被读取。</p>
+<p>漏洞检测以及利用方法：</p>
+<p>通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码。<br>一般情况，jsp引擎默认都是禁止访问WEB-INF目录的，Nginx 配合Tomcat做均衡负载或集群等情况时，问题原因其实很简单，Nginx不会去考虑配置其他类型引擎（Nginx不是jsp引擎）导致的安全问题而引入到自身的安全规范中来（这样耦合性太高了），修改Nginx配置文件禁止访问WEB-INF目录就好了： location ~ ^/WEB-INF/* { deny all; } 或者return 404; 或者其他！</p>
+<h3 id="CVS泄漏"><a href="#CVS泄漏" class="headerlink" title="CVS泄漏"></a>CVS泄漏</h3><h4 id="漏洞利用-2"><a href="#漏洞利用-2" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>测试的目录</p>
+<ul>
+<li><a href="http://url/CVS/Root" target="_blank" rel="external">http://url/CVS/Root</a> 返回根信息</li>
+<li><a href="http://url/CVS/Entries" target="_blank" rel="external">http://url/CVS/Entries</a> 返回所有文件的结构<br>取回源码的命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bk clone http://url/name dir</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这个命令的意思就是把远端一个名为name的repo clone到本地名为dir的目录下。</p>
+<p>查看所有的改变的命令，转到download的目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">bk changes</div><div class="line">Bazaar/bzr</div></pre></td></tr></table></figure></p>
+<p>工具：</p>
+<p><a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="external">dvcs-ripper</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rip-bzr.pl -v -u http://www.example.com/.bzr/</div></pre></td></tr></table></figure></p>
+<p>工具推荐</p>
+<p>Bitkeeper<br>weakfilescan</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/21296806" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/21296806</a><br><a href="http://www.s2.sshz.org/post/source-code-leak/" target="_blank" rel="external">http://www.s2.sshz.org/post/source-code-leak/</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Meatsploit Framework 利用总结</title>
@@ -2053,125 +2191,6 @@
 <h4 id="安装-unity-tweak-tool"><a href="#安装-unity-tweak-tool" class="headerlink" title="安装 unity-tweak-tool"></a>安装 unity-tweak-tool</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install unity-tweak-tool</div></pre></td></tr></table></figure>
 <h4 id="安装主题包"><a href="#安装主题包" class="headerlink" title="安装主题包"></a>安装主题包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo add-apt-repository ppa:snwh/pulp</div><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install paper-gtk-theme paper-icon-theme</div></pre></td></tr></table></figure>
 <p>搜索你的计算机–&gt;unity-tweak-tool–&gt;外观–&gt;主题<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312104441.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312104456.jpg" alt=""></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://uknowsec.cn/categories/linux/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Ubuntu 14.10远程登录服务器--ssh的安装和配置</title>
-    <link href="http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Ubuntu-14-10%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8-ssh%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE.html"/>
-    <id>http://uknowsec.cn/posts/linux/第一周-Ubuntu-14-10远程登录服务器-ssh的安装和配置.html</id>
-    <published>2017-02-24T09:38:27.000Z</published>
-    <updated>2017-05-01T13:49:16.391Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>ssh是一种安全协议，主要用于给远程登录会话数据进行加密，保证数据传输的安全，现在在需怒江Ubuntu 14.04环境下安装和配置ssh。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="更新源列表"><a href="#更新源列表" class="headerlink" title="更新源列表"></a>更新源列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170224181454.png" alt=""></p>
-<h3 id="安装ssh"><a href="#安装ssh" class="headerlink" title="安装ssh"></a>安装ssh</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install openssh-server</div></pre></td></tr></table></figure>
-<p>执行命令出现如下情况，按照提示貌似需要安装openshh-client和ssh-import-id<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170224182359.jpg" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install openshh-client</div><div class="line">sudo apt-get install ssh-import-id</div></pre></td></tr></table></figure>
-<p>安装完openshh-client和ssh-import-id后还是显示错误</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170224183037.jpg" alt=""></p>
-<p>然后得知Ubuntu自带的openssh-clien与所要安装的openssh-server所依赖的版本不同,这里所依赖的版本是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1:6.6p1-2ubuntu2.8</div></pre></td></tr></table></figure></p>
-<p>所以要安装降级安装低版本的openssh-clien，来覆盖Ubuntu自带的openssh-clien版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install openssh-client=1:6.6p1-2ubuntu1</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">uknow@uknow-ubuntu:~$ sudo apt-get install openssh-client=1:6.6p1-2ubuntu1</div><div class="line">正在读取软件包列表... 完成</div><div class="line">正在分析软件包的依赖关系树       </div><div class="line">正在读取状态信息... 完成       </div><div class="line">下列软件包是自动安装的并且现在不需要了：</div><div class="line">  apparmor-easyprof apparmor-easyprof-ubuntu click click-apparmor</div><div class="line">  gir1.2-click-0.4 gir1.2-gee-0.8 libclick-0.4-0 libcolord1</div><div class="line">  libgnome-desktop-3-7 libgtop2-7 liblttng-ust-ctl2 liblttng-ust0</div><div class="line">  libupstart-app-launch2 liburcu1 python3-apparmor python3-apparmor-click</div><div class="line">  python3-click python3-libapparmor upstart-app-launch</div><div class="line">  upstart-app-launch-tools</div><div class="line">Use &apos;apt-get autoremove&apos; to remove them.</div><div class="line">建议安装的软件包：</div><div class="line">  libpam-ssh keychain monkeysphere</div><div class="line">下列软件包将被【降级】：</div><div class="line">  openssh-client</div><div class="line">升级了 0 个软件包，新安装了 0 个软件包，降级了 1 个软件包，要卸载 0 个软件包，有 7 个软件包未被升级。</div><div class="line">需要下载 566 kB 的软件包。</div><div class="line">解压缩后将会空出 54.3 kB 的空间。</div><div class="line">您希望继续执行吗？ [Y/n] </div><div class="line">获取：1 http://ftp.cuhk.edu.hk/pub/Linux/ubuntu/ trusty/main openssh-client amd64 1:6.6p1-2ubuntu1 [566 kB]</div><div class="line">下载 566 kB，耗时 1秒 (419 kB/s)        </div><div class="line">dpkg：警告：downgrading openssh-client from 1:6.6p1-8 to 1:6.6p1-2ubuntu1</div><div class="line">(正在读取数据库 ... 系统当前共安装有 171295 个文件和目录。)</div><div class="line">Preparing to unpack .../openssh-client_1%3a6.6p1-2ubuntu1_amd64.deb ...</div><div class="line">Unpacking openssh-client (1:6.6p1-2ubuntu1) over (1:6.6p1-8) ...</div><div class="line">Processing triggers for man-db (2.7.0.2-2) ...</div></pre></td></tr></table></figure>
-<p>可以看到,提示了系统中openssh-client被降级</p>
-<p>再安装openssh-server就可以成功了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo  apt-get install openssh-server</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">uknow@uknow-ubuntu:~$ sudo  apt-get install openssh-server</div><div class="line">正在读取软件包列表... 完成</div><div class="line">正在分析软件包的依赖关系树       </div><div class="line">正在读取状态信息... 完成       </div><div class="line">下列软件包是自动安装的并且现在不需要了：</div><div class="line">  apparmor-easyprof apparmor-easyprof-ubuntu click click-apparmor</div><div class="line">  gir1.2-click-0.4 gir1.2-gee-0.8 libclick-0.4-0 libcolord1</div><div class="line">  libgnome-desktop-3-7 libgtop2-7 liblttng-ust-ctl2 liblttng-ust0</div><div class="line">  libupstart-app-launch2 liburcu1 python3-apparmor python3-apparmor-click</div><div class="line">  python3-click python3-libapparmor upstart-app-launch</div><div class="line">  upstart-app-launch-tools</div><div class="line">Use &apos;apt-get autoremove&apos; to remove them.</div><div class="line">将会安装下列额外的软件包：</div><div class="line">  libck-connector0 ncurses-term openssh-client openssh-sftp-server</div><div class="line">建议安装的软件包：</div><div class="line">  libpam-ssh keychain monkeysphere rssh molly-guard</div><div class="line">下列【新】软件包将被安装：</div><div class="line">  libck-connector0 ncurses-term openssh-server openssh-sftp-server</div><div class="line">下列软件包将被升级：</div><div class="line">  openssh-client</div><div class="line">升级了 1 个软件包，新安装了 4 个软件包，要卸载 0 个软件包，有 7 个软件包未被升级。</div><div class="line">需要下载 1,173 kB 的软件包。</div><div class="line">解压缩后会消耗掉 3,344 kB 的额外空间。</div><div class="line">您希望继续执行吗？ [Y/n] </div><div class="line">获取：1 http://ftp.cuhk.edu.hk/pub/Linux/ubuntu/ trusty/main libck-connector0 amd64 0.4.5-3.1ubuntu2 [10.5 kB]</div><div class="line">获取：2 http://ftp.cuhk.edu.hk/pub/Linux/ubuntu/ trusty-security/main openssh-client amd64 1:6.6p1-2ubuntu2.8 [564 kB]</div><div class="line">获取：3 http://ftp.cuhk.edu.hk/pub/Linux/ubuntu/ trusty/main ncurses-term all 5.9+20140118-1ubuntu1 [243 kB]</div><div class="line">获取：4 http://ftp.cuhk.edu.hk/pub/Linux/ubuntu/ trusty-security/main openssh-sftp-server amd64 1:6.6p1-2ubuntu2.8 [34.2 kB]</div><div class="line">获取：5 http://ftp.cuhk.edu.hk/pub/Linux/ubuntu/ trusty-security/main openssh-server amd64 1:6.6p1-2ubuntu2.8 [322 kB]</div><div class="line">下载 1,173 kB，耗时 2秒 (470 kB/s)      </div><div class="line">正在预设定软件包 ...</div><div class="line">Selecting previously unselected package libck-connector0:amd64.</div><div class="line">(正在读取数据库 ... 系统当前共安装有 171295 个文件和目录。)</div><div class="line">Preparing to unpack .../libck-connector0_0.4.5-3.1ubuntu2_amd64.deb ...</div><div class="line">Unpacking libck-connector0:amd64 (0.4.5-3.1ubuntu2) ...</div><div class="line">Preparing to unpack .../openssh-client_1%3a6.6p1-2ubuntu2.8_amd64.deb ...</div><div class="line">Unpacking openssh-client (1:6.6p1-2ubuntu2.8) over (1:6.6p1-2ubuntu1) ...</div><div class="line">Selecting previously unselected package ncurses-term.</div><div class="line">Preparing to unpack .../ncurses-term_5.9+20140118-1ubuntu1_all.deb ...</div><div class="line">Unpacking ncurses-term (5.9+20140118-1ubuntu1) ...</div><div class="line">Selecting previously unselected package openssh-sftp-server.</div><div class="line">Preparing to unpack .../openssh-sftp-server_1%3a6.6p1-2ubuntu2.8_amd64.deb ...</div><div class="line">Unpacking openssh-sftp-server (1:6.6p1-2ubuntu2.8) ...</div><div class="line">Selecting previously unselected package openssh-server.</div><div class="line">Preparing to unpack .../openssh-server_1%3a6.6p1-2ubuntu2.8_amd64.deb ...</div><div class="line">Unpacking openssh-server (1:6.6p1-2ubuntu2.8) ...</div><div class="line">Processing triggers for man-db (2.7.0.2-2) ...</div><div class="line">Processing triggers for ufw (0.34~rc-0ubuntu4) ...</div><div class="line">Processing triggers for ureadahead (0.100.0-16) ...</div><div class="line">ureadahead will be reprofiled on next reboot</div><div class="line">正在设置 libck-connector0:amd64 (0.4.5-3.1ubuntu2) ...</div><div class="line">正在设置 openssh-client (1:6.6p1-2ubuntu2.8) ...</div><div class="line">正在设置 ncurses-term (5.9+20140118-1ubuntu1) ...</div><div class="line">正在设置 openssh-sftp-server (1:6.6p1-2ubuntu2.8) ...</div><div class="line">正在设置 openssh-server (1:6.6p1-2ubuntu2.8) ...</div><div class="line">Creating SSH2 RSA key; this may take some time ...</div><div class="line">Creating SSH2 DSA key; this may take some time ...</div><div class="line">Creating SSH2 ECDSA key; this may take some time ...</div><div class="line">Creating SSH2 ED25519 key; this may take some time ...</div><div class="line">ssh start/running, process 7136</div><div class="line">Processing triggers for libc-bin (2.19-10ubuntu2) ...</div><div class="line">Processing triggers for ufw (0.34~rc-0ubuntu4) ...</div><div class="line">Processing triggers for ureadahead (0.100.0-16) ...</div></pre></td></tr></table></figure>
-<h3 id="ssh服务"><a href="#ssh服务" class="headerlink" title="ssh服务"></a>ssh服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo ps -e |grep ssh       //查看ssh服务是否启动</div><div class="line">sudo service ssh start     //开启ssh服务</div><div class="line">sudo service ssh stop		//关闭ssh服务</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170224183549.jpg" alt=""></p>
-<h3 id="修改配置文件sshd-config"><a href="#修改配置文件sshd-config" class="headerlink" title="修改配置文件sshd_config"></a>修改配置文件sshd_config</h3><ul>
-<li><p>使用gedit修改配置文件”/etc/ssh/sshd_config”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gedit /etc/ssh/sshd_config</div></pre></td></tr></table></figure>
-</li>
-<li><p>将其中的PermitRootLogin改为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PermitRootLogin yes</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170224190101.png" alt=""></p>
-<h3 id="利用Xshell连接"><a href="#利用Xshell连接" class="headerlink" title="利用Xshell连接"></a>利用Xshell连接</h3><ul>
-<li>查看本机ip<br>注意物理机和虚拟机网络方式需要使用桥接模式<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ifconfig</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170224190652.jpg" alt=""></p>
-<ul>
-<li><p>使用Xshell登录ubuntu<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170224190730.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170224190741.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170224190801.jpg" alt=""></p>
-</li>
-<li><p>xshell上利用ifconfig<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170224190844.jpg" alt=""></p>
-</li>
-</ul>
-<p>至此，成功的配置好了ssh并成功利用Xshel连接。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://uknowsec.cn/categories/linux/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Ubuntu 14.10安装后的二三事</title>
-    <link href="http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Ubuntu-14-10%E5%AE%89%E8%A3%85%E5%90%8E%E7%9A%84%E4%BA%8C%E4%B8%89%E4%BA%8B.html"/>
-    <id>http://uknowsec.cn/posts/linux/第一周-Ubuntu-14-10安装后的二三事.html</id>
-    <published>2017-02-24T08:55:49.000Z</published>
-    <updated>2017-05-01T13:49:23.331Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上课老师用到的是VMware+Ubuntu 14.10，而我用到的是VirtualBox+Ubuntu 14.10。之前我也是用VMware，但是之后就用VirtualBox了。因为VirtualBox开源，而且相较于VMware轻便很多，所占内存小。在VirtualBox下安装完Ubuntu 14.10后在几个问题上折腾了半天，特写一篇博客记下这个过程。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="VMware-tools安装"><a href="#VMware-tools安装" class="headerlink" title="VMware tools安装"></a>VMware tools安装</h3><p>由于我自己用的是VirtualBox，所以用同学的电脑演示一下安装VMware tools。<br>直接贴gif地址吧，博客上上传不了gif图片。<br><a href="http://obr4sfdq7.bkt.clouddn.com/xx.gif" target="_blank" rel="external">GIF图片传送门</a></p>
-<p>GIF图片最后一步<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ./vmware-install.pl</div></pre></td></tr></table></figure></p>
-<p>执行命令后，会要你输入yes or no ，出现的第一个no,手动键入yes。<br>后面的直接回车就好了，然后重启。<br>就可以物理机和虚拟机双向复制粘贴文本和文件了。<br>虚拟机分辨率问题可以在系统设置里面，设置显示选项，选择合适物理机的分辨率。</p>
-<h3 id="NAT-模式"><a href="#NAT-模式" class="headerlink" title="NAT 模式"></a>NAT 模式</h3><p>按照老师给出的安装文档，上面是让我们设置桥接模式的，但是由于校园网的原因，桥接模式是不能联网的。所以需要修改虚拟机网络设置。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170226120725.png" alt=""><br>注销或重启计算机即可。</p>
-<h3 id="Ubuntu-14-10更新源"><a href="#Ubuntu-14-10更新源" class="headerlink" title="Ubuntu 14.10更新源"></a>Ubuntu 14.10更新源</h3><p>记得我之前用kali linux的时候，每次装完系统或者挂起kali虚拟机的时候都习惯的更新软件和内核什么的，所以Ubuntu 14.10也是如此。由于中国防火墙的问题，如果用Ubuntu官方源进行更新是很痛苦的事情。所以在网上寻找国内的更新源是不错的选择。</p>
-<ul>
-<li><p>首先备份源列表:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup</div></pre></td></tr></table></figure>
-</li>
-<li><p>用gedit打开sources.list:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gedit /etc/apt/sources.list</div></pre></td></tr></table></figure>
-</li>
-<li><p>全选sources.list下内容，复制粘贴下面香港中文大学的更新源，之前我说过163和阿里云都是404，目前香港中文大学的更新源速度还不错。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty main restricted universe multiverse</div><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-security main restricted universe multiverse</div><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-updates main restricted universe multiverse</div><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-backports main restricted universe multiverse</div><div class="line">deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-proposed main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-security main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-updates main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-backports main restricted universe multiverse</div><div class="line">deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu trusty-proposed main restricted universe</div></pre></td></tr></table></figure>
-</li>
-<li><p>刷新列表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure>
-</li>
-<li><p>更新软件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get dist-upgrade</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="安装搜狗输入法"><a href="#安装搜狗输入法" class="headerlink" title="安装搜狗输入法"></a>安装搜狗输入法</h3><p>在用到火狐浏览器时，发现Ubuntu下的ibus打字法很别扭。于是产生安装搜狗打字法的想法，但是在官方下载搜狗deb安装包，安装完后发现，切换到搜狗打字法时并不能输入中文。之后找到问题的所在，并解决记录下来。</p>
-<h4 id="安装搜狗拼音"><a href="#安装搜狗拼音" class="headerlink" title="安装搜狗拼音"></a>安装搜狗拼音</h4><p>当前最新版本是sogoupinyin_2.1.0.0082_amd64.deb<a href="http://cdn2.ime.sogou.com/dl/index/1475147394/sogoupinyin_2.1.0.0082_amd64.deb?st=UvO7xZ1Rvw-j5J5UW6D0ZQ&amp;e=1487927618&amp;fn=sogoupinyin_2.1.0.0082_amd64.deb" target="_blank" rel="external">下载链接</a><br>可以直接双击安装，也可以在安装包目录下打开终端，执行命令。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo dpkg -i sogoupinyin_2.1.0.0082_amd64.deb</div></pre></td></tr></table></figure>
-<h4 id="卸载ibus"><a href="#卸载ibus" class="headerlink" title="卸载ibus"></a>卸载ibus</h4><p>安装完成后，点右上角的图标切换到搜狗打字法，会发现并不能输入中文。在网上查询资料得，14.04的思路，不必卸载ibus，直接双击搜狗的deb安装，完成后重启即可。但在14.10版本中这个方法已不适用。所以在这个时候我们需要卸载ibus。</p>
-<p>执行命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get remove ibus</div></pre></td></tr></table></figure>
-<p>重启计算机或注销后，就可以使用搜狗输入法了。</p>
-<h3 id="修复系统设置"><a href="#修复系统设置" class="headerlink" title="修复系统设置"></a>修复系统设置</h3><p>由于卸载了ibus，造成系统设置点击无反应，经查询得到方法，几经波折解决之。</p>
-<h4 id="最初修复方案"><a href="#最初修复方案" class="headerlink" title="最初修复方案"></a>最初修复方案</h4><p>网上给出的答案是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install ibus    #此命令安装ibus-gtk，ibus-gtk3  </div><div class="line">sudo apt-get install linux-generic     #此命令安装linux-generic  </div><div class="line">sudo apt-get install ubuntu-desktop    #此命令修复ubutun桌面</div></pre></td></tr></table></figure></p>
-<p>但执行第一句命令时出现错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">uknow@uknow-ubuntu:~$ sudo apt-get install ibus</div><div class="line">正在读取软件包列表... 完成</div><div class="line">正在分析软件包的依赖关系树       </div><div class="line">正在读取状态信息... 完成       </div><div class="line">有一些软件包无法被安装。如果您用的是 unstable 发行版，这也许是</div><div class="line">因为系统无法达到您要求的状态造成的。该版本中可能会有一些您需要的软件</div><div class="line">包尚未被创建或是它们已被从新到(Incoming)目录移出。</div><div class="line">下列信息可能会对解决问题有所帮助：</div><div class="line"></div><div class="line">下列软件包有未满足的依赖关系：</div><div class="line"> ibus : 依赖: gir1.2-ibus-1.0 (= 1.5.5-1ubuntu3.2) 但是 1.5.8-2ubuntu2 正要被安装</div><div class="line">        推荐: ibus-gtk 但是它将不会被安装 或</div><div class="line">                ibus-qt4 但是它将不会被安装</div><div class="line">E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。</div></pre></td></tr></table></figure></p>
-<h4 id="gir1-2-ibus-1-0降级"><a href="#gir1-2-ibus-1-0降级" class="headerlink" title="gir1.2-ibus-1.0降级"></a>gir1.2-ibus-1.0降级</h4><p>按照提示，ibus依赖<em>gir1.2-ibus-1.0 (= 1.5.5-1ubuntu3.2)</em>但是当前版本为 <em>1.5.8-2ubuntu2 </em><br>还需要安装<em>ibus-gtk</em>或者<em>ibus-qt4</em>。<br>这里又需要对<em>gir1.2-ibus-1.0</em>进行<em>降级</em><br>执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install ibus-gtk</div><div class="line">sudo apt-get install gir1.2-ibus-1.0=1.5.5-1ubuntu3.2</div></pre></td></tr></table></figure></p>
-<h4 id="最终修复方案"><a href="#最终修复方案" class="headerlink" title="最终修复方案"></a>最终修复方案</h4><p>最后再按照上面网上给出的方法修复即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install ibus    #此命令安装ibus-gtk，ibus-gtk3  </div><div class="line">sudo apt-get install linux-generic     #此命令安装linux-generic  </div><div class="line">sudo apt-get install ubuntu-desktop    #此命令修复ubutun桌面</div></pre></td></tr></table></figure></p>
-<p>最后注销或重启计算机，完美修复。</p>
-<h3 id="当前目录打开终端"><a href="#当前目录打开终端" class="headerlink" title="当前目录打开终端"></a>当前目录打开终端</h3><p>对于初学者linux文件目录知识还是有点陌生的，之前我在使用kali linux时右键是可以在当前目录打开终端的，而ubuntu默认右键选项没有这一项。所以安装之。<br>执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install nautilus-open-terminal			//把终端加到右键菜单</div><div class="line">nautilus -q			//重新加载文件夹</div></pre></td></tr></table></figure></p>
-<h3 id="Sublime-Text-3"><a href="#Sublime-Text-3" class="headerlink" title="Sublime Text 3"></a>Sublime Text 3</h3><p>Sublime Text是一款很炫酷的编辑器，之前看代码都是用这款。</p>
-<p>下载地址：<br><a href="https://pan.baidu.com/s/1miG1YNu" target="_blank" rel="external">https://pan.baidu.com/s/1miG1YNu</a></p>
-<p>执行命令安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo dpkg -i sublime-text_build-3126_amd64.deb</div></pre></td></tr></table></figure></p>
 ]]></content>
     
     <summary type="html">
