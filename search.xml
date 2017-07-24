@@ -7,6 +7,8 @@
       <title><![CDATA[Web For Pentester I 练习笔记]]></title>
       <url>http://uknowsec.cn/posts/notes/Web-For-Pentester-I-%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>ISO镜像:<a href="https://isos.pentesterlab.com/web_for_pentester_i386.iso" target="_blank" rel="external">web_for_pentester_i386.iso</a></p>
+<p>新建虚拟机添加web_for_pentester_i386.iso镜像，桥接网络即可。</p>
 <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="preg-match"><a href="#preg-match" class="headerlink" title="preg_match()"></a>preg_match()</h3><p>preg_match() 函数用于进行正则表达式匹配，成功返回 1 ，否则返回 0 。</p>
 <h4 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int preg_match( string pattern, string subject [, array matches ] )</div></pre></td></tr></table></figure>
 <h4 id="参数说明："><a href="#参数说明：" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
