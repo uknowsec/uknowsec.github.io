@@ -61,14 +61,20 @@
 
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常见Web源码泄露总结">
-<meta property="og:url" content="http://uknowsec.cn/posts/ctf/常见Web源码泄露总结.html">
+<meta property="og:title" content="Peach对Modbus功能码的模糊测试">
+<meta property="og:url" content="http://uknowsec.cn/posts/notes/Peach对Modbus功能码的模糊测试.html">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
-<meta property="og:updated_time" content="2017-07-14T02:00:20.346Z">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/peachfuzz1.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/peachfuzz2.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/peachfuzz3.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/peachfuzz4.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/peachfuzz5.png">
+<meta property="og:updated_time" content="2017-08-10T04:33:55.271Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="常见Web源码泄露总结">
+<meta name="twitter:title" content="Peach对Modbus功能码的模糊测试">
 <meta name="twitter:description" content="点击阅读全文">
+<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/peachfuzz1.png">
 
 
 
@@ -86,7 +92,7 @@
   };
 </script>
 
-  <title> 常见Web源码泄露总结 | Uknow’s Blog </title>
+  <title> Peach对Modbus功能码的模糊测试 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -249,7 +255,7 @@ var _hmt = _hmt || [];
             
             
               
-                常见Web源码泄露总结
+                Peach对Modbus功能码的模糊测试
               
             
           </h1>
@@ -261,8 +267,8 @@ var _hmt = _hmt || [];
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-07-14T09:49:47+08:00" content="2017-07-14">
-              2017-07-14
+            <time itemprop="dateCreated" datetime="2017-08-10T09:48:08+08:00" content="2017-08-10">
+              2017-08-10
             </time>
           </span>
 
@@ -275,8 +281,8 @@ var _hmt = _hmt || [];
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ctf/" itemprop="url" rel="index">
-                    <span itemprop="name">CTF</span>
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
                   </a>
                 </span>
 
@@ -291,8 +297,8 @@ var _hmt = _hmt || [];
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/ctf/常见Web源码泄露总结.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/ctf/常见Web源码泄露总结.html" itemprop="commentsCount"></span>
+                <a href="/posts/notes/Peach对Modbus功能码的模糊测试.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/Peach对Modbus功能码的模糊测试.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,7 +308,7 @@ var _hmt = _hmt || [];
 
           
           
-             <span id="/posts/ctf/常见Web源码泄露总结.html" class="leancloud_visitors" data-flag-title="常见Web源码泄露总结">
+             <span id="/posts/notes/Peach对Modbus功能码的模糊测试.html" class="leancloud_visitors" data-flag-title="Peach对Modbus功能码的模糊测试">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -324,54 +330,240 @@ var _hmt = _hmt || [];
 
       
         <p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>本文主要是记录一下常见的源码泄漏问题，这些经常在web渗透测试以及CTF中出现。</p>
-<h2 id="源码泄漏分类"><a href="#源码泄漏分类" class="headerlink" title="源码泄漏分类"></a>源码泄漏分类</h2><h3 id="hg源码泄漏"><a href="#hg源码泄漏" class="headerlink" title=".hg源码泄漏"></a>.hg源码泄漏</h3><h4 id="漏洞成因："><a href="#漏洞成因：" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>hg init的时候会生成.hg<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">e.g.http://www.example.com/.hg/</div></pre></td></tr></table></figure></p>
-<h4 id="漏洞利用："><a href="#漏洞利用：" class="headerlink" title="漏洞利用："></a>漏洞利用：</h4><p>工具：<a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="external">dvcs-ripper</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rip-hg.pl -v -u http://www.example.com/.hg/</div></pre></td></tr></table></figure></p>
-<h3 id="git源码泄漏"><a href="#git源码泄漏" class="headerlink" title=".git源码泄漏"></a>.git源码泄漏</h3><h4 id="漏洞成因：-1"><a href="#漏洞成因：-1" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>在运行git init初始化代码库的时候，会在当前目录下面产生一个.git的隐藏文件，用来记录代码的变更记录等等。在发布代码的时候，把.git这个目录没有删除，直接发布了。使用这个文件，可以用来恢复源代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">e.g. http://www.example.com/.git/config</div></pre></td></tr></table></figure></p>
-<h4 id="漏洞利用：-1"><a href="#漏洞利用：-1" class="headerlink" title="漏洞利用："></a>漏洞利用：</h4><p>工具：</p>
-<p><a href="https://github.com/lijiejie/GitHack" target="_blank" rel="external">GitHack</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GitHack.py http://www.example.com/.git/</div></pre></td></tr></table></figure></p>
-<p><a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="external">dvcs-ripper</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rip-git.pl -v -u http://www.example.com/.git/</div></pre></td></tr></table></figure></p>
-<h3 id="DS-Store文件泄漏"><a href="#DS-Store文件泄漏" class="headerlink" title=".DS_Store文件泄漏"></a>.DS_Store文件泄漏</h3><h4 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因:"></a>漏洞成因:</h4><p>在发布代码时未删除文件夹中隐藏的.DS_store，被发现后，获取了敏感的文件名等信息。</p>
-<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用:"></a>漏洞利用:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.example.com/.ds_store</div></pre></td></tr></table></figure>
-<p>注意路径检查</p>
-<p>工具：</p>
-<p><a href="https://github.com/lijiejie/ds_store_exp" target="_blank" rel="external">dsstoreexp</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python ds_store_exp.py http://www.example.com/.DS_Store</div></pre></td></tr></table></figure></p>
-<h3 id="网站备份压缩文件"><a href="#网站备份压缩文件" class="headerlink" title="网站备份压缩文件"></a>网站备份压缩文件</h3><p>在网站的使用过程中，往往需要对网站中的文件进行修改、升级。此时就需要对网站整站或者其中某一页面进行备份。当备份文件或者修改过程中的缓存文件因为各种原因而被留在网站web目录下，而该目录又没有设置访问权限时，便有可能导致备份文件或者编辑器的缓存文件被下载，导致敏感信息泄露，给服务器的安全埋下隐患。</p>
-<h4 id="漏洞成因及危害"><a href="#漏洞成因及危害" class="headerlink" title="漏洞成因及危害:"></a>漏洞成因及危害:</h4><p>该漏洞的成因主要有以下两种：</p>
-<p>服务器管理员错误地将网站或者网页的备份文件放置到服务器web目录下。<br>编辑器在使用过程中自动保存的备份文件或者临时文件因为各种原因没有被删除而保存在web目录下。</p>
-<h4 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测:"></a>漏洞检测:</h4><p>该漏洞往往会导致服务器整站源代码或者部分页面的源代码被下载，利用。源代码中所包含的各类敏感信息，如服务器数据库连接信息，服务器配置信息等会因此而泄露，造成巨大的损失。被泄露的源代码还可能会被用于代码审计，进一步利用而对整个系统的安全埋下隐患。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.rar</div><div class="line">.zip</div><div class="line">.7z</div><div class="line">.tar.gz</div><div class="line">.bak</div><div class="line">.swp</div><div class="line">.txt</div><div class="line">.html</div></pre></td></tr></table></figure></p>
-<h3 id="SVN导致文件泄露"><a href="#SVN导致文件泄露" class="headerlink" title="SVN导致文件泄露"></a>SVN导致文件泄露</h3><p>Subversion，简称SVN，是一个开放源代码的版本控制系统，相对于的RCS、CVS，采用了分支管理系统，它的设计目标就是取代CVS。互联网上越来越多的控制服务从CVS转移到Subversion。</p>
-<p>Subversion使用服务端—客户端的结构，当然服务端与客户端可以都运行在同一台服务器上。在服务端是存放着所有受控制数据的Subversion仓库，另一端是Subversion的客户端程序，管理着受控数据的一部分在本地的映射（称为“工作副本”）。在这两端之间，是通过各种仓库存取层（Repository Access，简称RA）的多条通道进行访问的。这些通道中，可以通过不同的网络协议，例如HTTP、SSH等，或本地文件的方式来对仓库进行操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">e.g.http://vote.lz.taobao.com/admin/scripts/fckeditor.266/editor/.svn/entries</div></pre></td></tr></table></figure>
-<h4 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用:"></a>漏洞利用:</h4><p>工具：</p>
-<p><a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="external">dvcs-ripper</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rip-svn.pl -v -u http://www.example.com/.svn/</div></pre></td></tr></table></figure>
-<p>Seay-Svn</p>
-<h3 id="WEB-INF-web-xml泄露"><a href="#WEB-INF-web-xml泄露" class="headerlink" title="WEB-INF/web.xml泄露"></a>WEB-INF/web.xml泄露</h3><p>WEB-INF是Java的WEB应用的安全目录。如果想在页面中直接访问其中的文件，必须通过web.xml文件对要访问的文件进行相应映射才能访问。</p>
-<p>WEB-INF主要包含一下文件或目录：</p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="Modbus功能码"><a href="#Modbus功能码" class="headerlink" title="Modbus功能码"></a>Modbus功能码</h3><table>
+<thead>
+<tr>
+<th>代码</th>
+<th style="text-align:center">中文名称</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td style="text-align:center">读取线圈状态</td>
+<td style="text-align:center">取得一组逻辑线圈的当前状态（ON/OFF)</td>
+</tr>
+<tr>
+<td>02</td>
+<td style="text-align:center">读取输入状态</td>
+<td style="text-align:center">取得一组开关输入的当前状态（ON/OFF)</td>
+</tr>
+<tr>
+<td>03</td>
+<td style="text-align:center">读取保持寄存器</td>
+<td style="text-align:center">在一个或多个保持寄存器中取得当前的二进制值</td>
+</tr>
+<tr>
+<td>04</td>
+<td style="text-align:center">读取输入寄存器</td>
+<td style="text-align:center">在一个或多个输入寄存器中取得当前的二进制值</td>
+</tr>
+<tr>
+<td>05</td>
+<td style="text-align:center">强置单线圈</td>
+<td style="text-align:center">强置一个逻辑线圈的通断状态</td>
+</tr>
+<tr>
+<td>06</td>
+<td style="text-align:center">预置单寄存器</td>
+<td style="text-align:center">把具体二进值装入一个保持寄存器</td>
+</tr>
+<tr>
+<td>07</td>
+<td style="text-align:center">读取异常状态</td>
+<td style="text-align:center">取得8个内部线圈的通断状态，这8个线圈的地址由控制器决定，用户逻辑可以将这些线圈定义，以说明从机状态，短报文适宜于迅速读取状态</td>
+</tr>
+<tr>
+<td>08</td>
+<td style="text-align:center">回送诊断校验</td>
+<td style="text-align:center">把诊断校验报文送从机，以对通信处理进行评鉴</td>
+</tr>
+<tr>
+<td>09</td>
+<td style="text-align:center">编程（只用于484）</td>
+<td style="text-align:center">使主机模拟编程器作用，修改PC从机逻辑</td>
+</tr>
+<tr>
+<td>10</td>
+<td style="text-align:center">控询（只用于484）</td>
+<td style="text-align:center">可使主机与一台正在执行长程序任务从机通信，探询该从机是否已完成其操作任务，仅在含有功能码9的报文发送后，本功能码才发送</td>
+</tr>
+<tr>
+<td>11</td>
+<td style="text-align:center">读取事件计数</td>
+<td style="text-align:center">可使主机发出单询问，并随即判定操作是否成功，尤其是该命令或其他应答产生通信错误时</td>
+</tr>
+<tr>
+<td>12</td>
+<td style="text-align:center">读取通信事件记录</td>
+<td style="text-align:center">可是主机检索每台从机的ModBus事务处理通信事件记录。如果某项事务处理完成，记录会给出有关错误</td>
+</tr>
+<tr>
+<td>13</td>
+<td style="text-align:center">编程（184/384 484 584）</td>
+<td style="text-align:center">可使主机模拟编程器功能修改PC从机逻辑</td>
+</tr>
+<tr>
+<td>14</td>
+<td style="text-align:center">探询（184/384 484 584）</td>
+<td style="text-align:center">可使主机与正在执行任务的从机通信，定期控询该从机是否已完成其程序操作，仅在含有功能13的报文发送后，本功能码才得发送</td>
+</tr>
+<tr>
+<td>15</td>
+<td style="text-align:center">强置多线圈</td>
+<td style="text-align:center">强置一串连续逻辑线圈的通断</td>
+</tr>
+<tr>
+<td>16</td>
+<td style="text-align:center">预置多寄存器</td>
+<td style="text-align:center">把具体的二进制值装入一串连续的保持寄存器</td>
+</tr>
+<tr>
+<td>17</td>
+<td style="text-align:center">报告从机标识</td>
+<td style="text-align:center">可使主机判断编址从机的类型及该从机运行指示灯的状态</td>
+</tr>
+<tr>
+<td>18</td>
+<td style="text-align:center">（884和MICRO 84）</td>
+<td style="text-align:center">可使主机模拟编程功能，修改PC状态逻辑</td>
+</tr>
+<tr>
+<td>19</td>
+<td style="text-align:center">重置通信链路</td>
+<td style="text-align:center">发生非可修改错误后，是从机复位于已知状态，可重置顺序字节</td>
+</tr>
+<tr>
+<td>20</td>
+<td style="text-align:center">读取通用参数（584L）</td>
+<td style="text-align:center">显示扩展存储器文件中的数据信息</td>
+</tr>
+<tr>
+<td>21</td>
+<td style="text-align:center">写入通用参数（584L）</td>
+<td style="text-align:center">把通用参数写入扩展存储文件，或修改之</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Peach简介"><a href="#Peach简介" class="headerlink" title="Peach简介"></a>Peach简介</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>Michael Eddington等人开发的Peach是一个遵守MIT开源许可证的模糊测试框架，最初采用Python语言编写，发布于2004年，第二版于2007年发布，最新的第三版使用C#重写了整个框架。</p>
+<p>Peach支持对文件格式、ActiveX、网络协议、API等进行Fuzz测试；Peach Fuzz的关键是编写Peach Pit配置文件。</p>
+<p>Windows下使用Peach3需要预先安装.net 4和windbg；Linux、OS X下需要安装Mono .net开发框架。</p>
+<h4 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/peachfuzz1.png" alt=""></p>
 <ul>
-<li>/WEB-INF/web.xml：Web应用程序配置文件，描述了 servlet 和其他的应用组件配置及命名规则。</li>
-<li>/WEB-INF/classes/：含了站点所有用的 class 文件，包括 servlet class 和非servlet class，他们不能包含在 .jar文件中</li>
-<li>/WEB-INF/lib/：存放web应用需要的各种JAR文件，放置仅在这个应用中要求使用的jar文件,如数据库驱动jar文件</li>
-<li>/WEB-INF/src/：源码目录，按照包名结构放置各个java文件。</li>
-<li>/WEB-INF/database.properties：数据库配置文件<h4 id="漏洞成因：-2"><a href="#漏洞成因：-2" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4></li>
-</ul>
-<p>通常一些web应用我们会使用多个web服务器搭配使用，解决其中的一个web服务器的性能缺陷以及做均衡负载的优点和完成一些分层结构的安全策略等。在使用这种架构的时候，由于对静态资源的目录或文件的映射配置不当，可能会引发一些的安全问题，导致web.xml等文件能够被读取。</p>
-<p>漏洞检测以及利用方法：</p>
-<p>通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码。<br>一般情况，jsp引擎默认都是禁止访问WEB-INF目录的，Nginx 配合Tomcat做均衡负载或集群等情况时，问题原因其实很简单，Nginx不会去考虑配置其他类型引擎（Nginx不是jsp引擎）导致的安全问题而引入到自身的安全规范中来（这样耦合性太高了），修改Nginx配置文件禁止访问WEB-INF目录就好了： location ~ ^/WEB-INF/* { deny all; } 或者return 404; 或者其他！</p>
-<h3 id="CVS泄漏"><a href="#CVS泄漏" class="headerlink" title="CVS泄漏"></a>CVS泄漏</h3><h4 id="漏洞利用-2"><a href="#漏洞利用-2" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>测试的目录</p>
-<ul>
-<li><a href="http://url/CVS/Root" target="_blank" rel="external">http://url/CVS/Root</a> 返回根信息</li>
-<li><a href="http://url/CVS/Entries" target="_blank" rel="external">http://url/CVS/Entries</a> 返回所有文件的结构<br>取回源码的命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bk clone http://url/name dir</div></pre></td></tr></table></figure>
+<li>-1：执行第1次测试。</li>
+<li><p>-a：启动Peach代理。不指定”channel”默认为本地代理（默认支持，无需显式启动）；<br>“channel”可以指定为”tcp”远程代理。</p>
 </li>
+<li><p>-c：统计测试用例数。</p>
+</li>
+<li>-t：验证Peach Pit xml文件正确性。</li>
+<li>-p：并行Fuzz。运行Peach的机器总数为M，这是第N个。</li>
+<li>–debug：调试信息开关。</li>
+<li>–skipto：指定Fuzz跳过的测试用例数。</li>
+<li>–range：指定Fuzz的测试用例范围。</li>
 </ul>
-<p>这个命令的意思就是把远端一个名为name的repo clone到本地名为dir的目录下。</p>
-<p>查看所有的改变的命令，转到download的目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">bk changes</div><div class="line">Bazaar/bzr</div></pre></td></tr></table></figure></p>
-<p>工具：</p>
-<p><a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="external">dvcs-ripper</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rip-bzr.pl -v -u http://www.example.com/.bzr/</div></pre></td></tr></table></figure></p>
-<p>工具推荐</p>
-<p>Bitkeeper<br>weakfilescan</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/21296806" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/21296806</a><br><a href="http://www.s2.sshz.org/post/source-code-leak/" target="_blank" rel="external">http://www.s2.sshz.org/post/source-code-leak/</a></p>
+<h3 id="Peach-Pit"><a href="#Peach-Pit" class="headerlink" title="Peach Pit"></a>Peach Pit</h3><p>在使用Peach进行Fuzz之前需要编写被称为”Peach Pit”的xml配置文件，其中包含着如何进行Fuzz的关键信息，如下图：<br><img src="http://obr4sfdq7.bkt.clouddn.com/peachfuzz2.png" alt=""></p>
+<h3 id="peach模糊测试"><a href="#peach模糊测试" class="headerlink" title="peach模糊测试"></a>peach模糊测试</h3><p>在研究网络协议模糊测试时，sulley和peach两大框架是最常见的Fuzz框架，peach相对于sulley有以下几点优势：</p>
+<ul>
+<li>1、sulley目前已不再维护。</li>
+<li>2、对sulley模糊测试编写程序，需要有一定的python语言基础。而peach是xml格式的，比较容易理解。</li>
+<li>3、sulley配置环境相对繁琐，而peach配置环境相对简单（目前我手头有绿色版本，可以直接运行）。</li>
+<li>4、sulley只能对网络协议进行模糊测试，而peach相对更加多样化。</li>
+</ul>
+<h2 id="Peach协议Fuzz"><a href="#Peach协议Fuzz" class="headerlink" title="Peach协议Fuzz"></a>Peach协议Fuzz</h2><h3 id="工作流程图"><a href="#工作流程图" class="headerlink" title="工作流程图"></a>工作流程图</h3><p><img src="http://obr4sfdq7.bkt.clouddn.com/peachfuzz3.png" alt=""></p>
+<h4 id="流程图具体工作原理"><a href="#流程图具体工作原理" class="headerlink" title="流程图具体工作原理"></a>流程图具体工作原理</h4><ul>
+<li>1、根据协议控制规范或者捕获工业控制网络协议数据流来构造正常的数据包；</li>
+<li>2、分析正常协议的字段及其重要性；</li>
+<li>3、根据分析的协议中不同的数据类型，设计有效地变异策略。</li>
+<li>4、设计并实现工业控制网络协议数据包发包工具；</li>
+<li>5、设计并实现代理器及监视器；</li>
+<li>6、采用发包工具，将畸形数据包发送给被测工控目标；</li>
+<li>7、通过监视器探测被测工控目标异常数据记录。</li>
+</ul>
+<h3 id="NetWork-xml简单分析"><a href="#NetWork-xml简单分析" class="headerlink" title="NetWork.xml简单分析"></a>NetWork.xml简单分析</h3><p>在Peach的目录里有个samples目录,里面有官方给出的一些Pit，以NetWork.xml文件为例做一个简单的分析，具体如下：</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/peachfuzz4.png" alt=""></p>
+<h3 id="Modbus-Fuzz-Pit编写"><a href="#Modbus-Fuzz-Pit编写" class="headerlink" title="Modbus Fuzz Pit编写"></a>Modbus Fuzz Pit编写</h3><p>由于是初次接触Peach对Modbus工控协议的模糊测试，目前也对Modbus协议不是很熟悉，所以只能在网络上找个各种资料。<br>经过一番寻找，最终在github上找到了一份Pit，就是关于对modbus功能码的Fuzz Peach Pit。文章Reference处给出链接。<br>简单地阅读和分析这个Pit发现，这个Pit对01 02 03 04 05 06 15 16 20 21 22 23 24 这几个功能进行Fuzz。除了22 23 24这几个功能码没有在文章开头提到，其他都在基础知识中有。关于22 23 24三个功能码具体如下</p>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th style="text-align:center">作用描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>22</td>
+<td style="text-align:center">屏蔽写寄存器</td>
+</tr>
+<tr>
+<td>23</td>
+<td style="text-align:center">读/写多个寄存器</td>
+</tr>
+<tr>
+<td>24</td>
+<td style="text-align:center">读FIFO队列</td>
+</tr>
+</tbody>
+</table>
+<p>另外发现，在我们找到的Pit中，缺少了Agents-Monitors部分即监听器模块部分。Agents部分可以在本地或远程运行，可以执行附加调试器的动作，看内存消耗，检测故障等。<br>查看官方文档可以知道Peach Fuzz根据不同的环境类型支持以下几种Monitors</p>
+<p>Windows Monitors</p>
+<ul>
+<li>Windows Debugger Monitor</li>
+<li>Cleanup Registry Monitor</li>
+<li>Page Heap Monitor</li>
+<li>Popup Watcher Monitor</li>
+<li>Windows Service Monitor</li>
+</ul>
+<p>OS X Monitors</p>
+<ul>
+<li>OS X Crash Wrangler Monitor</li>
+<li>OS X Crash Reporter Monitor</li>
+</ul>
+<p>Linux Monitors</p>
+<ul>
+<li>Linux Crash Monitor</li>
+</ul>
+<p>Cross Platform Monitors</p>
+<ul>
+<li>CanaKit Relay Monitor</li>
+<li>Cleanup Folder Monitor</li>
+<li>IpPower9258 Monitor</li>
+<li>Memory Monitor</li>
+<li>Pcap Network Monitor</li>
+<li>Ping Monitor</li>
+<li>Process Launcher Monitor</li>
+<li>Process Killer Monitor</li>
+<li>Save File Monitor</li>
+<li>Socket Listener Monitor</li>
+<li>SSH Monitor</li>
+<li>SSH Downloader Monitor</li>
+<li>Vmware Control Monitor</li>
+</ul>
+<p>由于我们是对Modbus工控协议的模糊测试，这里我们可以用常见的Ping Monitor和Socket Listener Monitor。经过向一些之前有过Modbus Peach Fuzz研究的前辈的请教，得到结果是用Ping Monitor的误报率比较高，所以我们在编写是使用的是Socket Listener Monitor。</p>
+<p>以下给出Ping Monitor和Socket Listener Monitor的编写模板</p>
+<h4 id="Ping-Monitor"><a href="#Ping-Monitor" class="headerlink" title="Ping Monitor"></a>Ping Monitor</h4><p>Parameters</p>
+<ul>
+<li>Host — Hostname or IP address</li>
+<li>Timeout — Timeout in milliseconds (optional, defaults to 1,000)</li>
+<li>Data — Data to send in ping packet (optional)</li>
+<li>FaultOnSuccess — Fault if ping is successful (optional, defaults to false)</li>
+</ul>
+<p>Examples<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;Agent name=&quot;Local&quot;&gt;</div><div class="line">        &lt;Monitor class=&quot;Ping&quot;&gt;</div><div class="line">                &lt;Param name=&quot;Host&quot; value=&quot;www.google.com&quot; /&gt;</div><div class="line">        &lt;/Monitor&gt;</div><div class="line">&lt;/Agent&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="Socket-Monitor"><a href="#Socket-Monitor" class="headerlink" title="Socket Monitor"></a>Socket Monitor</h4><p>Parameters</p>
+<ul>
+<li>Host — IP address of remote host (optional, defaults to “”)</li>
+<li>Interface — IP address of interface to listen on (optional, defaults to 0.0.0.0)</li>
+<li>Port — Port to listen on (optional, defaults to 8080)</li>
+<li>Protocol — Protocol type to listen for (optional, defaults to tcp)</li>
+<li>Timeout — Length of time to wait for incoming connection (optional, defaults to 1000 ms)</li>
+<li>FaultOnSuccess — Fault if no conection is recorded (optional, defaults to false)</li>
+</ul>
+<p>Examples<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;Agent name=&quot;Local&quot;&gt;</div><div class="line">        &lt;Monitor class=&quot;Socket&quot;&gt;</div><div class="line">                &lt;Param name=&quot;Port&quot; value=&quot;53&quot; /&gt;</div><div class="line">        &lt;/Monitor&gt;</div><div class="line">&lt;/Agent&gt;</div></pre></td></tr></table></figure></p>
+<p>由官方文档最终得到如下Agent<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;Agent name=&quot;Local&quot;&gt;</div><div class="line">       &lt;Monitor class=&quot;Socket&quot;&gt;</div><div class="line">			&lt;Param name=&quot;Host&quot; value=&quot;192.168.1.100&quot; /&gt;</div><div class="line">			&lt;Param name=&quot;Port&quot; value=&quot;502&quot; /&gt;</div><div class="line">       &lt;/Monitor&gt;</div><div class="line">&lt;/Agent&gt;</div></pre></td></tr></table></figure></p>
+<p>在TEST模块里引用Agent模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;Test name=&quot;Default&quot;&gt;</div><div class="line">	&lt;StateModel ref=&quot;ModbusStateModel&quot; /&gt;</div><div class="line">	</div><div class="line">	&lt;Agent ref=&quot;Local&quot; /&gt;</div><div class="line">	</div><div class="line">	&lt;Logger class=&quot;File&quot;&gt;</div><div class="line">		&lt;Param name=&quot;Path&quot; value=&quot;c:\log1&quot;/&gt;</div><div class="line">	&lt;/Logger&gt;</div><div class="line">	&lt;Publisher class=&quot;tcp.Tcp&quot;&gt;</div><div class="line">		&lt;Param name=&quot;Host&quot; value=&quot;192.168.1.100&quot;/&gt;</div><div class="line">		&lt;Param name=&quot;Port&quot; value=&quot;502&quot;/&gt;</div><div class="line">	&lt;/Publisher&gt;</div><div class="line">&lt;/Test&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h3><p>先简单的说明下这个Pit的基本原理就是给工控设备发送合法的功能码，然后对数据部分进行变异。在这个过程用监听器监听，如果出现崩溃就会出现崩溃日志。这个过程是很漫长的过程，经过我跟Modbus Peach Fuzz的前辈进行的交流，得知他们的模糊测试点都是经过逆向找到的，所以Pit是不能发给我的。而我们这边目前只能对功能码进行模糊测试。据我了解对Modbus协议的模糊测试，需要先提取固件，然后对固件逆向分析，找到模糊测试的点，国内做的很少。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/peachfuzz5.png" alt=""></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://github.com/jseidl/peach-pit" target="_blank" rel="external">Github Peach Fuzzer PIT Files</a><br><a href="http://community.peachfuzzer.com/v3/PeachPit.html" target="_blank" rel="external">PeachPit官方文档</a><br><a href="http://blog.nsfocus.net/peach-fuzz/" target="_blank" rel="external">浅析Peach Fuzz</a><br><a href="http://www.freebuf.com/articles/security-management/88249.html" target="_blank" rel="external">工控网络协议模糊测试：用peach对modbus协议进行模糊测试</a></p>
 
       
     </div>
@@ -389,17 +581,13 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/skill/Meatsploit-Framework-利用总结.html" rel="next" title="Meatsploit Framework 利用总结">
-                <i class="fa fa-chevron-left"></i> Meatsploit Framework 利用总结
+              <a href="/posts/notes/宽字节注入漏洞的利用与学习.html" rel="next" title="宽字节注入漏洞的利用与学习">
+                <i class="fa fa-chevron-left"></i> 宽字节注入漏洞的利用与学习
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/notes/CSRF漏洞的利用与学习.html" rel="prev" title="CSRF漏洞的利用与学习">
-                CSRF漏洞的利用与学习 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -448,8 +636,8 @@ var _hmt = _hmt || [];
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/ctf/常见Web源码泄露总结.html"
-           data-title="常见Web源码泄露总结" data-url="http://uknowsec.cn/posts/ctf/常见Web源码泄露总结.html">
+      <div class="ds-thread" data-thread-key="posts/notes/Peach对Modbus功能码的模糊测试.html"
+           data-title="Peach对Modbus功能码的模糊测试" data-url="http://uknowsec.cn/posts/notes/Peach对Modbus功能码的模糊测试.html">
       </div>
     
   </div>
@@ -571,7 +759,7 @@ var _hmt = _hmt || [];
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码泄漏分类"><span class="nav-number">2.</span> <span class="nav-text">源码泄漏分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hg源码泄漏"><span class="nav-number">2.1.</span> <span class="nav-text">.hg源码泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞成因："><span class="nav-number">2.1.1.</span> <span class="nav-text">漏洞成因：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞利用："><span class="nav-number">2.1.2.</span> <span class="nav-text">漏洞利用：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git源码泄漏"><span class="nav-number">2.2.</span> <span class="nav-text">.git源码泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞成因：-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">漏洞成因：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞利用：-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">漏洞利用：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DS-Store文件泄漏"><span class="nav-number">2.3.</span> <span class="nav-text">.DS_Store文件泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞成因"><span class="nav-number">2.3.1.</span> <span class="nav-text">漏洞成因:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞利用"><span class="nav-number">2.3.2.</span> <span class="nav-text">漏洞利用:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网站备份压缩文件"><span class="nav-number">2.4.</span> <span class="nav-text">网站备份压缩文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞成因及危害"><span class="nav-number">2.4.1.</span> <span class="nav-text">漏洞成因及危害:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞检测"><span class="nav-number">2.4.2.</span> <span class="nav-text">漏洞检测:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SVN导致文件泄露"><span class="nav-number">2.5.</span> <span class="nav-text">SVN导致文件泄露</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞利用-1"><span class="nav-number">2.5.1.</span> <span class="nav-text">漏洞利用:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WEB-INF-web-xml泄露"><span class="nav-number">2.6.</span> <span class="nav-text">WEB-INF/web.xml泄露</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞成因：-2"><span class="nav-number">2.6.1.</span> <span class="nav-text">漏洞成因：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CVS泄漏"><span class="nav-number">2.7.</span> <span class="nav-text">CVS泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞利用-2"><span class="nav-number">2.7.1.</span> <span class="nav-text">漏洞利用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Modbus功能码"><span class="nav-number">1.1.</span> <span class="nav-text">Modbus功能码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Peach简介"><span class="nav-number">1.2.</span> <span class="nav-text">Peach简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令行参数"><span class="nav-number">1.2.2.</span> <span class="nav-text">命令行参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Peach-Pit"><span class="nav-number">1.3.</span> <span class="nav-text">Peach Pit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#peach模糊测试"><span class="nav-number">1.4.</span> <span class="nav-text">peach模糊测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Peach协议Fuzz"><span class="nav-number">2.</span> <span class="nav-text">Peach协议Fuzz</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工作流程图"><span class="nav-number">2.1.</span> <span class="nav-text">工作流程图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#流程图具体工作原理"><span class="nav-number">2.1.1.</span> <span class="nav-text">流程图具体工作原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NetWork-xml简单分析"><span class="nav-number">2.2.</span> <span class="nav-text">NetWork.xml简单分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Modbus-Fuzz-Pit编写"><span class="nav-number">2.3.</span> <span class="nav-text">Modbus Fuzz Pit编写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ping-Monitor"><span class="nav-number">2.3.1.</span> <span class="nav-text">Ping Monitor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Socket-Monitor"><span class="nav-number">2.3.2.</span> <span class="nav-text">Socket Monitor</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行测试"><span class="nav-number">2.4.</span> <span class="nav-text">运行测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
           </div>
         </section>
