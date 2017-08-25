@@ -59,15 +59,16 @@
 
 
 
-<meta name="description" content="不忘初心，方得始终">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Uknow’s Blog">
-<meta property="og:url" content="http://uknowsec.cn/categories/skill/index.html">
+<meta name="description" content="点击阅读全文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CRLF Injection漏洞利用与学习">
+<meta property="og:url" content="http://uknowsec.cn/posts/notes/CRLF-Injection漏洞利用与学习.html">
 <meta property="og:site_name" content="Uknow’s Blog">
-<meta property="og:description" content="不忘初心，方得始终">
+<meta property="og:description" content="点击阅读全文">
+<meta property="og:updated_time" content="2017-08-25T06:39:14.805Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Uknow’s Blog">
-<meta name="twitter:description" content="不忘初心，方得始终">
+<meta name="twitter:title" content="CRLF Injection漏洞利用与学习">
+<meta name="twitter:description" content="点击阅读全文">
 
 
 
@@ -85,7 +86,7 @@
   };
 </script>
 
-  <title> 分类: 技巧 | Uknow’s Blog </title>
+  <title> CRLF Injection漏洞利用与学习 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -116,7 +117,7 @@ var _hmt = _hmt || [];
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -227,187 +228,222 @@ var _hmt = _hmt || [];
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        技巧
-        <small>分类</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/skill/Meatsploit-Framework-利用总结.html" itemprop="url">
-              
-                <span itemprop="name">Meatsploit Framework 利用总结</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-13T12:15:40+08:00"
-              content="2017-07-13" >
-          07-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/skill/配置漏洞之redis未授权访问.html" itemprop="url">
-              
-                <span itemprop="name">配置漏洞之redis未授权访问</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-12T17:35:01+08:00"
-              content="2017-07-12" >
-          07-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/skill/配置漏洞之DNS域传送信息泄露.html" itemprop="url">
-              
-                <span itemprop="name">配置漏洞之DNS域传送信息泄露</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-12T16:17:07+08:00"
-              content="2017-07-12" >
-          07-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/skill/配置漏洞之Rsync匿名访问.html" itemprop="url">
-              
-                <span itemprop="name">配置漏洞之Rsync匿名访问</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-12T15:24:00+08:00"
-              content="2017-07-12" >
-          07-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/skill/浅谈ddos的测试方法.html" itemprop="url">
-              
-                <span itemprop="name">浅谈ddos的测试方法</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-12T14:22:32+08:00"
-              content="2017-07-12" >
-          07-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/posts/skill/如何在Github-Pages搭建自己写的页面？.html" itemprop="url">
-              
-                <span itemprop="name">如何在Github Pages搭建自己写的页面？</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-04T23:37:11+08:00"
-              content="2016-10-04" >
-          10-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
+  
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CRLF Injection漏洞利用与学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-24T12:48:23+08:00" content="2017-08-24">
+              2017-08-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/posts/notes/CRLF-Injection漏洞利用与学习.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/CRLF-Injection漏洞利用与学习.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/posts/notes/CRLF-Injection漏洞利用与学习.html" class="leancloud_visitors" data-flag-title="CRLF Injection漏洞利用与学习">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="CRLF简介"><a href="#CRLF简介" class="headerlink" title="CRLF简介"></a>CRLF简介</h2><p>CRLF是”回车 + 换行”（\r\n）的简称。在HTTP协议中，HTTP Header与HTTP Body是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP 内容并显示出来。所以，一旦我们能够控制HTTP 消息头中的字符，注入一些恶意的换行，这样我们就能注入一些会话Cookie或者HTML代码，所以CRLF Injection又叫HTTP Response Splitting，简称HRS。</p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="PHP-header-函数"><a href="#PHP-header-函数" class="headerlink" title="PHP header() 函数"></a>PHP header() 函数</h3><h4 id="定义和用法"><a href="#定义和用法" class="headerlink" title="定义和用法"></a>定义和用法</h4><p>header() 函数向客户端发送原始的 HTTP 报头。</p>
+<p>认识到一点很重要，即必须在任何实际的输出被发送之前调用 header() 函数（在 PHP 4 以及更高的版本中，您可以使用输出缓存来解决此问题）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">// 结果出错</div><div class="line">// 在调用 header() 之前已存在输出</div><div class="line">header(&apos;Location: http://www.example.com/&apos;);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">header(string,replace,http_response_code)</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td style="text-align:center">必需。规定要发送的报头字符串。</td>
+</tr>
+<tr>
+<td>replace</td>
+<td style="text-align:center">可选。指示该报头是否替换之前的报头，或添加第二个报头。默认是 true（替换）。false（允许相同类型的多个报头）。</td>
+</tr>
+<tr>
+<td>http_response_code</td>
+<td style="text-align:center">可选。把 HTTP 响应代码强制为指定的值。（PHP 4 以及更高版本可用）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="提示和注释"><a href="#提示和注释" class="headerlink" title="提示和注释"></a>提示和注释</h4><p>注释：从 PHP 4.4 之后，该函数防止一次发送多个报头。这是对头部注入攻击的保护措施。</p>
+<h3 id="URL重定向-跳转"><a href="#URL重定向-跳转" class="headerlink" title="URL重定向/跳转"></a>URL重定向/跳转</h3><p>对于URL跳转的实现一般会有几种实现方式：</p>
+<ul>
+<li>META标签内跳转</li>
+<li>javascript跳转</li>
+<li>header头跳转</li>
+</ul>
+<p>通过以GET或者POST的方式接收将要跳转的URL，然后通过上面的几种方式的其中一种来跳转到目标URL。一方面，由于用户的输入会进入Meta，javascript，http头所以都可能发生相应上下文的漏洞，如xss等等，但是同时，即使只是对于URL跳转本身功能方面就存在一个缺陷，因为会将用户浏览器从可信的站点导向到不可信的站点，同时如果跳转的时候带有敏感数据一样可能将敏感数据泄漏给不可信的第三方。</p>
+<p>譬如一个典型的登录跳转如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">$url=$_GET[&apos;jumpto&apos;];</div><div class="line"></div><div class="line">header(&quot;Location: $url&quot;);</div><div class="line"></div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>如果jumpto没有任何限制，所以恶意用户可以提交<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.wooyun.org/login.php?jumpto=http://www.evil.com</div></pre></td></tr></table></figure></p>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><ul>
+<li>利用CRLF Injection设置一个SESSION,造成一个“会话固定漏洞”</li>
+<li>利用CRLF Injection造成一个无视浏览器Filter的反射型XSS</li>
+</ul>
+<h3 id="会话固定漏洞"><a href="#会话固定漏洞" class="headerlink" title="会话固定漏洞"></a>会话固定漏洞</h3><p>一般网站会在HTTP头中用Location: <a href="http://baidu.com" target="_blank" rel="external">http://baidu.com</a> 这种方式来进行302跳转，所以我们能控制的内容就是Location:后面的XXX某个网址。</p>
+<p>所以一个正常的302跳转包是这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 302 Moved Temporarily </div><div class="line">Date: Fri, 27 Jun 2014 17:52:17 GMT </div><div class="line">Content-Type: text/html </div><div class="line">Content-Length: 154 </div><div class="line">Connection: close </div><div class="line">Location: http://www.sina.com.cn</div></pre></td></tr></table></figure></p>
+<p>但如果我们输入的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.sina.com.cn%0aSet-cookie:JSPSESSID%3Dwooyun</div></pre></td></tr></table></figure></p>
+<p>注入了一个换行，此时的返回包就会变成这样： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 302 Moved Temporarily </div><div class="line">Date: Fri, 27 Jun 2014 17:52:17 GMT </div><div class="line">Content-Type: text/html </div><div class="line">Content-Length: 154 </div><div class="line">Connection: close </div><div class="line">Location: http://www.sina.com.cn </div><div class="line">Set-cookie: JSPSESSID=wooyun</div></pre></td></tr></table></figure>
+<p>这个时候这样我们就给访问者设置了一个SESSION，造成一个“会话固定漏洞”。</p>
+<h3 id="过Filter的反射型XSS"><a href="#过Filter的反射型XSS" class="headerlink" title="过Filter的反射型XSS"></a>过Filter的反射型XSS</h3><p>HRS并不仅限于会话固定，通过注入两个CRLF就能造成一个无视浏览器Filter的反射型XSS。</p>
+<p>比如一个网站接受url参数 <a href="http://test.sina.com.cn/?url=xxx" target="_blank" rel="external">http://test.sina.com.cn/?url=xxx</a> ，xxx放在Location后面作为一个跳转。如果我们输入的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://test.sina.com.cn/?url=%0d%0a%0d%0a&lt;img src=1 onerror=alert(/xss/)&gt;</div></pre></td></tr></table></figure></p>
+<p>我们的返回包就会变成这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 302 Moved Temporarily </div><div class="line">Date: Fri, 27 Jun 2014 17:52:17 GMT </div><div class="line">Content-Type: text/html </div><div class="line">Content-Length: 154 </div><div class="line">Connection: close </div><div class="line">Location:</div><div class="line">&lt;img src=1 onerror=alert(/xss/)&gt;</div></pre></td></tr></table></figure>
+<p>之前说了浏览器会根据第一个CRLF把HTTP包分成头和体，然后将体显示出来。于是我们这里这个标签就会显示出来，造成一个XSS。</p>
+<p>为什么说是无视浏览器filter的，这里涉及到另一个问题。</p>
+<p>浏览器的Filter是浏览器应对一些反射型XSS做的保护策略，当url中含有XSS相关特征的时候就会过滤掉不显示在页面中，所以不能触发XSS。</p>
+<p>怎样才能关掉filter？一般来说用户这边是不行的，只有数据包中http头含有X-XSS-Protection并且值为0的时候，浏览器才不会开启filter。</p>
+<p>说到这里应该就很清楚了，HRS不正是注入HTTP头的一个漏洞吗，我们可以将X-XSS-Protection:0注入到数据包中，再用两个CRLF来注入XSS代码，这样就成功地绕过了浏览器filter，并且执行我们的反射型XSS。</p>
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p>过滤\r 、\n之类的换行符，避免输入的数据污染到其他HTTP头。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://wooyun.jozxing.cc/static/drops/papers-2466.html" target="_blank" rel="external">CRLF Injection漏洞的利用与实例分析</a><br><a href="http://wooyun.jozxing.cc/static/drops/papers-58.html" target="_blank" rel="external">URL重定向/跳转漏洞</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/notes/端口渗透总结.html" rel="next" title="端口渗透总结">
+                <i class="fa fa-chevron-left"></i> 端口渗透总结
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -415,6 +451,14 @@ var _hmt = _hmt || [];
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="posts/notes/CRLF-Injection漏洞利用与学习.html"
+           data-title="CRLF Injection漏洞利用与学习" data-url="http://uknowsec.cn/posts/notes/CRLF-Injection漏洞利用与学习.html">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -434,8 +478,17 @@ var _hmt = _hmt || [];
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://obr4sfdq7.bkt.clouddn.com/avatar.jpg"
@@ -516,6 +569,17 @@ var _hmt = _hmt || [];
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CRLF简介"><span class="nav-number">1.</span> <span class="nav-text">CRLF简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识"><span class="nav-number">2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-header-函数"><span class="nav-number">2.1.</span> <span class="nav-text">PHP header() 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义和用法"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义和用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语法"><span class="nav-number">2.1.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提示和注释"><span class="nav-number">2.1.3.</span> <span class="nav-text">提示和注释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL重定向-跳转"><span class="nav-number">2.2.</span> <span class="nav-text">URL重定向/跳转</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞利用"><span class="nav-number">3.</span> <span class="nav-text">漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#会话固定漏洞"><span class="nav-number">3.1.</span> <span class="nav-text">会话固定漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过Filter的反射型XSS"><span class="nav-number">3.2.</span> <span class="nav-text">过Filter的反射型XSS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修复"><span class="nav-number">4.</span> <span class="nav-text">修复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -613,6 +677,10 @@ var _hmt = _hmt || [];
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
 
   
 

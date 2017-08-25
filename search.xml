@@ -4,6 +4,70 @@
   
     
     <entry>
+      <title><![CDATA[CRLF Injection漏洞利用与学习]]></title>
+      <url>http://uknowsec.cn/posts/notes/CRLF-Injection%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="CRLF简介"><a href="#CRLF简介" class="headerlink" title="CRLF简介"></a>CRLF简介</h2><p>CRLF是”回车 + 换行”（\r\n）的简称。在HTTP协议中，HTTP Header与HTTP Body是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP 内容并显示出来。所以，一旦我们能够控制HTTP 消息头中的字符，注入一些恶意的换行，这样我们就能注入一些会话Cookie或者HTML代码，所以CRLF Injection又叫HTTP Response Splitting，简称HRS。</p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="PHP-header-函数"><a href="#PHP-header-函数" class="headerlink" title="PHP header() 函数"></a>PHP header() 函数</h3><h4 id="定义和用法"><a href="#定义和用法" class="headerlink" title="定义和用法"></a>定义和用法</h4><p>header() 函数向客户端发送原始的 HTTP 报头。</p>
+<p>认识到一点很重要，即必须在任何实际的输出被发送之前调用 header() 函数（在 PHP 4 以及更高的版本中，您可以使用输出缓存来解决此问题）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">// 结果出错</div><div class="line">// 在调用 header() 之前已存在输出</div><div class="line">header(&apos;Location: http://www.example.com/&apos;);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">header(string,replace,http_response_code)</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td style="text-align:center">必需。规定要发送的报头字符串。</td>
+</tr>
+<tr>
+<td>replace</td>
+<td style="text-align:center">可选。指示该报头是否替换之前的报头，或添加第二个报头。默认是 true（替换）。false（允许相同类型的多个报头）。</td>
+</tr>
+<tr>
+<td>http_response_code</td>
+<td style="text-align:center">可选。把 HTTP 响应代码强制为指定的值。（PHP 4 以及更高版本可用）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="提示和注释"><a href="#提示和注释" class="headerlink" title="提示和注释"></a>提示和注释</h4><p>注释：从 PHP 4.4 之后，该函数防止一次发送多个报头。这是对头部注入攻击的保护措施。</p>
+<h3 id="URL重定向-跳转"><a href="#URL重定向-跳转" class="headerlink" title="URL重定向/跳转"></a>URL重定向/跳转</h3><p>对于URL跳转的实现一般会有几种实现方式：</p>
+<ul>
+<li>META标签内跳转</li>
+<li>javascript跳转</li>
+<li>header头跳转</li>
+</ul>
+<p>通过以GET或者POST的方式接收将要跳转的URL，然后通过上面的几种方式的其中一种来跳转到目标URL。一方面，由于用户的输入会进入Meta，javascript，http头所以都可能发生相应上下文的漏洞，如xss等等，但是同时，即使只是对于URL跳转本身功能方面就存在一个缺陷，因为会将用户浏览器从可信的站点导向到不可信的站点，同时如果跳转的时候带有敏感数据一样可能将敏感数据泄漏给不可信的第三方。</p>
+<p>譬如一个典型的登录跳转如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">$url=$_GET[&apos;jumpto&apos;];</div><div class="line"></div><div class="line">header(&quot;Location: $url&quot;);</div><div class="line"></div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>如果jumpto没有任何限制，所以恶意用户可以提交<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.wooyun.org/login.php?jumpto=http://www.evil.com</div></pre></td></tr></table></figure></p>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><ul>
+<li>利用CRLF Injection设置一个SESSION,造成一个“会话固定漏洞”</li>
+<li>利用CRLF Injection造成一个无视浏览器Filter的反射型XSS</li>
+</ul>
+<h3 id="会话固定漏洞"><a href="#会话固定漏洞" class="headerlink" title="会话固定漏洞"></a>会话固定漏洞</h3><p>一般网站会在HTTP头中用Location: <a href="http://baidu.com" target="_blank" rel="external">http://baidu.com</a> 这种方式来进行302跳转，所以我们能控制的内容就是Location:后面的XXX某个网址。</p>
+<p>所以一个正常的302跳转包是这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 302 Moved Temporarily </div><div class="line">Date: Fri, 27 Jun 2014 17:52:17 GMT </div><div class="line">Content-Type: text/html </div><div class="line">Content-Length: 154 </div><div class="line">Connection: close </div><div class="line">Location: http://www.sina.com.cn</div></pre></td></tr></table></figure></p>
+<p>但如果我们输入的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.sina.com.cn%0aSet-cookie:JSPSESSID%3Dwooyun</div></pre></td></tr></table></figure></p>
+<p>注入了一个换行，此时的返回包就会变成这样： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 302 Moved Temporarily </div><div class="line">Date: Fri, 27 Jun 2014 17:52:17 GMT </div><div class="line">Content-Type: text/html </div><div class="line">Content-Length: 154 </div><div class="line">Connection: close </div><div class="line">Location: http://www.sina.com.cn </div><div class="line">Set-cookie: JSPSESSID=wooyun</div></pre></td></tr></table></figure>
+<p>这个时候这样我们就给访问者设置了一个SESSION，造成一个“会话固定漏洞”。</p>
+<h3 id="过Filter的反射型XSS"><a href="#过Filter的反射型XSS" class="headerlink" title="过Filter的反射型XSS"></a>过Filter的反射型XSS</h3><p>HRS并不仅限于会话固定，通过注入两个CRLF就能造成一个无视浏览器Filter的反射型XSS。</p>
+<p>比如一个网站接受url参数 <a href="http://test.sina.com.cn/?url=xxx" target="_blank" rel="external">http://test.sina.com.cn/?url=xxx</a> ，xxx放在Location后面作为一个跳转。如果我们输入的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://test.sina.com.cn/?url=%0d%0a%0d%0a&lt;img src=1 onerror=alert(/xss/)&gt;</div></pre></td></tr></table></figure></p>
+<p>我们的返回包就会变成这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 302 Moved Temporarily </div><div class="line">Date: Fri, 27 Jun 2014 17:52:17 GMT </div><div class="line">Content-Type: text/html </div><div class="line">Content-Length: 154 </div><div class="line">Connection: close </div><div class="line">Location:</div><div class="line">&lt;img src=1 onerror=alert(/xss/)&gt;</div></pre></td></tr></table></figure>
+<p>之前说了浏览器会根据第一个CRLF把HTTP包分成头和体，然后将体显示出来。于是我们这里这个标签就会显示出来，造成一个XSS。</p>
+<p>为什么说是无视浏览器filter的，这里涉及到另一个问题。</p>
+<p>浏览器的Filter是浏览器应对一些反射型XSS做的保护策略，当url中含有XSS相关特征的时候就会过滤掉不显示在页面中，所以不能触发XSS。</p>
+<p>怎样才能关掉filter？一般来说用户这边是不行的，只有数据包中http头含有X-XSS-Protection并且值为0的时候，浏览器才不会开启filter。</p>
+<p>说到这里应该就很清楚了，HRS不正是注入HTTP头的一个漏洞吗，我们可以将X-XSS-Protection:0注入到数据包中，再用两个CRLF来注入XSS代码，这样就成功地绕过了浏览器filter，并且执行我们的反射型XSS。</p>
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p>过滤\r 、\n之类的换行符，避免输入的数据污染到其他HTTP头。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://wooyun.jozxing.cc/static/drops/papers-2466.html" target="_blank" rel="external">CRLF Injection漏洞的利用与实例分析</a><br><a href="http://wooyun.jozxing.cc/static/drops/papers-58.html" target="_blank" rel="external">URL重定向/跳转漏洞</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[端口渗透总结]]></title>
       <url>http://uknowsec.cn/posts/notes/%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E6%80%BB%E7%BB%93.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
@@ -162,6 +226,11 @@
 <h3 id="DB2数据库"><a href="#DB2数据库" class="headerlink" title="DB2数据库"></a>DB2数据库</h3><h4 id="默认端口：5000"><a href="#默认端口：5000" class="headerlink" title="默认端口：5000"></a>默认端口：5000</h4><h4 id="攻击方式：-22"><a href="#攻击方式：-22" class="headerlink" title="攻击方式："></a>攻击方式：</h4><ul>
 <li>安全限制绕过：成功后可执行未授权操作（CVE-2015-1922）</li>
 </ul>
+<h3 id="CouchDB数据库"><a href="#CouchDB数据库" class="headerlink" title="CouchDB数据库"></a>CouchDB数据库</h3><p>CouchDB 是一个开源的面向文档的数据库管理系统，可以通过 RESTful JavaScript Object Notation (JSON) API 访问。CouchDB会默认会在5984端口开放Restful的API接口，用于数据库的管理功能。</p>
+<h4 id="默认端口：5984"><a href="#默认端口：5984" class="headerlink" title="默认端口：5984"></a>默认端口：5984</h4><h4 id="攻击方式-2"><a href="#攻击方式-2" class="headerlink" title="攻击方式"></a>攻击方式</h4><ul>
+<li>未授权访问</li>
+</ul>
+<p><a href="http://wooyun.jozxing.cc/static/drops/papers-16030.html" target="_blank" rel="external">利用CouchDB未授权访问漏洞执行任意系统命令</a></p>
 <p>总结一下：对于数据库，我们得知端口很多时候可以帮助我们去渗透，比如得知mysql的数据库，我们就可以使用SQL注入进行mof、udf等方式提权；如果是mssql我们就可以使用xp_cmdshell来进行提权；如果是其它的数据库，我们也可以采用对应的方式；比如各大数据库对应它们的默认口令，版本对应的漏洞！</p>
 <p>顺便提一下：很多时候银行企业采用的都是oracle、db2等大型数据库；</p>
 <h2 id="邮件服务端口渗透"><a href="#邮件服务端口渗透" class="headerlink" title="邮件服务端口渗透"></a>邮件服务端口渗透</h2><h3 id="SMTP协议"><a href="#SMTP协议" class="headerlink" title="SMTP协议"></a>SMTP协议</h3><p>smtp：邮件协议，在linux中默认开启这个服务，可以向对方发送钓鱼邮件！</p>
@@ -188,7 +257,7 @@
 <h4 id="攻击方式：-26"><a href="#攻击方式：-26" class="headerlink" title="攻击方式："></a>攻击方式：</h4><ul>
 <li>DHCP劫持；</li>
 </ul>
-<h3 id="SNMP协议"><a href="#SNMP协议" class="headerlink" title="SNMP协议"></a>SNMP协议</h3><h4 id="默认端口：161"><a href="#默认端口：161" class="headerlink" title="默认端口：161"></a>默认端口：161</h4><h4 id="攻击方式-2"><a href="#攻击方式-2" class="headerlink" title="攻击方式:"></a>攻击方式:</h4><ul>
+<h3 id="SNMP协议"><a href="#SNMP协议" class="headerlink" title="SNMP协议"></a>SNMP协议</h3><h4 id="默认端口：161"><a href="#默认端口：161" class="headerlink" title="默认端口：161"></a>默认端口：161</h4><h4 id="攻击方式-3"><a href="#攻击方式-3" class="headerlink" title="攻击方式:"></a>攻击方式:</h4><ul>
 <li>爆破：弱口令</li>
 </ul>
 <h2 id="其他端口渗透"><a href="#其他端口渗透" class="headerlink" title="其他端口渗透"></a>其他端口渗透</h2><h3 id="Hadoop文件服务"><a href="#Hadoop文件服务" class="headerlink" title="Hadoop文件服务"></a>Hadoop文件服务</h3><p>默认端口：<a href="http://hsrong.iteye.com/blog/1374734" target="_blank" rel="external">请参考</a></p>
