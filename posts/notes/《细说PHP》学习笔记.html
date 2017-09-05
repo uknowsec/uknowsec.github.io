@@ -67,7 +67,7 @@
 <meta property="og:description" content="点击阅读全文">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/t01db525962d3cb177e.jpg">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170115191035.jpg">
-<meta property="og:updated_time" content="2017-04-15T09:05:04.648Z">
+<meta property="og:updated_time" content="2017-08-28T03:29:34.774Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《细说PHP》学习笔记">
 <meta name="twitter:description" content="点击阅读全文">
@@ -541,7 +541,7 @@ var _hmt = _hmt || [];
 <p>###　HTTP GET变量：$_GET<br>$_GET数组也是超全局变量数组，是通过HTTP GET方法传递的变量组成的数组。它属于外部变量，即在服务器页面中通过$_GET超全局数组获取URL或表单的GET方式传递过来的参数。</p>
 <h3 id="HTTP-POST变量：-POST"><a href="#HTTP-POST变量：-POST" class="headerlink" title="HTTP POST变量：$_POST"></a>HTTP POST变量：$_POST</h3><p>$_POST数组也是超全局变量数组，通过HTTP POST方法传递的变量组成的数组，是自动全局变量，在所有的脚本中都有效，在函数或对象的方法也不需要使用global关键字访问它。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">	&lt;head&gt;&lt;title&gt;添加联系人&lt;/title&gt;&lt;/head&gt;</div><div class="line">	&lt;body&gt;</div><div class="line">		&lt;form action=&quot;add.php&quot; method=&quot;post&quot;&gt; &lt;!--将表单以POST方法提交到add.php页面 --&gt;</div><div class="line">			编号：&lt;input type=&quot;text&quot; name=&quot;id&quot;&gt;&lt;br&gt;        &lt;!-- 表单域的名称为id --&gt;</div><div class="line">			姓名：&lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;&lt;br&gt;      &lt;!-- 表单域的名称为name --&gt;</div><div class="line">			公司：&lt;input type=&quot;text&quot; name=&quot;company&quot;&gt;&lt;br&gt;   &lt;!-- 表单域的名称为company --&gt;</div><div class="line">			地址：&lt;input type=&quot;text&quot; name=&quot;address&quot;&gt;&lt;br&gt;   &lt;!-- 表单域的名称为address --&gt;</div><div class="line">			电话：&lt;input type=&quot;text&quot; name=&quot;phone&quot;&gt;&lt;br&gt;     &lt;!-- 表单域的名称为phone --&gt;</div><div class="line">			EMAIL:&lt;input type=&quot;text&quot; name=&quot;email&quot;&gt;&lt;br&gt;     &lt;!-- 表单域的名称为email --&gt;</div><div class="line">			&lt;input type=&quot;submit&quot; value=&quot;添加新联系人&quot;&gt;</div><div class="line">		&lt;/form&gt;</div><div class="line">	&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div><div class="line">&lt;?php</div><div class="line">	echo &quot;用户添加的联系人信息如下：&lt;br&gt;&quot;;</div><div class="line">	foreach($_POST as $key =&gt; $value) &#123; 		  //使用foreach语句遍历超全局数组$_POST</div><div class="line">		echo $key.&apos; : &apos;.$value.&apos;&lt;br&gt;&apos;;     	  //输出$_POST数组中的键和值，键即是表单域的名称</div><div class="line">	&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<h3 id="request变量：-REQUEST"><a href="#request变量：-REQUEST" class="headerlink" title="request变量：$_REQUEST"></a>request变量：$_REQUEST</h3><p>此关联数组包含$_GET，$_POST和$_COOKIE中的全部内容。不管是POST还是GET方法提交的所有数据都可以通过$_REQUEST获得。但是$_REQUEST的速度比较慢。</p>
+<h3 id="request变量：-REQUEST"><a href="#request变量：-REQUEST" class="headerlink" title="request变量：$_REQUEST"></a>request变量：$_REQUEST</h3><p>此关联数组包含\$_GET，\$_POST和\$_COOKIE中的全部内容。不管是POST还是GET方法提交的所有数据都可以通过\$_REQUEST获得。但是\$_REQUEST的速度比较慢。</p>
 <h3 id="HTTP文件上传变量：-FILES"><a href="#HTTP文件上传变量：-FILES" class="headerlink" title="HTTP文件上传变量：$_FILES"></a>HTTP文件上传变量：$_FILES</h3><p>使用表单的file输入域上传文件时，必须使用POST提交。</p>
 <h3 id="HTTP-Cookies：-COOKIE"><a href="#HTTP-Cookies：-COOKIE" class="headerlink" title="HTTP Cookies：$_COOKIE"></a>HTTP Cookies：$_COOKIE</h3><p>$_COOKIE超全局数组是经由HTTP Cookies方法提交至脚本的变量。</p>
 <h3 id="Session变量：-SESSION"><a href="#Session变量：-SESSION" class="headerlink" title="Session变量：$_SESSION"></a>Session变量：$_SESSION</h3><p>在PHP5中，会话控制是在服务器端使用session跟踪用户。</p>
@@ -2589,7 +2589,7 @@ var _hmt = _hmt || [];
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
