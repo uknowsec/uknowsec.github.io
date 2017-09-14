@@ -61,17 +61,14 @@
 
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="配置漏洞之DNS域传送信息泄露">
-<meta property="og:url" content="http://uknowsec.cn/posts/skill/配置漏洞之DNS域传送信息泄露.html">
+<meta property="og:title" content="Docker基础与实战">
+<meta property="og:url" content="http://uknowsec.cn/posts/notes/Docker基础与实战.html">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/dns.jpg">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/dns2.jpg">
-<meta property="og:updated_time" content="2017-07-12T08:36:59.080Z">
+<meta property="og:updated_time" content="2017-09-14T11:48:18.646Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="配置漏洞之DNS域传送信息泄露">
+<meta name="twitter:title" content="Docker基础与实战">
 <meta name="twitter:description" content="点击阅读全文">
-<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/dns.jpg">
 
 
 
@@ -89,7 +86,7 @@
   };
 </script>
 
-  <title> 配置漏洞之DNS域传送信息泄露 | Uknow’s Blog </title>
+  <title> Docker基础与实战 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -252,7 +249,7 @@ var _hmt = _hmt || [];
             
             
               
-                配置漏洞之DNS域传送信息泄露
+                Docker基础与实战
               
             
           </h1>
@@ -264,8 +261,8 @@ var _hmt = _hmt || [];
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-07-12T16:17:07+08:00" content="2017-07-12">
-              2017-07-12
+            <time itemprop="dateCreated" datetime="2017-09-14T18:54:55+08:00" content="2017-09-14">
+              2017-09-14
             </time>
           </span>
 
@@ -278,8 +275,8 @@ var _hmt = _hmt || [];
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/skill/" itemprop="url" rel="index">
-                    <span itemprop="name">技巧</span>
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
                   </a>
                 </span>
 
@@ -294,8 +291,8 @@ var _hmt = _hmt || [];
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/skill/配置漏洞之DNS域传送信息泄露.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/skill/配置漏洞之DNS域传送信息泄露.html" itemprop="commentsCount"></span>
+                <a href="/posts/notes/Docker基础与实战.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/Docker基础与实战.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -305,7 +302,7 @@ var _hmt = _hmt || [];
 
           
           
-             <span id="/posts/skill/配置漏洞之DNS域传送信息泄露.html" class="leancloud_visitors" data-flag-title="配置漏洞之DNS域传送信息泄露">
+             <span id="/posts/notes/Docker基础与实战.html" class="leancloud_visitors" data-flag-title="Docker基础与实战">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -327,22 +324,42 @@ var _hmt = _hmt || [];
 
       
         <p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Dns是整个互联网公司业务的基础，目前越来越多的互联网公司开始自己搭建DNS服务器做解析服务，同时由于DNS服务是基础性服务非常重要，因此很多公司会对DNS服务器进行主备配置而DNS主备之间的数据同步就会用到dns域传送，但如果配置不当，就会导致任何匿名用户都可以获取DNS服务器某一域的所有记录，将整个企业的基础业务以及网络架构对外暴露从而造成严重的信息泄露，甚至导致企业网络被渗透。</p>
-<h2 id="成因"><a href="#成因" class="headerlink" title="成因"></a>成因</h2><p>DNS服务器的主备数据同步，使用的是域传送功能。 域传送关键配置项为：</p>
-<p>allow-transfer {ipaddress;}; 通过ip限制可进行域传送的服务器</p>
-<p>allow-transfer { key transfer; }; 通过key限制可进行域传送的服务器</p>
-<p>options配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">options &#123;  </div><div class="line">listen-on &#123; 1.1.1.1; &#125;;  </div><div class="line">listen-on-v6 &#123; any; &#125;;  </div><div class="line">directory &quot;/bind&quot;;  </div><div class="line">pid-file &quot;/bind/run/pid&quot;;  </div><div class="line">dump-file &quot;/bind/data/named_dump.db&quot;;  </div><div class="line">statistics-file &quot;/bind/data/named.stats&quot;;</div><div class="line"></div><div class="line">    allow-transfer  &#123; any; &#125;;</div><div class="line">    allow-query    &#123;any;&#125;;</div><div class="line"></div><div class="line"></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>zone配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">zone &quot;wooyun.org&quot; &#123;  </div><div class="line">type master;  </div><div class="line">file &quot;/bind/etc/wooyun.org.conf&quot;;  </div><div class="line">allow-transfer &#123;any;&#125;;  </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>笔者测试版本为BIND 9.8.2rc1-RedHat-9.8.2-0.10.rc1.el6_3.6，默认安装完毕后，配置项没有allow-transfer 项。如果直接使用默认配置文件进行配置的话（不手动添加allow-transfer项），就会存在dns 域传送漏洞。</p>
-<h2 id="攻击方式及危害"><a href="#攻击方式及危害" class="headerlink" title="攻击方式及危害"></a>攻击方式及危害</h2><p>恶意用户可以通过dns域传送获取被攻击域下所有的子域名。会导致一些非公开域名（测试域名、内部域名）泄露。而泄露的类似内部域名，其安全性相对较低，更容易遭受攻击者的攻击，比较典型的譬如内部的测试机往往就会缺乏必要的安全设置。</p>
-<h2 id="漏洞利用方式"><a href="#漏洞利用方式" class="headerlink" title="漏洞利用方式"></a>漏洞利用方式</h2><h3 id="window利用方式"><a href="#window利用方式" class="headerlink" title="window利用方式"></a>window利用方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">nslookup</div><div class="line">server dns.xx.com</div><div class="line">ls xx.com</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/dns.jpg" alt=""></p>
-<h3 id="linux利用方式"><a href="#linux利用方式" class="headerlink" title="linux利用方式"></a>linux利用方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dig @dns.xx.com. axfr xx.com</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/dns2.jpg" alt=""></p>
-<h2 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a>修复方案</h2><p>解决域传送问题非常简单，只需要在相应的zone、options中添加allow-transfer限制可以进行同步的服务器就可以了，可以有两种方式：限制IP、使用key认证。</p>
-<p>参考链接：<br><a href="http://wooyun.jozxing.cc/static/drops/papers-64.html" target="_blank" rel="external">http://wooyun.jozxing.cc/static/drops/papers-64.html</a></p>
+<h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>Linux中两种Docker安装方法，一种是使用Docker提供的自动安装脚本，另一种是使用Linux发行版的packaging system直接安装</p>
+<h3 id="自动安装脚本"><a href="#自动安装脚本" class="headerlink" title="自动安装脚本"></a>自动安装脚本</h3><p>Docker自动识别Linux发行版的类型，提供用于安装Docker包的脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo wget -q0- https://get.docker.com/ | sh</div></pre></td></tr></table></figure>
+<p>使用get.docker.com脚本安装Docker时，hello-world镜像也会自动安装。由于不使用hello-world镜像，故将其全部删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo docker rm `sudo docker ps -aq`</div><div class="line">sudo docker rmi hello-world</div></pre></td></tr></table></figure>
+<h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install docker.io</div><div class="line">sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker</div></pre></td></tr></table></figure>
+<p>将/usr/bin/docker.io可执行文件链接到/usr/local/bin/docker并使用</p>
+<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://github.com/boot2docker/windows-installer/releases</div></pre></td></tr></table></figure>
+<h1 id="使用Docker"><a href="#使用Docker" class="headerlink" title="使用Docker"></a>使用Docker</h1><p>Docker命令格式为docker&lt;命令&gt;,比如docker run、docker push，且必须总是以root权限运行</p>
+<h2 id="使用search命令搜索镜像"><a href="#使用search命令搜索镜像" class="headerlink" title="使用search命令搜索镜像"></a>使用search命令搜索镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker search ubuntu</div></pre></td></tr></table></figure>
+<h2 id="使用pull命令下载镜像"><a href="#使用pull命令下载镜像" class="headerlink" title="使用pull命令下载镜像"></a>使用pull命令下载镜像</h2><p>从Docker hub下载Ubuntu Linux镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker pull ubuntu:latest</div></pre></td></tr></table></figure>
+<h2 id="使用images命令列出镜像目录"><a href="#使用images命令列出镜像目录" class="headerlink" title="使用images命令列出镜像目录"></a>使用images命令列出镜像目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker images</div></pre></td></tr></table></figure>
+<p>docker images命令用于列出本地主机中所有镜像。在该命令中设置镜像名称—比如docker images ubuntu—则只列出名称相同但标签不同的镜像</p>
+<h2 id="使用run命令创建容器"><a href="#使用run命令创建容器" class="headerlink" title="使用run命令创建容器"></a>使用run命令创建容器</h2><p>使用镜像创建容器后，运行Bash shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker run -i -t --name hello ubuntu /bin/bash</div></pre></td></tr></table></figure>
+<p>命令格式为docker run&lt;选项&gt;&lt;镜像名称&gt;&lt;要运行的文件&gt;。将ubuntu镜像创建为容器后，运行ubuntu镜像中的/bin/bash。也可以不用镜像名称而用镜像ID</p>
+<ul>
+<li>使用 -i(interactive)、-t(Pseudo-tty)选项可以在运行的Bash shell中进行输入与输出</li>
+<li>使用 –name选项可以指定容器名称。若不指定名称，Docker会自动生成名称并进行指定</li>
+</ul>
+<h2 id="使用ps命令查看容器列表"><a href="#使用ps命令查看容器列表" class="headerlink" title="使用ps命令查看容器列表"></a>使用ps命令查看容器列表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker ps -a</div></pre></td></tr></table></figure>
+<h2 id="使用start命令启动容器"><a href="#使用start命令启动容器" class="headerlink" title="使用start命令启动容器"></a>使用start命令启动容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker start hello</div></pre></td></tr></table></figure>
+<p>命令格式为docker start&lt;容器名称&gt;,也可以使用容器ID替代容器名称</p>
+<h2 id="使用restart命令重启容器"><a href="#使用restart命令重启容器" class="headerlink" title="使用restart命令重启容器"></a>使用restart命令重启容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker restart hello</div></pre></td></tr></table></figure>
+<p>命令格式为docker restart&lt;容器名称&gt;,也可以使用容器ID替代容器名称</p>
+<h2 id="使用attach命令连接容器"><a href="#使用attach命令连接容器" class="headerlink" title="使用attach命令连接容器"></a>使用attach命令连接容器</h2><p>执行如下命令后，再输入一次回车键，显示Bash shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker attach hello</div></pre></td></tr></table></figure>
+<p>命令格式为docker attach&lt;容器名称&gt;,也可以使用容器ID替代容器名称<br>在Bash shell中输入exit或Ctrl+D终止容器，若依次输入Ctrl+P、Ctrl+Q则不会终止容器而只退出</p>
+<h2 id="使用exec命令从外部运行容器内的命令"><a href="#使用exec命令从外部运行容器内的命令" class="headerlink" title="使用exec命令从外部运行容器内的命令"></a>使用exec命令从外部运行容器内的命令</h2><p>当前容器正以/bin/bash形式处于运行状态，也可以不通过/bin/bash而从外部运行容器内的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker exec hello echo &quot;Hello World&quot;</div></pre></td></tr></table></figure></p>
+<p>命令格式为docker exec&lt;容器名称&gt;&lt;命令&gt;&lt;形式参数&gt;,也可以使用容器ID替代容器名称。</p>
+<h2 id="使用stop命令终止容器"><a href="#使用stop命令终止容器" class="headerlink" title="使用stop命令终止容器"></a>使用stop命令终止容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker stop hello</div></pre></td></tr></table></figure>
+<h2 id="使用rm命令删除容器"><a href="#使用rm命令删除容器" class="headerlink" title="使用rm命令删除容器"></a>使用rm命令删除容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker rm hello</div></pre></td></tr></table></figure>
+<p>命令格式为docker rm&lt;容器名称&gt;,也可以使用容器ID替代容器名称。</p>
+<h2 id="使用rmi命令删除镜像"><a href="#使用rmi命令删除镜像" class="headerlink" title="使用rmi命令删除镜像"></a>使用rmi命令删除镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker rmi ubuntu:latest</div></pre></td></tr></table></figure>
+<p>命令格式为docker rm&lt;镜像名称&gt;:&lt;标签&gt;,也可以使用容器ID替代容器名称。</p>
 
       
     </div>
@@ -360,17 +377,13 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/skill/配置漏洞之Rsync匿名访问.html" rel="next" title="配置漏洞之Rsync匿名访问">
-                <i class="fa fa-chevron-left"></i> 配置漏洞之Rsync匿名访问
+              <a href="/posts/notes/Docker基础与实践--安装与使用Docker.html" rel="next" title="Docker基础与实践-安装、使用Docker">
+                <i class="fa fa-chevron-left"></i> Docker基础与实践-安装、使用Docker
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/skill/配置漏洞之redis未授权访问.html" rel="prev" title="配置漏洞之redis未授权访问">
-                配置漏洞之redis未授权访问 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -419,8 +432,8 @@ var _hmt = _hmt || [];
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/skill/配置漏洞之DNS域传送信息泄露.html"
-           data-title="配置漏洞之DNS域传送信息泄露" data-url="http://uknowsec.cn/posts/skill/配置漏洞之DNS域传送信息泄露.html">
+      <div class="ds-thread" data-thread-key="posts/notes/Docker基础与实战.html"
+           data-title="Docker基础与实战" data-url="http://uknowsec.cn/posts/notes/Docker基础与实战.html">
       </div>
     
   </div>
@@ -542,7 +555,7 @@ var _hmt = _hmt || [];
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成因"><span class="nav-number">2.</span> <span class="nav-text">成因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击方式及危害"><span class="nav-number">3.</span> <span class="nav-text">攻击方式及危害</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞利用方式"><span class="nav-number">4.</span> <span class="nav-text">漏洞利用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#window利用方式"><span class="nav-number">4.1.</span> <span class="nav-text">window利用方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux利用方式"><span class="nav-number">4.2.</span> <span class="nav-text">linux利用方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修复方案"><span class="nav-number">5.</span> <span class="nav-text">修复方案</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Docker"><span class="nav-number">1.</span> <span class="nav-text">安装Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux"><span class="nav-number">1.1.</span> <span class="nav-text">Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动安装脚本"><span class="nav-number">1.1.1.</span> <span class="nav-text">自动安装脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ubuntu"><span class="nav-number">1.2.</span> <span class="nav-text">Ubuntu</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows"><span class="nav-number">1.3.</span> <span class="nav-text">Windows</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Docker"><span class="nav-number">2.</span> <span class="nav-text">使用Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用search命令搜索镜像"><span class="nav-number">2.1.</span> <span class="nav-text">使用search命令搜索镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用pull命令下载镜像"><span class="nav-number">2.2.</span> <span class="nav-text">使用pull命令下载镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用images命令列出镜像目录"><span class="nav-number">2.3.</span> <span class="nav-text">使用images命令列出镜像目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用run命令创建容器"><span class="nav-number">2.4.</span> <span class="nav-text">使用run命令创建容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用ps命令查看容器列表"><span class="nav-number">2.5.</span> <span class="nav-text">使用ps命令查看容器列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用start命令启动容器"><span class="nav-number">2.6.</span> <span class="nav-text">使用start命令启动容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用restart命令重启容器"><span class="nav-number">2.7.</span> <span class="nav-text">使用restart命令重启容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用attach命令连接容器"><span class="nav-number">2.8.</span> <span class="nav-text">使用attach命令连接容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用exec命令从外部运行容器内的命令"><span class="nav-number">2.9.</span> <span class="nav-text">使用exec命令从外部运行容器内的命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用stop命令终止容器"><span class="nav-number">2.10.</span> <span class="nav-text">使用stop命令终止容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用rm命令删除容器"><span class="nav-number">2.11.</span> <span class="nav-text">使用rm命令删除容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用rmi命令删除镜像"><span class="nav-number">2.12.</span> <span class="nav-text">使用rmi命令删除镜像</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

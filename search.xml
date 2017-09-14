@@ -4,6 +4,92 @@
   
     
     <entry>
+      <title><![CDATA[Docker基础与实战]]></title>
+      <url>http://uknowsec.cn/posts/notes/Docker%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E6%88%98.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>Linux中两种Docker安装方法，一种是使用Docker提供的自动安装脚本，另一种是使用Linux发行版的packaging system直接安装</p>
+<h3 id="自动安装脚本"><a href="#自动安装脚本" class="headerlink" title="自动安装脚本"></a>自动安装脚本</h3><p>Docker自动识别Linux发行版的类型，提供用于安装Docker包的脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo wget -q0- https://get.docker.com/ | sh</div></pre></td></tr></table></figure>
+<p>使用get.docker.com脚本安装Docker时，hello-world镜像也会自动安装。由于不使用hello-world镜像，故将其全部删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo docker rm `sudo docker ps -aq`</div><div class="line">sudo docker rmi hello-world</div></pre></td></tr></table></figure>
+<h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install docker.io</div><div class="line">sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker</div></pre></td></tr></table></figure>
+<p>将/usr/bin/docker.io可执行文件链接到/usr/local/bin/docker并使用</p>
+<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://github.com/boot2docker/windows-installer/releases</div></pre></td></tr></table></figure>
+<h1 id="使用Docker"><a href="#使用Docker" class="headerlink" title="使用Docker"></a>使用Docker</h1><p>Docker命令格式为docker&lt;命令&gt;,比如docker run、docker push，且必须总是以root权限运行</p>
+<h2 id="使用search命令搜索镜像"><a href="#使用search命令搜索镜像" class="headerlink" title="使用search命令搜索镜像"></a>使用search命令搜索镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker search ubuntu</div></pre></td></tr></table></figure>
+<h2 id="使用pull命令下载镜像"><a href="#使用pull命令下载镜像" class="headerlink" title="使用pull命令下载镜像"></a>使用pull命令下载镜像</h2><p>从Docker hub下载Ubuntu Linux镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker pull ubuntu:latest</div></pre></td></tr></table></figure>
+<h2 id="使用images命令列出镜像目录"><a href="#使用images命令列出镜像目录" class="headerlink" title="使用images命令列出镜像目录"></a>使用images命令列出镜像目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker images</div></pre></td></tr></table></figure>
+<p>docker images命令用于列出本地主机中所有镜像。在该命令中设置镜像名称—比如docker images ubuntu—则只列出名称相同但标签不同的镜像</p>
+<h2 id="使用run命令创建容器"><a href="#使用run命令创建容器" class="headerlink" title="使用run命令创建容器"></a>使用run命令创建容器</h2><p>使用镜像创建容器后，运行Bash shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker run -i -t --name hello ubuntu /bin/bash</div></pre></td></tr></table></figure>
+<p>命令格式为docker run&lt;选项&gt;&lt;镜像名称&gt;&lt;要运行的文件&gt;。将ubuntu镜像创建为容器后，运行ubuntu镜像中的/bin/bash。也可以不用镜像名称而用镜像ID</p>
+<ul>
+<li>使用 -i(interactive)、-t(Pseudo-tty)选项可以在运行的Bash shell中进行输入与输出</li>
+<li>使用 –name选项可以指定容器名称。若不指定名称，Docker会自动生成名称并进行指定</li>
+</ul>
+<h2 id="使用ps命令查看容器列表"><a href="#使用ps命令查看容器列表" class="headerlink" title="使用ps命令查看容器列表"></a>使用ps命令查看容器列表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker ps -a</div></pre></td></tr></table></figure>
+<h2 id="使用start命令启动容器"><a href="#使用start命令启动容器" class="headerlink" title="使用start命令启动容器"></a>使用start命令启动容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker start hello</div></pre></td></tr></table></figure>
+<p>命令格式为docker start&lt;容器名称&gt;,也可以使用容器ID替代容器名称</p>
+<h2 id="使用restart命令重启容器"><a href="#使用restart命令重启容器" class="headerlink" title="使用restart命令重启容器"></a>使用restart命令重启容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker restart hello</div></pre></td></tr></table></figure>
+<p>命令格式为docker restart&lt;容器名称&gt;,也可以使用容器ID替代容器名称</p>
+<h2 id="使用attach命令连接容器"><a href="#使用attach命令连接容器" class="headerlink" title="使用attach命令连接容器"></a>使用attach命令连接容器</h2><p>执行如下命令后，再输入一次回车键，显示Bash shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker attach hello</div></pre></td></tr></table></figure>
+<p>命令格式为docker attach&lt;容器名称&gt;,也可以使用容器ID替代容器名称<br>在Bash shell中输入exit或Ctrl+D终止容器，若依次输入Ctrl+P、Ctrl+Q则不会终止容器而只退出</p>
+<h2 id="使用exec命令从外部运行容器内的命令"><a href="#使用exec命令从外部运行容器内的命令" class="headerlink" title="使用exec命令从外部运行容器内的命令"></a>使用exec命令从外部运行容器内的命令</h2><p>当前容器正以/bin/bash形式处于运行状态，也可以不通过/bin/bash而从外部运行容器内的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker exec hello echo &quot;Hello World&quot;</div></pre></td></tr></table></figure></p>
+<p>命令格式为docker exec&lt;容器名称&gt;&lt;命令&gt;&lt;形式参数&gt;,也可以使用容器ID替代容器名称。</p>
+<h2 id="使用stop命令终止容器"><a href="#使用stop命令终止容器" class="headerlink" title="使用stop命令终止容器"></a>使用stop命令终止容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker stop hello</div></pre></td></tr></table></figure>
+<h2 id="使用rm命令删除容器"><a href="#使用rm命令删除容器" class="headerlink" title="使用rm命令删除容器"></a>使用rm命令删除容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker rm hello</div></pre></td></tr></table></figure>
+<p>命令格式为docker rm&lt;容器名称&gt;,也可以使用容器ID替代容器名称。</p>
+<h2 id="使用rmi命令删除镜像"><a href="#使用rmi命令删除镜像" class="headerlink" title="使用rmi命令删除镜像"></a>使用rmi命令删除镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker rmi ubuntu:latest</div></pre></td></tr></table></figure>
+<p>命令格式为docker rm&lt;镜像名称&gt;:&lt;标签&gt;,也可以使用容器ID替代容器名称。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Docker基础与实践-安装、使用Docker]]></title>
+      <url>http://uknowsec.cn/posts/notes/Docker%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E8%B7%B5--%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8Docker.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>Linux中两种Docker安装方法，一种是使用Docker提供的自动安装脚本，另一种是使用Linux发行版的packaging system直接安装</p>
+<h3 id="自动安装脚本"><a href="#自动安装脚本" class="headerlink" title="自动安装脚本"></a>自动安装脚本</h3><p>Docker自动识别Linux发行版的类型，提供用于安装Docker包的脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo wget -q0- https://get.docker.com/ | sh</div></pre></td></tr></table></figure>
+<p>使用get.docker.com脚本安装Docker时，hello-world镜像也会自动安装。由于不使用hello-world镜像，故将其全部删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo docker rm `sudo docker ps -aq`</div><div class="line">sudo docker rmi hello-world</div></pre></td></tr></table></figure>
+<h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install docker.io</div><div class="line">sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker</div></pre></td></tr></table></figure>
+<p>将/usr/bin/docker.io可执行文件链接到/usr/local/bin/docker并使用</p>
+<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://github.com/boot2docker/windows-installer/releases</div></pre></td></tr></table></figure>
+<h1 id="使用Docker"><a href="#使用Docker" class="headerlink" title="使用Docker"></a>使用Docker</h1><p>Docker命令格式为docker&lt;命令&gt;,比如docker run、docker push，且必须总是以root权限运行</p>
+<h2 id="使用search命令搜索镜像"><a href="#使用search命令搜索镜像" class="headerlink" title="使用search命令搜索镜像"></a>使用search命令搜索镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker search ubuntu</div></pre></td></tr></table></figure>
+<h2 id="使用pull命令下载镜像"><a href="#使用pull命令下载镜像" class="headerlink" title="使用pull命令下载镜像"></a>使用pull命令下载镜像</h2><p>从Docker hub下载Ubuntu Linux镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker pull ubuntu:latest</div></pre></td></tr></table></figure>
+<h2 id="使用images命令列出镜像目录"><a href="#使用images命令列出镜像目录" class="headerlink" title="使用images命令列出镜像目录"></a>使用images命令列出镜像目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker images</div></pre></td></tr></table></figure>
+<p>docker images命令用于列出本地主机中所有镜像。在该命令中设置镜像名称—比如docker images ubuntu—则只列出名称相同但标签不同的镜像</p>
+<h2 id="使用run命令创建容器"><a href="#使用run命令创建容器" class="headerlink" title="使用run命令创建容器"></a>使用run命令创建容器</h2><p>使用镜像创建容器后，运行Bash shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker run -i -t --name hello ubuntu /bin/bash</div></pre></td></tr></table></figure>
+<p>命令格式为docker run&lt;选项&gt;&lt;镜像名称&gt;&lt;要运行的文件&gt;。将ubuntu镜像创建为容器后，运行ubuntu镜像中的/bin/bash。也可以不用镜像名称而用镜像ID</p>
+<ul>
+<li>使用 -i(interactive)、-t(Pseudo-tty)选项可以在运行的Bash shell中进行输入与输出</li>
+<li>使用 –name选项可以指定容器名称。若不指定名称，Docker会自动生成名称并进行指定</li>
+</ul>
+<h2 id="使用ps命令查看容器列表"><a href="#使用ps命令查看容器列表" class="headerlink" title="使用ps命令查看容器列表"></a>使用ps命令查看容器列表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker ps -a</div></pre></td></tr></table></figure>
+<h2 id="使用start命令启动容器"><a href="#使用start命令启动容器" class="headerlink" title="使用start命令启动容器"></a>使用start命令启动容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker start hello</div></pre></td></tr></table></figure>
+<p>命令格式为docker start&lt;容器名称&gt;,也可以使用容器ID替代容器名称</p>
+<h2 id="使用restart命令重启容器"><a href="#使用restart命令重启容器" class="headerlink" title="使用restart命令重启容器"></a>使用restart命令重启容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker restart hello</div></pre></td></tr></table></figure>
+<p>命令格式为docker restart&lt;容器名称&gt;,也可以使用容器ID替代容器名称</p>
+<h2 id="使用attach命令连接容器"><a href="#使用attach命令连接容器" class="headerlink" title="使用attach命令连接容器"></a>使用attach命令连接容器</h2><p>执行如下命令后，再输入一次回车键，显示Bash shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker attach hello</div></pre></td></tr></table></figure>
+<p>命令格式为docker attach&lt;容器名称&gt;,也可以使用容器ID替代容器名称<br>在Bash shell中输入exit或Ctrl+D终止容器，若依次输入Ctrl+P、Ctrl+Q则不会终止容器而只退出</p>
+<h2 id="使用exec命令从外部运行容器内的命令"><a href="#使用exec命令从外部运行容器内的命令" class="headerlink" title="使用exec命令从外部运行容器内的命令"></a>使用exec命令从外部运行容器内的命令</h2><p>当前容器正以/bin/bash形式处于运行状态，也可以不通过/bin/bash而从外部运行容器内的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker exec hello echo &quot;Hello World&quot;</div></pre></td></tr></table></figure></p>
+<p>命令格式为docker exec&lt;容器名称&gt;&lt;命令&gt;&lt;形式参数&gt;,也可以使用容器ID替代容器名称。</p>
+<h2 id="使用stop命令终止容器"><a href="#使用stop命令终止容器" class="headerlink" title="使用stop命令终止容器"></a>使用stop命令终止容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker stop hello</div></pre></td></tr></table></figure>
+<h2 id="使用rm命令删除容器"><a href="#使用rm命令删除容器" class="headerlink" title="使用rm命令删除容器"></a>使用rm命令删除容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker rm hello</div></pre></td></tr></table></figure>
+<p>命令格式为docker rm&lt;容器名称&gt;,也可以使用容器ID替代容器名称。</p>
+<h2 id="使用rmi命令删除镜像"><a href="#使用rmi命令删除镜像" class="headerlink" title="使用rmi命令删除镜像"></a>使用rmi命令删除镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker rmi ubuntu:latest</div></pre></td></tr></table></figure>
+<p>命令格式为docker rm&lt;镜像名称&gt;:&lt;标签&gt;,也可以使用容器ID替代容器名称。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[CRLF Injection漏洞利用与学习]]></title>
       <url>http://uknowsec.cn/posts/notes/CRLF-Injection%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
