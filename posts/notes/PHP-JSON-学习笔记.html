@@ -61,13 +61,13 @@
 
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubuntu Server下安装配置Metasploit">
-<meta property="og:url" content="http://uknowsec.cn/posts/notes/Ubuntu-Server下安装配置Metasploit.html">
+<meta property="og:title" content="PHP&JSON 学习笔记">
+<meta property="og:url" content="http://uknowsec.cn/posts/notes/PHP-JSON-学习笔记.html">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
-<meta property="og:updated_time" content="2017-04-25T04:02:45.215Z">
+<meta property="og:updated_time" content="2017-10-19T02:24:05.069Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ubuntu Server下安装配置Metasploit">
+<meta name="twitter:title" content="PHP&JSON 学习笔记">
 <meta name="twitter:description" content="点击阅读全文">
 
 
@@ -86,7 +86,7 @@
   };
 </script>
 
-  <title> Ubuntu Server下安装配置Metasploit | Uknow’s Blog </title>
+  <title> PHP&JSON 学习笔记 | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -249,7 +249,7 @@ var _hmt = _hmt || [];
             
             
               
-                Ubuntu Server下安装配置Metasploit
+                PHP&JSON 学习笔记
               
             
           </h1>
@@ -261,8 +261,8 @@ var _hmt = _hmt || [];
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-04-25T11:29:27+08:00" content="2017-04-25">
-              2017-04-25
+            <time itemprop="dateCreated" datetime="2017-10-18T20:47:45+08:00" content="2017-10-18">
+              2017-10-18
             </time>
           </span>
 
@@ -291,8 +291,8 @@ var _hmt = _hmt || [];
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/notes/Ubuntu-Server下安装配置Metasploit.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/Ubuntu-Server下安装配置Metasploit.html" itemprop="commentsCount"></span>
+                <a href="/posts/notes/PHP-JSON-学习笔记.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/PHP-JSON-学习笔记.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,7 +302,7 @@ var _hmt = _hmt || [];
 
           
           
-             <span id="/posts/notes/Ubuntu-Server下安装配置Metasploit.html" class="leancloud_visitors" data-flag-title="Ubuntu Server下安装配置Metasploit">
+             <span id="/posts/notes/PHP-JSON-学习笔记.html" class="leancloud_visitors" data-flag-title="PHP&JSON 学习笔记">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -324,22 +324,68 @@ var _hmt = _hmt || [];
 
       
         <p>点击阅读全文<br><a id="more"></a></p>
-<h1 id="安装postgersql"><a href="#安装postgersql" class="headerlink" title="安装postgersql"></a>安装postgersql</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install postgersql</div></pre></td></tr></table></figure>
-<h1 id="下载Metasploit"><a href="#下载Metasploit" class="headerlink" title="下载Metasploit"></a>下载Metasploit</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /opt</div><div class="line">wget http://downloads.metasploit.com/data/releases/metasploit-latest-linux-x64-installer.run</div></pre></td></tr></table></figure>
-<h1 id="安装Metasploit"><a href="#安装Metasploit" class="headerlink" title="安装Metasploit"></a>安装Metasploit</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /opt</div><div class="line">sudo mkdir metasploit</div><div class="line">sudo ./metasploit-latest-linux-x64-installer.run</div></pre></td></tr></table></figure>
-<ul>
-<li>在安装的过程中开始是license内容可以一直回车，然后输入y，同意license</li>
-<li>然后会要你选择一个空文件夹，此时输入刚刚创建的文件夹 /opt/metasploit</li>
-<li>最后还会让你选择是否metasploit自行创建postgersql，可输入y。等待即可安装成功</li>
+<h2 id="JSON介绍"><a href="#JSON介绍" class="headerlink" title="JSON介绍"></a>JSON介绍</h2><p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式</p>
+<h3 id="JSON格式"><a href="#JSON格式" class="headerlink" title="JSON格式"></a>JSON格式</h3><ul>
+<li>1） 并列的数据之间用逗号（”, “）分隔。</li>
+<li>2） 映射用冒号（”: “）表示。</li>
+<li>3） 并列数据的集合（数组）用方括号(“[]”)表示。</li>
+<li>4） 映射的集合（对象）用大括号（”{}”）表示</li>
 </ul>
-<h1 id="启动Metasploit"><a href="#启动Metasploit" class="headerlink" title="启动Metasploit"></a>启动Metasploit</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">service postgresql start		//启动PostgreSQL服务</div><div class="line">service metasploit start		//启动Metasploit服务</div><div class="line">msfconsole		//启动Metasploit</div><div class="line">db_status		//查看数据库连接状态</div></pre></td></tr></table></figure>
-<ul>
-<li>如果启动metasploit的时候出现Warning提示没有查看datebase.yml的权限可以输入</li>
+<h2 id="PHP-amp-JSON"><a href="#PHP-amp-JSON" class="headerlink" title="PHP&amp;JSON"></a>PHP&amp;JSON</h2><h3 id="JSON函数"><a href="#JSON函数" class="headerlink" title="JSON函数"></a>JSON函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>json_encode</td>
+<td style="text-align:center">对变量进行 JSON 编码</td>
+</tr>
+<tr>
+<td>json_decode</td>
+<td style="text-align:center">对 JSON 格式的字符串进行解码，转换为 PHP 变量</td>
+</tr>
+</tbody>
+</table>
+<h4 id="json-encode"><a href="#json-encode" class="headerlink" title="json_encode"></a>json_encode</h4><p>PHP json_encode() 用于对变量进行 JSON 编码，该函数如果执行成功返回 JSON 数据，否则返回 FALSE 。</p>
+<h5 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">string json_encode ( $value [, $options = 0 ] )</div></pre></td></tr></table></figure>
+<h5 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h5><ul>
+<li>value: 要编码的值。该函数只对 UTF-8 编码的数据有效。</li>
+<li>options:由以下常量组成的二进制掩码：JSON_HEX_QUOT, JSON_HEX_TAG, JSON_HEX_AMP, JSON_HEX_APOS, JSON_NUMERIC_CHECK,JSON_PRETTY_PRINT, JSON_UNESCAPED_SLASHES, JSON_FORCE_OBJECT</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chmod 775 /opt/metasploit-framework/apps/pro/ui/config/database.yml</div></pre></td></tr></table></figure>
-<ul>
-<li>重新启动就可以自动连接数据库了</li>
+<h5 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h5><p>以下实例演示了如何将 PHP 数组转换为 JSON 格式数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">   $arr = array(&apos;a&apos; =&gt; 1, &apos;b&apos; =&gt; 2, &apos;c&apos; =&gt; 3, &apos;d&apos; =&gt; 4, &apos;e&apos; =&gt; 5);</div><div class="line">   echo json_encode($arr);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>以上代码执行结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;a&quot;:1,&quot;b&quot;:2,&quot;c&quot;:3,&quot;d&quot;:4,&quot;e&quot;:5&#125;</div></pre></td></tr></table></figure>
+<p>以下实例演示了如何将 PHP 对象转换为 JSON 格式数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">   class Emp &#123;</div><div class="line">       public $name = &quot;&quot;;</div><div class="line">       public $hobbies  = &quot;&quot;;</div><div class="line">       public $birthdate = &quot;&quot;;</div><div class="line">   &#125;</div><div class="line">   $e = new Emp();</div><div class="line">   $e-&gt;name = &quot;sachin&quot;;</div><div class="line">   $e-&gt;hobbies  = &quot;sports&quot;;</div><div class="line">   $e-&gt;birthdate = date(&apos;m/d/Y h:i:s a&apos;, &quot;8/5/1974 12:20:03 p&quot;);</div><div class="line">   $e-&gt;birthdate = date(&apos;m/d/Y h:i:s a&apos;, strtotime(&quot;8/5/1974 12:20:03&quot;));</div><div class="line"></div><div class="line">   echo json_encode($e);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>以上代码执行结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;name&quot;:&quot;sachin&quot;,&quot;hobbies&quot;:&quot;sports&quot;,&quot;birthdate&quot;:&quot;08\/05\/1974 12:20:03 pm&quot;&#125;</div></pre></td></tr></table></figure>
+<h4 id="json-decode"><a href="#json-decode" class="headerlink" title="json_decode"></a>json_decode</h4><p>PHP json_decode() 函数用于对 JSON 格式的字符串进行解码，并转换为 PHP 变量。</p>
+<h5 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mixed json_decode ($json [,$assoc = false [, $depth = 512 [, $options = 0 ]]])</div></pre></td></tr></table></figure>
+<h5 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h5><ul>
+<li>json_string: 待解码的 JSON 字符串，必须是 UTF-8 编码数据</li>
+<li>assoc: 当该参数为 TRUE 时，将返回数组，FALSE 时返回对象。</li>
+<li>depth: 整数类型的参数，它指定递归深度</li>
+<li>options: 二进制掩码，目前只支持 JSON_BIGINT_AS_STRING 。</li>
 </ul>
+<h5 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h5><p>以下实例演示了如何解码 JSON 数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">   $json = &apos;&#123;&quot;a&quot;:1,&quot;b&quot;:2,&quot;c&quot;:3,&quot;d&quot;:4,&quot;e&quot;:5&#125;&apos;;</div><div class="line"></div><div class="line">   var_dump(json_decode($json));</div><div class="line">   var_dump(json_decode($json, true));</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>以上代码执行结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">object(stdClass)#1 (5) &#123;</div><div class="line">    [&quot;a&quot;] =&gt; int(1)</div><div class="line">    [&quot;b&quot;] =&gt; int(2)</div><div class="line">    [&quot;c&quot;] =&gt; int(3)</div><div class="line">    [&quot;d&quot;] =&gt; int(4)</div><div class="line">    [&quot;e&quot;] =&gt; int(5)</div><div class="line">&#125;</div><div class="line"></div><div class="line">array(5) &#123;</div><div class="line">    [&quot;a&quot;] =&gt; int(1)</div><div class="line">    [&quot;b&quot;] =&gt; int(2)</div><div class="line">    [&quot;c&quot;] =&gt; int(3)</div><div class="line">    [&quot;d&quot;] =&gt; int(4)</div><div class="line">    [&quot;e&quot;] =&gt; int(5)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="PHP-amp-JSON中文显示问题"><a href="#PHP-amp-JSON中文显示问题" class="headerlink" title="PHP&amp;JSON中文显示问题"></a>PHP&amp;JSON中文显示问题</h3><h4 id="PHP输出JSON格式"><a href="#PHP输出JSON格式" class="headerlink" title="PHP输出JSON格式"></a>PHP输出JSON格式</h4><p>把数组直接输出为JSON</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$arr = array(&apos;姓名&apos;=&gt;&apos;小李&apos;,&apos;年龄&apos;=&gt;&apos;18&apos;);</div><div class="line">$json = json_encode($arr);</div><div class="line">echo $json;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>输出的结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;\u59d3\u540d&quot;:&quot;\u5c0f\u674e&quot;,&quot;\u5e74\u9f84&quot;:&quot;18&quot;&#125;</div></pre></td></tr></table></figure>
+<p>中文字符被编码成了Unicode</p>
+<p>做如下处理，把输出结果匹配一下，把Unicode还原成了汉字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$arr = array(&apos;姓名&apos;=&gt;&apos;小李&apos;,&apos;年龄&apos;=&gt;&apos;18&apos;);</div><div class="line">$json = json_encode($arr);</div><div class="line">echo $json;</div><div class="line">echo &apos;&lt;/br&gt;&apos;;</div><div class="line">echo decodeUnicode($json);</div><div class="line"> </div><div class="line">function decodeUnicode($str)&#123;</div><div class="line">  return preg_replace_callback(&apos;/\\\\u([0-9a-f]&#123;4&#125;)/i&apos;,</div><div class="line">    create_function(</div><div class="line">      &apos;$matches&apos;,</div><div class="line">      &apos;return mb_convert_encoding(pack(&quot;H*&quot;, $matches[1]), &quot;UTF-8&quot;, &quot;UCS-2BE&quot;);&apos;</div><div class="line">    ),</div><div class="line">    $str);</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>输出的结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;\u59d3\u540d&quot;:&quot;\u5c0f\u674e&quot;,&quot;\u5e74\u9f84&quot;:&quot;18&quot;&#125;</div><div class="line">&#123;&quot;姓名&quot;:&quot;小李&quot;,&quot;年龄&quot;:&quot;18&quot;&#125;</div></pre></td></tr></table></figure>
+<p>同时PHP5.4版本，已经给Json新增了一个选项: JSON_UNESCAPED_UNICODE。加上这个选项后，就不会自动把中文编码了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$arr = array(&apos;姓名&apos;=&gt;&apos;小李&apos;,&apos;年龄&apos;=&gt;&apos;18&apos;);</div><div class="line">$json = json_encode($arr, JSON_UNESCAPED_UNICODE);</div><div class="line">echo $json;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>输出的结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;姓名&quot;:&quot;小李&quot;,&quot;年龄&quot;:&quot;18&quot;&#125;</div></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://www.runoob.com/php/php-json.html" target="_blank" rel="external">PHP JSON | 菜鸟教程</a><br><a href="http://www.ruanyifeng.com/blog/2009/05/data_types_and_json.html" target="_blank" rel="external">数据类型和Json格式</a></p>
 
       
     </div>
@@ -357,16 +403,16 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/notes/《TCP-IP详解-卷1：协议》学习笔记.html" rel="next" title="《TCP/IP详解 卷1：协议》学习笔记">
-                <i class="fa fa-chevron-left"></i> 《TCP/IP详解 卷1：协议》学习笔记
+              <a href="/posts/notes/Docker基础与实战.html" rel="next" title="Docker基础与实战">
+                <i class="fa fa-chevron-left"></i> Docker基础与实战
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/notes/HTTP：超文本传输协议.html" rel="prev" title="【转载】HTTP：超文本传输协议">
-                【转载】HTTP：超文本传输协议 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/notes/PHP-MVC开发框架学习笔记.html" rel="prev" title="PHP MVC开发框架学习笔记">
+                PHP MVC开发框架学习笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -416,8 +462,8 @@ var _hmt = _hmt || [];
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/notes/Ubuntu-Server下安装配置Metasploit.html"
-           data-title="Ubuntu Server下安装配置Metasploit" data-url="http://uknowsec.cn/posts/notes/Ubuntu-Server下安装配置Metasploit.html">
+      <div class="ds-thread" data-thread-key="posts/notes/PHP-JSON-学习笔记.html"
+           data-title="PHP&JSON 学习笔记" data-url="http://uknowsec.cn/posts/notes/PHP-JSON-学习笔记.html">
       </div>
     
   </div>
@@ -539,7 +585,7 @@ var _hmt = _hmt || [];
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装postgersql"><span class="nav-number">1.</span> <span class="nav-text">安装postgersql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载Metasploit"><span class="nav-number">2.</span> <span class="nav-text">下载Metasploit</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Metasploit"><span class="nav-number">3.</span> <span class="nav-text">安装Metasploit</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动Metasploit"><span class="nav-number">4.</span> <span class="nav-text">启动Metasploit</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON介绍"><span class="nav-number">1.</span> <span class="nav-text">JSON介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON格式"><span class="nav-number">1.1.</span> <span class="nav-text">JSON格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-amp-JSON"><span class="nav-number">2.</span> <span class="nav-text">PHP&JSON</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON函数"><span class="nav-number">2.1.</span> <span class="nav-text">JSON函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#json-encode"><span class="nav-number">2.1.1.</span> <span class="nav-text">json_encode</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#语法"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参数"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实例"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#json-decode"><span class="nav-number">2.1.2.</span> <span class="nav-text">json_decode</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#语法-1"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参数-1"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实例-1"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">实例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-amp-JSON中文显示问题"><span class="nav-number">2.2.</span> <span class="nav-text">PHP&JSON中文显示问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP输出JSON格式"><span class="nav-number">2.2.1.</span> <span class="nav-text">PHP输出JSON格式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
           </div>
         </section>
