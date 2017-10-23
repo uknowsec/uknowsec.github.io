@@ -34,6 +34,7 @@
 <p>提交结果</p>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/Screenshot_2017-10-23-11-42-14-803_com.bmob.lostf.jpg" alt=""></p>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE20171023114405.png" alt=""></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>以上过程基本实现，项目基本上可以交差了。这个项目PHP部分主要是由自己在弄，也是边学边做。Andorid方面是另外一个同学主要负责，期间也求助过我实习时结交的朋友帮助。感谢所有付出与帮助的人。</p>
 ]]></content>
     </entry>
     
@@ -271,7 +272,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#102;&#x6f;&#x6f;&#x40;&#x62;&#x61;&#114;&#x2e;&#x63;&#x6f;&#109;">&#102;&#x6f;&#x6f;&#x40;&#x62;&#x61;&#114;&#x2e;&#x63;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#x66;&#111;&#x6f;&#x40;&#x62;&#x61;&#114;&#x2e;&#99;&#111;&#109;">&#x66;&#111;&#x6f;&#x40;&#x62;&#x61;&#114;&#x2e;&#99;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
