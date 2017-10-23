@@ -1,0 +1,974 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Uknow, uknowsec.cn, uknowsec, uknow's blog, Uknow’s Blog" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Uknow’s Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="点击阅读全文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android App端与PHP Web端的简单数据交互实现">
+<meta property="og:url" content="http://uknowsec.cn/posts/notes/Android-App端与PHP-Web端的简单数据交互实现.html">
+<meta property="og:site_name" content="Uknow’s Blog">
+<meta property="og:description" content="点击阅读全文">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/webandorid%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE20171023110706.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720171023111323_%E7%9C%8B%E5%9B%BE%E7%8E%8B.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE20171023112834.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720171023112949.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720171023113352.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/Screenshot_2017-10-23-11-42-14-803_com.bmob.lostf.jpg">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE20171023114405.png">
+<meta property="og:updated_time" content="2017-10-23T03:45:24.896Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android App端与PHP Web端的简单数据交互实现">
+<meta name="twitter:description" content="点击阅读全文">
+<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/webandorid%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6316725929833924000,
+      author: 'Uknow'
+    }
+  };
+</script>
+
+  <title> Android App端与PHP Web端的简单数据交互实现 | Uknow’s Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Uknow’s Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android App端与PHP Web端的简单数据交互实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-10-23T10:43:11+08:00" content="2017-10-23">
+              2017-10-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/notes/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/posts/notes/Android-App端与PHP-Web端的简单数据交互实现.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/Android-App端与PHP-Web端的简单数据交互实现.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/posts/notes/Android-App端与PHP-Web端的简单数据交互实现.html" class="leancloud_visitors" data-flag-title="Android App端与PHP Web端的简单数据交互实现">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于学校科技立项的项目需要实现Android App端与PHP Web端的简单数据交互的实现，当前场景是Web端使用的是MySql数据库，Apache服务器和PHP语言编写的。数据交互的简单理解就是Android能向服务端进行数据获取，同时也能进行数据提交。</p>
+<h2 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/webandorid%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt=""></p>
+<h3 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h3><ul>
+<li>Andorid Server端对MySql数据库进行简单的查询操作，并将查询数据结果转换为Json格式提供给Andorid利用OKhttp读取再解析Json展示到APP上；同时Andorid端利用OKhttp提交给Andorid Server端，由Server端对MySql数据库对提交数据的添加。</li>
+<li>Apache Server端通过解析PHP源代码，对MySql数据库的增删查改显示在WebSite。</li>
+</ul>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><h3 id="Andorid-Server"><a href="#Andorid-Server" class="headerlink" title="Andorid Server"></a>Andorid Server</h3><h4 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h4><p>get_all_found_items.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">&lt;?php  </div><div class="line">header(&apos;Content-Type:text/html;charset=utf-8&apos;);/*设置php编码为utf-8*/</div><div class="line">/* </div><div class="line"> * Following code will list all the items </div><div class="line"> */  </div><div class="line">   </div><div class="line">// array for JSON response  </div><div class="line">$response = array();  </div><div class="line">   </div><div class="line">// include db connect class  </div><div class="line">require_once __DIR__ . &apos;/db_connect.php&apos;;  </div><div class="line">   </div><div class="line">// connecting to db  </div><div class="line">$db = new DB_CONNECT();  </div><div class="line">   </div><div class="line">// get all items from items table  </div><div class="line">$result = mysql_query(&quot;SELECT *FROM items WHERE type=&apos;1&apos;&quot;) or die(mysql_error());  </div><div class="line">// check for empty result  </div><div class="line">if (mysql_num_rows($result) &gt; 0) &#123;  </div><div class="line">    // looping through all results  </div><div class="line">    // items node  </div><div class="line">    $response[&quot;items&quot;] = array();  </div><div class="line">   </div><div class="line">    while ($row = mysql_fetch_array($result)) &#123;  </div><div class="line">        // temp user array  </div><div class="line">        $items = array();  </div><div class="line">        $items[&quot;what&quot;] = $row[&quot;what&quot;];  </div><div class="line">        $items[&quot;when&quot;] = $row[&quot;when&quot;];  </div><div class="line">        $items[&quot;where&quot;] = $row[&quot;where&quot;];  </div><div class="line">        $items[&quot;detail&quot;] = $row[&quot;detail&quot;];</div><div class="line">        $items[&quot;posttime&quot;] = $row[&quot;posttime&quot;];			</div><div class="line">		$resultcontcat = mysql_query(&quot;SELECT *FROM guests&quot;) or die(mysql_error()); </div><div class="line">		while ($row1 = mysql_fetch_array($resultcontcat)) &#123; </div><div class="line">			if ($row1[&quot;id&quot;] == $row[&quot;gid&quot;])&#123;</div><div class="line">				$items[&quot;contact&quot;] = $row1[&quot;contact&quot;];</div><div class="line">			&#125;</div><div class="line">			&#125;</div><div class="line">        // push single items into final response array  </div><div class="line">        array_push($response[&quot;items&quot;], $items);  </div><div class="line">    &#125;  </div><div class="line">    // success  </div><div class="line">    $response[&quot;success&quot;] = 1;  </div><div class="line">   </div><div class="line">    // echoing JSON response  </div><div class="line">    echo json_encode($response,JSON_UNESCAPED_UNICODE); </div><div class="line">&#125; else &#123;  </div><div class="line">    // no items found  </div><div class="line">    $response[&quot;success&quot;] = 0;  </div><div class="line">    $response[&quot;message&quot;] = &quot;No items found&quot;;  </div><div class="line">   </div><div class="line">    // echo JSON  </div><div class="line">    echo json_encode($response,JSON_UNESCAPED_UNICODE);  </div><div class="line">&#125;  </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>如以上PHP代码可知通过require_once()函数包含db_connect.php文件，执行数据库配置文件。定义数组\$response接收查询的数据结果，通过判断不同的情况赋值$response[“success”]，并返回到Web页面显示</p>
+<p>PHP文件执行结果<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE20171023110706.png" alt=""></p>
+<p>JSON<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;items&quot;: [</div><div class="line">        &#123;</div><div class="line">            &quot;what&quot;: &quot;手表&quot;,</div><div class="line">            &quot;when&quot;: &quot;2017-10-21 00:00:00&quot;,</div><div class="line">            &quot;where&quot;: &quot;北区宿舍楼#504&quot;,</div><div class="line">            &quot;detail&quot;: &quot;白色的手表，XX品牌&quot;,</div><div class="line">            &quot;posttime&quot;: &quot;2017-10-21 13:03:09&quot;,</div><div class="line">            &quot;contact&quot;: &quot;138123456&quot;</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            &quot;what&quot;: &quot;手机&quot;,</div><div class="line">            &quot;when&quot;: &quot;2017-10-04 00:00:00&quot;,</div><div class="line">            &quot;where&quot;: &quot;北区商店#111&quot;,</div><div class="line">            &quot;detail&quot;: &quot;iphone6s,土豪金&quot;,</div><div class="line">            &quot;posttime&quot;: &quot;2017-10-21 13:03:46&quot;,</div><div class="line">            &quot;contact&quot;: &quot;137123456&quot;</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            &quot;what&quot;: &quot;电脑&quot;,</div><div class="line">            &quot;when&quot;: &quot;2017-10-21 14:39:54&quot;,</div><div class="line">            &quot;where&quot;: &quot;图书馆#203&quot;,</div><div class="line">            &quot;detail&quot;: &quot;联想品牌笔记本&quot;,</div><div class="line">            &quot;posttime&quot;: &quot;2017-10-21 17:08:14&quot;,</div><div class="line">            &quot;contact&quot;: &quot;5670001&quot;</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            &quot;what&quot;: &quot;细说PHP&quot;,</div><div class="line">            &quot;when&quot;: &quot;2017-09-21 13:03:46&quot;,</div><div class="line">            &quot;where&quot;: &quot;南馆#403&quot;,</div><div class="line">            &quot;detail&quot;: &quot;黑色封面，第二版《细说PHP》&quot;,</div><div class="line">            &quot;posttime&quot;: &quot;2017-10-21 17:36:53&quot;,</div><div class="line">            &quot;contact&quot;: &quot;63513641&quot;</div><div class="line">        &#125;</div><div class="line">    ],</div><div class="line">    &quot;success&quot;: 1</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="提交数据"><a href="#提交数据" class="headerlink" title="提交数据"></a>提交数据</h4><p>create_found_items.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">&lt;?php  </div><div class="line">header(&apos;Content-Type:text/html;charset=utf-8&apos;);/*设置php编码为utf-8*/   </div><div class="line">/* </div><div class="line"> * Following code will create a new product row </div><div class="line"> * All product details are read from HTTP GET Request </div><div class="line"> */  </div><div class="line">   </div><div class="line">// array for JSON response  </div><div class="line">$response = array();  </div><div class="line">   </div><div class="line">// check for required fields  </div><div class="line">if (isset($_GET[&apos;what&apos;]) &amp;&amp; isset($_GET[&apos;when&apos;]) &amp;&amp; isset($_GET[&apos;where&apos;]) &amp;&amp; isset($_GET[&apos;detail&apos;])&amp;&amp; isset($_GET[&apos;contact&apos;])) &#123;  </div><div class="line">   </div><div class="line">    $what = $_GET[&apos;what&apos;];  </div><div class="line">    $when = $_GET[&apos;when&apos;];  </div><div class="line">    $where = $_GET[&apos;where&apos;];  </div><div class="line">    $detail = $_GET[&apos;detail&apos;]; </div><div class="line">    $contact = $_GET[&apos;contact&apos;];	</div><div class="line">	</div><div class="line">    // include db connect class  </div><div class="line">    require_once __DIR__ . &apos;/db_connect.php&apos;;  </div><div class="line">   </div><div class="line">    // connecting to db  </div><div class="line">    $db = new DB_CONNECT();  </div><div class="line">   </div><div class="line">    // mysql inserting a new row  </div><div class="line">	$result2 = mysql_query(&quot;INSERT INTO guests(contact) VALUES(&apos;$contact&apos;)&quot;);  </div><div class="line">	$gidresult = mysql_query(&quot;SELECT id FROM `guests` WHERE contact=&apos;$contact&apos;&quot;);	</div><div class="line">	while ($row = mysql_fetch_array($gidresult)) &#123; </div><div class="line">			$gid=$row[&apos;id&apos;];</div><div class="line">		&#125;</div><div class="line">    $result1 = mysql_query(&quot;INSERT INTO items(`what`, `when`, `where`, `type` ,`gid`, `detail`) VALUES(&apos;$what&apos;, &apos;$when&apos;, &apos;$where&apos;, &apos;1&apos;, &apos;$gid&apos;, &apos;$detail&apos;)&quot;);   </div><div class="line">   </div><div class="line">    // check if row inserted or not  </div><div class="line">    if ($result1 &amp;&amp; $result2) &#123;  </div><div class="line">        // successfully inserted into database  </div><div class="line">        $response[&quot;success&quot;] = 1;  </div><div class="line">        $response[&quot;message&quot;] = &quot;Items successfully created.&quot;;  </div><div class="line">   </div><div class="line">        // echoing JSON response  </div><div class="line">    echo json_encode($response,JSON_UNESCAPED_UNICODE);   </div><div class="line">    &#125; else &#123;  </div><div class="line">        // failed to insert row  </div><div class="line">        $response[&quot;success&quot;] = 0;  </div><div class="line">        $response[&quot;message&quot;] = &quot;Oops! An error occurred.&quot;;  </div><div class="line">   </div><div class="line">        // echoing JSON response  </div><div class="line">    echo json_encode($response,JSON_UNESCAPED_UNICODE);   </div><div class="line">    &#125;  </div><div class="line">&#125; else &#123;  </div><div class="line">    // required field is missing  </div><div class="line">    $response[&quot;success&quot;] = 0;  </div><div class="line">    $response[&quot;message&quot;] = &quot;Required field(s) is missing&quot;;  </div><div class="line">   </div><div class="line">    // echoing JSON response  </div><div class="line">    echo json_encode($response,JSON_UNESCAPED_UNICODE);   </div><div class="line">&#125;  </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>判断GET请求的参数是否都存在，把获取的GET请求参数作为数据INSERT TO MySQL数据库。判断INSERT执行过程赋值\$response[“success”]对应相应的$response[“message”]，显示在Web页面。</p>
+<p>执行结果<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720171023111323_%E7%9C%8B%E5%9B%BE%E7%8E%8B.png" alt=""></p>
+<h3 id="Andorid"><a href="#Andorid" class="headerlink" title="Andorid"></a>Andorid</h3><h4 id="获取数据-1"><a href="#获取数据-1" class="headerlink" title="获取数据"></a>获取数据</h4><p>核心代码 queryLosts()函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">private void queryLosts() &#123;</div><div class="line">	losts.clear();</div><div class="line">	new Thread(new Runnable() &#123;</div><div class="line">		</div><div class="line">		@Override</div><div class="line">		public void run() &#123;</div><div class="line">			// TODO Auto-generated method stub</div><div class="line">			</div><div class="line">	        OkHttpClient okHttpClient = new OkHttpClient();</div><div class="line">	        String url = &quot;http://webSite/androidapi/get_all_lost_items.php&quot;;</div><div class="line">	        Request request = new Request.Builder()</div><div class="line">	                .url(url)</div><div class="line">	                .build();</div><div class="line">	        Call call = okHttpClient.newCall(request);</div><div class="line">	        try &#123;</div><div class="line">	            Response response = call.execute();</div><div class="line">	            String res = response.body().string();</div><div class="line">	            if (res != null &amp;&amp; !res.trim().equals(&quot;&quot;))&#123;</div><div class="line">	                JSONObject jsonObject = new JSONObject(res);</div><div class="line">	                if (jsonObject.getInt(&quot;success&quot;) == 1)&#123;</div><div class="line">	                    JSONArray jsonArray = jsonObject.getJSONArray(&quot;items&quot;);</div><div class="line">	                    for (int i = jsonArray.length() - 1;i &gt;= 0;i--)&#123;</div><div class="line">	                        JSONObject item = jsonArray.getJSONObject(i);</div><div class="line">	                        String what = null;</div><div class="line">	                        try &#123;</div><div class="line">	                            what = item.getString(&quot;what&quot;);</div><div class="line">	                        &#125;catch (Exception e)&#123;</div><div class="line"></div><div class="line">	                        &#125;</div><div class="line">	                        String when = null;</div><div class="line">	                        try&#123;</div><div class="line">	                            when = item.getString(&quot;when&quot;);</div><div class="line">	                        &#125;catch (Exception e)&#123;</div><div class="line"></div><div class="line">	                        &#125;</div><div class="line">	                        String where = null;</div><div class="line">	                        try&#123;</div><div class="line">	                            where = item.getString(&quot;where&quot;);</div><div class="line">	                        &#125;catch (Exception e)&#123;</div><div class="line"></div><div class="line">	                        &#125;</div><div class="line">	                        String detail = null;</div><div class="line">	                        try &#123;</div><div class="line">	                            detail = item.getString(&quot;detail&quot;);</div><div class="line">	                        &#125;catch (Exception e)&#123;</div><div class="line"></div><div class="line">	                        &#125;</div><div class="line">	                        String contact = null;</div><div class="line">	                        try &#123;</div><div class="line">	                            contact = item.getString(&quot;contact&quot;);</div><div class="line">	                        &#125;catch (Exception e)&#123;</div><div class="line"></div><div class="line">	                        &#125;</div><div class="line">	                        Lost lost = new Lost();</div><div class="line">	                        lost.setTitle(what);</div><div class="line">	                        String des = &quot;地点：&quot; + (where == null?&quot;&quot;:where) +&quot;     &quot;+&quot;时间：&quot; + (when == null?&quot;&quot;:when)+&quot;\r&quot; + &quot;     &quot;+&quot;描述：&quot; + (detail == null?&quot;&quot;:detail);</div><div class="line">	                        lost.setDescribe(des);</div><div class="line">	                        lost.setPhone(contact == null?&quot;&quot;:contact);</div><div class="line">	                        losts.add(lost);</div><div class="line">	                    &#125;</div><div class="line">	                &#125;</div><div class="line">	            &#125;</div><div class="line">	        &#125; catch (Exception e) &#123;</div><div class="line">	            e.printStackTrace();</div><div class="line">	            showErrorView(0);</div><div class="line"></div><div class="line">	        &#125;</div><div class="line">	        if (losts == null || losts.size() == 0) &#123;</div><div class="line">	        	handler.sendEmptyMessage(1);</div><div class="line">	            return;</div><div class="line">	        &#125;</div><div class="line">	        if (losts.size() &gt; 0)&#123;</div><div class="line">	           handler.sendEmptyMessage(2);</div><div class="line">	        &#125;</div><div class="line">		&#125;</div><div class="line">	&#125;).start();</div></pre></td></tr></table></figure>
+<p>利用Android网络框架OKhttp,OKhttp一个处理网络请求的开源项目,是安卓端最火热的轻量级框架.请求接口url地址，获取Json数据利用JSONObject对Json数据进行解析。</p>
+<h4 id="提交数据-1"><a href="#提交数据-1" class="headerlink" title="提交数据"></a>提交数据</h4><p>核心代码 addLost()函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">public Handler handler = new Handler()&#123;</div><div class="line"></div><div class="line">	public void handleMessage(android.os.Message msg) &#123;</div><div class="line">		switch(msg.what)&#123;</div><div class="line">			case 1:</div><div class="line">				Toast.makeText(this,&quot;提交成功&quot;,Toast.LENGTH_LONG).show();</div><div class="line">				break;</div><div class="line">			case 2:</div><div class="line">				Toast.makeText(this,&quot;提交失败&quot;,Toast.LENGTH_LONG).show();</div><div class="line">				break;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">private void addLost()&#123;</div><div class="line">	OkHttpClient okHttpClient = new OkHttpClient();</div><div class="line">	String url =&quot;http://website/androidapi/create_lost_items.php?what=&quot;+title+&quot;&amp;when=&quot;+time+&quot;&amp;where=&quot;+place+&quot;&amp;detail=&quot;+describe+&quot;&amp;contact=&quot;+photo+&quot;&quot;;</div><div class="line">	Request request = new Request.Builder()</div><div class="line">			.url(url)</div><div class="line">			.build();</div><div class="line">	</div><div class="line"></div><div class="line">	try&#123;</div><div class="line">		Response response = okHttpClient.newCall(request).execute();</div><div class="line">		res = response.body().string();</div><div class="line">		handler.sendEmptyMessage(1);</div><div class="line">	&#125;catch (Exception e)</div><div class="line">	&#123;</div><div class="line">		e.printStackTrace();</div><div class="line">		handler.sendEmptyMessage(2);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>同样利用Okhttp,GET方式提交参数，try-catch获取异常，通过返回值给出一定的提交结果提示。</p>
+<h2 id="代码测试"><a href="#代码测试" class="headerlink" title="代码测试"></a>代码测试</h2><h3 id="数据同步"><a href="#数据同步" class="headerlink" title="数据同步"></a>数据同步</h3><h4 id="Web端"><a href="#Web端" class="headerlink" title="Web端"></a>Web端</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE20171023112834.png" alt=""></p>
+<h4 id="Andorid端"><a href="#Andorid端" class="headerlink" title="Andorid端"></a>Andorid端</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720171023112949.jpg" alt=""></p>
+<h3 id="数据提交"><a href="#数据提交" class="headerlink" title="数据提交"></a>数据提交</h3><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720171023113352.jpg" alt=""></p>
+<p>提交结果</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/Screenshot_2017-10-23-11-42-14-803_com.bmob.lostf.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE20171023114405.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/notes/PHP-MVC开发框架学习笔记.html" rel="next" title="PHP MVC开发框架学习笔记">
+                <i class="fa fa-chevron-left"></i> PHP MVC开发框架学习笔记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="posts/notes/Android-App端与PHP-Web端的简单数据交互实现.html"
+           data-title="Android App端与PHP Web端的简单数据交互实现" data-url="http://uknowsec.cn/posts/notes/Android-App端与PHP-Web端的简单数据交互实现.html">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://obr4sfdq7.bkt.clouddn.com/avatar.jpg"
+               alt="uknow" />
+          <p class="site-author-name" itemprop="name">uknow</p>
+          <p class="site-description motion-element" itemprop="description">不忘初心，方得始终</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/uknowsec" target="_blank">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3477219002" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  Others
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现流程"><span class="nav-number">2.</span> <span class="nav-text">实现流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程说明"><span class="nav-number">2.1.</span> <span class="nav-text">流程说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体实现"><span class="nav-number">3.</span> <span class="nav-text">具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Andorid-Server"><span class="nav-number">3.1.</span> <span class="nav-text">Andorid Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#获取数据"><span class="nav-number">3.1.1.</span> <span class="nav-text">获取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提交数据"><span class="nav-number">3.1.2.</span> <span class="nav-text">提交数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Andorid"><span class="nav-number">3.2.</span> <span class="nav-text">Andorid</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#获取数据-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">获取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提交数据-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">提交数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码测试"><span class="nav-number">4.</span> <span class="nav-text">代码测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据同步"><span class="nav-number">4.1.</span> <span class="nav-text">数据同步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Web端"><span class="nav-number">4.1.1.</span> <span class="nav-text">Web端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Andorid端"><span class="nav-number">4.1.2.</span> <span class="nav-text">Andorid端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据提交"><span class="nav-number">4.2.</span> <span class="nav-text">数据提交</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">uknow</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3d5fd0365a60ecafb093d2d0df7aaf4c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"uknow"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("AxgSweQqwlurwh9jQb8ilgOQ-gzGzoHsz", "ex42kl7W8LVpx0umFqv5YSIa");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  
+
+</body>
+</html>
