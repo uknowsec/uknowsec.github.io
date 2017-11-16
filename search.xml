@@ -4,6 +4,117 @@
   
     
     <entry>
+      <title><![CDATA[php支持的协议和封装协议小结]]></title>
+      <url>http://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="php协议类型"><a href="#php协议类型" class="headerlink" title="php协议类型"></a>php协议类型</h2><ul>
+<li>file:// — 访问本地文件系统</li>
+<li>http:// — 访问 HTTP(s) 网址</li>
+<li>ftp:// — 访问 FTP(s) URLs</li>
+<li>php:// — 访问各个输入/输出流（I/O streams）</li>
+<li>zlib:// — 压缩流</li>
+<li>data:// — 数据（RFC 2397）</li>
+<li>glob:// — 查找匹配的文件路径模式</li>
+<li>phar:// — PHP 归档</li>
+<li>ssh2:// — Secure Shell 2</li>
+<li>rar:// — RAR</li>
+<li>ogg:// — 音频流</li>
+<li>expect:// — 处理交互式的流</li>
+</ul>
+<h2 id="PHP-ini"><a href="#PHP-ini" class="headerlink" title="PHP.ini"></a>PHP.ini</h2><ul>
+<li>allow_url_fopen ：on  默认开启  该选项为on便是激活了 URL 形式的 fopen 封装协议使得可以访问 URL 对象文件等。</li>
+<li>allow_url_include：off  默认关闭，该选项为on便是允许 包含URL 对象文件等</li>
+</ul>
+<h2 id="file-协议"><a href="#file-协议" class="headerlink" title="file://协议"></a>file://协议</h2><p>file:// — 访问本地文件系统,不受allow_url_fopen与allow_url_include的影响</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/file1.png" alt=""></p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>file:// [文件的绝对路径和文件名]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://127.0.0.1/code/1.php?file=file:///E:\phpStudy\WWW\code\phpinfo.php</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/file2.png" alt=""></p>
+<h2 id="php-协议"><a href="#php-协议" class="headerlink" title="php://协议"></a>php://协议</h2><p>php:// — 访问各个输入/输出流（I/O streams）</p>
+<p>不需要开启allow_url_fopen，仅php://input、 php://stdin、 php://memory 和 php://temp 需要开启allow_url_include。</p>
+<h3 id="php-stdin-php-stdout-和-php-stderr"><a href="#php-stdin-php-stdout-和-php-stderr" class="headerlink" title="php://stdin, php://stdout 和 php://stderr"></a>php://stdin, php://stdout 和 php://stderr</h3><p>php://stdin、php://stdout 和 php://stderr 允许直接访问 PHP 进程相应的输入或者输出流。</p>
+<p>php://stdin 是只读的， php://stdout 和 php://stderr 是只写的。</p>
+<h4 id="php-stdin"><a href="#php-stdin" class="headerlink" title="php://stdin"></a>php://stdin</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">    while($line = fopen(&apos;php://stdin&apos;,&apos;r&apos;))</div><div class="line">    &#123;//open our file pointer to read from stdin</div><div class="line">        echo $line.&quot;\n&quot;;</div><div class="line">        echo fgets($line);//读取</div><div class="line">    &#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/stdin.png" alt=""></p>
+<h4 id="php-stdout"><a href="#php-stdout" class="headerlink" title="php://stdout"></a>php://stdout</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">    $fd = fopen(&apos;php://stdout&apos;, &apos;w&apos;);</div><div class="line">    if ($fd) &#123;</div><div class="line">        echo $fd.&quot;\n&quot;;</div><div class="line">        fwrite($fd, &quot;test&quot;);</div><div class="line">        fwrite($fd, &quot;\n&quot;);</div><div class="line">        fclose($fd);</div><div class="line">    &#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/stdout.png" alt=""></p>
+<h4 id="php-stderr"><a href="#php-stderr" class="headerlink" title="php://stderr"></a>php://stderr</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">    $stderr = fopen( &apos;php://stderr&apos;, &apos;w&apos; );</div><div class="line">    echo $stderr.&quot;\n&quot;;</div><div class="line">    fwrite($stderr, &quot;uknow&quot; );</div><div class="line">    fclose($stderr);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/stderr.png" alt=""></p>
+<h3 id="php-filter"><a href="#php-filter" class="headerlink" title="php://filter"></a>php://filter</h3><p>最常使用的一个伪协议，一般可以利用进行任意文件读取。 </p>
+<p>php://filter 是一种元封装器， 设计用于数据流打开时的筛选过滤应用。 这对于一体式（all-in-one）的文件函数非常有用，类似 readfile()、 file() 和 file_get_contents()， 在数据流内容读取之前没有机会应用其他过滤器。</p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>resource=&lt;要过滤的数据流&gt;</td>
+<td style="text-align:center">这个参数是必须的。它指定了你要筛选过滤的数据流。</td>
+</tr>
+<tr>
+<td>read=&lt;读链的筛选列表&gt;</td>
+<td style="text-align:center">该参数可选。可以设定一个或多个过滤器名称，以管道符分隔。</td>
+</tr>
+<tr>
+<td>write=&lt;写链的筛选列表&gt;</td>
+<td style="text-align:center">该参数可选。可以设定一个或多个过滤器名称，以管道符分隔。</td>
+</tr>
+<tr>
+<td>&lt;；两个链的筛选列表&gt;</td>
+<td style="text-align:center">任何没有以 read= 或 write= 作前缀 的筛选器列表会视情况应用于读或写链。</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	include($_GET[&apos;file&apos;])</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://127.0.0.1/code/1.php?file=php://filter/read=convert.base64-encode/resource=./phpinfo.php</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/phpfilter1.png" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/phpfilter2.png" alt=""></p>
+<h3 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h3><p>php://input 可以访问请求的原始数据的只读流, 将post请求中的数据作为PHP代码执行。</p>
+<ul>
+<li><p>allow_url_fopen ：off/on</p>
+</li>
+<li><p>allow_url_include：on</p>
+</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/phpinput.png" alt=""></p>
+<h3 id="zip-bzip2-zlib-协议"><a href="#zip-bzip2-zlib-协议" class="headerlink" title="zip://, bzip2://, zlib://协议"></a>zip://, bzip2://, zlib://协议</h3><p>zip://, bzip2://, zlib://协议在双off的情况下也可以正常使用；</p>
+<p>zip://, bzip2://, zlib:// 均属于压缩流，可以访问压缩文件中的子文件，更重要的是不需要指定后缀名。</p>
+<ul>
+<li><p>allow_url_fopen ：off/on</p>
+</li>
+<li><p>allow_url_include：off/on</p>
+</li>
+</ul>
+<h4 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h4><p>zip://archive.zip#dir/file.txt</p>
+<p>zip:// [压缩文件绝对路径]#[压缩文件内的子文件名]</p>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>先将要执行的PHP代码写好文件名为phpcode.txt，将phpcode.txt进行zip压缩,压缩文件名为file.zip,如果可以上传zip文件便直接上传，若不能便将file.zip重命名为file.jpg后在上传，其他几种压缩格式也可以这样操作。</p>
+<p>由于#在get请求中会将后面的参数忽略所以使用get请求时候应进行url编码为%23，且此处经过测试相对路径是不可行，所以只能用绝对路径。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://127.0.0.1/code/1.php?file=zip://E:\phpStudy\WWW\code/1.zip%231.txt</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/zip.png" alt=""></p>
+<h3 id="data-协议"><a href="#data-协议" class="headerlink" title="data://协议"></a>data://协议</h3><p>data://协议必须双在on才能正常使用；</p>
+<ul>
+<li><p>allow_url_fopen ：on</p>
+</li>
+<li><p>allow_url_include：on</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http://127.0.0.1/code/1.php?file=data://text/plain,&lt;?php phpinfo()?&gt;</div><div class="line"></div><div class="line">http://127.0.0.1/code/1.php?file=data://text/plain;base64,PD9waHAgcGhwaW5mbygpPz4=</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/data2.png" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/data1.png" alt=""></p>
+<h3 id="glob-协议"><a href="#glob-协议" class="headerlink" title="glob://协议"></a>glob://协议</h3><p>glob:// — 查找匹配的文件路径模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$it = new DirectoryIterator($_GET[&apos;file&apos;]);</div><div class="line">foreach($it as $f) &#123;</div><div class="line">    printf(&quot;%s&quot;, $f-&gt;getFilename());</div><div class="line">	echo&apos;&lt;/br&gt;&apos;; </div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/glob.png" alt=""></p>
+<h3 id="expect-协议"><a href="#expect-协议" class="headerlink" title="expect://协议"></a>expect://协议</h3><p>expect:// — 处理交互式的流</p>
+<p>该封装协议默认未开启<br>为了使用 expect:// 封装器，你必须安装 » PECL 上的 » Expect 扩展。</p>
+<h4 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">expect://command</div></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://php.net" target="_blank" rel="external">PHP</a><br><a href="http://www.freebuf.com/column/148886.html" target="_blank" rel="external">php伪协议实现命令执行的七种姿势</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android App端与PHP Web端的简单数据交互实现]]></title>
       <url>http://uknowsec.cn/posts/notes/Android-App%E7%AB%AF%E4%B8%8EPHP-Web%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92%E5%AE%9E%E7%8E%B0.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
@@ -272,7 +383,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#102;&#x6f;&#111;&#x40;&#x62;&#x61;&#114;&#46;&#x63;&#x6f;&#x6d;">&#102;&#x6f;&#111;&#x40;&#x62;&#x61;&#114;&#46;&#x63;&#x6f;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#102;&#x6f;&#111;&#64;&#x62;&#x61;&#114;&#46;&#x63;&#111;&#x6d;">&#102;&#x6f;&#111;&#64;&#x62;&#x61;&#114;&#46;&#x63;&#111;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
@@ -572,364 +683,6 @@
 <h3 id="Socket代理"><a href="#Socket代理" class="headerlink" title="Socket代理"></a>Socket代理</h3><h4 id="默认端口：1080"><a href="#默认端口：1080" class="headerlink" title="默认端口：1080"></a>默认端口：1080</h4><p>Socket代理针对代理来说没有什么漏洞，一般只是在渗透过程中作为我们的代理，进入内网，或者渗透域和林的时候有帮助。这里不做过多描述，但是可以尝试爆破一下代理的用户名和密码，万一运气好能登录，不也~~~~</p>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/ports.png" alt=""></p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>总结来源于网络</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[《代码审计-企业级Web代码安全架构》学习笔记]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E3%80%8A%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BC%81%E4%B8%9A%E7%BA%A7Web%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
-      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h1 id="通用代码审计思路"><a href="#通用代码审计思路" class="headerlink" title="通用代码审计思路"></a>通用代码审计思路</h1><p>常见的代码审计思路：</p>
-<ul>
-<li>根据敏感关键字回溯参数传递过程</li>
-<li>查找可控变量，正向跟踪变量传递过程</li>
-<li>寻找敏感功能点，通读功能点代码</li>
-<li>直接通读全文代码</li>
-</ul>
-<h2 id="敏感函数回溯参数过程"><a href="#敏感函数回溯参数过程" class="headerlink" title="敏感函数回溯参数过程"></a>敏感函数回溯参数过程</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
-<li>定向挖掘</li>
-<li>高效</li>
-<li>高质量</li>
-</ul>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
-<li>不够深入</li>
-<li>对逻辑漏洞挖掘覆盖不到</li>
-</ul>
-<h3 id="espcms注入挖掘案例"><a href="#espcms注入挖掘案例" class="headerlink" title="espcms注入挖掘案例"></a>espcms注入挖掘案例</h3><p>由Seay源代码审计系统自动审计的功能定位到如下代码段<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">class important extends connector &#123;</div><div class="line"></div><div class="line">	function important() &#123;</div><div class="line">		$this-&gt;softbase(true);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	function oncitylist() &#123;</div><div class="line">		$parentid = $this-&gt;fun-&gt;accept(&apos;parentid&apos;, &apos;R&apos;);</div><div class="line">		$parentid = empty($parentid) ? 1 : $parentid;</div><div class="line">		$verid = $this-&gt;fun-&gt;accept(&apos;verid&apos;, &apos;R&apos;);</div><div class="line">		$verid = empty($verid) ? 0 : $verid;</div><div class="line">		$db_table = db_prefix . &apos;city&apos;;</div><div class="line">		$sql = &quot;select * from $db_table where parentid=$parentid&quot;;</div><div class="line">		$rs = $this-&gt;db-&gt;query($sql);</div><div class="line">		for ($i = 0; $rsList = $this-&gt;db-&gt;fetch_array($rs); $i++) &#123;</div><div class="line">			if ($verid == $rsList[&apos;id&apos;]) &#123;</div><div class="line">				$list.=&apos;&lt;option selected value=&quot;&apos; . $rsList[&apos;id&apos;] . &apos;&quot;&gt;&apos; . $rsList[&apos;cityname&apos;] . &apos;&lt;/option&gt;&apos;;</div><div class="line">			&#125; else &#123;</div><div class="line">				$list.=&apos;&lt;option value=&quot;&apos; . $rsList[&apos;id&apos;] . &apos;&quot;&gt;&apos; . $rsList[&apos;cityname&apos;] . &apos;&lt;/option&gt;&apos;;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		exit($list);</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
-<p>由以上代码可知parentid是由accept()这个函数获得的。即如下语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$parentid = $this-&gt;fun-&gt;accept(&apos;parentid&apos;, &apos;R&apos;);</div></pre></td></tr></table></figure></p>
-<p>跟进定位accept函数，定位到函数主体class_function.php文件的314行，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function accept($k, $var = &apos;R&apos;, $htmlcode = true, $rehtml = false) &#123;</div><div class="line">	switch ($var) &#123;</div><div class="line">		case &apos;G&apos;:</div><div class="line">			$var = &amp;$_GET;</div><div class="line">			break;</div><div class="line">		case &apos;P&apos;:</div><div class="line">			$var = &amp;$_POST;</div><div class="line">			break;</div><div class="line">		case &apos;C&apos;:</div><div class="line">			$var = &amp;$_COOKIE;</div><div class="line">			break;</div><div class="line">		case &apos;R&apos;:</div><div class="line">			$var = &amp;$_GET;</div><div class="line">			if (empty($var[$k])) &#123;</div><div class="line">				$var = &amp;$_POST;</div><div class="line">			&#125;</div><div class="line">			break;</div><div class="line">	&#125;</div><div class="line">	$putvalue = isset($var[$k]) ? $this-&gt;daddslashes($var[$k], 0) : NULL;</div><div class="line">	return $htmlcode ? ($rehtml ? $this-&gt;preg_htmldecode($putvalue) : $this-&gt;htmldecode($putvalue)) : $putvalue;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>accept函数获取一个k值和一个var值，通过一个switch-case语句来获取GET、POST、COOKIE参数值的函数，由accept(‘parentid’, ‘R’)可知我们传入了一个parentid和一个R，则代表在GET和POST中都可以获取到parentid参数，<br>最后通过一个包装了的addslashes()函数，对单引号等字符进行过滤。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sql = &quot;select * from $db_table where parentid=$parentid&quot;;</div></pre></td></tr></table></figure>
-<p>由前面的SQL语句可以,并不需要单引号来闭合，于是可以直接注入。</p>
-<p>是根据代码构造EXP<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://localhost/espcms/adminsoft/index.php?archive=ctylist&amp;action=ctylist&amp;parentid=-1%20union%20select%201,2,user%28%29,4,5</div></pre></td></tr></table></figure></p>
-<h2 id="通读全文代码"><a href="#通读全文代码" class="headerlink" title="通读全文代码"></a>通读全文代码</h2><h3 id="通读全文代码的技巧"><a href="#通读全文代码的技巧" class="headerlink" title="通读全文代码的技巧"></a>通读全文代码的技巧</h3><p>在通读全文代码的时候，首先需要看程序的大体代码结构</p>
-<ul>
-<li>主目录有哪些文件</li>
-<li>模块目录有哪些文件</li>
-<li>插件目录有哪些文件</li>
-<li>注意文件的大小、创建时间</li>
-<li>根据文件的命名判断功能和核心文件</li>
-</ul>
-<h3 id="程序目录结构"><a href="#程序目录结构" class="headerlink" title="程序目录结构"></a>程序目录结构</h3><ul>
-<li>函数集文件，通常命名中包含functions或者common等关键字，这些文件里面是一些公共函数，提供给其他函数统一调用，所以大多数文件都会在文件头部包含到其他文件。寻找这些文件一个非常好用的技巧就是去打开index.php或这一些功能性文件，在头部一般都能找到。</li>
-<li>配置文件，通常命名中包括config关键字，配置文件包括Web程序运行必需的功能性配置选项以及数据库等配置信息。从这个文件中可以了解程序的小部分功能，另外看这个文件的时候注意观察配置文件中参数值是用单引号还是用双引号括起来，如果是双引号，则很可能存在代码执行漏洞。</li>
-<li>安全过滤文件，通常命名中有filter、safe、check等关键字，这类文件主要是对参数进行过滤，比较常见的是针对SQL注入和XSS过滤，还有文件路径、执行的系统命令的参数。</li>
-<li>index文件，index是一个程序的入口文件，所以通常我们只要读一遍index文件就可以大致了解整个程序的构架、运行的流程、包含到的文件，其中核心的文件有哪些。</li>
-</ul>
-<h3 id="骑士cms通读审计案例"><a href="#骑士cms通读审计案例" class="headerlink" title="骑士cms通读审计案例"></a>骑士cms通读审计案例</h3><p>骑士cms3.5.1</p>
-<h4 id="查看应用文件结构"><a href="#查看应用文件结构" class="headerlink" title="查看应用文件结构"></a>查看应用文件结构</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/74cms.png" alt=""></p>
-<p>寻找名称中带有api、admin、manage、include一类关键字的文件和文件夹，在这个程序中，可以看到只有一个index.php,看到有一个名为include的文件夹，一般比较核心的文件都会在这个文件夹中。如下是include文件夹下的文件</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/74cms1.png" alt=""></p>
-<h4 id="查看关键文件代码"><a href="#查看关键文件代码" class="headerlink" title="查看关键文件代码"></a>查看关键文件代码</h4><p>可以在这个文件夹中看到很多php文件，根据这些php文件的命名可以推断其相关的代码内容。<br>其中的common.fun.php就是一个核心文件，基础函数基本在这个文件中实现。这个文件中有很多关键函数。比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function addslashes_deep($value)</div><div class="line">&#123;</div><div class="line">    if (empty($value))</div><div class="line">    &#123;</div><div class="line">        return $value;</div><div class="line">    &#125;</div><div class="line">    else</div><div class="line">    &#123;</div><div class="line">		if (!get_magic_quotes_gpc())</div><div class="line">		&#123;</div><div class="line">		$value=is_array($value) ? array_map(&apos;addslashes_deep&apos;, $value) : mystrip_tags(addslashes($value));</div><div class="line">		&#125;</div><div class="line">		else</div><div class="line">		&#123;</div><div class="line">		$value=is_array($value) ? array_map(&apos;addslashes_deep&apos;, $value) : mystrip_tags($value);</div><div class="line">		&#125;</div><div class="line">		return $value;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>该函数将传入的变量使用addslashes()函数对单引号、双引号、NULL字符以及斜杠过滤。在SQL注入等漏洞时，只要参数在拼接SQL语句前，使用addslashes()函数就不能注入了，除非有宽字节注入或其他特殊情况。</p>
-<p>接下来是一个XSS过滤的函数mystrip_tags()，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function mystrip_tags($string)</div><div class="line">&#123;</div><div class="line">	$string = new_html_special_chars($string);</div><div class="line">	$string = remove_xss($string);</div><div class="line">	return $string;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>函数mystrip_tags()中调用new_html_special_chars()和remove_xss函数来过滤XSS。<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">function new_html_special_chars($string) &#123;</div><div class="line">	$string = str_replace(array(&apos;&amp;amp;&apos;, &apos;&amp;quot;&apos;, &apos;&amp;lt;&apos;, &apos;&amp;gt;&apos;), array(&apos;&amp;&apos;, &apos;&quot;&apos;, &apos;&lt;&apos;, &apos;&gt;&apos;), $string);</div><div class="line">	$string = strip_tags($string);</div><div class="line">	return $string;</div><div class="line">&#125;</div><div class="line">function remove_xss($string) &#123; </div><div class="line">    $string = preg_replace(&apos;/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S&apos;, &apos;&apos;, $string);</div><div class="line"></div><div class="line">    $parm1 = Array(&apos;javascript&apos;, &apos;union&apos;,&apos;vbscript&apos;, &apos;expression&apos;, &apos;applet&apos;, &apos;xml&apos;, &apos;blink&apos;, &apos;link&apos;, &apos;script&apos;, &apos;embed&apos;, &apos;object&apos;, &apos;iframe&apos;, &apos;frame&apos;, &apos;frameset&apos;, &apos;ilayer&apos;, &apos;layer&apos;, &apos;bgsound&apos;, &apos;title&apos;, &apos;base&apos;);</div><div class="line"></div><div class="line">    $parm2 = Array(&apos;onabort&apos;, &apos;onactivate&apos;, &apos;onafterprint&apos;, &apos;onafterupdate&apos;, &apos;onbeforeactivate&apos;, &apos;onbeforecopy&apos;, &apos;onbeforecut&apos;, &apos;onbeforedeactivate&apos;, &apos;onbeforeeditfocus&apos;, &apos;onbeforepaste&apos;, &apos;onbeforeprint&apos;, &apos;onbeforeunload&apos;, &apos;onbeforeupdate&apos;, &apos;onblur&apos;, &apos;onbounce&apos;, &apos;oncellchange&apos;, &apos;onchange&apos;, &apos;onclick&apos;, &apos;oncontextmenu&apos;, &apos;oncontrolselect&apos;, &apos;oncopy&apos;, &apos;oncut&apos;, &apos;ondataavailable&apos;, &apos;ondatasetchanged&apos;, &apos;ondatasetcomplete&apos;, &apos;ondblclick&apos;, &apos;ondeactivate&apos;, &apos;ondrag&apos;, &apos;ondragend&apos;, &apos;ondragenter&apos;, &apos;ondragleave&apos;, &apos;ondragover&apos;, &apos;ondragstart&apos;, &apos;ondrop&apos;, &apos;onerror&apos;, &apos;onerrorupdate&apos;, &apos;onfilterchange&apos;, &apos;onfinish&apos;, &apos;onfocus&apos;, &apos;onfocusin&apos;, &apos;onfocusout&apos;, &apos;onhelp&apos;, &apos;onkeydown&apos;, &apos;onkeypress&apos;, &apos;onkeyup&apos;, &apos;onlayoutcomplete&apos;, &apos;onload&apos;, &apos;onlosecapture&apos;, &apos;onmousedown&apos;, &apos;onmouseenter&apos;, &apos;onmouseleave&apos;, &apos;onmousemove&apos;, &apos;onmouseout&apos;, &apos;onmouseover&apos;, &apos;onmouseup&apos;, &apos;onmousewheel&apos;, &apos;onmove&apos;, &apos;onmoveend&apos;, &apos;onmovestart&apos;, &apos;onpaste&apos;, &apos;onpropertychange&apos;, &apos;onreadystatechange&apos;, &apos;onreset&apos;, &apos;onresize&apos;, &apos;onresizeend&apos;, &apos;onresizestart&apos;, &apos;onrowenter&apos;, &apos;onrowexit&apos;, &apos;onrowsdelete&apos;, &apos;onrowsinserted&apos;, &apos;onscroll&apos;, &apos;onselect&apos;, &apos;onselectionchange&apos;, &apos;onselectstart&apos;, &apos;onstart&apos;, &apos;onstop&apos;, &apos;onsubmit&apos;, &apos;onunload&apos;,&apos;style&apos;,&apos;href&apos;,&apos;action&apos;,&apos;location&apos;,&apos;background&apos;,&apos;src&apos;,&apos;poster&apos;);</div><div class="line">	</div><div class="line">	$parm3 = Array(&apos;alert&apos;,&apos;sleep&apos;,&apos;load_file&apos;,&apos;confirm&apos;,&apos;prompt&apos;,&apos;benchmark&apos;,&apos;select&apos;,&apos;update&apos;,&apos;insert&apos;,&apos;delete&apos;,&apos;alter&apos;,&apos;drop&apos;,&apos;truncate&apos;,&apos;script&apos;,&apos;eval&apos;);</div><div class="line"></div><div class="line">    $parm = array_merge($parm1, $parm2, $parm3); </div><div class="line"></div><div class="line">	for ($i = 0; $i &lt; sizeof($parm); $i++) &#123; </div><div class="line">		$pattern = &apos;/&apos;; </div><div class="line">		for ($j = 0; $j &lt; strlen($parm[$i]); $j++) &#123; </div><div class="line">			if ($j &gt; 0) &#123; </div><div class="line">				$pattern .= &apos;(&apos;; </div><div class="line">				$pattern .= &apos;(&amp;#[x|X]0([9][a][b]);?)?&apos;; </div><div class="line">				$pattern .= &apos;|(&amp;#0([9][10][13]);?)?&apos;; </div><div class="line">				$pattern .= &apos;)?&apos;; </div><div class="line">			&#125;</div><div class="line">			$pattern .= $parm[$i][$j]; </div><div class="line">		&#125;</div><div class="line">		$pattern .= &apos;/i&apos;;</div><div class="line">		$string = preg_replace($pattern, &apos;****&apos;, $string); </div><div class="line">	&#125;</div><div class="line">	return $string;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在new_heml_special_chars()函数中可以看到，这个函数对&amp;符号、双引号以及尖括号进行了html实体编码，并使用strip_tags()函数进行了二次过滤。而remove_xss()函数则是对一些标签关键字、事件关键字以及敏感函数关键字进行了替换。</p>
-<p>继续往下看，可以看到一个SQL查询统一操作函数inserttable()以及updatetable()函数，大多数SQL语句执行都会经过这里。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">function inserttable($tablename, $insertsqlarr, $returnid=0, $replace = false, $silent=0) &#123;</div><div class="line">	global $db;</div><div class="line">	$insertkeysql = $insertvaluesql = $comma = &apos;&apos;;</div><div class="line">	foreach ($insertsqlarr as $insert_key =&gt; $insert_value) &#123;</div><div class="line">		$insertkeysql .= $comma.&apos;`&apos;.$insert_key.&apos;`&apos;;</div><div class="line">		$insertvaluesql .= $comma.&apos;\&apos;&apos;.$insert_value.&apos;\&apos;&apos;;</div><div class="line">		$comma = &apos;, &apos;;</div><div class="line">	&#125;</div><div class="line">	$method = $replace?&apos;REPLACE&apos;:&apos;INSERT&apos;;</div><div class="line">	// echo $method.&quot; INTO $tablename ($insertkeysql) VALUES ($insertvaluesql)&quot;, $silent?&apos;SILENT&apos;:&apos;&apos;;die;</div><div class="line">	$state = $db-&gt;query($method.&quot; INTO $tablename ($insertkeysql) VALUES ($insertvaluesql)&quot;, $silent?&apos;SILENT&apos;:&apos;&apos;);</div><div class="line">	if($returnid &amp;&amp; !$replace) &#123;</div><div class="line">		return $db-&gt;insert_id();</div><div class="line">	&#125;else &#123;</div><div class="line">	    return $state;</div><div class="line">	&#125; </div><div class="line">&#125;</div><div class="line">function updatetable($tablename, $setsqlarr, $wheresqlarr, $silent=0) &#123;</div><div class="line">	global $db;</div><div class="line">	$setsql = $comma = &apos;&apos;;</div><div class="line">	foreach ($setsqlarr as $set_key =&gt; $set_value) &#123;</div><div class="line">		if(is_array($set_value)) &#123;</div><div class="line">			$setsql .= $comma.&apos;`&apos;.$set_key.&apos;`&apos;.&apos;=\&apos;&apos;.$set_value[0].&apos;\&apos;&apos;;</div><div class="line">		&#125; else &#123;</div><div class="line">			$setsql .= $comma.&apos;`&apos;.$set_key.&apos;`&apos;.&apos;=\&apos;&apos;.$set_value.&apos;\&apos;&apos;;</div><div class="line">		&#125;</div><div class="line">		$comma = &apos;, &apos;;</div><div class="line">	&#125;</div><div class="line">	$where = $comma = &apos;&apos;;</div><div class="line">	if(empty($wheresqlarr)) &#123;</div><div class="line">		$where = &apos;1&apos;;</div><div class="line">	&#125; elseif(is_array($wheresqlarr)) &#123;</div><div class="line">		foreach ($wheresqlarr as $key =&gt; $value) &#123;</div><div class="line">			$where .= $comma.&apos;`&apos;.$key.&apos;`&apos;.&apos;=\&apos;&apos;.$value.&apos;\&apos;&apos;;</div><div class="line">			$comma = &apos; AND &apos;;</div><div class="line">		&#125;</div><div class="line">	&#125; else &#123;</div><div class="line">		$where = $wheresqlarr;</div><div class="line">	&#125;</div><div class="line">	return $db-&gt;query(&quot;UPDATE &quot;.($tablename).&quot; SET &quot;.$setsql.&quot; WHERE &quot;.$where, $silent?&quot;SILENT&quot;:&quot;&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在这两个函数下面有一个wheresql()函数，是SQL语句查询的Where条件拼接的地方，参数都使用了单引号进行包裹。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function wheresql($wherearr=&apos;&apos;)</div><div class="line">&#123;</div><div class="line">	$wheresql=&quot;&quot;;</div><div class="line">	if (is_array($wherearr))</div><div class="line">		&#123;</div><div class="line">		$where_set=&apos; WHERE &apos;;</div><div class="line">			foreach ($wherearr as $key =&gt; $value)</div><div class="line">			&#123;</div><div class="line">			$wheresql .=$where_set. $comma.$key.&apos;=&quot;&apos;.$value.&apos;&quot;&apos;;</div><div class="line">			$comma = &apos; AND &apos;;</div><div class="line">			$where_set=&apos; &apos;;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	return $wheresql;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="查看配置文件"><a href="#查看配置文件" class="headerlink" title="查看配置文件"></a>查看配置文件</h4><p>根据config关键字，在data目录下找到两个php文件，config.php和cache_config.php。打开config.php查看代码，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$dbhost   = &quot;localhost&quot;;</div><div class="line"></div><div class="line">$dbname   = &quot;74cms&quot;;</div><div class="line"></div><div class="line">$dbuser   = &quot;root&quot;;</div><div class="line"></div><div class="line">$dbpass   = &quot;uknow&quot;;</div><div class="line"></div><div class="line">$pre    = &quot;qs_&quot;;</div><div class="line"></div><div class="line">$QS_cookiedomain = &apos;&apos;;</div><div class="line"></div><div class="line">$QS_cookiepath =  &quot;/74cms/&quot;;</div><div class="line"></div><div class="line">$QS_pwdhash = &quot;E:=KR11lO01vHU3i&quot;;</div><div class="line"></div><div class="line">define(&apos;QISHI_CHARSET&apos;,&apos;gb2312&apos;);</div><div class="line"></div><div class="line">define(&apos;QISHI_DBCHARSET&apos;,&apos;GBK&apos;);</div><div class="line"></div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>根据以上代码可以看到数据库连接配置信息和网站配置信息，其中用define定义了一个常量QISHI_DBCHARSET，其值为GBK编码。可以知道数据库编码是GBK，接着我们看下数据库连接时设置的编码，判断是否进行宽字节注入。</p>
-<p>在includ\mysql.class.php文件的connect()函数，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function connect($dbhost, $dbuser, $dbpw, $dbname = &apos;&apos;, $dbcharset = &apos;gbk&apos;, $connect=1)&#123;</div><div class="line">	$func = empty($connect) ? &apos;mysql_pconnect&apos; : &apos;mysql_connect&apos;;</div><div class="line">	if(!$this-&gt;linkid = @$func($dbhost, $dbuser, $dbpw, true))&#123;</div><div class="line">		$this-&gt;dbshow(&apos;Can not connect to Mysql!&apos;);</div><div class="line">	&#125; else &#123;</div><div class="line">		if($this-&gt;dbversion() &gt; &apos;4.1&apos;)&#123;</div><div class="line">			mysql_query( &quot;SET NAMES gbk&quot;);</div><div class="line">			if($this-&gt;dbversion() &gt; &apos;5.0.1&apos;)&#123;</div><div class="line">				mysql_query(&quot;SET sql_mode = &apos;&apos;&quot;,$this-&gt;linkid);</div><div class="line">	mysql_query(&quot;SET character_set_connection=&quot;.$dbcharset.&quot;, character_set_results=&quot;.$dbcharset.&quot;, character_set_client=binary&quot;, $this-&gt;linkid);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	if($dbname)&#123;</div><div class="line">		if(mysql_select_db($dbname, $this-&gt;linkid)===false)&#123;</div><div class="line">			$this-&gt;dbshow(&quot;Can&apos;t select MySQL database($dbname)!&quot;);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在这个函数里可以知道，它根据mysql的版本的不同对编码进行了不同的设置。<br>先判断MySQL的版本是否大于4.1，如果是则执行如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_query( &quot;SET NAMES gbk&quot;);</div></pre></td></tr></table></figure></p>
-<p>set names gbk就是把character_set_connection、character_set_results、character_set_client都设置为gbk编码。</p>
-<p>然后在判断MySQl的版本是否大于5.0.1,如果是则执行如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">  	mysql_query(&quot;SET sql_mode = &apos;&apos;&quot;,$this-&gt;linkid);</div><div class="line">mysql_query(&quot;SET character_set_connection=&quot;.$dbcharset.&quot;, character_set_results=&quot;.$dbcharset.&quot;, character_set_client=binary&quot;, $this-&gt;linkid);</div></pre></td></tr></table></figure></p>
-<p>以上代码把character_set_client设置为binary（二进制），即character_set_client:客户端发送过来的SQL语句编码，也就是PHP发送的SQL查询语句编码字符集。这是常见的方法来预防宽字节注入。</p>
-<p>当mysql接受到客户端的数据后，会认为他的编码是character_set_client，然后会将之将换成character_set_connection的编码，然后进入具体表和字段后，再转换成字段对应的编码。<br>然后，当查询结果产生后，会从表和字段的编码，转换成character_set_results编码，返回给客户端。<br>所以，将character_set_client设置成binary，就不存在宽字节或多字节的问题了，所有数据以二进制的形式传递，就能有效避免宽字符注入。</p>
-<p>所以在MySQL版本大于4.4小于5的情况下，基本所有跟数据库有关的操作都存在宽字节注入。</p>
-<h4 id="跟读首页文件"><a href="#跟读首页文件" class="headerlink" title="跟读首页文件"></a>跟读首页文件</h4><p>打开index.php可以看到如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if(!file_exists(dirname(__FILE__).&apos;/data/install.lock&apos;)) header(&quot;Location:install/index.php&quot;);</div><div class="line">define(&apos;IN_QISHI&apos;, true);</div><div class="line">$alias=&quot;QS_index&quot;;</div><div class="line">require_once(dirname(__FILE__).&apos;/include/common.inc.php&apos;);</div></pre></td></tr></table></figure></p>
-<p>首先看到判断install.lock文件是否存在，如果不存在则重定向到install/index.php进行cms的安装。接下来是包含/include/common.inc.php文件，跟进查看此文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">session_start();</div><div class="line">require_once(QISHI_ROOT_PATH.&apos;data/config.php&apos;);</div><div class="line">header(&quot;Content-Type:text/html;charset=&quot;.QISHI_CHARSET);</div><div class="line">require_once(QISHI_ROOT_PATH.&apos;include/common.fun.php&apos;);</div><div class="line">require_once(QISHI_ROOT_PATH.&apos;include/74cms_version.php&apos;);</div></pre></td></tr></table></figure></p>
-<p>在/include/common.inc.php的开头包含了三个文件，data/config.php、include/common.fun.php和include/74cms_version.php<br>data/config.php是前面说到的配置文件，include/common.fun.php是基本函数文件，include/74cms_version.php是应用版本文件。</p>
-<p>接着下面是如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">if (!empty($_GET))</div><div class="line">&#123;</div><div class="line">$_GET  = addslashes_deep($_GET);</div><div class="line">&#125;</div><div class="line">if (!empty($_POST))</div><div class="line">&#123;</div><div class="line">$_POST = addslashes_deep($_POST);</div><div class="line">&#125;</div><div class="line">$_COOKIE   = addslashes_deep($_COOKIE);</div><div class="line">$_REQUEST  = addslashes_deep($_REQUEST);</div></pre></td></tr></table></figure></p>
-<p>调用include/common.fun.php中的addslashe_deep()函数对GET,POST,COOKIE请求参数进行过滤，再往下又可以看到一个包含文件操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">require_once(QISHI_ROOT_PATH.&apos;include/tpl.inc.php&apos;);</div></pre></td></tr></table></figure></p>
-<p>查看include/tpl.inc.php，这是用来初始化模版引擎的。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">if(!defined(&apos;IN_QISHI&apos;))</div><div class="line">&#123;</div><div class="line">die(&apos;Access Denied!&apos;);</div><div class="line">&#125;</div><div class="line">include_once(QISHI_ROOT_PATH.&apos;include/template_lite/class.template.php&apos;);</div><div class="line">$smarty = new Template_Lite; </div><div class="line">$smarty -&gt; cache_dir = QISHI_ROOT_PATH.&apos;temp/caches/&apos;.$_CFG[&apos;template_dir&apos;];</div><div class="line">$smarty -&gt; compile_dir =  QISHI_ROOT_PATH.&apos;temp/templates_c/&apos;.$_CFG[&apos;template_dir&apos;];</div><div class="line">$smarty -&gt; template_dir = QISHI_ROOT_PATH.&apos;templates/&apos;.$_CFG[&apos;template_dir&apos;];</div><div class="line">$smarty -&gt; reserved_template_varname = &quot;smarty&quot;;</div><div class="line">$smarty -&gt; left_delimiter = &quot;&#123;#&quot;;</div><div class="line">$smarty -&gt; right_delimiter = &quot;#&#125;&quot;;</div><div class="line">$smarty -&gt; force_compile = false;</div><div class="line">$smarty -&gt; assign(&apos;_PLUG&apos;, $_PLUG);</div><div class="line">$smarty -&gt; assign(&apos;QISHI&apos;, $_CFG);</div><div class="line">$smarty -&gt; assign(&apos;page_select&apos;,$page_select);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>在上述代码中包含了一个include/template_lite/class.template.php文件。这是一个smarty模版引擎的类，无需进一步分析。用tpl.inc.php实例化了这个类对象赋值给$smarty变量，接着回到common.onc.php<br>再由common.inc.php回到index.php,接下来就是smarty模版引擎的操作了。</p>
-<h2 id="根据功能点定向审计"><a href="#根据功能点定向审计" class="headerlink" title="根据功能点定向审计"></a>根据功能点定向审计</h2><p>以下几个功能点经常会出现漏洞</p>
-<ul>
-<li>文件上传功能（任意文件上传）</li>
-<li>文件管理功能（任意文件读取），利用../或者..\跳转目录</li>
-<li>登录认证功能（越权漏洞）</li>
-<li>找回密码功能（验证码爆破）</li>
-</ul>
-<h1 id="漏洞挖掘与防范"><a href="#漏洞挖掘与防范" class="headerlink" title="漏洞挖掘与防范"></a>漏洞挖掘与防范</h1><h2 id="SQL注入漏洞"><a href="#SQL注入漏洞" class="headerlink" title="SQL注入漏洞"></a>SQL注入漏洞</h2><p>SQL注入漏洞的原理非常简单，由于开发者在编写操作数据库代码时，直接将外部可控的参数拼接到SQL语句中，没有经过任何过滤就直接放入数据库引擎执行。</p>
-<h3 id="挖掘经验"><a href="#挖掘经验" class="headerlink" title="挖掘经验"></a>挖掘经验</h3><p>SQL注入经常出现在登录页面、获取HTTP头、订单处理等地方。另外在订单系统里面，由于订单涉及购物车等多个交互，所哟经常会发生二次注入。</p>
-<h4 id="普通注入"><a href="#普通注入" class="headerlink" title="普通注入"></a>普通注入</h4><p>普通注入有int型和string型，在string型注入中需要引用单引号或者双引号进行闭合。<br>数据库操作存在一些关键字，比如select from、mysql_connect、mysql_query、mysql_fetch_row等，数据库的查询方式还有update、insert、delete。在审计时，只需要查找这些关键字，即可定向挖掘SQL注入漏洞</p>
-<h4 id="编码注入"><a href="#编码注入" class="headerlink" title="编码注入"></a>编码注入</h4><p>常见的编码注入是MySQL宽字节以及urldecode/rawurldecode函数导致的。</p>
-<ul>
-<li><p>宽字节注入<br>出现这个漏洞的原因是在PHP连接MySQL的时候执行了设置：set character_set_client=gbk，MySQL服务器客户端来源数据编码是GBK，然后MySQL服务器对查询语句进行GBK转码导致反斜杠\被%df吃掉。</p>
-</li>
-<li><p>漏洞解决方式<br>1.设置character_set_client=binary<br>2.使用mysql_set_charset(‘gbk’)设置编码，然后使用mysql_real_escape_string()函数被参数过滤<br>3.使用pdo方式，在PHP5.3.6及以下版本需要设置setAttribute(PDO::ATTR_EMULATE_PREPARES,flase);来禁用preoared statements的仿真效果。</p>
-</li>
-<li><p>挖掘关键字</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SET NAMES</div><div class="line">character_set_client=gbk</div><div class="line">mysql_set_charset(&apos;gbk&apos;)</div></pre></td></tr></table></figure>
-</li>
-<li><p>二次urldecode注入<br>使用urldecode或者rawurldecode函数，会导致二次解码生成单引号而引发注入。原理是提交参数到WebServer时，WebServer会自动解码一次，如果开启了GPC，提交id=1%2527，第一次解码结果是id=1%27，%25解码的结果是%，如果程序里使用了urlcode或rawurlcode函数来解码id参数，则解码后的结果是id=1’单引号成功出现引发注入。</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$a=addslashes($_GET[&apos;p&apos;]);</div><div class="line">$b=urldecode($a);</div><div class="line">echo &apos;$a=&apos;.$a;</div><div class="line">echo &apos;&lt;br /&gt;&apos;;</div><div class="line">echo &apos;$b=&apos;.$b;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/urldecode.png" alt=""></p>
-<ul>
-<li>挖掘关键字<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">urldecode</div><div class="line">rawurldecode</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="espcms搜索注入分析"><a href="#espcms搜索注入分析" class="headerlink" title="espcms搜索注入分析"></a>espcms搜索注入分析</h4><p>在interface\search.php的in_taglist()函数中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function in_taglist() &#123;</div><div class="line">	parent::start_pagetemplate();</div><div class="line">	include_once admin_ROOT . &apos;public/class_pagebotton.php&apos;;</div><div class="line"></div><div class="line">	$page = $this-&gt;fun-&gt;accept(&apos;page&apos;, &apos;G&apos;);</div><div class="line">	$page = isset($page) ? intval($page) : 1;</div><div class="line">	$lng = (admin_LNG == &apos;big5&apos;) ? $this-&gt;CON[&apos;is_lancode&apos;] : admin_LNG;</div><div class="line">	$tagkey = urldecode($this-&gt;fun-&gt;accept(&apos;tagkey&apos;, &apos;R&apos;));</div><div class="line">	$tagkey = $this-&gt;fun-&gt;inputcodetrim($tagkey);</div><div class="line"></div><div class="line">	$db_where = &apos; WHERE lng=\&apos;&apos; . $lng . &apos;\&apos; AND isclass=1&apos;;</div><div class="line">	if (empty($tagkey)) &#123;</div><div class="line">		$linkURL = $_SERVER[&apos;HTTP_REFERER&apos;];</div><div class="line">		$this-&gt;callmessage($this-&gt;lng[&apos;search_err&apos;], $linkURL, $this-&gt;lng[&apos;gobackbotton&apos;]);</div><div class="line">	&#125;</div><div class="line">	if (!empty($tagkey)) &#123;</div><div class="line">		$db_where.=&quot; AND FIND_IN_SET(&apos;$tagkey&apos;,tags)&quot;;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
-<p>其中tagkey变量使用了urldecode可以用来绕过GPC,回溯构造exp。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$tagkey = urldecode($this-&gt;fun-&gt;accept(&apos;tagkey&apos;, &apos;R&apos;));</div><div class="line"></div><div class="line">$db_where.=&quot; AND FIND_IN_SET(&apos;$tagkey&apos;,tags)&quot;;</div></pre></td></tr></table></figure></p>
-<p>在index.php中如下代码片段：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">$archive = indexget(&apos;ac&apos;, &apos;R&apos;);</div><div class="line">$action = indexget(&apos;at&apos;, &apos;R&apos;);</div><div class="line"></div><div class="line">if (empty($archive) || empty($action)) &#123;</div><div class="line">	include admin_ROOT . &apos;interface/public.php&apos;;</div><div class="line">	$mainlist = new mainpage();</div><div class="line">	if (method_exists($mainlist, &apos;in_index&apos;)) &#123;</div><div class="line">		$mainlist-&gt;in_index();</div><div class="line">	&#125; else &#123;</div><div class="line">		exit(&apos;Access error!&apos;);</div><div class="line">	&#125;</div><div class="line">&#125; else &#123;</div><div class="line">	if (in_array($archive, array(&apos;article&apos;, &apos;forum&apos;, &apos;search&apos;, &apos;bbssearch&apos;, &apos;forummain&apos;, &apos;messmain&apos;, &apos;special&apos;, &apos;respond&apos;, &apos;public&apos;, &apos;scriptout&apos;, &apos;enquiry&apos;, &apos;enquirymain&apos;, &apos;form&apos;, &apos;formmain&apos;, &apos;ordermain&apos;, &apos;membermain&apos;, &apos;member&apos;, &apos;forum&apos;, &apos;order&apos;))) &#123;</div><div class="line">		$action = &apos;in_&apos; . $action;</div><div class="line">		if (!file_exists(admin_ROOT . &quot;interface/$archive.php&quot;)) &#123;</div><div class="line">			exit(&apos;Access error!&apos;);</div><div class="line">		&#125;</div><div class="line">		include admin_ROOT . &quot;interface/$archive.php&quot;;</div><div class="line">		$mainlist = new mainpage();</div><div class="line">		if (method_exists($mainlist, $action)) &#123;</div><div class="line">			$mainlist-&gt;$action();</div><div class="line">		&#125; else &#123;</div><div class="line">			exit(&apos;Access error!&apos;);</div><div class="line">		&#125;</div><div class="line">	&#125; else &#123;</div><div class="line">		exit(&apos;Access error!&apos;);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在以上代码中可以知道，使archive=serach,action=taglist,就可以跳到interface/search目录中的in_taglist函数。再给tagkey赋上一个值即可。<br>最终完成url回溯，即<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://localhost/espcms/index.php?ac=search&amp;at=taglist&amp;tagkey=a</div></pre></td></tr></table></figure></p>
-<p>根据二次urldecode注入原理，构造url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://localhost/espcms/index.php?ac=search&amp;at=taglist&amp;tagkey=a%2527</div></pre></td></tr></table></figure></p>
-<p>espcms本身有防注入函数，在文件<br>publicclass_function.php inputcodetrim()函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">function inputcodetrim($str) &#123;</div><div class="line">	if (empty($str)) return $str;</div><div class="line">	$str = str_replace(&quot;&amp;amp;&quot;, &quot;&amp;&quot;, $str);</div><div class="line">	$str = str_replace(&quot;&amp;gt;&quot;, &quot;&gt;&quot;, $str);</div><div class="line">	$str = str_replace(&quot;&amp;lt;&quot;, &quot;&lt;&quot;, $str);</div><div class="line">	$str = str_replace(&quot;&amp;lt;&quot;, &quot;&lt;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;select&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;join&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;union&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;where&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;insert&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;delete&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;update&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;like&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;drop&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;create&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;modify&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;rename&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;count&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;from&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;group by&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;concat&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;alter&quot;, &quot;&quot;, $str);</div><div class="line">	$str = str_ireplace(&quot;ca&amp;#115;&quot;, &quot;cast&quot;, $str);</div><div class="line">	$str = preg_replace(&quot;/&lt;span[^&gt;]+&gt;/i&quot;, &quot;&lt;span&gt;&quot;, $str);</div><div class="line">	$str = preg_replace(&quot;/&lt;p[^&gt;]+&gt;/i&quot;, &quot;&lt;p&gt;&quot;, $str);</div><div class="line">	$str = preg_replace(&quot;/&lt;font[^&gt;]+&gt;/i&quot;, &quot;&lt;font&gt;&quot;, $str);</div><div class="line">	$str = preg_replace(&quot;/width=(\&apos;|\&quot;)?[\d%]+(\&apos;|\&quot;)?/i&quot;, &quot;&quot;, $str);</div><div class="line">	$str = preg_replace(&quot;/height=(\&apos;|\&quot;)?[\d%]+(\&apos;|\&quot;)?/i&quot;, &quot;&quot;, $str);</div><div class="line">	$str = preg_replace(&quot;&apos;&lt;style[^\f]*?(\/style&gt;)&apos;si&quot;, &quot;&quot;, $str);</div><div class="line">	return $str;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>关键字替换为空，可以利用seselectlect=select绕过。</p>
-<h3 id="漏洞防范"><a href="#漏洞防范" class="headerlink" title="漏洞防范"></a>漏洞防范</h3><h4 id="gpc-retime魔术引号"><a href="#gpc-retime魔术引号" class="headerlink" title="gpc/retime魔术引号"></a>gpc/retime魔术引号</h4><ul>
-<li>magic_quotes_gpc对GET、POST、COOKIE的值进行过滤</li>
-<li>magic_quotes_runtime对数据库或文件中获取的数据进行过滤</li>
-</ul>
-<h4 id="过滤函数和类"><a href="#过滤函数和类" class="headerlink" title="过滤函数和类"></a>过滤函数和类</h4><ul>
-<li>addslashes()函数，在程序入口使用</li>
-<li>mysql<em>[real</em>]escape_string函数</li>
-<li>intval等字符转换，将变量转换成int类型</li>
-<li>PDO prepare预编译</li>
-</ul>
-<h2 id="XSS漏洞"><a href="#XSS漏洞" class="headerlink" title="XSS漏洞"></a>XSS漏洞</h2><ul>
-<li>反射型XSS：通过外部输入然后直接在浏览器端触发</li>
-<li>存储型XSS：先把利用代码保存在数据库或文件中，当Web程序读取利用代码并输出在页面上时触发漏洞</li>
-</ul>
-<h3 id="挖掘经验-1"><a href="#挖掘经验-1" class="headerlink" title="挖掘经验"></a>挖掘经验</h3><p>寻找常见的输出函数列表如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">print</div><div class="line">print_r</div><div class="line">echo</div><div class="line">printf</div><div class="line">sprintf</div><div class="line">die</div><div class="line">var_dump</div><div class="line">var_export</div></pre></td></tr></table></figure></p>
-<h4 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h4><h4 id="骑士cms存储型XSS分析"><a href="#骑士cms存储型XSS分析" class="headerlink" title="骑士cms存储型XSS分析"></a>骑士cms存储型XSS分析</h4><p>在/admin/admin_link.php可以看到代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">$act = !empty($_GET[&apos;act&apos;]) ? trim($_GET[&apos;act&apos;]) : &apos;list&apos;;</div><div class="line">$smarty-&gt;assign(&apos;pageheader&apos;,&quot;友情链接&quot;);</div><div class="line">if($act == &apos;list&apos;)</div><div class="line">&#123;</div><div class="line">	get_token();</div><div class="line">	check_permissions($_SESSION[&apos;admin_purview&apos;],&quot;link_show&quot;);</div><div class="line">	require_once(QISHI_ROOT_PATH.&apos;include/page.class.php&apos;);</div><div class="line">	$oederbysql=&quot; order BY l.show_order DESC&quot;;</div><div class="line">	$key=isset($_GET[&apos;key&apos;])?trim($_GET[&apos;key&apos;]):&quot;&quot;;</div><div class="line">	$key_type=isset($_GET[&apos;key_type&apos;])?intval($_GET[&apos;key_type&apos;]):&quot;&quot;;</div><div class="line">	if ($key &amp;&amp; $key_type&gt;0)</div><div class="line">	&#123;</div><div class="line">		</div><div class="line">		if     ($key_type===1)$wheresql=&quot; WHERE l.link_name like &apos;%&#123;$key&#125;%&apos;&quot;;</div><div class="line">		elseif ($key_type===2)$wheresql=&quot; WHERE l.link_url like &apos;%&#123;$key&#125;%&apos;&quot;;</div><div class="line">	&#125;</div><div class="line">	else</div><div class="line">	&#123;</div><div class="line">	!empty($_GET[&apos;alias&apos;])? $wheresqlarr[&apos;l.alias&apos;]=trim($_GET[&apos;alias&apos;]):&apos;&apos;;</div><div class="line">	!empty($_GET[&apos;type_id&apos;])? $wheresqlarr[&apos;l.type_id&apos;]=intval($_GET[&apos;type_id&apos;]):&apos;&apos;;</div><div class="line">	if (is_array($wheresqlarr)) $wheresql=wheresql($wheresqlarr);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	$joinsql=&quot; LEFT JOIN &quot;.table(&apos;link_category&apos;).&quot; AS c ON l.alias=c.c_alias  &quot;;</div><div class="line">	$total_sql=&quot;SELECT COUNT(*) AS num FROM &quot;.table(&apos;link&apos;).&quot; AS l &quot;.$joinsql.$wheresql;</div><div class="line">	$page = new page(array(&apos;total&apos;=&gt;$db-&gt;get_total($total_sql), &apos;perpage&apos;=&gt;$perpage));</div><div class="line">	$currenpage=$page-&gt;nowindex;</div><div class="line">	$offset=($currenpage-1)*$perpage;</div><div class="line">	$link = get_links($offset, $perpage,$joinsql.$wheresql.$oederbysql);</div><div class="line">	$smarty-&gt;assign(&apos;link&apos;,$link);</div><div class="line">	$smarty-&gt;assign(&apos;page&apos;,$page-&gt;show(3));</div><div class="line">	$smarty-&gt;assign(&apos;upfiles_dir&apos;,$upfiles_dir);</div><div class="line">	$smarty-&gt;assign(&apos;get_link_category&apos;,get_link_category());</div><div class="line">	$smarty-&gt;assign(&apos;navlabel&apos;,&quot;list&quot;);</div><div class="line">	$smarty-&gt;display(&apos;link/admin_link.htm&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>首先对act进行判断，如果act不存在就给其赋值list<br>然后对数据库中已存在的申请链接数据利用smarty模版引擎输出，其中get_links()进行链接的读取<br>定位get_links()函数到admin\admin_link.php中的get_links()函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function get_links($offset, $perpage, $get_sql= &apos;&apos;)</div><div class="line">&#123;</div><div class="line">	global $db;</div><div class="line">	$row_arr = array();</div><div class="line">	$limit=&quot; LIMIT &quot;.$offset.&apos;,&apos;.$perpage;</div><div class="line">	$result = $db-&gt;query(&quot;SELECT l.*,c.categoryname FROM &quot;.table(&apos;link&apos;).&quot; AS l &quot;.$get_sql.$limit);</div><div class="line">	while($row = $db-&gt;fetch_array($result))</div><div class="line">	&#123;</div><div class="line">	$row_arr[] = $row;</div><div class="line">	&#125;</div><div class="line">	return $row_arr;	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>从数据库中读取友情链接列表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$link = get_links($offset, $perpage,$joinsql.$wheresql.$oederbysql);</div></pre></td></tr></table></figure></p>
-<p>利用smarty模版引擎将读出的内容以link/admin_link.htm显示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$smarty-&gt;display(&apos;link/admin_link.htm&apos;);</div></pre></td></tr></table></figure></p>
-<p>跟进模版页面，关键代码段如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> &#123;#if $list.Notes&lt;&gt;&quot;&quot;#&#125;</div><div class="line">&lt;img src=&quot;images/comment_alert.gif&quot; border=&quot;0&quot;  class=&quot;vtip&quot; title=&quot;&#123;#$list.Notes#&#125;&quot; /&gt;</div><div class="line">&#123;#/if#&#125;</div><div class="line"> &#123;#if $list.link_logo&lt;&gt;&quot;&quot;#&#125;</div><div class="line">&lt;span style=&quot;color:#FF6600&quot; title=&quot;&lt;img src=&#123;#$list.link_logo#&#125; border=0/&gt;&quot; class=&quot;vtip&quot;&gt;[logo]&lt;/span&gt;</div><div class="line">&#123;#/if#&#125;</div><div class="line">&#123;#if $list.display&lt;&gt;&quot;1&quot;#&#125;</div><div class="line">&lt;span style=&quot;color: #999999&quot;&gt;[不显示]&lt;/span&gt;</div></pre></td></tr></table></figure></p>
-<p>其中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;span style=&quot;color:#FF6600&quot; title=&quot;&lt;img src=&#123;#$list.link_logo#&#125; border=0/&gt;&quot; class=&quot;vtip&quot;&gt;[logo]&lt;/span&gt;</div></pre></td></tr></table></figure></p>
-<p>问题是直接把显示logo的img标签放在span标签的title里面，当鼠标滑过的时候会调用事件执行显示title即执行img标签，利用点是｛#$list.link_logo#｝可以是HTML实体编码，从而绕过74cms的安全检查。</p>
-<p>来构造代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;span class=&quot;vtip&quot; title=&quot;&amp;lt;img src=1 onerror=alert(1) border=0/&amp;gt;&quot; style=&quot;color: rgb(255, 102, 0);&quot;&gt;[logo]&lt;/span&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/74cms6.png" alt=""></p>
-<p>管理员后台鼠标滑过Logo就能触发XSS<br><img src="http://obr4sfdq7.bkt.clouddn.com/74cms7.png" alt=""></p>
-<h3 id="漏洞防范-1"><a href="#漏洞防范-1" class="headerlink" title="漏洞防范"></a>漏洞防范</h3><h4 id="特殊字符HTML实体转码"><a href="#特殊字符HTML实体转码" class="headerlink" title="特殊字符HTML实体转码"></a>特殊字符HTML实体转码</h4><p>过滤相关的特殊字符，特殊字符列表如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">单引号（&apos;）</div><div class="line">双引号（&quot;）</div><div class="line">尖括号（&lt;&gt;）</div><div class="line">反斜杠（\）</div><div class="line">冒号（:）</div><div class="line">and符（&amp;）</div><div class="line">#号（#）</div></pre></td></tr></table></figure></p>
-<p>在输出和而此次调用的时候进行如HTML实体一类的转码</p>
-<h4 id="标签事件属性黑白名单"><a href="#标签事件属性黑白名单" class="headerlink" title="标签事件属性黑白名单"></a>标签事件属性黑白名单</h4><p>用正则表达式匹配标签事件实现规则</p>
-<h2 id="CSRF漏洞"><a href="#CSRF漏洞" class="headerlink" title="CSRF漏洞"></a>CSRF漏洞</h2><p>跨站请求伪造，劫持其他用户去进行一些请求</p>
-<h3 id="挖掘经验-2"><a href="#挖掘经验-2" class="headerlink" title="挖掘经验"></a>挖掘经验</h3><p>CSRF主要是用于越权操作，所有漏洞在有权限控制的地方，像管理后台、会员中心、论坛帖子以及交易管理等。<br>黑盒测试时，在以上几处打开非静态操作的页面，抓包查看有没有token，如果没有token的话，再直接请求这个页面，不带referer。如果返回的数据还是一样的，说明可能存在CSRFL漏洞。<br>白盒测试时，看核心文件里面是否验证token和referer相关的代码。</p>
-<h3 id="漏洞防范-2"><a href="#漏洞防范-2" class="headerlink" title="漏洞防范"></a>漏洞防范</h3><ul>
-<li>增加token/referer验证避免img标签请求的水坑攻击</li>
-<li>增加验证码</li>
-</ul>
-<h4 id="Token验证"><a href="#Token验证" class="headerlink" title="Token验证"></a>Token验证</h4><p>Token在计算机认证领域叫令牌，在页面或者Coolie里面加一个不可预测的字符串，服务器在接收操作请求的时候只要验证下这个字符串是不是上次访问留下来的即可判断是不是可信请求，因为如果没有访问上一个页面，是无法得到这个Token的，除非XSS漏洞或者其他手段能获得通信数据。</p>
-<h1 id="漏洞挖掘与防范（进阶篇）"><a href="#漏洞挖掘与防范（进阶篇）" class="headerlink" title="漏洞挖掘与防范（进阶篇）"></a>漏洞挖掘与防范（进阶篇）</h1><h2 id="文件操作漏洞"><a href="#文件操作漏洞" class="headerlink" title="文件操作漏洞"></a>文件操作漏洞</h2><p>文件操作包括文件包含、文件读取、文件删除、文件修改以及文件上传。</p>
-<h3 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h3><p>PHP的文件包含可以直接执行包含文件的代码，包含的文件的格式是不受限制的，只要能正常执行即可，文件包含分为本地文件包含和远程文件包含。<br>文件包含函数有include()、include_once()、require()和require_once()，它们之间的区别在于：include()和include_once()在包含文件时即使遇到错误，下面的代码依然会继续执行；而require()和require_once()则会直接报错退出程序。</p>
-<h4 id="挖掘经验-3"><a href="#挖掘经验-3" class="headerlink" title="挖掘经验"></a>挖掘经验</h4><p>文件包含漏洞大多出现在模块加载、模版加载以及cache调用的地方。直接搜索include()、include_once()、require()和require_once()这四个函数来回溯是否有可控的变量。</p>
-<ul>
-<li>本地文件包含是指只能包含本机文件的文件包含漏洞。</li>
-</ul>
-<p>测试代码1.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">define(&quot;ROOT&quot;,dirname(__FILE__).&apos;/&apos;);</div><div class="line">$mod = $_GET[&apos;mod&apos;];</div><div class="line">echo ROOT.$mod.&apos;.php&apos;;</div><div class="line">include(ROOT.$mod.&apos;.php&apos;);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>2.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php phpinfo();?&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/LPI.png" alt=""></p>
-<ul>
-<li>远程文件包含是指可以包含远程文件的包含漏洞，远程文件包含需要设置allow_url_include=On,函数支持HTTP、FTP等协议。</li>
-</ul>
-<h3 id="文件读取（下载）漏洞"><a href="#文件读取（下载）漏洞" class="headerlink" title="文件读取（下载）漏洞"></a>文件读取（下载）漏洞</h3><h4 id="挖掘经验-4"><a href="#挖掘经验-4" class="headerlink" title="挖掘经验"></a>挖掘经验</h4><p>文件读取函数列表如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">file_get_contents()、highlight_file()、fopen()、readfile()、fread()、fgetss()、fgets()、parse_ini_file()、show_source()、file()</div></pre></td></tr></table></figure></p>
-<h4 id="phpcms任意文件读取分析"><a href="#phpcms任意文件读取分析" class="headerlink" title="phpcms任意文件读取分析"></a>phpcms任意文件读取分析</h4><p>漏洞位于文件/phpcms/modules/search/index.php中的get_suggest_keyword函数，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public function public_get_suggest_keyword() &#123;</div><div class="line">	$url = $_GET[&apos;url&apos;].&apos;&amp;q=&apos;.$_GET[&apos;q&apos;];</div><div class="line">	</div><div class="line">	$res = @file_get_contents($url);</div><div class="line">	if(CHARSET != &apos;gbk&apos;) &#123;</div><div class="line">		$res = iconv(&apos;gbk&apos;, CHARSET, $res);</div><div class="line">	&#125;</div><div class="line">	echo $res;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>从GET参数中获取要读取的URL，然后使用file_get_contents函数来读取内容，在目录前，需要加../来跳目录。</p>
-<p>EXP<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/index.php?m=search&amp;c=index&amp;a=public_get_suggest_keyword&amp;url=1&amp;q=../../phpsso_server/caches/configs/database.php</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/phpcms.png" alt=""></p>
-<h3 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h3><h4 id="挖掘经验-5"><a href="#挖掘经验-5" class="headerlink" title="挖掘经验"></a>挖掘经验</h4><p>搜索上传函数move_uploaded_file()</p>
-<h4 id="未做过滤或本地过滤"><a href="#未做过滤或本地过滤" class="headerlink" title="未做过滤或本地过滤"></a>未做过滤或本地过滤</h4><p>未过滤和本地过滤共同点都是在服务器端未做过滤</p>
-<h4 id="黑（白）名单扩展名过滤"><a href="#黑（白）名单扩展名过滤" class="headerlink" title="黑（白）名单扩展名过滤"></a>黑（白）名单扩展名过滤</h4><p>黑名单缺点：</p>
-<ul>
-<li>限制的扩展名不够全，如敝在IIS下执行ASP的代码不止.asp这个扩展名，还有cdx,asa,cer等。</li>
-<li>验证扩展名的方式存在问题可以直接绕过，另外是结合PHP和系统的特点，导致可以截断文件名来绕过黑名单限制。</li>
-</ul>
-<h4 id="文件头、content-type验证绕过"><a href="#文件头、content-type验证绕过" class="headerlink" title="文件头、content-type验证绕过"></a>文件头、content-type验证绕过</h4><h3 id="文件删除漏洞"><a href="#文件删除漏洞" class="headerlink" title="文件删除漏洞"></a>文件删除漏洞</h3><p>常出现这个漏洞的函数是unlink()，不过老版本下session_destroy()函数也可以删除文件。一般也是因为删除的文件名可以用../跳转，或者没有限制当前用户只能删除他该有权限删除的文件。</p>
-<h4 id="挖掘经验-6"><a href="#挖掘经验-6" class="headerlink" title="挖掘经验"></a>挖掘经验</h4><p>可以搜索带有变量参数的unlink()。</p>
-<h3 id="文件操作漏洞防范"><a href="#文件操作漏洞防范" class="headerlink" title="文件操作漏洞防范"></a>文件操作漏洞防范</h3><h4 id="通用文件操作防御"><a href="#通用文件操作防御" class="headerlink" title="通用文件操作防御"></a>通用文件操作防御</h4><ul>
-<li>由越权操作引起可以操作未授权操作的文件</li>
-<li>要操作更多文件需要跳转目录</li>
-<li>大多都是直接在请求传入文件名</li>
-</ul>
-<h4 id="文件上传漏洞防范"><a href="#文件上传漏洞防范" class="headerlink" title="文件上传漏洞防范"></a>文件上传漏洞防范</h4><ul>
-<li>白名单方式过滤文件扩展名，使用in_array或者三等于（===）来对比扩展名</li>
-<li>保存上传的文件时重命名文件，文件命名规则采用时间戳的拼接随机数的MD5值方式“md5(time()+rand(1,10000))”。</li>
-</ul>
-<h2 id="代码执行漏洞"><a href="#代码执行漏洞" class="headerlink" title="代码执行漏洞"></a>代码执行漏洞</h2><p>该漏洞主要由eval()、assert()、preg_replace()、call_user_func()、call_user_func_array()、array_map()等函数的参数过滤不严格导致，另外还有PHP的动态函数($a($b))也是目前出现比较多的。</p>
-<h3 id="挖掘经验-7"><a href="#挖掘经验-7" class="headerlink" title="挖掘经验"></a>挖掘经验</h3><p>eval()和assert()函数导致的代码执行漏洞大多是因为载入缓存或者模版以及对变量的处理不严格导致。<br>preg_replace()函数的代码执行需要存在/e参数。<br>call_user_func()和call_user_func_array()函数的功能是调用函数，多用在框架里面动态调用函数。</p>
-<h4 id="代码执行函数"><a href="#代码执行函数" class="headerlink" title="代码执行函数"></a>代码执行函数</h4><ul>
-<li>eval和assert函数<br>这两个函数用来动态啊执行代码。<br>测试代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$a=&apos;aaa&apos;;</div><div class="line">$b=&apos;bbb&apos;;</div><div class="line">eval(&apos;$a=$b&apos;);</div><div class="line">var_dump($a);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/eval.png" alt=""></p>
-<ul>
-<li>preg_replace函数<br>preg_replace函数的作用是对字符串进行正则处理。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mixed preg_replace( mixed pattern, mixed replacement, mixed subject [, int limit ] )</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pattern</td>
-<td style="text-align:center">正则表达式</td>
-</tr>
-<tr>
-<td>replacement</td>
-<td style="text-align:center">替换的内容</td>
-</tr>
-<tr>
-<td>subject</td>
-<td style="text-align:center">需要匹配替换的对象</td>
-</tr>
-<tr>
-<td>limit</td>
-<td style="text-align:center">可选，指定替换的个数，如果省略 limit 或者其值为 -1，则所有的匹配项都会被替换</td>
-</tr>
-</tbody>
-</table>
-<p>当Pattern参数使用/e修正符时，preg_replace函数会将replacement参数当作 PHP代码执行，那么，针对此种情况，当replacement内容为用户可控数据时，就可能导致命令注入攻击漏洞的形成。</p>
-<p>1.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">preg_replace(&quot;/\[(.*)\]/e&quot;, &apos;\\1&apos;, $_GET[&apos;str&apos;]);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>正则表达的意思是从$_GET[‘str’]变量里搜索中括号[]中间的内容作为第一组的结果，preg_replace()函数第二个参数为‘\1’代表这里用第一组结果填充，请求str=[phpinfo()]，则执行代码phpinfo().</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/preg_replace.png" alt=""></p>
-<ul>
-<li>调用函数过滤不严<br>call_user_func()和array_map()等数个函数有调用其他函数的功能，其中的一个参数作为要调用的函数名，那如果这个传入的函数名可控，那就可以调用函数来执行代码。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">call_user_func()</div><div class="line">mixed call_user_func(callable $callback [,mixed $parameter [,mixed $..]])</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>该函数第一个参数作为回调函数，后面的参数为回调函数的参数，测试代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$b=&quot;phpinfo()&quot;;</div><div class="line">call_user_func($_GET[&apos;a&apos;],$b);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>请求1.php?a=assert的时候，则调用了assert函数，并且将phpinfo作为参数传入。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/call_user_func.png" alt=""></p>
-<ul>
-<li>动态函数执行<br>由于PHP的特性，PHP的函数可以直接由字符串拼接。<br>PHP动态参数写法为“变量（参数）”，常见动态函数后门如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$_GET[&apos;a&apos;]($_GET[&apos;b&apos;]);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/_GET.png" alt=""></p>
-<h2 id="命令执行漏洞"><a href="#命令执行漏洞" class="headerlink" title="命令执行漏洞"></a>命令执行漏洞</h2><p>PHP的命令执行漏洞主要基于一些函数的参数过滤不严导致，可以执行命令的函数有system()、exec()、shell_exec()、passthru()、pcntl_exec()、popen()、proc_open()一共七个函数，另外反引号（`）也可以命令执行，不过实际上这种也是调用的shell_exec()函数。</p>
-<h3 id="挖掘经验-8"><a href="#挖掘经验-8" class="headerlink" title="挖掘经验"></a>挖掘经验</h3><p>搜索命令执行函数system()、exec()、shell_exec()、passthru()、pcntl_exec()、popen()、proc_open()</p>
-<h4 id="命令执行函数"><a href="#命令执行函数" class="headerlink" title="命令执行函数"></a>命令执行函数</h4><p>system()、exec()、shell_exec()、passthru()以及反引号（`）可以直接传入命令并且函数返回执行结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">system(&apos;whoami&apos;);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/system.png" alt=""></p>
-<p>pcntl是PHP的多进程处理扩展，在处理大量任务的情况下会使用到，使用pcntl需要额外安装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void pcntl_exec ( string $path [, array $args [, array $envs ]] )</div></pre></td></tr></table></figure></p>
-<p>path为可执行程序路径，如果是Perl或者Bash脚本，则需要在文件头加上#!/bin/bash来标识可执行程序路径,args表示传递给$path程序的参数，envs则是执行这个程序的环境变量</p>
-<p>popen()、proc_open()函数不会直接返回执行结果，而是返回一个文件指针，但命令是已经执行了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">popen(&apos;whoami&apos; &gt;&gt;D:/2.txt&apos;,&apos;r&apos;);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<h4 id="反引号命令执行"><a href="#反引号命令执行" class="headerlink" title="反引号命令执行"></a>反引号命令执行</h4><p>反引号执行命令调用的是shell_exec()函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">echo `whoami`;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/``.png" alt=""></p>
-<h3 id="漏洞防范-3"><a href="#漏洞防范-3" class="headerlink" title="漏洞防范"></a>漏洞防范</h3><p>使用PHP自带的命令防注入函数，包括escapeshellcmd()和escapeshellarg()，其中escapeshellcmd()是过滤的整条命令，所以它的参数是一整条命令，escapeshellarg()函数则是用来保证传入命令执行函数里面的参数确实是以字符串参数形式存在的，不能被注入。除了使用函数，还可以对命令执行函数做白名单限制。</p>
-<h4 id="命令防注入函数"><a href="#命令防注入函数" class="headerlink" title="命令防注入函数"></a>命令防注入函数</h4><p>在命令防注入函数有escapeshellcmd()和escapeshellarg().</p>
-<p>escapeshellcmd()是过滤的整条命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">string escapenshellcmd (string $command)</div></pre></td></tr></table></figure></p>
-<p>可过滤的字符如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&amp;	;	`	|	*	?	~	&lt;	&gt;	^	(	)	[	]	&#123;	&#125;	$	\	\x0A	\xFF	%</div></pre></td></tr></table></figure></p>
-<p>其中’和”仅仅在不成对的时候被转义，测试代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">echo (escapeshellcmd($_GET[&apos;cmd&apos;]));</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/escapeshellcmd.png" alt=""></p>
-<p>Windows下在字符前加^,Linux下在字符前面加反斜杠（\）</p>
-<p>escapeshellarg()函数的功能则是过滤参数，将参数限制在一对双引号里，确保参数为一个字符串，因此它会把双引号替换为空格，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">echo &apos;ls &apos;.escapeshellarg(&apos;a&quot;&apos;);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/escapeshellarg.png" alt=""></p>
-<h4 id="参数白名单"><a href="#参数白名单" class="headerlink" title="参数白名单"></a>参数白名单</h4><p>在代码中或者配置文件中限定某些参数，在使用的时候匹配一下这个参数是不是在这个白名单列表中，如果不在则直接显示错误提示即可。</p>
-<h1 id="漏洞挖掘与防范（深入篇）"><a href="#漏洞挖掘与防范（深入篇）" class="headerlink" title="漏洞挖掘与防范（深入篇）"></a>漏洞挖掘与防范（深入篇）</h1><h2 id="变量覆盖漏洞"><a href="#变量覆盖漏洞" class="headerlink" title="变量覆盖漏洞"></a>变量覆盖漏洞</h2><p>变量覆盖指的是可以用自定义的参数值替换程序原有的变量值，变量覆盖漏洞通常需要结合程序的其他功能来实现完整攻击。<br>比如原本一个文件页面，限制的文件扩展名白名单列表写在配置文件中变量中，但是在上传的过程中有一个变量覆盖漏洞可以将任意扩展名覆盖掉原有的白名单列表，那就可以覆盖进去一个PHP的扩展名，从而上传一个PHP的shell。<br>变量覆盖漏洞大多由函数使用不当导致，经常引发变量覆盖漏洞的函数有：extract()函数和parse_str()，import_request_variables()函数则是用在没有开启全局变量注册的时候，调用了这个函数则相当于开启了全局变量注册，在PHP5.4之后这个函数已经被取消。另外利用$$的方式注册变量没有验证已有变量也会导致覆盖。</p>
-<h3 id="挖掘经验-9"><a href="#挖掘经验-9" class="headerlink" title="挖掘经验"></a>挖掘经验</h3><p>要挖可用的变量覆盖漏洞，一定要看漏洞代码行之前存在哪些变量可以覆盖并且后面有被使用到。<br>由函数导致的变量覆盖比较好挖掘，只要搜寻参数带有变量的extract()、parse_str()函数，然后去回溯变量是否可控，extract()还要考虑它的第二个参数。<br>import_request_variables()函数则相当于开了全局变量注册，只要找哪些变量没有初始化并且操作之前没有赋值的，然后提交这个变量作为参数。<br>使用\$\$注册变量导致变量覆盖，可以通过搜索“\$\$”这个关键词</p>
-<h4 id="函数使用不当"><a href="#函数使用不当" class="headerlink" title="函数使用不当"></a>函数使用不当</h4><ul>
-<li>extract函数<br>目前最常见的就是这个函数，使用频率最高，导致的漏洞也最多</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">　　 extract(array,extract_rules,prefix)</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>array    必需。</td>
-<td style="text-align:center">规定要使用的输入。</td>
-</tr>
-<tr>
-<td>extract_rules (可选)</td>
-<td style="text-align:center">extract() 函数将检查每个键名是否为合法的变量名，同时也检查和符号表中的变量名是否冲突。</td>
-</tr>
-<tr>
-<td>prefix(可选)</td>
-<td style="text-align:center">请注意 prefix 仅在 extract_type 的值是 EXTR_PREFIX_SAME，EXTR_PREFIX_ALL，EXTR_PREFIX_INVALID 或 EXTR_PREFIX_IF_EXISTS 时需要。如果附加了前缀后的结果不是合法的变量名，将不会导入到符号表中。前缀和数组键名之间会自动加上一个下划线。</td>
-</tr>
-</tbody>
-</table>
-<p>从以上说明我们可以看到第一个参数是必须的，会不会导致变量覆盖漏洞由第二个参数决定，该函数有三种情况会覆盖已有变量。</p>
-<p>测试代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$b=3;	//原本变量$b=3</div><div class="line">$a=array(&apos;b&apos;=&gt;&apos;1&apos;);	//把$b转化为数组键值对	</div><div class="line">extract($a);	//extract函数对$a处理</div><div class="line">print_r($b);	//$b的值被覆盖1</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/extract.png" alt=""></p>
-<ul>
-<li>parse_str函数<br>parse_str函数的作用就是解析字符串并注册成变量，在注册变量之前不会验证当前变量是否存在，所以直接覆盖掉已有变量</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">　　 void parse_str ( string $str [, array &amp;$arr ] )</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>str</td>
-<td style="text-align:center">输入的字符串。</td>
-</tr>
-<tr>
-<td>arr</td>
-<td style="text-align:center">如果设置了第二个变量 arr，变量将会以数组元素的形式存入到这个数组，作为替代。</td>
-</tr>
-</tbody>
-</table>
-<p>测试代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$b = 1;    //原变量值为1</div><div class="line">parse_str(&apos;b=2&apos;);   //经过parse_str()函数后注册变量$b，重新赋值</div><div class="line">print_r($b);  //输出结果为2</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/parse_str.png" alt=""></p>
-<ul>
-<li>import_request_variables函数<br>import_request_variables()函数就是把GET、POST、COOKIE的参数注册成变量，用在register_globals被禁止的时候<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">　　bool import_request_variables ( string $types [, string $prefix ] )</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>$type代表要注册的变量，G代表GET，P代表POST，C代表COOKIE，第二个参数为要注册变量的前缀</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$a = 1;    //原变量值为1</div><div class="line">import_request_variables(&apos;GP&apos;);   //传入参数时注册变量</div><div class="line">print_r($a);  //输出结果为2</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/import_request_variables.png" alt=""></p>
-<ul>
-<li>$$变量覆盖<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">foreach(array(&apos;_COOKIE&apos;,&apos;_POST&apos;,&apos;_GET&apos;) as $_request) &#123;</div><div class="line">	foreach($$_request as $_key =&gt; $_value)&#123;</div><div class="line">		$$_key = addslashes($_value);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>\$key为COOKIE、POST、GET中的参数，比如提交?a=1,则\$key的值为a，而还有一个\$在a的前面，结合起来则是\$a=addslashes(\$_value);所以这样会覆盖已有的变量\$a的值，用代码来解释会更清楚，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$a=1;</div><div class="line">foreach(array(&apos;_COOKIE&apos;,&apos;_POST&apos;,&apos;_GET&apos;) as $_request) &#123;</div><div class="line">	foreach($$_request as $_key =&gt; $_value)&#123;</div><div class="line">		echo $_key.&apos;&lt;br /&gt;&apos;;</div><div class="line">		$$_key = addslashes($_value);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">echo $a;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/$$.png" alt=""></p>
-<h3 id="漏洞防范-4"><a href="#漏洞防范-4" class="headerlink" title="漏洞防范"></a>漏洞防范</h3><p>变量覆盖漏洞最常见漏洞点是在做变量注册时没有验证变量是否存在，以及在赋值给变量的时候，推荐使用原始的变量数组，如\$_GET、\$_POST,或者在注册变量前一定要验证变量是否存在。</p>
-<h4 id="使用原始变量"><a href="#使用原始变量" class="headerlink" title="使用原始变量"></a>使用原始变量</h4><p>直接用原生的\$_GET、\$POST等数组变量进行操作。</p>
-<h4 id="验证变量存在"><a href="#验证变量存在" class="headerlink" title="验证变量存在"></a>验证变量存在</h4><ul>
-<li>使用extract()函数可以配置第二个参数为EXTR_SKIP</li>
-<li>使用parse_str()函数注册变量前需要先自行通过代码判断变量是否存在</li>
-<li>不使用import_request_variables()函数注册全局变量，会导致变量不可控</li>
-</ul>
-<h2 id="逻辑处理漏洞"><a href="#逻辑处理漏洞" class="headerlink" title="逻辑处理漏洞"></a>逻辑处理漏洞</h2><h3 id="挖掘经验-10"><a href="#挖掘经验-10" class="headerlink" title="挖掘经验"></a>挖掘经验</h3><p>值得关注的点是程序是否重复安装、修改密码处是否可越权修改其他用户密码、找回密码验证码是否可暴力破解以及修改其他用户密码、cookie是否可预测或者说cookie验证是否可绕过等等。</p>
-<h4 id="等于与存在判断绕过"><a href="#等于与存在判断绕过" class="headerlink" title="等于与存在判断绕过"></a>等于与存在判断绕过</h4><ul>
-<li>in_array()函数<br>in_array()函数是用来判断一个值是否在某一个数组列表里面，通常的判断方式如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">in_array(&apos;b&apos;,array(&apos;a&apos;,&apos;b&apos;,&apos;c&apos;))</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">if(in_array($_GET[&apos;typeid&apos;],array(1,2,3,4)))</div><div class="line">&#123;</div><div class="line">	$sql=&quot;select ... where typeid=&apos;&quot;.$_GET[&apos;typeid&apos;].&quot;&apos;&quot;;</div><div class="line">echo $sql;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p>以上代码的作用是判断GET参数typeid在不在数组里面，如果在里面则拼接到SQL语句里，但是in_array()函数在比较之前会自动做类型转换。<br><img src="http://obr4sfdq7.bkt.clouddn.com/in_array.png" alt=""></p>
-<ul>
-<li>is_numeric函数<br>is_numeric函数用来判断一个变量是否为数字，如果检查通过则返回true,否则返回false。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">if(is_numeric($_GET[&apos;var&apos;]))</div><div class="line">&#123;</div><div class="line">	$sql=&quot;insert into xx values (&apos;xx&apos;,&#123;$_GET[&apos;var&apos;]&#125;)&quot;</div><div class="line">	echo sql;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p>这个函数当传入的参数为Hex时则直接通过并返回true，而MySQL可以直接使用Hex编码代替字符串明文的，虽然不能直接注入SQL语句，但是存在二次注入和XSS等漏洞，<br>比如当提交<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;alert(1)&lt;/scrpit&gt;</div></pre></td></tr></table></figure></p>
-<p>的hex编码“0x3C7363726970743E616C6572742831293C2F7363727069743E”时，最终SQL语句的效果等同于：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">insert into xx values(&apos;xx&apos;,&apos;&lt;script&gt;alert(1)&lt;/scrpit&gt;&apos;)</div></pre></td></tr></table></figure>
-<p>如果应用程序有其他地方调用这个值，并直接输出，则有可能执行这段代码，触发XSS</p>
-<ul>
-<li>双等于和三等于</li>
-</ul>
-<p>（==）和（===）的区别在于，双等于在判断等于之前会先做变量类型转换，而三等于则不会，由于数据类型被改变，所以双等于在判断的时候可能存在安全风险。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">var_dump($_GET[&apos;var&apos;]==2)</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>当请求/1.php?var=2aaa时</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/==.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">var_dump($_GET[&apos;var&apos;]===2)</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p>当请求/1.php?var=2aaa时<br><img src="http://obr4sfdq7.bkt.clouddn.com/===.png" alt="">  </p>
-<h4 id="账号体系中的越权漏洞"><a href="#账号体系中的越权漏洞" class="headerlink" title="账号体系中的越权漏洞"></a>账号体系中的越权漏洞</h4><p>越权漏洞分为水平越权和垂直越权，水平越权指原相同等级权限的用户之间的越权漏洞，垂直越权指不在同权限等级的用户的越权漏洞<br>越权漏洞都是在判断权限时不严格导致存在绕过漏洞，绕过通常发生在cookie验证不严，简单判断用户提交的参数，这些参数都是在客户端提交，服务端没有严格校验。</p>
-<h4 id="未exit或return引发的安全问题"><a href="#未exit或return引发的安全问题" class="headerlink" title="未exit或return引发的安全问题"></a>未exit或return引发的安全问题</h4><p>某些情况下，在经过if条件判断之后，有两种操作，一种是继续执行if后面的代码，另一种是在if体内退出当前操作，但是这个退出行为，有不少程序忘记写return、die()或者exit()，导致程序还会继续执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">if(file_exists(&apos;install.lock&apos;))&#123;</div><div class="line">	//程序已经安装，跳转到首页</div><div class="line">	header(&quot;Location: ../&quot;);</div><div class="line">&#125;</div><div class="line">	//进入安装流程</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>判断install.lock文件是否存在，如果存在则跳转到首页，问题出在使用了header()函数跳转，但是PHP程序并没有退出，还是会进入安装流程。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">if($_GET[&apos;var&apos;]===&apos;aa&apos;)&#123;</div><div class="line">	header(&quot;Location: ../&quot;);</div><div class="line">&#125;</div><div class="line">	echo $_GET[&apos;var&apos;];</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/ifexit.png" alt=""></p>
-<h1 id="代码审计小技巧"><a href="#代码审计小技巧" class="headerlink" title="代码审计小技巧"></a>代码审计小技巧</h1><h2 id="GPC等转义"><a href="#GPC等转义" class="headerlink" title="GPC等转义"></a>GPC等转义</h2><h3 id="不受GPC保护的-SERVER变量"><a href="#不受GPC保护的-SERVER变量" class="headerlink" title="不受GPC保护的$_SERVER变量"></a>不受GPC保护的$_SERVER变量</h3><p>GPC用来过滤request中提交的数据，将数据字符进行转义来防止攻击，在PHP5之后用\$_SERVER取到的header字段不受GPC影响，所以当GPC开启的时候，它里面的特殊字符如单引号也不会被转义掉，而在header注入里面最常见的是user-agent、referer以及client-ip/x-forward-for，因为大多的Web应用都会记录访问者的IP以及referer等信息。同样的\$_FILIE变量也一样不受GPC保护。</p>
 ]]></content>
     </entry>
     
