@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://uknowsec.cn/posts/ctf/week-1-for-cnas-writeup.html</loc>
+    
+    <lastmod>2017-11-18T09:11:02.671Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://uknowsec.cn/posts/notes/MySQL%20Error%20Based%20SQL%20Injection%20%EF%BC%88%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%EF%BC%89%E6%80%BB%E7%BB%93.html</loc>
     
     <lastmod>2017-11-17T14:31:45.911Z</lastmod>

