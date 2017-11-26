@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-11-26T03:32:20.940Z</updated>
+  <updated>2017-11-26T03:44:16.622Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html"/>
     <id>http://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html</id>
     <published>2017-11-25T03:41:12.000Z</published>
-    <updated>2017-11-26T03:32:20.940Z</updated>
+    <updated>2017-11-26T03:44:16.622Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="火星文-50"><a href="#火星文-50" class="headerlink" title="火星文 50"></a>火星文 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/" target="_blank" rel="external">http://47.100.121.220:28001/</a></p>
@@ -105,7 +105,7 @@
 <ol>
 <li>最前面的单引号：闭合原文的where user=’</li>
 <li>AND 0=1:为了使前面的表达式返回值为空.</li>
-<li>接着我们使用UNION SELECT MD5(1)，直接把MD5值作为返回值retuen给$sql，这样在查询的时候$query就会有值.</li>
+<li>接着我们使用UNION SELECT MD5(1)，直接把MD5值作为返回值returned给\$sql，这样在查询的时候\$query就会有值.</li>
 <li>最后的#用来注释掉后面没用的东西</li>
 </ol>
 <p>因此<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">username:&apos; and 0=1 union select md5(1)#</div><div class="line">password:1</div></pre></td></tr></table></figure></p>
@@ -894,7 +894,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#102;&#x6f;&#111;&#64;&#98;&#x61;&#114;&#46;&#x63;&#111;&#109;">&#102;&#x6f;&#111;&#64;&#98;&#x61;&#114;&#46;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x66;&#111;&#111;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#x6f;&#109;">&#x66;&#111;&#111;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
