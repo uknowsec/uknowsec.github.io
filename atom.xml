@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://uknowsec.cn/"/>
-  <updated>2018-01-21T16:41:05.958Z</updated>
+  <updated>2018-01-21T16:41:05.959Z</updated>
   <id>http://uknowsec.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://uknowsec.cn/posts/life/Summary-of-2017.html"/>
     <id>http://uknowsec.cn/posts/life/Summary-of-2017.html</id>
     <published>2018-01-21T15:29:10.000Z</published>
-    <updated>2018-01-21T16:41:05.958Z</updated>
+    <updated>2018-01-21T16:41:05.959Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h1 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h1><p>2017年我从大二进入大三，算是在南京过了第一个大学暑假。我对暑假的实习生活有很多感慨，同时对我大三上学期这一年的感慨也挺多的。可能是因为大二下学期太久远了，以至于我都忘记我大二下学期都干了些什么了，记得实习那段时间过得挺辛苦的，每天挤着南京的早班地铁去公司。</p>
@@ -54,7 +54,7 @@
     <link href="http://uknowsec.cn/posts/ctf/week-9-for-cnas-writeup.html"/>
     <id>http://uknowsec.cn/posts/ctf/week-9-for-cnas-writeup.html</id>
     <published>2018-01-16T13:38:18.000Z</published>
-    <updated>2018-01-16T14:05:56.983Z</updated>
+    <updated>2018-01-16T14:05:56.984Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="01-50"><a href="#01-50" class="headerlink" title="01 50"></a>01 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="external">http://47.100.121.220:28001/01.php</a></p>
@@ -126,7 +126,7 @@
     <link href="http://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html"/>
     <id>http://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html</id>
     <published>2018-01-06T14:29:49.000Z</published>
-    <updated>2018-01-07T14:53:36.318Z</updated>
+    <updated>2018-01-07T14:53:36.319Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="01-50"><a href="#01-50" class="headerlink" title="01 50"></a>01 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="external">http://47.100.121.220:28001/01.php</a></p>
@@ -345,7 +345,7 @@
     <link href="http://uknowsec.cn/posts/ctf/week-5-for-cnas-writeup.html"/>
     <id>http://uknowsec.cn/posts/ctf/week-5-for-cnas-writeup.html</id>
     <published>2017-12-16T14:46:08.000Z</published>
-    <updated>2017-12-17T13:18:21.894Z</updated>
+    <updated>2017-12-17T13:18:21.895Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="躲猫猫-50"><a href="#躲猫猫-50" class="headerlink" title="躲猫猫 50"></a>躲猫猫 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="external">http://47.100.121.220:28001/01.php</a></p>
@@ -702,7 +702,7 @@
     <link href="http://uknowsec.cn/posts/notes/php%E5%86%85%E7%BD%AE%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93.html"/>
     <id>http://uknowsec.cn/posts/notes/php内置过滤函数总结.html</id>
     <published>2017-11-20T07:56:31.000Z</published>
-    <updated>2017-11-20T10:00:57.482Z</updated>
+    <updated>2017-11-20T10:00:57.483Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <p>PHP本身内置了很多参数过滤的函数，以方便开发者简单有效且统一地进行安全防护，而这些函数可以分为多种类型，如SQL注入过滤函数，XSS过滤函数，命令执行过滤函数，代码执行过滤函数等等。</p>
@@ -893,7 +893,7 @@
     <link href="http://uknowsec.cn/posts/notes/MySQL%20Error%20Based%20SQL%20Injection%20%EF%BC%88%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%EF%BC%89%E6%80%BB%E7%BB%93.html"/>
     <id>http://uknowsec.cn/posts/notes/MySQL Error Based SQL Injection （报错注入）总结.html</id>
     <published>2017-11-17T08:42:00.000Z</published>
-    <updated>2017-11-17T14:31:45.911Z</updated>
+    <updated>2017-11-17T14:31:45.912Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="MySQL报错注入"><a href="#MySQL报错注入" class="headerlink" title="MySQL报错注入"></a>MySQL报错注入</h2><p>利用数据库报错来显示数据的注入方式经常会在入侵中利用到，这种方法有一点局限性，需要页面有错误回显。</p>
@@ -977,7 +977,7 @@
     <link href="http://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html"/>
     <id>http://uknowsec.cn/posts/notes/php支持的协议和封装协议小结.html</id>
     <published>2017-11-16T09:45:21.000Z</published>
-    <updated>2017-11-16T14:44:10.154Z</updated>
+    <updated>2017-11-16T14:44:10.155Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="php协议类型"><a href="#php协议类型" class="headerlink" title="php协议类型"></a>php协议类型</h2><ul>
@@ -1102,7 +1102,7 @@
     <link href="http://uknowsec.cn/posts/notes/Android-App%E7%AB%AF%E4%B8%8EPHP-Web%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92%E5%AE%9E%E7%8E%B0.html"/>
     <id>http://uknowsec.cn/posts/notes/Android-App端与PHP-Web端的简单数据交互实现.html</id>
     <published>2017-10-23T02:43:11.000Z</published>
-    <updated>2017-10-25T09:39:55.306Z</updated>
+    <updated>2017-10-25T09:39:55.307Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于学校科技立项的项目需要实现Android App端与PHP Web端的简单数据交互的实现，当前场景是Web端使用的是MySql数据库，Apache服务器和PHP语言编写的。数据交互的简单理解就是Android能向服务端进行数据获取，同时也能进行数据提交。</p>
@@ -1151,7 +1151,7 @@
     <link href="http://uknowsec.cn/posts/notes/PHP-MVC%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
     <id>http://uknowsec.cn/posts/notes/PHP-MVC开发框架学习笔记.html</id>
     <published>2017-10-19T02:12:35.000Z</published>
-    <updated>2017-10-19T09:01:59.227Z</updated>
+    <updated>2017-10-19T09:01:59.228Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h2 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h2><p>MVC模式（Model-View-Controller）是软件工程中的一种软件架构模式，把软件系统分为三个基本部分：模型（Model）、视图（View）和控制器（Controller）。</p>
@@ -1347,7 +1347,7 @@
     <link href="http://uknowsec.cn/posts/notes/Docker%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E6%88%98.html"/>
     <id>http://uknowsec.cn/posts/notes/Docker基础与实战.html</id>
     <published>2017-09-14T10:54:55.000Z</published>
-    <updated>2017-09-14T13:25:24.692Z</updated>
+    <updated>2017-09-14T13:25:24.693Z</updated>
     
     <content type="html"><![CDATA[<p>点击阅读全文<br><a id="more"></a></p>
 <h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>Linux中两种Docker安装方法，一种是使用Docker提供的自动安装脚本，另一种是使用Linux发行版的packaging system直接安装</p>
@@ -1412,7 +1412,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</div></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#x3a;&#x66;&#111;&#x6f;&#64;&#98;&#97;&#x72;&#46;&#x63;&#111;&#109;">&#x66;&#111;&#x6f;&#64;&#98;&#97;&#x72;&#46;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#x66;&#111;&#x6f;&#64;&#x62;&#x61;&#114;&#46;&#x63;&#x6f;&#x6d;">&#x66;&#111;&#x6f;&#64;&#x62;&#x61;&#114;&#46;&#x63;&#x6f;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker diff hello-nginx</div></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo docker inspect hello-nginx</div></pre></td></tr></table></figure>
