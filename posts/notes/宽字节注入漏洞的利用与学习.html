@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 宽字节注入漏洞的利用与学习 · Uknow’s Blog</title><meta name="description" content="宽字节注入漏洞的利用与学习 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="http://weibo.com/u/3477219002" target="_blank" class="nav-list-link">Weibo</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">Rss</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">宽字节注入漏洞的利用与学习</h1><div class="post-time">Aug 1, 2017</div><div class="post-content"><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="字符、字符集与字符序"><a href="#字符、字符集与字符序" class="headerlink" title="字符、字符集与字符序"></a>字符、字符集与字符序</h3><p>字符(character)是组成字符集(character set)的基本单位。对字符赋予一个数值(encoding)来确定这个字符在该字符集中的位置。</p>
+<p>字符序(collation)指同一字符集内字符间的比较规则。</p>
+<h3 id="宽字节"><a href="#宽字节" class="headerlink" title="宽字节"></a>宽字节</h3><p>GB2312、GBK、GB18030、BIG5、Shift_JIS等这些都是常说的宽字节，实际上只有两字节。宽字节带来的安全问题主要是吃ASCII字符(一字节)的现象。</p>
+<h3 id="GBK编码取值范围"><a href="#GBK编码取值范围" class="headerlink" title="GBK编码取值范围"></a>GBK编码取值范围</h3><p>GBK采用双字节表示，总体编码范围为8140-FEFE，首字节在81-FE 之间，尾字节在40-FE 之间</p>
+<h3 id="GB2313编码取值范围"><a href="#GB2313编码取值范围" class="headerlink" title="GB2313编码取值范围"></a>GB2313编码取值范围</h3><p>gb2312编码的取值范围。它的高位范围是0xA1~0xF7，低位范围是0xA1~0xFE</p>
+<h3 id="MYSQL的字符集转换过程"><a href="#MYSQL的字符集转换过程" class="headerlink" title="MYSQL的字符集转换过程"></a>MYSQL的字符集转换过程</h3><ol>
+<li><p>MySQL Server收到请求时将请求数据从character_set_client转换为character_set_connection;</p>
+</li>
+<li><p>进行内部操作前将请求数据从character_set_connection转换为内部操作字符集，其确定方法如下：</p>
+</li>
+</ol>
+<ul>
+<li>使用每个数据字段的CHARACTER SET设定值;</li>
+<li>若上述值不存在，则使用对应数据表的DEFAULT CHARACTER SET设定值(MySQL扩展，非SQL标准);</li>
+<li>若上述值不存在，则使用对应数据库的DEFAULT CHARACTER SET设定值;</li>
+<li>若上述值不存在，则使用character_set_server设定值。</li>
+</ul>
+<p>将操作结果从内部操作字符集转换为character_set_results。</p>
+<p>重点：宽字节注入发生的位置就是PHP发送请求到MYSQL时字符集使用character_set_client设置值进行了一次编码。</p>
+<h3 id="addslashes"><a href="#addslashes" class="headerlink" title="addslashes()"></a>addslashes()</h3><p>addslashes() 函数返回在预定义字符之前添加反斜杠的字符串。</p>
+<h4 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">addslashes(string)</span><br></pre></td></tr></table></figure>
+<h4 id="参数说明："><a href="#参数说明：" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td style="text-align:center">必需。规定要转义的字符串。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mysql-real-escape-string"><a href="#mysql-real-escape-string" class="headerlink" title="mysql_real_escape_string()"></a>mysql_real_escape_string()</h3><p>mysql_real_escape_string() 函数转义 SQL 语句中使用的字符串中的特殊字符。<br>下列字符受影响：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">\x00</span><br><span class="line">\n</span><br><span class="line">\r</span><br><span class="line">\</span><br><span class="line">&apos;</span><br><span class="line">&quot;</span><br><span class="line">\x1a</span><br><span class="line">如果成功，则该函数返回被转义的字符串。如果失败，则返回 false。</span><br></pre></td></tr></table></figure>
+<h4 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_real_escape_string(string,connection)</span><br></pre></td></tr></table></figure>
+<h4 id="参数说明：-1"><a href="#参数说明：-1" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td style="text-align:center">必需。规定要转义的字符串。</td>
+</tr>
+<tr>
+<td>connection</td>
+<td style="text-align:center">可选。规定 MySQL 连接。如果未规定，则使用上一个连接。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="incov"><a href="#incov" class="headerlink" title="incov()"></a>incov()</h3><p>(PHP 4 &gt;= 4.0.5, PHP 5, PHP 7)<br>iconv — 字符串按要求的字符编码来转换</p>
+<h4 id="语法：-2"><a href="#语法：-2" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">string iconv ( string $in_charset , string $out_charset , string $str )</span><br></pre></td></tr></table></figure>
+<p>将字符串 str 从 in_charset 转换编码到 out_charset。</p>
+<h4 id="参数说明：-2"><a href="#参数说明：-2" class="headerlink" title="参数说明："></a>参数说明：</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in_charset</td>
+<td style="text-align:center">输入的字符集。</td>
+</tr>
+<tr>
+<td>out_charset</td>
+<td style="text-align:center">输出的字符集。</td>
+</tr>
+<tr>
+<td>str</td>
+<td style="text-align:center">要转换的字符串。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="相关字符集设置"><a href="#相关字符集设置" class="headerlink" title="相关字符集设置"></a>相关字符集设置</h3><ul>
+<li>character_set_client:客户端发送过来的SQL语句编码，也就是PHP发送的SQL查询语句编码字符集。</li>
+<li>character_set_connection:MySQL服务器接收客户端SQL查询语句后，在实施真正查询之前SQL查询语句编码字符集。</li>
+<li>character_set_database:数据库缺省编码字符集。</li>
+<li>character_set_filesystem:文件系统编码字符集。</li>
+<li>character_set_results:SQL语句执行结果编码字符集。</li>
+<li>character_set_server:服务器缺省编码字符集。</li>
+<li>character_set_system:系统缺省编码字符集。</li>
+<li>character_sets_dir:字符集存放目录，一般不要修改</li>
+</ul>
+<h2 id="宽字节注入原理"><a href="#宽字节注入原理" class="headerlink" title="宽字节注入原理"></a>宽字节注入原理</h2><p>　　GBK 占用两字节</p>
+<p>　　ASCII占用一字节</p>
+<p>　　PHP中编码为GBK，函数执行添加的是ASCII编码，MYSQL默认字符集是GBK等宽字节字符集。</p>
+<p>　　输入%df和函数执行添加的%5C，被合并成%df%5C。由于GBK是两字节，这个%df%5C被MYSQL识别为GBK。导致本应的%df\变成%df%5C。%df%5C在GBK编码中没有对应，所以被当成无效字符。</p>
+<p>　　%DF’ ：会被PHP当中的addslashes函数转义为“%DF\’” ，“\”既URL里的“%5C”，那么也就是说，“%DF’”会被转成“%DF%5C%27”倘若网站的字符集是GBK，MYSQL使用的编码也是GBK的话，就会认为“%DF%5C%27”是一个宽字符。也就是“縗’”</p>
+<h2 id="MySQL中的宽字节注入"><a href="#MySQL中的宽字节注入" class="headerlink" title="MySQL中的宽字节注入"></a>MySQL中的宽字节注入</h2><h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">//连接数据库部分，注意使用了gbk编码</span><br><span class="line">$conn = mysql_connect(&apos;localhost&apos;, &apos;root&apos;, &apos;uknow&apos;) or die(&apos;bad!&apos;);</span><br><span class="line">mysql_query(&quot;SET NAMES &apos;gbk&apos;&quot;);</span><br><span class="line">mysql_select_db(&apos;test&apos;, $conn) OR emMsg(&quot;连接数据库失败，未找到您填写的数据库&quot;);</span><br><span class="line">//执行sql语句</span><br><span class="line">$id = isset($_GET[&apos;id&apos;]) ? addslashes($_GET[&apos;id&apos;]) : 1;</span><br><span class="line">$sql = &quot;SELECT * FROM news WHERE tid=&apos;&#123;$id&#125;&apos;&quot;;</span><br><span class="line">$result = mysql_query($sql, $conn) or die(mysql_error());</span><br><span class="line">?&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;gbk&quot; /&gt;</span><br><span class="line">&lt;title&gt;新闻&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">$row = mysql_fetch_array($result, MYSQL_ASSOC);</span><br><span class="line">echo &quot;&lt;h2&gt;&#123;$row[&apos;title&apos;]&#125;&lt;/h2&gt;&lt;p&gt;&#123;$row[&apos;content&apos;]&#125;&lt;p&gt;\n&quot;;</span><br><span class="line">mysql_free_result($result);</span><br><span class="line">?&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="利用过程"><a href="#利用过程" class="headerlink" title="利用过程"></a>利用过程</h3><p>SQL语句是SELECT * FROM news WHERE tid=’{$id}’，就是根据文章的id把文章从news表中取出来。</p>
+<p>在这个sql语句前面，使用了一个addslashes函数，将$id的值转义。这是通常cms中对sql注入进行的操作，只要输入参数在单引号中，就逃逸不出单引号的限制，无法注入，</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql1.png" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/sql2.png" alt=""></p>
+<p>一般绕过addslashes的方式就是，想办法处理\’前面的\：</p>
+<ul>
+<li>1.想办法给\前面再加一个\（或单数个即可），变成\’，这样\被转义了，’逃出了限制</li>
+<li>2.想办法把\弄没有。<br>宽字节注入是利用mysql的一个特性，mysql在使用GBK编码的时候，会认为两个字符是一个汉字（前一个ascii码要大于128，才到汉字的范围）。如果输入%df’看会怎样：</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql3.png" alt=""><br>其中的�\是一个汉字  我们可以改成其他的。根据gbk编码，第一个字节ascii码大于128，基本上就可以了。比如我们不用%df，用%dd也可以：</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql4.png" alt=""></p>
+<p>为什么从刚才到现在，只是在’也就是%27前面加了一个%df就报错了？而且从图中可以看到，报错的原因就是多了一个单引号，而单引号前面的反斜杠不见了。</p>
+<p>这就是mysql的特性，因为gbk是多字节编码，他认为两个字节代表一个汉字，所以%df和后面的\也就是%5c变成了一个汉字“輁”，而’逃逸了出来。</p>
+<p>因为两个字节代表一个汉字，所以我们可以试试%df%df%27：</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql5.png" alt=""></p>
+<p>不报错了。因为%df%df是一个汉字，%5c%27不是汉字，仍然是\’。</p>
+<p>我们可以利用宽字节注入的特点进行手注，也可以在url后面加上%df’丢给sqlmap<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/1/0x01/index.php?id=1%df&apos;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql6.png" alt=""></p>
+<h2 id="GB2312与GBK的不同"><a href="#GB2312与GBK的不同" class="headerlink" title="GB2312与GBK的不同"></a>GB2312与GBK的不同</h2><p>GB2312也是属于宽字节，那么使用GB2312连接数据库，看能否进行宽字节注入</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql7.png" alt=""></p>
+<p>结果就是不能注入了：</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql8.png" alt=""></p>
+<p>gb2312编码的取值范围。它的高位范围是0xA1~0xF7，低位范围是0xA1~0xFE，而\是0x5c，是不在低位范围中的。所以，0x5c根本不是gb2312中的编码，所以自然也是不会被吃掉的。</p>
+<h2 id="宽字符注入的修复"><a href="#宽字符注入的修复" class="headerlink" title="宽字符注入的修复"></a>宽字符注入的修复</h2><ul>
+<li>将character_set_client设置为binary（二进制）<br>只需在所有sql语句前指定一下连接的形式是二进制：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET character_set_connection=gbk, character_set_results=gbk,character_set_client=binary</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>当mysql接受到客户端的数据后，会认为他的编码是character_set_client，然后会将之将换成character_set_connection的编码，然后进入具体表和字段后，再转换成字段对应的编码。</p>
+<p>然后，当查询结果产生后，会从表和字段的编码，转换成character_set_results编码，返回给客户端。</p>
+<p>所以，将character_set_client设置成binary，就不存在宽字节或多字节的问题了，所有数据以二进制的形式传递，就能有效避免宽字符注入。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/sql10.png" alt=""></p>
+<p>已经不能注入了<br><img src="http://obr4sfdq7.bkt.clouddn.com/sql9.png" alt=""></p>
+<h2 id="inconv导致的致命后果"><a href="#inconv导致的致命后果" class="headerlink" title="inconv导致的致命后果"></a>inconv导致的致命后果</h2><h3 id="测试代码-1"><a href="#测试代码-1" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">//连接数据库部分，注意使用了gbk编码</span><br><span class="line">$conn = mysql_connect(&apos;localhost&apos;, &apos;root&apos;, &apos;toor!@#$&apos;) or die(&apos;bad!&apos;);</span><br><span class="line">mysql_query(&quot;SET NAMES &apos;gbk&apos;&quot;);</span><br><span class="line">mysql_select_db(&apos;test&apos;, $conn) OR emMsg(&quot;连接数据库失败，未找到您填写的数据库&quot;);</span><br><span class="line">//执行sql语句</span><br><span class="line">mysql_query(&quot;SET character_set_connection=gbk, character_set_results=gbk,character_set_client=binary&quot;, $conn); </span><br><span class="line">$id = isset($_GET[&apos;id&apos;]) ? addslashes($_GET[&apos;id&apos;]) : 1;</span><br><span class="line">$id = iconv(&apos;utf-8&apos;, &apos;gbk&apos;, $id);</span><br><span class="line">$sql = &quot;SELECT * FROM news WHERE tid=&apos;&#123;$id&#125;&apos;&quot;;</span><br><span class="line">$result = mysql_query($sql, $conn) or die(mysql_error());</span><br><span class="line">?&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;gbk&quot; /&gt;</span><br><span class="line">&lt;title&gt;新闻&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">$row = mysql_fetch_array($result, MYSQL_ASSOC);</span><br><span class="line">echo &quot;&lt;h2&gt;&#123;$row[&apos;title&apos;]&#125;&lt;/h2&gt;&lt;p&gt;&#123;$row[&apos;content&apos;]&#125;&lt;p&gt;\n&quot;;</span><br><span class="line">mysql_free_result($result);</span><br><span class="line">?&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>可以看到，它在sql语句执行前，将character_set_client设置成了binary，所以可以避免宽字符注入的问题。但之后其调用了iconv将已经过滤过的参数$id给转换了一下。</p>
+<p>给id参数一个值：錦’<br><img src="http://obr4sfdq7.bkt.clouddn.com/sql11.png" alt=""></p>
+<p>报错了。说明可以注入。</p>
+<p>“錦“这个字，它的utf-8编码是0xe98ca6，它的gbk编码是0xe55c。<br>\的ascii码正是5c。那么，当我们的錦被iconv从utf-8转换成gbk后，变成了%e5%5c，而后面的’被addslashes变成了%5c%27，这样组合起来就是%e5%5c%5c%27，两个%5c就是\，正好把反斜杠转义了，导致’逃逸出单引号，产生注入。</p>
+<p>正利用了绕过addslashes的两种方式的第一种：将\转义掉。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.leavesongs.com/PENETRATION/mutibyte-sql-inject.html" target="_blank" rel="noopener">浅析白盒审计中的字符编码及SQL注入</a></p>
+</div></article></div></section><footer><div class="paginator"><a href="/posts/notes/Peach对Modbus功能码的模糊测试.html" class="prev">PREV</a><a href="/posts/notes/反序列化漏洞的利用与学习.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2018 <a href="http://uknowsec.cn">uknow</a>, Powered by Hexo & Hexo-theme-apollo.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
