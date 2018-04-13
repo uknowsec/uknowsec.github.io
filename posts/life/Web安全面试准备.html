@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Web安全面试知识总结 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="Web安全面试知识总结 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Web安全面试知识总结</h1><div class="post-time">Apr 13, 2018</div><div class="post-content"><h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h3><p>三同：协议相同、域名相同、端口相同</p>
+<p>跨域实现方法：</p>
+<ul>
+<li>document.domain（双向）</li>
+<li>window.name（双向）</li>
+<li>window.postMessage（双向）</li>
+<li>JSONP(回调函数和数据两部分组成,单向)</li>
+<li>iframe（双向）</li>
+<li>CORS(跨域资源共享)</li>
+</ul>
+<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><p>反射型XSS：简单把用户输入的数据反射给浏览器，例如诱使用户点击个恶意链接来达到攻击的目的<br>存储型XSS：把用户输入的数据存储到服务器，例如黑客发表包含恶意js代码的文章，发表后所有浏览文章的用户都会在他们的浏览器执行这段恶意代码<br>DOM型XSS：DOM—based XSS漏洞是基于文档对象模型Document Objeet Model,DOM)的一种漏洞。</p>
+<p>XSS的防御：</p>
+<ol>
+<li><p>HTTPOnly：在设置Cookie时使用HTTPOnly属性，解决了Cookie劫持问题。</p>
+</li>
+<li><p>输入检查：转义或过滤</p>
+</li>
+<li><p>输出检查：转义，使用编码方式</p>
+</li>
+<li><p>正确的防御XSS：在不同的输出地方使用不同的编码方式。</p>
+</li>
+</ol>
+<h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><p>0x01 客户端检测绕过(javascript 检测)<br>0x02 服务端检测绕过(MIME 类型检测)<br>0x03 服务端检测绕过(目录路径检测)<br>0x04 服务端检测绕过(文件扩展名检测)</p>
+<ul>
+<li>黑名单检测</li>
+<li>白名单检测</li>
+<li>.htaccess 文件攻击</li>
+</ul>
+<p>0x05 服务端检测绕过(文件内容检测)</p>
+<ul>
+<li>文件幻数检测</li>
+<li>文件相关信息检测</li>
+<li>文件加载检测</li>
+</ul>
+<p>0x06 解析攻击</p>
+<ul>
+<li>网络渗透的本质</li>
+<li>直接解析</li>
+<li>本地文件包含解析</li>
+<li>.htaccess 解析</li>
+</ul>
+<h3 id="RPO漏洞"><a href="#RPO漏洞" class="headerlink" title="RPO漏洞"></a>RPO漏洞</h3><p>PRO的全称为“Relative Path Overwrite”，也就是相对路径覆盖。利用浏览器和服务器对资源加载设置的差异，通过某些方法和技巧，在相对路径处，引入我们可控的js/css文件，甚至引入非js/css文件，并按照js/css的语法执行，从而实现攻击。</p>
+<p>利用RPO，进行XSS+CSRF攻击。</p>
+<h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><p>SQL注入漏洞产生原理<br>对构造成SQL语句的变量，过滤不严格，造成可以构造任意的SQL语句，传递到数据库执行。</p>
+<p>SQL注入分类</p>
+<ul>
+<li>UNION query SQL injection（可联合查询注入）</li>
+<li>Boolean-based blind SQL injection（布尔型注入）</li>
+<li>Error-based SQL injection（报错型注入）</li>
+<li>Stacked queries SQL injection（可多语句查询注入）</li>
+<li>Time-based blind SQL injection（基于时间延迟注入）</li>
+</ul>
+<p>哪里能够引发SQL注入</p>
+<ul>
+<li>get query string</li>
+<li>port string</li>
+<li>http header</li>
+</ul>
+<p>过WAF的方法</p>
+<ul>
+<li>a) 大小写混合 </li>
+<li>b)替换关键字 </li>
+<li>c)使用编码 （URL编码  十六进制编码      Unicode编码）</li>
+<li>d)使用注释 </li>
+<li>e)等价函数与命令(函数或变量、符号、生僻函数)</li>
+<li>f)使用特殊符号 </li>
+<li>g)HTTP参数控制 </li>
+<li>h)缓冲区溢出 </li>
+<li>i)整合绕过 </li>
+</ul>
+<p>二次注入</p>
+<ul>
+<li><p>开发者可能不信任直接来自用户的数据，对其进行转义后存储。但对于已存储的数据却过于信任，数据未经过滤、转义被取出后放入了 SQL 语句中，自然就导致了注入。</p>
+</li>
+<li><p>也有一些是因为开发者对语言中的函数不理解所导致的，比如经典的 PHP is_numeric。</p>
+</li>
+</ul>
+<p>安全加固</p>
+<ul>
+<li>源码加固（预编译处理、过滤函数的使用addslashes() mysql_escape_string() mysql_real_escape_string() intval()、产品加固）</li>
+</ul>
+<p>Getshell</p>
+<ul>
+<li>注入，查数据，找管理员密码，进后台，找上传，看返回，getshell</li>
+<li>PHP MYSQL 类，大权限，知路径，传文件，回shell(上传&amp;命令执行)，OS-SHELL。</li>
+<li><p>MSSQL大权限，知路径，传文件，回shell。结合xp_cmdshell 执行系统命令。</p>
+</li>
+<li><p>Phpmyadmin getshell （编码）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select &apos;&lt;?eval($_POST[cmd]);?&gt;&apos; into outfile &apos;d:/wwwroot/1.php&apos;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Union select getshell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and 1=2 union select 0x3c3f70687020a6576616c28245f504f53545b615d293ba3f3e into outfile &apos;/alidata/www/cms/ttbdxt/conf.php&apos;--</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="MySQL报错注入"><a href="#MySQL报错注入" class="headerlink" title="MySQL报错注入"></a>MySQL报错注入</h3><p>利用数据库报错来显示数据的注入方式经常会在入侵中利用到，这种方法有一点局限性，需要页面有错误回显。</p>
+<p>导致MySQL报错并且显示出数据的函数</p>
+<ul>
+<li>GemetryCollection()</li>
+<li>polygon(),GTID_SUBSET()</li>
+<li>multipoint()</li>
+<li>multinestring()</li>
+<li>multipolygon()</li>
+<li>LINESTRING()</li>
+<li>exp()</li>
+</ul>
+<p>MYSQL报错注入大体可以分为以下几类：</p>
+<ul>
+<li>BIGINT等数据类型溢出</li>
+<li>xpath语法错误</li>
+<li>concat+rand()+group_by()导致主键重复</li>
+<li>空间数据类型函数错误</li>
+</ul>
+<h3 id="php协议类型"><a href="#php协议类型" class="headerlink" title="php协议类型"></a>php协议类型</h3><ul>
+<li>file:// — 访问本地文件系统</li>
+<li>http:// — 访问 HTTP(s) 网址</li>
+<li>ftp:// — 访问 FTP(s) URLs</li>
+<li>php:// — 访问各个输入/输出流（I/O streams）  （不需要开启allow_url_fopen，仅php://input、 php://stdin、 php://memory 和 php://temp 需要开启allow_url_include。）</li>
+<li>zlib:// — 压缩流</li>
+<li>data:// — 数据（RFC 2397）</li>
+<li>glob:// — 查找匹配的文件路径模式</li>
+<li>phar:// — PHP 归档</li>
+<li>ssh2:// — Secure Shell 2</li>
+<li>rar:// — RAR</li>
+<li>ogg:// — 音频流</li>
+<li>expect:// — 处理交互式的流</li>
+</ul>
+<p>file:// — 访问本地文件系统,不受allow_url_fopen与allow_url_include的影响</p>
+<h3 id="PHP-MVC开发框架"><a href="#PHP-MVC开发框架" class="headerlink" title="PHP MVC开发框架"></a>PHP MVC开发框架</h3><p>模型（Model）、视图（View）和控制器（Controller）</p>
+<p>MVC各部分的职能：</p>
+<ul>
+<li>模型Model – 管理大部分的业务逻辑和所有的数据库逻辑。模型提供了连接和操作数据库的抽象层。</li>
+<li>控制器Controller - 负责响应用户请求、准备数据，以及决定如何展示数据。</li>
+<li>视图View – 负责渲染数据，通过HTML方式呈现给用户。</li>
+</ul>
+<p>一个典型的Web MVC流程：</p>
+<ul>
+<li>Controller截获用户发出的请求；</li>
+<li>Controller调用Model完成状态的读写操作；</li>
+<li>Controller把数据传递给View；</li>
+<li>View渲染最终结果并呈献给用户。</li>
+</ul>
+<p>CRLF Injection漏洞利用与学习</p>
+<p>CRLF是”回车 + 换行”（\r\n）的简称。在HTTP协议中，HTTP Header与HTTP Body是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP 内容并显示出来。<br>所以，一旦我们能够控制HTTP 消息头中的字符，注入一些恶意的换行，这样我们就能注入一些会话Cookie或者HTML代码，<br>所以CRLF Injection又叫HTTP Response Splitting，简称HRS。</p>
+<h3 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h3><p>GBK 占用两字节</p>
+<p>ASCII占用一字节</p>
+<p>PHP中编码为GBK，函数执行添加的是ASCII编码，MYSQL默认字符集是GBK等宽字节字符集。</p>
+<p>输入%df和函数执行添加的%5C，被合并成%df%5C。由于GBK是两字节，这个%df%5C被MYSQL识别为GBK。导致本应的%df\变成%df%5C。%df%5C在GBK编码中没有对应，所以被当成无效字符。</p>
+<p>%DF’ ：会被PHP当中的addslashes函数转义为“%DF\’” ，“\”既URL里的“%5C”，那么也就是说，“%DF’”会被转成“%DF%5C%27”倘若网站的字符集是GBK，MYSQL使用的编码也是GBK的话，就会认为“%DF%5C%27”是一个宽字符。也就是“縗’”</p>
+<p>宽字符注入的修复<br>将character_set_client设置为binary（二进制）</p>
+<h3 id="PHP反序列化漏洞"><a href="#PHP反序列化漏洞" class="headerlink" title="PHP反序列化漏洞"></a>PHP反序列化漏洞</h3><p>漏洞的根源在于unserialize()函数的参数可控。如果反序列化对象中存在魔术方法，而且魔术方法中的代码有能够被我们控制，漏洞就这样产生了，根据不同的代码可以导致各种攻击，如代码注入、SQL注入、目录遍历等等。</p>
+<h3 id="XXE-XML外部实体注入攻击"><a href="#XXE-XML外部实体注入攻击" class="headerlink" title="XXE(XML外部实体注入攻击)"></a>XXE(XML外部实体注入攻击)</h3><p>当允许引用外部实体时，通过构造恶意内容，可导致读取任意文件、执行系统命令、探测内网端口、攻击内网网站等危害。</p>
+<p>有回显，直接读取文件<br>无回显，引用远程服务器上的XML文件读取文件<br>配合php://filter/read=convert.base64-encode/resource=</p>
+<p>防御XXE攻击</p>
+<ul>
+<li><p>方案一、使用开发语言提供的禁用外部实体的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PHP：</span><br><span class="line">libxml_disable_entity_loader(true);</span><br><span class="line"></span><br><span class="line">JAVA:</span><br><span class="line">DocumentBuilderFactory dbf =DocumentBuilderFactory.newInstance();</span><br><span class="line">dbf.setExpandEntityReferences(false);</span><br><span class="line"></span><br><span class="line">Python：</span><br><span class="line">from lxml import etree</span><br><span class="line">xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方案二、过滤用户提交的XML数据</p>
+</li>
+</ul>
+<p>关键词：&lt;!DOCTYPE和&lt;!ENTITY，或者，SYSTEM和PUBLIC。</p>
+<h3 id="SSRF-Server-side-Request-Forge-服务端请求伪造"><a href="#SSRF-Server-side-Request-Forge-服务端请求伪造" class="headerlink" title="SSRF(Server-side Request Forge, 服务端请求伪造)"></a>SSRF(Server-side Request Forge, 服务端请求伪造)</h3><p>由攻击者构造的攻击链接传给服务端执行造成的漏洞，一般用来在外网探测或攻击内网服务。</p>
+<p>限制协议为HTTP、HTTPS —– 通过HTTP(S)的链接302跳转到其他协议</p>
+<p>漏洞修复</p>
+<ul>
+<li>限制协议为HTTP、HTTPS</li>
+<li>禁止30x跳转</li>
+<li>设置URL白名单或者限制内网IP</li>
+</ul>
+<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>发现漏洞可利用处-&gt;构造(搭建)搭建代码-&gt;发送给用户(管理员)-&gt;触发代码(发送请求</p>
+<p>CSRF 漏洞防护</p>
+<ul>
+<li>来源校验</li>
+<li>用户token 校验</li>
+<li>当前用户密码验证</li>
+<li>添加验证机制</li>
+</ul>
+<h3 id="常见Web源码泄露"><a href="#常见Web源码泄露" class="headerlink" title="常见Web源码泄露"></a>常见Web源码泄露</h3><ul>
+<li><p>.hg源码泄漏（hg init的时候会生成.hg）</p>
+</li>
+<li><p>.git源码泄漏</p>
+</li>
+</ul>
+<ul>
+<li><p>.DS_Store文件泄漏</p>
+</li>
+<li><p>网站备份压缩文件</p>
+</li>
+<li><p>SVN导致文件泄露</p>
+</li>
+<li><p>WEB-INF/web.xml泄露</p>
+</li>
+<li><p>CVS泄漏</p>
+</li>
+</ul>
+<h3 id="DNS域传送信息"><a href="#DNS域传送信息" class="headerlink" title="DNS域传送信息"></a>DNS域传送信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nslookup</span><br><span class="line">server dns.xx.com</span><br><span class="line">ls xx.com</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dig @dns.xx.com. axfr xx.com</span><br></pre></td></tr></table></figure>
+<h3 id="内网渗透中转发"><a href="#内网渗透中转发" class="headerlink" title="内网渗透中转发"></a>内网渗透中转发</h3><ul>
+<li>LCX转发</li>
+<li>NC转发</li>
+<li>Redduh内网反弹</li>
+<li>Tunna内网反弹</li>
+<li>reGeorg+proxifier正向代理</li>
+</ul>
+<h3 id="目前已知哪些版本的容器有解析漏洞，具体举例。"><a href="#目前已知哪些版本的容器有解析漏洞，具体举例。" class="headerlink" title="目前已知哪些版本的容器有解析漏洞，具体举例。"></a>目前已知哪些版本的容器有解析漏洞，具体举例。</h3><p>IIS 6.0</p>
+<ul>
+<li>/xx.asp/xx.jpg “xx.asp”是文件夹名</li>
+</ul>
+<p>IIS 7.0/7.5</p>
+<ul>
+<li>默认Fast-CGI开启，直接在url中图片地址后面输入/1.php，会把正常图片当成php解析</li>
+</ul>
+<p>Nginx</p>
+<ul>
+<li>版本小于等于0.8.37，利用方法和IIS 7.0/7.5一样，Fast-CGI关闭情况下也可利用。空字节代码 xxx.jpg%00.php</li>
+</ul>
+<p>Apache</p>
+<ul>
+<li>上传的文件命名为：test.php.x1.x2.x3，Apache是从右往左判断后缀</li>
+</ul>
+<p>lighttpd</p>
+<ul>
+<li>xx.jpg/xx.php，</li>
+</ul>
+<h3 id="CSRF、SSRF和重放攻击有什么区别？"><a href="#CSRF、SSRF和重放攻击有什么区别？" class="headerlink" title="CSRF、SSRF和重放攻击有什么区别？"></a>CSRF、SSRF和重放攻击有什么区别？</h3><p>CSRF是跨站请求伪造攻击，由客户端发起<br>SSRF是服务器端请求伪造，由服务器发起 </p>
+<h3 id="拿到一个待检测的站"><a href="#拿到一个待检测的站" class="headerlink" title="拿到一个待检测的站"></a>拿到一个待检测的站</h3><p>收集信息</p>
+<ul>
+<li>whois、网站源IP、旁站、C段网站、服务器系统版本、容器版本、程序版本、数据库类型、二级域名、防火墙、维护者信息另说…</li>
+</ul>
+<h3 id="mysql的网站注入，5-0以上和5-0以下有什么区别？"><a href="#mysql的网站注入，5-0以上和5-0以下有什么区别？" class="headerlink" title="mysql的网站注入，5.0以上和5.0以下有什么区别？"></a>mysql的网站注入，5.0以上和5.0以下有什么区别？</h3><ul>
+<li><p>5.0以下没有information_schema这个系统表，无法列表名等，只能暴力跑表名。</p>
+</li>
+<li><p>5.0以下是多用户单操作，5.0以上是多用户多操做。</p>
+</li>
+</ul>
+<h3 id="include，include-once，require，require-once的区别"><a href="#include，include-once，require，require-once的区别" class="headerlink" title="include，include_once，require，require_once的区别"></a>include，include_once，require，require_once的区别</h3><ul>
+<li><p>include,require在其被调用的位置处包含一个文件。</p>
+</li>
+<li><p>include_once,require_once函数的作用与include相同，不过它会首先验证是否已包含该文件。如果已经包含，则不再执行include_once。其他同include一样。</p>
+</li>
+<li><p>require与include最主要的区别，a、require出错时，脚本将停止运行，而include出错的情况下，脚本将继续执行。b、无论require的位置如何，制定文件都将包含到出现require的脚本中。例如，即使require放在计算结果为假的if语句中，依然会包含指定文件。</p>
+</li>
+<li><p>使用require_once可以解决文件被覆盖的问题。 require_once函数确保文件只包含一次。在遇到require_once后，后面再试图包含相同的文件时将被忽略。</p>
+</li>
+</ul>
+<h3 id="介绍自己常用的python库"><a href="#介绍自己常用的python库" class="headerlink" title="介绍自己常用的python库"></a>介绍自己常用的python库</h3><p>(request,urllib,socket,beautifulsoap,pycrypto)</p>
+<h3 id="入侵-Linux-服务器后需要清除哪些日志"><a href="#入侵-Linux-服务器后需要清除哪些日志" class="headerlink" title="入侵 Linux 服务器后需要清除哪些日志"></a>入侵 Linux 服务器后需要清除哪些日志</h3><ul>
+<li>web日志，如apache的access.log,error.log。 直接将日志清除过于明显,一般使用sed进行定向清除</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e.g. sed -i -e &apos;/192.169.1.1/d&apos;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>history命令的清除，也是对~/.bash_history进行定向清除</p>
+</li>
+<li><p>wtmp日志的清除，/var/log/wtmp</p>
+</li>
+<li><p>登录日志清除 /var/log/secure</p>
+</li>
+</ul>
+<h3 id="SQL注入写文件函数"><a href="#SQL注入写文件函数" class="headerlink" title="SQL注入写文件函数"></a>SQL注入写文件函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INTO OUTFILE</span><br></pre></td></tr></table></figure>
+</div></article></div></section><footer><div class="paginator"><a href="/posts/notes/solveme-peng-kr平台Web练习.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2018 <a href="http://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
