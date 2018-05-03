@@ -33,7 +33,7 @@
 <p>这样我们就可以利用文件包含来读flag.php的代码了</p>
 <p>这里直接包含是不行的，要利用php的伪协议 php://filter 来读取</p>
 <p>php伪协议可以参考我的博客</p>
-<p><a href="http://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html">php支持的协议和封装协议小结</a></p>
+<p><a href="https://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html">php支持的协议和封装协议小结</a></p>
 <p>直接用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file=php://filter/read=convert.base64-encode/resource=./flag.php</span><br></pre></td></tr></table></figure>
 <p>就可以得到base64加密的flag.php源码了,直接解密，得到flag</p>

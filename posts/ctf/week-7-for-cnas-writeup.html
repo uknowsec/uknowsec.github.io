@@ -67,7 +67,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.php?page=图片ID.jpg%00</span><br></pre></td></tr></table></figure>
 <p>在甜哥提醒下还是利用到了PHP伪协议，突然发现PHP伪协议在CTF题目利用到的很多</p>
 <p>这里利用到zip://这个协议，具体可以参考我的博客</p>
-<p><a href="http://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html">php支持的协议和封装协议小结</a></p>
+<p><a href="https://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html">php支持的协议和封装协议小结</a></p>
 <p>这里我们可以结合zip://和文件包含来解析我们的shell</p>
 <p>具体，我们想写一个shell.php，zip打包，把扩展名改为.jpg上传</p>
 <p>在文件包含利用点用以下payload</p>

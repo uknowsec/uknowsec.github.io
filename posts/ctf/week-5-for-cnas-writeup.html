@@ -16,7 +16,7 @@
 <p>直接base64解码即可</p>
 <h2 id="02-100"><a href="#02-100" class="headerlink" title="02 100"></a>02 100</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002" target="_blank" rel="noopener">http://47.100.121.220:28002</a></p>
 <h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><p>这个题目我一拿到说就看出来是一个SSRF的题目了，也猜到了代码应该就是</p>
-<p><a href="http://uknowsec.cn/posts/notes/SSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">SSRF漏洞的利用与学习</a></p>
+<p><a href="https://uknowsec.cn/posts/notes/SSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">SSRF漏洞的利用与学习</a></p>
 <p>我这篇博客里面的第一种没有任何防护的SSRF。</p>
 <p>尝试了 利用file协议任意文件读取 是成功的</p>
 <p><img src="https://obr4sfdq7.bkt.clouddn.com/week05_02_01.png" alt=""></p>
@@ -31,7 +31,7 @@
 <h2 id="msg-book-200"><a href="#msg-book-200" class="headerlink" title="msg_book 200"></a>msg_book 200</h2><h3 id="题目链接-2"><a href="#题目链接-2" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28003" target="_blank" rel="noopener">http://47.100.121.220:28003</a></p>
 <h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><p>这个题目是一个注入的题，这里的’被转义了，尝试宽字节注入，是可以的。</p>
 <p>这里可以参考我的博客</p>
-<p><a href="http://uknowsec.cn/posts/notes/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">宽字节注入漏洞的利用与学习</a></p>
+<p><a href="https://uknowsec.cn/posts/notes/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">宽字节注入漏洞的利用与学习</a></p>
 <p>在引号前加一个%df即可，具体原理参考博客</p>
 <p>下面基本是利用手注的方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msg_id=1%df&apos;order by 1 #</span><br><span class="line"></span><br><span class="line">msg_id=1%df&apos;order by 2 #</span><br></pre></td></tr></table></figure>

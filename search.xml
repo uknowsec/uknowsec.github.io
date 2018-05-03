@@ -157,7 +157,7 @@
 </ul>
 <p>显然第三个和第一个是矛盾的。但是在官方手册上，parse_url有一个</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">url</span><br><span class="line">要解析的 URL。无效字符将使用 _ 来替换。</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">	$url = urldecode(&quot;http://uknowsec.cn/%11test%11&quot;);</span><br><span class="line">	var_dump(parse_url($url));</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">输出：</span><br><span class="line">array(3) &#123; [&quot;scheme&quot;]=&gt;  string(4) &quot;http&quot; [&quot;host&quot;]=&gt;  string(11) &quot;uknowsec.cn&quot; [&quot;path&quot;]=&gt;  string(7) &quot;/_test_&quot; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">	$url = urldecode(&quot;https://uknowsec.cn/%11test%11&quot;);</span><br><span class="line">	var_dump(parse_url($url));</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">输出：</span><br><span class="line">array(3) &#123; [&quot;scheme&quot;]=&gt;  string(4) &quot;http&quot; [&quot;host&quot;]=&gt;  string(11) &quot;uknowsec.cn&quot; [&quot;path&quot;]=&gt;  string(7) &quot;/_test_&quot; &#125;</span><br></pre></td></tr></table></figure>
 <p>这样我们就可以绕过第三个和第一个过滤了。</p>
 <p>但是我们提交</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://givemealink.solveme.peng.kr/?url=http://givemealink.solveme.peng.kr/plz%11give%11me</span><br></pre></td></tr></table></figure>
@@ -786,7 +786,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.php?page=图片ID.jpg%00</span><br></pre></td></tr></table></figure>
 <p>在甜哥提醒下还是利用到了PHP伪协议，突然发现PHP伪协议在CTF题目利用到的很多</p>
 <p>这里利用到zip://这个协议，具体可以参考我的博客</p>
-<p><a href="http://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html">php支持的协议和封装协议小结</a></p>
+<p><a href="https://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html">php支持的协议和封装协议小结</a></p>
 <p>这里我们可以结合zip://和文件包含来解析我们的shell</p>
 <p>具体，我们想写一个shell.php，zip打包，把扩展名改为.jpg上传</p>
 <p>在文件包含利用点用以下payload</p>
@@ -857,7 +857,7 @@
 <p>直接base64解码即可</p>
 <h2 id="02-100"><a href="#02-100" class="headerlink" title="02 100"></a>02 100</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002" target="_blank" rel="noopener">http://47.100.121.220:28002</a></p>
 <h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><p>这个题目我一拿到说就看出来是一个SSRF的题目了，也猜到了代码应该就是</p>
-<p><a href="http://uknowsec.cn/posts/notes/SSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">SSRF漏洞的利用与学习</a></p>
+<p><a href="https://uknowsec.cn/posts/notes/SSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">SSRF漏洞的利用与学习</a></p>
 <p>我这篇博客里面的第一种没有任何防护的SSRF。</p>
 <p>尝试了 利用file协议任意文件读取 是成功的</p>
 <p><img src="https://obr4sfdq7.bkt.clouddn.com/week05_02_01.png" alt=""></p>
@@ -872,7 +872,7 @@
 <h2 id="msg-book-200"><a href="#msg-book-200" class="headerlink" title="msg_book 200"></a>msg_book 200</h2><h3 id="题目链接-2"><a href="#题目链接-2" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28003" target="_blank" rel="noopener">http://47.100.121.220:28003</a></p>
 <h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><p>这个题目是一个注入的题，这里的’被转义了，尝试宽字节注入，是可以的。</p>
 <p>这里可以参考我的博客</p>
-<p><a href="http://uknowsec.cn/posts/notes/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">宽字节注入漏洞的利用与学习</a></p>
+<p><a href="https://uknowsec.cn/posts/notes/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">宽字节注入漏洞的利用与学习</a></p>
 <p>在引号前加一个%df即可，具体原理参考博客</p>
 <p>下面基本是利用手注的方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msg_id=1%df&apos;order by 1 #</span><br><span class="line"></span><br><span class="line">msg_id=1%df&apos;order by 2 #</span><br></pre></td></tr></table></figure>
@@ -937,7 +937,7 @@
 <p>这样我们就可以利用文件包含来读flag.php的代码了</p>
 <p>这里直接包含是不行的，要利用php的伪协议 php://filter 来读取</p>
 <p>php伪协议可以参考我的博客</p>
-<p><a href="http://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html">php支持的协议和封装协议小结</a></p>
+<p><a href="https://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html">php支持的协议和封装协议小结</a></p>
 <p>直接用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file=php://filter/read=convert.base64-encode/resource=./flag.php</span><br></pre></td></tr></table></figure>
 <p>就可以得到base64加密的flag.php源码了,直接解密，得到flag</p>
@@ -1171,7 +1171,7 @@
       <content type="html"><![CDATA[<p>PHP本身内置了很多参数过滤的函数，以方便开发者简单有效且统一地进行安全防护，而这些函数可以分为多种类型，如SQL注入过滤函数，XSS过滤函数，命令执行过滤函数，代码执行过滤函数等等。</p>
 <h2 id="SQL注入过滤函数"><a href="#SQL注入过滤函数" class="headerlink" title="SQL注入过滤函数"></a>SQL注入过滤函数</h2><p>SQL注入过滤函数有addslashes(),mysql_real_escape_string()以及mysql_escape_string(),它们的作用都是给字符串添加反斜杠（\）来转义掉单引号（’）、双引号（”）以及空格符NULL。</p>
 <p>addslashes()和mysql_escape_string()函数都是直接在敏感字符串前加反斜杠，可能会存在宽字节注入。可参考我之前的博客</p>
-<p><a href="http://uknowsec.cn/posts/notes/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">宽字节注入漏洞的利用与学习</a></p>
+<p><a href="https://uknowsec.cn/posts/notes/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">宽字节注入漏洞的利用与学习</a></p>
 <p>而mysql_real_escape_string()函数会考虑当前连接数据库的字符集编码。</p>
 <h3 id="addslashes"><a href="#addslashes" class="headerlink" title="addslashes()"></a>addslashes()</h3><p>addslashes() 函数返回在预定义字符之前添加反斜杠的字符串。</p>
 <p>预定义字符是：</p>
@@ -1314,7 +1314,7 @@
 <p>404.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;404.html&quot;;</span><br><span class="line">include &quot;function.php&quot;;</span><br><span class="line">@unserialize($_POST[&apos;power&apos;]);</span><br></pre></td></tr></table></figure></p>
 <p>读源码可知这是一个php反序列化的题</p>
 <p>php反序列化问题可以参考我之前的博客</p>
-<p><a href="http://uknowsec.cn/posts/notes/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">反序列化漏洞的利用与学习</a><br><a href="http://uknowsec.cn/posts/notes/%E7%90%86%E8%A7%A3php%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.html">理解php序列化漏洞</a></p>
+<p><a href="https://uknowsec.cn/posts/notes/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">反序列化漏洞的利用与学习</a><br><a href="https://uknowsec.cn/posts/notes/%E7%90%86%E8%A7%A3php%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.html">理解php序列化漏洞</a></p>
 <p>可以在404.php页面用变量power提交payload，在function中的Neo类有两个成员变量，一个key，一个cmd。key值这个地方我一直以为是xxxxxxx，后来才看到index页面有提示Key值为php_is_nice</p>
 <p>遂构造payload 先查看当前目录的文件，payload如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">power=O:3:&quot;Neo&quot;:2:&#123;s:3:&quot;key&quot;;s:11:&quot;php_is_nice&quot;;s:3:&quot;cmd&quot;;s:2:&quot;ls&quot;;&#125;</span><br></pre></td></tr></table></figure>
@@ -1330,7 +1330,7 @@
 <p>遂构造payload</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">power=O:3:&quot;Neo&quot;:2:&#123;s:3:&quot;key&quot;;s:11:&quot;php_is_nice&quot;;s:3:&quot;cmd&quot;;s:12:&quot;tac%09flag.php&quot;;&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://obr4sfdq7.bkt.clouddn.com/tac.png" alt=""></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://uknowsec.cn/posts/notes/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">反序列化漏洞的利用与学习</a><br><a href="http://uknowsec.cn/posts/notes/%E7%90%86%E8%A7%A3php%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.html">理解php序列化漏洞</a><br><a href="http://www.freebuf.com/articles/web/137923.html" target="_blank" rel="noopener">浅谈CTF中命令执行与绕过的小技巧</a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://uknowsec.cn/posts/notes/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">反序列化漏洞的利用与学习</a><br><a href="https://uknowsec.cn/posts/notes/%E7%90%86%E8%A7%A3php%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.html">理解php序列化漏洞</a><br><a href="http://www.freebuf.com/articles/web/137923.html" target="_blank" rel="noopener">浅谈CTF中命令执行与绕过的小技巧</a></p>
 ]]></content>
       
         <categories>
@@ -1826,7 +1826,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#58;&#x66;&#111;&#x6f;&#64;&#x62;&#97;&#114;&#x2e;&#99;&#x6f;&#109;">&#x66;&#111;&#x6f;&#64;&#x62;&#97;&#114;&#x2e;&#99;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#x66;&#x6f;&#x6f;&#x40;&#98;&#x61;&#114;&#46;&#99;&#111;&#109;">&#x66;&#x6f;&#x6f;&#x40;&#98;&#x61;&#114;&#46;&#99;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker diff hello-nginx</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker inspect hello-nginx</span><br></pre></td></tr></table></figure>
@@ -3741,9 +3741,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import requests</span><br><span class="line">&gt;&gt;&gt; dir(requests)</span><br><span class="line">[&apos;ConnectionError&apos;, &apos;HTTPError&apos;, &apos;NullHandler&apos;, &apos;PreparedRequest&apos;, &apos;Request&apos;, &apos;RequestException&apos;, &apos;Response&apos;, &apos;Session&apos;, &apos;Timeout&apos;, &apos;TooManyRedirects&apos;, &apos;URLRequired&apos;, &apos;__author__&apos;, &apos;__build__&apos;, &apos;__builtins__&apos;, &apos;__copyright__&apos;, &apos;__doc__&apos;, &apos;__file__&apos;, &apos;__license__&apos;, &apos;__name__&apos;, &apos;__package__&apos;, &apos;__path__&apos;, &apos;__title__&apos;, &apos;__version__&apos;, &apos;adapters&apos;, &apos;api&apos;, &apos;auth&apos;, &apos;certs&apos;, &apos;codes&apos;, &apos;compat&apos;, &apos;cookies&apos;, &apos;delete&apos;, &apos;exceptions&apos;, &apos;get&apos;, &apos;head&apos;, &apos;hooks&apos;, &apos;logging&apos;, &apos;models&apos;, &apos;options&apos;, &apos;patch&apos;, &apos;post&apos;, &apos;put&apos;, &apos;request&apos;, &apos;session&apos;, &apos;sessions&apos;, &apos;status_codes&apos;, &apos;structures&apos;, &apos;utils&apos;]</span><br></pre></td></tr></table></figure>
 <p>在这次过程中主要使用到了Session、get、post和content这几种方法</p>
 <h4 id="Session会话对象"><a href="#Session会话对象" class="headerlink" title="Session会话对象"></a>Session会话对象</h4><p>会话对象让你能够跨请求保持某些参数。它也会在同一个 Session 实例发出的所有请求之间保持 cookie</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = requests.Session()</span><br><span class="line">&gt;&gt;&gt; r = s.get(&quot;http://uknowsec.cn/&quot;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = requests.Session()</span><br><span class="line">&gt;&gt;&gt; r = s.get(&quot;https://uknowsec.cn/&quot;)</span><br></pre></td></tr></table></figure>
 <h4 id="GET提交方式"><a href="#GET提交方式" class="headerlink" title="GET提交方式"></a>GET提交方式</h4><p>以GET提交方式请求响应的URL</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; r = requests.get(&quot;http://uknowsec.cn/&quot;,proxies=proxies,timeout=0.001,params=payload)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; r = requests.get(&quot;https://uknowsec.cn/&quot;,proxies=proxies,timeout=0.001,params=payload)</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>params为GET提交方式传递参数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r = requests.get(&quot;http://httpbin.org/get&quot;, params=payload)</span><br></pre></td></tr></table></figure>
