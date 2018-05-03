@@ -17,20 +17,20 @@
 <li>allow_url_include：off  默认关闭，该选项为on便是允许 包含URL 对象文件等</li>
 </ul>
 <h2 id="file-协议"><a href="#file-协议" class="headerlink" title="file://协议"></a>file://协议</h2><p>file:// — 访问本地文件系统,不受allow_url_fopen与allow_url_include的影响</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/file1.png" alt=""></p>
+<p><img src="https://obr4sfdq7.bkt.clouddn.com/file1.png" alt=""></p>
 <h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>file:// [文件的绝对路径和文件名]</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/code/1.php?file=file:///E:\phpStudy\WWW\code\phpinfo.php</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/file2.png" alt=""></p>
+<p><img src="https://obr4sfdq7.bkt.clouddn.com/file2.png" alt=""></p>
 <h2 id="php-协议"><a href="#php-协议" class="headerlink" title="php://协议"></a>php://协议</h2><p>php:// — 访问各个输入/输出流（I/O streams）</p>
 <p>不需要开启allow_url_fopen，仅php://input、 php://stdin、 php://memory 和 php://temp 需要开启allow_url_include。</p>
 <h3 id="php-stdin-php-stdout-和-php-stderr"><a href="#php-stdin-php-stdout-和-php-stderr" class="headerlink" title="php://stdin, php://stdout 和 php://stderr"></a>php://stdin, php://stdout 和 php://stderr</h3><p>php://stdin、php://stdout 和 php://stderr 允许直接访问 PHP 进程相应的输入或者输出流。</p>
 <p>php://stdin 是只读的， php://stdout 和 php://stderr 是只写的。</p>
 <h4 id="php-stdin"><a href="#php-stdin" class="headerlink" title="php://stdin"></a>php://stdin</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    while($line = fopen(&apos;php://stdin&apos;,&apos;r&apos;))</span><br><span class="line">    &#123;//open our file pointer to read from stdin</span><br><span class="line">        echo $line.&quot;\n&quot;;</span><br><span class="line">        echo fgets($line);//读取</span><br><span class="line">    &#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/stdin.png" alt=""></p>
+<p><img src="https://obr4sfdq7.bkt.clouddn.com/stdin.png" alt=""></p>
 <h4 id="php-stdout"><a href="#php-stdout" class="headerlink" title="php://stdout"></a>php://stdout</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $fd = fopen(&apos;php://stdout&apos;, &apos;w&apos;);</span><br><span class="line">    if ($fd) &#123;</span><br><span class="line">        echo $fd.&quot;\n&quot;;</span><br><span class="line">        fwrite($fd, &quot;test&quot;);</span><br><span class="line">        fwrite($fd, &quot;\n&quot;);</span><br><span class="line">        fclose($fd);</span><br><span class="line">    &#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/stdout.png" alt=""></p>
+<p><img src="https://obr4sfdq7.bkt.clouddn.com/stdout.png" alt=""></p>
 <h4 id="php-stderr"><a href="#php-stderr" class="headerlink" title="php://stderr"></a>php://stderr</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $stderr = fopen( &apos;php://stderr&apos;, &apos;w&apos; );</span><br><span class="line">    echo $stderr.&quot;\n&quot;;</span><br><span class="line">    fwrite($stderr, &quot;uknow&quot; );</span><br><span class="line">    fclose($stderr);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/stderr.png" alt=""></p>
+<p><img src="https://obr4sfdq7.bkt.clouddn.com/stderr.png" alt=""></p>
 <h3 id="php-filter"><a href="#php-filter" class="headerlink" title="php://filter"></a>php://filter</h3><p>最常使用的一个伪协议，一般可以利用进行任意文件读取。 </p>
 <p>php://filter 是一种元封装器， 设计用于数据流打开时的筛选过滤应用。 这对于一体式（all-in-one）的文件函数非常有用，类似 readfile()、 file() 和 file_get_contents()， 在数据流内容读取之前没有机会应用其他过滤器。</p>
 <h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><table>
@@ -61,8 +61,8 @@
 </table>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	include($_GET[&apos;file&apos;])</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/code/1.php?file=php://filter/read=convert.base64-encode/resource=./phpinfo.php</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/phpfilter1.png" alt=""></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/phpfilter2.png" alt=""></p>
+<p><img src="https://obr4sfdq7.bkt.clouddn.com/phpfilter1.png" alt=""></p>
+<p><img src="https://obr4sfdq7.bkt.clouddn.com/phpfilter2.png" alt=""></p>
 <h3 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h3><p>php://input 可以访问请求的原始数据的只读流, 将post请求中的数据作为PHP代码执行。</p>
 <ul>
 <li><p>allow_url_fopen ：off/on</p>
@@ -70,7 +70,7 @@
 <li><p>allow_url_include：on</p>
 </li>
 </ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/phpinput.png" alt=""></p>
+<p><img src="https://obr4sfdq7.bkt.clouddn.com/phpinput.png" alt=""></p>
 <h2 id="zip-bzip2-zlib-协议"><a href="#zip-bzip2-zlib-协议" class="headerlink" title="zip://, bzip2://, zlib://协议"></a>zip://, bzip2://, zlib://协议</h2><p>zip://, bzip2://, zlib://协议在双off的情况下也可以正常使用；</p>
 <p>zip://, bzip2://, zlib:// 均属于压缩流，可以访问压缩文件中的子文件，更重要的是不需要指定后缀名。</p>
 <ul>
@@ -84,7 +84,7 @@
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>先将要执行的PHP代码写好文件名为phpcode.txt，将phpcode.txt进行zip压缩,压缩文件名为file.zip,如果可以上传zip文件便直接上传，若不能便将file.zip重命名为file.jpg后在上传，其他几种压缩格式也可以这样操作。</p>
 <p>由于#在get请求中会将后面的参数忽略所以使用get请求时候应进行url编码为%23，且此处经过测试相对路径是不可行，所以只能用绝对路径。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/code/1.php?file=zip://E:\phpStudy\WWW\code/1.zip%231.txt</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/zip.png" alt=""></p>
+<p><img src="https://obr4sfdq7.bkt.clouddn.com/zip.png" alt=""></p>
 <h2 id="data-协议"><a href="#data-协议" class="headerlink" title="data://协议"></a>data://协议</h2><p>data://协议必须双在on才能正常使用；</p>
 <ul>
 <li><p>allow_url_fopen ：on</p>
@@ -93,11 +93,11 @@
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/code/1.php?file=data://text/plain,&lt;?php phpinfo()?&gt;</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/code/1.php?file=data://text/plain;base64,PD9waHAgcGhwaW5mbygpPz4=</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/data2.png" alt=""></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/data1.png" alt=""></p>
+<p><img src="https://obr4sfdq7.bkt.clouddn.com/data2.png" alt=""></p>
+<p><img src="https://obr4sfdq7.bkt.clouddn.com/data1.png" alt=""></p>
 <h2 id="glob-协议"><a href="#glob-协议" class="headerlink" title="glob://协议"></a>glob://协议</h2><p>glob:// — 查找匹配的文件路径模式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$it = new DirectoryIterator($_GET[&apos;file&apos;]);</span><br><span class="line">foreach($it as $f) &#123;</span><br><span class="line">    printf(&quot;%s&quot;, $f-&gt;getFilename());</span><br><span class="line">	echo&apos;&lt;/br&gt;&apos;; </span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/glob.png" alt=""></p>
+<p><img src="https://obr4sfdq7.bkt.clouddn.com/glob.png" alt=""></p>
 <h2 id="expect-协议"><a href="#expect-协议" class="headerlink" title="expect://协议"></a>expect://协议</h2><p>expect:// — 处理交互式的流</p>
 <p>该封装协议默认未开启<br>为了使用 expect:// 封装器，你必须安装 » PECL 上的 » Expect 扩展。</p>
 <h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expect://command</span><br></pre></td></tr></table></figure>
