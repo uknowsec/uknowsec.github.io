@@ -1,13 +1,13 @@
 <!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> CSRF漏洞的利用与学习 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="CSRF漏洞的利用与学习 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">CSRF漏洞的利用与学习</h1><div class="post-time">Jul 14, 2017</div><div class="post-content"><h2 id="CSRF的原理"><a href="#CSRF的原理" class="headerlink" title="CSRF的原理"></a>CSRF的原理</h2><p>发现漏洞可利用处-&gt;构造(搭建)搭建代码-&gt;发送给用户(管理员)-&gt;触发代码(发送请求)………</p>
 <p>从这个利用的一个流程中，我们可以发现,攻击者仅仅只是做了两处工作.第一处是:发现漏洞利用处，，第二处就是构造利用代码以及发送至用户(管理员)。至于利用，你会发现CSRF与XSS不同，XSS是攻击者自己提交，等待结果，而CSRF呢，是由用户(管理员)自身提交。甚至可以说攻击者只做了构造代码的工作。</p>
 <h2 id="OWASP-CSRFTester"><a href="#OWASP-CSRFTester" class="headerlink" title="OWASP CSRFTester"></a>OWASP CSRFTester</h2><p>这是OWASP推出的CSRF半自动化软件，他省去了CSRF最繁琐的过程，代码构造。下面是软件的截图‍‍</p>
-<p><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF1.jpg" alt=""></p>
-<p><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF2.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF1.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF2.jpg" alt=""></p>
 <h2 id="利用CSRFTester进行CSRF攻击"><a href="#利用CSRFTester进行CSRF攻击" class="headerlink" title="利用CSRFTester进行CSRF攻击"></a>利用CSRFTester进行CSRF攻击</h2><p>进入已经搭建的CMS后台的管理员管理模块</p>
-<p><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF3.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF3.jpg" alt=""></p>
 <p>浏览器里代理设置为CSRFTester的代理127.0.0.1：8008</p>
-<p><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF4.jpg" alt=""></p>
-<p>开启CSRFTester抓取数据包，正常添加管理员 返回可以看到已经抓取到了数据包<br><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF5.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF4.jpg" alt=""></p>
+<p>开启CSRFTester抓取数据包，正常添加管理员 返回可以看到已经抓取到了数据包<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF5.jpg" alt=""></p>
 <p>在Form Parameters中没有找到token的值，那么就可以实现CSRF攻击</p>
 <p>在Report Type中。有四种方法来进行攻击。‍‍</p>
 <ul>
@@ -15,27 +15,27 @@
 </ul>
 <p>此处先选择Forms进行测试</p>
 <p>点击Generate HTML 便生成了一个index.html</p>
-<p><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF6.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF6.jpg" alt=""></p>
 <p>由其中的HTML源码可以看出这是一个简单的提交表单，点击运行这个html文件<br>可以看到成功的添加了一个管理员用户</p>
-<p><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF7.jpg" alt=""><br><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF8.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF7.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF8.jpg" alt=""></p>
 <p>到此利用CSRFTester进行CSRF攻击成功</p>
 <h2 id="构造提交表单进行CSRF攻击"><a href="#构造提交表单进行CSRF攻击" class="headerlink" title="构造提交表单进行CSRF攻击"></a>构造提交表单进行CSRF攻击</h2><p>审查元素得到管理员管理的URL，进入查看源码。分析提交表单</p>
-<p><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF9.jpg" alt=""></p>
-<p><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF10.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF9.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF10.jpg" alt=""></p>
 <p>修改提交表单</p>
-<p><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF11.jpg" alt=""></p>
-<p>点击按钮提交，成功添加管理员<br><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF12.jpg" alt=""><br><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF13.jpg" alt=""></p>
-<p>在html中增加javascript脚本，自动提交表单<br><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF14.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF11.jpg" alt=""></p>
+<p>点击按钮提交，成功添加管理员<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF12.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF13.jpg" alt=""></p>
+<p>在html中增加javascript脚本，自动提交表单<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF14.jpg" alt=""></p>
 <h2 id="利用ajax结合xss进行CSRF攻击"><a href="#利用ajax结合xss进行CSRF攻击" class="headerlink" title="利用ajax结合xss进行CSRF攻击"></a>利用ajax结合xss进行CSRF攻击</h2><p>就是把CSRF的AJAX请求放到XSS里，以达到攻击的效果</p>
 <p>在测试用的这套CMS的留言板处就存在存储型XSS漏洞</p>
 <p>在这里我们可以使用CSRFTester生成一个ajax</p>
-<p><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF15.jpg" alt=""></p>
-<p>我们可以看到ajax中核心部分<br><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF16.jpg" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF15.jpg" alt=""></p>
+<p>我们可以看到ajax中核心部分<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF16.jpg" alt=""></p>
 <p>同时也可以自己编写一个简单的ajax</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var xmlhttp;</span><br><span class="line">if(window.XMLHttpRequest)&#123;</span><br><span class="line">  xmlhttp=new XMLHttpRequest();</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">  xmlhttp=new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">xmlhttp.open(&quot;POST&quot;,&quot;/admin/admin_manage.asp?act=add&quot;,true);</span><br><span class="line">xmlhttp.setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">xmlhttp.send(&quot;admin=789&amp;password=789&amp;password3=789&amp;button=提交数据&quot;);</span><br></pre></td></tr></table></figure>
-<p>在xss平台上配置项目<br><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF17.jpg" alt=""></p>
-<p>然后插入测试网站的留言板里<br><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF18.jpg" alt=""></p>
-<p>管理员查看留言信息就能添加一个管理员账号了<br><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF19.jpg" alt=""><br><img src="https://obr4sfdq7.bkt.clouddn.com/CSRF20.jpg" alt=""></p>
+<p>在xss平台上配置项目<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF17.jpg" alt=""></p>
+<p>然后插入测试网站的留言板里<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF18.jpg" alt=""></p>
+<p>管理员查看留言信息就能添加一个管理员账号了<br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF19.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/CSRF20.jpg" alt=""></p>
 <h2 id="CSRF-漏洞防护"><a href="#CSRF-漏洞防护" class="headerlink" title="CSRF 漏洞防护"></a>CSRF 漏洞防护</h2><p>其实现在有关CSRF漏洞防护已经是比较成熟了，其主要防护的思路就是需要在进行后台数据修改操作的过程中，添加对当前用户身份的有效验证措施，而不能仅限于cookie的识别，这里简单的罗列了下防护措施如下。</p>
 <p>（1） 来源校验</p>
 <p>使用http请求头中referer来源，对客户端源进行身份校验，此方法早期使用比较多，但是仍然容易被绕过，所以这里并不建议使用。</p>
@@ -46,4 +46,4 @@
 <p>（4）添加验证机制</p>
 <p>在请求数据的提交前，需填写验证码信息提交，以增加对用户来源的有效验证，防止恶意未授权的操作产生。</p>
 <p>参考链接：<br><a href="http://www.test404.com/post-1410.html" target="_blank" rel="noopener">http://www.test404.com/post-1410.html</a><br><a href="http://www.freebuf.com/articles/web/55965.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/web/55965.html</a></p>
-</div></article></div></section><footer><div class="paginator"><a href="/posts/notes/SSRF漏洞的利用与学习.html" class="prev">PREV</a><a href="/posts/ctf/常见Web源码泄露总结.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2018 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
+</div></article></div></section><footer><div class="paginator"><a href="/posts/notes/SSRF漏洞的利用与学习.html" class="prev">上一篇</a><a href="/posts/ctf/常见Web源码泄露总结.html" class="next">下一篇</a></div><div class="copyright"><p>© 2016 - 2018 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
