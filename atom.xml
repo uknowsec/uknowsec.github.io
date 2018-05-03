@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://uknowsec.cn/"/>
+  <link href="https://uknowsec.cn/"/>
   <updated>2018-04-20T06:06:43.661Z</updated>
-  <id>http://uknowsec.cn/</id>
+  <id>https://uknowsec.cn/</id>
   
   <author>
     <name>uknow</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>正方教务系统验证码识别</title>
-    <link href="http://uknowsec.cn/posts/notes/%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB.html"/>
-    <id>http://uknowsec.cn/posts/notes/正方教务系统验证码识别.html</id>
+    <link href="https://uknowsec.cn/posts/notes/%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB.html"/>
+    <id>https://uknowsec.cn/posts/notes/正方教务系统验证码识别.html</id>
     <published>2018-04-19T05:50:37.000Z</published>
     <updated>2018-04-20T06:06:43.661Z</updated>
     
@@ -34,15 +34,15 @@
     
     </summary>
     
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
     
     
   </entry>
   
   <entry>
     <title>solveme.peng.kr平台Web练习</title>
-    <link href="http://uknowsec.cn/posts/notes/solveme-peng-kr%E5%B9%B3%E5%8F%B0Web%E7%BB%83%E4%B9%A0.html"/>
-    <id>http://uknowsec.cn/posts/notes/solveme-peng-kr平台Web练习.html</id>
+    <link href="https://uknowsec.cn/posts/notes/solveme-peng-kr%E5%B9%B3%E5%8F%B0Web%E7%BB%83%E4%B9%A0.html"/>
+    <id>https://uknowsec.cn/posts/notes/solveme-peng-kr平台Web练习.html</id>
     <published>2018-03-31T06:20:54.000Z</published>
     <updated>2018-04-19T10:24:22.324Z</updated>
     
@@ -57,15 +57,15 @@
     
     </summary>
     
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
     
     
   </entry>
   
   <entry>
     <title>同源策略和跨域访问学习笔记</title>
-    <link href="http://uknowsec.cn/posts/notes/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
-    <id>http://uknowsec.cn/posts/notes/同源策略和跨域访问学习笔记.html</id>
+    <link href="https://uknowsec.cn/posts/notes/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
+    <id>https://uknowsec.cn/posts/notes/同源策略和跨域访问学习笔记.html</id>
     <published>2018-03-29T07:13:01.000Z</published>
     <updated>2018-03-29T12:43:03.901Z</updated>
     
@@ -80,15 +80,15 @@
     
     </summary>
     
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
     
     
   </entry>
   
   <entry>
     <title>PHP爬虫-物业报修系统一键校园物业报修</title>
-    <link href="http://uknowsec.cn/posts/notes/PHP%E7%88%AC%E8%99%AB-%E7%89%A9%E4%B8%9A%E6%8A%A5%E4%BF%AE%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E6%A0%A1%E5%9B%AD%E7%89%A9%E4%B8%9A%E6%8A%A5%E4%BF%AE.html"/>
-    <id>http://uknowsec.cn/posts/notes/PHP爬虫-物业报修系统一键校园物业报修.html</id>
+    <link href="https://uknowsec.cn/posts/notes/PHP%E7%88%AC%E8%99%AB-%E7%89%A9%E4%B8%9A%E6%8A%A5%E4%BF%AE%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E6%A0%A1%E5%9B%AD%E7%89%A9%E4%B8%9A%E6%8A%A5%E4%BF%AE.html"/>
+    <id>https://uknowsec.cn/posts/notes/PHP爬虫-物业报修系统一键校园物业报修.html</id>
     <published>2018-03-23T05:14:30.000Z</published>
     <updated>2018-03-23T13:43:16.303Z</updated>
     
@@ -104,15 +104,15 @@
     
     </summary>
     
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
     
     
   </entry>
   
   <entry>
     <title>PHP爬虫-正方教务系统一键报名四六级</title>
-    <link href="http://uknowsec.cn/posts/notes/PHP%E7%88%AC%E8%99%AB-%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E6%8A%A5%E5%90%8D%E5%9B%9B%E5%85%AD%E7%BA%A7.html"/>
-    <id>http://uknowsec.cn/posts/notes/PHP爬虫-正方教务系统一键报名四六级.html</id>
+    <link href="https://uknowsec.cn/posts/notes/PHP%E7%88%AC%E8%99%AB-%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E6%8A%A5%E5%90%8D%E5%9B%9B%E5%85%AD%E7%BA%A7.html"/>
+    <id>https://uknowsec.cn/posts/notes/PHP爬虫-正方教务系统一键报名四六级.html</id>
     <published>2018-03-23T05:12:27.000Z</published>
     <updated>2018-03-23T12:52:22.880Z</updated>
     
@@ -128,15 +128,15 @@
     
     </summary>
     
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
     
     
   </entry>
   
   <entry>
     <title>PHP爬虫-正方教务系统爬取成绩绩点</title>
-    <link href="http://uknowsec.cn/posts/notes/PHP%E7%88%AC%E8%99%AB-%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E7%88%AC%E5%8F%96%E6%88%90%E7%BB%A9%E7%BB%A9%E7%82%B9.html"/>
-    <id>http://uknowsec.cn/posts/notes/PHP爬虫-正方教务系统爬取成绩绩点.html</id>
+    <link href="https://uknowsec.cn/posts/notes/PHP%E7%88%AC%E8%99%AB-%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E7%88%AC%E5%8F%96%E6%88%90%E7%BB%A9%E7%BB%A9%E7%82%B9.html"/>
+    <id>https://uknowsec.cn/posts/notes/PHP爬虫-正方教务系统爬取成绩绩点.html</id>
     <published>2018-03-23T05:12:07.000Z</published>
     <updated>2018-03-23T06:29:39.260Z</updated>
     
@@ -151,15 +151,15 @@
     
     </summary>
     
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
     
     
   </entry>
   
   <entry>
     <title>Summary of 2017</title>
-    <link href="http://uknowsec.cn/posts/life/Summary-of-2017.html"/>
-    <id>http://uknowsec.cn/posts/life/Summary-of-2017.html</id>
+    <link href="https://uknowsec.cn/posts/life/Summary-of-2017.html"/>
+    <id>https://uknowsec.cn/posts/life/Summary-of-2017.html</id>
     <published>2018-01-21T15:29:10.000Z</published>
     <updated>2018-03-10T10:01:45.698Z</updated>
     
@@ -174,15 +174,15 @@
     
     </summary>
     
-      <category term="life" scheme="http://uknowsec.cn/categories/life/"/>
+      <category term="life" scheme="https://uknowsec.cn/categories/life/"/>
     
     
   </entry>
   
   <entry>
     <title>week 9 for cnas writeup</title>
-    <link href="http://uknowsec.cn/posts/ctf/week-9-for-cnas-writeup.html"/>
-    <id>http://uknowsec.cn/posts/ctf/week-9-for-cnas-writeup.html</id>
+    <link href="https://uknowsec.cn/posts/ctf/week-9-for-cnas-writeup.html"/>
+    <id>https://uknowsec.cn/posts/ctf/week-9-for-cnas-writeup.html</id>
     <published>2018-01-16T13:38:18.000Z</published>
     <updated>2018-03-10T09:58:36.726Z</updated>
     
@@ -197,15 +197,15 @@
     
     </summary>
     
-      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+      <category term="CTF" scheme="https://uknowsec.cn/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>month 2 for cnas writeup</title>
-    <link href="http://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html"/>
-    <id>http://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html</id>
+    <link href="https://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html"/>
+    <id>https://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html</id>
     <published>2018-01-06T14:29:49.000Z</published>
     <updated>2018-03-10T09:59:10.274Z</updated>
     
@@ -220,15 +220,15 @@
     
     </summary>
     
-      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+      <category term="CTF" scheme="https://uknowsec.cn/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>week 7 for cnas writeup</title>
-    <link href="http://uknowsec.cn/posts/ctf/week-7-for-cnas-writeup.html"/>
-    <id>http://uknowsec.cn/posts/ctf/week-7-for-cnas-writeup.html</id>
+    <link href="https://uknowsec.cn/posts/ctf/week-7-for-cnas-writeup.html"/>
+    <id>https://uknowsec.cn/posts/ctf/week-7-for-cnas-writeup.html</id>
     <published>2017-12-29T16:38:42.000Z</published>
     <updated>2018-03-10T09:59:10.380Z</updated>
     
@@ -243,15 +243,15 @@
     
     </summary>
     
-      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+      <category term="CTF" scheme="https://uknowsec.cn/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>week 6 for cnas writeup</title>
-    <link href="http://uknowsec.cn/posts/ctf/week-6-for-cnas-writeup.html"/>
-    <id>http://uknowsec.cn/posts/ctf/week-6-for-cnas-writeup.html</id>
+    <link href="https://uknowsec.cn/posts/ctf/week-6-for-cnas-writeup.html"/>
+    <id>https://uknowsec.cn/posts/ctf/week-6-for-cnas-writeup.html</id>
     <published>2017-12-23T09:55:15.000Z</published>
     <updated>2018-03-10T09:59:10.376Z</updated>
     
@@ -266,15 +266,15 @@
     
     </summary>
     
-      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+      <category term="CTF" scheme="https://uknowsec.cn/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>week 5 for cnas writeup</title>
-    <link href="http://uknowsec.cn/posts/ctf/week-5-for-cnas-writeup.html"/>
-    <id>http://uknowsec.cn/posts/ctf/week-5-for-cnas-writeup.html</id>
+    <link href="https://uknowsec.cn/posts/ctf/week-5-for-cnas-writeup.html"/>
+    <id>https://uknowsec.cn/posts/ctf/week-5-for-cnas-writeup.html</id>
     <published>2017-12-16T14:46:08.000Z</published>
     <updated>2018-03-10T09:59:10.372Z</updated>
     
@@ -289,15 +289,15 @@
     
     </summary>
     
-      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+      <category term="CTF" scheme="https://uknowsec.cn/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>month 1 for cnas writeup</title>
-    <link href="http://uknowsec.cn/posts/ctf/month-1-for-cnas-writeup.html"/>
-    <id>http://uknowsec.cn/posts/ctf/month-1-for-cnas-writeup.html</id>
+    <link href="https://uknowsec.cn/posts/ctf/month-1-for-cnas-writeup.html"/>
+    <id>https://uknowsec.cn/posts/ctf/month-1-for-cnas-writeup.html</id>
     <published>2017-12-09T02:51:07.000Z</published>
     <updated>2018-03-10T09:59:10.268Z</updated>
     
@@ -312,15 +312,15 @@
     
     </summary>
     
-      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+      <category term="CTF" scheme="https://uknowsec.cn/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>week 3 for cnas writeup</title>
-    <link href="http://uknowsec.cn/posts/ctf/week-3-for-cnas-writeup.html"/>
-    <id>http://uknowsec.cn/posts/ctf/week-3-for-cnas-writeup.html</id>
+    <link href="https://uknowsec.cn/posts/ctf/week-3-for-cnas-writeup.html"/>
+    <id>https://uknowsec.cn/posts/ctf/week-3-for-cnas-writeup.html</id>
     <published>2017-12-02T02:44:06.000Z</published>
     <updated>2018-03-10T09:59:10.368Z</updated>
     
@@ -335,15 +335,15 @@
     
     </summary>
     
-      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+      <category term="CTF" scheme="https://uknowsec.cn/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>week 2 for cnas writeup</title>
-    <link href="http://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html"/>
-    <id>http://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html</id>
+    <link href="https://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html"/>
+    <id>https://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html</id>
     <published>2017-11-25T03:41:12.000Z</published>
     <updated>2018-03-10T09:59:10.364Z</updated>
     
@@ -358,15 +358,15 @@
     
     </summary>
     
-      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+      <category term="CTF" scheme="https://uknowsec.cn/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>php内置过滤函数总结</title>
-    <link href="http://uknowsec.cn/posts/notes/php%E5%86%85%E7%BD%AE%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93.html"/>
-    <id>http://uknowsec.cn/posts/notes/php内置过滤函数总结.html</id>
+    <link href="https://uknowsec.cn/posts/notes/php%E5%86%85%E7%BD%AE%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93.html"/>
+    <id>https://uknowsec.cn/posts/notes/php内置过滤函数总结.html</id>
     <published>2017-11-20T07:56:31.000Z</published>
     <updated>2018-03-10T09:59:10.307Z</updated>
     
@@ -382,15 +382,15 @@
     
     </summary>
     
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
     
     
   </entry>
   
   <entry>
     <title>week 1 for cnas writeup</title>
-    <link href="http://uknowsec.cn/posts/ctf/week-1-for-cnas-writeup.html"/>
-    <id>http://uknowsec.cn/posts/ctf/week-1-for-cnas-writeup.html</id>
+    <link href="https://uknowsec.cn/posts/ctf/week-1-for-cnas-writeup.html"/>
+    <id>https://uknowsec.cn/posts/ctf/week-1-for-cnas-writeup.html</id>
     <published>2017-11-18T01:47:00.000Z</published>
     <updated>2018-03-10T09:59:10.359Z</updated>
     
@@ -405,15 +405,15 @@
     
     </summary>
     
-      <category term="CTF" scheme="http://uknowsec.cn/categories/ctf/"/>
+      <category term="CTF" scheme="https://uknowsec.cn/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>MySQL Error Based SQL Injection （报错注入）总结</title>
-    <link href="http://uknowsec.cn/posts/notes/MySQL%20Error%20Based%20SQL%20Injection%20%EF%BC%88%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%EF%BC%89%E6%80%BB%E7%BB%93.html"/>
-    <id>http://uknowsec.cn/posts/notes/MySQL Error Based SQL Injection （报错注入）总结.html</id>
+    <link href="https://uknowsec.cn/posts/notes/MySQL%20Error%20Based%20SQL%20Injection%20%EF%BC%88%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%EF%BC%89%E6%80%BB%E7%BB%93.html"/>
+    <id>https://uknowsec.cn/posts/notes/MySQL Error Based SQL Injection （报错注入）总结.html</id>
     <published>2017-11-17T08:42:00.000Z</published>
     <updated>2018-03-10T09:59:10.282Z</updated>
     
@@ -428,15 +428,15 @@
     
     </summary>
     
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
     
     
   </entry>
   
   <entry>
     <title>php支持的协议和封装协议小结</title>
-    <link href="http://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html"/>
-    <id>http://uknowsec.cn/posts/notes/php支持的协议和封装协议小结.html</id>
+    <link href="https://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html"/>
+    <id>https://uknowsec.cn/posts/notes/php支持的协议和封装协议小结.html</id>
     <published>2017-11-16T09:45:21.000Z</published>
     <updated>2018-03-10T09:59:10.314Z</updated>
     
@@ -453,15 +453,15 @@
     
     </summary>
     
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
     
     
   </entry>
   
   <entry>
     <title>Android App端与PHP Web端的简单数据交互实现</title>
-    <link href="http://uknowsec.cn/posts/notes/Android-App%E7%AB%AF%E4%B8%8EPHP-Web%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92%E5%AE%9E%E7%8E%B0.html"/>
-    <id>http://uknowsec.cn/posts/notes/Android-App端与PHP-Web端的简单数据交互实现.html</id>
+    <link href="https://uknowsec.cn/posts/notes/Android-App%E7%AB%AF%E4%B8%8EPHP-Web%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92%E5%AE%9E%E7%8E%B0.html"/>
+    <id>https://uknowsec.cn/posts/notes/Android-App端与PHP-Web端的简单数据交互实现.html</id>
     <published>2017-10-23T02:43:11.000Z</published>
     <updated>2018-03-10T09:59:10.190Z</updated>
     
@@ -476,7 +476,7 @@
     
     </summary>
     
-      <category term="笔记" scheme="http://uknowsec.cn/categories/notes/"/>
+      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
     
     
   </entry>

