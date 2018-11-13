@@ -339,20 +339,20 @@
 <li>可以用Ping程序来确定问题出在哪里。Ping程序还能测出到这台主机的往返时间，以表明该主机离我们有多远</li>
 <li>一台主机的可达性可能不只取决于IP层是否可达，还取决于使用何种协议以及端口号。Ping程序的运行结果可能显示某台主机不可达，但我们可以用Telnet远程登录到该台主机是25号端口</li>
 </ul>
-<h2 id="Ping程序-1"><a href="#Ping程序-1" class="headerlink" title="Ping程序"></a>Ping程序</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/uknow4.jpg" alt=""></p>
+<h2 id="Ping程序-1"><a href="#Ping程序-1" class="headerlink" title="Ping程序"></a>Ping程序</h2><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/uknow4.jpg" alt=""></p>
 <ul>
 <li>称发送回显请求的ping程序为客户，而称被ping的主机为服务器。大多数的TCP|IP实现都在内核中直接支持Ping服务器–这种服务器不是一个用户进程</li>
 <li>对于其他类型的ICMP查询报文，服务器应该响应标识符和序列号字段。另外，客户发送的选项数据必须回显，假设客户对这些信息都会感兴趣</li>
 <li>Unix系统在实现ping程序时是把ICMP报文中的标识符字段置成发送进程的ID号。这样即使在同一台主机上同时运行了多个ping程序实例，ping程序也可以识别出返回的信息</li>
 <li>在windows下，不管开多个窗口ping的identifier都是相同的，而且每增加一个出去的ping包序列号增加256</li>
 </ul>
-<h2 id="IP记录路由选项"><a href="#IP记录路由选项" class="headerlink" title="IP记录路由选项"></a>IP记录路由选项</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/uknow5.jpg" alt=""></p>
+<h2 id="IP记录路由选项"><a href="#IP记录路由选项" class="headerlink" title="IP记录路由选项"></a>IP记录路由选项</h2><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/uknow5.jpg" alt=""></p>
 <ul>
 <li>大多数不同版本的ping程序都提供-R选项，以提供记录路由的功能。它使得[ing程序在发送出来的IP数据报中设置IPRR选项（该IP数据报包含ICMP回显请求报文）。这样，每个处理该数据报的路由器都把它的IP地址放入选项字段中。当数据报到达目的端时，IP地址清单应该赋值到ICMP回显应答中，这样返回途中所经过的路由器地址也被加入清单中。当Ping程序收到回显应答时，它就打印出这份IP地址清单</li>
 <li>源端主机生成RR选项，中间路由器对RR选项的处理，以及把ICMP回显请求中的RR清单复制到ICMP回显应答中，所有这些都是选项功能。幸运的是，现在的大多数系统都支持这些选项功能，只能有一些系统不把ICMP请求的IP清单赋值到ICMP应答中。</li>
 <li>但是，最大的问题是IP首部中只有有限的空间来存放IP地址。IP首部中的首部长度字段只有4bit，因此整个IP首部最长只能包括15个32bit长的字（即60个字节）。由于IP首部固定长度为20字节，RRR选项用去3个字节，这样只剩下37个字节（60-20-3）来存放IP地址清单，也就是说只能存放9个IP地址</li>
 </ul>
-<h2 id="IP时间戳选项"><a href="#IP时间戳选项" class="headerlink" title="IP时间戳选项"></a>IP时间戳选项</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/uknow3.jpg" alt=""></p>
+<h2 id="IP时间戳选项"><a href="#IP时间戳选项" class="headerlink" title="IP时间戳选项"></a>IP时间戳选项</h2><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/uknow3.jpg" alt=""></p>
 <ul>
 <li>时间戳选项的代码为0x44。其他两个字段len和ptr与记录路由选项相同：选项的总长度（一般为36或40）和指向下一个可用时间的指针（5，9，13等）</li>
 <li>接下来的两个字段是4bit的值：OF表示溢出字段，FL表示标志字段。时间戳选项的操作</li>
@@ -377,7 +377,7 @@
 <li>Traceroute程序发送一份UDP数据报给目的主机，但它选择一个不可能的值作为UDP端口号（大于3000），使目的主机的UDP模块产生一份“端口不可达”错误的ICMP报文。这样，Traceroute程序所要做的就是区分接收到的ICMP报文是超时还是端口不可达，以判断什么时候结束。</li>
 </ul>
 <h2 id="IP源选路选项"><a href="#IP源选路选项" class="headerlink" title="IP源选路选项"></a>IP源选路选项</h2><p>源站选项（source routing）的思想是由发送者指定路由，它可以采用以下两种形式：</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/uknow.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/uknow.jpg" alt=""></p>
 <ul>
 <li>严格的源路由选择。发送端指明IP数据报所必须采用的确切路由。如果一个路由器发现源路由所指定的下一个路由器不在其直接连接的网络上，那么它就返回一个“源路路由失败”的ICMP差错报文</li>
 <li>宽松的源站选路，发送端指明了一个数据报经过的IP地址清单，但是数据报在清单上指明的任意两个地址之间可以通过其他路由器</li>
@@ -391,7 +391,7 @@
 <li>如果该路由器是最终目的，且指针不大于路径的长度，那么（1）由ptr所指定的清单中的下一个地址就是数据报的最终目的地址；（2）由外接口响应的IP地址取代刚才使用的源地址；（4）指针加4</li>
 <li>Host Requirements RFC指明，TCP客户必须能指明源站选路，同时，TCP服务器必须能够接收源站选路，并且对于该TCP连接的所有报文段都能采用反向路由。如果TCP服务器下面接收到一个不同的源站选路，那么新的源路路由将取代旧的源路路由</li>
 </ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/uknow1.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/uknow1.jpg" alt=""></p>
 <h1 id="IP选路"><a href="#IP选路" class="headerlink" title="IP选路"></a>IP选路</h1><ul>
 <li>选路是IP最重要的功能之一</li>
 <li>路由守护程序（daemon），通常这是一个用户进程</li>
@@ -399,7 +399,7 @@
 <li>路由表经常被IP访问，但是它被路由守护程序更新的频度却要低得多</li>
 <li>当接收到ICMP重定向报文时，路由表也要被更新</li>
 <li><p>用netstat命令来显示路由表</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170421202212.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170421202212.jpg" alt=""></p>
 </li>
 </ul>
 <h2 id="选路的原理"><a href="#选路的原理" class="headerlink" title="选路的原理"></a>选路的原理</h2><p>IP搜索路由表的几个步骤：</p>
@@ -429,7 +429,7 @@
 <li>R1收到数据报并检查它的路由表，发现R2是发送数据报的下一站。当它把数据报发送给R2时，R1检测到它正在发送的接口与数据报达到接口是相同的（即主机和两个路由器所在的LAN）。这样就给路由器发送重定向报文给原始发送端提供了线索</li>
 <li>R1发送一份ICMP重定向报文给主机，告诉它以后把数据报发送给R2而不是R1</li>
 </ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170422232852.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170422232852.jpg" alt=""></p>
 <h1 id="UDP：用户数据报协议"><a href="#UDP：用户数据报协议" class="headerlink" title="UDP：用户数据报协议"></a>UDP：用户数据报协议</h1><h2 id="UDP介绍"><a href="#UDP介绍" class="headerlink" title="UDP介绍"></a>UDP介绍</h2><ul>
 <li>UDP是一个简单的面向数据报的运输层协议：进程的每个输出操作都正好产生一个UDP数据报，并组装成一份待发送的IP数据包</li>
 <li>这与面向流字符的协议不同，如TCP，应用程序产生的全体数据与真正发送的单个IP数据报可能没什么联系</li>
@@ -464,12 +464,12 @@
 <li>UDP数据报和TCP段都包含一个12字节长的伪首部，它是为了计算检验和而设置的。伪首部包含IP首部一些字段。其目的是让UDP两次检查数据是否已经正确到达目的地（例如，IP没有接受地址不是本主机的数据报，以及IP没有把应传给另一高层的数据报传给UDP）</li>
 </ul>
 <p><img src="http://images.cnitblog.com/blog2015/697266/201504/211955147184376.png" alt=""></p>
-<h2 id="tcpdump输出"><a href="#tcpdump输出" class="headerlink" title="tcpdump输出"></a>tcpdump输出</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE2017042317114.jpg" alt=""></p>
+<h2 id="tcpdump输出"><a href="#tcpdump输出" class="headerlink" title="tcpdump输出"></a>tcpdump输出</h2><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE2017042317114.jpg" alt=""></p>
 <ul>
 <li>三个系统有两个打开了UDP检验和选项</li>
 <li>送出的数据报与收到的数据报具有相同的检验和值（第3和第4行，第5和第6行）。从图11-3可以看出，两个IP地址进行了交换，正如两个端口号一样。伪首部和UDP首部中的其他字段都是相同的，就想数据回显一样。这再次表明UDP检验和（事实上，TCP|IP协议簇中所有的检验和）是简单的16bit和。它们检测不出交换两个16bit的差错</li>
 </ul>
-<h2 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170423172522.jpg" alt=""></p>
+<h2 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h2><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170423172522.jpg" alt=""></p>
 <ul>
 <li>在发送第一份数据报之前，发送端和接收端之间没有任何通信</li>
 <li>当收到数据时，接收端没有任何确认。在这个例子中，发送端并不知道零一端是否已经收到这些数据报</li>
@@ -496,31 +496,31 @@
 <li>发生ICMP不可达差错的另一种情况是，当路由器收到一份需要分片的数据报，而在IP首部又设置了不分片(DF的标志比特。如果某个程序需要判断到目的端的路途中最小MTU是多少–称作路径MTU发现机制，那么这个差错就可以被该程序使用</li>
 <li>如果路由器没有提供这种新的ICMP差错报文格式，那么下一站的MTU就设为0</li>
 </ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424210136.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170424210136.jpg" alt=""></p>
 <ul>
 <li>在点到点的链路中，不要求两个方向的MTU为相同值</li>
 <li>在主机sun上运行tcpdump，观察SLIP链路，看什么时候发生分片。开始没有观察到分片，一切都很正常知道ping分组的数据长度从500增加到600字节。可以看到接收到的回显请求（仍然没有分片），但不见回显应答</li>
 <li>Ping的时候DF置位（echo设置DF位，echo-reply也会设置DF位）</li>
 </ul>
-<h2 id="用Traceroute确定路径MTU"><a href="#用Traceroute确定路径MTU" class="headerlink" title="用Traceroute确定路径MTU"></a>用Traceroute确定路径MTU</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424205607.jpg" alt=""></p>
+<h2 id="用Traceroute确定路径MTU"><a href="#用Traceroute确定路径MTU" class="headerlink" title="用Traceroute确定路径MTU"></a>用Traceroute确定路径MTU</h2><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170424205607.jpg" alt=""></p>
 <ul>
 <li>MTU值的个数是有限的，因此在我们的程序中有些由近似值构成的表，取下一个最小的MTU值来发送</li>
 <li>上面的测试中间设备不回送吓一跳的MTU，下面的测试回送了下一跳的MTU</li>
 </ul>
-<h2 id="采用UDP的路径MTU发现"><a href="#采用UDP的路径MTU发现" class="headerlink" title="采用UDP的路径MTU发现"></a>采用UDP的路径MTU发现</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424205406.jpg" alt=""></p>
+<h2 id="采用UDP的路径MTU发现"><a href="#采用UDP的路径MTU发现" class="headerlink" title="采用UDP的路径MTU发现"></a>采用UDP的路径MTU发现</h2><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170424205406.jpg" alt=""></p>
 <ul>
 <li>Solaris发送650字节的udp包，并且DF被置位</li>
 <li>被bsdi丢弃，但是不回送MTU值</li>
 <li>Solaris自以为是的对数据包进行分片（552 106两个片）</li>
 </ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424205651.jpg" alt=""><br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424205746.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170424205651.jpg" alt=""><br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170424205746.jpg" alt=""></p>
 <ul>
 <li>Solaris自以为是的对数据报进行分片（552 106两个片）造成不优化的再次分片</li>
 <li>最好的解决方式是让bsdi回送MTU，Solaris根据这个MTU采取最优化的分片</li>
 </ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424205832.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170424205832.jpg" alt=""></p>
 <h2 id="UDP和ARP之间的交互作用"><a href="#UDP和ARP之间的交互作用" class="headerlink" title="UDP和ARP之间的交互作用"></a>UDP和ARP之间的交互作用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bsdi % arp -a验证ARP高速缓存是空的</span><br><span class="line">bsdi % sock -u -i -l -w8192 svr4 discard</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170424205918.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170424205918.jpg" alt=""></p>
 <ul>
 <li>1.在第一个ARP应答返回以前，总共产生了6个ARP请求</li>
 <li>2.在接收第一个ARP应答时（第7行），只发送最后一个数据报片（第9行）</li>
@@ -577,7 +577,7 @@
 <li>网卡查看帧，确定是否接收该帧，若接收后将它传递给设备驱动程序。网卡仅接收目的地址为网卡物理地址或广播地址的帧。如果多接口设置为混合模式，能接收每个帧的一个复制；</li>
 <li>设备驱动程序将进行另外的帧过滤：<br>1）帧类型中必须指定要使用的协议；<br>2）进行多播过滤来检测该主机是否属于多播地址说的多播组</li>
 <li>设备驱动程序将数据帧传递给IP层（如果为IP类型的数据报）。IP根据IP地址中源地址和目的地址进行更多的过滤检测。如果正常，将数据报传递给下一层；</li>
-<li>UDP根据IP层传递数据中目的端口来进行过滤。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170425212507.jpg" alt=""></li>
+<li>UDP根据IP层传递数据中目的端口来进行过滤。<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170425212507.jpg" alt=""></li>
 </ul>
 <h2 id="广播"><a href="#广播" class="headerlink" title="广播"></a>广播</h2><ul>
 <li>受限的广播255.255.255.255</li>
@@ -592,7 +592,7 @@
 <li>向多个目的地址发送数据；</li>
 <li>客户对服务器的请求。</li>
 </ul>
-<h3 id="多播组地址"><a href="#多播组地址" class="headerlink" title="多播组地址"></a>多播组地址</h3><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170425215329.jpg" alt=""></p>
+<h3 id="多播组地址"><a href="#多播组地址" class="headerlink" title="多播组地址"></a>多播组地址</h3><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170425215329.jpg" alt=""></p>
 <ul>
 <li>多播组地址包括为1110的最高4bit和多播组号。它们通常可表示为点分十进制数，范围从224.0.0.0到239.255.255.255</li>
 <li>能够接收发往一个特定多播组地址数据的主机集合称为主机组（host group）。一个主机组可以跨越多个网络。主机组中成员可随机加入或离开主机组，主机组中对主机的数量没有限制，同时不属于某一个主机组的主机可以向该组发送信息</li>
@@ -630,36 +630,36 @@
 <li>当一个主机收到一个从路由器发出的查询后，并不立即响应，而是经过一定的时间间隔后才发出一些响应s（一个主机可能不止一个多播组，有几个就要发送几个响应）。</li>
 </ul>
 <h1 id="DNS：域名系统"><a href="#DNS：域名系统" class="headerlink" title="DNS：域名系统"></a>DNS：域名系统</h1><h2 id="引言-2"><a href="#引言-2" class="headerlink" title="引言"></a>引言</h2><p>域名系统（DNS）是一种用于TCP/IP应用程序的分布式数据库，它提供主机名字和IP地址之间的转换及有关电子邮件的选路信息。</p>
-<h2 id="DNS基础"><a href="#DNS基础" class="headerlink" title="DNS基础"></a>DNS基础</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501144713.jpg" alt=""></p>
+<h2 id="DNS基础"><a href="#DNS基础" class="headerlink" title="DNS基础"></a>DNS基础</h2><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501144713.jpg" alt=""></p>
 <ul>
 <li>DNS的名字空间和Unix的文件系统相似，也具有层次结构</li>
 <li>每个结点（图14-1中的圆圈）有一个至多63个字符长</li>
 <li>以点“.”结尾的域名称为绝对域名或完全合格的域名FQDN(Full Qualified Domain Name)</li>
-<li><p>顶级域名被分为三个部分：<br>  1）arpa是一个用做地址到名字转换的特殊域<br>  2）7个3字符长的普通域，也称组织域<br>  3）所有2字符长的域均是基于ISO3166中定义的国家代码，这些域称为国家域，或地理域<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501144946.jpg" alt=""></p>
+<li><p>顶级域名被分为三个部分：<br>  1）arpa是一个用做地址到名字转换的特殊域<br>  2）7个3字符长的普通域，也称组织域<br>  3）所有2字符长的域均是基于ISO3166中定义的国家代码，这些域称为国家域，或地理域<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501144946.jpg" alt=""></p>
 </li>
 <li><p>一个独立管理的DNS子树称为一个区域（zone）</p>
 </li>
 <li>DNS的一个基本特征是使用超高速缓存。即当一个名字服务器收到有关映射的信息（主机名字到IP地址）时，它会将该信息存放在高速缓存中。这样若以后遇到相同的映射请求，就能直接使用缓存中的结果而不需通过其他服务器查询</li>
 </ul>
 <h2 id="DNS的报文格式"><a href="#DNS的报文格式" class="headerlink" title="DNS的报文格式"></a>DNS的报文格式</h2><p>DNS定义了一个用于查询和响应的报文格式。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501145012.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501145012.jpg" alt=""></p>
 <ul>
 <li>这个报文由12字节长的首部和4个长度可变的字段组成</li>
 <li>标识字段由客户程序设置并有服务器返回结果。客户程序通过它来确定响应与查询是否匹配</li>
-<li>16bit的标志字段被划分为若干子字段<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501145036.jpg" alt=""><br>   1）QR是1bit字段：0表示查询报文，1表示响应报文<br>   2）opcode是一个4bit字段：通常值为0（标准查询），其他值为1（反向查询）和2（服务器状态请求）<br>   3）AA是1bit标志，表示“授权回答”。该名字服务器是授权于该域的<br>   4）TC是1bit字段，表示“可截断的”。使用UDP时，它表示当应答的总长度超过512字节时，只返回前512个字节<br>   5）RD是1bit字段表示“期望递归”。该比特能在一个查询中设置，并在响应中返回。这个标志告诉名字服务必须处理这个查询，也称为一个递归查询。<br>   6）RA是1bit字段，表示“可用递归”。如果名字服务器支持递归查询，则在响应中该比特设置为1.<br>   7）随后的3bit字段必须为0<br>   8）recode是一个4bit的返回码字段。通常的值为0（没有差错）和3（名字差错）。名字差错只有从一个授权名字服务器上返回，它表示在查询中指定的域名不存在<br>   9）随后的4个16bit字段说明最后4个变长字段中包含的条目数。对于查询报文，问题数通常为1，而其他3项则均为0.</li>
+<li>16bit的标志字段被划分为若干子字段<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501145036.jpg" alt=""><br>   1）QR是1bit字段：0表示查询报文，1表示响应报文<br>   2）opcode是一个4bit字段：通常值为0（标准查询），其他值为1（反向查询）和2（服务器状态请求）<br>   3）AA是1bit标志，表示“授权回答”。该名字服务器是授权于该域的<br>   4）TC是1bit字段，表示“可截断的”。使用UDP时，它表示当应答的总长度超过512字节时，只返回前512个字节<br>   5）RD是1bit字段表示“期望递归”。该比特能在一个查询中设置，并在响应中返回。这个标志告诉名字服务必须处理这个查询，也称为一个递归查询。<br>   6）RA是1bit字段，表示“可用递归”。如果名字服务器支持递归查询，则在响应中该比特设置为1.<br>   7）随后的3bit字段必须为0<br>   8）recode是一个4bit的返回码字段。通常的值为0（没有差错）和3（名字差错）。名字差错只有从一个授权名字服务器上返回，它表示在查询中指定的域名不存在<br>   9）随后的4个16bit字段说明最后4个变长字段中包含的条目数。对于查询报文，问题数通常为1，而其他3项则均为0.</li>
 </ul>
-<h3 id="DNS查询报文中的问题部分"><a href="#DNS查询报文中的问题部分" class="headerlink" title="DNS查询报文中的问题部分"></a>DNS查询报文中的问题部分</h3><p>问题部分中每个问题的格式如图14-5所示，通常只有一个问题<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501145102.jpg" alt=""></p>
+<h3 id="DNS查询报文中的问题部分"><a href="#DNS查询报文中的问题部分" class="headerlink" title="DNS查询报文中的问题部分"></a>DNS查询报文中的问题部分</h3><p>问题部分中每个问题的格式如图14-5所示，通常只有一个问题<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501145102.jpg" alt=""></p>
 <ul>
 <li>查询名是要查找的名字，它是一个或多个标识符的序列。每个标识符以首字节的计数值来说明随后标识符的字节长度，每个名字以最后字节为0结束，长度为0的标识符是根标识符。计数字节的值必须是0-63的数，因为标识符最大长度仅为63.</li>
 <li>每个问题有一个查询类型，而每个响应（也称一个资源记录）也有一个类型。</li>
 </ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501145125.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501145125.jpg" alt=""></p>
 <ul>
 <li>最常用的查询类型是A类型，表示期望获得查询名的IP地址。一个PTR查询则请求获得一个IP地址对应的域名</li>
 <li>查询类通常是1，指互联网地址</li>
 </ul>
 <h3 id="DNS响应报文中的资源记录部分"><a href="#DNS响应报文中的资源记录部分" class="headerlink" title="DNS响应报文中的资源记录部分"></a>DNS响应报文中的资源记录部分</h3><p>DNS报文中最后的是三个字节，回答字段、授权字段和附加信息字段，均采用一种称为资源记录RR的相同格式。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501145150.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501145150.jpg" alt=""></p>
 <ul>
 <li>域名是记录中资源数据对应的名字</li>
 <li>类型说明RR的类型码。它的值和查询类型值是一样的，类通常为1，值Internet数据</li>
@@ -695,7 +695,7 @@
 <li>每个数据分组包含一个块编号字段，它以后要在确认分组中使用。</li>
 <li>在写请求的情况下，TFTP 客户发送W R Q指明文件名和模式。如果该文件能被 该客户写，TFTP 服务器就返回块编号为 0的A C K包。该客户就将文件的头 5 1 2字节以块编号为1发出。服务器则返回块编号为1的A C K。这种类型的数据传输称为停止等待协议。</li>
 </ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501150021.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501150021.jpg" alt=""></p>
 <ul>
 <li>最后一种T F T P报文类型是差错报文，它的操作码为 5。它用于服务器不能处理读请求或写请求的情况。在文件传输过程中的读和写差错也会导致传送这种报文，接着停止传输。差错编号字段给出一个数字的差错码，跟着是一个 A S C I I表示的差错报文字段，可能包含额外的操作系统说明的信息。</li>
 <li>既然T F T P使用不可靠的U D P，T F T P就必须处理分组丢失和分组重复。分组丢失可通过发送方的超时与重传机制解决（注意存在一种称为“魔术新手综合症 ( s o r c e r e r’s apprentices y n d r o m e )”的潜在问题，如果双方都超时与重传，就可能出现这个问题。</li>
@@ -709,8 +709,8 @@
 <li>BOOTP（引导程序协议）是一种用于无盘系统进行系统引导的替代方法</li>
 <li>BOOTP使用UDP，且通常需与TFTP协同工作</li>
 </ul>
-<h2 id="BOOTP的分组格式"><a href="#BOOTP的分组格式" class="headerlink" title="BOOTP的分组格式"></a>BOOTP的分组格式</h2><p>BOOTP 请求和应答均被封装在U D P数据报中，如图1 6 - 1所示。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501151809.jpg" alt=""></p>
-<p>图1 6 - 2显示了长度为3 0 0字节的B O O T P请求和应答的格式。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501151910.jpg" alt=""></p>
+<h2 id="BOOTP的分组格式"><a href="#BOOTP的分组格式" class="headerlink" title="BOOTP的分组格式"></a>BOOTP的分组格式</h2><p>BOOTP 请求和应答均被封装在U D P数据报中，如图1 6 - 1所示。<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501151809.jpg" alt=""></p>
+<p>图1 6 - 2显示了长度为3 0 0字节的B O O T P请求和应答的格式。<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501151910.jpg" alt=""></p>
 <ul>
 <li>“操作码”字段为1表示请求，为2表示应答。硬件类型字段为 1表示10 Mb/s的以太网</li>
 <li>“跳数”字段由客户设置为0，但也能被一个代理服务器设置</li>
@@ -902,21 +902,21 @@
 <li>通常使用的“隔一个报文段确认”的策略</li>
 <li>分组顺序依赖于许多无法控制的因素：发送方T C P的实现、接收方T C P的实现、接收进程读取数据（依赖于操作系统的调度）和网络的动态性（如以太网的冲突和退避等）。</li>
 </ul>
-<h3 id="快的发送方和慢的接收方"><a href="#快的发送方和慢的接收方" class="headerlink" title="快的发送方和慢的接收方"></a>快的发送方和慢的接收方</h3><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501153726.jpg" alt=""></p>
+<h3 id="快的发送方和慢的接收方"><a href="#快的发送方和慢的接收方" class="headerlink" title="快的发送方和慢的接收方"></a>快的发送方和慢的接收方</h3><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501153726.jpg" alt=""></p>
 <ul>
 <li>发送方发送4个背靠背（b a c k - t o - b a c k）的数据报文段去填充接收方的窗口，然后停下来等待一个A C K。接收方发送A C K（报文段8），但通告其窗口大小为 0，这说明接收方已收到所有数据，但这些数据都在接收方的 T C P缓冲区，因为应用程序还没有机会读取这些数据。</li>
 <li>另一个A C K（称为窗口更新）在17.4 ms后发送，表明接收方现在可以接收另外的 4 0 9 6个字节的数据。虽然这看起来像一个 A C K，但由于它并不确认任何新数据，只是用来增加窗口的右边沿，因此被称为窗口更新。</li>
 <li>发送方发送最后4个报文段（1 0 ~ 1 3），再次填充了接收方的窗口。注意到报文段 1 3中包括两个比特标志：P U S H和F I N。随后从接收方传来另外两个 A C K，它们确认了最后的4 0 9 6字节的数据（从4 0 9 7到8 1 9 2字节）和F I N（标号为8 1 9 2）。</li>
 </ul>
-<h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501153825.jpg" alt=""></p>
+<h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501153825.jpg" alt=""></p>
 <ul>
 <li>在这个图中，我们将字节从 1至11进行标号。接收方通告的窗口称为提出的窗口（ o ff e r e dw i n d o w），它覆盖了从第4字节到第9字节的区域，表明接收方已经确认了包括第 3字节在内的数据，且通告窗口大小为 6。回顾第1 7章，我们知道窗口大小是与确认序号相对应的。发送方计算它的可用窗口，该窗口表明多少数据可以立即被发送。</li>
 </ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501154500.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501154500.jpg" alt=""></p>
 <ul>
 <li>当接收方确认数据后，这个滑动窗口不时地向右移动。窗口两个边沿的相对运动增加或减少了窗口的大小。使用三个术语来描述窗口左右边沿的运动：<br>1) 称窗口左边沿向右边沿靠近为窗口合拢。这种现象发生在数据被发送和确认时。<br>2) 当窗口右边沿向右移动时将允许发送更多的数据，我们称之为窗口张开。这种现象发生在另一端的接收进程读取已经确认的数据并释放了 T C P的接收缓存时。<br>3) 当右边沿向左移动时，我们称之为窗口收缩。 Host Requirements RFC强烈建议不要使用这种方式。但T C P必须能够在某一端产生这种情况时进行处理</li>
 </ul>
-<h3 id="一个例子-1"><a href="#一个例子-1" class="headerlink" title="一个例子"></a>一个例子</h3><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501155029.jpg" alt=""></p>
+<h3 id="一个例子-1"><a href="#一个例子-1" class="headerlink" title="一个例子"></a>一个例子</h3><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501155029.jpg" alt=""></p>
 <p>以该图为例可以总结如下几点：<br>1) 发送方不必发送一个全窗口大小的数据。<br>2) 来自接收方的一个报文段确认数据并把窗口向右边滑动。这是因为窗口的大小是相对于确认序号的。<br>3) 正如从报文段7到报文段8中变化的那样，窗口的大小可以减小，但是窗口的右边沿却不能够向左移动。<br>4) 接收方在发送一个A C K前不必等待窗口被填满。在前面我们看到许多实现每收到两个报文段就会发送一个A C K。</p>
 <h2 id="PUSH标志"><a href="#PUSH标志" class="headerlink" title="PUSH标志"></a>PUSH标志</h2><p>发送方使用该标志通知接收方将所收到的数据全部提交给接收进程。这里的数据包括与 P U S H一起传送的数据以及接收方T C P已经为接收进程收到的其他数据。</p>
 <h2 id="慢启动"><a href="#慢启动" class="headerlink" title="慢启动"></a>慢启动</h2><ul>
@@ -965,7 +965,7 @@
 <h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p><img src="http://img.my.csdn.net/uploads/201512/13/1450010585_6448.png" alt=""><br>客户端第二通道是IP和端口是： 202.100.1.100,4<em>256+38<br>第一次传入PORT后，紧跟的是一个控制命令，LIST（查看列表）。<br>然后，服务端20号端口通过第二信道与客户端的4</em>256+38端口建立连接，并传送文件列表。</p>
 <h2 id="Download"><a href="#Download" class="headerlink" title="Download"></a>Download</h2><p><img src="http://img.my.csdn.net/uploads/201512/13/1450010601_6947.png" alt=""><br>当单击文件列表中的一个文件，又出现了一个PORT发给服务端（注意这次的端口号有变化，4<em>256+42），接着又发了一个RETR命令，后面跟着所请求的文件。<br>这时，服务端20号端口又通过第二信道与客户端4</em>256+42端口建立连接，并传送该文件。（注意，与第一次不是同一个端口号，也就是说又建立了一次连接）<br>注意：这里是又建立了一次连接。</p>
 <h2 id="Passive-Mode"><a href="#Passive-Mode" class="headerlink" title="Passive Mode"></a>Passive Mode</h2><p><img src="http://img.my.csdn.net/uploads/201512/13/1450010602_9427.png" alt=""><br>第二信道，服务器被动接受为被动模式（PassiveMode）。<br>在第一信道中，客户端发送PASV命令，询问服务端是否支持被动模式。服务端回复227表示支持，这时a,b,c,d,e,f表示服务端第二信道的IP和端口。<br>目前一般使用的是PassiveMode模式，客户端连接后，一般会发PASV询问服务器是否支持PassiveMode，如果支持，则使用PassiveMode。</p>
-<h1 id="Telnet：远程登录"><a href="#Telnet：远程登录" class="headerlink" title="Telnet：远程登录"></a>Telnet：远程登录</h1><p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501205934.jpg" alt=""></p>
+<h1 id="Telnet：远程登录"><a href="#Telnet：远程登录" class="headerlink" title="Telnet：远程登录"></a>Telnet：远程登录</h1><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501205934.jpg" alt=""></p>
 <ul>
 <li>1) Te l n e t客户进程同时和终端用户和T C P / I P协议模块进行交互。通常我们所键入的任何信息的传输是通过T C P连接，连接的任何返回信息都输出到终端上。</li>
 <li>Te l n e t服务器进程经常要和一种叫做“伪终端设备”（pseudo-terminal device）打交道，至少在U n i x系统下是这样的。这就使得对于登录外壳 ( s h e l l )进程来讲，它是被Te l n e t服务器进程直接调用的，而且任何运行在登录外壳进程处的程序都感觉是直接和一个终端进行交互。</li>
@@ -977,7 +977,7 @@
 <li>行结束符以两个字符 C R（回车）和紧接着的 L F（换行）这样的序列表示。以 \ r \ n来表示。单独的一个 C R也是以两个字符序列来表示，它们是 C R和紧接着的 N U L（字节0），以\ r \ 0表示。</li>
 <li>F T P, SMTP, Finger和W h o i s协议都以NVT ASCII来描述客户命<br>令和服务器的响应。</li>
 </ul>
-<h2 id="Telnet命令"><a href="#Telnet命令" class="headerlink" title="Telnet命令"></a>Telnet命令</h2><p>Te l n e t通信的两个方向都采用带内信令方式。<br><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170501210711.jpg" alt=""></p>
+<h2 id="Telnet命令"><a href="#Telnet命令" class="headerlink" title="Telnet命令"></a>Telnet命令</h2><p>Te l n e t通信的两个方向都采用带内信令方式。<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20170501210711.jpg" alt=""></p>
 <h2 id="一次一个字符方式"><a href="#一次一个字符方式" class="headerlink" title="一次一个字符方式"></a>一次一个字符方式</h2><p>我们所键入的每个字符都单独发送到服务器进程。服务器进程回显大多数的字符，除非服务器进程端的应用程序去掉了回显功能。该方式的缺点也是显而易见的。当网络速度很慢，而且网络流量比较大的时候，那么回显的速度也会很慢。虽然如此，但目前大多数 Te l n e t实现都把这种方式作为默认方式。</p>
 <h2 id="Telnet协议两大特点"><a href="#Telnet协议两大特点" class="headerlink" title="Telnet协议两大特点"></a>Telnet协议两大特点</h2><ul>
 <li>交互式TCP数据流的特点</li>

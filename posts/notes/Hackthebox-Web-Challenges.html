@@ -7,11 +7,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function doProcess() </span><br><span class="line">&#123;var form=document.createElement(&quot;form&quot;);	form.setAttribute(&quot;method&quot;,&quot;post&quot;);	form.setAttribute(&quot;action&quot;,&quot;main/index.php&quot;);	form.setAttribute(&quot;target&quot;,&quot;view&quot;);	var hiddenField=document.createElement(&quot;input&quot;);	hiddenField.setAttribute(&quot;type&quot;,&quot;hidden&quot;);	hiddenField.setAttribute(&quot;name&quot;,&quot;name1&quot;);	hiddenField.setAttribute(&quot;value&quot;,&quot;TXlMaXR0bGU&quot;);	var hiddenField2=document.createElement(&quot;input&quot;);	hiddenField2.setAttribute(&quot;type&quot;,&quot;hidden&quot;);	hiddenField2.setAttribute(&quot;name&quot;,&quot;name2&quot;);	hiddenField2.setAttribute(&quot;value&quot;,&quot;cDB3bmll&quot;);	form.appendChild(hiddenField2);		form.appendChild(hiddenField);	form.appendChild(hiddenField2);	document.body.appendChild(form);			window.open(&apos;&apos;,&apos;view&apos;);	form.submit();&#125;</span><br></pre></td></tr></table></figure>
 <p>由这里可以得到账号密码<code>TXlMaXR0bGU</code>和<code>cDB3bmll</code>。</p>
 <p>进入系统可以看到有一个可以发邮箱的地方。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505171357.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20180505171357.png" alt=""></p>
 <p>发现了一个目录<code>secret_area_</code>访问目录下的mails.txt得到一份邮箱表单。</p>
 <p>尝试着用这份邮箱名单去发邮件。</p>
 <p>这里用burp遍历</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505171719.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20180505171719.png" alt=""></p>
 <p>由此得到flag。</p>
 <h2 id="Lernaean"><a href="#Lernaean" class="headerlink" title="Lernaean"></a>Lernaean</h2><p>这里的提示是</p>
 <p><code>Your target is not very good with computers. Try and guess their password to see if they may be hiding anything!</code></p>
@@ -25,15 +25,15 @@
 <li>:Invalid password!” 密码错误输出的错误信息</li>
 <li>-s 指定端口</li>
 </ul>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505173240.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20180505173240.png" alt=""></p>
 <p>得到密码登录。页面返回。</p>
 <p><code>Ooops! Too slow!</code></p>
 <p>利用burp提交即可得到flag.</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505171719.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20180505171719.png" alt=""></p>
 <h2 id="Cartographer"><a href="#Cartographer" class="headerlink" title="Cartographer"></a>Cartographer</h2><p>进到页面是一个登录框，尝试万能密码</p>
 <p><code>&#39; or 1=1#</code></p>
 <p>至今进入页面。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Cartographer</span><br><span class="line">Is Still</span><br><span class="line">Under Construction!</span><br></pre></td></tr></table></figure>
 <p>发现url中好像是文件包含，尝试info=flag</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180505173920.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E6%88%AA%E5%9B%BE20180505173920.png" alt=""></p>
 </div></article></div></section><footer><div class="paginator"><a href="/posts/notes/vulnhub渗透测试练习-Zico2.html" class="prev">PREV</a><a href="/posts/notes/hackthebox-invite-code.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2018 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

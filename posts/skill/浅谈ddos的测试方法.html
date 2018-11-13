@@ -3,11 +3,11 @@
 <p>从理论上来说，无论目标服务器、网络服务的资源多大，也是带宽、内存、CPU多大，都无法避免Dos与DDOS攻击，因此任何资源再大也有一个极限值，比如说，一台服务器每秒可以处理1000个数据包，而通过DOS攻击给这台服务器发送1001个数据包，这时服务器无法正常运行，需要给服务器扩容。 从技术上来说，DOS和DDOS都是攻击目标服务器的带宽和连通性，使得目标服务器的带宽资源耗尽，无法正常运行。</p>
 <h2 id="DOS的类型"><a href="#DOS的类型" class="headerlink" title="DOS的类型"></a>DOS的类型</h2><p>Dos是拒绝服务攻击，而DDOS是分布式拒绝服务攻击；Dos与DDOS都是攻击目标服务器、网络服务的一种方式。Dos是利用自己的计算机攻击目标，也是一对一的关系，而DDOS是DoS攻击基础之上产生的一种新的攻击方式,利用控制成百上千台肉鸡，组成一个DDOS攻击群，同一时刻对目标发起攻击。</p>
 <p>从理论上来说，无论目标服务器、网络服务的资源多大，也是带宽、内存、CPU多大，都无法避免Dos与DDOS攻击，因此任何资源再大也有一个极限值，比如说，一台服务器每秒可以处理1000个数据包，而通过DOS攻击给这台服务器发送1001个数据包，这时服务器无法正常运行，需要给服务器扩容。 从技术上来说，DOS和DDOS都是攻击目标服务器的带宽和连通性，使得目标服务器的带宽资源耗尽，无法正常运行。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/ddos.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/ddos.jpg" alt=""></p>
 <h2 id="网络和传输层攻击"><a href="#网络和传输层攻击" class="headerlink" title="网络和传输层攻击"></a>网络和传输层攻击</h2><p>这种攻击方式通常是向服务器发送恶意流量，尽可能消耗服务器的资源来达到拒绝服务的目的。</p>
 <h3 id="TCP-SYN-floods"><a href="#TCP-SYN-floods" class="headerlink" title="TCP SYN floods"></a>TCP SYN floods</h3><p>SYN洪水攻击在传输层，为了更好的理解这种类型的攻击，我们需要先了解TCP的三次握手。</p>
 <p>先来看张图如下：</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/ddos1.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/ddos1.jpg" alt=""></p>
 <p>对照上图来理解一下：</p>
 <p>第一次握手：建立连接。客户端发送连接请求报文段，将SYN位置为1，Sequence Number为x；然后，客户端进入SYN_SEND状态，等待服务器的确认；</p>
 <p>第二次握手：服务器收到SYN报文段。服务器收到客户端的SYN报文段，需要对这个SYN报文段进行确认，设置Acknowledgment Number为x+1(Sequence Number+1)；同时，自己自己还要发送SYN请求信息，将SYN位置为1，Sequence Number为y；服务器端将上述所有信息放到一个报文段（即SYN+ACK报文段）中，一并发送给客户端，此时服务器进入SYN_RECV状态；</p>
@@ -37,15 +37,15 @@
 <p>测试工具：hping3</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令：hping3 --flood --rand-source -1 -p TARGET_PORT TARGET_IP</span><br></pre></td></tr></table></figure>
 <h2 id="放大攻击"><a href="#放大攻击" class="headerlink" title="放大攻击"></a>放大攻击</h2><p>利用回复包比请求包大的特点（放大流量），伪造请求包的源IP地址，将应答包引向被攻击的目标。例如：攻击者伪造源IP为目标的IP然后使用路由广播IP地址向多个IP发送消息，然后这些设备都向目标IP进行回应。如图：</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/ddos2.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/ddos2.jpg" alt=""></p>
 <p>想要使用放大攻击必须使用不需要验证源IP的无连接协议，像DNS、ICMP（ Smurf attack）、UDP（Fraggle attack）等协议。</p>
 <h3 id="Smurf-Attack"><a href="#Smurf-Attack" class="headerlink" title="Smurf Attack"></a>Smurf Attack</h3><p>攻击者会选择一些中间站点作为放大器，然后发送巨大数量ICMP（ping）请求到这些中间站点的广播IP。通过这种方式，将所有的源IP改为目标的IP地址，这些中间地址将这些数据包广播到所有子网的主机。最后所有主机的回应都发回给目标。</p>
 <p>测试工具:hping3</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令：hping3 --icmp --spoof TARGET_IP BROADCAST_IP</span><br></pre></td></tr></table></figure>
 <h3 id="DNS-Amplification"><a href="#DNS-Amplification" class="headerlink" title="DNS Amplification"></a>DNS Amplification</h3><p>当前许多DNS服务器支持EDNS。EDNS是DNS的一套扩大机制，RFC 2671对此有介绍。一些选择能够让DNS回复超过512字节并且仍然使用UDP，如果要求者指出它能够处理这样大的DNS查询的话。攻击者已经利用这种方法产生了大量的通讯。通过发送一个60个字节的查询来获取一个大约4000个字节的记录，攻击者能够把通讯量放大66倍。一些这种性质的攻击已经产生了 每秒钟许多GB的通讯量，对于某些目标的攻击甚至超过了每秒钟10GB的通讯量。<br>下面看两个图，正常的查询:</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/ddos3.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/ddos3.jpg" alt=""></p>
 <p>下面是放大攻击的图：</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/ddos4.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/ddos4.jpg" alt=""></p>
 <p>对比上面的连个图，发下放大攻击之后有大量的数据查询后的响应数据包返回给受害者的机器，这样就造成了对受害者的拒绝服务攻击。</p>
 <p>测试工具：Tsunami</p>
 <p>下载地址： <a href="https://www.infosec-ninjas.com/tsunami" target="_blank" rel="noopener">https://www.infosec-ninjas.com/tsunami</a></p>

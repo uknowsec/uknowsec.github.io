@@ -6,9 +6,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if(isset($_GET[&apos;data&apos;]))&#123;</span><br><span class="line">    $data = $_GET[&apos;data&apos;];</span><br><span class="line">    if(&apos;php&apos;===$data[&apos;a&apos;] &amp;&amp;</span><br><span class="line">       &apos;is&apos;===$data[&apos;b&apos;] &amp;&amp;</span><br><span class="line">       &apos;nice&apos;===$data[&apos;c&apos;] &amp;&amp;</span><br><span class="line">       &apos;!&apos;===$data[3]) &#123;</span><br><span class="line">           $auth=true;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>以上是关键代码，本地做一个简单的测试，看是否能data[a]这样的形式传入参数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">var_dump( $_POST[&quot;data&quot;]);</span><br><span class="line">echo &apos;&lt;br&gt;&apos;;</span><br><span class="line">print_r( $_POST[&quot;data&quot;]);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720171202214639.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E5%9B%BE%E7%89%8720171202214639.png" alt=""></p>
 <p>这里可以知道我们是可以这样传入参数的，因此构造payload得到flag</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720171202214702.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/QQ%E5%9B%BE%E7%89%8720171202214702.png" alt=""></p>
 <h2 id="where-are-you-from-100"><a href="#where-are-you-from-100" class="headerlink" title="where are you from 100"></a>where are you from 100</h2><h3 id="题目链接-1"><a href="#题目链接-1" class="headerlink" title="题目链接"></a>题目链接</h3><p><a href="http://47.100.121.220:28002" target="_blank" rel="noopener">http://47.100.121.220:28002</a></p>
 <h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p>Referer</p>
 <ul>
@@ -20,7 +20,7 @@
 </ul>
 <h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><p>这个题目考察的就是HTTP头信息里中的以上两个头部。</p>
 <p>在GET包里添加 X-Forwarded-For: 127.0.0.1</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/xfx.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/xfx.png" alt=""></p>
 <p>这里我们可以得到一个next.php页面，这个地方也要验证的。验证了X-Forwarded-For和Referer，我们把他们同时改为本地地址</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/xff-refere.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/xff-refere.png" alt=""></p>
 <h2 id="日志审计-100"><a href="#日志审计-100" class="headerlink" title="日志审计 100"></a>日志审计 100</h2></div></article></div></section><footer><div class="paginator"><a href="/posts/ctf/month-1-for-cnas-writeup.html" class="prev">PREV</a><a href="/posts/ctf/week-2-for-cnas-writeup.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2018 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

