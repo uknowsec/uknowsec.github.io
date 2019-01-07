@@ -1,44 +1,44 @@
 <!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> [第四周]LinuxLinux各个目录的作用及内容 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="[第四周]LinuxLinux各个目录的作用及内容 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">[第四周]LinuxLinux各个目录的作用及内容</h1><div class="post-time">Mar 17, 2017</div><div class="post-content"><!-- ttoc -->
-<h2><span id="zhu-yao-mu-lu">主要目录</span><a href="#zhu-yao-mu-lu" class="header-anchor">#</a></h2><h3><span id="">/</span><a href="#" class="header-anchor">#</a></h3><p>/处于Linux文件系统树形结构的最顶端，它是Linux文件系统的入口，所有的目录、文件、设备都在/之下。</p>
-<h3><span id="bin">/bin</span><a href="#bin" class="header-anchor">#</a></h3><p>该目录存放着系统最常用的最重要的命令，相当于DOS下的内部命令，只不过它们是以独立的文件形式存在。比如：ls、cp、mkdir等命令。这个目录中的文件都是可执行的并且是普通用户都可以使用的命令。作为系统最基础的命令都放在这里。</p>
-<h3><span id="usr">/usr</span><a href="#usr" class="header-anchor">#</a></h3><p>该目录是系统存放程序的地方，比如普通命令、帮助文件、安装的软件等。这个目录下有很多的文件和目录。当我们安装一个Linux发行版官方提供的软件包时，大多安装在这里。当有涉及服务器的配置文件时，会把配置文件安装在/etc目录中。/usr目录下包括涉及字体目录/usr/share/fonts、帮助目录/usr/share/man或/usr/share/doc等。</p>
-<h3><span id="var">/var</span><a href="#var" class="header-anchor">#</a></h3><p>该目录的内容是经常变动的，/var下有/var/log目录用来存放系统日志的目录。/var/www目录用来定义Apache服务器站点存放目录。/var/lib用来存放一些库文件。</p>
-<h3><span id="sbin">/sbin</span><a href="#sbin" class="header-anchor">#</a></h3><p>大多数涉及系统管理的命令都存放在该目录中，它是超级权限用户root的可执行命令存放地，普通用户无权限执行这个目录下的命令，凡是目录sbin中包含的命令都是root权限才能执行的。</p>
-<h3><span id="root">/root</span><a href="#root" class="header-anchor">#</a></h3><p>Linux超级权限用户(系统管理员)root的主目录。</p>
-<h3><span id="home">/home</span><a href="#home" class="header-anchor">#</a></h3><p>普通用户的主目录都默认存放在该目录中，比如：有个用户叫wang，那它的主目录就是/home/wang，也可以用~wang表示。</p>
-<h3><span id="etc">/etc</span><a href="#etc" class="header-anchor">#</a></h3><p>该目录是系统配置文件的所在地，一些服务器的配置文件也在这里，比如：用户帐号及密码配置文件等。</p>
-<h3><span id="boot">/boot</span><a href="#boot" class="header-anchor">#</a></h3><p>Linux的内核及引导系统的程序所需要的文件都存放在该目录中，比如vmlinuz、initrd.img等文件都位于这个目录中。在一般情况下，GRUB或LILO系统引导管理器在这个目录中。</p>
-<h3><span id="opt">/opt</span><a href="#opt" class="header-anchor">#</a></h3><p>该目录是可选的软件包安装目录，有些软件包我们可以将它安装在该目录中。</p>
-<h3><span id="tmp">/tmp</span><a href="#tmp" class="header-anchor">#</a></h3><p>该目录用于存放临时文件，有时用户运行程序的时候，会产生一些临时文件。/tmp就是用来存放临时文件的。/var/tmp目录和该目录的作用是相似的。</p>
-<h3><span id="lost-found">/lost+found</span><a href="#lost-found" class="header-anchor">#</a></h3><p>在ext2或ext3文件系统中，当系统意外崩溃或机器意外关机，而产生的一些文件碎片就存放在该目录中。当系统启动在过程中fsck工具会检查这里，并修复已经损坏的文件系统。 有时系统发生问题，有很多的文件被移到这个目录中，可能要用手工的方式来修复，或移到文件原来的位置上。</p>
-<h3><span id="lib">/lib</span><a href="#lib" class="header-anchor">#</a></h3><p>该目录用于存放库文件，这个目录里存放着系统最基本的共享库，其作用类似于Windows里的.dll文件。几乎所有的应用程序都须要用到这些共享库。</p>
-<h3><span id="mnt">/mnt</span><a href="#mnt" class="header-anchor">#</a></h3><p>该目录是用于存放挂载储存设备的挂载目录的，系统提供这个目录是让用户临时挂载别的文件系统，比如有cdrom等目录。</p>
-<h3><span id="proc">/proc</span><a href="#proc" class="header-anchor">#</a></h3><p>操作系统运行时，进程（正在运行中的程序）信息及内核信息（比如cpu、硬盘分区、内存信息等）存放在这里。/proc目录是伪装的文件系统proc的挂载目录，proc并不是真正的文件系统。因此，这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。也就是说，这个目录的内容不在硬盘上而是在内存里。</p>
-<h3><span id="misc">/misc</span><a href="#misc" class="header-anchor">#</a></h3><p>该目录可以用来存放杂项文件或目录，即那些用途或含义不明确的文件或目录可以存放在该目录下。</p>
-<h3><span id="media">/media</span><a href="#media" class="header-anchor">#</a></h3><p>即插即用型存储设备的挂载点自动在该目录下创建。比如USB盘系统自动挂载后，会在这个目录下产生一个目录；CDROM/DVD自动挂载后，也会在这个目录中创建一个目录，类似于cdrom这个目录。该目录只有在最新的发行套件上才有。</p>
-<h2><span id="qi-yu-mu-lu">其余目录</span><a href="#qi-yu-mu-lu" class="header-anchor">#</a></h2><h3><span id="initrd">/initrd</span><a href="#initrd" class="header-anchor">#</a></h3><p>系统在启动前的内核是压缩的（这和ramdisk有关），当系统启动时需要解压缩，该目录就是解压缩时的临时目录，当启动完后又将该目录清空。</p>
-<h3><span id="usr-man">/usr/man</span><a href="#usr-man" class="header-anchor">#</a></h3><p>该目录是Linux系统帮助文档的存放目录。</p>
-<h3><span id="proc-cpuinfo">/proc/cpuinfo</span><a href="#proc-cpuinfo" class="header-anchor">#</a></h3><p>关于处理器的信息，如类型、厂家、型号和性能等。比如cat /proc/cpuinfo    </p>
-<h3><span id="proc-devices">/proc/devices</span><a href="#proc-devices" class="header-anchor">#</a></h3><p>当前运行内核所配置的所有设备清单。    </p>
-<h3><span id="proc-filesystems">/proc/filesystems</span><a href="#proc-filesystems" class="header-anchor">#</a></h3><p>当前运行内核所配置的文件系统。    </p>
-<h3><span id="proc-dma">/proc/dma</span><a href="#proc-dma" class="header-anchor">#</a></h3><p>当前正在使用的DMA通道。    </p>
-<h3><span id="proc-interrupts">/proc/interrupts</span><a href="#proc-interrupts" class="header-anchor">#</a></h3><p>正在使用的中断和曾经有多少个中断。    </p>
-<h3><span id="proc-ioports">/proc/ioports</span><a href="#proc-ioports" class="header-anchor">#</a></h3><p>当前正在使用的I/O端口。    </p>
-<h3><span id="etc-init-d">/etc/init.d</span><a href="#etc-init-d" class="header-anchor">#</a></h3><p>这个目录是用来存放系统或服务器以System V模式启动的脚本，这在以System V模式启动或初始化的系统中常见。比如RedHat Fedora。    </p>
-<h3><span id="etc-xinetd-d">/etc/xinetd.d</span><a href="#etc-xinetd-d" class="header-anchor">#</a></h3><p>如果服务器是通过xinetd模式运行的，它的脚本要放在这个目录下。有些系统没有这个目录，比如Slackware，有些老的版本也没有。在Redhat Fedora中比较新的版本中存在。    </p>
-<h3><span id="etc-rc-d">/etc/rc.d</span><a href="#etc-rc-d" class="header-anchor">#</a></h3><p>这是Slackware发行版中有的一个目录，是BSD方式启动脚本的存放地，比如定义网卡，服务器开启脚本等。    </p>
-<h3><span id="etc-x11">/etc/X11</span><a href="#etc-x11" class="header-anchor">#</a></h3><p>是X-Window相关的配置文件存放地。    </p>
-<h3><span id="usr-bin">/usr/bin</span><a href="#usr-bin" class="header-anchor">#</a></h3><p>这个目录是可执行程序的目录，普通用户就有权限执行。当我们从系统自带的软件包安装一个程序时，他的可执行文件大多会放在这个目录。相似的目录是/usr/local/bin目录。有时/usr/bin中的文件是/usr/local/bin的链接文件。    </p>
-<h3><span id="usr-sbin">/usr/sbin</span><a href="#usr-sbin" class="header-anchor">#</a></h3><p>这个目录也是可执行程序的目录，但大多存放涉及系统管理的命令。只有root权限才能执行，相似目录是/sbin或/usr/local/sbin或/usr/X11R6/sbin等。    </p>
-<h3><span id="usr-local">/usr/local</span><a href="#usr-local" class="header-anchor">#</a></h3><p>这个目录一般是用来存放用户自编译安装软件的存放目录。一般是通过源码包安装的软件，如果没有特别指定安装目录的话，一般是安装在这个目录中。    </p>
-<h3><span id="usr-lib">/usr/lib</span><a href="#usr-lib" class="header-anchor">#</a></h3><p>该目录和/lib目录相似，是库文件的存储目录。存放一些常用的共享库。    </p>
-<h3><span id="usr-share">/usr/share</span><a href="#usr-share" class="header-anchor">#</a></h3><p>该目录用于存放系统共用的东西，比如/usr/share/fonts是字体目录，是用户都共用的。    </p>
-<h3><span id="usr-share-doc">/usr/share/doc</span><a href="#usr-share-doc" class="header-anchor">#</a></h3><p>该目录是Linux共享文档的存放地。    </p>
-<h3><span id="usr-share-man">/usr/share/man</span><a href="#usr-share-man" class="header-anchor">#</a></h3><p>该目录是共享的帮助文件的存放地。    </p>
-<h3><span id="usr-src">/usr/src</span><a href="#usr-src" class="header-anchor">#</a></h3><p>该目录是内核源码存放地，下面有内核源码目录，比如linux、linux-2.xxx.xx目录等。有的系统也会把一些源码软件包安装在这里，比如Redhat Fedora。另外Redhat 4.0/5.0，它的内核源码包的目录位于/usr/src/kernels目录下的某个目录中（只有安装后才会生成相应目录）。    </p>
-<h3><span id="var-adm">/var/adm</span><a href="#var-adm" class="header-anchor">#</a></h3><p>比如软件包安装信息、日志、管理信息等就存放在该目录下，在Slackware操作系统中是有这个目录的。在Fedora中好象没有。    　</p>
-<h3><span id="var-log">/var/log</span><a href="#var-log" class="header-anchor">#</a></h3><p>该目录用于存放系统日志。    </p>
-<h3><span id="var-spool">/var/spool</span><a href="#var-spool" class="header-anchor">#</a></h3><p>打印机、邮件、代理服务器等假脱机目录存放在该目录下。</p>
-<h2><span id="fu-tu">附图</span><a href="#fu-tu" class="header-anchor">#</a></h2><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/2011110620371927.png" alt=""></p>
+<h2><span id="主要目录">主要目录</span></h2><h3><span id="">/</span></h3><p>/处于Linux文件系统树形结构的最顶端，它是Linux文件系统的入口，所有的目录、文件、设备都在/之下。</p>
+<h3><span id="bin">/bin</span></h3><p>该目录存放着系统最常用的最重要的命令，相当于DOS下的内部命令，只不过它们是以独立的文件形式存在。比如：ls、cp、mkdir等命令。这个目录中的文件都是可执行的并且是普通用户都可以使用的命令。作为系统最基础的命令都放在这里。</p>
+<h3><span id="usr">/usr</span></h3><p>该目录是系统存放程序的地方，比如普通命令、帮助文件、安装的软件等。这个目录下有很多的文件和目录。当我们安装一个Linux发行版官方提供的软件包时，大多安装在这里。当有涉及服务器的配置文件时，会把配置文件安装在/etc目录中。/usr目录下包括涉及字体目录/usr/share/fonts、帮助目录/usr/share/man或/usr/share/doc等。</p>
+<h3><span id="var">/var</span></h3><p>该目录的内容是经常变动的，/var下有/var/log目录用来存放系统日志的目录。/var/www目录用来定义Apache服务器站点存放目录。/var/lib用来存放一些库文件。</p>
+<h3><span id="sbin">/sbin</span></h3><p>大多数涉及系统管理的命令都存放在该目录中，它是超级权限用户root的可执行命令存放地，普通用户无权限执行这个目录下的命令，凡是目录sbin中包含的命令都是root权限才能执行的。</p>
+<h3><span id="root">/root</span></h3><p>Linux超级权限用户(系统管理员)root的主目录。</p>
+<h3><span id="home">/home</span></h3><p>普通用户的主目录都默认存放在该目录中，比如：有个用户叫wang，那它的主目录就是/home/wang，也可以用~wang表示。</p>
+<h3><span id="etc">/etc</span></h3><p>该目录是系统配置文件的所在地，一些服务器的配置文件也在这里，比如：用户帐号及密码配置文件等。</p>
+<h3><span id="boot">/boot</span></h3><p>Linux的内核及引导系统的程序所需要的文件都存放在该目录中，比如vmlinuz、initrd.img等文件都位于这个目录中。在一般情况下，GRUB或LILO系统引导管理器在这个目录中。</p>
+<h3><span id="opt">/opt</span></h3><p>该目录是可选的软件包安装目录，有些软件包我们可以将它安装在该目录中。</p>
+<h3><span id="tmp">/tmp</span></h3><p>该目录用于存放临时文件，有时用户运行程序的时候，会产生一些临时文件。/tmp就是用来存放临时文件的。/var/tmp目录和该目录的作用是相似的。</p>
+<h3><span id="lostfound">/lost+found</span></h3><p>在ext2或ext3文件系统中，当系统意外崩溃或机器意外关机，而产生的一些文件碎片就存放在该目录中。当系统启动在过程中fsck工具会检查这里，并修复已经损坏的文件系统。 有时系统发生问题，有很多的文件被移到这个目录中，可能要用手工的方式来修复，或移到文件原来的位置上。</p>
+<h3><span id="lib">/lib</span></h3><p>该目录用于存放库文件，这个目录里存放着系统最基本的共享库，其作用类似于Windows里的.dll文件。几乎所有的应用程序都须要用到这些共享库。</p>
+<h3><span id="mnt">/mnt</span></h3><p>该目录是用于存放挂载储存设备的挂载目录的，系统提供这个目录是让用户临时挂载别的文件系统，比如有cdrom等目录。</p>
+<h3><span id="proc">/proc</span></h3><p>操作系统运行时，进程（正在运行中的程序）信息及内核信息（比如cpu、硬盘分区、内存信息等）存放在这里。/proc目录是伪装的文件系统proc的挂载目录，proc并不是真正的文件系统。因此，这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。也就是说，这个目录的内容不在硬盘上而是在内存里。</p>
+<h3><span id="misc">/misc</span></h3><p>该目录可以用来存放杂项文件或目录，即那些用途或含义不明确的文件或目录可以存放在该目录下。</p>
+<h3><span id="media">/media</span></h3><p>即插即用型存储设备的挂载点自动在该目录下创建。比如USB盘系统自动挂载后，会在这个目录下产生一个目录；CDROM/DVD自动挂载后，也会在这个目录中创建一个目录，类似于cdrom这个目录。该目录只有在最新的发行套件上才有。</p>
+<h2><span id="其余目录">其余目录</span></h2><h3><span id="initrd">/initrd</span></h3><p>系统在启动前的内核是压缩的（这和ramdisk有关），当系统启动时需要解压缩，该目录就是解压缩时的临时目录，当启动完后又将该目录清空。</p>
+<h3><span id="usrman">/usr/man</span></h3><p>该目录是Linux系统帮助文档的存放目录。</p>
+<h3><span id="proccpuinfo">/proc/cpuinfo</span></h3><p>关于处理器的信息，如类型、厂家、型号和性能等。比如cat /proc/cpuinfo    </p>
+<h3><span id="procdevices">/proc/devices</span></h3><p>当前运行内核所配置的所有设备清单。    </p>
+<h3><span id="procfilesystems">/proc/filesystems</span></h3><p>当前运行内核所配置的文件系统。    </p>
+<h3><span id="procdma">/proc/dma</span></h3><p>当前正在使用的DMA通道。    </p>
+<h3><span id="procinterrupts">/proc/interrupts</span></h3><p>正在使用的中断和曾经有多少个中断。    </p>
+<h3><span id="procioports">/proc/ioports</span></h3><p>当前正在使用的I/O端口。    </p>
+<h3><span id="etcinitd">/etc/init.d</span></h3><p>这个目录是用来存放系统或服务器以System V模式启动的脚本，这在以System V模式启动或初始化的系统中常见。比如RedHat Fedora。    </p>
+<h3><span id="etcxinetdd">/etc/xinetd.d</span></h3><p>如果服务器是通过xinetd模式运行的，它的脚本要放在这个目录下。有些系统没有这个目录，比如Slackware，有些老的版本也没有。在Redhat Fedora中比较新的版本中存在。    </p>
+<h3><span id="etcrcd">/etc/rc.d</span></h3><p>这是Slackware发行版中有的一个目录，是BSD方式启动脚本的存放地，比如定义网卡，服务器开启脚本等。    </p>
+<h3><span id="etcx11">/etc/X11</span></h3><p>是X-Window相关的配置文件存放地。    </p>
+<h3><span id="usrbin">/usr/bin</span></h3><p>这个目录是可执行程序的目录，普通用户就有权限执行。当我们从系统自带的软件包安装一个程序时，他的可执行文件大多会放在这个目录。相似的目录是/usr/local/bin目录。有时/usr/bin中的文件是/usr/local/bin的链接文件。    </p>
+<h3><span id="usrsbin">/usr/sbin</span></h3><p>这个目录也是可执行程序的目录，但大多存放涉及系统管理的命令。只有root权限才能执行，相似目录是/sbin或/usr/local/sbin或/usr/X11R6/sbin等。    </p>
+<h3><span id="usrlocal">/usr/local</span></h3><p>这个目录一般是用来存放用户自编译安装软件的存放目录。一般是通过源码包安装的软件，如果没有特别指定安装目录的话，一般是安装在这个目录中。    </p>
+<h3><span id="usrlib">/usr/lib</span></h3><p>该目录和/lib目录相似，是库文件的存储目录。存放一些常用的共享库。    </p>
+<h3><span id="usrshare">/usr/share</span></h3><p>该目录用于存放系统共用的东西，比如/usr/share/fonts是字体目录，是用户都共用的。    </p>
+<h3><span id="usrsharedoc">/usr/share/doc</span></h3><p>该目录是Linux共享文档的存放地。    </p>
+<h3><span id="usrshareman">/usr/share/man</span></h3><p>该目录是共享的帮助文件的存放地。    </p>
+<h3><span id="usrsrc">/usr/src</span></h3><p>该目录是内核源码存放地，下面有内核源码目录，比如linux、linux-2.xxx.xx目录等。有的系统也会把一些源码软件包安装在这里，比如Redhat Fedora。另外Redhat 4.0/5.0，它的内核源码包的目录位于/usr/src/kernels目录下的某个目录中（只有安装后才会生成相应目录）。    </p>
+<h3><span id="varadm">/var/adm</span></h3><p>比如软件包安装信息、日志、管理信息等就存放在该目录下，在Slackware操作系统中是有这个目录的。在Fedora中好象没有。    　</p>
+<h3><span id="varlog">/var/log</span></h3><p>该目录用于存放系统日志。    </p>
+<h3><span id="varspool">/var/spool</span></h3><p>打印机、邮件、代理服务器等假脱机目录存放在该目录下。</p>
+<h2><span id="附图">附图</span></h2><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/2011110620371927.png" alt=""></p>
 <p>转载自 <a href="http://www.cnblogs.com/shishm/" target="_blank" rel="noopener">时邵猛</a></p>
 </div></article></div></section><footer><div class="paginator"><a href="/posts/notes/《TCP-IP详解-卷1：协议》学习笔记.html" class="prev">PREV</a><a href="/posts/linux/第四周-Ubuntu-16-10下root用户直接登录.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2019 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

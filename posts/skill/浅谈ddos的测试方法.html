@@ -1,12 +1,12 @@
 <!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 浅谈ddos的测试方法 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="浅谈ddos的测试方法 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">浅谈ddos的测试方法</h1><div class="post-time">Jul 12, 2017</div><div class="post-content"><!-- ttoc -->
 <p>DOS（denial of service–拒绝服务）攻击的目的是使服务正常功能不可用。不像其他类型的攻击的目的是获取敏感信息，Dos攻击是不会威胁到敏感信息而是使合法用户不能使用服务。有时候Dos在其他攻击中也会存在一定的作用，比如使web应用防火墙拒绝服务，从而绕过防火墙。</p>
-<h2><span id="dos-yu-ddos-de-qu-bie">DOS与DDOS的区别</span><a href="#dos-yu-ddos-de-qu-bie" class="header-anchor">#</a></h2><p>Dos是拒绝服务攻击，而DDOS是分布式拒绝服务攻击；Dos与DDOS都是攻击目标服务器、网络服务的一种方式。Dos是利用自己的计算机攻击目标，也是一对一的关系，而DDOS是DoS攻击基础之上产生的一种新的攻击方式,利用控制成百上千台肉鸡，组成一个DDOS攻击群，同一时刻对目标发起攻击。</p>
+<h2><span id="dos与ddos的区别">DOS与DDOS的区别</span></h2><p>Dos是拒绝服务攻击，而DDOS是分布式拒绝服务攻击；Dos与DDOS都是攻击目标服务器、网络服务的一种方式。Dos是利用自己的计算机攻击目标，也是一对一的关系，而DDOS是DoS攻击基础之上产生的一种新的攻击方式,利用控制成百上千台肉鸡，组成一个DDOS攻击群，同一时刻对目标发起攻击。</p>
 <p>从理论上来说，无论目标服务器、网络服务的资源多大，也是带宽、内存、CPU多大，都无法避免Dos与DDOS攻击，因此任何资源再大也有一个极限值，比如说，一台服务器每秒可以处理1000个数据包，而通过DOS攻击给这台服务器发送1001个数据包，这时服务器无法正常运行，需要给服务器扩容。 从技术上来说，DOS和DDOS都是攻击目标服务器的带宽和连通性，使得目标服务器的带宽资源耗尽，无法正常运行。</p>
-<h2><span id="dos-de-lei-xing">DOS的类型</span><a href="#dos-de-lei-xing" class="header-anchor">#</a></h2><p>Dos是拒绝服务攻击，而DDOS是分布式拒绝服务攻击；Dos与DDOS都是攻击目标服务器、网络服务的一种方式。Dos是利用自己的计算机攻击目标，也是一对一的关系，而DDOS是DoS攻击基础之上产生的一种新的攻击方式,利用控制成百上千台肉鸡，组成一个DDOS攻击群，同一时刻对目标发起攻击。</p>
+<h2><span id="dos的类型">DOS的类型</span></h2><p>Dos是拒绝服务攻击，而DDOS是分布式拒绝服务攻击；Dos与DDOS都是攻击目标服务器、网络服务的一种方式。Dos是利用自己的计算机攻击目标，也是一对一的关系，而DDOS是DoS攻击基础之上产生的一种新的攻击方式,利用控制成百上千台肉鸡，组成一个DDOS攻击群，同一时刻对目标发起攻击。</p>
 <p>从理论上来说，无论目标服务器、网络服务的资源多大，也是带宽、内存、CPU多大，都无法避免Dos与DDOS攻击，因此任何资源再大也有一个极限值，比如说，一台服务器每秒可以处理1000个数据包，而通过DOS攻击给这台服务器发送1001个数据包，这时服务器无法正常运行，需要给服务器扩容。 从技术上来说，DOS和DDOS都是攻击目标服务器的带宽和连通性，使得目标服务器的带宽资源耗尽，无法正常运行。</p>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/ddos.jpg" alt=""></p>
-<h2><span id="wang-luo-he-chuan-shu-ceng-gong-ji">网络和传输层攻击</span><a href="#wang-luo-he-chuan-shu-ceng-gong-ji" class="header-anchor">#</a></h2><p>这种攻击方式通常是向服务器发送恶意流量，尽可能消耗服务器的资源来达到拒绝服务的目的。</p>
-<h3><span id="tcp-syn-floods">TCP SYN floods</span><a href="#tcp-syn-floods" class="header-anchor">#</a></h3><p>SYN洪水攻击在传输层，为了更好的理解这种类型的攻击，我们需要先了解TCP的三次握手。</p>
+<h2><span id="网络和传输层攻击">网络和传输层攻击</span></h2><p>这种攻击方式通常是向服务器发送恶意流量，尽可能消耗服务器的资源来达到拒绝服务的目的。</p>
+<h3><span id="tcp-syn-floods">TCP SYN floods</span></h3><p>SYN洪水攻击在传输层，为了更好的理解这种类型的攻击，我们需要先了解TCP的三次握手。</p>
 <p>先来看张图如下：</p>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/ddos1.jpg" alt=""></p>
 <p>对照上图来理解一下：</p>
@@ -17,33 +17,33 @@
 <p>SYN洪水攻击测试工具，我们可以用hping3，下载地址：<a href="http://www.hping.org/hping3.html" target="_blank" rel="noopener">http://www.hping.org/hping3.html</a></p>
 <p>命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 简单例子： hping3 -S --flood -V -p TARGET_PORT TARGET_SITE</span><br><span class="line"></span><br><span class="line">2 随机源IP： hping3 -c 20000 -d 120 -S -w 64 -p TARGET_PORT --flood --rand-source TARGET_SITE</span><br></pre></td></tr></table></figure>
-<h3><span id="udp-floods">UDP floods</span><a href="#udp-floods" class="header-anchor">#</a></h3><p>UDP协议是无连接的传输层协议，提供面向事务的简单不可靠信息传送服务。</p>
+<h3><span id="udp-floods">UDP floods</span></h3><p>UDP协议是无连接的传输层协议，提供面向事务的简单不可靠信息传送服务。</p>
 <p>由于UDP协议是无连接性的，所以只要开了一个UDP的端口提供相关服务的话，那么就可针对相关的服务进行攻击。这种攻击的原理是通过伪造的IP向目标服务器发送大量的UDP数据包，服务器在接收到数据包后无法处理每一条请求，并且通过向服务器发送ICMP “destination unreachable”来消耗其带宽。</p>
 <p>测试工具：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 hping3 命令：hping3 --flood --rand-source --udp -p TARGET_PORT TARGET_IP</span><br><span class="line"></span><br><span class="line">2 loic 下载地址： https://sourceforge.net/projects/loic/</span><br></pre></td></tr></table></figure>
-<h3><span id="tcp-fin-flood">TCP FIN Flood</span><a href="#tcp-fin-flood" class="header-anchor">#</a></h3><p>这种FIM标志的数据包只有在TCP建立连接之后才会被接受，如果没有建立TCP连接，那么这个标志的数据包将会被简单的删除处理。</p>
+<h3><span id="tcp-fin-flood">TCP FIN Flood</span></h3><p>这种FIM标志的数据包只有在TCP建立连接之后才会被接受，如果没有建立TCP连接，那么这个标志的数据包将会被简单的删除处理。</p>
 <p>如果攻击者只是在没有建立TCP连接的情况下对服务器进行泛洪攻击，那么FIN数据包将会别丢弃，但是服务器还是会分配一些资源来查看数据包防止冗余。</p>
 <p>这种攻击很容易被实现。</p>
 <p>测试工具：hping3</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令：hping3 --flood --rand-source -F -p TARGET_PORT TARGET_IP</span><br></pre></td></tr></table></figure>
-<h3><span id="tcp-rst-flood">TCP RST Flood</span><a href="#tcp-rst-flood" class="header-anchor">#</a></h3><p>TCP中的RST包的意思是立即断开连接，当连接出错需要停止掉的时候非常有用。</p>
+<h3><span id="tcp-rst-flood">TCP RST Flood</span></h3><p>TCP中的RST包的意思是立即断开连接，当连接出错需要停止掉的时候非常有用。</p>
 <p>如果攻击者能够以某种方式查看从源到目的地的流量，则可以发送具有适当值的RST报文（源IP，目的IP，源端口，目的端口，序列号等），该报文将断开源和目的地之间的TCP连接。 这也是一种拒绝服务的方式。</p>
 <p>RST泛洪的测试工具也是hping3</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令：hping3 --flood --rand-source -R -p TARGET_PORT TARGET_IP</span><br></pre></td></tr></table></figure>
-<h3><span id="push-and-ack-flood">PUSH and ACK Flood</span><a href="#push-and-ack-flood" class="header-anchor">#</a></h3><p>通过大量的PUSH和ACK泛洪可以是服务器停止对正常用户的请求进行响应。</p>
+<h3><span id="push-and-ack-flood">PUSH and ACK Flood</span></h3><p>通过大量的PUSH和ACK泛洪可以是服务器停止对正常用户的请求进行响应。</p>
 <p>测试工具：hping3 和 LOIC</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令：hping3 --flood --rand-source -PA -p TARGET_PORT TARGET_IP</span><br></pre></td></tr></table></figure>
-<h3><span id="icmp-and-igmp-floods">ICMP and IGMP Floods</span><a href="#icmp-and-igmp-floods" class="header-anchor">#</a></h3><p>ICMP（Internet Control Message Protocol–Internet控制消息协议）和IGMP（Internet Group Management Protocol–Internet组管理协议）是网络层的协议类似于UDP。ICMP递送状态消息，错误报告，回答某些请求，报告路由信息，并且常用于测试网络的连通性和排查问题。IGMP是IP网络上的系统和相邻路由用来建立和维护多播组成员关系的协议。</p>
+<h3><span id="icmp-and-igmp-floods">ICMP and IGMP Floods</span></h3><p>ICMP（Internet Control Message Protocol–Internet控制消息协议）和IGMP（Internet Group Management Protocol–Internet组管理协议）是网络层的协议类似于UDP。ICMP递送状态消息，错误报告，回答某些请求，报告路由信息，并且常用于测试网络的连通性和排查问题。IGMP是IP网络上的系统和相邻路由用来建立和维护多播组成员关系的协议。</p>
 <p>ICMP and IGMP Floods类似于UDP不需要任何漏洞，只需要发送大量的ICMP或IGMP数据包，在处理每一个数据包的时候资源消耗殆尽导致拒绝服务。</p>
 <p>测试工具：hping3</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令：hping3 --flood --rand-source -1 -p TARGET_PORT TARGET_IP</span><br></pre></td></tr></table></figure>
-<h2><span id="fang-da-gong-ji">放大攻击</span><a href="#fang-da-gong-ji" class="header-anchor">#</a></h2><p>利用回复包比请求包大的特点（放大流量），伪造请求包的源IP地址，将应答包引向被攻击的目标。例如：攻击者伪造源IP为目标的IP然后使用路由广播IP地址向多个IP发送消息，然后这些设备都向目标IP进行回应。如图：</p>
+<h2><span id="放大攻击">放大攻击</span></h2><p>利用回复包比请求包大的特点（放大流量），伪造请求包的源IP地址，将应答包引向被攻击的目标。例如：攻击者伪造源IP为目标的IP然后使用路由广播IP地址向多个IP发送消息，然后这些设备都向目标IP进行回应。如图：</p>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/ddos2.jpg" alt=""></p>
 <p>想要使用放大攻击必须使用不需要验证源IP的无连接协议，像DNS、ICMP（ Smurf attack）、UDP（Fraggle attack）等协议。</p>
-<h3><span id="smurf-attack">Smurf Attack</span><a href="#smurf-attack" class="header-anchor">#</a></h3><p>攻击者会选择一些中间站点作为放大器，然后发送巨大数量ICMP（ping）请求到这些中间站点的广播IP。通过这种方式，将所有的源IP改为目标的IP地址，这些中间地址将这些数据包广播到所有子网的主机。最后所有主机的回应都发回给目标。</p>
+<h3><span id="smurf-attack">Smurf Attack</span></h3><p>攻击者会选择一些中间站点作为放大器，然后发送巨大数量ICMP（ping）请求到这些中间站点的广播IP。通过这种方式，将所有的源IP改为目标的IP地址，这些中间地址将这些数据包广播到所有子网的主机。最后所有主机的回应都发回给目标。</p>
 <p>测试工具:hping3</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令：hping3 --icmp --spoof TARGET_IP BROADCAST_IP</span><br></pre></td></tr></table></figure>
-<h3><span id="dns-amplification">DNS Amplification</span><a href="#dns-amplification" class="header-anchor">#</a></h3><p>当前许多DNS服务器支持EDNS。EDNS是DNS的一套扩大机制，RFC 2671对此有介绍。一些选择能够让DNS回复超过512字节并且仍然使用UDP，如果要求者指出它能够处理这样大的DNS查询的话。攻击者已经利用这种方法产生了大量的通讯。通过发送一个60个字节的查询来获取一个大约4000个字节的记录，攻击者能够把通讯量放大66倍。一些这种性质的攻击已经产生了 每秒钟许多GB的通讯量，对于某些目标的攻击甚至超过了每秒钟10GB的通讯量。<br>下面看两个图，正常的查询:</p>
+<h3><span id="dns-amplification">DNS Amplification</span></h3><p>当前许多DNS服务器支持EDNS。EDNS是DNS的一套扩大机制，RFC 2671对此有介绍。一些选择能够让DNS回复超过512字节并且仍然使用UDP，如果要求者指出它能够处理这样大的DNS查询的话。攻击者已经利用这种方法产生了大量的通讯。通过发送一个60个字节的查询来获取一个大约4000个字节的记录，攻击者能够把通讯量放大66倍。一些这种性质的攻击已经产生了 每秒钟许多GB的通讯量，对于某些目标的攻击甚至超过了每秒钟10GB的通讯量。<br>下面看两个图，正常的查询:</p>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/ddos3.jpg" alt=""></p>
 <p>下面是放大攻击的图：</p>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/ddos4.jpg" alt=""></p>
@@ -52,26 +52,26 @@
 <p>下载地址： <a href="https://www.infosec-ninjas.com/tsunami" target="_blank" rel="noopener">https://www.infosec-ninjas.com/tsunami</a></p>
 <p>测试命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 收集dns服务器 ./tsunami -o recursive_dns.txt -l 4 -e 172.0.0.0/8</span><br><span class="line"></span><br><span class="line">2 对目标进行攻击 ./tsunami -s TARGET_IP -n pentest.blog -p 3 -f recursive_dns.txt</span><br></pre></td></tr></table></figure>
-<h3><span id="fraggle-attack">Fraggle Attack</span><a href="#fraggle-attack" class="header-anchor">#</a></h3><p>攻击者向UDP端点发送大量的欺骗UDP洪促使这些端口回应目标。</p>
-<h2><span id="ying-yong-ceng-gong-ji">应用层攻击</span><a href="#ying-yong-ceng-gong-ji" class="header-anchor">#</a></h2><p>应用层攻击也叫第七层攻击，可以实行DoS和DDoS攻击，这种类型的攻击是基于模仿人的行为。</p>
+<h3><span id="fraggle-attack">Fraggle Attack</span></h3><p>攻击者向UDP端点发送大量的欺骗UDP洪促使这些端口回应目标。</p>
+<h2><span id="应用层攻击">应用层攻击</span></h2><p>应用层攻击也叫第七层攻击，可以实行DoS和DDoS攻击，这种类型的攻击是基于模仿人的行为。</p>
 <p>可能被利用的协议包括HTTP、HTTPS、DNS、SMTP、FTP、VOIP和其他的应用协议</p>
-<h3><span id="http-fan-hong">HTTP泛洪</span><a href="#http-fan-hong" class="header-anchor">#</a></h3><p>HTTP泛洪是应用层攻击中最常见的攻击方式。</p>
+<h3><span id="http泛洪">HTTP泛洪</span></h3><p>HTTP泛洪是应用层攻击中最常见的攻击方式。</p>
 <p>这种类型的攻击可以尝试使用HTTP GET或者POST方式向服务器发出请求。通常来说需要多个电脑同时发出请求。</p>
 <p>测试工具：</p>
 <p>1 LOIC</p>
 <p>2 hulk <a href="http://www.sectorix.com/2012/05/17/hulk-web-server-dos-tool/" target="_blank" rel="noopener">http://www.sectorix.com/2012/05/17/hulk-web-server-dos-tool/</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令:python hulk.py -site http://TARGET.com/test/</span><br></pre></td></tr></table></figure>
 <p>3 Apache JMeter <a href="https://jmeter.apache.org/" target="_blank" rel="noopener">https://jmeter.apache.org/</a></p>
-<h3><span id="dns-fan-hong">DNS泛洪</span><a href="#dns-fan-hong" class="header-anchor">#</a></h3><p>DNS泛洪像其他洪水攻击一样，DNS泛宏攻击的目的是向DNS应用发送大量DNS请求。DNS服务器不堪重负，无法处理来自其他用户的所有合法请求。</p>
+<h3><span id="dns泛洪">DNS泛洪</span></h3><p>DNS泛洪像其他洪水攻击一样，DNS泛宏攻击的目的是向DNS应用发送大量DNS请求。DNS服务器不堪重负，无法处理来自其他用户的所有合法请求。</p>
 <p>测试工具：</p>
 <p>1 mz <a href="http://www.perihel.at/sec/mz/" target="_blank" rel="noopener">http://www.perihel.at/sec/mz/</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令：mz -A rand -B TARGET_DNS_SERVER -t dns &quot;q=pentest.blog&quot; -c 10000000</span><br></pre></td></tr></table></figure>
 <p>2 netstressng <a href="https://sourceforge.net/projects/netstressng/" target="_blank" rel="noopener">https://sourceforge.net/projects/netstressng/</a></p>
 <p>命令：netstress.fullrandom -d TARGET_DNS_SERVER -a dns -t a -n 4 -P 53</p>
-<h3><span id="low-he-slow-gong-ji">Low和Slow攻击</span><a href="#low-he-slow-gong-ji" class="header-anchor">#</a></h3><p>这个攻击不像其他的泛洪攻击，他不需要大量的数据流量。这种类型的攻击针对的是应用程序和服务器资源。</p>
+<h3><span id="low和slow攻击">Low和Slow攻击</span></h3><p>这个攻击不像其他的泛洪攻击，他不需要大量的数据流量。这种类型的攻击针对的是应用程序和服务器资源。</p>
 <p>这种方式很难被检测，因为其流量跟正常流量没什么两样。</p>
 <p>测试工具：<a href="https://github.com/llaera/slowloris.pl" target="_blank" rel="noopener">https://github.com/llaera/slowloris.pl</a></p>
 <p>这个工具的原理就是通过打开多个连接并保持连接，直到服务器无法处理跟多的http请求，导致拒绝服务。</p>
-<h2><span id="zong-jie">总结</span><a href="#zong-jie" class="header-anchor">#</a></h2><p>这里说了这么多关于拒绝服务的方式，我知道这些内容并不是很全，而且解释的也比较简单，没有深入去解释各种协议，这些基础的东西就需要大家自行去研究学习。这里只是做一个简要介绍做个笔记。里面涉及的攻击就只能请大家自行测试了 。</p>
+<h2><span id="总结">总结</span></h2><p>这里说了这么多关于拒绝服务的方式，我知道这些内容并不是很全，而且解释的也比较简单，没有深入去解释各种协议，这些基础的东西就需要大家自行去研究学习。这里只是做一个简要介绍做个笔记。里面涉及的攻击就只能请大家自行测试了 。</p>
 <p>原文链接：<a href="https://mp.weixin.qq.com/s/zH_1rHVP2-m-5yhtEGvNCw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/zH_1rHVP2-m-5yhtEGvNCw</a></p>
 </div></article></div></section><footer><div class="paginator"><a href="/posts/skill/配置漏洞之Rsync匿名访问.html" class="prev">PREV</a><a href="/posts/notes/内网渗透中转发工具总结.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2019 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

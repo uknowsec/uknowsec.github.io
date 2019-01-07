@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Vim编辑器-学习笔记 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="Vim编辑器-学习笔记 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Vim编辑器-学习笔记</h1><div class="post-time">Sep 10, 2016</div><div class="post-content"><!-- ttoc -->
-<h1><span id="vim-kuai-su-ru-men">vim快速入门</span><a href="#vim-kuai-su-ru-men" class="header-anchor">#</a></h1><h2><span id="vim-mo-shi-jie-shao">vim模式介绍</span><a href="#vim-mo-shi-jie-shao" class="header-anchor">#</a></h2><p>以下介绍内容来自维基百科<a href="http://zh.wikipedia.org/wiki/Vim" target="_blank" rel="noopener">Vim</a></p>
+<h1><span id="vim快速入门">vim快速入门</span></h1><h2><span id="vim模式介绍">vim模式介绍</span></h2><p>以下介绍内容来自维基百科<a href="http://zh.wikipedia.org/wiki/Vim" target="_blank" rel="noopener">Vim</a></p>
 <p>从vi演生出来的Vim具有多种模式，这种独特的设计容易使初学者产生混淆。几乎所有的编辑器都会有插入和执行命令两种模式，并且大多数的编辑器使用了与Vim截然不同的方式：命令目录（鼠标或者键盘驱动），组合键（通常通过control键（CTRL）和alt键（ALT）组成）或者鼠标输入。Vim和vi一样，仅仅通过键盘来在这些模式之中切换。这就使得Vim可以不用进行菜单或者鼠标操作，并且最小化组合键的操作。对文字录入员或者程序员可以大大增强速度和效率。</p>
 <p>Vim具有6种基本模式和5种派生模式，我们这里只简单介绍下6种基本模式：</p>
 <ul>
@@ -38,12 +38,12 @@
 </blockquote>
 </li>
 </ul>
-<h2><span id="san-chong-chang-jian-mo-shi-de-qie-huan">三种常见模式的切换</span><a href="#san-chong-chang-jian-mo-shi-de-qie-huan" class="header-anchor">#</a></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Esc 或者 Ctrl+[    #进入普通模式</span><br><span class="line">i（插入）或a(附加) #进入插入模式</span><br><span class="line">：                 #进入命令行模式</span><br><span class="line">wq                 #保存并退出vim</span><br></pre></td></tr></table></figure>
+<h2><span id="三种常见模式的切换">三种常见模式的切换</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Esc 或者 Ctrl+[    #进入普通模式</span><br><span class="line">i（插入）或a(附加) #进入插入模式</span><br><span class="line">：                 #进入命令行模式</span><br><span class="line">wq                 #保存并退出vim</span><br></pre></td></tr></table></figure>
 <p><img src="https://dn-anything-about-doc.qbox.me/md041716vim.gif" alt=""></p>
-<h2><span id="jin-ru-vim">进入vim</span><a href="#jin-ru-vim" class="header-anchor">#</a></h2><h3><span id="shi-yong-vim-ming-ling-jin-ru-vim-jie-mian">使用vim命令进入vim界面</span><a href="#shi-yong-vim-ming-ling-jin-ru-vim-jie-mian" class="header-anchor">#</a></h3><p>vim后面加上你要打开的已存在的文件名或者不存在（则作为新建文件）的文件名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim practice_1.txt</span><br></pre></td></tr></table></figure></p>
+<h2><span id="进入vim">进入vim</span></h2><h3><span id="使用vim命令进入vim界面">使用vim命令进入vim界面</span></h3><p>vim后面加上你要打开的已存在的文件名或者不存在（则作为新建文件）的文件名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim practice_1.txt</span><br></pre></td></tr></table></figure></p>
 <p>直接使用vim<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim</span><br></pre></td></tr></table></figure></p>
 <p>进入命令行模式输入<code>:e 文件路径</code>打开相应文件</p>
-<h3><span id="you-biao-yi-dong">游标移动</span><a href="#you-biao-yi-dong" class="header-anchor">#</a></h3><p>按<code>Esc</code>进入普通模式，在该模式下使用方向键或者<code>h</code>,<code>j</code>,<code>k</code>,<code>l</code>键可以移动游标。</p>
+<h3><span id="游标移动">游标移动</span></h3><p>按<code>Esc</code>进入普通模式，在该模式下使用方向键或者<code>h</code>,<code>j</code>,<code>k</code>,<code>l</code>键可以移动游标。</p>
 <table>
 <thead>
 <tr>
@@ -78,7 +78,7 @@
 </tr>
 </tbody>
 </table>
-<h2><span id="jin-ru-cha-ru-mo-shi">进入插入模式</span><a href="#jin-ru-cha-ru-mo-shi" class="header-anchor">#</a></h2><h3><span id="jin-ru-cha-ru-mo-shi">进入插入模式</span><a href="#jin-ru-cha-ru-mo-shi" class="header-anchor">#</a></h3><p><code>i</code> 进入插入模式</p>
+<h2><span id="进入插入模式">进入插入模式</span></h2><h3><span id="进入插入模式">进入插入模式</span></h3><p><code>i</code> 进入插入模式</p>
 <table>
 <thead>
 <tr>
@@ -117,8 +117,8 @@
 </tr>
 </tbody>
 </table>
-<h2><span id="bao-cun-wen-dang">保存文档</span><a href="#bao-cun-wen-dang" class="header-anchor">#</a></h2><h3><span id="ming-ling-xing-mo-shi-xia-bao-cun-wen-dang">命令行模式下保存文档</span><a href="#ming-ling-xing-mo-shi-xia-bao-cun-wen-dang" class="header-anchor">#</a></h3><p><code>:</code>进入命令行模式，输入<code>w</code>回车，保存文档。输入<code>:w 文件名</code>可以将文档另存为其他文件名或存到其他路径下</p>
-<h2><span id="tui-chu-vim">退出vim</span><a href="#tui-chu-vim" class="header-anchor">#</a></h2><h3><span id="ming-ling-xing-mo-shi-xia-tui-chu-vim">命令行模式下退出vim</span><a href="#ming-ling-xing-mo-shi-xia-tui-chu-vim" class="header-anchor">#</a></h3><p>从普通模式输入<code>：</code>进入命令行模式，输入`wq’回车，保存并退出编辑</p>
+<h2><span id="保存文档">保存文档</span></h2><h3><span id="命令行模式下保存文档">命令行模式下保存文档</span></h3><p><code>:</code>进入命令行模式，输入<code>w</code>回车，保存文档。输入<code>:w 文件名</code>可以将文档另存为其他文件名或存到其他路径下</p>
+<h2><span id="退出vim">退出vim</span></h2><h3><span id="命令行模式下退出vim">命令行模式下退出vim</span></h3><p>从普通模式输入<code>：</code>进入命令行模式，输入`wq’回车，保存并退出编辑</p>
 <p>以下为其他几种退出方法</p>
 <table>
 <thead>
@@ -158,8 +158,8 @@
 </tr>
 </tbody>
 </table>
-<h3><span id="pu-tong-mo-shi-xia-tui-chu-vim">普通模式下退出vim</span><a href="#pu-tong-mo-shi-xia-tui-chu-vim" class="header-anchor">#</a></h3><p><code>Shift+zz</code>即可保存退出vim</p>
-<h2><span id="shan-chu-wen-ben">删除文本</span><a href="#shan-chu-wen-ben" class="header-anchor">#</a></h2><h3><span id="pu-tong-mo-shi-xia-shan-chu-vim-wen-ben-xin-xi">普通模式下删除vim文本信息</span><a href="#pu-tong-mo-shi-xia-shan-chu-vim-wen-ben-xin-xi" class="header-anchor">#</a></h3><p>进入普通模式，使用下列命令可以进行文本快速删除：</p>
+<h3><span id="普通模式下退出vim">普通模式下退出vim</span></h3><p><code>Shift+zz</code>即可保存退出vim</p>
+<h2><span id="删除文本">删除文本</span></h2><h3><span id="普通模式下删除vim文本信息">普通模式下删除vim文本信息</span></h3><p>进入普通模式，使用下列命令可以进行文本快速删除：</p>
 <table>
 <thead>
 <tr>
@@ -207,10 +207,10 @@
 </tbody>
 </table>
 <p>在命令之前加上数字，表示一次删除多行<br><code>2dd</code>表示一次删除2行</p>
-<h1><span id="vim-wen-dang-bian-ji">Vim文档编辑</span><a href="#vim-wen-dang-bian-ji" class="header-anchor">#</a></h1><h2><span id="vim-chong-fu-ming-ling">vim重复命令</span><a href="#vim-chong-fu-ming-ling" class="header-anchor">#</a></h2><h3><span id="chong-fu-zhi-xing-shang-ci-ming-ling">重复执行上次命令</span><a href="#chong-fu-zhi-xing-shang-ci-ming-ling" class="header-anchor">#</a></h3><p>在普通模式下<code>.</code>（小数点）表示重复上次的命令操作</p>
-<h3><span id="zhi-xing-zhi-ding-ci-shu-xiang-tong-de-ming-ling">执行指定次数相同的命令</span><a href="#zhi-xing-zhi-ding-ci-shu-xiang-tong-de-ming-ling" class="header-anchor">#</a></h3><p>普通模式输入<code>N&lt;command&gt;</code>,N表示重复后面的次数</p>
+<h1><span id="vim文档编辑">Vim文档编辑</span></h1><h2><span id="vim重复命令">vim重复命令</span></h2><h3><span id="重复执行上次命令">重复执行上次命令</span></h3><p>在普通模式下<code>.</code>（小数点）表示重复上次的命令操作</p>
+<h3><span id="执行指定次数相同的命令">执行指定次数相同的命令</span></h3><p>普通模式输入<code>N&lt;command&gt;</code>,N表示重复后面的次数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">10x  #删除10个连续字符</span><br><span class="line">3dd  #删除3行文本</span><br><span class="line">dw   #删除一个单词</span><br><span class="line">dnw  #删除n个单词</span><br></pre></td></tr></table></figure>
-<h2><span id="you-biao-de-kuai-su-tiao-zhuan">游标的快速跳转</span><a href="#you-biao-de-kuai-su-tiao-zhuan" class="header-anchor">#</a></h2><h3><span id="xing-jian-tiao-zhuan">行间跳转</span><a href="#xing-jian-tiao-zhuan" class="header-anchor">#</a></h3><table>
+<h2><span id="游标的快速跳转">游标的快速跳转</span></h2><h3><span id="行间跳转">行间跳转</span></h3><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -233,7 +233,7 @@
 </tbody>
 </table>
 <p>使用Ctrl+o快速回到上一次(跳转前)光标所在位置</p>
-<h3><span id="xing-nei-tiao-zhuan">行内跳转</span><a href="#xing-nei-tiao-zhuan" class="header-anchor">#</a></h3><table>
+<h3><span id="行内跳转">行内跳转</span></h3><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -283,7 +283,7 @@
 </tr>
 </tbody>
 </table>
-<h2><span id="fu-zhi-nian-tie-he-jian-qie">复制粘贴和剪切</span><a href="#fu-zhi-nian-tie-he-jian-qie" class="header-anchor">#</a></h2><h3><span id="fu-zhi-ji-nian-tie-wen-ben">复制及粘贴文本</span><a href="#fu-zhi-ji-nian-tie-wen-ben" class="header-anchor">#</a></h3><p>普通模式中使用<code>y</code>复制</p>
+<h2><span id="复制粘贴和剪切">复制粘贴和剪切</span></h2><h3><span id="复制及粘贴文本">复制及粘贴文本</span></h3><p>普通模式中使用<code>y</code>复制</p>
 <ul>
 <li>普通模式中，<code>yy</code>复制游标所在的整行（<code>3yy</code>表示复制3行）</li>
 <li>普通模式中，<code>y^</code> 复制至行首，或<code>y0</code>。不含光标所在处字符。</li>
@@ -298,8 +298,8 @@
 <li>普通模式中，<code>p</code>(小写)代表粘贴至光标后（下）</li>
 <li>普通模式中，<code>P</code>(大写)代表粘贴至光标前（上）</li>
 </ul>
-<h3><span id="jian-qie-ji-nian-tie">剪切及粘贴</span><a href="#jian-qie-ji-nian-tie" class="header-anchor">#</a></h3><p><code>dd</code>剪切，每次<code>dd</code>后可以用<code>p</code>粘贴</p>
-<h1><span id="cha-zhao-ti-huan">查找替换</span><a href="#cha-zhao-ti-huan" class="header-anchor">#</a></h1><h2><span id="zi-fu-de-ti-huan-ji-che-xiao-undo-cao-zuo">字符的替换及撤销（Undo操作）</span><a href="#zi-fu-de-ti-huan-ji-che-xiao-undo-cao-zuo" class="header-anchor">#</a></h2><h3><span id="ti-huan-he-che-xiao-undo-ming-ling">替换和撤销（Undo)命令</span><a href="#ti-huan-he-che-xiao-undo-ming-ling" class="header-anchor">#</a></h3><p>替换和Undo命令都是针对普通模式下的操作</p>
+<h3><span id="剪切及粘贴">剪切及粘贴</span></h3><p><code>dd</code>剪切，每次<code>dd</code>后可以用<code>p</code>粘贴</p>
+<h1><span id="查找替换">查找替换</span></h1><h2><span id="字符的替换及撤销undo操作">字符的替换及撤销（Undo操作）</span></h2><h3><span id="替换和撤销undo命令">替换和撤销（Undo)命令</span></h3><p>替换和Undo命令都是针对普通模式下的操作</p>
 <table>
 <thead>
 <tr>
@@ -346,24 +346,24 @@
 </tr>
 </tbody>
 </table>
-<h2><span id="kuai-su-suo-jin">快速缩进</span><a href="#kuai-su-suo-jin" class="header-anchor">#</a></h2><h3><span id="shi-yong-ming-ling-jin-xing-kuai-su-diao-zheng-suo-jin-cao-zuo">使用命令进行快速调整缩进操作</span><a href="#shi-yong-ming-ling-jin-xing-kuai-su-diao-zheng-suo-jin-cao-zuo" class="header-anchor">#</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;    #整行将向缩进</span><br><span class="line">&lt;&lt;    #整行向左回退</span><br></pre></td></tr></table></figure>
-<h3><span id="shiftwidth-ming-ling">shiftwidth命令</span><a href="#shiftwidth-ming-ling" class="header-anchor">#</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:set shiftwidth?     #获取目前的缩进字符值</span><br><span class="line">:set shiftwidth=10   #设置缩进字符值为10</span><br></pre></td></tr></table></figure>
-<h3><span id="diao-zheng-wen-ben-wei-zhi">调整文本位置</span><a href="#diao-zheng-wen-ben-wei-zhi" class="header-anchor">#</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:re		#居中   </span><br><span class="line">:ri		#靠右</span><br><span class="line">:le		#靠左</span><br></pre></td></tr></table></figure>
-<h2><span id="cha-zhao">查找</span><a href="#cha-zhao" class="header-anchor">#</a></h2><h3><span id="kuai-su-cha-zhao">快速查找</span><a href="#kuai-su-cha-zhao" class="header-anchor">#</a></h3><p>普通模式下输入</p>
+<h2><span id="快速缩进">快速缩进</span></h2><h3><span id="使用命令进行快速调整缩进操作">使用命令进行快速调整缩进操作</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;    #整行将向缩进</span><br><span class="line">&lt;&lt;    #整行向左回退</span><br></pre></td></tr></table></figure>
+<h3><span id="shiftwidth命令">shiftwidth命令</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:set shiftwidth?     #获取目前的缩进字符值</span><br><span class="line">:set shiftwidth=10   #设置缩进字符值为10</span><br></pre></td></tr></table></figure>
+<h3><span id="调整文本位置">调整文本位置</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:re		#居中   </span><br><span class="line">:ri		#靠右</span><br><span class="line">:le		#靠左</span><br></pre></td></tr></table></figure>
+<h2><span id="查找">查找</span></h2><h3><span id="快速查找">快速查找</span></h3><p>普通模式下输入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/www		#向下查找www</span><br><span class="line">?www 		#向上查找www</span><br><span class="line">n   		#进入查找后，n正向查找</span><br><span class="line">N   		#进入查找后，N反向查找</span><br></pre></td></tr></table></figure>
-<h3><span id="gao-ji-cha-zhao">高级查找</span><a href="#gao-ji-cha-zhao" class="header-anchor">#</a></h3><ul>
+<h3><span id="高级查找">高级查找</span></h3><ul>
 <li>普通模式下输入<code>\*</code>寻找游标所在处的单词</li>
 <li>普通模式下输入<code>\#</code>同上，但 <code>\*</code> 是向前（上）找，#则是向后（下）找</li>
 <li>普通模式下输入<code>g\*</code>同<code>\*</code> ，但部分符合该单词即可</li>
 <li>普通模式下输入<code>g\#</code>同<code>\#</code> ，但部分符合该单词即可</li>
 </ul>
-<h1><span id="gao-ji-gong-neng-ru-men">高级功能入门</span><a href="#gao-ji-gong-neng-ru-men" class="header-anchor">#</a></h1><h2><span id="duo-wen-jian-bian-ji">多文件编辑</span><a href="#duo-wen-jian-bian-ji" class="header-anchor">#</a></h2><h3><span id="shi-yong-vim-bian-ji-duo-ge-wen-jian">使用vim编辑多个文件</span><a href="#shi-yong-vim-bian-ji-duo-ge-wen-jian" class="header-anchor">#</a></h3><p>同时创建两个新文件并编辑<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim 1.txt 2.txt</span><br></pre></td></tr></table></figure></p>
+<h1><span id="高级功能入门">高级功能入门</span></h1><h2><span id="多文件编辑">多文件编辑</span></h2><h3><span id="使用vim编辑多个文件">使用vim编辑多个文件</span></h3><p>同时创建两个新文件并编辑<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim 1.txt 2.txt</span><br></pre></td></tr></table></figure></p>
 <p>默认进入1.txt文件的编辑界面</p>
 <ul>
 <li>命令行模式下输入:n编辑2.txt文件，可以加!即:n!强制切换，之前一个文件的输入没有保存，仅仅切换到另一个文件</li>
 <li>命令行模式下输入:N编辑1.txt文件，可以加!即:N!强制切换，之前文件内的输入没有保存，仅仅是切换到另一个文件</li>
 </ul>
-<h3><span id="jin-ru-vim-hou-da-kai-xin-wen-jian">进入vim后打开新文件</span><a href="#jin-ru-vim-hou-da-kai-xin-wen-jian" class="header-anchor">#</a></h3><ul>
+<h3><span id="进入vim后打开新文件">进入vim后打开新文件</span></h3><ul>
 <li>命令行模式下输入<code>:e 3.txt</code> 打开新文件3.txt</li>
 <li>命令行模式下输入<code>:e#</code> 回到前一个文件</li>
 <li>命令行模式下输入<code>:ls</code>可以列出以前编辑过的文档</li>
@@ -373,15 +373,15 @@
 <li>命令行模式下输入<code>:f</code> 显示正在编辑的文件名</li>
 <li>命令行模式下输入<code>:f new.txt</code>，改变正在编辑的文件名字为new.txt</li>
 </ul>
-<h3><span id="hui-fu-wen-jian">恢复文件</span><a href="#hui-fu-wen-jian" class="header-anchor">#</a></h3><p>如果因为断电等原因造成文档没有保存，可以采用恢复方式，<code>vim -r</code>进入文档后，输入<code>:ewcover 1.txt</code>来恢复<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim -r 1.txt</span><br></pre></td></tr></table></figure></p>
-<h2><span id="ke-shi-mo-shi">可视模式</span><a href="#ke-shi-mo-shi" class="header-anchor">#</a></h2><h3><span id="ke-shi-mo-shi-ming-ling-jian-jie">可视模式命令简介</span><a href="#ke-shi-mo-shi-ming-ling-jian-jie" class="header-anchor">#</a></h3><ul>
+<h3><span id="恢复文件">恢复文件</span></h3><p>如果因为断电等原因造成文档没有保存，可以采用恢复方式，<code>vim -r</code>进入文档后，输入<code>:ewcover 1.txt</code>来恢复<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim -r 1.txt</span><br></pre></td></tr></table></figure></p>
+<h2><span id="可视模式">可视模式</span></h2><h3><span id="可视模式命令简介">可视模式命令简介</span></h3><ul>
 <li>在普通模式下输入<code>v</code>（小写），进入字符选择模式，就可以移动光标，光标走过的地方就会选取。再次按下v会后就会取消选取。</li>
 <li>在普通模式下输入<code>Shift+v</code>（小写），进入行选择模式，按下V之后就会把整行选取，您可以上下移动光标选更多的行，同样，再按一次<code>Shift+v</code>就可以取消选取。</li>
 <li>在普通模式下输入 <code>Ctrl+v</code>（小写），这是区域选择模式，可以进行矩形区域选择，再按一次<code>Ctrl+v</code>取消选取。</li>
 <li>在普通模式下输入<code>d</code>删除选取区域内容</li>
 <li>在普通模式下输入<code>y</code>复制选取区域内容</li>
 </ul>
-<h2><span id="shi-chuang-cao-zuo">视窗操作</span><a href="#shi-chuang-cao-zuo" class="header-anchor">#</a></h2><h3><span id="shi-chuang-cao-zuo-jian-jie">视窗操作简介</span><a href="#shi-chuang-cao-zuo-jian-jie" class="header-anchor">#</a></h3><p>vim可以在一个界面里打开多个窗口进行编辑，这些编辑窗口称为vim的视窗。<br>打开方法有很多种，例如可以使用在命令行模式下输入<code>:new</code> 打开一个新的vim视窗，并进入视窗编辑一个新文件（普通模式下输入<code>Ctrl+w</code>也可以,但是<code>Ctrl+w</code>在chrome下会与chrome关闭标签页的快捷键冲突，所以使用该快捷键你可以在IE或其它浏览器进行练习），除了<code>:new</code>命令，下述列举的多种方法也可以在命令模式或普通模式下打开新的视窗：</p>
+<h2><span id="视窗操作">视窗操作</span></h2><h3><span id="视窗操作简介">视窗操作简介</span></h3><p>vim可以在一个界面里打开多个窗口进行编辑，这些编辑窗口称为vim的视窗。<br>打开方法有很多种，例如可以使用在命令行模式下输入<code>:new</code> 打开一个新的vim视窗，并进入视窗编辑一个新文件（普通模式下输入<code>Ctrl+w</code>也可以,但是<code>Ctrl+w</code>在chrome下会与chrome关闭标签页的快捷键冲突，所以使用该快捷键你可以在IE或其它浏览器进行练习），除了<code>:new</code>命令，下述列举的多种方法也可以在命令模式或普通模式下打开新的视窗：</p>
 <ul>
 <li>命令行模式下输入<code>:sp 1.txt</code> 打开新的横向视窗来编辑1.txt</li>
 <li>命令行模式下输入<code>:vsp 2.txt</code> 打开新的纵向视窗来编辑1.txt</li>
@@ -400,26 +400,26 @@
 <li>普通模式下<code>Ctrl-w -</code> 减小视窗的高度</li>
 <li>普通模式下<code>Ctrl-w +</code> 增加视窗的高度</li>
 </ul>
-<h2><span id="wen-dang-jia-mi">文档加密</span><a href="#wen-dang-jia-mi" class="header-anchor">#</a></h2><h3><span id="chuang-jian-jia-mi-wen-dang">创建加密文档</span><a href="#chuang-jian-jia-mi-wen-dang" class="header-anchor">#</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim -x file1</span><br></pre></td></tr></table></figure>
-<h2><span id="zai-vim-zhi-xing-wai-bu-ming-ling">在vim执行外部命令</span><a href="#zai-vim-zhi-xing-wai-bu-ming-ling" class="header-anchor">#</a></h2><h2><span id="zai-vim-zhi-xing-wai-bu-ming-ling">在vim执行外部命令</span><a href="#zai-vim-zhi-xing-wai-bu-ming-ling" class="header-anchor">#</a></h2><p>在命令行模式中输入<code>!</code>可以执行外部的shell命令</p>
+<h2><span id="文档加密">文档加密</span></h2><h3><span id="创建加密文档">创建加密文档</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim -x file1</span><br></pre></td></tr></table></figure>
+<h2><span id="在vim执行外部命令">在vim执行外部命令</span></h2><h2><span id="在vim执行外部命令">在vim执行外部命令</span></h2><p>在命令行模式中输入<code>!</code>可以执行外部的shell命令</p>
 <ul>
 <li><code>:!ls</code>  用于显示当前目录的内容</li>
 <li><code>:!rm FILENAME</code>用于删除名为 FILENAME 的文件</li>
 <li><code>:w FILENAME</code>可将当前 VIM 中正在编辑的文件另存为 FILENAME 文件</li>
 </ul>
-<h2><span id="bang-zhu-xi-tong">帮助系统</span><a href="#bang-zhu-xi-tong" class="header-anchor">#</a></h2><h3><span id="vim-zhong-de-cha-kan-bang-zhu">vim中的查看帮助</span><a href="#vim-zhong-de-cha-kan-bang-zhu" class="header-anchor">#</a></h3><ul>
+<h2><span id="帮助系统">帮助系统</span></h2><h3><span id="vim中的查看帮助">vim中的查看帮助</span></h3><ul>
 <li>普通模式下按<code>F1</code>打开<code>vim</code>自己预设的帮助文档</li>
 <li>命令行模式下输入<code>:h shiftwidth</code> 打开名为<code>shiftwidth</code>的帮助文件</li>
 <li>命令行模式下输入<code>:ver</code> 显示版本及参数</li>
 </ul>
-<h2><span id="gong-neng-she-ding">功能设定</span><a href="#gong-neng-she-ding" class="header-anchor">#</a></h2><h3><span id="vim-de-gong-neng-she-ding">vim的功能设定</span><a href="#vim-de-gong-neng-she-ding" class="header-anchor">#</a></h3><p>可以在编辑文件的时候进行功能设定，如命令行模式下输入<code>:set nu</code>（显示行数），设定值退出vim后不会保存。要永久保存配置需要修改vim配置文件。<br>vim的配置文件<code>~/.vimrc</code>，可以打开文件进行修改，不过务必小心不要影响vim正常使用</p>
-<h3><span id="huo-qu-mu-qian-de-she-ding">获取目前的设定</span><a href="#huo-qu-mu-qian-de-she-ding" class="header-anchor">#</a></h3><ul>
+<h2><span id="功能设定">功能设定</span></h2><h3><span id="vim的功能设定">vim的功能设定</span></h3><p>可以在编辑文件的时候进行功能设定，如命令行模式下输入<code>:set nu</code>（显示行数），设定值退出vim后不会保存。要永久保存配置需要修改vim配置文件。<br>vim的配置文件<code>~/.vimrc</code>，可以打开文件进行修改，不过务必小心不要影响vim正常使用</p>
+<h3><span id="获取目前的设定">获取目前的设定</span></h3><ul>
 <li>命令行模式下输入<code>:set</code>或者<code>:se</code>显示所有修改过的配置</li>
 <li>命令行模式下输入<code>:set all</code> 显示所有的设定值</li>
 <li>命令行模式下输入<code>:set option?</code> 显示option的设定值</li>
 <li>命令行模式下输入<code>:set nooption</code> 取消当期设定值</li>
 </ul>
-<h3><span id="set-gong-neng-de-shuo-ming">set功能的说明</span><a href="#set-gong-neng-de-shuo-ming" class="header-anchor">#</a></h3><ul>
+<h3><span id="set功能的说明">set功能的说明</span></h3><ul>
 <li>命令行模式下输入<code>:set autoindent(ai)</code> 设置自动缩进</li>
 <li>命令行模式下输入<code>:set autowrite(aw)</code> 设置自动存档，默认未打开</li>
 <li>命令行模式下输入<code>:set background=dark</code>或<code>light</code>，设置背景风格</li>

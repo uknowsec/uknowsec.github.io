@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> week 5 for cnas writeup · Uknow - Stay hungry Stay foolish</title><meta name="description" content="week 5 for cnas writeup - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">week 5 for cnas writeup</h1><div class="post-time">Dec 16, 2017</div><div class="post-content"><!-- ttoc -->
-<h2><span id="duo-mao-mao-50">躲猫猫 50</span><a href="#duo-mao-mao-50" class="header-anchor">#</a></h2><h3><span id="ti-mu-lian-jie">题目链接</span><a href="#ti-mu-lian-jie" class="header-anchor">#</a></h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="noopener">http://47.100.121.220:28001/01.php</a></p>
-<h3><span id="jie-da">解答</span><a href="#jie-da" class="header-anchor">#</a></h3><p>这个题目又是一个文件包含的题目，这里直接用</p>
+<h2><span id="躲猫猫-50">躲猫猫 50</span></h2><h3><span id="题目链接">题目链接</span></h3><p><a href="http://47.100.121.220:28001/01.php" target="_blank" rel="noopener">http://47.100.121.220:28001/01.php</a></p>
+<h3><span id="解答">解答</span></h3><p>这个题目又是一个文件包含的题目，这里直接用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file=php://filter/read=convert.base64-encode/resource=./flag.php</span><br></pre></td></tr></table></figure>
 <p>是读不到源码的，好像是因为这题目的flag并不是在flag.php文件里，flag.php文件并不存在。</p>
 <p>所以我们先用php://input 协议来查看当前目录文件</p>
@@ -15,8 +15,8 @@
 <p>来读取文件源码</p>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/week05_01_02.png" alt=""></p>
 <p>直接base64解码即可</p>
-<h2><span id="02-100">02 100</span><a href="#02-100" class="header-anchor">#</a></h2><h3><span id="ti-mu-lian-jie">题目链接</span><a href="#ti-mu-lian-jie" class="header-anchor">#</a></h3><p><a href="http://47.100.121.220:28002" target="_blank" rel="noopener">http://47.100.121.220:28002</a></p>
-<h3><span id="jie-da">解答</span><a href="#jie-da" class="header-anchor">#</a></h3><p>这个题目我一拿到说就看出来是一个SSRF的题目了，也猜到了代码应该就是</p>
+<h2><span id="02-100">02 100</span></h2><h3><span id="题目链接">题目链接</span></h3><p><a href="http://47.100.121.220:28002" target="_blank" rel="noopener">http://47.100.121.220:28002</a></p>
+<h3><span id="解答">解答</span></h3><p>这个题目我一拿到说就看出来是一个SSRF的题目了，也猜到了代码应该就是</p>
 <p><a href="https://uknowsec.cn/posts/notes/SSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">SSRF漏洞的利用与学习</a></p>
 <p>我这篇博客里面的第一种没有任何防护的SSRF。</p>
 <p>尝试了 利用file协议任意文件读取 是成功的</p>
@@ -29,8 +29,8 @@
 <p>后来在甜哥的提醒下才发现可以直接读出flag的</p>
 <p>查看源码就可以了，真的有点尴尬的。</p>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/week05_02_02.png" alt=""></p>
-<h2><span id="msg-book-200">msg_book 200</span><a href="#msg-book-200" class="header-anchor">#</a></h2><h3><span id="ti-mu-lian-jie">题目链接</span><a href="#ti-mu-lian-jie" class="header-anchor">#</a></h3><p><a href="http://47.100.121.220:28003" target="_blank" rel="noopener">http://47.100.121.220:28003</a></p>
-<h3><span id="jie-da">解答</span><a href="#jie-da" class="header-anchor">#</a></h3><p>这个题目是一个注入的题，这里的’被转义了，尝试宽字节注入，是可以的。</p>
+<h2><span id="msg_book-200">msg_book 200</span></h2><h3><span id="题目链接">题目链接</span></h3><p><a href="http://47.100.121.220:28003" target="_blank" rel="noopener">http://47.100.121.220:28003</a></p>
+<h3><span id="解答">解答</span></h3><p>这个题目是一个注入的题，这里的’被转义了，尝试宽字节注入，是可以的。</p>
 <p>这里可以参考我的博客</p>
 <p><a href="https://uknowsec.cn/posts/notes/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">宽字节注入漏洞的利用与学习</a></p>
 <p>在引号前加一个%df即可，具体原理参考博客</p>
