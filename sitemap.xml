@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://uknowsec.cn/about/index.html</loc>
+    
+    <lastmod>2019-08-22T15:24:07.884Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://uknowsec.cn/posts/notes/%E5%9F%9F%E6%B8%97%E9%80%8F-MS14-068.html</loc>
     
     <lastmod>2019-08-22T15:17:50.812Z</lastmod>
@@ -663,13 +670,6 @@
     <loc>https://uknowsec.cn/posts/notes/Android-App%E7%AB%AF%E4%B8%8EPHP-Web%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92%E5%AE%9E%E7%8E%B0.html</loc>
     
     <lastmod>2019-01-07T08:23:51.199Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://uknowsec.cn/about/index.html</loc>
-    
-    <lastmod>2018-11-13T13:28:10.787Z</lastmod>
     
   </url>
   
