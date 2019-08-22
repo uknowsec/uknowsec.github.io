@@ -24,7 +24,7 @@
 <h4><span id="原理说明"><strong>原理说明</strong></span></h4><p>在 SPN 扫描时可以直接通过脚本，或者命令去获悉内网已经注册的 SPN 内容。那如果想了解这个过程是如何实现的，就需要提到 LDAP 协议。</p>
 <p>LDAP 协议全称是 LightweightDirectory Access Protocol，一般翻译成轻量目录访问协议。是一种用来查询与更新 Active Directory 的目录服务通信协议。AD 域服务利用 LDAP 命名路径（LDAP naming path）来表示对象在 AD 内的位置，以便用它来访问 AD 内的对象。</p>
 <p>LDAP 数据的组织方式：</p>
-<p><img src="https://image.3001.net/images/20190222/1550808563_5c6f75f3bd0ee.png" alt="img"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1550808563_5c6f75f3bd0ee.png" alt="img"></p>
 <p>更直观的说可以把 LDAP 协议理解为一个关系型数据库，其中存储了域内主机的各种配置信息。</p>
 <p>在域控中默认安装了 ADSI 编辑器，全称 ActiveDirectory Service Interfaces Editor (ADSI Edit)，是一种 LDAP 的编辑器，可以通过在域控中运行 adsiedit.msc 来打开（服务器上都有，但是只有域控中的有整个域内的配置信息）。</p>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566312270376.png" alt="1566312270376"></p>
