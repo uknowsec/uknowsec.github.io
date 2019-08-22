@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://uknowsec.cn/posts/notes/%E5%9F%9F%E6%B8%97%E9%80%8F-Kerberos.html</loc>
+    
+    <lastmod>2019-08-22T15:36:01.245Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://uknowsec.cn/about/index.html</loc>
     
     <lastmod>2019-08-22T15:24:07.884Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>https://uknowsec.cn/posts/notes/%E5%9F%9F%E6%B8%97%E9%80%8F-SPN.html</loc>
     
     <lastmod>2019-08-22T15:17:32.566Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://uknowsec.cn/posts/notes/%E5%9F%9F%E6%B8%97%E9%80%8F-Kerberos.html</loc>
-    
-    <lastmod>2019-08-22T15:17:14.681Z</lastmod>
     
   </url>
   

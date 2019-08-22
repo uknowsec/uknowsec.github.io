@@ -155,27 +155,26 @@
 </li>
 <li><p>KDC（Key Distribution Center）密钥分发中心</p>
 <p>其中KDC服务默认会安装在一个域的域控中，而Client和Server为域内的用户或者是服务，如HTTP服务，SQL服务。在Kerberos中Client是否有权限访问Server端的服务由KDC发放的票据来决定。</p>
-<p>!1566277964755](<a href="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566277964755.png" target="_blank" rel="noopener">https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566277964755.png</a>)</p>
 </li>
 </ul>
-<p><img src="https://image.3001.net/images/20190222/1550808223_5c6f749fcab92.png" alt="img"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1550808223_5c6f749fcab92.png" alt="img"></p>
 <p>如果把Kerberos中的票据类比为一张火车票，那么Client端就是乘客，Server端就是火车，而KDC就是就是车站的认证系统。如果Client端的票据是合法的（由你本人身份证购买并由你本人持有）同时有访问Server端服务的权限（车票对应车次正确）那么你才能上车。当然和火车票不一样的是Kerberos中有存在两张票，而火车票从头到尾只有一张。</p>
 <p>由上图中可以看到KDC又分为两个部分：</p>
 <p><strong>Authentication Server</strong>： AS的作用就是验证Client端的身份（确定你是身份证上的本人），验证通过就会给一张TGT（Ticket Granting Ticket）票给Client。</p>
 <p><strong>Ticket Granting Server</strong>： TGS的作用是通过AS发送给Client的票（TGT）换取访问Server端的票（上车的票ST）。ST（ServiceTicket）也有资料称为TGS Ticket，为了和TGS区分，在这里就用ST来说明。</p>
-<p><img src="https://image.3001.net/images/20190222/1550808240_5c6f74b00650e.png" alt="img"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1550808240_5c6f74b00650e.png" alt="img"></p>
 <p>KDC服务框架中包含一个KRBTGT账户，它是在创建域时系统自动创建的一个账号，可以暂时理解为他就是一个无法登陆的账号。</p>
 <p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566292231162.png" alt="1566292231162"></p>
 <h4><span id="kerberos认证">Kerberos认证</span></h4><p>流程当Client想要访问Server上的某个服务时，需要先向AS证明自己的身份，然后通过AS发放的TGT向Server发起认证请求，这个过程分为三块：</p>
 <p><strong>The Authentication Service Exchange</strong>：Client与AS的交互</p>
 <p><strong>The Ticket-Granting Service (TGS) Exchange</strong>：Client与TGS的交互</p>
 <p><strong>The Client/Server Authentication Exchange</strong>：Client与Server的交互</p>
-<p><img src="https://image.3001.net/images/20190222/1550808351_5c6f751f0e65d.png" alt="img"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1550808351_5c6f751f0e65d.png" alt="img"></p>
 <p><strong>(1)TheAuthentication Service Exchange</strong></p>
 <p>KRB_AS_REQ</p>
 <p>Client-&gt;AS：发送 Authenticator1(Client 密码加密 TimeStamp)</p>
 <p>第一步 Client 先向 KDC 的 AS 发送 Authenticator1，内容为通过 Client 密码 Hash 加密的时间戳、ClientID、网络地址、加密类型等内容。</p>
-<p><a href="https://image.3001.net/images/20190222/1550808364_5c6f752ca1489.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20190222/1550808364_5c6f752ca1489.png!small" alt="img"></a></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1550808364_5c6f752ca1489.png" alt="AAA"></p>
 <p>KRB_AS_REP</p>
 <p>AS-&gt; Client：发送 Client 密码加密的 sessionkey-as 和票据 TGT(KRBTGT HASH 加密的 sessionkey-as 和 TimeStamp)</p>
 <p>在 KDC 中存储了域中所有用户的密码 HASH，当 AS 接收到 Client 的请求之后会根据 KDC 中存储的密码来解密，解密成功并且验证信息。验证成功后返回给 Client 由 Client 密码 HASH 加密的 sessionkey-as 和 TGT（由 KRBTGT HASH 加密的 sessionkey-as 和 TimeStamp 等信息）。</p>
@@ -183,7 +182,7 @@
 <p>KRB_TGS_REQ</p>
 <p>Client -&gt;TGS 发送 Authenticator2 (sessionkey-as 加密 TimeStamp) 和票据 TGT(KRBTGT HASH 加密的 sessionkey-as 和 TimeStamp)</p>
 <p>Client 接收到了加密后的 Sessionkey-as 和 TGT 之后，用自身密码解密得到 Sessionkey-as，TGT 是由 KDC 密码加密，Client 无法解密。这时 Client 再用 Sessionkey-as 加密 TimeStamp 和 TGT 一起发送给 KDC 中的 TGS（TicketGranting Server）票据授权服务器换取能够访问 Server 的票据。</p>
-<p><a href="https://image.3001.net/images/20190222/1550808381_5c6f753dc78d7.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20190222/1550808381_5c6f753dc78d7.png!small" alt="img"></a></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1550808381_5c6f753dc78d7.png" alt="IMG"></p>
 <p>KRB_TGS_REP</p>
 <p>TGS-&gt; Client 发送 密文 1(sessionkey-as 加密 sessionkey-tgs) 和 票据 ST(Server 密码 HASH 加密 sessionkey-tgs)</p>
 <p>TGS 收到 Client 发送过来的 TGT 和 Sessionkey-as 加密的 TimeStamp 之后，首先会检查自身是否存在 Client 所请求的服务。如果服务存在，则用 KRBTGT 密码解密 TGT。一般情况下 TGS 会检查 TGT 中的时间戳查看 TGT 是否过期，且原始地址是否和 TGT 中保存的地址相同。验证成功之后将用 sessionkey-as 加密的 sessionkey-tgs 和 Server 密码 HASH 加密的 Sessionkey-tgs 发送给 Client。</p>
@@ -191,7 +190,7 @@
 <p>KRB_AP_REQ</p>
 <p>Client -&gt;Server 发送 Authenticator3(sessionkey-tgs 加密 TimeStamp) 和票据 ST(Server 密码 HASH 加密 sessionkey-tgs)</p>
 <p>Client 收到 sessionkey-as 加密的 sessionkey-tgs 和 Server 密码 HASH 加密的 sessionkey-tgs 之后用 sessionkey-as 解密得到 sessionkey-tgs，然后把 sessionkey-tgs 加密的 TimeStamp 和 ST 一起发送给 Server。</p>
-<p><a href="https://image.3001.net/images/20190222/1550808396_5c6f754c56c54.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20190222/1550808396_5c6f754c56c54.png!small" alt="img"></a></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1550808396_5c6f754c56c54.png" alt="IMG"></p>
 <p>KRB_AP_REP</p>
 <p>Server-&gt; Client</p>
 <p>server 通过自己的密码解密 ST，得到 sessionkey-tgs, 再用 sessionkey-tgs 解密 Authenticator3 得到 TimeStamp，验证正确返回验证成功。</p>
@@ -3837,7 +3836,7 @@
 <h2><span id="使用commit命令从容器的修改中创建镜像">使用commit命令从容器的修改中创建镜像</span></h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#102;&#x6f;&#111;&#x40;&#x62;&#x61;&#x72;&#46;&#99;&#x6f;&#x6d;">&#102;&#x6f;&#111;&#x40;&#x62;&#x61;&#x72;&#46;&#99;&#x6f;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#102;&#x6f;&#111;&#x40;&#98;&#x61;&#x72;&#46;&#99;&#111;&#x6d;">&#102;&#x6f;&#111;&#x40;&#98;&#x61;&#x72;&#46;&#99;&#111;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2><span id="使用diff命令检查容器文件的修改">使用diff命令检查容器文件的修改</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker diff hello-nginx</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2><span id="使用inspect命令查看详细信息">使用inspect命令查看详细信息</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker inspect hello-nginx</span><br></pre></td></tr></table></figure>
