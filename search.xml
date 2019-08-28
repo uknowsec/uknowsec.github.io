@@ -57,11 +57,11 @@
       <title><![CDATA[域渗透-Delegation]]></title>
       <url>https://uknowsec.cn/posts/notes/%E5%9F%9F%E6%B8%97%E9%80%8F-Delegation.html</url>
       <content type="html"><![CDATA[<h3><span id="委派">委派</span></h3><p>在域中如果出现A使用Kerberos身份验证访问域中的服务B，而B再利用A的身份去请求域中的服务C，这个过程就可以理解为委派。</p>
-<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1552649799_5c8b8e47c2172.png" alt="img"></p>
+<p><img src="https://image.3001.net/images/20190315/1552649799_5c8b8e47c2172.png" alt="img"></p>
 <p>User访问主机s2上的HTTP服务，而HTTP服务需要请求其他主机的SQLServer数据库，但是S2并不知道User是否有权限访问SQLServer，这时HTTP服务会利用User的身份去访问SQLServer，如果User有权限访问SQLServer服务才能访问成功。</p>
 <p>而委派主要分为非约束委派（Unconstraineddelegation）和约束委派（Constrained delegation）两个方式。</p>
 <h4><span id="非约束委派">非约束委派</span></h4><p>非约束委派在Kerberos中实现时，User会将从KDC处得到的TGT发送给访问的service1（可以是任意服务），service1拿到TGT之后可以通过TGT访问域内任意其他服务，所以被称为非约束委派。</p>
-<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1552649941_5c8b8ed5b18f6.png" alt="img"></p>
+<p><img src="https://image.3001.net/images/20190315/1552649941_5c8b8ed5b18f6.png" alt="img"></p>
 <p><strong>流程：</strong></p>
 <blockquote>
 <ol>
@@ -99,10 +99,10 @@
 <p>可以看到在前5个步骤中User向KDC申请了两个TGT（步骤2和4），一个用于访问Service1一个用于访问Service2，并且会将这两个都发给Service1。并且Service1会将TGT2保存在内存中。</p>
 <p><strong>非约束委派的设置：</strong></p>
 <p>Windows域中可以直接在账户属性中设置：</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566916812731.png" alt="1566916812731"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566916812731.png" alt="1566916812731"></p>
 <h4><span id="约束委派">约束委派</span></h4><p>由于非约束委派的不安全性，微软在windows2003中发布了约束委派的功能。约束委派在Kerberos中User不会直接发送TGT给服务，而是对发送给service1的认证信息做了限制，不允许service1代表User使用这个TGT去访问其他服务。这里包括一组名为S4U2Self（Service for User to Self）和S4U2Proxy（Service forUser to Proxy）的Kerberos协议扩展。</p>
 <p>从下图可以看到整个过程其实可以分为两个部分，第一个是S4U2Self的过程（流程1-4），第二个是S4U2Proxy的过程（流程5-10）。</p>
-<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1552650016_5c8b8f20208e8.png" alt="img"></p>
+<p><img src="https://image.3001.net/images/20190315/1552650016_5c8b8f20208e8.png" alt="img"></p>
 <p><strong>流程：</strong></p>
 <blockquote>
 <ol>
@@ -138,7 +138,7 @@
 <p>同时注意forwardable字段，有forwardable标记为可转发的是能够通过S4U2Proxy扩展协议进行转发的，如果没有标记则不能进行转发。</p>
 <p><strong>约束委派的配置：</strong></p>
 <p>可以在账户属性中将SRV-DB-ODAY的委派方式更改为约束委派</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566741406966.png" alt="1566741406966"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566741406966.png" alt="1566741406966"></p>
 <h3><span id="发现域中的委派主机或账户">发现域中的委派主机或账户</span></h3><p>在域中，可以通过PowerView脚本来搜索开启了委派的主机和用户。查询非约束委派主要是通过搜索userAccountControl属性包含ADS_UF_TRUSTED_FOR_DELEGATION的主机或账户。而约束委派则通过查询userAccountControl属性包含TRUSTED_TO_AUTH_FOR_DELEGATION的主机或用户。</p>
 <h4><span id="非约束委派">非约束委派</span></h4><p>通过<code>Import-Module PowerView.ps1</code>加载PowerView脚本之后使用下面的命令进行查询。</p>
 <p>查询域中配置非约束委派的账户：</p>
@@ -152,36 +152,36 @@
 <h3><span id="委派攻击利用">委派攻击利用</span></h3><h4><span id="非约束委派的利用">非约束委派的利用</span></h4><p>假设已经获取了一个已经配置了委派的账户权限或者是密码，现在我们通过这些条件来攻击其他账户。</p>
 <p>在域中只有服务账户才能有委派功能，所以先把用户sqladmin设置为服务账号。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -U -A variant/golden sqladmin</span><br></pre></td></tr></table></figure>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566919031159.png" alt="1566919031159"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566919031159.png" alt="1566919031159"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -l sqladmin</span><br></pre></td></tr></table></figure>
 <p>查看配置成功。</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566919063736.png" alt="1566919063736"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566919063736.png" alt="1566919063736"></p>
 <p>然后在“AD用户和计算机”中将sqladmin设置为非约束委派模式</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566919256739.png" alt="1566919256739"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566919256739.png" alt="1566919256739"></p>
 <p>在域控上使用<code>Administrator</code>访问<code>sqladmin</code>所在主机<code>Srv-Web-Kit</code>的SMB服务。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\Srv-Web-Kit.rootkit.org\c$</span><br></pre></td></tr></table></figure>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566921302149.png" alt="1566921302149"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566921302149.png" alt="1566921302149"></p>
 <p>在Srv-Web-Kit上通过mimikatz可以导出Administrator发送过来的TGT内容。这里需要使用管理员权限打开mimikatz，然后通过privilege::debug命令提升权限，如果没有提升权限会报kuhl_m_sekurlsa_acquireLSA错误。再使用sekurlsa::tickets/export命令导出内存中所有的票据。</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566921630936.png" alt="1566921630936"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566921630936.png" alt="1566921630936"></p>
 <p>访问域控失败</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566921730332.png" alt="1566921730332"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566921730332.png" alt="1566921730332"></p>
 <p>通过</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt [0;a17510]-2-0-60a10000-Administrator@krbtgt-ROOTKIT.ORG.kirbi</span><br></pre></td></tr></table></figure>
 <p>命令将TGT内容导入到当前会话中。</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566921999832.png" alt="1566921999832"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566921999832.png" alt="1566921999832"></p>
 <p>导入之后已经可以访问域控的共享目录。也就是说每当存在用户访问tsvc的服务时，tsvc的服务就会将访问者的TGT保存在内存中，可以通过这个TGT访问这个TGT所属用户的所有服务。</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566922095168.png" alt="1566922095168"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566922095168.png" alt="1566922095168"></p>
 <h4><span id="约束委派的利用">约束委派的利用</span></h4><p>假设已知配置了约束委派的账号，并且已知当前配置了约束委派的当前账户的密码。</p>
 <ol>
 <li>确认账号sqladmin设置了约束委派。</li>
 </ol>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566959744980.png" alt="1566959744980"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566959744980.png" alt="1566959744980"></p>
 <ol>
 <li>使用kekeo对域控发起申请TGT的请求。</li>
 </ol>
 <p>通过已知的账户名和明文密码对KDC发起请求，得到TGT。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:sqladmin /domain:rootkit.org /password:Admin12345 /ticket:sqladmin.kirbi</span><br></pre></td></tr></table></figure>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566960698566.png" alt="1566960698566"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566960698566.png" alt="1566960698566"></p>
 <blockquote>
 <p>/user:当前用户名</p>
 <p>/domain:所在域名</p>
@@ -190,7 +190,7 @@
 </blockquote>
 <ol>
 <li><p>使用kekeo申请TGS票据</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566961060838.png" alt="1566961060838"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566961060838.png" alt="1566961060838"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgs::s4u /tgt:TGT_sqladmin@ROOTKIT.ORG_krbtgt~rootkit.org@ROOTKIT.ORG.kirbi /user:administrator@rootkit.org /service:cifs/owa2013.rootkit.org</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -202,7 +202,7 @@
 <ol>
 <li>使用mimikatz将生成的TGS文件导入到Kerberos凭据列表中</li>
 </ol>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566961661084.png" alt="1566961661084"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566961661084.png" alt="1566961661084"></p>
 <p>这时可以看到导入之后已经能够成功访问域控的共享文件（严格来说应该是非约束委派中设置的SPN的权限）。而且在这个过程中是不需要管理员权限的，只是用当前账户的权限就可以完成，因为不需要从内存中导出票据。</p>
 <p>非约束委派去获得所设置的SPN的权限主要是三个步骤</p>
 <blockquote>
@@ -215,7 +215,7 @@
 <p>关于约束委派的这种攻击方式就是通过在Service1（sqladmin）中将自己伪造成用户，然后获取允许约束委派的SPN的TGS的一个过程。</p>
 <h3><span id="委派攻击的防御">委派攻击的防御</span></h3><p>通过上文中说到设置了非约束委派的账户权限如果被窃取那么攻击者可能获取非常多其他账户的TGT，所以最好是不要在域中使用非约束委派这种功能。</p>
 <p>域中不需要使用委派的账户特别是administrator账户，设置为“敏感用户不能被委派”。</p>
-<p><img src="C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1566964360982.png" alt="1566964360982"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566964360982.png" alt="1566964360982"></p>
 ]]></content>
       
         <categories>
@@ -2830,6 +2830,15 @@
     
     <entry>
       <title></title>
+      <url>https://uknowsec.cn/posts/uncategorized/2016-08-28.html</url>
+      <content type="html"><![CDATA[<hr>
+<h2><span id="">{}</span></h2>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title></title>
       <url>https://uknowsec.cn/posts/uncategorized/2016-10-19.html</url>
       <content type="html"><![CDATA[<hr>
 <h2><span id="">{}</span></h2>]]></content>
@@ -2840,15 +2849,6 @@
     <entry>
       <title></title>
       <url>https://uknowsec.cn/posts/uncategorized/2016-09-29.html</url>
-      <content type="html"><![CDATA[<hr>
-<h2><span id="">{}</span></h2>]]></content>
-      
-        
-    </entry>
-    
-    <entry>
-      <title></title>
-      <url>https://uknowsec.cn/posts/uncategorized/2016-08-28.html</url>
       <content type="html"><![CDATA[<hr>
 <h2><span id="">{}</span></h2>]]></content>
       
@@ -4151,7 +4151,7 @@
 <h2><span id="使用commit命令从容器的修改中创建镜像">使用commit命令从容器的修改中创建镜像</span></h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#102;&#111;&#x6f;&#x40;&#x62;&#x61;&#x72;&#x2e;&#x63;&#111;&#x6d;">&#102;&#111;&#x6f;&#x40;&#x62;&#x61;&#x72;&#x2e;&#x63;&#111;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#x66;&#111;&#x6f;&#64;&#x62;&#97;&#114;&#46;&#x63;&#111;&#109;">&#x66;&#111;&#x6f;&#64;&#x62;&#97;&#114;&#46;&#x63;&#111;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2><span id="使用diff命令检查容器文件的修改">使用diff命令检查容器文件的修改</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker diff hello-nginx</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2><span id="使用inspect命令查看详细信息">使用inspect命令查看详细信息</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker inspect hello-nginx</span><br></pre></td></tr></table></figure>
