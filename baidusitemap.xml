@@ -4,8 +4,44 @@
 
     
   <url>
+    <loc>https://uknowsec.cn/posts/notes/frida-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.html</loc>
+    <lastmod>2019-12-06T02:42:56.778Z</lastmod>
+    <data>
+        <display>
+        <title>frida-安装配置</title>
+        <pubTime>2019-12-06T02:35:37.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="笔记" url="https://uknowsec.cn/categories/notes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://uknowsec.cn/posts/notes/frida-Java%E5%B1%82%E4%BB%A3%E7%A0%81Hook.html</loc>
+    <lastmod>2019-12-06T02:37:51.495Z</lastmod>
+    <data>
+        <display>
+        <title>frida-Java层代码Hook</title>
+        <pubTime>2019-12-06T02:37:05.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="笔记" url="https://uknowsec.cn/categories/notes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://uknowsec.cn/posts/notes/%E5%9F%9F%E6%B8%97%E9%80%8F-%E5%9F%9F%E7%BB%B4%E6%9D%83.html</loc>
-    <lastmod>2019-09-11T15:36:39.022Z</lastmod>
+    <lastmod>2019-09-11T15:41:19.350Z</lastmod>
     <data>
         <display>
         <title>域渗透-域维权</title>
