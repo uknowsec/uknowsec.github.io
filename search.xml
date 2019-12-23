@@ -4,6 +4,99 @@
   
     
     <entry>
+      <title><![CDATA[frida-Hook实战一]]></title>
+      <url>https://uknowsec.cn/posts/notes/frida-Hook%E5%AE%9E%E6%88%98%E4%B8%80.html</url>
+      <content type="html"><![CDATA[<h3><span id="邻居合伙人hook">邻居合伙人Hook</span></h3><p>对邻居合伙人APP登录sign签名算法的hook。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577081242331.png" alt="1577081242331"></p>
+<p>在登录处进行抓包操作，可以看到登录数据报中有apisign字段。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577081216180.png" alt="1577081216180"></p>
+<p>对APK进行反编译，搜索apisign关键字。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577082970426.png" alt="1577082970426"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">newBodyBuilder.add(&quot;data&quot;, data.toString());</span><br><span class="line">newBodyBuilder.add(&quot;apisign&quot;, MD5Util.ToMD5(Constants.MD5_KEY, data.toString()));</span><br><span class="line">L.d(&quot;请求地址RequestUrl=====&quot;, oldUrl.url().toString());</span><br><span class="line">L.d(&quot;请求参数Params=========&quot;, data.toString());</span><br><span class="line">L.json(data.toString());</span><br><span class="line">return newBodyBuilder.build();</span><br></pre></td></tr></table></figure>
+<p>根据代码可以看到，apisign内容主要是通过MD5Util类的ToMD5()方法生成的，跳转到ToMD5()方法内容：</p>
+<pre><code>public static String ToMD5(String secretKey, String pstr) {
+    pstr = secretKey + pstr;
+    char[] hexDigits = new char[]{&apos;0&apos;, &apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;, &apos;5&apos;, &apos;6&apos;, &apos;7&apos;, &apos;8&apos;, &apos;9&apos;, &apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;, &apos;E&apos;, &apos;F&apos;};
+    try {
+        MessageDigest md5Temp = MessageDigest.getInstance(&quot;MD5&quot;);
+        md5Temp.update(pstr.getBytes(&quot;UTF8&quot;));
+        char[] str = new char[(j * 2)];
+        int k = 0;
+        for (byte byte0 : md5Temp.digest()) {
+            int i = k + 1;
+            str[k] = hexDigits[(byte0 &gt;&gt;&gt; 4) &amp; 15];
+            k = i + 1;
+            str[i] = hexDigits[byte0 &amp; 15];
+        }
+        return new String(str).toLowerCase();
+    } catch (Exception e) {
+        return null;
+    }
+}
+</code></pre><p>这个方法有两个参数，一个secretkey和pstr。且为普通函数。通过静态分析，MD5Util.ToMD5()传入两个值，一个是Constants.MD5_KEY,跳转发现是Constants类的静态变量。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577083722889.png" alt="1577083722889"></p>
+<p>其值为：d367f4699214cec412f7c2a1d513fe05。另外一个变量则是app登录信息。</p>
+<p>而用frida主要是对MD5Util.ToMD5()方法的两个变量进行hook。</p>
+<p>编写如下hook脚本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> frida</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"> </span><br><span class="line">jscode = <span class="string">"""</span></span><br><span class="line"><span class="string">Java.perform(function () &#123;</span></span><br><span class="line"><span class="string">    var md5 = Java.use('com.softgarden.baselibrary.utils.MD5Util');</span></span><br><span class="line"><span class="string">    md5.ToMD5.implementation = function (a, b) &#123;</span></span><br><span class="line"><span class="string">        send("Hook Start...");</span></span><br><span class="line"><span class="string">        console.log("arg1:   " + a );</span></span><br><span class="line"><span class="string">        console.log("arg2:   " + b);</span></span><br><span class="line"><span class="string">        var res = this.ToMD5(a, b);</span></span><br><span class="line"><span class="string">        console.log("return:   " + res);</span></span><br><span class="line"><span class="string">        send("Success!");</span></span><br><span class="line"><span class="string">        return res;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">message</span><span class="params">(message, data)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> message[<span class="string">"type"</span>] == <span class="string">'send'</span>:</span><br><span class="line">        print(<span class="string">"[*] &#123;0&#125;"</span>.format(message[<span class="string">'payload'</span>]))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(message)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">device = frida.get_remote_device()</span><br><span class="line">pid = device.spawn([<span class="string">"com.ljhhr.mobile"</span>])</span><br><span class="line">device.resume(pid)</span><br><span class="line">time.sleep(<span class="number">1</span>)  <span class="comment"># Without it Java.perform silently fails</span></span><br><span class="line">session = device.attach(pid)</span><br><span class="line">script = session.create_script(jscode)</span><br><span class="line">script.on(<span class="string">"message"</span>, message)</span><br><span class="line">script.load()</span><br><span class="line">sys.stdin.read()</span><br></pre></td></tr></table></figure>
+<p>运行如上脚本进行hook，可以看到如下结果。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577086081315.png" alt="1577086081315"></p>
+<p>通过多次hook可以看到第一个变量为固定的，即我们静态分析代码得到的：d367f4699214cec412f7c2a1d513fe05</p>
+<p>第二个参数为输入登录的输入内容。至此，完成对该APP的sign算法的hook。</p>
+<h3><span id="嘟嘟牛在线hook">嘟嘟牛在线Hook</span></h3><p>同样在登录界面，进行抓包操作。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577088552194.png" alt=""></p>
+<p>同时对apk进行反编译。可以搜索url路径关键字：user/login，也可以搜索数据报关键字：Encrypt。</p>
+<p>搜索user/login定位到类名：com.dodonew.online.ui.LoginActivity中的requestNetwork方法。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577088736128.png" alt="1577088736128"></p>
+<p>分析代码，可知数据报中的内容通过addRequestMap方法添加。跳转到com.dodonew.online.http.JsonRequest类的addRequestMap方法。</p>
+<p>定位到我们在数据报中看到的关键字：Encrypt。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577088836168.png" alt="1577088836168"></p>
+<p>此处的encrypt即加密后的内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String encrypt = RequestUtil.encodeDesMap(RequestUtil.paraMap(addMap, Config.BASE_APPEND, &quot;sign&quot;), this.desKey, this.desIV);</span><br></pre></td></tr></table></figure>
+<p>通过des算法进行加密后的数据。该方法为encodeDesMap。其有三个参数。</p>
+<p>跟踪变量desKey，desIV。跳转到com.dodonew.online.config.Config类。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577089081679.png" alt="1577089081679"></p>
+<p>可以得到des加密算法的key值为65102933，偏移值IV为：32028092。</p>
+<p>跟踪encodeDesMap方法的第一个参数。RequestUtil.paraMap(addMap, Config.BASE_APPEND, “sign”)</p>
+<p>跟进paraMap方法到com.dodonew.online.http.RequestUtil类。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577089875523.png" alt="1577089875523"></p>
+<p>发现存在sign,跟进md5方法到com.dodonew.online.util.Utils类。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577090272134.png" alt="1577090272134"></p>
+<p>可以看到md5是一个普通的方法。如果需要进行hook，直接hook参数值和返回值就行了。</p>
+<p>hook部分的js代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Utils = Java.use(<span class="string">'com.dodonew.online.util.Utils'</span>);</span><br><span class="line">Utils.md5.implementation = <span class="function"><span class="keyword">function</span> (<span class="params">a</span>) </span>&#123;</span><br><span class="line">    send(<span class="string">"Hook Start md5..."</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"md5-arg:   "</span> + a);</span><br><span class="line">    <span class="keyword">var</span> result = <span class="keyword">this</span>.md5(a);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"md5-result:   "</span> + result);</span><br><span class="line">    send(<span class="string">"Success!"</span>);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而com.dodonew.online.http.RequestUtil类下的encodeDesMap方法是一个重载方法。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577090685066.png" alt="1577090685066"></p>
+<p>所以在传入需要hook的方法是要用到overload。且这里的重载参数类型为String。所以要用overload(‘java.lang.String’,’java.lang.String’,’java.lang.String’)。因为String在Java中是以类的形式存在的数据类型。同时String类在java.lang包中。<br>故此处的js代码为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var RequestUtil = Java.use(&apos;com.dodonew.online.http.RequestUtil&apos;);    RequestUtil.encodeDesMap.overload(&apos;java.lang.String&apos;,&apos;java.lang.String&apos;,&apos;java.lang.String&apos;).implementation = function (data, key ,iv) &#123;</span><br><span class="line">        send(&quot;Hook Start encodeDesMap...&quot;);</span><br><span class="line">       	console.log(&quot;encodeDesMap-data:   &quot; + data);</span><br><span class="line">       	console.log(&quot;encodeDesMap-key:   &quot; + key);</span><br><span class="line">       	console.log(&quot;encodeDesMap-iv:   &quot; + iv);</span><br><span class="line">        var result = this.encodeDesMap(data, key ,iv);</span><br><span class="line">       	console.log(&quot;encodeDesMap-result:   &quot; + result);</span><br><span class="line">        send(&quot;Success!&quot;);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>python通用hook模版加载两段js代码即可对该APP进行hook。</p>
+<p>成功hook到所有参数。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577091207270.png" alt="1577091207270"></p>
+<h3><span id="soul-hook">Soul Hook</span></h3><p>Soul是一款社交app，此APP在模拟器中是无法启动的,如下：</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577092404464.png" alt="1577092404464"></p>
+<p>显示<code>SoulApp暂不支持模拟器，请稍后再试~</code></p>
+<p>搜索关键字<code>SoulApp暂不支持模拟器，请稍后再试~</code>定位到cn.soulapp.android.ui.splash.SplashActivity类下。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577092850497.png" alt="1577092850497"></p>
+<p>可见此处判断if (cn.soulapp.android.utils.j.e())返回的是true。</p>
+<p>跟进方法e到类。cn.soulapp.android.utils.j</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">e</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        SoulApp b = SoulApp.b();</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">        intent.setData(Uri.parse(<span class="string">"tel:123456"</span>));</span><br><span class="line">        intent.setAction(<span class="string">"android.intent.action.DIAL"</span>);</span><br><span class="line">        <span class="keyword">return</span> Build.FINGERPRINT.startsWith(<span class="string">"generic"</span>) || Build.FINGERPRINT.toLowerCase().contains(<span class="string">"vbox"</span>) || Build.FINGERPRINT.toLowerCase().contains(<span class="string">"test-keys"</span>) || Build.MODEL.contains(<span class="string">"google_sdk"</span>) || Build.MODEL.contains(<span class="string">"Emulator"</span>) || Build.SERIAL.equalsIgnoreCase(<span class="string">"unknown"</span>) || Build.SERIAL.equalsIgnoreCase(DispatchConstants.ANDROID) || Build.MODEL.contains(<span class="string">"Android SDK built for x86"</span>) || Build.MANUFACTURER.contains(<span class="string">"Genymotion"</span>) || ((Build.BRAND.startsWith(<span class="string">"generic"</span>) &amp;&amp; Build.DEVICE.startsWith(<span class="string">"generic"</span>)) || <span class="string">"google_sdk"</span>.equals(Build.PRODUCT) || ((TelephonyManager) b.getSystemService(<span class="string">"phone"</span>)).getNetworkOperatorName().toLowerCase().equals(DispatchConstants.ANDROID) || (intent.resolveActivity(b.getPackageManager()) != <span class="keyword">null</span> ? <span class="number">1</span> : <span class="keyword">null</span>) == <span class="keyword">null</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们只需要把e方法的返回值改为false，即可跳过模拟器验证。</p>
+<p>js代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> j = Java.use(<span class="string">'cn.soulapp.android.utils.j'</span>);</span><br><span class="line">j.e.implementation = <span class="function"><span class="keyword">function</span> (<span class="params">a</span>) </span>&#123;</span><br><span class="line">    send(<span class="string">"Hook Start ..."</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行hook脚本，成功进入登录界面</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1577093544446.png" alt="1577093544446"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 笔记 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[frida-Java层代码Hook]]></title>
       <url>https://uknowsec.cn/posts/notes/frida-Java%E5%B1%82%E4%BB%A3%E7%A0%81Hook.html</url>
       <content type="html"><![CDATA[<h3><span id="hook构造方法">Hook构造方法</span></h3><p>要hook的是一个类的构造函数</p>
@@ -3468,15 +3561,6 @@ script.load()</code></p>
     
     <entry>
       <title></title>
-      <url>https://uknowsec.cn/posts/uncategorized/2016-09-29.html</url>
-      <content type="html"><![CDATA[<hr>
-<h2><span id="">{}</span></h2>]]></content>
-      
-        
-    </entry>
-    
-    <entry>
-      <title></title>
       <url>https://uknowsec.cn/posts/uncategorized/2016-10-19.html</url>
       <content type="html"><![CDATA[<hr>
 <h2><span id="">{}</span></h2>]]></content>
@@ -3487,6 +3571,15 @@ script.load()</code></p>
     <entry>
       <title></title>
       <url>https://uknowsec.cn/posts/uncategorized/2016-08-28.html</url>
+      <content type="html"><![CDATA[<hr>
+<h2><span id="">{}</span></h2>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title></title>
+      <url>https://uknowsec.cn/posts/uncategorized/2016-09-29.html</url>
       <content type="html"><![CDATA[<hr>
 <h2><span id="">{}</span></h2>]]></content>
       
@@ -4789,7 +4882,7 @@ script.load()</code></p>
 <h2><span id="使用commit命令从容器的修改中创建镜像">使用commit命令从容器的修改中创建镜像</span></h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#102;&#x6f;&#111;&#x40;&#98;&#x61;&#114;&#x2e;&#99;&#x6f;&#109;">&#102;&#x6f;&#111;&#x40;&#98;&#x61;&#114;&#x2e;&#99;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#102;&#x6f;&#x6f;&#x40;&#98;&#97;&#x72;&#x2e;&#x63;&#x6f;&#x6d;">&#102;&#x6f;&#x6f;&#x40;&#98;&#97;&#x72;&#x2e;&#x63;&#x6f;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2><span id="使用diff命令检查容器文件的修改">使用diff命令检查容器文件的修改</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker diff hello-nginx</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2><span id="使用inspect命令查看详细信息">使用inspect命令查看详细信息</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker inspect hello-nginx</span><br></pre></td></tr></table></figure>
