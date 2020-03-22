@@ -16,8 +16,10 @@
 <li><p>假冒加固工具</p>
 </li>
 <li><p>木马捆绑</p>
-<pre><code>通常办公软件Office具有最大的安装量，将文档插入邮件中已经是惯用的工作方式。但是Office常见的攻击方法：
-</code></pre><ul>
+</li>
+</ul>
+<p>通常办公软件Office具有最大的安装量，将文档插入邮件中已经是惯用的工作方式。但是Office常见的攻击方法：</p>
+<ul>
 <li><p>0day</p>
 </li>
 <li><p>已知CVE漏洞</p>
@@ -28,8 +30,6 @@
 </li>
 <li><p>宏</p>
 <p>第一种方法直接跳过，已知的CVE漏洞特征太明显，免杀成本和技术含量太大了。DDEAUTO和注入执行命令直接被杀软限制的很死。最后只能靠宏了，虽然默认情况下，Office已经禁用所有宏，但仍会在打开Word文档的时候发出通知。</p>
-</li>
-</ul>
 <p>通过收集宏免杀的常用的方法和测试，发现加载远程<code>.xsl</code>文件可以绕过国内常用的杀软360全家桶和火绒成功上线。</p>
 </li>
 </ul>
@@ -3965,7 +3965,7 @@ script.load()</code></p>
     
     <entry>
       <title></title>
-      <url>https://uknowsec.cn/posts/uncategorized/2016-09-29.html</url>
+      <url>https://uknowsec.cn/posts/uncategorized/2016-08-28.html</url>
       <content type="html"><![CDATA[<hr>
 <h2><span id="">{}</span></h2>]]></content>
       
@@ -3974,7 +3974,7 @@ script.load()</code></p>
     
     <entry>
       <title></title>
-      <url>https://uknowsec.cn/posts/uncategorized/2016-08-28.html</url>
+      <url>https://uknowsec.cn/posts/uncategorized/2016-09-29.html</url>
       <content type="html"><![CDATA[<hr>
 <h2><span id="">{}</span></h2>]]></content>
       
@@ -5277,7 +5277,7 @@ script.load()</code></p>
 <h2><span id="使用commit命令从容器的修改中创建镜像">使用commit命令从容器的修改中创建镜像</span></h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#58;&#102;&#x6f;&#111;&#x40;&#98;&#x61;&#x72;&#46;&#x63;&#111;&#x6d;">&#102;&#x6f;&#111;&#x40;&#98;&#x61;&#x72;&#46;&#x63;&#111;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#102;&#x6f;&#111;&#x40;&#x62;&#x61;&#x72;&#46;&#99;&#x6f;&#109;">&#102;&#x6f;&#111;&#x40;&#x62;&#x61;&#x72;&#46;&#99;&#x6f;&#109;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2><span id="使用diff命令检查容器文件的修改">使用diff命令检查容器文件的修改</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker diff hello-nginx</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2><span id="使用inspect命令查看详细信息">使用inspect命令查看详细信息</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker inspect hello-nginx</span><br></pre></td></tr></table></figure>
