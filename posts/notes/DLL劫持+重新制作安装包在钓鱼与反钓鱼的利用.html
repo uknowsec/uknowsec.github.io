@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> DLL劫持+重新制作安装包在钓鱼与反钓鱼的利用 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="DLL劫持+重新制作安装包在钓鱼与反钓鱼的利用 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">DLL劫持+重新制作安装包在钓鱼与反钓鱼的利用</h1><div class="post-time">Jun 11, 2020</div><div class="post-content"><h3><span id="前言">前言</span></h3><p>在红队工作中，社工钓鱼会是最常见的攻击手段，同样蓝队工作中，蓝队可以通过反制红队获取加分。所以本文就简单说DLL劫持+重制安装包在钓鱼与反钓鱼中的利用。</p>
+<h3><span id="钓鱼中的利用">钓鱼中的利用</span></h3><p>在钓鱼攻击中，我们可以使用这种DLL劫持+重制安装包的方法来进行钓鱼是非常有效的。我们可以通过一些软件更新等说辞去下发恶意的安装包，恶意的安装包的安装过程逼真，同时程序正常功能都可以完美的运行。更不会使目标怀疑。</p>
+<h3><span id="反钓鱼中的利用">反钓鱼中的利用</span></h3><p>在蓝队可以利用此方法来反制红队，例如：我们可以在自己准备好的虚拟机中点击红队发送过来的钓鱼邮件。并在虚拟机中准备一些让红队比较感兴趣的东西。</p>
+<p>例如下图中的已准备好的“VPN安装包“+“VPN账号密码”。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591860417627.png" alt="1591860417627"></p>
+<p>当红队队员将这些安装包和账号密码传回自己本地进行安装并运行时，我们就可以成功的反控红队队员的机器了。</p>
+<h3><span id="dll劫持重制安装包具体操作">DLL劫持+重制安装包具体操作</span></h3><h4><span id="dll劫持">DLL劫持</span></h4><p>这里可以用到拿破轮胎大佬写DLL注入工具</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591857292811.png" alt="1591857292811"></p>
+<p>使用方法：</p>
+<ol>
+<li>输入cs或者msf生成shellcode生成免杀dll文件</li>
+<li>添加需要劫持的软件或者dll</li>
+<li>劫持过后会在运行目录生成一个Dll和inf配置文件</li>
+<li>需要把两个文件放在被劫持的软件同目录下才可运行</li>
+</ol>
+<p>这里以某国产VPN为例：</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591857458850.png" alt="1591857458850"></p>
+<p>注入后，将wwwcomw.dll和conf.inf放到软件同目录下。</p>
+<p>当运行软件时就能上线了。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591857775627.png" alt="1591857775627"></p>
+<h4><span id="重新制作安装包">重新制作安装包</span></h4><p>这里用到的工具是NSIS。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591858513031.png" alt="1591858513031"></p>
+<p>制作过程就不写了，有兴趣的可以去百度找找使用说明。</p>
+<p><a href="https://www.cnblogs.com/modou/p/3573772.html" target="_blank" rel="noopener">https://www.cnblogs.com/modou/p/3573772.html</a></p>
+<p>成功打包</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591859259316.png" alt="1591859259316"></p>
+<p>安装包制作效果</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591861324722.png" alt="1591861324722"></p>
+<p>安装过程效果：</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591861332658.png" alt="1591861332658"></p>
+<p>安装完成后，可自动运行，并创建桌面快捷方式。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591861356475.png" alt="1591861356475"></p>
+<p>运行后，成功上线</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591861391762.png" alt="1591861391762"></p>
+<h3><span id="总结">总结</span></h3><p>本文只是简单说下DLL劫持+重制安装包在钓鱼和反钓鱼中的利用，文中的工具和DLL可能存在不免杀和实战中的更多细节内容可自行解决~</p>
+</div></article></div></section><footer><div class="paginator"><a href="/posts/notes/ShellCode远程加载器改造计划.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2020 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

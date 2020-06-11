@@ -4,6 +4,55 @@
   
     
     <entry>
+      <title><![CDATA[DLL劫持+重新制作安装包在钓鱼与反钓鱼的利用]]></title>
+      <url>https://uknowsec.cn/posts/notes/DLL%E5%8A%AB%E6%8C%81+%E9%87%8D%E6%96%B0%E5%88%B6%E4%BD%9C%E5%AE%89%E8%A3%85%E5%8C%85%E5%9C%A8%E9%92%93%E9%B1%BC%E4%B8%8E%E5%8F%8D%E9%92%93%E9%B1%BC%E7%9A%84%E5%88%A9%E7%94%A8.html</url>
+      <content type="html"><![CDATA[<h3><span id="前言">前言</span></h3><p>在红队工作中，社工钓鱼会是最常见的攻击手段，同样蓝队工作中，蓝队可以通过反制红队获取加分。所以本文就简单说DLL劫持+重制安装包在钓鱼与反钓鱼中的利用。</p>
+<h3><span id="钓鱼中的利用">钓鱼中的利用</span></h3><p>在钓鱼攻击中，我们可以使用这种DLL劫持+重制安装包的方法来进行钓鱼是非常有效的。我们可以通过一些软件更新等说辞去下发恶意的安装包，恶意的安装包的安装过程逼真，同时程序正常功能都可以完美的运行。更不会使目标怀疑。</p>
+<h3><span id="反钓鱼中的利用">反钓鱼中的利用</span></h3><p>在蓝队可以利用此方法来反制红队，例如：我们可以在自己准备好的虚拟机中点击红队发送过来的钓鱼邮件。并在虚拟机中准备一些让红队比较感兴趣的东西。</p>
+<p>例如下图中的已准备好的“VPN安装包“+“VPN账号密码”。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591860417627.png" alt="1591860417627"></p>
+<p>当红队队员将这些安装包和账号密码传回自己本地进行安装并运行时，我们就可以成功的反控红队队员的机器了。</p>
+<h3><span id="dll劫持重制安装包具体操作">DLL劫持+重制安装包具体操作</span></h3><h4><span id="dll劫持">DLL劫持</span></h4><p>这里可以用到拿破轮胎大佬写DLL注入工具</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591857292811.png" alt="1591857292811"></p>
+<p>使用方法：</p>
+<ol>
+<li>输入cs或者msf生成shellcode生成免杀dll文件</li>
+<li>添加需要劫持的软件或者dll</li>
+<li>劫持过后会在运行目录生成一个Dll和inf配置文件</li>
+<li>需要把两个文件放在被劫持的软件同目录下才可运行</li>
+</ol>
+<p>这里以某国产VPN为例：</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591857458850.png" alt="1591857458850"></p>
+<p>注入后，将wwwcomw.dll和conf.inf放到软件同目录下。</p>
+<p>当运行软件时就能上线了。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591857775627.png" alt="1591857775627"></p>
+<h4><span id="重新制作安装包">重新制作安装包</span></h4><p>这里用到的工具是NSIS。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591858513031.png" alt="1591858513031"></p>
+<p>制作过程就不写了，有兴趣的可以去百度找找使用说明。</p>
+<p><a href="https://www.cnblogs.com/modou/p/3573772.html" target="_blank" rel="noopener">https://www.cnblogs.com/modou/p/3573772.html</a></p>
+<p>成功打包</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591859259316.png" alt="1591859259316"></p>
+<p>安装包制作效果</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591861324722.png" alt="1591861324722"></p>
+<p>安装过程效果：</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591861332658.png" alt="1591861332658"></p>
+<p>安装完成后，可自动运行，并创建桌面快捷方式。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591861356475.png" alt="1591861356475"></p>
+<p>运行后，成功上线</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591861391762.png" alt="1591861391762"></p>
+<h3><span id="总结">总结</span></h3><p>本文只是简单说下DLL劫持+重制安装包在钓鱼和反钓鱼中的利用，文中的工具和DLL可能存在不免杀和实战中的更多细节内容可自行解决~</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 笔记 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[ShellCode远程加载器改造计划]]></title>
       <url>https://uknowsec.cn/posts/notes/ShellCode%E8%BF%9C%E7%A8%8B%E5%8A%A0%E8%BD%BD%E5%99%A8%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92.html</url>
       <content type="html"><![CDATA[<h3><span id="前言">前言</span></h3><p>shellcode加载器加载shellcode实现免杀上线，目前可能是使用最多的方法了。</p>
@@ -4116,7 +4165,7 @@ script.load()</code></p>
     
     <entry>
       <title></title>
-      <url>https://uknowsec.cn/posts/uncategorized/2016-10-19.html</url>
+      <url>https://uknowsec.cn/posts/uncategorized/2016-08-28.html</url>
       <content type="html"><![CDATA[<hr>
 <h2><span id="">{}</span></h2>]]></content>
       
@@ -4134,7 +4183,7 @@ script.load()</code></p>
     
     <entry>
       <title></title>
-      <url>https://uknowsec.cn/posts/uncategorized/2016-08-28.html</url>
+      <url>https://uknowsec.cn/posts/uncategorized/2016-10-19.html</url>
       <content type="html"><![CDATA[<hr>
 <h2><span id="">{}</span></h2>]]></content>
       
@@ -5437,7 +5486,7 @@ script.load()</code></p>
 <h2><span id="使用commit命令从容器的修改中创建镜像">使用commit命令从容器的修改中创建镜像</span></h2><p>docker commit 命令从容器的修改中创建新的镜像<br>假设hello-nginx容器中的文件内容发生变化，将容器创建为镜像文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit -a &quot;Foo Bar &lt;foo@bar.com&gt;&quot; -m &quot;add hello.txt&quot; hello-nginx hello:0.2</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker commit &lt;选项&gt;&lt;容器名称&gt;&lt;镜像名称&gt;：&lt;标签&gt;</p>
-<p>-a “Foo Bar<a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#102;&#x6f;&#111;&#64;&#x62;&#x61;&#x72;&#46;&#x63;&#x6f;&#x6d;">&#102;&#x6f;&#111;&#64;&#x62;&#x61;&#x72;&#46;&#x63;&#x6f;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
+<p>-a “Foo Bar<a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#58;&#x66;&#111;&#x6f;&#64;&#98;&#x61;&#114;&#x2e;&#x63;&#111;&#x6d;">&#x66;&#111;&#x6f;&#64;&#98;&#x61;&#114;&#x2e;&#x63;&#111;&#x6d;</a>“与 -m “add hello.txt”选项用于设置提交的用户与注册信息。将hello-nginx容器创建hello:0.2镜像</p>
 <h2><span id="使用diff命令检查容器文件的修改">使用diff命令检查容器文件的修改</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker diff hello-nginx</span><br></pre></td></tr></table></figure>
 <p>命令格式为docker diff&lt;容器名称&gt;，A为添加文件，C为修改的文件，D为删除的文件。</p>
 <h2><span id="使用inspect命令查看详细信息">使用inspect命令查看详细信息</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker inspect hello-nginx</span><br></pre></td></tr></table></figure>
