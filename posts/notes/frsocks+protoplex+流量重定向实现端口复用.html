@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> frsocks+protoplex+流量重定向实现端口复用 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="frsocks+protoplex+流量重定向实现端口复用 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">frsocks+protoplex+流量重定向实现端口复用</h1><div class="post-time">Jul 16, 2020</div><div class="post-content"><h3><span id="前言">前言</span></h3><p>前段日子<code>A-team</code>群里的师傅<code>sunshine</code>，讲到了一个端口复用的方案，并发了几个工具，这里简单记录实践一下。</p>
+<h3><span id="frsocksprotoplex流量重定向实现端口复用">frsocks+protoplex+流量重定向实现端口复用</span></h3><h4><span id="frsocks">frsocks</span></h4><p><a href="https://github.com/3gstudent/Homework-of-Go/blob/master/frsocks.go" target="_blank" rel="noopener">https://github.com/3gstudent/Homework-of-Go/blob/master/frsocks.go</a></p>
+<p>监听本地的2333端口开启一个socks5代理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frsocks -sockstype fsocks -listen 2333</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/image-20200716154735565.png" alt="image-20200716154735565"></p>
+<h4><span id="protoplex">protoplex</span></h4><p><a href="https://github.com/Pandentia/protoplex" target="_blank" rel="noopener">https://github.com/Pandentia/protoplex</a></p>
+<p>这是一个协议复用的工具，比如命令可将本地9999端口的流量根据协议类型转到本地的2333和80端口。</p>
+<p><strong>注: 在实战环境中，先用protoplex进行分流，然后再进行重定向。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./protoplex --socks5 192.168.154.130:2333 --http 127.0.0.1:80 -b 192.168.154.130:9999</span><br></pre></td></tr></table></figure>
+<p><strong>注: protoplex设置分流的http协议IP和重定向的ip不要设置为同一个ip,否则会形成闭环。</strong></p>
+<p>同时该工具还支持其他协议的分流，如：</p>
+<ul>
+<li>SSH</li>
+<li>HTTP</li>
+<li>TLS (/ HTTPS)</li>
+<li>OpenVPN</li>
+<li>SOCKS4 / SOCKS5</li>
+</ul>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/image-20200716192504883.png" alt="image-20200716192504883"></p>
+<h4><span id="流量重定向">流量重定向</span></h4><h5><span id="linux">linux</span></h5><p>将访问80的流量重定向到9999端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -t nat -A PREROUTING -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 9999</span><br></pre></td></tr></table></figure>
+<h5><span id="windows">windows</span></h5><p>将本地80流量重定向到9999</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy add v4tov4 listenport=80 listen</span><br><span class="line">address=192.168.154.129 connectport=9999 connectaddress=192.168.154.129</span><br></pre></td></tr></table></figure>
+<p>相关操作命令：</p>
+<p>显示系统中的转发规则列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy show all</span><br></pre></td></tr></table></figure>
+<p>删除指定的端口转发规则：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy delete v4tov4 listenport=80 listenaddress=192.168.154.129</span><br></pre></td></tr></table></figure>
+<p>清除所有当前的端口转发规则：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy reset</span><br></pre></td></tr></table></figure>
+<p><strong>注: 必要的情况下，可以设置特定来源ip进行流量重定向。</strong></p>
+<h4><span id="效果">效果</span></h4><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/image-20200716153722658.png" alt="image-20200716153722658"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/image-20200716153737611.png" alt="image-20200716153737611"></p>
+<h3><span id="结语">结语</span></h3><p><code>站在巨人的肩膀上</code>。</p>
+<p>本文思路和工具都来自<code>sunshine</code>，仅仅记录分享一下。</p>
+</div></article></div></section><footer><div class="paginator"><a href="/posts/notes/利用ReflectiveDLL来武装你的Cobalt Strike.html" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2020 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

