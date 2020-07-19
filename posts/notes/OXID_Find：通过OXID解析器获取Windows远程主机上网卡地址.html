@@ -3,8 +3,7 @@
 <li>每一个String Binding都以<code>\x07\x00</code>开头。</li>
 <li>每一个StringBinding都以<code>\x00\x00</code>分割，一直到第一个Security Binding是<code>\x09\x00</code>开头。</li>
 </ul>
-<p>因此，当recv的数据直到<code>\x09\x00</code>结束，开头就比较好办了，第四个数据包起始位置往后偏移42个字节就可以到达第一个String Binding。!</p>
-<p><a href="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\QQ拼音截图20200719163800.png" target="_blank" rel="noopener">QQ拼音截图20200719163800</a></p>
+<p>因此，当recv的数据直到<code>\x09\x00</code>结束，开头就比较好办了，第四个数据包起始位置往后偏移42个字节就可以到达第一个String Binding。<br><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com\QQ拼音截图20200719163800.png" alt="QQ拼音截图20200719163800"></p>
 <h3><span id="c">C++</span></h3><p>OXID_Find by C++（多线程） 通过OXID解析器获取Windows远程主机上网卡地址</p>
 <p><a href="https://github.com/uknowsec/OXID_Find" target="_blank" rel="noopener">https://github.com/uknowsec/OXID_Find</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; OXID_Find.exe</span><br><span class="line"></span><br><span class="line">Author: Uknow</span><br><span class="line">Github: https://github.com/uknowsec/OXID_Find</span><br><span class="line">usage: OXID_Find.exe -i 192.168.0.1</span><br><span class="line">usage: OXID_Find.exe -c 192.168.0.1/24</span><br></pre></td></tr></table></figure>
